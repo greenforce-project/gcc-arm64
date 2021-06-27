@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2021-06-27" "gcc-12.0.0" "GNU"
+.TH GCC 1 "2021-06-27" "gcc-11.1.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -283,7 +283,7 @@ in the following sections.
 \&\-Wno\-inherited\-variadic\-ctor  \-Wno\-init\-list\-lifetime 
 \&\-Winvalid\-imported\-macros 
 \&\-Wno\-invalid\-offsetof  \-Wno\-literal\-suffix 
-\&\-Wmismatched\-new\-delete \-Wmismatched\-tags 
+\&\-Wno\-mismatched\-new\-delete \-Wmismatched\-tags 
 \&\-Wmultiple\-inheritance  \-Wnamespaces  \-Wnarrowing 
 \&\-Wnoexcept  \-Wnoexcept\-type  \-Wnon\-virtual\-dtor 
 \&\-Wpessimizing\-move  \-Wno\-placement\-new  \-Wplacement\-new=\fR\fIn\fR 
@@ -354,9 +354,7 @@ in the following sections.
 \&\-Wno\-builtin\-macro\-redefined  \-Wc90\-c99\-compat  \-Wc99\-c11\-compat 
 \&\-Wc11\-c2x\-compat 
 \&\-Wc++\-compat  \-Wc++11\-compat  \-Wc++14\-compat  \-Wc++17\-compat  
-\&\-Wc++20\-compat   
-\&\-Wno\-c++11\-extensions  \-Wno\-c++14\-extensions \-Wno\-c++17\-extensions  
-\&\-Wno\-c++20\-extensions  \-Wno\-c++23\-extensions  
+\&\-Wc++20\-compat  
 \&\-Wcast\-align  \-Wcast\-align=strict  \-Wcast\-function\-type  \-Wcast\-qual  
 \&\-Wchar\-subscripts 
 \&\-Wclobbered  \-Wcomment 
@@ -390,9 +388,7 @@ in the following sections.
 \&\-Wmissing\-include\-dirs  \-Wmissing\-noreturn  \-Wno\-missing\-profile 
 \&\-Wno\-multichar  \-Wmultistatement\-macros  \-Wnonnull  \-Wnonnull\-compare 
 \&\-Wnormalized=\fR[\fBnone\fR|\fBid\fR|\fBnfc\fR|\fBnfkc\fR] 
-\&\fB\-Wnull\-dereference  \-Wno\-odr  
-\&\-Wopenacc\-parallelism  
-\&\-Wopenmp\-simd  
+\&\fB\-Wnull\-dereference  \-Wno\-odr  \-Wopenmp\-simd  
 \&\-Wno\-overflow  \-Woverlength\-strings  \-Wno\-override\-init\-side\-effects 
 \&\-Wpacked  \-Wno\-packed\-bitfield\-compat  \-Wpacked\-not\-aligned  \-Wpadded 
 \&\-Wparentheses  \-Wno\-pedantic\-ms\-format 
@@ -1184,8 +1180,8 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mriscv\-attribute  \-mmo\-riscv\-attribute 
 \&\-malign\-data=\fR\fItype\fR 
 \&\fB\-mbig\-endian  \-mlittle\-endian 
-\&\-mstack\-protector\-guard=\fR\fIguard\fR \fB\-mstack\-protector\-guard\-reg=\fR\fIreg\fR 
-\&\fB\-mstack\-protector\-guard\-offset=\fR\fIoffset\fR
++\-mstack\-protector\-guard=\fR\fIguard\fR \fB\-mstack\-protector\-guard\-reg=\fR\fIreg\fR 
+\&\fB+\-mstack\-protector\-guard\-offset=\fR\fIoffset\fR
 .Sp
 \&\fI\s-1RL78\s0 Options\fR
 \&\fB\-msim  \-mmul=none  \-mmul=g13  \-mmul=g14  \-mallregs 
@@ -1383,7 +1379,7 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mno\-wide\-multiply  \-mrtd  \-malign\-double 
 \&\-mpreferred\-stack\-boundary=\fR\fInum\fR 
 \&\fB\-mincoming\-stack\-boundary=\fR\fInum\fR 
-\&\fB\-mcld  \-mcx16  \-msahf  \-mmovbe  \-mcrc32 \-mmwait 
+\&\fB\-mcld  \-mcx16  \-msahf  \-mmovbe  \-mcrc32 
 \&\-mrecip  \-mrecip=\fR\fIopt\fR 
 \&\fB\-mvzeroupper  \-mprefer\-avx128  \-mprefer\-vector\-width=\fR\fIopt\fR 
 \&\fB\-mmmx  \-msse  \-msse2  \-msse3  \-mssse3  \-msse4.1  \-msse4.2  \-msse4  \-mavx 
@@ -1585,6 +1581,9 @@ traditional preprocessor).
 .IP "\fIfile\fR\fB.go\fR" 4
 .IX Item "file.go"
 Go source code.
+.IP "\fIfile\fR\fB.brig\fR" 4
+.IX Item "file.brig"
+\&\s-1BRIG\s0 files (binary representation of \s-1HSAIL\s0).
 .IP "\fIfile\fR\fB.d\fR" 4
 .IX Item "file.d"
 D source code.
@@ -1628,7 +1627,7 @@ Specify explicitly the \fIlanguage\fR for the following input files
 name suffix).  This option applies to all following input files until
 the next \fB\-x\fR option.  Possible values for \fIlanguage\fR are:
 .Sp
-.Vb 9
+.Vb 10
 \&        c  c\-header  cpp\-output
 \&        c++  c++\-header  c++\-system\-header c++\-user\-header c++\-cpp\-output
 \&        objective\-c  objective\-c\-header  objective\-c\-cpp\-output
@@ -1638,6 +1637,7 @@ the next \fB\-x\fR option.  Possible values for \fIlanguage\fR are:
 \&        d
 \&        f77  f77\-cpp\-input f95  f95\-cpp\-input
 \&        go
+\&        brig
 .Ve
 .IP "\fB\-x none\fR" 4
 .IX Item "-x none"
@@ -3849,8 +3849,8 @@ rules disallow templates, and this may be used to enforce that rule.
 The warning is inactive inside a system header file, such as the \s-1STL,\s0 so
 one can still use the \s-1STL.\s0  One may also instantiate or specialize
 templates.
-.IP "\fB\-Wmismatched\-new\-delete\fR (\*(C+ and Objective\-\*(C+ only)" 4
-.IX Item "-Wmismatched-new-delete ( and Objective- only)"
+.IP "\fB\-Wno\-mismatched\-new\-delete\fR (\*(C+ and Objective\-\*(C+ only)" 4
+.IX Item "-Wno-mismatched-new-delete ( and Objective- only)"
 Warn for mismatches between calls to \f(CW\*(C`operator new\*(C'\fR or \f(CW\*(C`operator
 delete\*(C'\fR and the corresponding call to the allocation or deallocation function.
 This includes invocations of \*(C+ \f(CW\*(C`operator delete\*(C'\fR with pointers
@@ -3880,7 +3880,7 @@ The related option \fB\-Wmismatched\-dealloc\fR diagnoses mismatches
 involving allocation and deallocation functions other than \f(CW\*(C`operator
 new\*(C'\fR and \f(CW\*(C`operator delete\*(C'\fR.
 .Sp
-\&\fB\-Wmismatched\-new\-delete\fR is included in \fB\-Wall\fR.
+\&\fB\-Wmismatched\-new\-delete\fR is enabled by default.
 .IP "\fB\-Wmismatched\-tags\fR (\*(C+ and Objective\-\*(C+ only)" 4
 .IX Item "-Wmismatched-tags ( and Objective- only)"
 Warn for declarations of structs, classes, and class templates and their
@@ -4920,7 +4920,8 @@ might be printed in \s-1JSON\s0 form (after formatting) like this:
 \&                    }
 \&                ]
 \&                "column\-origin": 1,
-\&            }
+\&            },
+\&            ...
 \&        ]
 .Ve
 .Sp
@@ -5278,8 +5279,6 @@ Options\fR and \fBObjective-C and Objective\-\*(C+ Dialect Options\fR.
 \&\-Wmemset\-elt\-size 
 \&\-Wmemset\-transposed\-args 
 \&\-Wmisleading\-indentation\fR (only for C/\*(C+) 
-\&\fB\-Wmismatched\-dealloc 
-\&\-Wmismatched\-new\-delete\fR (only for C/\*(C+) 
 \&\fB\-Wmissing\-attributes 
 \&\-Wmissing\-braces\fR (only for C/ObjC) 
 \&\fB\-Wmultistatement\-macros  
@@ -5506,18 +5505,9 @@ disable the error.  Disabling the error for this warning can result in
 poorly optimized code and is useful only in the
 case of very minor changes such as bug fixes to an existing code-base.
 Completely disabling the warning is not recommended.
-.IP "\fB\-Wno\-coverage\-invalid\-line\-number\fR" 4
-.IX Item "-Wno-coverage-invalid-line-number"
-Warn in case a function ends earlier than it begins due
-to an invalid linenum macros.  The warning is emitted only
-with \fB\-\-coverage\fR enabled.
-.Sp
-By default, this warning is enabled and is treated as an
-error.  \fB\-Wno\-coverage\-invalid\-line\-number\fR can be used to disable the
-warning or \fB\-Wno\-error=coverage\-invalid\-line\-number\fR can be used to
-disable the error.
-.IP "\fB\-Wno\-cpp\fR (C, Objective-C, \*(C+, Objective\-\*(C+ and Fortran only)" 4
-.IX Item "-Wno-cpp (C, Objective-C, , Objective- and Fortran only)"
+.IP "\fB\-Wno\-cpp\fR" 4
+.IX Item "-Wno-cpp"
+(C, Objective-C, \*(C+, Objective\-\*(C+ and Fortran only)
 Suppress warning messages emitted by \f(CW\*(C`#warning\*(C'\fR directives.
 .IP "\fB\-Wdouble\-promotion\fR (C, \*(C+, Objective-C and Objective\-\*(C+ only)" 4
 .IX Item "-Wdouble-promotion (C, , Objective-C and Objective- only)"
@@ -6103,8 +6093,8 @@ Ignoring the warning can result in poorly optimized code.
 \&\fB\-Wno\-missing\-profile\fR can be used to
 disable the warning, but this is not recommended and should be done only
 when non-existent profile data is justified.
-.IP "\fB\-Wmismatched\-dealloc\fR" 4
-.IX Item "-Wmismatched-dealloc"
+.IP "\fB\-Wno\-mismatched\-dealloc\fR" 4
+.IX Item "-Wno-mismatched-dealloc"
 Warn for calls to deallocation functions with pointer arguments returned
 from from allocations functions for which the former isn't a suitable
 deallocator.  A pair of functions can be associated as matching allocators
@@ -6134,7 +6124,7 @@ example \f(CW\*(C`mydealloc\*(C'\fR is the deallocator for pointers returned fro
 In \*(C+, the related option \fB\-Wmismatched\-new\-delete\fR diagnoses
 mismatches involving either \f(CW\*(C`operator new\*(C'\fR or \f(CW\*(C`operator delete\*(C'\fR.
 .Sp
-Option \fB\-Wmismatched\-dealloc\fR is included in \fB\-Wall\fR.
+Option \fB\-Wmismatched\-dealloc\fR is enabled by default.
 .IP "\fB\-Wmultistatement\-macros\fR" 4
 .IX Item "-Wmultistatement-macros"
 Warn about unsafe multiple statement macros that appear to be guarded
@@ -7475,8 +7465,8 @@ Warnings controlled by the option can be disabled either by specifying
 .IX Item "-Wno-frame-larger-than"
 Disable \fB\-Wframe\-larger\-than=\fR warnings.  The option is equivalent
 to \fB\-Wframe\-larger\-than=\fR\fB\s-1SIZE_MAX\s0\fR or larger.
-.IP "\fB\-Wfree\-nonheap\-object\fR" 4
-.IX Item "-Wfree-nonheap-object"
+.IP "\fB\-Wno\-free\-nonheap\-object\fR" 4
+.IX Item "-Wno-free-nonheap-object"
 Warn when attempting to deallocate an object that was either not allocated
 on the heap, or by using a pointer that was not returned from a prior call
 to the corresponding allocation function.  For example, because the call
@@ -7493,7 +7483,7 @@ diagnosed.
 \&        }
 .Ve
 .Sp
-\&\fB\-Wfree\-nonheap\-object\fR is included in \fB\-Wall\fR.
+\&\fB\-Wfree\-nonheap\-object\fR is enabled by default.
 .IP "\fB\-Wstack\-usage=\fR\fIbyte-size\fR" 4
 .IX Item "-Wstack-usage=byte-size"
 Warn if the stack usage of a function might exceed \fIbyte-size\fR.
@@ -7709,31 +7699,6 @@ and \s-1ISO \*(C+ 2017.\s0  This warning is enabled by \fB\-Wall\fR.
 .IX Item "-Wc++20-compat ( and Objective- only)"
 Warn about \*(C+ constructs whose meaning differs between \s-1ISO \*(C+ 2017\s0
 and \s-1ISO \*(C+ 2020.\s0  This warning is enabled by \fB\-Wall\fR.
-.IP "\fB\-Wno\-c++11\-extensions\fR (\*(C+ and Objective\-\*(C+ only)" 4
-.IX Item "-Wno-c++11-extensions ( and Objective- only)"
-Do not warn about \*(C+11 constructs in code being compiled using
-an older \*(C+ standard.  Even without this option, some \*(C+11 constructs
-will only be diagnosed if \fB\-Wpedantic\fR is used.
-.IP "\fB\-Wno\-c++14\-extensions\fR (\*(C+ and Objective\-\*(C+ only)" 4
-.IX Item "-Wno-c++14-extensions ( and Objective- only)"
-Do not warn about \*(C+14 constructs in code being compiled using
-an older \*(C+ standard.  Even without this option, some \*(C+14 constructs
-will only be diagnosed if \fB\-Wpedantic\fR is used.
-.IP "\fB\-Wno\-c++17\-extensions\fR (\*(C+ and Objective\-\*(C+ only)" 4
-.IX Item "-Wno-c++17-extensions ( and Objective- only)"
-Do not warn about \*(C+17 constructs in code being compiled using
-an older \*(C+ standard.  Even without this option, some \*(C+17 constructs
-will only be diagnosed if \fB\-Wpedantic\fR is used.
-.IP "\fB\-Wno\-c++20\-extensions\fR (\*(C+ and Objective\-\*(C+ only)" 4
-.IX Item "-Wno-c++20-extensions ( and Objective- only)"
-Do not warn about \*(C+20 constructs in code being compiled using
-an older \*(C+ standard.  Even without this option, some \*(C+20 constructs
-will only be diagnosed if \fB\-Wpedantic\fR is used.
-.IP "\fB\-Wno\-c++23\-extensions\fR (\*(C+ and Objective\-\*(C+ only)" 4
-.IX Item "-Wno-c++23-extensions ( and Objective- only)"
-Do not warn about \*(C+23 constructs in code being compiled using
-an older \*(C+ standard.  Even without this option, some \*(C+23 constructs
-will only be diagnosed if \fB\-Wpedantic\fR is used.
 .IP "\fB\-Wcast\-qual\fR" 4
 .IX Item "-Wcast-qual"
 Warn whenever a pointer is cast so as to remove a type qualifier from
@@ -8226,9 +8191,6 @@ Do not warn about compile-time overflow in constant expressions.
 .IX Item "-Wno-odr"
 Warn about One Definition Rule violations during link-time optimization.
 Enabled by default.
-.IP "\fB\-Wopenacc\-parallelism\fR" 4
-.IX Item "-Wopenacc-parallelism"
-Warn about potentially suboptimal choices related to OpenACC parallelism.
 .IP "\fB\-Wopenmp\-simd\fR" 4
 .IX Item "-Wopenmp-simd"
 Warn if the vectorizer cost model overrides the OpenMP
@@ -9197,7 +9159,7 @@ This option causes \s-1GCC\s0 to create markers in the internal representation
 at the beginning of statements, and to keep them roughly in place
 throughout compilation, using them to guide the output of \f(CW\*(C`is_stmt\*(C'\fR
 markers in the line number table.  This is enabled by default when
-compiling with optimization (\fB\-Os\fR, \fB\-O1\fR, \fB\-O2\fR,
+compiling with optimization (\fB\-Os\fR, \fB\-O\fR, \fB\-O2\fR,
 \&...), and outputting \s-1DWARF 2\s0 debug information at the normal level.
 .IP "\fB\-gvariable\-location\-views\fR" 4
 .IX Item "-gvariable-location-views"
@@ -9458,7 +9420,7 @@ that do not involve a space-speed tradeoff.
 As compared to \fB\-O\fR, this option increases both compilation time
 and the performance of the generated code.
 .Sp
-\&\fB\-O2\fR turns on all optimization flags specified by \fB\-O1\fR.  It
+\&\fB\-O2\fR turns on all optimization flags specified by \fB\-O\fR.  It
 also turns on the following optimization flags:
 .Sp
 \&\fB\-falign\-functions  \-falign\-jumps 
@@ -9592,7 +9554,7 @@ instructions and checks if the result can be simplified.  If loop unrolling
 is active, two passes are performed and the second is scheduled after
 loop unrolling.
 .Sp
-This option is enabled by default at optimization levels \fB\-O1\fR,
+This option is enabled by default at optimization levels \fB\-O\fR,
 \&\fB\-O2\fR, \fB\-O3\fR, \fB\-Os\fR.
 .IP "\fB\-ffp\-contract=\fR\fIstyle\fR" 4
 .IX Item "-ffp-contract=style"
@@ -9618,7 +9580,7 @@ Note that \fB\-fno\-omit\-frame\-pointer\fR doesn't guarantee the frame pointer
 is used in all functions.  Several targets always omit the frame pointer in
 leaf functions.
 .Sp
-Enabled by default at \fB\-O1\fR and higher.
+Enabled by default at \fB\-O\fR and higher.
 .IP "\fB\-foptimize\-sibling\-calls\fR" 4
 .IX Item "-foptimize-sibling-calls"
 Optimize sibling and tail recursive calls.
@@ -9757,7 +9719,7 @@ This option is the default for optimized compilation if the assembler and
 linker support it.  Use \fB\-fno\-merge\-constants\fR to inhibit this
 behavior.
 .Sp
-Enabled at levels \fB\-O1\fR, \fB\-O2\fR, \fB\-O3\fR, \fB\-Os\fR.
+Enabled at levels \fB\-O\fR, \fB\-O2\fR, \fB\-O3\fR, \fB\-Os\fR.
 .IP "\fB\-fmerge\-all\-constants\fR" 4
 .IX Item "-fmerge-all-constants"
 Attempt to merge identical constants and identical variables.
@@ -9832,7 +9794,7 @@ long\*(C'\fR on a 32\-bit system, split the registers apart and allocate them
 independently.  This normally generates better code for those types,
 but may make debugging more difficult.
 .Sp
-Enabled at levels \fB\-O1\fR, \fB\-O2\fR, \fB\-O3\fR,
+Enabled at levels \fB\-O\fR, \fB\-O2\fR, \fB\-O3\fR,
 \&\fB\-Os\fR.
 .IP "\fB\-fsplit\-wide\-types\-early\fR" 4
 .IX Item "-fsplit-wide-types-early"
@@ -9905,7 +9867,7 @@ When \fB\-fgcse\-after\-reload\fR is enabled, a redundant load elimination
 pass is performed after reload.  The purpose of this pass is to clean up
 redundant spilling.
 .Sp
-Enabled by \fB\-O3\fR, \fB\-fprofile\-use\fR and \fB\-fauto\-profile\fR.
+Enabled by \fB\-fprofile\-use\fR and \fB\-fauto\-profile\fR.
 .IP "\fB\-faggressive\-loop\-optimizations\fR" 4
 .IX Item "-faggressive-loop-optimizations"
 This option tells the loop optimizer to use language constraints to
@@ -9931,16 +9893,16 @@ Enabled at levels \fB\-O2\fR, \fB\-O3\fR, \fB\-Os\fR.
 .IX Item "-fauto-inc-dec"
 Combine increments or decrements of addresses with memory accesses.
 This pass is always skipped on architectures that do not have
-instructions to support this.  Enabled by default at \fB\-O1\fR and
+instructions to support this.  Enabled by default at \fB\-O\fR and
 higher on architectures that support this.
 .IP "\fB\-fdce\fR" 4
 .IX Item "-fdce"
 Perform dead code elimination (\s-1DCE\s0) on \s-1RTL.\s0
-Enabled by default at \fB\-O1\fR and higher.
+Enabled by default at \fB\-O\fR and higher.
 .IP "\fB\-fdse\fR" 4
 .IX Item "-fdse"
 Perform dead store elimination (\s-1DSE\s0) on \s-1RTL.\s0
-Enabled by default at \fB\-O1\fR and higher.
+Enabled by default at \fB\-O\fR and higher.
 .IP "\fB\-fif\-conversion\fR" 4
 .IX Item "-fif-conversion"
 Attempt to transform conditional jumps into branch-less equivalents.  This
@@ -9948,14 +9910,14 @@ includes use of conditional moves, min, max, set flags and abs instructions, and
 some tricks doable by standard arithmetics.  The use of conditional execution
 on chips where it is available is controlled by \fB\-fif\-conversion2\fR.
 .Sp
-Enabled at levels \fB\-O1\fR, \fB\-O2\fR, \fB\-O3\fR, \fB\-Os\fR, but
+Enabled at levels \fB\-O\fR, \fB\-O2\fR, \fB\-O3\fR, \fB\-Os\fR, but
 not with \fB\-Og\fR.
 .IP "\fB\-fif\-conversion2\fR" 4
 .IX Item "-fif-conversion2"
 Use conditional execution (where available) to transform conditional jumps into
 branch-less equivalents.
 .Sp
-Enabled at levels \fB\-O1\fR, \fB\-O2\fR, \fB\-O3\fR, \fB\-Os\fR, but
+Enabled at levels \fB\-O\fR, \fB\-O2\fR, \fB\-O3\fR, \fB\-Os\fR, but
 not with \fB\-Og\fR.
 .IP "\fB\-fdeclone\-ctor\-dtor\fR" 4
 .IX Item "-fdeclone-ctor-dtor"
@@ -10115,7 +10077,7 @@ If supported for the target machine, attempt to reorder instructions
 to exploit instruction slots available after delayed branch
 instructions.
 .Sp
-Enabled at levels \fB\-O1\fR, \fB\-O2\fR, \fB\-O3\fR, \fB\-Os\fR,
+Enabled at levels \fB\-O\fR, \fB\-O2\fR, \fB\-O3\fR, \fB\-Os\fR,
 but not at \fB\-Og\fR.
 .IP "\fB\-fschedule\-insns\fR" 4
 .IX Item "-fschedule-insns"
@@ -10328,7 +10290,7 @@ and the \fBlarge-stack-frame-growth\fR parameter to 400.
 .IP "\fB\-ftree\-reassoc\fR" 4
 .IX Item "-ftree-reassoc"
 Perform reassociation on trees.  This flag is enabled by default
-at \fB\-O1\fR and higher.
+at \fB\-O\fR and higher.
 .IP "\fB\-fcode\-hoisting\fR" 4
 .IX Item "-fcode-hoisting"
 Perform code hoisting.  Code hoisting tries to move the
@@ -10347,18 +10309,18 @@ enabled by default at \fB\-O3\fR.
 .IP "\fB\-ftree\-forwprop\fR" 4
 .IX Item "-ftree-forwprop"
 Perform forward propagation on trees.  This flag is enabled by default
-at \fB\-O1\fR and higher.
+at \fB\-O\fR and higher.
 .IP "\fB\-ftree\-fre\fR" 4
 .IX Item "-ftree-fre"
 Perform full redundancy elimination (\s-1FRE\s0) on trees.  The difference
 between \s-1FRE\s0 and \s-1PRE\s0 is that \s-1FRE\s0 only considers expressions
 that are computed on all paths leading to the redundant computation.
 This analysis is faster than \s-1PRE,\s0 though it exposes fewer redundancies.
-This flag is enabled by default at \fB\-O1\fR and higher.
+This flag is enabled by default at \fB\-O\fR and higher.
 .IP "\fB\-ftree\-phiprop\fR" 4
 .IX Item "-ftree-phiprop"
 Perform hoisting of loads from conditional pointers on trees.  This
-pass is enabled by default at \fB\-O1\fR and higher.
+pass is enabled by default at \fB\-O\fR and higher.
 .IP "\fB\-fhoist\-adjacent\-loads\fR" 4
 .IX Item "-fhoist-adjacent-loads"
 Speculatively hoist loads from both branches of an if-then-else if the
@@ -10368,21 +10330,21 @@ by default at \fB\-O2\fR and higher.
 .IP "\fB\-ftree\-copy\-prop\fR" 4
 .IX Item "-ftree-copy-prop"
 Perform copy propagation on trees.  This pass eliminates unnecessary
-copy operations.  This flag is enabled by default at \fB\-O1\fR and
+copy operations.  This flag is enabled by default at \fB\-O\fR and
 higher.
 .IP "\fB\-fipa\-pure\-const\fR" 4
 .IX Item "-fipa-pure-const"
 Discover which functions are pure or constant.
-Enabled by default at \fB\-O1\fR and higher.
+Enabled by default at \fB\-O\fR and higher.
 .IP "\fB\-fipa\-reference\fR" 4
 .IX Item "-fipa-reference"
 Discover which static variables do not escape the
 compilation unit.
-Enabled by default at \fB\-O1\fR and higher.
+Enabled by default at \fB\-O\fR and higher.
 .IP "\fB\-fipa\-reference\-addressable\fR" 4
 .IX Item "-fipa-reference-addressable"
 Discover read-only, write-only and non-addressable static variables.
-Enabled by default at \fB\-O1\fR and higher.
+Enabled by default at \fB\-O\fR and higher.
 .IP "\fB\-fipa\-stack\-alignment\fR" 4
 .IX Item "-fipa-stack-alignment"
 Reduce stack alignment on call sites if possible.
@@ -10400,13 +10362,13 @@ cold functions are marked as cold. Also functions executed once (such as
 \&\f(CW\*(C`cold\*(C'\fR, \f(CW\*(C`noreturn\*(C'\fR, static constructors or destructors) are
 identified. Cold functions and loop less parts of functions executed once are
 then optimized for size.
-Enabled by default at \fB\-O1\fR and higher.
+Enabled by default at \fB\-O\fR and higher.
 .IP "\fB\-fipa\-modref\fR" 4
 .IX Item "-fipa-modref"
 Perform interprocedural mod/ref analysis.  This optimization analyzes the side
 effects of functions (memory locations that are modified or referenced) and
 enables better optimization across the function call boundary.  This flag is
-enabled by default at \fB\-O1\fR and higher.
+enabled by default at \fB\-O\fR and higher.
 .IP "\fB\-fipa\-cp\fR" 4
 .IX Item "-fipa-cp"
 Perform interprocedural constant propagation.
@@ -10523,7 +10485,7 @@ currently enabled, but may be enabled by \fB\-O2\fR in the future.
 .IP "\fB\-ftree\-sink\fR" 4
 .IX Item "-ftree-sink"
 Perform forward store motion on trees.  This flag is
-enabled by default at \fB\-O1\fR and higher.
+enabled by default at \fB\-O\fR and higher.
 .IP "\fB\-ftree\-bit\-ccp\fR" 4
 .IX Item "-ftree-bit-ccp"
 Perform sparse conditional bit constant propagation on trees and propagate
@@ -10535,13 +10497,13 @@ It requires that \fB\-ftree\-ccp\fR is enabled.
 .IX Item "-ftree-ccp"
 Perform sparse conditional constant propagation (\s-1CCP\s0) on trees.  This
 pass only operates on local scalar variables and is enabled by default
-at \fB\-O1\fR and higher.
+at \fB\-O\fR and higher.
 .IP "\fB\-fssa\-backprop\fR" 4
 .IX Item "-fssa-backprop"
 Propagate information about uses of a value up the definition chain
 in order to simplify the definitions.  For example, this pass strips
 sign operations if the sign of a value never matters.  The flag is
-enabled by default at \fB\-O1\fR and higher.
+enabled by default at \fB\-O\fR and higher.
 .IP "\fB\-fssa\-phiopt\fR" 4
 .IX Item "-fssa-phiopt"
 Perform pattern matching on \s-1SSA PHI\s0 nodes to optimize conditional
@@ -10563,7 +10525,7 @@ be limited using \fBmax-tail-merge-comparisons\fR parameter and
 .IP "\fB\-ftree\-dce\fR" 4
 .IX Item "-ftree-dce"
 Perform dead code elimination (\s-1DCE\s0) on trees.  This flag is enabled by
-default at \fB\-O1\fR and higher.
+default at \fB\-O\fR and higher.
 .IP "\fB\-ftree\-builtin\-call\-dce\fR" 4
 .IX Item "-ftree-builtin-call-dce"
 Perform conditional dead code elimination (\s-1DCE\s0) for calls to built-in functions
@@ -10584,23 +10546,23 @@ Perform a variety of simple scalar cleanups (constant/copy
 propagation, redundancy elimination, range propagation and expression
 simplification) based on a dominator tree traversal.  This also
 performs jump threading (to reduce jumps to jumps). This flag is
-enabled by default at \fB\-O1\fR and higher.
+enabled by default at \fB\-O\fR and higher.
 .IP "\fB\-ftree\-dse\fR" 4
 .IX Item "-ftree-dse"
 Perform dead store elimination (\s-1DSE\s0) on trees.  A dead store is a store into
 a memory location that is later overwritten by another store without
 any intervening loads.  In this case the earlier store can be deleted.  This
-flag is enabled by default at \fB\-O1\fR and higher.
+flag is enabled by default at \fB\-O\fR and higher.
 .IP "\fB\-ftree\-ch\fR" 4
 .IX Item "-ftree-ch"
 Perform loop header copying on trees.  This is beneficial since it increases
 effectiveness of code motion optimizations.  It also saves one jump.  This flag
-is enabled by default at \fB\-O1\fR and higher.  It is not enabled
+is enabled by default at \fB\-O\fR and higher.  It is not enabled
 for \fB\-Os\fR, since it usually increases code size.
 .IP "\fB\-ftree\-loop\-optimize\fR" 4
 .IX Item "-ftree-loop-optimize"
 Perform loop optimizations on trees.  This flag is enabled by default
-at \fB\-O1\fR and higher.
+at \fB\-O\fR and higher.
 .IP "\fB\-ftree\-loop\-linear\fR" 4
 .IX Item "-ftree-loop-linear"
 .PD 0
@@ -10756,7 +10718,7 @@ in such a way that its value when exiting the loop can be determined using
 only its initial value and the number of loop iterations, replace uses of
 the final value by such a computation, provided it is sufficiently cheap.
 This reduces data dependencies and may allow further simplifications.
-Enabled by default at \fB\-O1\fR and higher.
+Enabled by default at \fB\-O\fR and higher.
 .IP "\fB\-fivopts\fR" 4
 .IX Item "-fivopts"
 Perform induction variable optimizations (strength reduction, induction
@@ -10792,12 +10754,12 @@ Perform temporary expression replacement during the \s-1SSA\-\s0>normal phase.  
 use/single def temporaries are replaced at their use location with their
 defining expression.  This results in non-GIMPLE code, but gives the expanders
 much more complex trees to work on resulting in better \s-1RTL\s0 generation.  This is
-enabled by default at \fB\-O1\fR and higher.
+enabled by default at \fB\-O\fR and higher.
 .IP "\fB\-ftree\-slsr\fR" 4
 .IX Item "-ftree-slsr"
 Perform straight-line strength reduction on trees.  This recognizes related
 expressions involving multiplications and replaces them by less expensive
-calculations when possible.  This is enabled by default at \fB\-O1\fR and
+calculations when possible.  This is enabled by default at \fB\-O\fR and
 higher.
 .IP "\fB\-ftree\-vectorize\fR" 4
 .IX Item "-ftree-vectorize"
@@ -10960,7 +10922,7 @@ The default is \fB\-fguess\-branch\-probability\fR at levels
 Reorder basic blocks in the compiled function in order to reduce number of
 taken branches and improve code locality.
 .Sp
-Enabled at levels \fB\-O1\fR, \fB\-O2\fR, \fB\-O3\fR, \fB\-Os\fR.
+Enabled at levels \fB\-O\fR, \fB\-O2\fR, \fB\-O3\fR, \fB\-Os\fR.
 .IP "\fB\-freorder\-blocks\-algorithm=\fR\fIalgorithm\fR" 4
 .IX Item "-freorder-blocks-algorithm=algorithm"
 Use the specified algorithm for basic block reordering.  The
@@ -10970,7 +10932,7 @@ or \fBstc\fR, the \*(L"software trace cache\*(R" algorithm, which tries to
 put all often executed code together, minimizing the number of branches
 executed by making extra copies of code.
 .Sp
-The default is \fBsimple\fR at levels \fB\-O1\fR, \fB\-Os\fR, and
+The default is \fBsimple\fR at levels \fB\-O\fR, \fB\-Os\fR, and
 \&\fBstc\fR at levels \fB\-O2\fR, \fB\-O3\fR.
 .IP "\fB\-freorder\-blocks\-and\-partition\fR" 4
 .IX Item "-freorder-blocks-and-partition"
@@ -11547,14 +11509,14 @@ explicit comparison operation.
 This pass only applies to certain targets that cannot explicitly represent
 the comparison operation before register allocation is complete.
 .Sp
-Enabled at levels \fB\-O1\fR, \fB\-O2\fR, \fB\-O3\fR, \fB\-Os\fR.
+Enabled at levels \fB\-O\fR, \fB\-O2\fR, \fB\-O3\fR, \fB\-Os\fR.
 .IP "\fB\-fcprop\-registers\fR" 4
 .IX Item "-fcprop-registers"
 After register allocation and post-register allocation instruction splitting,
 perform a copy-propagation pass to try to reduce scheduling dependencies
 and occasionally eliminate the copy.
 .Sp
-Enabled at levels \fB\-O1\fR, \fB\-O2\fR, \fB\-O3\fR, \fB\-Os\fR.
+Enabled at levels \fB\-O\fR, \fB\-O2\fR, \fB\-O3\fR, \fB\-Os\fR.
 .IP "\fB\-fprofile\-correction\fR" 4
 .IX Item "-fprofile-correction"
 Profiles collected using an instrumented binary for multi-threaded programs may
@@ -12217,7 +12179,7 @@ function prologue and epilogue.
 .IP "\fBuninlined-function-time\fR" 4
 .IX Item "uninlined-function-time"
 Extra time accounted by inliner for function overhead such as time needed to
-execute function prologue and epilogue.
+execute function prologue and epilogue
 .IP "\fBinline-heuristics-hint-percent\fR" 4
 .IX Item "inline-heuristics-hint-percent"
 The scale (in percents) applied to \fBinline-insns-single\fR,
@@ -12231,7 +12193,7 @@ very profitable (will enable later optimizations).
 .IX Item "uninlined-thunk-time"
 .PD
 Same as \fB\-\-param uninlined-function-insns\fR and
-\&\fB\-\-param uninlined-function-time\fR but applied to function thunks.
+\&\fB\-\-param uninlined-function-time\fR but applied to function thunks
 .IP "\fBinline-min-speedup\fR" 4
 .IX Item "inline-min-speedup"
 When estimated performance improvement of caller + callee runtime exceeds this
@@ -13257,9 +13219,6 @@ we may be able to devirtualize speculatively.
 .IX Item "max-vrp-switch-assertions"
 The maximum number of assertions to add along the default edge of a switch
 statement during \s-1VRP.\s0
-.IP "\fBevrp-sparse-threshold\fR" 4
-.IX Item "evrp-sparse-threshold"
-Maximum number of basic blocks before \s-1EVRP\s0 uses a sparse cache.
 .IP "\fBevrp-mode\fR" 4
 .IX Item "evrp-mode"
 Specifies the mode Early \s-1VRP\s0 should operate in.
@@ -13316,11 +13275,6 @@ partial vector loads and stores if vectorization removes the need for the
 code to iterate.  2 allows partial vector loads and stores in all loops.
 The parameter only has an effect on targets that support partial
 vector loads and stores.
-.IP "\fBvect-inner-loop-cost-factor\fR" 4
-.IX Item "vect-inner-loop-cost-factor"
-The factor which the loop vectorizer applies to the cost of statements
-in an inner loop relative to the loop being vectorized.  The default
-value is 50.
 .IP "\fBavoid-fma-max-bits\fR" 4
 .IX Item "avoid-fma-max-bits"
 Maximum number of bits for which we avoid creating FMAs.
@@ -13478,14 +13432,6 @@ This is work in progress.
 With \fB\-\-param=openacc\-kernels=parloops\fR, OpenACC `kernels'
 constructs are handled by the \fBparloops\fR pass, en bloc.
 This is the current default.
-.IP "\fBopenacc-privatization\fR" 4
-.IX Item "openacc-privatization"
-Specify mode of OpenACC privatization diagnostics for
-\&\fB\-fopt\-info\-omp\-note\fR and applicable
-\&\fB\-fdump\-tree\-*\-details\fR.
-With \fB\-\-param=openacc\-privatization=quiet\fR, don't diagnose.
-This is the current default.
-With \fB\-\-param=openacc\-privatization=noisy\fR, do diagnose.
 .RE
 .RS 4
 .Sp
@@ -16048,11 +15994,6 @@ Moreover, code compiled with \fB\-ftrampolines\fR and code compiled with
 \&\fB\-fno\-trampolines\fR are not binary compatible if nested functions are
 present.  This option must therefore be used on a program-wide basis and be
 manipulated with extreme care.
-.Sp
-For languages other than Ada, the \f(CW\*(C`\-ftrampolines\*(C'\fR and
-\&\f(CW\*(C`\-fno\-trampolines\*(C'\fR options currently have no effect, and
-trampolines are always generated on platforms that need them
-for nested functions.
 .IP "\fB\-fvisibility=\fR[\fBdefault\fR|\fBinternal\fR|\fBhidden\fR|\fBprotected\fR]" 4
 .IX Item "-fvisibility=[default|internal|hidden|protected]"
 Set the default \s-1ELF\s0 image symbol visibility to the specified option\-\-\-all
@@ -18504,7 +18445,7 @@ Enable cache bypass for volatile references.
 The following options fine tune code generation:
 .IP "\fB\-malign\-call\fR" 4
 .IX Item "-malign-call"
-Does nothing.  Preserved for backward compatibility.
+Do alignment optimizations for call instructions.
 .IP "\fB\-mauto\-modify\-reg\fR" 4
 .IX Item "-mauto-modify-reg"
 Enable the use of pre/post modify with register displacement.
@@ -18583,7 +18524,9 @@ instructions.  These instructions are only valid for CPUs with
 code-density feature.
 .IP "\fB\-mmixed\-code\fR" 4
 .IX Item "-mmixed-code"
-Does nothing.  Preserved for backward compatibility.
+Tweak register allocation to help 16\-bit instruction generation.
+This generally has the effect of decreasing the average instruction size
+while increasing the instruction count.
 .IP "\fB\-mq\-class\fR" 4
 .IX Item "-mq-class"
 Ths option is deprecated.  Enable \fBq\fR instruction alternatives.
@@ -18655,7 +18598,12 @@ Cost to assume for a multiply instruction, with \fB4\fR being equal to a
 normal instruction.
 .IP "\fB\-munalign\-prob\-threshold=\fR\fIprobability\fR" 4
 .IX Item "-munalign-prob-threshold=probability"
-Does nothing.  Preserved for backward compatibility.
+Set probability threshold for unaligning branches.
+When tuning for \fB\s-1ARC700\s0\fR and optimizing for speed, branches without
+filled delay slot are preferably emitted unaligned and long, unless
+profiling indicates that the probability for the branch to be taken
+is below \fIprobability\fR.  
+The default is (\s-1REG_BR_PROB_BASE/2\s0), i.e. 5000.
 .PP
 The following options are maintained for backward compatibility, but
 are now deprecated and will be removed in a future release:
@@ -19376,7 +19324,7 @@ For some \s-1ARM\s0 implementations better performance can be obtained by using
 this option.
 Permissible names are: \fBarm7tdmi\fR, \fBarm7tdmi\-s\fR, \fBarm710t\fR,
 \&\fBarm720t\fR, \fBarm740t\fR, \fBstrongarm\fR, \fBstrongarm110\fR,
-\&\fBstrongarm1100\fR, \fBstrongarm1110\fR, \fBarm8\fR, \fBarm810\fR,
+\&\fBstrongarm1100\fR, 0\fBstrongarm1110\fR, \fBarm8\fR, \fBarm810\fR,
 \&\fBarm9\fR, \fBarm9e\fR, \fBarm920\fR, \fBarm920t\fR, \fBarm922t\fR,
 \&\fBarm946e\-s\fR, \fBarm966e\-s\fR, \fBarm968e\-s\fR, \fBarm926ej\-s\fR,
 \&\fBarm940t\fR, \fBarm9tdmi\fR, \fBarm10tdmi\fR, \fBarm1020t\fR,
@@ -22710,7 +22658,7 @@ The M680x0 \fIcpu\fRs are: \fB68000\fR, \fB68010\fR, \fB68020\fR,
 and \fBcpu32\fR.  The ColdFire \fIcpu\fRs are given by the table
 below, which also classifies the CPUs into families:
 .RS 4
-.IP "\fIFamily\fR : \fB\-mcpu\fR \fIarguments\fR" 4
+.IP "Family : \fB\-mcpu\fR arguments" 4
 .IX Item "Family : -mcpu arguments"
 .PD 0
 .IP "\fB51\fR : \fB51\fR \fB51ac\fR \fB51ag\fR \fB51cn\fR \fB51em\fR \fB51je\fR \fB51jf\fR \fB51jg\fR \fB51jm\fR \fB51mm\fR \fB51qe\fR \fB51qm\fR" 4
@@ -25367,11 +25315,6 @@ supported.
 Generate code for given the specified \s-1PTX ISA\s0 (e.g. \fBsm_35\fR).  \s-1ISA\s0
 strings must be lower-case.  Valid \s-1ISA\s0 strings include \fBsm_30\fR and
 \&\fBsm_35\fR.  The default \s-1ISA\s0 is sm_35.
-.IP "\fB\-mptx=\fR\fIversion-string\fR" 4
-.IX Item "-mptx=version-string"
-Generate code for given the specified \s-1PTX\s0 version (e.g. \fB6.3\fR).
-Valid version strings include \fB3.1\fR and \fB6.3\fR.  The default \s-1PTX\s0
-version is 3.1.
 .IP "\fB\-mmainkernel\fR" 4
 .IX Item "-mmainkernel"
 Link in code for a _\|_main kernel.  This is for stand-alone instead of
@@ -30048,11 +29991,6 @@ from x86 Control-flow Enforcement Technology (\s-1CET\s0).
 This option enables built-in functions \f(CW\*(C`_\|_builtin_ia32_crc32qi\*(C'\fR,
 \&\f(CW\*(C`_\|_builtin_ia32_crc32hi\*(C'\fR, \f(CW\*(C`_\|_builtin_ia32_crc32si\*(C'\fR and
 \&\f(CW\*(C`_\|_builtin_ia32_crc32di\*(C'\fR to generate the \f(CW\*(C`crc32\*(C'\fR machine instruction.
-.IP "\fB\-mmwait\fR" 4
-.IX Item "-mmwait"
-This option enables built-in functions \f(CW\*(C`_\|_builtin_ia32_monitor\*(C'\fR,
-and \f(CW\*(C`_\|_builtin_ia32_mwait\*(C'\fR to generate the \f(CW\*(C`monitor\*(C'\fR and
-\&\f(CW\*(C`mwait\*(C'\fR machine instructions.
 .IP "\fB\-mrecip\fR" 4
 .IX Item "-mrecip"
 This option enables use of \f(CW\*(C`RCPSS\*(C'\fR and \f(CW\*(C`RSQRTSS\*(C'\fR instructions
@@ -30669,8 +30607,8 @@ startup object and entry point.
 .IX Item "-mnop-fun-dllimport"
 This option is available for Cygwin and MinGW targets.  It
 specifies that the \f(CW\*(C`dllimport\*(C'\fR attribute should be ignored.
-.IP "\fB\-mthreads\fR" 4
-.IX Item "-mthreads"
+.IP "\fB\-mthread\fR" 4
+.IX Item "-mthread"
 This option is available for MinGW targets. It specifies
 that MinGW-specific thread support is to be used.
 .IP "\fB\-municode\fR" 4
