@@ -24,8 +24,10 @@ Individual utilities
 * cxxfilt: (binutils)c++filt.                   MS-DOS name for c++filt.
 * dlltool: (binutils)dlltool.                   Create files needed to build 
                                                   and use DLLs.
-* elfedit: (binutils)elfedit.                   Update ELF header and property 
-                                                  of ELF files.
+* elfedit: (binutils)elfedit.                   Update the ELF header of ELF 
+                                                  files.
+* nlmconv: (binutils)nlmconv.                   Converts object code into an 
+                                                  NLM.
 * nm: (binutils)nm.                             List symbols from object files.
 * objcopy: (binutils)objcopy.                   Copy and translate object 
                                                   files.
@@ -54,7 +56,6 @@ Software development
 * Ld: (ld).                     The GNU linker.
 * g++: (gcc).                   The GNU C++ compiler.
 * gcc: (gcc).                   The GNU Compiler Collection.
-* gccinstall: (gccinstall).     Installing the GNU Compiler Collection.
 * gccint: (gccint).             Internals of the GNU Compiler Collection.
 * gcov: (gcc) Gcov.             'gcov'--a test coverage program.
 * gcov-dump: (gcc) Gcov-dump.   'gcov-dump'--an offline gcda and gcno profile 
@@ -62,4 +63,3 @@ Software development
 * gcov-tool: (gcc) Gcov-tool.   'gcov-tool'--an offline gcda profile 
                                   processing program.
 * gprof: (gprof).               Profiling your program's execution
-* lto-dump: (gcc) lto-dump.     'lto-dump'--Tool for dumping LTO object files.
