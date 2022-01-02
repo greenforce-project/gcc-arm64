@@ -1764,7 +1764,17 @@ of REC to place the new variable in shared GPU memory.\n\
 \n\
 Presence of this target hook indicates that middle end neutering/broadcasting\n\
 be used.",
-tree, (tree rec, bool sender, const char *name),
+tree, (tree rec, bool sender, const char *name, unsigned HOST_WIDE_INT offset),
+NULL)
+
+DEFHOOK
+(shared_mem_layout,
+"Lay out a fixed shared-memory region on the target.  The LO and HI\n\
+arguments should be set to a range of addresses that can be used for worker\n\
+broadcasting. The dimensions, reduction size and gang-private size\n\
+arguments are for the current offload region.",
+void, (unsigned HOST_WIDE_INT *, unsigned HOST_WIDE_INT *, int[],
+       unsigned HOST_WIDE_INT[], unsigned HOST_WIDE_INT[]),
 NULL)
 
 HOOK_VECTOR_END (goacc)
@@ -2041,7 +2051,7 @@ stores.",
 
 /* Target function to initialize the cost model for a loop or block.  */
 DEFHOOK
-(init_cost,
+(create_costs,
  "This hook should initialize target-specific data structures in preparation\n\
 for modeling the costs of vectorizing a loop or basic block.  The default\n\
 allocates three unsigned integers for accumulating costs for the prologue,\n\
@@ -2050,50 +2060,9 @@ non-NULL, it identifies the loop being vectorized; otherwise a single block\n\
 is being vectorized.  If @var{costing_for_scalar} is true, it indicates the\n\
 current cost model is for the scalar version of a loop or block; otherwise\n\
 it is for the vector version.",
- void *,
- (class loop *loop_info, bool costing_for_scalar),
- default_init_cost)
-
-/* Target function to record N statements of the given kind using the
-   given vector type within the cost model data for the current loop or
-    block.  */
-DEFHOOK
-(add_stmt_cost,
- "This hook should update the target-specific @var{data} in response to\n\
-adding @var{count} copies of the given @var{kind} of statement to a\n\
-loop or basic block.  The default adds the builtin vectorizer cost for\n\
-the copies of the statement to the accumulator specified by @var{where},\n\
-(the prologue, body, or epilogue) and returns the amount added.  The\n\
-return value should be viewed as a tentative cost that may later be\n\
-revised.",
- unsigned,
- (class vec_info *, void *data, int count, enum vect_cost_for_stmt kind,
-  class _stmt_vec_info *stmt_info, tree vectype, int misalign,
-  enum vect_cost_model_location where),
- default_add_stmt_cost)
-
-/* Target function to calculate the total cost of the current vectorized
-   loop or block.  */
-DEFHOOK
-(finish_cost,
- "This hook should complete calculations of the cost of vectorizing a loop\n\
-or basic block based on @var{data}, and return the prologue, body, and\n\
-epilogue costs as unsigned integers.  The default returns the value of\n\
-the three accumulators.",
- void,
- (void *data, unsigned *prologue_cost, unsigned *body_cost,
-  unsigned *epilogue_cost),
- default_finish_cost)
-
-/* Function to delete target-specific cost modeling data.  */
-DEFHOOK
-(destroy_cost_data,
- "This hook should release @var{data} and any related data structures\n\
-allocated by TARGET_VECTORIZE_INIT_COST.  The default releases the\n\
-accumulator.",
- void,
- (void *data),
- default_destroy_cost_data)
+ class vector_costs *,
+ (vec_info *vinfo, bool costing_for_scalar),
+ default_vectorize_create_costs)
 
 HOOK_VECTOR_END (vectorize)
 
@@ -3009,6 +2978,14 @@ The support includes the assembler, linker and dynamic linker.\n\
 The default value of this hook is based on target's libc.",
  bool, (void),
  default_has_ifunc_p)
+
+/* True if it is OK to reference indirect function resolvers locally.  */
+DEFHOOK
+(ifunc_ref_local_ok,
+ "Return true if it is OK to reference indirect function resolvers\n\
+locally.  The default is to return false.",
+ bool, (void),
+ hook_bool_void_false)
 
 /* True if it is OK to do sibling call optimization for the specified
    call expression EXP.  DECL will be the called function, or NULL if
@@ -4721,45 +4698,6 @@ not generate any instructions in this case.",
  default_setup_incoming_varargs)
 
 DEFHOOK
-(load_bounds_for_arg,
- "This hook is used by expand pass to emit insn to load bounds of\n\
-@var{arg} passed in @var{slot}.  Expand pass uses this hook in case\n\
-bounds of @var{arg} are not passed in register.  If @var{slot} is a\n\
-memory, then bounds are loaded as for regular pointer loaded from\n\
-memory.  If @var{slot} is not a memory then @var{slot_no} is an integer\n\
-constant holding number of the target dependent special slot which\n\
-should be used to obtain bounds.  Hook returns RTX holding loaded bounds.",
- rtx, (rtx slot, rtx arg, rtx slot_no),
- default_load_bounds_for_arg)
-
-DEFHOOK
-(store_bounds_for_arg,
- "This hook is used by expand pass to emit insns to store @var{bounds} of\n\
-@var{arg} passed in @var{slot}.  Expand pass uses this hook in case\n\
-@var{bounds} of @var{arg} are not passed in register.  If @var{slot} is a\n\
-memory, then @var{bounds} are stored as for regular pointer stored in\n\
-memory.  If @var{slot} is not a memory then @var{slot_no} is an integer\n\
-constant holding number of the target dependent special slot which\n\
-should be used to store @var{bounds}.",
- void, (rtx arg, rtx slot, rtx bounds, rtx slot_no),
- default_store_bounds_for_arg)
-
-DEFHOOK
-(load_returned_bounds,
- "This hook is used by expand pass to emit insn to load bounds\n\
-returned by function call in @var{slot}.  Hook returns RTX holding\n\
-loaded bounds.",
- rtx, (rtx slot),
- default_load_returned_bounds)
-
-DEFHOOK
-(store_returned_bounds,
- "This hook is used by expand pass to emit insn to store @var{bounds}\n\
-returned by function call into @var{slot}.",
- void, (rtx slot, rtx bounds),
- default_store_returned_bounds)
-
-DEFHOOK
 (call_args,
  "While generating RTL for a function call, this target hook is invoked once\n\
 for each argument passed to the function, either a register returned by\n\
@@ -4961,12 +4899,6 @@ the previous arguments.\n\
 The return value is usually either a @code{reg} RTX for the hard\n\
 register in which to pass the argument, or zero to pass the argument\n\
 on the stack.\n\
-\n\
-The return value can be a @code{const_int} which means argument is\n\
-passed in a target specific slot with specified number.  Target hooks\n\
-should be used to store or load argument in such case.  See\n\
-@code{TARGET_STORE_BOUNDS_FOR_ARG} and @code{TARGET_LOAD_BOUNDS_FOR_ARG}\n\
-for more information.\n\
 \n\
 The value of the expression can also be a @code{parallel} RTX@.  This is\n\
 used when an argument is passed in multiple locations.  The mode of the\n\
@@ -6225,18 +6157,21 @@ DEFHOOK
  "Return a value, with the same meaning as the C99 macro\n\
 @code{FLT_EVAL_METHOD} that describes which excess precision should be\n\
 applied.  @var{type} is either @code{EXCESS_PRECISION_TYPE_IMPLICIT},\n\
-@code{EXCESS_PRECISION_TYPE_FAST}, or\n\
-@code{EXCESS_PRECISION_TYPE_STANDARD}.  For\n\
+@code{EXCESS_PRECISION_TYPE_FAST},\n\
+@code{EXCESS_PRECISION_TYPE_STANDARD}, or\n\
+@code{EXCESS_PRECISION_TYPE_FLOAT16}.  For\n\
 @code{EXCESS_PRECISION_TYPE_IMPLICIT}, the target should return which\n\
 precision and range operations will be implictly evaluated in regardless\n\
 of the excess precision explicitly added.  For\n\
-@code{EXCESS_PRECISION_TYPE_STANDARD} and\n\
+@code{EXCESS_PRECISION_TYPE_STANDARD}, \n\
+@code{EXCESS_PRECISION_TYPE_FLOAT16}, and\n\
 @code{EXCESS_PRECISION_TYPE_FAST}, the target should return the\n\
 explicit excess precision that should be added depending on the\n\
 value set for @option{-fexcess-precision=@r{[}standard@r{|}fast@r{]}}.\n\
 Note that unpredictable explicit excess precision does not make sense,\n\
 so a target should never return @code{FLT_EVAL_METHOD_UNPREDICTABLE}\n\
-when @var{type} is @code{EXCESS_PRECISION_TYPE_STANDARD} or\n\
+when @var{type} is @code{EXCESS_PRECISION_TYPE_STANDARD},\n\
+@code{EXCESS_PRECISION_TYPE_FLOAT16} or\n\
 @code{EXCESS_PRECISION_TYPE_FAST}.",
  enum flt_eval_method, (enum excess_precision_type type),
  default_excess_precision)
@@ -6851,6 +6786,16 @@ collecting constructors and destructors to be run at startup and exit.\n\
 It is false if we must use @command{collect2}.",
  bool, false)
 
+/* True if the target wants DTORs to be run from cxa_atexit.  */
+DEFHOOKPOD
+(dtors_from_cxa_atexit,
+ "This value is true if the target wants destructors to be queued to be\n\
+run from __cxa_atexit.  If this is the case then, for each priority level,\n\
+a new constructor will be entered that registers the destructors for that\n\
+level with __cxa_atexit (and there will be no destructors emitted).\n\
+It is false the method implied by @code{have_ctors_dtors} is used.",
+ bool, false)
+
 /* True if thread-local storage is supported.  */
 DEFHOOKPOD
 (have_tls,
@@ -7103,6 +7048,18 @@ DEFHOOK
  "If selftests are enabled, run any selftests for this target.",
  void, (void),
  NULL)
+
+DEFHOOK
+(gcov_type_size,
+ "Returns the gcov type size in bits.  This type is used for example for\n\
+counters incremented by profiling and code-coverage events.  The default\n\
+value is 64, if the type size of long long is greater than 32, otherwise the\n\
+default value is 32.  A 64-bit type is recommended to avoid overflows of the\n\
+counters.  If the @option{-fprofile-update=atomic} is used, then the\n\
+counters are incremented using atomic operations.  Targets not supporting\n\
+64-bit atomic operations may override the default value and request a 32-bit\n\
+type.",
+ HOST_WIDE_INT, (void), default_gcov_type_size)
 
 /* Close the 'struct gcc_target' definition.  */
 HOOK_VECTOR_END (C90_EMPTY_HACK)

@@ -617,6 +617,13 @@
 #endif
 
 
+/* Define if your Mac OS X assembler supports -mllvm -x86-pad-for-align=false.
+   */
+#ifndef USED_FOR_TARGET
+/* #undef HAVE_AS_MLLVM_X86_PAD_FOR_ALIGN */
+#endif
+
+
 /* Define if your Mac OS X assembler supports the -mmacos-version-min option.
    */
 #ifndef USED_FOR_TARGET
@@ -1325,6 +1332,13 @@
 #endif
 
 
+/* Define if your Arm assembler permits context-specific feature extensions.
+   */
+#ifndef USED_FOR_TARGET
+/* #undef HAVE_GAS_ARM_EXTENDED_ARCH */
+#endif
+
+
 /* Define if your assembler supports .balign and .p2align. */
 #ifndef USED_FOR_TARGET
 #define HAVE_GAS_BALIGN_AND_P2ALIGN 1
@@ -1450,27 +1464,63 @@
 #endif
 
 
-/* Define if your assembler allows -mattr=+sram-ecc for fiji. */
+/* Define if your assembler expects amdgcn_target gfx908+xnack syntax. */
+#ifndef USED_FOR_TARGET
+/* #undef HAVE_GCN_ASM_V3_SYNTAX */
+#endif
+
+
+/* Define if your assembler expects amdgcn_target gfx908:xnack+ syntax. */
+#ifndef USED_FOR_TARGET
+/* #undef HAVE_GCN_ASM_V4_SYNTAX */
+#endif
+
+
+/* Define if your assembler allows -mattr=+sramecc for fiji. */
 #ifndef USED_FOR_TARGET
 /* #undef HAVE_GCN_SRAM_ECC_FIJI */
 #endif
 
 
-/* Define if your assembler allows -mattr=+sram-ecc for gfx900. */
+/* Define if your assembler allows -mattr=+sramecc for gfx900. */
 #ifndef USED_FOR_TARGET
 /* #undef HAVE_GCN_SRAM_ECC_GFX900 */
 #endif
 
 
-/* Define if your assembler allows -mattr=+sram-ecc for gfx906. */
+/* Define if your assembler allows -mattr=+sramecc for gfx906. */
 #ifndef USED_FOR_TARGET
 /* #undef HAVE_GCN_SRAM_ECC_GFX906 */
 #endif
 
 
-/* Define if your assembler allows -mattr=+sram-ecc for gfx908. */
+/* Define if your assembler allows -mattr=+sramecc for gfx908. */
 #ifndef USED_FOR_TARGET
 /* #undef HAVE_GCN_SRAM_ECC_GFX908 */
+#endif
+
+
+/* Define if your assembler allows -mattr=+xnack for fiji. */
+#ifndef USED_FOR_TARGET
+/* #undef HAVE_GCN_XNACK_FIJI */
+#endif
+
+
+/* Define if your assembler allows -mattr=+xnack for gfx900. */
+#ifndef USED_FOR_TARGET
+/* #undef HAVE_GCN_XNACK_GFX900 */
+#endif
+
+
+/* Define if your assembler allows -mattr=+xnack for gfx906. */
+#ifndef USED_FOR_TARGET
+/* #undef HAVE_GCN_XNACK_GFX906 */
+#endif
+
+
+/* Define if your assembler allows -mattr=+xnack for gfx908. */
+#ifndef USED_FOR_TARGET
+/* #undef HAVE_GCN_XNACK_GFX908 */
 #endif
 
 
@@ -2174,6 +2224,12 @@
 /* Define to 1 if ld64 supports '-export_dynamic'. */
 #ifndef USED_FOR_TARGET
 /* #undef LD64_HAS_EXPORT_DYNAMIC */
+#endif
+
+
+/* Define to 1 if ld64 supports '-platform_version'. */
+#ifndef USED_FOR_TARGET
+/* #undef LD64_HAS_PLATFORM_VERSION */
 #endif
 
 

@@ -154,6 +154,7 @@ struct cl_option_handlers;
 struct diagnostic_context;
 class pretty_printer;
 class diagnostic_event_id_t;
+typedef const char * (*diagnostic_input_charset_callback)(const char *);
 
 template<typename T> struct array_traits;
 
@@ -424,7 +425,8 @@ enum excess_precision_type
 {
   EXCESS_PRECISION_TYPE_IMPLICIT,
   EXCESS_PRECISION_TYPE_STANDARD,
-  EXCESS_PRECISION_TYPE_FAST
+  EXCESS_PRECISION_TYPE_FAST,
+  EXCESS_PRECISION_TYPE_FLOAT16
 };
 
 /* Level of size optimization.  */
@@ -440,8 +442,10 @@ enum optimize_size_level
 };
 
 /* Support for user-provided GGC and PCH markers.  The first parameter
-   is a pointer to a pointer, the second a cookie.  */
-typedef void (*gt_pointer_operator) (void *, void *);
+   is a pointer to a pointer, the second either NULL if the pointer to
+   pointer points into a GC object or the actual pointer address if
+   the first argument points to a temporary and the third a cookie.  */
+typedef void (*gt_pointer_operator) (void *, void *, void *);
 
 #if !defined (HAVE_UCHAR)
 typedef unsigned char uchar;

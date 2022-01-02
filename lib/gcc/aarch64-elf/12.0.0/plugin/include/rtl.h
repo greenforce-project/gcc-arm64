@@ -830,6 +830,9 @@ struct GTY(()) rtvec_def {
 #define CONST_DOUBLE_AS_FLOAT_P(X) \
   (GET_CODE (X) == CONST_DOUBLE && GET_MODE (X) != VOIDmode)
 
+/* Predicate yielding nonzero iff X is an rtx for a constant vector.  */
+#define CONST_VECTOR_P(X) (GET_CODE (X) == CONST_VECTOR)
+
 /* Predicate yielding nonzero iff X is a label insn.  */
 #define LABEL_P(X) (GET_CODE (X) == CODE_LABEL)
 
@@ -3422,12 +3425,21 @@ public:
 			    rtx, rtx, rtx);
   rtx simplify_gen_relational (rtx_code, machine_mode, machine_mode, rtx, rtx);
   rtx simplify_gen_subreg (machine_mode, rtx, machine_mode, poly_uint64);
+  rtx simplify_gen_vec_select (rtx, unsigned int);
 
   /* Tracks the level of MEM nesting for the value being simplified:
      0 means the value is not in a MEM, >0 means it is.  This is needed
      because the canonical representation of multiplication is different
      inside a MEM than outside.  */
   unsigned int mem_depth = 0;
+
+  /* Tracks number of simplify_associative_operation calls performed during
+     outermost simplify* call.  */
+  unsigned int assoc_count = 0;
+
+  /* Limit for the above number, return NULL from
+     simplify_associative_operation after we reach that assoc_count.  */
+  static const unsigned int max_assoc_count = 64;
 
 private:
   rtx simplify_truncation (machine_mode, rtx, machine_mode);
@@ -3521,6 +3533,12 @@ simplify_gen_subreg (machine_mode outermode, rtx op, machine_mode innermode,
 {
   return simplify_context ().simplify_gen_subreg (outermode, op,
 						  innermode, byte);
+}
+
+inline rtx
+simplify_gen_vec_select (rtx op, unsigned int index)
+{
+  return simplify_context ().simplify_gen_vec_select (op, index);
 }
 
 inline rtx

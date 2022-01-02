@@ -225,6 +225,8 @@ protected:
 						   been optimized.  */
 #define PROP_gimple_lomp_dev	(1 << 16)	/* done omp_device_lower */
 #define PROP_rtl_split_insns	(1 << 17)	/* RTL has insns split.  */
+#define PROP_loop_opts_done	(1 << 18)	/* SSA loop optimizations
+						   have completed.  */
 
 #define PROP_gimple \
   (PROP_gimple_any | PROP_gimple_lcf | PROP_gimple_leh | PROP_gimple_lomp)
@@ -405,6 +407,7 @@ extern gimple_opt_pass *make_pass_cd_dce (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_call_cdce (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_merge_phi (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_thread_jumps (gcc::context *ctxt);
+extern gimple_opt_pass *make_pass_thread_jumps_full (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_early_thread_jumps (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_split_crit_edges (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_laddress (gcc::context *ctxt);
@@ -432,6 +435,7 @@ extern gimple_opt_pass *make_pass_object_sizes (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_early_object_sizes (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_warn_access (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_warn_printf (gcc::context *ctxt);
+extern gimple_opt_pass *make_pass_warn_recursion (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_strlen (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_fold_builtins (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_post_ipa_warn (gcc::context *ctxt);
@@ -640,6 +644,9 @@ extern gimple_opt_pass *make_pass_update_address_taken (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_convert_switch (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_lower_vaarg (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_gimple_isel (gcc::context *ctxt);
+extern gimple_opt_pass *make_pass_harden_compares (gcc::context *ctxt);
+extern gimple_opt_pass *make_pass_harden_conditional_branches (gcc::context
+							       *ctxt);
 
 /* Current optimization pass.  */
 extern opt_pass *current_pass;

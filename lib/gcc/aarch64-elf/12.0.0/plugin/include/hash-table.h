@@ -820,6 +820,9 @@ hash_table<Descriptor, Lazy, Allocator>::expand ()
         {
           value_type *q = find_empty_slot_for_expand (Descriptor::hash (x));
 	  new ((void*) q) value_type (std::move (x));
+	  /* After the resources of 'x' have been moved to a new object at 'q',
+	     we now have to destroy the 'x' object, to end its lifetime.  */
+	  x.~value_type ();
         }
 
       p++;
@@ -1203,7 +1206,7 @@ template<typename D>
 static inline void
 gt_pch_nx (hash_table<D> *h, gt_pointer_operator op, void *cookie)
 {
-  op (&h->m_entries, cookie);
+  op (&h->m_entries, NULL, cookie);
 }
 
 template<typename H>

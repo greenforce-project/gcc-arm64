@@ -31,7 +31,9 @@ extern void warn_string_no_nul (location_t, tree, const char *, tree,
 				tree, tree = NULL_TREE, bool = false,
 				const wide_int[2] = NULL);
 extern tree unterminated_array (tree, tree * = NULL, bool * = NULL);
-extern void get_size_range (tree, tree[2], const offset_int[2]);
+
+extern bool maybe_warn_nonstring_arg (tree, gimple *);
+extern bool maybe_warn_nonstring_arg (tree, tree);
 
 class access_data;
 extern bool maybe_warn_for_bound (opt_code, location_t, gimple *, tree,
@@ -42,9 +44,5 @@ extern bool maybe_warn_for_bound (opt_code, location_t, tree, tree,
 class access_data;
 extern bool check_access (tree, tree, tree, tree, tree, access_mode,
 			  const access_data * = NULL);
-
-extern bool check_memop_access (tree, tree, tree, tree);
-extern bool check_read_access (gimple *, tree, tree = NULL_TREE, int ost = 1);
-extern bool check_read_access (tree, tree, tree = NULL_TREE, int = 1);
 
 #endif   // GCC_GIMPLE_SSA_WARN_ACCESS_H

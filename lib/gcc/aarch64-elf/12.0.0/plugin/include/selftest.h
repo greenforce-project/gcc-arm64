@@ -112,6 +112,8 @@ class temp_source_file : public named_temp_file
  public:
   temp_source_file (const location &loc, const char *suffix,
 		    const char *content);
+  temp_source_file (const location &loc, const char *suffix,
+		    const char *content, size_t sz);
 };
 
 /* RAII-style class for avoiding introducing locale-specific differences
@@ -190,11 +192,6 @@ for_each_line_table_case (void (*testcase) (const line_table_case &));
 
 extern char *read_file (const location &loc, const char *path);
 
-/* A helper function for writing tests that interact with the
-   garbage collector.  */
-
-extern void forcibly_ggc_collect ();
-
 /* Convert a path relative to SRCDIR/gcc/testsuite/selftests
    to a real path (either absolute, or relative to pwd).
    The result should be freed by the caller.  */
@@ -265,7 +262,6 @@ extern void tree_cfg_c_tests ();
 extern void tree_diagnostic_path_cc_tests ();
 extern void tristate_cc_tests ();
 extern void typed_splay_tree_c_tests ();
-extern void unique_ptr_tests_cc_tests ();
 extern void vec_c_tests ();
 extern void vec_perm_indices_c_tests ();
 extern void wide_int_cc_tests ();

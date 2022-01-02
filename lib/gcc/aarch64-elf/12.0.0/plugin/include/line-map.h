@@ -803,11 +803,11 @@ public:
   unsigned int max_column_hint;
 
   /* The allocator to use when resizing 'maps', defaults to xrealloc.  */
-  line_map_realloc reallocator;
+  line_map_realloc GTY((callback)) reallocator;
 
   /* The allocators' function used to know the actual size it
      allocated, for a certain allocation size requested.  */
-  line_map_round_alloc_size_func round_alloc_size;
+  line_map_round_alloc_size_func GTY((callback)) round_alloc_size;
 
   struct location_adhoc_data_map location_adhoc_data_map;
 
@@ -1670,6 +1670,12 @@ class rich_location
   /* Destructor.  */
   ~rich_location ();
 
+  /* The class manages the memory pointed to by the elements of
+     the M_FIXIT_HINTS vector and is not meant to be copied or
+     assigned.  */
+  rich_location (const rich_location &) = delete;
+  void operator= (const rich_location &) = delete;
+
   /* Accessors.  */
   location_t get_loc () const { return get_loc (0); }
   location_t get_loc (unsigned int idx) const;
@@ -1781,6 +1787,18 @@ class rich_location
   const diagnostic_path *get_path () const { return m_path; }
   void set_path (const diagnostic_path *path) { m_path = path; }
 
+  /* A flag for hinting that the diagnostic involves character encoding
+     issues, and thus that it will be helpful to the user if we show some
+     representation of how the characters in the pertinent source lines
+     are encoded.
+     The default is false (i.e. do not escape).
+     When set to true, non-ASCII bytes in the pertinent source lines will
+     be escaped in a manner controlled by the user-supplied option
+     -fdiagnostics-escape-format=, so that the user can better understand
+     what's going on with the encoding in their source file.  */
+  bool escape_on_output_p () const { return m_escape_on_output; }
+  void set_escape_on_output (bool flag) { m_escape_on_output = flag; }
+
 private:
   bool reject_impossible_fixit (location_t where);
   void stop_supporting_fixits ();
@@ -1807,6 +1825,7 @@ protected:
   bool m_fixits_cannot_be_auto_applied;
 
   const diagnostic_path *m_path;
+  bool m_escape_on_output;
 };
 
 /* A struct for the result of range_label::get_text: a NUL-terminated buffer
