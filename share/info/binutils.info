@@ -2497,7 +2497,7 @@ given.
           Display the raw contents of a '.debug_frame' section.
 
      'F'
-     '=frame-interp'
+     '=frames-interp'
           Display the interpreted contents of a '.debug_frame' section.
 
      'g'
@@ -4673,7 +4673,7 @@ equivalent.  At least one option besides '-v' or '-H' must be given.
           Display the raw contents of a '.debug_frame' section.
 
      'F'
-     '=frame-interp'
+     '=frames-interp'
           Display the interpreted contents of a '.debug_frame' section.
 
      'g'
@@ -6021,29 +6021,29 @@ Node: ar scripts20009
 Node: nm25695
 Node: objcopy41068
 Node: objdump81916
-Node: ranlib117203
-Node: size118802
-Node: strings122771
-Node: strip128628
-Node: c++filt138470
-Ref: c++filt-Footnote-1144331
-Node: addr2line144437
-Node: windmc150115
-Node: windres153774
-Node: dlltool160344
-Node: def file format173341
-Node: readelf175871
-Node: elfedit194159
-Node: Common Options197585
-Node: Selecting the Target System198619
-Node: Target Selection199547
-Node: Architecture Selection201528
-Node: debuginfod202356
-Node: Reporting Bugs203115
-Node: Bug Criteria203877
-Node: Bug Reporting204430
-Node: GNU Free Documentation License211297
-Node: Binutils Index236457
+Node: ranlib117204
+Node: size118803
+Node: strings122772
+Node: strip128629
+Node: c++filt138471
+Ref: c++filt-Footnote-1144332
+Node: addr2line144438
+Node: windmc150116
+Node: windres153775
+Node: dlltool160345
+Node: def file format173342
+Node: readelf175872
+Node: elfedit194161
+Node: Common Options197587
+Node: Selecting the Target System198621
+Node: Target Selection199549
+Node: Architecture Selection201530
+Node: debuginfod202358
+Node: Reporting Bugs203117
+Node: Bug Criteria203879
+Node: Bug Reporting204432
+Node: GNU Free Documentation License211299
+Node: Binutils Index236459
 
 End Tag Table
 

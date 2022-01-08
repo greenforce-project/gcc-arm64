@@ -29531,8 +29531,8 @@ These '-m' options are defined for the x86 family of computers.
 '-mharden-sls=CHOICE'
      Generate code to mitigate against straight line speculation (SLS)
      with CHOICE.  The default is 'none' which disables all SLS
-     hardening.  'return' enables SLS hardening for function return.
-     'indirect-branch' enables SLS hardening for indirect branch.  'all'
+     hardening.  'return' enables SLS hardening for function returns.
+     'indirect-jmp' enables SLS hardening for indirect jumps.  'all'
      enables all SLS hardening.
 
 '-mindirect-branch-cs-prefix'
@@ -32705,18 +32705,46 @@ include '<complex.h>' and use the macros 'I' or '_Complex_I' instead.
 includes the '<complex>' header cannot use 'i' for the GNU extension.
 The 'j' suffix still has the GNU meaning.
 
- To extract the real part of a complex-valued expression EXP, write
-'__real__ EXP'.  Likewise, use '__imag__' to extract the imaginary part.
-This is a GNU extension; for values of floating type, you should use the
-ISO C99 functions 'crealf', 'creal', 'creall', 'cimagf', 'cimag' and
-'cimagl', declared in '<complex.h>' and also provided as built-in
-functions by GCC.
+ GCC can handle both implicit and explicit casts between the '_Complex'
+types and other '_Complex' types as casting both the real and imaginary
+parts to the scalar type.  GCC can handle implicit and explicit casts
+from a scalar type to a '_Complex' type and where the imaginary part
+will be considered zero.  The C front-end can handle implicit and
+explicit casts from a '_Complex' type to a scalar type where the
+imaginary part will be ignored.  In C++ code, this cast is considered
+illformed and G++ will error out.
+
+ GCC provides a built-in function '__builtin_complex' will can be used
+to construct a complex value.
+
+ GCC has a few extensions which can be used to extract the real and the
+imaginary part of the complex-valued expression.  Note these expressions
+are lvalues if the EXP is an lvalue.  These expressions operands have
+the type of a complex type which might get prompoted to a complex type
+from a scalar type.  E.g.  '__real__ (int)X' is the same as casting to
+'_Complex int' before '__real__' is done.
+
+Expression                    Description
+--------------------------------------------------------------------------
+'__real__ EXP'                Extract the real part of EXP.
+'__imag__ EXP'                Extract the imaginary part of EXP.
+
+ For values of floating point, you should use the ISO C99 functions,
+declared in '<complex.h>' and also provided as built-in functions by
+GCC.
+
+Expression                    float          double         long double
+---------------------------------------------------------------------------
+'__real__ EXP'                'crealf'       'creal'        'creall'
+'__imag__ EXP'                'cimagf'       'cimag'        'cimagl'
 
  The operator '~' performs complex conjugation when used on a value with
 a complex type.  This is a GNU extension; for values of floating type,
 you should use the ISO C99 functions 'conjf', 'conj' and 'conjl',
 declared in '<complex.h>' and also provided as built-in functions by
-GCC.
+GCC.  Note unlike the '__real__' and '__imag__' operators, this operator
+will not do an implicit cast to the complex type because the '~' is
+already a normal operator.
 
  GCC can allocate complex automatic variables in a noncontiguous
 fashion; it's even possible for the real part to be in a register while
@@ -32727,6 +32755,15 @@ noncontiguous complex variable as if it were two separate variables of
 noncomplex type.  If the variable's actual name is 'foo', the two
 fictitious variables are named 'foo$real' and 'foo$imag'.  You can
 examine and set these two fictitious variables with your debugger.
+
+ -- Built-in Function: TYPE __builtin_complex (REAL, IMAG)
+
+     The built-in function '__builtin_complex' is provided for use in
+     implementing the ISO C11 macros 'CMPLXF', 'CMPLX' and 'CMPLXL'.
+     REAL and IMAG must have the same type, a real binary floating-point
+     type, and the result has the corresponding complex type with real
+     and imaginary parts REAL and IMAG.  Unlike 'REAL + I * IMAG', this
+     works even when infinities, NaNs and negative zeros are involved.
 
 
 File: gcc.info,  Node: Floating Types,  Next: Half-Precision,  Prev: Complex,  Up: C Extensions
@@ -45338,9 +45375,7 @@ values ensures proper usage.
      writes VAL into '*PTR', and returns the previous contents of
      '*PTR'.
 
-     The valid memory order variants are '__ATOMIC_RELAXED',
-     '__ATOMIC_SEQ_CST', '__ATOMIC_ACQUIRE', '__ATOMIC_RELEASE', and
-     '__ATOMIC_ACQ_REL'.
+     All memory order variants are valid.
 
  -- Built-in Function: void __atomic_exchange (TYPE *ptr, TYPE *val,
           TYPE *ret, int memorder)
@@ -46279,15 +46314,6 @@ the same fashion, GCC provides 'fpclassify', 'isfinite', 'isinf_sign',
      for which T is U, it is called, and otherwise the first function,
      if any, for which T has at least the range and precision of U is
      called, and it is an error if there is no such function.
-
- -- Built-in Function: TYPE __builtin_complex (REAL, IMAG)
-
-     The built-in function '__builtin_complex' is provided for use in
-     implementing the ISO C11 macros 'CMPLXF', 'CMPLX' and 'CMPLXL'.
-     REAL and IMAG must have the same type, a real binary floating-point
-     type, and the result has the corresponding complex type with real
-     and imaginary parts REAL and IMAG.  Unlike 'REAL + I * IMAG', this
-     works even when infinities, NaNs and negative zeros are involved.
 
  -- Built-in Function: int __builtin_constant_p (EXP)
      You can use the built-in function '__builtin_constant_p' to
@@ -63524,7 +63550,7 @@ look up both forms.
                                                              (line  110)
 * fprofile-arcs:                         Instrumentation Options.
                                                              (line   30)
-* fprofile-arcs <1>:                     Other Builtins.     (line  591)
+* fprofile-arcs <1>:                     Other Builtins.     (line  582)
 * fprofile-correction:                   Optimize Options.   (line 2192)
 * fprofile-dir:                          Instrumentation Options.
                                                              (line  116)
@@ -66947,32 +66973,32 @@ Keyword Index
                                                              (line   48)
 * _xtest:                                x86 transactional memory intrinsics.
                                                              (line   53)
-* __atomic_add_fetch:                    __atomic Builtins.  (line  179)
-* __atomic_always_lock_free:             __atomic Builtins.  (line  267)
-* __atomic_and_fetch:                    __atomic Builtins.  (line  183)
-* __atomic_clear:                        __atomic Builtins.  (line  241)
-* __atomic_compare_exchange:             __atomic Builtins.  (line  171)
-* __atomic_compare_exchange_n:           __atomic Builtins.  (line  147)
-* __atomic_exchange:                     __atomic Builtins.  (line  141)
+* __atomic_add_fetch:                    __atomic Builtins.  (line  177)
+* __atomic_always_lock_free:             __atomic Builtins.  (line  265)
+* __atomic_and_fetch:                    __atomic Builtins.  (line  181)
+* __atomic_clear:                        __atomic Builtins.  (line  239)
+* __atomic_compare_exchange:             __atomic Builtins.  (line  169)
+* __atomic_compare_exchange_n:           __atomic Builtins.  (line  145)
+* __atomic_exchange:                     __atomic Builtins.  (line  139)
 * __atomic_exchange_n:                   __atomic Builtins.  (line  131)
-* __atomic_fetch_add:                    __atomic Builtins.  (line  204)
-* __atomic_fetch_and:                    __atomic Builtins.  (line  208)
-* __atomic_fetch_nand:                   __atomic Builtins.  (line  214)
-* __atomic_fetch_or:                     __atomic Builtins.  (line  212)
-* __atomic_fetch_sub:                    __atomic Builtins.  (line  206)
-* __atomic_fetch_xor:                    __atomic Builtins.  (line  210)
-* __atomic_is_lock_free:                 __atomic Builtins.  (line  281)
+* __atomic_fetch_add:                    __atomic Builtins.  (line  202)
+* __atomic_fetch_and:                    __atomic Builtins.  (line  206)
+* __atomic_fetch_nand:                   __atomic Builtins.  (line  212)
+* __atomic_fetch_or:                     __atomic Builtins.  (line  210)
+* __atomic_fetch_sub:                    __atomic Builtins.  (line  204)
+* __atomic_fetch_xor:                    __atomic Builtins.  (line  208)
+* __atomic_is_lock_free:                 __atomic Builtins.  (line  279)
 * __atomic_load:                         __atomic Builtins.  (line  113)
 * __atomic_load_n:                       __atomic Builtins.  (line  106)
-* __atomic_nand_fetch:                   __atomic Builtins.  (line  189)
-* __atomic_or_fetch:                     __atomic Builtins.  (line  187)
-* __atomic_signal_fence:                 __atomic Builtins.  (line  260)
+* __atomic_nand_fetch:                   __atomic Builtins.  (line  187)
+* __atomic_or_fetch:                     __atomic Builtins.  (line  185)
+* __atomic_signal_fence:                 __atomic Builtins.  (line  258)
 * __atomic_store:                        __atomic Builtins.  (line  126)
 * __atomic_store_n:                      __atomic Builtins.  (line  118)
-* __atomic_sub_fetch:                    __atomic Builtins.  (line  181)
-* __atomic_test_and_set:                 __atomic Builtins.  (line  229)
-* __atomic_thread_fence:                 __atomic Builtins.  (line  253)
-* __atomic_xor_fetch:                    __atomic Builtins.  (line  185)
+* __atomic_sub_fetch:                    __atomic Builtins.  (line  179)
+* __atomic_test_and_set:                 __atomic Builtins.  (line  227)
+* __atomic_thread_fence:                 __atomic Builtins.  (line  251)
+* __atomic_xor_fetch:                    __atomic Builtins.  (line  183)
 * __builtin_addf128_round_to_odd:        Basic PowerPC Built-in Functions Available on ISA 3.0.
                                                              (line   17)
 * __builtin_add_overflow:                Integer Overflow Builtins.
@@ -67024,31 +67050,31 @@ Keyword Index
                                                              (line  120)
 * __builtin_arc_unimp_s:                 ARC Built-in Functions.
                                                              (line  124)
-* __builtin_assoc_barrier:               Other Builtins.     (line  690)
-* __builtin_assume_aligned:              Other Builtins.     (line  705)
-* __builtin_bit_cast:                    Other Builtins.     (line  576)
-* __builtin_bswap128:                    Other Builtins.     (line 1050)
-* __builtin_bswap16:                     Other Builtins.     (line 1038)
-* __builtin_bswap32:                     Other Builtins.     (line 1042)
-* __builtin_bswap64:                     Other Builtins.     (line 1046)
+* __builtin_assoc_barrier:               Other Builtins.     (line  681)
+* __builtin_assume_aligned:              Other Builtins.     (line  696)
+* __builtin_bit_cast:                    Other Builtins.     (line  567)
+* __builtin_bswap128:                    Other Builtins.     (line 1041)
+* __builtin_bswap16:                     Other Builtins.     (line 1029)
+* __builtin_bswap32:                     Other Builtins.     (line 1033)
+* __builtin_bswap64:                     Other Builtins.     (line 1037)
 * __builtin_call_with_static_chain:      Other Builtins.     (line    6)
 * __builtin_call_with_static_chain <1>:  Other Builtins.     (line  385)
 * __builtin_cfuged:                      Basic PowerPC Built-in Functions Available on ISA 3.1.
                                                              (line   18)
 * __builtin_choose_expr:                 Other Builtins.     (line  396)
-* __builtin_clear_padding:               Other Builtins.     (line  562)
-* __builtin_clrsb:                       Other Builtins.     (line  968)
-* __builtin_clrsbl:                      Other Builtins.     (line  990)
-* __builtin_clrsbll:                     Other Builtins.     (line 1013)
-* __builtin_clz:                         Other Builtins.     (line  960)
-* __builtin_clzl:                        Other Builtins.     (line  982)
-* __builtin_clzll:                       Other Builtins.     (line 1005)
+* __builtin_clear_padding:               Other Builtins.     (line  553)
+* __builtin_clrsb:                       Other Builtins.     (line  959)
+* __builtin_clrsbl:                      Other Builtins.     (line  981)
+* __builtin_clrsbll:                     Other Builtins.     (line 1004)
+* __builtin_clz:                         Other Builtins.     (line  951)
+* __builtin_clzl:                        Other Builtins.     (line  973)
+* __builtin_clzll:                       Other Builtins.     (line  996)
 * __builtin_cntlzdm:                     Basic PowerPC Built-in Functions Available on ISA 3.1.
                                                              (line   23)
 * __builtin_cnttzdm:                     Basic PowerPC Built-in Functions Available on ISA 3.1.
                                                              (line   28)
-* __builtin_complex:                     Other Builtins.     (line  490)
-* __builtin_constant_p:                  Other Builtins.     (line  499)
+* __builtin_complex:                     Complex.            (line   82)
+* __builtin_constant_p:                  Other Builtins.     (line  490)
 * __builtin_convertvector:               Vector Extensions.  (line  189)
 * __builtin_cpu_init:                    Basic PowerPC Built-in Functions Available on all Configurations.
                                                              (line    6)
@@ -67062,64 +67088,64 @@ Keyword Index
                                                              (line   70)
 * __builtin_cpu_supports <1>:            x86 Built-in Functions.
                                                              (line  262)
-* __builtin_ctz:                         Other Builtins.     (line  964)
-* __builtin_ctzl:                        Other Builtins.     (line  986)
-* __builtin_ctzll:                       Other Builtins.     (line 1009)
+* __builtin_ctz:                         Other Builtins.     (line  955)
+* __builtin_ctzl:                        Other Builtins.     (line  977)
+* __builtin_ctzll:                       Other Builtins.     (line 1000)
 * __builtin_divf128_round_to_odd:        Basic PowerPC Built-in Functions Available on ISA 3.0.
                                                              (line   29)
 * __builtin_dynamic_object_size:         Object Size Checking.
                                                              (line    6)
 * __builtin_dynamic_object_size <1>:     Object Size Checking.
                                                              (line   53)
-* __builtin_expect:                      Other Builtins.     (line  590)
-* __builtin_expect_with_probability:     Other Builtins.     (line  625)
+* __builtin_expect:                      Other Builtins.     (line  581)
+* __builtin_expect_with_probability:     Other Builtins.     (line  616)
 * __builtin_extend_pointer:              Other Builtins.     (line    6)
-* __builtin_extend_pointer <1>:          Other Builtins.     (line 1055)
+* __builtin_extend_pointer <1>:          Other Builtins.     (line 1046)
 * __builtin_extract_return_addr:         Return Address.     (line   50)
-* __builtin_ffs:                         Other Builtins.     (line  956)
-* __builtin_ffsl:                        Other Builtins.     (line  979)
-* __builtin_ffsll:                       Other Builtins.     (line 1001)
-* __builtin_FILE:                        Other Builtins.     (line  738)
+* __builtin_ffs:                         Other Builtins.     (line  947)
+* __builtin_ffsl:                        Other Builtins.     (line  970)
+* __builtin_ffsll:                       Other Builtins.     (line  992)
+* __builtin_FILE:                        Other Builtins.     (line  729)
 * __builtin_fmaf128_round_to_odd:        Basic PowerPC Built-in Functions Available on ISA 3.0.
                                                              (line   37)
 * __builtin_fpclassify:                  Other Builtins.     (line    6)
-* __builtin_fpclassify <1>:              Other Builtins.     (line  840)
+* __builtin_fpclassify <1>:              Other Builtins.     (line  831)
 * __builtin_frame_address:               Return Address.     (line   62)
 * __builtin_frob_return_addr:            Return Address.     (line   59)
-* __builtin_FUNCTION:                    Other Builtins.     (line  730)
-* __builtin_goacc_parlevel_id:           Other Builtins.     (line 1062)
-* __builtin_goacc_parlevel_size:         Other Builtins.     (line 1066)
+* __builtin_FUNCTION:                    Other Builtins.     (line  721)
+* __builtin_goacc_parlevel_id:           Other Builtins.     (line 1053)
+* __builtin_goacc_parlevel_size:         Other Builtins.     (line 1057)
 * __builtin_has_attribute:               Other Builtins.     (line    6)
 * __builtin_has_attribute <1>:           Other Builtins.     (line  220)
-* __builtin_huge_val:                    Other Builtins.     (line  820)
-* __builtin_huge_valf:                   Other Builtins.     (line  825)
-* __builtin_huge_valfN:                  Other Builtins.     (line  832)
-* __builtin_huge_valfNx:                 Other Builtins.     (line  836)
-* __builtin_huge_vall:                   Other Builtins.     (line  828)
+* __builtin_huge_val:                    Other Builtins.     (line  811)
+* __builtin_huge_valf:                   Other Builtins.     (line  816)
+* __builtin_huge_valfN:                  Other Builtins.     (line  823)
+* __builtin_huge_valfNx:                 Other Builtins.     (line  827)
+* __builtin_huge_vall:                   Other Builtins.     (line  819)
 * __builtin_huge_valq:                   x86 Built-in Functions.
                                                              (line   50)
-* __builtin_inf:                         Other Builtins.     (line  851)
-* __builtin_infd128:                     Other Builtins.     (line  861)
-* __builtin_infd32:                      Other Builtins.     (line  855)
-* __builtin_infd64:                      Other Builtins.     (line  858)
-* __builtin_inff:                        Other Builtins.     (line  865)
-* __builtin_inffN:                       Other Builtins.     (line  874)
-* __builtin_inffNx:                      Other Builtins.     (line  877)
-* __builtin_infl:                        Other Builtins.     (line  870)
+* __builtin_inf:                         Other Builtins.     (line  842)
+* __builtin_infd128:                     Other Builtins.     (line  852)
+* __builtin_infd32:                      Other Builtins.     (line  846)
+* __builtin_infd64:                      Other Builtins.     (line  849)
+* __builtin_inff:                        Other Builtins.     (line  856)
+* __builtin_inffN:                       Other Builtins.     (line  865)
+* __builtin_inffNx:                      Other Builtins.     (line  868)
+* __builtin_infl:                        Other Builtins.     (line  861)
 * __builtin_infq:                        x86 Built-in Functions.
                                                              (line   47)
 * __builtin_isfinite:                    Other Builtins.     (line    6)
 * __builtin_isgreater:                   Other Builtins.     (line    6)
 * __builtin_isgreaterequal:              Other Builtins.     (line    6)
 * __builtin_isinf_sign:                  Other Builtins.     (line    6)
-* __builtin_isinf_sign <1>:              Other Builtins.     (line  880)
+* __builtin_isinf_sign <1>:              Other Builtins.     (line  871)
 * __builtin_isless:                      Other Builtins.     (line    6)
 * __builtin_islessequal:                 Other Builtins.     (line    6)
 * __builtin_islessgreater:               Other Builtins.     (line    6)
 * __builtin_isnormal:                    Other Builtins.     (line    6)
 * __builtin_isunordered:                 Other Builtins.     (line    6)
-* __builtin_is_constant_evaluated:       Other Builtins.     (line  544)
-* __builtin_LINE:                        Other Builtins.     (line  723)
+* __builtin_is_constant_evaluated:       Other Builtins.     (line  535)
+* __builtin_LINE:                        Other Builtins.     (line  714)
 * __builtin_longjmp:                     Nonlocal Gotos.     (line   37)
 * __builtin_mulf128_round_to_odd:        Basic PowerPC Built-in Functions Available on ISA 3.0.
                                                              (line   25)
@@ -67127,24 +67153,24 @@ Keyword Index
                                                              (line   63)
 * __builtin_mul_overflow_p:              Integer Overflow Builtins.
                                                              (line   90)
-* __builtin_nan:                         Other Builtins.     (line  888)
-* __builtin_nand128:                     Other Builtins.     (line  910)
-* __builtin_nand32:                      Other Builtins.     (line  904)
-* __builtin_nand64:                      Other Builtins.     (line  907)
-* __builtin_nanf:                        Other Builtins.     (line  914)
-* __builtin_nanfN:                       Other Builtins.     (line  921)
-* __builtin_nanfNx:                      Other Builtins.     (line  924)
-* __builtin_nanl:                        Other Builtins.     (line  917)
+* __builtin_nan:                         Other Builtins.     (line  879)
+* __builtin_nand128:                     Other Builtins.     (line  901)
+* __builtin_nand32:                      Other Builtins.     (line  895)
+* __builtin_nand64:                      Other Builtins.     (line  898)
+* __builtin_nanf:                        Other Builtins.     (line  905)
+* __builtin_nanfN:                       Other Builtins.     (line  912)
+* __builtin_nanfNx:                      Other Builtins.     (line  915)
+* __builtin_nanl:                        Other Builtins.     (line  908)
 * __builtin_nanq:                        x86 Built-in Functions.
                                                              (line   54)
-* __builtin_nans:                        Other Builtins.     (line  927)
-* __builtin_nansd128:                    Other Builtins.     (line  939)
-* __builtin_nansd32:                     Other Builtins.     (line  931)
-* __builtin_nansd64:                     Other Builtins.     (line  935)
-* __builtin_nansf:                       Other Builtins.     (line  943)
-* __builtin_nansfN:                      Other Builtins.     (line  950)
-* __builtin_nansfNx:                     Other Builtins.     (line  953)
-* __builtin_nansl:                       Other Builtins.     (line  946)
+* __builtin_nans:                        Other Builtins.     (line  918)
+* __builtin_nansd128:                    Other Builtins.     (line  930)
+* __builtin_nansd32:                     Other Builtins.     (line  922)
+* __builtin_nansd64:                     Other Builtins.     (line  926)
+* __builtin_nansf:                       Other Builtins.     (line  934)
+* __builtin_nansfN:                      Other Builtins.     (line  941)
+* __builtin_nansfNx:                     Other Builtins.     (line  944)
+* __builtin_nansl:                       Other Builtins.     (line  937)
 * __builtin_nansq:                       x86 Built-in Functions.
                                                              (line   57)
 * __builtin_nds32_isb:                   NDS32 Built-in Functions.
@@ -67170,25 +67196,25 @@ Keyword Index
 * __builtin_object_size <1>:             Object Size Checking.
                                                              (line   16)
 * __builtin_object_size <2>:             Other Builtins.     (line    6)
-* __builtin_object_size <3>:             Other Builtins.     (line  815)
+* __builtin_object_size <3>:             Other Builtins.     (line  806)
 * __builtin_offsetof:                    Offsetof.           (line    6)
-* __builtin_parity:                      Other Builtins.     (line  976)
-* __builtin_parityl:                     Other Builtins.     (line  997)
-* __builtin_parityll:                    Other Builtins.     (line 1021)
+* __builtin_parity:                      Other Builtins.     (line  967)
+* __builtin_parityl:                     Other Builtins.     (line  988)
+* __builtin_parityll:                    Other Builtins.     (line 1012)
 * __builtin_pdepd:                       Basic PowerPC Built-in Functions Available on ISA 3.1.
                                                              (line   33)
 * __builtin_pextd:                       Basic PowerPC Built-in Functions Available on ISA 3.1.
                                                              (line   38)
-* __builtin_popcount:                    Other Builtins.     (line  973)
-* __builtin_popcountl:                   Other Builtins.     (line  993)
-* __builtin_popcountll:                  Other Builtins.     (line 1017)
+* __builtin_popcount:                    Other Builtins.     (line  964)
+* __builtin_popcountl:                   Other Builtins.     (line  984)
+* __builtin_popcountll:                  Other Builtins.     (line 1008)
 * __builtin_powi:                        Other Builtins.     (line    6)
-* __builtin_powi <1>:                    Other Builtins.     (line 1025)
+* __builtin_powi <1>:                    Other Builtins.     (line 1016)
 * __builtin_powif:                       Other Builtins.     (line    6)
-* __builtin_powif <1>:                   Other Builtins.     (line 1030)
+* __builtin_powif <1>:                   Other Builtins.     (line 1021)
 * __builtin_powil:                       Other Builtins.     (line    6)
-* __builtin_powil <1>:                   Other Builtins.     (line 1034)
-* __builtin_prefetch:                    Other Builtins.     (line  776)
+* __builtin_powil <1>:                   Other Builtins.     (line 1025)
+* __builtin_prefetch:                    Other Builtins.     (line  767)
 * __builtin_return:                      Constructing Calls. (line   47)
 * __builtin_return_address:              Return Address.     (line    9)
 * __builtin_rx_brk:                      RX Built-in Functions.
@@ -67289,7 +67315,7 @@ Keyword Index
                                                              (line    9)
 * __builtin_thread_pointer <1>:          SH Built-in Functions.
                                                              (line   18)
-* __builtin_trap:                        Other Builtins.     (line  634)
+* __builtin_trap:                        Other Builtins.     (line  625)
 * __builtin_truncf128_round_to_odd:      Basic PowerPC Built-in Functions Available on ISA 3.0.
                                                              (line   41)
 * __builtin_tx_assist:                   S/390 System z Built-in Functions.
@@ -67309,7 +67335,7 @@ Keyword Index
                                                              (line   73)
 * __builtin_umul_overflow:               Integer Overflow Builtins.
                                                              (line   71)
-* __builtin_unreachable:                 Other Builtins.     (line  641)
+* __builtin_unreachable:                 Other Builtins.     (line  632)
 * __builtin_usubll_overflow:             Integer Overflow Builtins.
                                                              (line   55)
 * __builtin_usubl_overflow:              Integer Overflow Builtins.
@@ -67318,7 +67344,7 @@ Keyword Index
                                                              (line   51)
 * __builtin_va_arg_pack:                 Constructing Calls. (line   52)
 * __builtin_va_arg_pack_len:             Constructing Calls. (line   75)
-* __builtin___clear_cache:               Other Builtins.     (line  763)
+* __builtin___clear_cache:               Other Builtins.     (line  754)
 * __builtin___fprintf_chk:               Object Size Checking.
                                                              (line    6)
 * __builtin___memcpy_chk:                Object Size Checking.
@@ -67382,12 +67408,12 @@ Keyword Index
 * __FUNCTION__ identifier:               Function Names.     (line    6)
 * __func__ identifier:                   Function Names.     (line    6)
 * __ibm128 data type:                    Floating Types.     (line    6)
-* __imag__ keyword:                      Complex.            (line   31)
+* __imag__ keyword:                      Complex.            (line   43)
 * __int128 data types:                   __int128.           (line    6)
 * __memx AVR Named Address Spaces:       Named Address Spaces.
                                                              (line   59)
 * __PRETTY_FUNCTION__ identifier:        Function Names.     (line    6)
-* __real__ keyword:                      Complex.            (line   31)
+* __real__ keyword:                      Complex.            (line   43)
 * __regio_symbol PRU Named Address Spaces: Named Address Spaces.
                                                              (line  162)
 * __seg_fs x86 named address space:      Named Address Spaces.
@@ -67704,7 +67730,7 @@ Keyword Index
 * compiler version, specifying:          Invoking GCC.       (line   24)
 * COMPILER_PATH:                         Environment Variables.
                                                              (line   91)
-* complex conjugation:                   Complex.            (line   38)
+* complex conjugation:                   Complex.            (line   64)
 * complex numbers:                       Complex.            (line    6)
 * compound literals:                     Compound Literals.  (line    6)
 * computed gotos:                        Labels as Values.   (line    6)
@@ -69793,353 +69819,353 @@ Node: Visium Options1188035
 Node: VMS Options1190343
 Node: VxWorks Options1191159
 Node: x86 Options1192311
-Node: x86 Windows Options1259220
-Node: Xstormy16 Options1262026
-Node: Xtensa Options1262320
-Node: zSeries Options1268456
-Node: Spec Files1268652
-Node: Environment Variables1294731
-Node: Precompiled Headers1304164
-Node: C++ Modules1310373
-Ref: C++ Modules-Footnote-11316513
-Node: C++ Module Mapper1316766
-Node: C++ Module Preprocessing1321919
-Node: C++ Compiled Module Interface1323748
-Ref: C++ Compiled Module Interface-Footnote-11327132
-Ref: C++ Compiled Module Interface-Footnote-21327221
-Node: C Implementation1327277
-Node: Translation implementation1328968
-Node: Environment implementation1329559
-Node: Identifiers implementation1330113
-Node: Characters implementation1331199
-Node: Integers implementation1334849
-Node: Floating point implementation1336898
-Node: Arrays and pointers implementation1339961
-Ref: Arrays and pointers implementation-Footnote-11341421
-Node: Hints implementation1341547
-Node: Structures unions enumerations and bit-fields implementation1343042
-Node: Qualifiers implementation1345266
-Node: Declarators implementation1347327
-Node: Statements implementation1347668
-Node: Preprocessing directives implementation1347994
-Node: Library functions implementation1350315
-Node: Architecture implementation1350964
-Node: Locale-specific behavior implementation1352609
-Node: C++ Implementation1352914
-Node: Conditionally-supported behavior1354198
-Node: Exception handling1354815
-Node: C Extensions1355282
-Node: Statement Exprs1360505
-Node: Local Labels1365877
-Node: Labels as Values1368850
-Ref: Labels as Values-Footnote-11371377
-Node: Nested Functions1371562
-Node: Nonlocal Gotos1375516
-Node: Constructing Calls1377782
-Node: Typeof1382497
-Node: Conditionals1386426
-Node: __int1281387315
-Node: Long Long1387840
-Node: Complex1389331
-Node: Floating Types1392099
-Node: Half-Precision1395620
-Node: Decimal Float1399088
-Node: Hex Floats1400942
-Node: Fixed-Point1402016
-Node: Named Address Spaces1405274
-Ref: AVR Named Address Spaces1405960
-Node: Zero Length1413254
-Node: Empty Structures1417435
-Node: Variable Length1417841
-Node: Variadic Macros1420559
-Node: Escaped Newlines1422937
-Node: Subscripting1423798
-Node: Pointer Arith1424523
-Node: Variadic Pointer Args1425100
-Node: Pointers to Arrays1425825
-Node: Initializers1426578
-Node: Compound Literals1427079
-Node: Designated Inits1430646
-Node: Case Ranges1434570
-Node: Cast to Union1435251
-Node: Mixed Labels and Declarations1436985
-Node: Function Attributes1437622
-Node: Common Function Attributes1442089
-Ref: Common Function Attributes-Footnote-11517622
-Node: AArch64 Function Attributes1517939
-Node: AMD GCN Function Attributes1524133
-Node: ARC Function Attributes1527186
-Node: ARM Function Attributes1530123
-Node: AVR Function Attributes1535262
-Node: Blackfin Function Attributes1539797
-Node: BPF Function Attributes1542294
-Node: CR16 Function Attributes1542882
-Node: C-SKY Function Attributes1543401
-Node: Epiphany Function Attributes1544700
-Node: H8/300 Function Attributes1547455
-Node: IA-64 Function Attributes1548653
-Node: M32C Function Attributes1549695
-Node: M32R/D Function Attributes1552033
-Node: m68k Function Attributes1553507
-Node: MCORE Function Attributes1554451
-Node: MeP Function Attributes1555262
-Node: MicroBlaze Function Attributes1556563
-Node: Microsoft Windows Function Attributes1558070
-Node: MIPS Function Attributes1562639
-Node: MSP430 Function Attributes1568257
-Node: NDS32 Function Attributes1572336
-Node: Nios II Function Attributes1574760
-Node: Nvidia PTX Function Attributes1576057
-Node: PowerPC Function Attributes1576672
-Node: RISC-V Function Attributes1583446
-Node: RL78 Function Attributes1584862
-Node: RX Function Attributes1586101
-Node: S/390 Function Attributes1588648
-Node: SH Function Attributes1590476
-Node: Symbian OS Function Attributes1593904
-Node: V850 Function Attributes1594240
-Node: Visium Function Attributes1594785
-Node: x86 Function Attributes1595313
-Node: Xstormy16 Function Attributes1619115
-Node: Variable Attributes1619622
-Node: Common Variable Attributes1621155
-Node: ARC Variable Attributes1643062
-Node: AVR Variable Attributes1643444
-Node: Blackfin Variable Attributes1648606
-Node: H8/300 Variable Attributes1649464
-Node: IA-64 Variable Attributes1650537
-Node: M32R/D Variable Attributes1651288
-Node: MeP Variable Attributes1652071
-Node: Microsoft Windows Variable Attributes1654164
-Node: MSP430 Variable Attributes1656617
-Node: Nvidia PTX Variable Attributes1657831
-Node: PowerPC Variable Attributes1658448
-Node: RL78 Variable Attributes1659005
-Node: V850 Variable Attributes1659424
-Node: x86 Variable Attributes1660057
-Node: Xstormy16 Variable Attributes1661113
-Node: Type Attributes1661683
-Node: Common Type Attributes1663371
-Node: ARC Type Attributes1685732
-Node: ARM Type Attributes1686204
-Node: BPF Type Attributes1686986
-Node: MeP Type Attributes1687503
-Node: PowerPC Type Attributes1687905
-Node: x86 Type Attributes1688894
-Node: Label Attributes1689886
-Node: Enumerator Attributes1691913
-Node: Statement Attributes1693445
-Node: Attribute Syntax1694928
-Node: Function Prototypes1706186
-Node: C++ Comments1707966
-Node: Dollar Signs1708485
-Node: Character Escapes1708950
-Node: Alignment1709234
-Node: Inline1710887
-Node: Volatiles1715704
-Node: Using Assembly Language with C1718603
-Node: Basic Asm1719840
-Node: Extended Asm1725463
-Ref: Volatile1729577
-Ref: AssemblerTemplate1733690
-Ref: OutputOperands1737930
-Ref: FlagOutputOperands1744893
-Ref: InputOperands1747840
-Ref: Clobbers and Scratch Registers1752108
-Ref: GotoLabels1760749
-Ref: x86Operandmodifiers1764372
-Ref: x86floatingpointasmoperands1769188
-Ref: msp430Operandmodifiers1772517
-Node: Constraints1774175
-Node: Simple Constraints1775281
-Node: Multi-Alternative1782595
-Node: Modifiers1784270
-Node: Machine Constraints1787069
-Node: Asm Labels1843895
-Node: Explicit Register Variables1845515
-Ref: Explicit Reg Vars1845729
-Node: Global Register Variables1846338
-Ref: Global Reg Vars1846546
-Node: Local Register Variables1851328
-Ref: Local Reg Vars1851548
-Node: Size of an asm1855176
-Node: Alternate Keywords1856654
-Node: Incomplete Enums1858159
-Node: Function Names1858916
-Node: Return Address1860820
-Node: Vector Extensions1865407
-Node: Offsetof1876390
-Node: __sync Builtins1877223
-Node: __atomic Builtins1883666
-Node: Integer Overflow Builtins1897292
-Node: x86 specific memory model extensions for transactional memory1903775
-Node: Object Size Checking1905041
-Node: Other Builtins1912057
-Node: Target Builtins1964388
-Node: AArch64 Built-in Functions1966163
-Node: Alpha Built-in Functions1966859
-Node: Altera Nios II Built-in Functions1969953
-Node: ARC Built-in Functions1974392
-Node: ARC SIMD Built-in Functions1979604
-Node: ARM iWMMXt Built-in Functions1988602
-Node: ARM C Language Extensions (ACLE)1995738
-Node: ARM Floating Point Status and Control Intrinsics1997015
-Node: ARM ARMv8-M Security Extensions1997502
-Node: AVR Built-in Functions1998794
-Node: Blackfin Built-in Functions2002560
-Node: BPF Built-in Functions2003180
-Node: FR-V Built-in Functions2004639
-Node: Argument Types2005502
-Node: Directly-mapped Integer Functions2007333
-Node: Directly-mapped Media Functions2008493
-Node: Raw read/write Functions2016775
-Node: Other Built-in Functions2017683
-Node: MIPS DSP Built-in Functions2018869
-Node: MIPS Paired-Single Support2031624
-Node: MIPS Loongson Built-in Functions2033123
-Node: Paired-Single Arithmetic2039645
-Node: Paired-Single Built-in Functions2040668
-Node: MIPS-3D Built-in Functions2043335
-Node: MIPS SIMD Architecture (MSA) Support2048729
-Node: MIPS SIMD Architecture Built-in Functions2051569
-Node: Other MIPS Built-in Functions2078423
-Node: MSP430 Built-in Functions2079432
-Node: NDS32 Built-in Functions2080833
-Node: picoChip Built-in Functions2082126
-Node: Basic PowerPC Built-in Functions2083475
-Node: Basic PowerPC Built-in Functions Available on all Configurations2084333
-Node: Basic PowerPC Built-in Functions Available on ISA 2.052092843
-Node: Basic PowerPC Built-in Functions Available on ISA 2.062097678
-Node: Basic PowerPC Built-in Functions Available on ISA 2.072099758
-Node: Basic PowerPC Built-in Functions Available on ISA 3.02100612
-Node: Basic PowerPC Built-in Functions Available on ISA 3.12107590
-Node: PowerPC AltiVec/VSX Built-in Functions2110803
-Node: PowerPC AltiVec Built-in Functions on ISA 2.052118872
-Node: PowerPC AltiVec Built-in Functions Available on ISA 2.062144272
-Node: PowerPC AltiVec Built-in Functions Available on ISA 2.072151338
-Node: PowerPC AltiVec Built-in Functions Available on ISA 3.02161148
-Node: PowerPC AltiVec Built-in Functions Available on ISA 3.12176871
-Node: PowerPC Hardware Transactional Memory Built-in Functions2210155
-Node: PowerPC Atomic Memory Operation Functions2218705
-Node: PowerPC Matrix-Multiply Assist Built-in Functions2221268
-Node: PRU Built-in Functions2227393
-Node: RISC-V Built-in Functions2228581
-Node: RX Built-in Functions2228992
-Node: S/390 System z Built-in Functions2232994
-Node: SH Built-in Functions2238224
-Node: SPARC VIS Built-in Functions2239952
-Node: TI C6X Built-in Functions2248483
-Node: TILE-Gx Built-in Functions2249534
-Node: TILEPro Built-in Functions2250659
-Node: x86 Built-in Functions2251767
-Node: x86 transactional memory intrinsics2317066
-Node: x86 control-flow protection intrinsics2320333
-Node: Target Format Checks2322104
-Node: Solaris Format Checks2322536
-Node: Darwin Format Checks2322962
-Node: Pragmas2323925
-Node: AArch64 Pragmas2324866
-Node: ARM Pragmas2325323
-Node: M32C Pragmas2325950
-Node: MeP Pragmas2327022
-Node: PRU Pragmas2329074
-Node: RS/6000 and PowerPC Pragmas2329652
-Node: S/390 Pragmas2330392
-Node: Darwin Pragmas2330958
-Node: Solaris Pragmas2332011
-Node: Symbol-Renaming Pragmas2333175
-Node: Structure-Layout Pragmas2334812
-Node: Weak Pragmas2337092
-Node: Diagnostic Pragmas2337827
-Node: Visibility Pragmas2342578
-Node: Push/Pop Macro Pragmas2343263
-Node: Function Specific Option Pragmas2344236
-Node: Loop-Specific Pragmas2346202
-Node: Unnamed Fields2347802
-Node: Thread-Local2349999
-Node: C99 Thread-Local Edits2352105
-Node: C++98 Thread-Local Edits2354103
-Node: Binary constants2357548
-Node: C++ Extensions2358219
-Node: C++ Volatiles2359849
-Node: Restricted Pointers2362197
-Node: Vague Linkage2363788
-Node: C++ Interface2367411
-Ref: C++ Interface-Footnote-12371208
-Node: Template Instantiation2371346
-Node: Bound member functions2377437
-Node: C++ Attributes2378969
-Node: Function Multiversioning2383041
-Node: Type Traits2384849
-Node: C++ Concepts2391799
-Node: Deprecated Features2393305
-Node: Backwards Compatibility2395130
-Node: Objective-C2396202
-Node: GNU Objective-C runtime API2396809
-Node: Modern GNU Objective-C runtime API2397816
-Node: Traditional GNU Objective-C runtime API2400252
-Node: Executing code before main2400979
-Node: What you can and what you cannot do in +load2403723
-Node: Type encoding2406093
-Node: Legacy type encoding2411459
-Node: @encode2412549
-Node: Method signatures2413094
-Node: Garbage Collection2415086
-Node: Constant string objects2417776
-Node: compatibility_alias2420285
-Node: Exceptions2421010
-Node: Synchronization2423720
-Node: Fast enumeration2424904
-Node: Using fast enumeration2425216
-Node: c99-like fast enumeration syntax2426427
-Node: Fast enumeration details2427130
-Node: Fast enumeration protocol2429470
-Node: Messaging with the GNU Objective-C runtime2432622
-Node: Dynamically registering methods2433994
-Node: Forwarding hook2435685
-Node: Compatibility2438725
-Node: Gcov2445281
-Node: Gcov Intro2445816
-Node: Invoking Gcov2448534
-Node: Gcov and Optimization2471267
-Node: Gcov Data Files2475020
-Node: Cross-profiling2476429
-Node: Gcov-tool2478283
-Node: Gcov-tool Intro2478708
-Node: Invoking Gcov-tool2480678
-Node: Gcov-dump2483256
-Node: Gcov-dump Intro2483579
-Node: Invoking Gcov-dump2483846
-Node: lto-dump2484503
-Node: lto-dump Intro2484802
-Node: Invoking lto-dump2485052
-Node: Trouble2486148
-Node: Actual Bugs2487565
-Node: Interoperation2488012
-Node: Incompatibilities2494903
-Node: Fixed Headers2503055
-Node: Standard Libraries2504713
-Node: Disappointments2506085
-Node: C++ Misunderstandings2510444
-Node: Static Definitions2511255
-Node: Name lookup2512308
-Ref: Name lookup-Footnote-12517089
-Node: Temporaries2517278
-Node: Copy Assignment2519254
-Node: Non-bugs2521089
-Node: Warnings and Errors2531595
-Node: Bugs2533357
-Node: Bug Criteria2533824
-Node: Bug Reporting2536034
-Node: Service2536252
-Node: Contributing2537073
-Node: Funding2537819
-Node: GNU Project2540309
-Node: Copying2540957
-Node: GNU Free Documentation License2578468
-Node: Contributors2603588
-Node: Option Index2644561
-Node: Keyword Index2940878
+Node: x86 Windows Options1259217
+Node: Xstormy16 Options1262023
+Node: Xtensa Options1262317
+Node: zSeries Options1268453
+Node: Spec Files1268649
+Node: Environment Variables1294728
+Node: Precompiled Headers1304161
+Node: C++ Modules1310370
+Ref: C++ Modules-Footnote-11316510
+Node: C++ Module Mapper1316763
+Node: C++ Module Preprocessing1321916
+Node: C++ Compiled Module Interface1323745
+Ref: C++ Compiled Module Interface-Footnote-11327129
+Ref: C++ Compiled Module Interface-Footnote-21327218
+Node: C Implementation1327274
+Node: Translation implementation1328965
+Node: Environment implementation1329556
+Node: Identifiers implementation1330110
+Node: Characters implementation1331196
+Node: Integers implementation1334846
+Node: Floating point implementation1336895
+Node: Arrays and pointers implementation1339958
+Ref: Arrays and pointers implementation-Footnote-11341418
+Node: Hints implementation1341544
+Node: Structures unions enumerations and bit-fields implementation1343039
+Node: Qualifiers implementation1345263
+Node: Declarators implementation1347324
+Node: Statements implementation1347665
+Node: Preprocessing directives implementation1347991
+Node: Library functions implementation1350312
+Node: Architecture implementation1350961
+Node: Locale-specific behavior implementation1352606
+Node: C++ Implementation1352911
+Node: Conditionally-supported behavior1354195
+Node: Exception handling1354812
+Node: C Extensions1355279
+Node: Statement Exprs1360502
+Node: Local Labels1365874
+Node: Labels as Values1368847
+Ref: Labels as Values-Footnote-11371374
+Node: Nested Functions1371559
+Node: Nonlocal Gotos1375513
+Node: Constructing Calls1377779
+Node: Typeof1382494
+Node: Conditionals1386423
+Node: __int1281387312
+Node: Long Long1387837
+Node: Complex1389328
+Node: Floating Types1394073
+Node: Half-Precision1397594
+Node: Decimal Float1401062
+Node: Hex Floats1402916
+Node: Fixed-Point1403990
+Node: Named Address Spaces1407248
+Ref: AVR Named Address Spaces1407934
+Node: Zero Length1415228
+Node: Empty Structures1419409
+Node: Variable Length1419815
+Node: Variadic Macros1422533
+Node: Escaped Newlines1424911
+Node: Subscripting1425772
+Node: Pointer Arith1426497
+Node: Variadic Pointer Args1427074
+Node: Pointers to Arrays1427799
+Node: Initializers1428552
+Node: Compound Literals1429053
+Node: Designated Inits1432620
+Node: Case Ranges1436544
+Node: Cast to Union1437225
+Node: Mixed Labels and Declarations1438959
+Node: Function Attributes1439596
+Node: Common Function Attributes1444063
+Ref: Common Function Attributes-Footnote-11519596
+Node: AArch64 Function Attributes1519913
+Node: AMD GCN Function Attributes1526107
+Node: ARC Function Attributes1529160
+Node: ARM Function Attributes1532097
+Node: AVR Function Attributes1537236
+Node: Blackfin Function Attributes1541771
+Node: BPF Function Attributes1544268
+Node: CR16 Function Attributes1544856
+Node: C-SKY Function Attributes1545375
+Node: Epiphany Function Attributes1546674
+Node: H8/300 Function Attributes1549429
+Node: IA-64 Function Attributes1550627
+Node: M32C Function Attributes1551669
+Node: M32R/D Function Attributes1554007
+Node: m68k Function Attributes1555481
+Node: MCORE Function Attributes1556425
+Node: MeP Function Attributes1557236
+Node: MicroBlaze Function Attributes1558537
+Node: Microsoft Windows Function Attributes1560044
+Node: MIPS Function Attributes1564613
+Node: MSP430 Function Attributes1570231
+Node: NDS32 Function Attributes1574310
+Node: Nios II Function Attributes1576734
+Node: Nvidia PTX Function Attributes1578031
+Node: PowerPC Function Attributes1578646
+Node: RISC-V Function Attributes1585420
+Node: RL78 Function Attributes1586836
+Node: RX Function Attributes1588075
+Node: S/390 Function Attributes1590622
+Node: SH Function Attributes1592450
+Node: Symbian OS Function Attributes1595878
+Node: V850 Function Attributes1596214
+Node: Visium Function Attributes1596759
+Node: x86 Function Attributes1597287
+Node: Xstormy16 Function Attributes1621089
+Node: Variable Attributes1621596
+Node: Common Variable Attributes1623129
+Node: ARC Variable Attributes1645036
+Node: AVR Variable Attributes1645418
+Node: Blackfin Variable Attributes1650580
+Node: H8/300 Variable Attributes1651438
+Node: IA-64 Variable Attributes1652511
+Node: M32R/D Variable Attributes1653262
+Node: MeP Variable Attributes1654045
+Node: Microsoft Windows Variable Attributes1656138
+Node: MSP430 Variable Attributes1658591
+Node: Nvidia PTX Variable Attributes1659805
+Node: PowerPC Variable Attributes1660422
+Node: RL78 Variable Attributes1660979
+Node: V850 Variable Attributes1661398
+Node: x86 Variable Attributes1662031
+Node: Xstormy16 Variable Attributes1663087
+Node: Type Attributes1663657
+Node: Common Type Attributes1665345
+Node: ARC Type Attributes1687706
+Node: ARM Type Attributes1688178
+Node: BPF Type Attributes1688960
+Node: MeP Type Attributes1689477
+Node: PowerPC Type Attributes1689879
+Node: x86 Type Attributes1690868
+Node: Label Attributes1691860
+Node: Enumerator Attributes1693887
+Node: Statement Attributes1695419
+Node: Attribute Syntax1696902
+Node: Function Prototypes1708160
+Node: C++ Comments1709940
+Node: Dollar Signs1710459
+Node: Character Escapes1710924
+Node: Alignment1711208
+Node: Inline1712861
+Node: Volatiles1717678
+Node: Using Assembly Language with C1720577
+Node: Basic Asm1721814
+Node: Extended Asm1727437
+Ref: Volatile1731551
+Ref: AssemblerTemplate1735664
+Ref: OutputOperands1739904
+Ref: FlagOutputOperands1746867
+Ref: InputOperands1749814
+Ref: Clobbers and Scratch Registers1754082
+Ref: GotoLabels1762723
+Ref: x86Operandmodifiers1766346
+Ref: x86floatingpointasmoperands1771162
+Ref: msp430Operandmodifiers1774491
+Node: Constraints1776149
+Node: Simple Constraints1777255
+Node: Multi-Alternative1784569
+Node: Modifiers1786244
+Node: Machine Constraints1789043
+Node: Asm Labels1845869
+Node: Explicit Register Variables1847489
+Ref: Explicit Reg Vars1847703
+Node: Global Register Variables1848312
+Ref: Global Reg Vars1848520
+Node: Local Register Variables1853302
+Ref: Local Reg Vars1853522
+Node: Size of an asm1857150
+Node: Alternate Keywords1858628
+Node: Incomplete Enums1860133
+Node: Function Names1860890
+Node: Return Address1862794
+Node: Vector Extensions1867381
+Node: Offsetof1878364
+Node: __sync Builtins1879197
+Node: __atomic Builtins1885640
+Node: Integer Overflow Builtins1899153
+Node: x86 specific memory model extensions for transactional memory1905636
+Node: Object Size Checking1906902
+Node: Other Builtins1913918
+Node: Target Builtins1965762
+Node: AArch64 Built-in Functions1967537
+Node: Alpha Built-in Functions1968233
+Node: Altera Nios II Built-in Functions1971327
+Node: ARC Built-in Functions1975766
+Node: ARC SIMD Built-in Functions1980978
+Node: ARM iWMMXt Built-in Functions1989976
+Node: ARM C Language Extensions (ACLE)1997112
+Node: ARM Floating Point Status and Control Intrinsics1998389
+Node: ARM ARMv8-M Security Extensions1998876
+Node: AVR Built-in Functions2000168
+Node: Blackfin Built-in Functions2003934
+Node: BPF Built-in Functions2004554
+Node: FR-V Built-in Functions2006013
+Node: Argument Types2006876
+Node: Directly-mapped Integer Functions2008707
+Node: Directly-mapped Media Functions2009867
+Node: Raw read/write Functions2018149
+Node: Other Built-in Functions2019057
+Node: MIPS DSP Built-in Functions2020243
+Node: MIPS Paired-Single Support2032998
+Node: MIPS Loongson Built-in Functions2034497
+Node: Paired-Single Arithmetic2041019
+Node: Paired-Single Built-in Functions2042042
+Node: MIPS-3D Built-in Functions2044709
+Node: MIPS SIMD Architecture (MSA) Support2050103
+Node: MIPS SIMD Architecture Built-in Functions2052943
+Node: Other MIPS Built-in Functions2079797
+Node: MSP430 Built-in Functions2080806
+Node: NDS32 Built-in Functions2082207
+Node: picoChip Built-in Functions2083500
+Node: Basic PowerPC Built-in Functions2084849
+Node: Basic PowerPC Built-in Functions Available on all Configurations2085707
+Node: Basic PowerPC Built-in Functions Available on ISA 2.052094217
+Node: Basic PowerPC Built-in Functions Available on ISA 2.062099052
+Node: Basic PowerPC Built-in Functions Available on ISA 2.072101132
+Node: Basic PowerPC Built-in Functions Available on ISA 3.02101986
+Node: Basic PowerPC Built-in Functions Available on ISA 3.12108964
+Node: PowerPC AltiVec/VSX Built-in Functions2112177
+Node: PowerPC AltiVec Built-in Functions on ISA 2.052120246
+Node: PowerPC AltiVec Built-in Functions Available on ISA 2.062145646
+Node: PowerPC AltiVec Built-in Functions Available on ISA 2.072152712
+Node: PowerPC AltiVec Built-in Functions Available on ISA 3.02162522
+Node: PowerPC AltiVec Built-in Functions Available on ISA 3.12178245
+Node: PowerPC Hardware Transactional Memory Built-in Functions2211529
+Node: PowerPC Atomic Memory Operation Functions2220079
+Node: PowerPC Matrix-Multiply Assist Built-in Functions2222642
+Node: PRU Built-in Functions2228767
+Node: RISC-V Built-in Functions2229955
+Node: RX Built-in Functions2230366
+Node: S/390 System z Built-in Functions2234368
+Node: SH Built-in Functions2239598
+Node: SPARC VIS Built-in Functions2241326
+Node: TI C6X Built-in Functions2249857
+Node: TILE-Gx Built-in Functions2250908
+Node: TILEPro Built-in Functions2252033
+Node: x86 Built-in Functions2253141
+Node: x86 transactional memory intrinsics2318440
+Node: x86 control-flow protection intrinsics2321707
+Node: Target Format Checks2323478
+Node: Solaris Format Checks2323910
+Node: Darwin Format Checks2324336
+Node: Pragmas2325299
+Node: AArch64 Pragmas2326240
+Node: ARM Pragmas2326697
+Node: M32C Pragmas2327324
+Node: MeP Pragmas2328396
+Node: PRU Pragmas2330448
+Node: RS/6000 and PowerPC Pragmas2331026
+Node: S/390 Pragmas2331766
+Node: Darwin Pragmas2332332
+Node: Solaris Pragmas2333385
+Node: Symbol-Renaming Pragmas2334549
+Node: Structure-Layout Pragmas2336186
+Node: Weak Pragmas2338466
+Node: Diagnostic Pragmas2339201
+Node: Visibility Pragmas2343952
+Node: Push/Pop Macro Pragmas2344637
+Node: Function Specific Option Pragmas2345610
+Node: Loop-Specific Pragmas2347576
+Node: Unnamed Fields2349176
+Node: Thread-Local2351373
+Node: C99 Thread-Local Edits2353479
+Node: C++98 Thread-Local Edits2355477
+Node: Binary constants2358922
+Node: C++ Extensions2359593
+Node: C++ Volatiles2361223
+Node: Restricted Pointers2363571
+Node: Vague Linkage2365162
+Node: C++ Interface2368785
+Ref: C++ Interface-Footnote-12372582
+Node: Template Instantiation2372720
+Node: Bound member functions2378811
+Node: C++ Attributes2380343
+Node: Function Multiversioning2384415
+Node: Type Traits2386223
+Node: C++ Concepts2393173
+Node: Deprecated Features2394679
+Node: Backwards Compatibility2396504
+Node: Objective-C2397576
+Node: GNU Objective-C runtime API2398183
+Node: Modern GNU Objective-C runtime API2399190
+Node: Traditional GNU Objective-C runtime API2401626
+Node: Executing code before main2402353
+Node: What you can and what you cannot do in +load2405097
+Node: Type encoding2407467
+Node: Legacy type encoding2412833
+Node: @encode2413923
+Node: Method signatures2414468
+Node: Garbage Collection2416460
+Node: Constant string objects2419150
+Node: compatibility_alias2421659
+Node: Exceptions2422384
+Node: Synchronization2425094
+Node: Fast enumeration2426278
+Node: Using fast enumeration2426590
+Node: c99-like fast enumeration syntax2427801
+Node: Fast enumeration details2428504
+Node: Fast enumeration protocol2430844
+Node: Messaging with the GNU Objective-C runtime2433996
+Node: Dynamically registering methods2435368
+Node: Forwarding hook2437059
+Node: Compatibility2440099
+Node: Gcov2446655
+Node: Gcov Intro2447190
+Node: Invoking Gcov2449908
+Node: Gcov and Optimization2472641
+Node: Gcov Data Files2476394
+Node: Cross-profiling2477803
+Node: Gcov-tool2479657
+Node: Gcov-tool Intro2480082
+Node: Invoking Gcov-tool2482052
+Node: Gcov-dump2484630
+Node: Gcov-dump Intro2484953
+Node: Invoking Gcov-dump2485220
+Node: lto-dump2485877
+Node: lto-dump Intro2486176
+Node: Invoking lto-dump2486426
+Node: Trouble2487522
+Node: Actual Bugs2488939
+Node: Interoperation2489386
+Node: Incompatibilities2496277
+Node: Fixed Headers2504429
+Node: Standard Libraries2506087
+Node: Disappointments2507459
+Node: C++ Misunderstandings2511818
+Node: Static Definitions2512629
+Node: Name lookup2513682
+Ref: Name lookup-Footnote-12518463
+Node: Temporaries2518652
+Node: Copy Assignment2520628
+Node: Non-bugs2522463
+Node: Warnings and Errors2532969
+Node: Bugs2534731
+Node: Bug Criteria2535198
+Node: Bug Reporting2537408
+Node: Service2537626
+Node: Contributing2538447
+Node: Funding2539193
+Node: GNU Project2541683
+Node: Copying2542331
+Node: GNU Free Documentation License2579842
+Node: Contributors2604962
+Node: Option Index2645935
+Node: Keyword Index2942252
 
 End Tag Table
 
