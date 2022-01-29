@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2022-01-08" "gcc-12.0.0" "GNU"
+.TH GCC 1 "2022-01-29" "gcc-12.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -352,7 +352,7 @@ in the following sections.
 \&\-Warray\-bounds  \-Warray\-bounds=\fR\fIn\fR  \fB\-Warray\-compare 
 \&\-Wno\-attributes  \-Wattribute\-alias=\fR\fIn\fR \fB\-Wno\-attribute\-alias 
 \&\-Wno\-attribute\-warning  
-\&\-Wbidi\-chars=\fR[\fBnone\fR|\fBunpaired\fR|\fBany\fR] 
+\&\-Wbidi\-chars=\fR[\fBnone\fR|\fBunpaired\fR|\fBany\fR|\fBucn\fR] 
 \&\fB\-Wbool\-compare  \-Wbool\-operation 
 \&\-Wno\-builtin\-declaration\-mismatch 
 \&\-Wno\-builtin\-macro\-redefined  \-Wc90\-c99\-compat  \-Wc99\-c11\-compat 
@@ -365,7 +365,8 @@ in the following sections.
 \&\-Wchar\-subscripts 
 \&\-Wclobbered  \-Wcomment 
 \&\-Wconversion  \-Wno\-coverage\-mismatch  \-Wno\-cpp 
-\&\-Wdangling\-else  \-Wdate\-time 
+\&\-Wdangling\-else  \-Wdangling\-pointer  \-Wdangling\-pointer=\fR\fIn\fR  
+\&\fB\-Wdate\-time 
 \&\-Wno\-deprecated  \-Wno\-deprecated\-declarations  \-Wno\-designated\-init 
 \&\-Wdisabled\-optimization 
 \&\-Wno\-discarded\-array\-qualifiers  \-Wno\-discarded\-qualifiers 
@@ -819,6 +820,8 @@ in the following sections.
 \&\-mtp=\fR\fIname\fR  \fB\-mtls\-dialect=\fR\fIdialect\fR 
 \&\fB\-mword\-relocations 
 \&\-mfix\-cortex\-m3\-ldrd 
+\&\-mfix\-cortex\-a57\-aes\-1742098 
+\&\-mfix\-cortex\-a72\-aes\-1655431 
 \&\-munaligned\-access 
 \&\-mneon\-for\-64bits 
 \&\-mslow\-flash\-data 
@@ -828,7 +831,8 @@ in the following sections.
 \&\-mpure\-code 
 \&\-mcmse 
 \&\-mfix\-cmse\-cve\-2021\-35465 
-\&\-mfdpic\fR
+\&\-mstack\-protector\-guard=\fR\fIguard\fR \fB\-mstack\-protector\-guard\-offset=\fR\fIoffset\fR 
+\&\fB\-mfdpic\fR
 .Sp
 \&\fI\s-1AVR\s0 Options\fR
 \&\fB\-mmcu=\fR\fImcu\fR  \fB\-mabsdata  \-maccumulate\-args 
@@ -4232,6 +4236,75 @@ annotations.
 .IX Item "-Wsuggest-override"
 Warn about overriding virtual functions that are not marked with the
 \&\f(CW\*(C`override\*(C'\fR keyword.
+.IP "\fB\-Wuse\-after\-free\fR" 4
+.IX Item "-Wuse-after-free"
+.PD 0
+.IP "\fB\-Wuse\-after\-free=\fR\fIn\fR" 4
+.IX Item "-Wuse-after-free=n"
+.PD
+Warn about uses of pointers to dynamically allocated objects that have
+been rendered indeterminate by a call to a deallocation function.
+The warning is enabled at all optimization levels but may yield different
+results with optimization than without.
+.RS 4
+.IP "\fB\-Wuse\-after\-free=1\fR" 4
+.IX Item "-Wuse-after-free=1"
+At level 1 the warning attempts to diagnose only unconditional uses
+of pointers made indeterminate by a deallocation call or a successful
+call to \f(CW\*(C`realloc\*(C'\fR, regardless of whether or not the call resulted
+in an actual reallocatio of memory.  This includes double\-\f(CW\*(C`free\*(C'\fR
+calls as well as uses in arithmetic and relational expressions.  Although
+undefined, uses of indeterminate pointers in equality (or inequality)
+expressions are not diagnosed at this level.
+.IP "\fB\-Wuse\-after\-free=2\fR" 4
+.IX Item "-Wuse-after-free=2"
+At level 2, in addition to unconditional uses, the warning also diagnoses
+conditional uses of pointers made indeterminate by a deallocation call.
+As at level 2, uses in equality (or inequality) expressions are not
+diagnosed.  For example, the second call to \f(CW\*(C`free\*(C'\fR in the following
+function is diagnosed at this level:
+.Sp
+.Vb 1
+\&        struct A { int refcount; void *data; };
+\&        
+\&        void release (struct A *p)
+\&        {
+\&          int refcount = \-\-p\->refcount;
+\&          free (p);
+\&          if (refcount == 0)
+\&            free (p\->data);   // warning: p may be used after free
+\&        }
+.Ve
+.IP "\fB\-Wuse\-after\-free=3\fR" 4
+.IX Item "-Wuse-after-free=3"
+At level 3, the warning also diagnoses uses of indeterminate pointers in
+equality expressions.  All uses of indeterminate pointers are undefined
+but equality tests sometimes appear after calls to \f(CW\*(C`realloc\*(C'\fR as
+an attempt to determine whether the call resulted in relocating the object
+to a different address.  They are diagnosed at a separate level to aid
+legacy code gradually transition to safe alternatives.  For example,
+the equality test in the function below is diagnosed at this level:
+.Sp
+.Vb 1
+\&        void adjust_pointers (int**, int);
+\&        
+\&        void grow (int **p, int n)
+\&        {
+\&          int **q = (int**)realloc (p, n *= 2);
+\&          if (q == p)
+\&            return;
+\&          adjust_pointers ((int**)q, n);
+\&        }
+.Ve
+.Sp
+To avoid the warning at this level, store offsets into allocated memory
+instead of pointers.  This approach obviates needing to adjust the stored
+pointers after reallocation.
+.RE
+.RS 4
+.Sp
+\&\fB\-Wuse\-after\-free=2\fR is included in \fB\-Wall\fR.
+.RE
 .IP "\fB\-Wuseless\-cast\fR (\*(C+ and Objective\-\*(C+ only)" 4
 .IX Item "-Wuseless-cast ( and Objective- only)"
 Warn when an expression is casted to its own type.
@@ -5389,6 +5462,7 @@ Options\fR and \fBObjective-C and Objective\-\*(C+ Dialect Options\fR.
 \&\-Wcatch\-value\fR (\*(C+ and Objective\-\*(C+ only)  
 \&\fB\-Wchar\-subscripts  
 \&\-Wcomment  
+\&\-Wdangling\-pointer=2  
 \&\-Wduplicate\-decl\-specifier\fR (C and Objective-C only) 
 \&\fB\-Wenum\-compare\fR (in C/ObjC; this is on by default in \*(C+) 
 \&\fB\-Wformat   
@@ -5437,6 +5511,7 @@ Options\fR and \fBObjective-C and Objective\-\*(C+ Dialect Options\fR.
 \&\-Wunused\-label     
 \&\-Wunused\-value     
 \&\-Wunused\-variable  
+\&\-Wuse\-after\-free=3  
 \&\-Wvla\-parameter\fR (C and Objective-C only) 
 \&\fB\-Wvolatile\-register\-var  
 \&\-Wzero\-length\-bounds\fR
@@ -7300,8 +7375,8 @@ Attributes considered include \f(CW\*(C`alloc_align\*(C'\fR, \f(CW\*(C`alloc_siz
 This is the default.  You can disable these warnings with either
 \&\fB\-Wno\-attribute\-alias\fR or \fB\-Wattribute\-alias=0\fR.
 .RE
-.IP "\fB\-Wbidi\-chars=\fR[\fBnone\fR|\fBunpaired\fR|\fBany\fR]" 4
-.IX Item "-Wbidi-chars=[none|unpaired|any]"
+.IP "\fB\-Wbidi\-chars=\fR[\fBnone\fR|\fBunpaired\fR|\fBany\fR|\fBucn\fR]" 4
+.IX Item "-Wbidi-chars=[none|unpaired|any|ucn]"
 Warn about possibly misleading \s-1UTF\-8\s0 bidirectional control characters in
 comments, string literals, character constants, and identifiers.  Such
 characters can change left-to-right writing direction into right-to-left
@@ -7314,6 +7389,12 @@ There are three levels of warning supported by \s-1GCC.\s0  The default is
 bidi contexts.  \fB\-Wbidi\-chars=none\fR turns the warning off.
 \&\fB\-Wbidi\-chars=any\fR warns about any use of bidirectional control
 characters.
+.Sp
+By default, this warning does not warn about UCNs.  It is, however, possible
+to turn on such checking by using \fB\-Wbidi\-chars=unpaired,ucn\fR or
+\&\fB\-Wbidi\-chars=any,ucn\fR.  Using \fB\-Wbidi\-chars=ucn\fR is valid,
+and is equivalent to \fB\-Wbidi\-chars=unpaired,ucn\fR, if no previous
+\&\fB\-Wbidi\-chars=any\fR was specified.
 .IP "\fB\-Wbool\-compare\fR" 4
 .IX Item "-Wbool-compare"
 Warn about boolean expression compared with an integer value different from
@@ -8027,6 +8108,68 @@ looks like this:
 .Ve
 .Sp
 This warning is enabled by \fB\-Wparentheses\fR.
+.IP "\fB\-Wdangling\-pointer\fR" 4
+.IX Item "-Wdangling-pointer"
+.PD 0
+.IP "\fB\-Wdangling\-pointer=\fR\fIn\fR" 4
+.IX Item "-Wdangling-pointer=n"
+.PD
+Warn about uses of pointers (or \*(C+ references) to objects with automatic
+storage duration after their lifetime has ended.  This includes local
+variables declared in nested blocks, compound literals and other unnamed
+temporary objects.  In addition, warn about storing the address of such
+objects in escaped pointers.  The warning is enabled at all optimization
+levels but may yield different results with optimization than without.
+.RS 4
+.IP "\fB\-Wdangling\-pointer=1\fR" 4
+.IX Item "-Wdangling-pointer=1"
+At level 1 the warning diagnoses only unconditional uses of dangling pointers.
+For example
+.Sp
+.Vb 5
+\&        int f (int c1, int c2, x)
+\&        {
+\&          char *p = strchr ((char[]){ c1, c2 }, c3);
+\&          return p ? *p : \*(Aqx\*(Aq;   // warning: dangling pointer to a compound literal
+\&        }
+.Ve
+.Sp
+In the following function the store of the address of the local variable
+\&\f(CW\*(C`x\*(C'\fR in the escaped pointer \f(CW*p\fR also triggers the warning.
+.Sp
+.Vb 5
+\&        void g (int **p)
+\&        {
+\&          int x = 7;
+\&          *p = &x;   // warning: storing the address of a local variable in *p
+\&        }
+.Ve
+.IP "\fB\-Wdangling\-pointer=2\fR" 4
+.IX Item "-Wdangling-pointer=2"
+At level 2, in addition to unconditional uses the warning also diagnoses
+conditional uses of dangling pointers.
+.Sp
+For example, because the array \fIa\fR in the following function is out of
+scope when the pointer \fIs\fR that was set to point is used, the warning
+triggers at this level.
+.Sp
+.Vb 10
+\&        void f (char *s)
+\&        {
+\&          if (!s)
+\&            {
+\&              char a[12] = "tmpname";
+\&              s = a;
+\&            }
+\&          strcat (s, ".tmp");   // warning: dangling pointer to a may be used
+\&          ...
+\&        }
+.Ve
+.RE
+.RS 4
+.Sp
+\&\fB\-Wdangling\-pointer=2\fR is included in \fB\-Wall\fR.
+.RE
 .IP "\fB\-Wdate\-time\fR" 4
 .IX Item "-Wdate-time"
 Warn when macros \f(CW\*(C`_\|_TIME_\|_\*(C'\fR, \f(CW\*(C`_\|_DATE_\|_\*(C'\fR or \f(CW\*(C`_\|_TIMESTAMP_\|_\*(C'\fR
@@ -8402,6 +8545,36 @@ so \fBsatisfied\fR is only true if concept \fBC\fR is satisfied for
 type \fBT\fR.
 .Sp
 This warning can be disabled with \fB\-Wno\-missing\-requires\fR.
+.IP "\fB\-Wno\-missing\-template\-keyword\fR" 4
+.IX Item "-Wno-missing-template-keyword"
+The member access tokens ., \-> and :: must be followed by the \f(CW\*(C`template\*(C'\fR
+keyword if the parent object is dependent and the member being named is a
+template.
+.Sp
+.Vb 6
+\&        template <class X>
+\&        void DoStuff (X x)
+\&        {
+\&          x.template DoSomeOtherStuff<X>(); // Good.
+\&          x.DoMoreStuff<X>(); // Warning, x is dependent.
+\&        }
+.Ve
+.Sp
+In rare cases it is possible to get false positives. To silence this, wrap
+the expression in parentheses. For example, the following is treated as a
+template, even where m and N are integers:
+.Sp
+.Vb 3
+\&        void NotATemplate (my_class t)
+\&        {
+\&          int N = 5;
+\&        
+\&          bool test = t.m < N > (0); // Treated as a template.
+\&          test = (t.m < N) > (0); // Same meaning, but not treated as a template.
+\&        }
+.Ve
+.Sp
+This warning can be disabled with \fB\-Wno\-missing\-template\-keyword\fR.
 .IP "\fB\-Wno\-multichar\fR" 4
 .IX Item "-Wno-multichar"
 Do not warn if a multicharacter constant (\fB'\s-1FOOF\s0'\fR) is used.
@@ -12314,7 +12487,7 @@ and the same optimization options for both compilations.
 With \fB\-fbranch\-probabilities\fR, \s-1GCC\s0 puts a
 \&\fB\s-1REG_BR_PROB\s0\fR note on each \fB\s-1JUMP_INSN\s0\fR and \fB\s-1CALL_INSN\s0\fR.
 These can be used to improve optimization.  Currently, they are only
-used in one place: in \fIreorg.c\fR, instead of guessing which path a
+used in one place: in \fIreorg.cc\fR, instead of guessing which path a
 branch is most likely to take, the \fB\s-1REG_BR_PROB\s0\fR values are used to
 exactly determine which path is taken more often.
 .Sp
@@ -13605,7 +13778,7 @@ Algorithm 2 was designed to be a compromise between the relatively
 conservative approach taken by algorithm 1 and the rather aggressive
 approach taken by the default scheduler.  It relies more heavily on
 having a regular register file and accurate register pressure classes.
-See \fIhaifa\-sched.c\fR in the \s-1GCC\s0 sources for more details.
+See \fIhaifa\-sched.cc\fR in the \s-1GCC\s0 sources for more details.
 .Sp
 The default choice depends on the target.
 .IP "\fBmax-slsr-cand-scan\fR" 4
@@ -13951,6 +14124,9 @@ per supernode, before terminating analysis.
 .IX Item "ranger-logical-depth"
 Maximum depth of logical expression evaluation ranger will look through
 when evaluating outgoing edge ranges.
+.IP "\fBrelation-block-limit\fR" 4
+.IX Item "relation-block-limit"
+Maximum number of relations the oracle will register in a basic block.
 .IP "\fBopenacc-kernels\fR" 4
 .IX Item "openacc-kernels"
 Specify mode of OpenACC `kernels' constructs handling.
@@ -20340,6 +20516,20 @@ Some Cortex\-M3 cores can cause data corruption when \f(CW\*(C`ldrd\*(C'\fR inst
 with overlapping destination and base registers are used.  This option avoids
 generating these instructions.  This option is enabled by default when
 \&\fB\-mcpu=cortex\-m3\fR is specified.
+.IP "\fB\-mfix\-cortex\-a57\-aes\-1742098\fR" 4
+.IX Item "-mfix-cortex-a57-aes-1742098"
+.PD 0
+.IP "\fB\-mno\-fix\-cortex\-a57\-aes\-1742098\fR" 4
+.IX Item "-mno-fix-cortex-a57-aes-1742098"
+.IP "\fB\-mfix\-cortex\-a72\-aes\-1655431\fR" 4
+.IX Item "-mfix-cortex-a72-aes-1655431"
+.IP "\fB\-mno\-fix\-cortex\-a72\-aes\-1655431\fR" 4
+.IX Item "-mno-fix-cortex-a72-aes-1655431"
+.PD
+Enable (disable) mitigation for an erratum on Cortex\-A57 and
+Cortex\-A72 that affects the \s-1AES\s0 cryptographic instructions.  This
+option is enabled by default when either \fB\-mcpu=cortex\-a57\fR or
+\&\fB\-mcpu=cortex\-a72\fR is specified.
 .IP "\fB\-munaligned\-access\fR" 4
 .IX Item "-munaligned-access"
 .PD 0
@@ -20406,6 +20596,17 @@ in some M\-profile devices when using \s-1CMSE\s0 (\s-1CVE\-2021\-365465\s0).  T
 enabled by default when the option \fB\-mcpu=\fR is used with
 \&\f(CW\*(C`cortex\-m33\*(C'\fR, \f(CW\*(C`cortex\-m35p\*(C'\fR or \f(CW\*(C`cortex\-m55\*(C'\fR.  The option
 \&\fB\-mno\-fix\-cmse\-cve\-2021\-35465\fR can be used to disable the mitigation.
+.IP "\fB\-mstack\-protector\-guard=\fR\fIguard\fR" 4
+.IX Item "-mstack-protector-guard=guard"
+.PD 0
+.IP "\fB\-mstack\-protector\-guard\-offset=\fR\fIoffset\fR" 4
+.IX Item "-mstack-protector-guard-offset=offset"
+.PD
+Generate stack protection code using canary at \fIguard\fR.  Supported
+locations are \fBglobal\fR for a global canary or \fBtls\fR for a
+canary accessible via the \s-1TLS\s0 register. The option
+\&\fB\-mstack\-protector\-guard\-offset=\fR is for use with
+\&\fB\-fstack\-protector\-guard=tls\fR and not for use in user-land code.
 .IP "\fB\-mfdpic\fR" 4
 .IX Item "-mfdpic"
 .PD 0
