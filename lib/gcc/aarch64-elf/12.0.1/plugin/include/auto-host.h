@@ -1428,7 +1428,7 @@
 /* Define 0/1 if your assembler supports marking sections with SHF_GNU_RETAIN
    flag. */
 #ifndef USED_FOR_TARGET
-#define HAVE_GAS_SHF_GNU_RETAIN 1
+#define HAVE_GAS_SHF_GNU_RETAIN 0
 #endif
 
 

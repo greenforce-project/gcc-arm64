@@ -377,6 +377,12 @@ extern int aarch64_sve_compare_costs;
 #define aarch64_sve_compare_costs global_options.x_aarch64_sve_compare_costs
 #endif
 #ifdef GENERATOR_FILE
+extern int aarch64_vect_unroll_limit;
+#else
+  int x_aarch64_vect_unroll_limit;
+#define aarch64_vect_unroll_limit global_options.x_aarch64_vect_unroll_limit
+#endif
+#ifdef GENERATOR_FILE
 extern int param_align_loop_iterations;
 #else
   int x_param_align_loop_iterations;
@@ -8771,78 +8777,78 @@ void init_global_opts_from_cpp(struct gcc_options * opts,
 
 enum opt_code
 {
-  OPT___Defining_these_options_here_in_addition_to_common_opt_is_necessary = 0,/* -# Defining these options here in addition to common.opt is necessary */
-  OPT____ = 1,                               /* -### */
-  /* OPT__all_warnings = 2, */               /* --all-warnings */
-  /* OPT__ansi = 3, */                       /* --ansi */
-  /* OPT__assemble = 4, */                   /* --assemble */
-  /* OPT__assert = 5, */                     /* --assert */
-  /* OPT__assert_ = 6, */                    /* --assert= */
-  /* OPT__comments = 7, */                   /* --comments */
-  /* OPT__comments_in_macros = 8, */         /* --comments-in-macros */
-  /* OPT__compile = 9, */                    /* --compile */
-  OPT__completion_ = 10,                     /* --completion= */
-  /* OPT__coverage = 11, */                  /* --coverage */
-  /* OPT__debug = 12, */                     /* --debug */
-  /* OPT__define_macro = 13, */              /* --define-macro */
-  /* OPT__define_macro_ = 14, */             /* --define-macro= */
-  /* OPT__dependencies = 15, */              /* --dependencies */
-  /* OPT__dump = 16, */                      /* --dump */
-  /* OPT__dump_ = 17, */                     /* --dump= */
-  /* OPT__dumpbase = 18, */                  /* --dumpbase */
-  /* OPT__dumpbase_ext = 19, */              /* --dumpbase-ext */
-  /* OPT__dumpdir = 20, */                   /* --dumpdir */
-  /* OPT__entry = 21, */                     /* --entry */
-  /* OPT__entry_ = 22, */                    /* --entry= */
-  /* OPT__extra_warnings = 23, */            /* --extra-warnings */
-  /* OPT__for_assembler = 24, */             /* --for-assembler */
-  /* OPT__for_assembler_ = 25, */            /* --for-assembler= */
-  /* OPT__for_linker = 26, */                /* --for-linker */
-  /* OPT__for_linker_ = 27, */               /* --for-linker= */
-  /* OPT__force_link = 28, */                /* --force-link */
-  /* OPT__force_link_ = 29, */               /* --force-link= */
-  OPT__help = 30,                            /* --help */
-  OPT__help_ = 31,                           /* --help= */
-  /* OPT__imacros = 32, */                   /* --imacros */
-  /* OPT__imacros_ = 33, */                  /* --imacros= */
-  /* OPT__include = 34, */                   /* --include */
-  /* OPT__include_barrier = 35, */           /* --include-barrier */
-  /* OPT__include_directory = 36, */         /* --include-directory */
-  /* OPT__include_directory_after = 37, */   /* --include-directory-after */
-  /* OPT__include_directory_after_ = 38, */  /* --include-directory-after= */
-  /* OPT__include_directory_ = 39, */        /* --include-directory= */
-  /* OPT__include_prefix = 40, */            /* --include-prefix */
-  /* OPT__include_prefix_ = 41, */           /* --include-prefix= */
-  /* OPT__include_with_prefix = 42, */       /* --include-with-prefix */
-  /* OPT__include_with_prefix_after = 43, */ /* --include-with-prefix-after */
-  /* OPT__include_with_prefix_after_ = 44, *//* --include-with-prefix-after= */
-  /* OPT__include_with_prefix_before = 45, *//* --include-with-prefix-before */
-  /* OPT__include_with_prefix_before_ = 46, *//* --include-with-prefix-before= */
-  /* OPT__include_with_prefix_ = 47, */      /* --include-with-prefix= */
-  /* OPT__include_ = 48, */                  /* --include= */
-  /* OPT__language = 49, */                  /* --language */
-  /* OPT__language_ = 50, */                 /* --language= */
-  /* OPT__library_directory = 51, */         /* --library-directory */
-  /* OPT__library_directory_ = 52, */        /* --library-directory= */
-  /* OPT__no_canonical_prefixes = 53, */     /* --no-canonical-prefixes */
-  /* OPT__no_integrated_cpp = 54, */         /* --no-integrated-cpp */
-  /* OPT__no_line_commands = 55, */          /* --no-line-commands */
-  /* OPT__no_standard_includes = 56, */      /* --no-standard-includes */
-  /* OPT__no_standard_libraries = 57, */     /* --no-standard-libraries */
-  OPT__no_sysroot_suffix = 58,               /* --no-sysroot-suffix */
-  /* OPT__no_warnings = 59, */               /* --no-warnings */
-  /* OPT__optimize = 60, */                  /* --optimize */
-  /* OPT__output = 61, */                    /* --output */
-  OPT__output_pch_ = 62,                     /* --output-pch= */
-  /* OPT__output_ = 63, */                   /* --output= */
-  OPT__param_aarch64_autovec_preference_ = 64,/* --param=aarch64-autovec-preference= */
-  OPT__param_aarch64_double_recp_precision_ = 65,/* --param=aarch64-double-recp-precision= */
-  OPT__param_aarch64_float_recp_precision_ = 66,/* --param=aarch64-float-recp-precision= */
-  OPT__param_aarch64_loop_vect_issue_rate_niters_ = 67,/* --param=aarch64-loop-vect-issue-rate-niters= */
-  OPT__param_aarch64_mops_memcpy_size_threshold_ = 68,/* --param=aarch64-mops-memcpy-size-threshold= */
-  OPT__param_aarch64_mops_memmove_size_threshold_ = 69,/* --param=aarch64-mops-memmove-size-threshold= */
-  OPT__param_aarch64_mops_memset_size_threshold_ = 70,/* --param=aarch64-mops-memset-size-threshold= */
-  OPT__param_aarch64_sve_compare_costs_ = 71,/* --param=aarch64-sve-compare-costs= */
+  OPT____ = 0,                               /* -### */
+  /* OPT__all_warnings = 1, */               /* --all-warnings */
+  /* OPT__ansi = 2, */                       /* --ansi */
+  /* OPT__assemble = 3, */                   /* --assemble */
+  /* OPT__assert = 4, */                     /* --assert */
+  /* OPT__assert_ = 5, */                    /* --assert= */
+  /* OPT__comments = 6, */                   /* --comments */
+  /* OPT__comments_in_macros = 7, */         /* --comments-in-macros */
+  /* OPT__compile = 8, */                    /* --compile */
+  OPT__completion_ = 9,                      /* --completion= */
+  /* OPT__coverage = 10, */                  /* --coverage */
+  /* OPT__debug = 11, */                     /* --debug */
+  /* OPT__define_macro = 12, */              /* --define-macro */
+  /* OPT__define_macro_ = 13, */             /* --define-macro= */
+  /* OPT__dependencies = 14, */              /* --dependencies */
+  /* OPT__dump = 15, */                      /* --dump */
+  /* OPT__dump_ = 16, */                     /* --dump= */
+  /* OPT__dumpbase = 17, */                  /* --dumpbase */
+  /* OPT__dumpbase_ext = 18, */              /* --dumpbase-ext */
+  /* OPT__dumpdir = 19, */                   /* --dumpdir */
+  /* OPT__entry = 20, */                     /* --entry */
+  /* OPT__entry_ = 21, */                    /* --entry= */
+  /* OPT__extra_warnings = 22, */            /* --extra-warnings */
+  /* OPT__for_assembler = 23, */             /* --for-assembler */
+  /* OPT__for_assembler_ = 24, */            /* --for-assembler= */
+  /* OPT__for_linker = 25, */                /* --for-linker */
+  /* OPT__for_linker_ = 26, */               /* --for-linker= */
+  /* OPT__force_link = 27, */                /* --force-link */
+  /* OPT__force_link_ = 28, */               /* --force-link= */
+  OPT__help = 29,                            /* --help */
+  OPT__help_ = 30,                           /* --help= */
+  /* OPT__imacros = 31, */                   /* --imacros */
+  /* OPT__imacros_ = 32, */                  /* --imacros= */
+  /* OPT__include = 33, */                   /* --include */
+  /* OPT__include_barrier = 34, */           /* --include-barrier */
+  /* OPT__include_directory = 35, */         /* --include-directory */
+  /* OPT__include_directory_after = 36, */   /* --include-directory-after */
+  /* OPT__include_directory_after_ = 37, */  /* --include-directory-after= */
+  /* OPT__include_directory_ = 38, */        /* --include-directory= */
+  /* OPT__include_prefix = 39, */            /* --include-prefix */
+  /* OPT__include_prefix_ = 40, */           /* --include-prefix= */
+  /* OPT__include_with_prefix = 41, */       /* --include-with-prefix */
+  /* OPT__include_with_prefix_after = 42, */ /* --include-with-prefix-after */
+  /* OPT__include_with_prefix_after_ = 43, *//* --include-with-prefix-after= */
+  /* OPT__include_with_prefix_before = 44, *//* --include-with-prefix-before */
+  /* OPT__include_with_prefix_before_ = 45, *//* --include-with-prefix-before= */
+  /* OPT__include_with_prefix_ = 46, */      /* --include-with-prefix= */
+  /* OPT__include_ = 47, */                  /* --include= */
+  /* OPT__language = 48, */                  /* --language */
+  /* OPT__language_ = 49, */                 /* --language= */
+  /* OPT__library_directory = 50, */         /* --library-directory */
+  /* OPT__library_directory_ = 51, */        /* --library-directory= */
+  /* OPT__no_canonical_prefixes = 52, */     /* --no-canonical-prefixes */
+  /* OPT__no_integrated_cpp = 53, */         /* --no-integrated-cpp */
+  /* OPT__no_line_commands = 54, */          /* --no-line-commands */
+  /* OPT__no_standard_includes = 55, */      /* --no-standard-includes */
+  /* OPT__no_standard_libraries = 56, */     /* --no-standard-libraries */
+  OPT__no_sysroot_suffix = 57,               /* --no-sysroot-suffix */
+  /* OPT__no_warnings = 58, */               /* --no-warnings */
+  /* OPT__optimize = 59, */                  /* --optimize */
+  /* OPT__output = 60, */                    /* --output */
+  OPT__output_pch_ = 61,                     /* --output-pch= */
+  /* OPT__output_ = 62, */                   /* --output= */
+  OPT__param_aarch64_autovec_preference_ = 63,/* --param=aarch64-autovec-preference= */
+  OPT__param_aarch64_double_recp_precision_ = 64,/* --param=aarch64-double-recp-precision= */
+  OPT__param_aarch64_float_recp_precision_ = 65,/* --param=aarch64-float-recp-precision= */
+  OPT__param_aarch64_loop_vect_issue_rate_niters_ = 66,/* --param=aarch64-loop-vect-issue-rate-niters= */
+  OPT__param_aarch64_mops_memcpy_size_threshold_ = 67,/* --param=aarch64-mops-memcpy-size-threshold= */
+  OPT__param_aarch64_mops_memmove_size_threshold_ = 68,/* --param=aarch64-mops-memmove-size-threshold= */
+  OPT__param_aarch64_mops_memset_size_threshold_ = 69,/* --param=aarch64-mops-memset-size-threshold= */
+  OPT__param_aarch64_sve_compare_costs_ = 70,/* --param=aarch64-sve-compare-costs= */
+  OPT__param_aarch64_vect_unroll_limit_ = 71,/* --param=aarch64-vect-unroll-limit= */
   OPT__param_align_loop_iterations_ = 72,    /* --param=align-loop-iterations= */
   OPT__param_align_threshold_ = 73,          /* --param=align-threshold= */
   OPT__param_analyzer_bb_explosion_factor_ = 74,/* --param=analyzer-bb-explosion-factor= */
