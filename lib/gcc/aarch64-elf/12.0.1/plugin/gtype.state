@@ -35624,14 +35624,14 @@
  )
  (!pair  "free_saved_scope"
   (!type already_seen 1974)
-  (!srcfileloc  "cp/name-lookup.cc" 8319)
+  (!srcfileloc  "cp/name-lookup.cc" 8323)
   (!options 
    (!option deletable string  "")
   )
  )
  (!pair  "free_binding_level"
   (!type already_seen 82)
-  (!srcfileloc  "cp/name-lookup.cc" 4247)
+  (!srcfileloc  "cp/name-lookup.cc" 4251)
   (!options 
    (!option deletable string  "")
   )
@@ -36718,7 +36718,7 @@
  )
  (!pair  "addr_list"
   (!type already_seen 220)
-  (!srcfileloc  "tree-ssa-loop-ivopts.cc" 2590)
+  (!srcfileloc  "tree-ssa-loop-ivopts.cc" 2592)
   nil )
  (!pair  "mem_addr_template_list"
   (!type already_seen 1590)
