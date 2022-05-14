@@ -8838,7 +8838,7 @@ enum opt_code
   /* OPT__no_warnings = 58, */               /* --no-warnings */
   /* OPT__optimize = 59, */                  /* --optimize */
   /* OPT__output = 60, */                    /* --output */
-  OPT__output_pch_ = 61,                     /* --output-pch= */
+  OPT__output_pch = 61,                      /* --output-pch */
   /* OPT__output_ = 62, */                   /* --output= */
   OPT__param_aarch64_autovec_preference_ = 63,/* --param=aarch64-autovec-preference= */
   OPT__param_aarch64_double_recp_precision_ = 64,/* --param=aarch64-double-recp-precision= */
