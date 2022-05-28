@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2022-05-14" "gcc-13.0.0" "GNU"
+.TH GCC 1 "2022-05-28" "gcc-13.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -373,6 +373,7 @@ in the following sections.
 \&\-Wno\-div\-by\-zero  \-Wdouble\-promotion 
 \&\-Wduplicated\-branches  \-Wduplicated\-cond 
 \&\-Wempty\-body  \-Wno\-endif\-labels  \-Wenum\-compare  \-Wenum\-conversion 
+\&\-Wenum\-int\-mismatch 
 \&\-Werror  \-Werror=*  \-Wexpansion\-to\-defined  \-Wfatal\-errors 
 \&\-Wfloat\-conversion  \-Wfloat\-equal  \-Wformat  \-Wformat=2 
 \&\-Wno\-format\-contains\-nul  \-Wno\-format\-extra\-args  
@@ -487,6 +488,10 @@ in the following sections.
 \&\-Wno\-analyzer\-use\-after\-free 
 \&\-Wno\-analyzer\-use\-of\-pointer\-in\-stale\-stack\-frame 
 \&\-Wno\-analyzer\-use\-of\-uninitialized\-value 
+\&\-Wno\-analyzer\-va\-arg\-type\-mismatch 
+\&\-Wno\-analyzer\-va\-list\-exhausted 
+\&\-Wno\-analyzer\-va\-list\-leak 
+\&\-Wno\-analyzer\-va\-list\-use\-after\-va\-end 
 \&\-Wno\-analyzer\-write\-to\-const 
 \&\-Wno\-analyzer\-write\-to\-string\-literal\fR
 .IP "\fIC and Objective-C-only Warning Options\fR" 4
@@ -1428,7 +1433,8 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-msse4a  \-m3dnow  \-m3dnowa  \-mpopcnt  \-mabm  \-mbmi  \-mtbm  \-mfma4  \-mxop 
 \&\-madx  \-mlzcnt  \-mbmi2  \-mfxsr  \-mxsave  \-mxsaveopt  \-mrtm  \-mhle  \-mlwp 
 \&\-mmwaitx  \-mclzero  \-mpku  \-mthreads  \-mgfni  \-mvaes  \-mwaitpkg 
-\&\-mshstk \-mmanual\-endbr \-mforce\-indirect\-call  \-mavx512vbmi2 \-mavx512bf16 \-menqcmd 
+\&\-mshstk \-mmanual\-endbr \-mcet\-switch \-mforce\-indirect\-call 
+\&\-mavx512vbmi2 \-mavx512bf16 \-menqcmd 
 \&\-mvpclmulqdq  \-mavx512bitalg  \-mmovdiri  \-mmovdir64b  \-mavx512vpopcntdq 
 \&\-mavx5124fmaps  \-mavx512vnni  \-mavx5124vnniw  \-mprfchw  \-mrdpid 
 \&\-mrdseed  \-msgx \-mavx512vp2intersect \-mserialize \-mtsxldtrk
@@ -5498,6 +5504,7 @@ Options\fR and \fBObjective-C and Objective\-\*(C+ Dialect Options\fR.
 \&\-Wdangling\-pointer=2  
 \&\-Wduplicate\-decl\-specifier\fR (C and Objective-C only) 
 \&\fB\-Wenum\-compare\fR (in C/ObjC; this is on by default in \*(C+) 
+\&\fB\-Wenum\-int\-mismatch\fR (C and Objective-C only) 
 \&\fB\-Wformat   
 \&\-Wformat\-overflow  
 \&\-Wformat\-truncation  
@@ -8234,6 +8241,23 @@ enabled by \fB\-Wall\fR.
 Warn when a value of enumerated type is implicitly converted to a 
 different enumerated type.  This warning is enabled by \fB\-Wextra\fR
 in C.
+.IP "\fB\-Wenum\-int\-mismatch\fR (C and Objective-C only)" 4
+.IX Item "-Wenum-int-mismatch (C and Objective-C only)"
+Warn about mismatches between an enumerated type and an integer type in
+declarations.  For example:
+.Sp
+.Vb 3
+\&        enum E { l = \-1, z = 0, g = 1 };
+\&        int foo(void);
+\&        enum E foo(void);
+.Ve
+.Sp
+In C, an enumerated type is compatible with \f(CW\*(C`char\*(C'\fR, a signed
+integer type, or an unsigned integer type.  However, since the choice
+of the underlying type of an enumerated type is implementation-defined,
+such mismatches may cause portability issues.  In \*(C+, such mismatches
+are an error.  In C, this warning is enabled by \fB\-Wall\fR and
+\&\fB\-Wc++\-compat\fR.
 .IP "\fB\-Wjump\-misses\-init\fR (C, Objective-C only)" 4
 .IX Item "-Wjump-misses-init (C, Objective-C only)"
 Warn if a \f(CW\*(C`goto\*(C'\fR statement or a \f(CW\*(C`switch\*(C'\fR statement jumps
@@ -9036,6 +9060,10 @@ Enabling this option effectively enables the following warnings:
 \&\-Wanalyzer\-use\-after\-free 
 \&\-Wanalyzer\-use\-of\-pointer\-in\-stale\-stack\-frame 
 \&\-Wanalyzer\-use\-of\-uninitialized\-value 
+\&\-Wanalyzer\-va\-arg\-type\-mismatch 
+\&\-Wanalyzer\-va\-list\-exhausted 
+\&\-Wanalyzer\-va\-list\-leak 
+\&\-Wanalyzer\-va\-list\-use\-after\-va\-end 
 \&\-Wanalyzer\-write\-to\-const 
 \&\-Wanalyzer\-write\-to\-string\-literal\fR
 .Sp
@@ -9263,6 +9291,45 @@ to disable it.
 .Sp
 This diagnostic warns for paths through the code in which a pointer
 is dereferenced that points to a variable in a stale stack frame.
+.IP "\fB\-Wno\-analyzer\-va\-arg\-type\-mismatch\fR" 4
+.IX Item "-Wno-analyzer-va-arg-type-mismatch"
+This warning requires \fB\-fanalyzer\fR, which enables it; use
+\&\fB\-Wno\-analyzer\-va\-arg\-type\-mismatch\fR
+to disable it.
+.Sp
+This diagnostic warns for interprocedural paths through the code for which
+the analyzer detects an attempt to use \f(CW\*(C`va_arg\*(C'\fR to extract a value
+passed to a variadic call, but uses a type that does not match that of
+the expression passed to the call.
+.IP "\fB\-Wno\-analyzer\-va\-list\-exhausted\fR" 4
+.IX Item "-Wno-analyzer-va-list-exhausted"
+This warning requires \fB\-fanalyzer\fR, which enables it; use
+\&\fB\-Wno\-analyzer\-va\-list\-exhausted\fR
+to disable it.
+.Sp
+This diagnostic warns for interprocedural paths through the code for which
+the analyzer detects an attempt to use \f(CW\*(C`va_arg\*(C'\fR to access the next
+value passed to a variadic call, but all of the values in the
+\&\f(CW\*(C`va_list\*(C'\fR have already been consumed.
+.IP "\fB\-Wno\-analyzer\-va\-list\-leak\fR" 4
+.IX Item "-Wno-analyzer-va-list-leak"
+This warning requires \fB\-fanalyzer\fR, which enables it; use
+\&\fB\-Wno\-analyzer\-va\-list\-leak\fR
+to disable it.
+.Sp
+This diagnostic warns for interprocedural paths through the code for which
+the analyzer detects that \f(CW\*(C`va_start\*(C'\fR or \f(CW\*(C`va_copy\*(C'\fR has been called
+on a \f(CW\*(C`va_list\*(C'\fR without a corresponding call to \f(CW\*(C`va_end\*(C'\fR.
+.IP "\fB\-Wno\-analyzer\-va\-list\-use\-after\-va\-end\fR" 4
+.IX Item "-Wno-analyzer-va-list-use-after-va-end"
+This warning requires \fB\-fanalyzer\fR, which enables it; use
+\&\fB\-Wno\-analyzer\-va\-list\-use\-after\-va\-end\fR
+to disable it.
+.Sp
+This diagnostic warns for interprocedural paths through the code for which
+the analyzer detects an attempt to use a \f(CW\*(C`va_list\*(C'\fR  after
+\&\f(CW\*(C`va_end\*(C'\fR has been called on it.
+\&\f(CW\*(C`va_list\*(C'\fR.
 .IP "\fB\-Wno\-analyzer\-write\-to\-const\fR" 4
 .IX Item "-Wno-analyzer-write-to-const"
 This warning requires \fB\-fanalyzer\fR, which enables it; use
@@ -9331,7 +9398,9 @@ following warnings from \fB\-fanalyzer\fR:
 \&\-Wanalyzer\-possible\-null\-argument 
 \&\-Wanalyzer\-possible\-null\-dereference 
 \&\-Wanalyzer\-unsafe\-call\-within\-signal\-handler 
-\&\-Wanalyzer\-use\-after\-free\fR
+\&\-Wanalyzer\-use\-after\-free 
+\&\-Wanalyzer\-va\-list\-leak 
+\&\-Wanalyzer\-va\-list\-use\-after\-va\-end\fR
 .IP "\fB\-fno\-analyzer\-feasibility\fR" 4
 .IX Item "-fno-analyzer-feasibility"
 This option is intended for analyzer developers.
@@ -13137,9 +13206,6 @@ The maximum depth of a loop nest suitable for complete peeling.
 .IP "\fBmax-unswitch-insns\fR" 4
 .IX Item "max-unswitch-insns"
 The maximum number of insns of an unswitched loop.
-.IP "\fBmax-unswitch-level\fR" 4
-.IX Item "max-unswitch-level"
-The maximum number of branches unswitched in a single loop.
 .IP "\fBlim-expensive\fR" 4
 .IX Item "lim-expensive"
 The minimum cost of an expensive expression in the loop invariant motion.
@@ -18923,6 +18989,12 @@ Compile for \s-1GCN5\s0 Vega 10 devices (gfx900).
 .IP "\fBgfx906\fR" 4
 .IX Item "gfx906"
 Compile for \s-1GCN5\s0 Vega 20 devices (gfx906).
+.IP "\fBgfx908\fR" 4
+.IX Item "gfx908"
+Compile for \s-1CDNA1\s0 Instinct \s-1MI100\s0 series devices (gfx908).
+.IP "\fBgfx90a\fR" 4
+.IX Item "gfx90a"
+Compile for \s-1CDNA2\s0 Instinct \s-1MI200\s0 series devices (gfx90a).
 .RE
 .RS 4
 .RE
@@ -30676,6 +30748,11 @@ instruction set support.
 \&\s-1VIA\s0 Nano Quad Core \s-1CPU\s0 with x86\-64, \s-1MMX, SSE, SSE2, SSE3, SSSE3\s0 and \s-1SSE4.1\s0
 instruction set support.
 (No scheduling is implemented for this chip.)
+.IP "\fBlujiazui\fR" 4
+.IX Item "lujiazui"
+\&\s-1ZHAOXIN\s0 lujiazui \s-1CPU\s0 with x86\-64, \s-1MOVBE, MMX, SSE, SSE2, SSE3, SSSE3, SSE4.1,
+SSE4.2, AVX, POPCNT, AES, PCLMUL, RDRND, XSAVE, XSAVEOPT, FSGSBASE, CX16,
+ABM, BMI, BMI2, F16C, FXSR, RDSEED\s0 instruction set support.
 .IP "\fBgeode\fR" 4
 .IX Item "geode"
 \&\s-1AMD\s0 Geode embedded processor with \s-1MMX\s0 and 3DNow! instruction set support.
@@ -31475,6 +31552,16 @@ Insert \s-1ENDBR\s0 instruction at function entry only via the \f(CW\*(C`cf_chec
 function attribute. This is useful when used with the option
 \&\fB\-fcf\-protection=branch\fR to control \s-1ENDBR\s0 insertion at the
 function entry.
+.IP "\fB\-mcet\-switch\fR" 4
+.IX Item "-mcet-switch"
+By default, \s-1CET\s0 instrumentation is turned off on switch statements that
+use a jump table and indirect branch track is disabled.  Since jump
+tables are stored in read-only memory, this does not result in a direct
+loss of hardening.  But if the jump table index is attacker-controlled,
+the indirect jump may not be constrained by \s-1CET.\s0  This option turns on
+\&\s-1CET\s0 instrumentation to enable indirect branch track for switch statements
+with jump tables which leads to the jump targets reachable via any indirect
+jumps.
 .IP "\fB\-mcall\-ms2sysv\-xlogues\fR" 4
 .IX Item "-mcall-ms2sysv-xlogues"
 Due to differences in 64\-bit ABIs, any Microsoft \s-1ABI\s0 function that calls a

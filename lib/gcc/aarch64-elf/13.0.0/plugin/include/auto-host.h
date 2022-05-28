@@ -1332,13 +1332,6 @@
 #endif
 
 
-/* Define if your Arm assembler permits context-specific feature extensions.
-   */
-#ifndef USED_FOR_TARGET
-/* #undef HAVE_GAS_ARM_EXTENDED_ARCH */
-#endif
-
-
 /* Define if your assembler supports .balign and .p2align. */
 #ifndef USED_FOR_TARGET
 #define HAVE_GAS_BALIGN_AND_P2ALIGN 1
@@ -1455,72 +1448,6 @@
 /* Define if your assembler supports .weakref. */
 #ifndef USED_FOR_TARGET
 #define HAVE_GAS_WEAKREF 1
-#endif
-
-
-/* Define if your assembler has fixed global_load functions. */
-#ifndef USED_FOR_TARGET
-/* #undef HAVE_GCN_ASM_GLOBAL_LOAD_FIXED */
-#endif
-
-
-/* Define if your assembler expects amdgcn_target gfx908+xnack syntax. */
-#ifndef USED_FOR_TARGET
-/* #undef HAVE_GCN_ASM_V3_SYNTAX */
-#endif
-
-
-/* Define if your assembler expects amdgcn_target gfx908:xnack+ syntax. */
-#ifndef USED_FOR_TARGET
-/* #undef HAVE_GCN_ASM_V4_SYNTAX */
-#endif
-
-
-/* Define if your assembler allows -mattr=+sramecc for fiji. */
-#ifndef USED_FOR_TARGET
-/* #undef HAVE_GCN_SRAM_ECC_FIJI */
-#endif
-
-
-/* Define if your assembler allows -mattr=+sramecc for gfx900. */
-#ifndef USED_FOR_TARGET
-/* #undef HAVE_GCN_SRAM_ECC_GFX900 */
-#endif
-
-
-/* Define if your assembler allows -mattr=+sramecc for gfx906. */
-#ifndef USED_FOR_TARGET
-/* #undef HAVE_GCN_SRAM_ECC_GFX906 */
-#endif
-
-
-/* Define if your assembler allows -mattr=+sramecc for gfx908. */
-#ifndef USED_FOR_TARGET
-/* #undef HAVE_GCN_SRAM_ECC_GFX908 */
-#endif
-
-
-/* Define if your assembler allows -mattr=+xnack for fiji. */
-#ifndef USED_FOR_TARGET
-/* #undef HAVE_GCN_XNACK_FIJI */
-#endif
-
-
-/* Define if your assembler allows -mattr=+xnack for gfx900. */
-#ifndef USED_FOR_TARGET
-/* #undef HAVE_GCN_XNACK_GFX900 */
-#endif
-
-
-/* Define if your assembler allows -mattr=+xnack for gfx906. */
-#ifndef USED_FOR_TARGET
-/* #undef HAVE_GCN_XNACK_GFX906 */
-#endif
-
-
-/* Define if your assembler allows -mattr=+xnack for gfx908. */
-#ifndef USED_FOR_TARGET
-/* #undef HAVE_GCN_XNACK_GFX908 */
 #endif
 
 
@@ -2206,6 +2133,12 @@
 /* Define if O_CLOEXEC supported by fcntl. */
 #ifndef USED_FOR_TARGET
 #define HOST_HAS_O_CLOEXEC 1
+#endif
+
+
+/* Define which stat syscall is able to handle 64bit indodes. */
+#ifndef USED_FOR_TARGET
+/* #undef HOST_STAT_FOR_64BIT_INODES */
 #endif
 
 
