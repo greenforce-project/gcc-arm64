@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2022-05-28" "gcc-13.0.0" "GNU"
+.TH GCC 1 "2022-06-04" "gcc-13.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -326,7 +326,7 @@ in the following sections.
 \&\-fdiagnostics\-show\-location=\fR[\fBonce\fR|\fBevery-line\fR]  
 \&\fB\-fdiagnostics\-color=\fR[\fBauto\fR|\fBnever\fR|\fBalways\fR]  
 \&\fB\-fdiagnostics\-urls=\fR[\fBauto\fR|\fBnever\fR|\fBalways\fR]  
-\&\fB\-fdiagnostics\-format=\fR[\fBtext\fR|\fBjson\fR]  
+\&\fB\-fdiagnostics\-format=\fR[\fBtext\fR|\fBsarif-stderr\fR|\fBsarif-file\fR|\fBjson\fR|\fBjson-stderr\fR|\fBjson-file\fR]  
 \&\fB\-fno\-diagnostics\-show\-option  \-fno\-diagnostics\-show\-caret 
 \&\-fno\-diagnostics\-show\-labels  \-fno\-diagnostics\-show\-line\-numbers 
 \&\-fno\-diagnostics\-show\-cwe  
@@ -5081,14 +5081,23 @@ Unicode characters.  For the example above, the following will be printed:
 .IP "\fB\-fdiagnostics\-format=\fR\fI\s-1FORMAT\s0\fR" 4
 .IX Item "-fdiagnostics-format=FORMAT"
 Select a different format for printing diagnostics.
-\&\fI\s-1FORMAT\s0\fR is \fBtext\fR or \fBjson\fR.
+\&\fI\s-1FORMAT\s0\fR is \fBtext\fR, \fBsarif-stderr\fR, \fBsarif-file\fR,
+\&\fBjson\fR, \fBjson-stderr\fR, or \fBjson-file\fR.
+.Sp
 The default is \fBtext\fR.
 .Sp
-The \fBjson\fR format consists of a top-level \s-1JSON\s0 array containing \s-1JSON\s0
-objects representing the diagnostics.
+The \fBsarif-stderr\fR and \fBsarif-file\fR formats both emit
+diagnostics in \s-1SARIF\s0 Version 2.1.0 format, either to stderr, or to a file
+named \fI\fIsource\fI.sarif\fR, respectively.
 .Sp
-The \s-1JSON\s0 is emitted as one line, without formatting; the examples below
-have been formatted for clarity.
+The \fBjson\fR format is a synonym for \fBjson-stderr\fR.
+The \fBjson-stderr\fR and \fBjson-file\fR formats are identical, apart from
+where the \s-1JSON\s0 is emitted to \- with the former, the \s-1JSON\s0 is emitted to stderr,
+whereas with \fBjson-file\fR it is written to \fI\fIsource\fI.gcc.json\fR.
+.Sp
+The emitted \s-1JSON\s0 consists of a top-level \s-1JSON\s0 array containing \s-1JSON\s0 objects
+representing the diagnostics.  The \s-1JSON\s0 is emitted as one line, without
+formatting; the examples below have been formatted for clarity.
 .Sp
 Diagnostics can have child diagnostics.  For example, this error and note:
 .Sp
@@ -20883,17 +20892,17 @@ The default for this option is \fBavr2\fR.
 .el .IP "\f(CWavrxmega2\fR" 4
 .IX Item "avrxmega2"
 \&\*(L"\s-1XMEGA\*(R"\s0 devices with more than 8 KiB and up to 64 KiB of program memory.
-\&\fImcu\fR = \f(CW\*(C`atxmega8e5\*(C'\fR, \f(CW\*(C`atxmega16a4\*(C'\fR, \f(CW\*(C`atxmega16a4u\*(C'\fR, \f(CW\*(C`atxmega16c4\*(C'\fR, \f(CW\*(C`atxmega16d4\*(C'\fR, \f(CW\*(C`atxmega16e5\*(C'\fR, \f(CW\*(C`atxmega32a4\*(C'\fR, \f(CW\*(C`atxmega32a4u\*(C'\fR, \f(CW\*(C`atxmega32c3\*(C'\fR, \f(CW\*(C`atxmega32c4\*(C'\fR, \f(CW\*(C`atxmega32d3\*(C'\fR, \f(CW\*(C`atxmega32d4\*(C'\fR, \f(CW\*(C`atxmega32e5\*(C'\fR.
+\&\fImcu\fR = \f(CW\*(C`atxmega8e5\*(C'\fR, \f(CW\*(C`atxmega16a4\*(C'\fR, \f(CW\*(C`atxmega16a4u\*(C'\fR, \f(CW\*(C`atxmega16c4\*(C'\fR, \f(CW\*(C`atxmega16d4\*(C'\fR, \f(CW\*(C`atxmega16e5\*(C'\fR, \f(CW\*(C`atxmega32a4\*(C'\fR, \f(CW\*(C`atxmega32a4u\*(C'\fR, \f(CW\*(C`atxmega32c3\*(C'\fR, \f(CW\*(C`atxmega32c4\*(C'\fR, \f(CW\*(C`atxmega32d3\*(C'\fR, \f(CW\*(C`atxmega32d4\*(C'\fR, \f(CW\*(C`atxmega32e5\*(C'\fR, \f(CW\*(C`avr64da28\*(C'\fR, \f(CW\*(C`avr64da32\*(C'\fR, \f(CW\*(C`avr64da48\*(C'\fR, \f(CW\*(C`avr64da64\*(C'\fR, \f(CW\*(C`avr64db28\*(C'\fR, \f(CW\*(C`avr64db32\*(C'\fR, \f(CW\*(C`avr64db48\*(C'\fR, \f(CW\*(C`avr64db64\*(C'\fR.
 .ie n .IP """avrxmega3""" 4
 .el .IP "\f(CWavrxmega3\fR" 4
 .IX Item "avrxmega3"
 \&\*(L"\s-1XMEGA\*(R"\s0 devices with up to 64 KiB of combined program memory and \s-1RAM,\s0 and with program memory visible in the \s-1RAM\s0 address space.
-\&\fImcu\fR = \f(CW\*(C`attiny202\*(C'\fR, \f(CW\*(C`attiny204\*(C'\fR, \f(CW\*(C`attiny212\*(C'\fR, \f(CW\*(C`attiny214\*(C'\fR, \f(CW\*(C`attiny402\*(C'\fR, \f(CW\*(C`attiny404\*(C'\fR, \f(CW\*(C`attiny406\*(C'\fR, \f(CW\*(C`attiny412\*(C'\fR, \f(CW\*(C`attiny414\*(C'\fR, \f(CW\*(C`attiny416\*(C'\fR, \f(CW\*(C`attiny417\*(C'\fR, \f(CW\*(C`attiny804\*(C'\fR, \f(CW\*(C`attiny806\*(C'\fR, \f(CW\*(C`attiny807\*(C'\fR, \f(CW\*(C`attiny814\*(C'\fR, \f(CW\*(C`attiny816\*(C'\fR, \f(CW\*(C`attiny817\*(C'\fR, \f(CW\*(C`attiny1604\*(C'\fR, \f(CW\*(C`attiny1606\*(C'\fR, \f(CW\*(C`attiny1607\*(C'\fR, \f(CW\*(C`attiny1614\*(C'\fR, \f(CW\*(C`attiny1616\*(C'\fR, \f(CW\*(C`attiny1617\*(C'\fR, \f(CW\*(C`attiny3214\*(C'\fR, \f(CW\*(C`attiny3216\*(C'\fR, \f(CW\*(C`attiny3217\*(C'\fR, \f(CW\*(C`atmega808\*(C'\fR, \f(CW\*(C`atmega809\*(C'\fR, \f(CW\*(C`atmega1608\*(C'\fR, \f(CW\*(C`atmega1609\*(C'\fR, \f(CW\*(C`atmega3208\*(C'\fR, \f(CW\*(C`atmega3209\*(C'\fR, \f(CW\*(C`atmega4808\*(C'\fR, \f(CW\*(C`atmega4809\*(C'\fR.
+\&\fImcu\fR = \f(CW\*(C`attiny202\*(C'\fR, \f(CW\*(C`attiny204\*(C'\fR, \f(CW\*(C`attiny212\*(C'\fR, \f(CW\*(C`attiny214\*(C'\fR, \f(CW\*(C`attiny402\*(C'\fR, \f(CW\*(C`attiny404\*(C'\fR, \f(CW\*(C`attiny406\*(C'\fR, \f(CW\*(C`attiny412\*(C'\fR, \f(CW\*(C`attiny414\*(C'\fR, \f(CW\*(C`attiny416\*(C'\fR, \f(CW\*(C`attiny417\*(C'\fR, \f(CW\*(C`attiny804\*(C'\fR, \f(CW\*(C`attiny806\*(C'\fR, \f(CW\*(C`attiny807\*(C'\fR, \f(CW\*(C`attiny814\*(C'\fR, \f(CW\*(C`attiny816\*(C'\fR, \f(CW\*(C`attiny817\*(C'\fR, \f(CW\*(C`attiny1604\*(C'\fR, \f(CW\*(C`attiny1606\*(C'\fR, \f(CW\*(C`attiny1607\*(C'\fR, \f(CW\*(C`attiny1614\*(C'\fR, \f(CW\*(C`attiny1616\*(C'\fR, \f(CW\*(C`attiny1617\*(C'\fR, \f(CW\*(C`attiny3214\*(C'\fR, \f(CW\*(C`attiny3216\*(C'\fR, \f(CW\*(C`attiny3217\*(C'\fR, \f(CW\*(C`atmega808\*(C'\fR, \f(CW\*(C`atmega809\*(C'\fR, \f(CW\*(C`atmega1608\*(C'\fR, \f(CW\*(C`atmega1609\*(C'\fR, \f(CW\*(C`atmega3208\*(C'\fR, \f(CW\*(C`atmega3209\*(C'\fR, \f(CW\*(C`atmega4808\*(C'\fR, \f(CW\*(C`atmega4809\*(C'\fR, \f(CW\*(C`avr32da28\*(C'\fR, \f(CW\*(C`avr32da32\*(C'\fR, \f(CW\*(C`avr32da48\*(C'\fR, \f(CW\*(C`avr32db28\*(C'\fR, \f(CW\*(C`avr32db32\*(C'\fR, \f(CW\*(C`avr32db48\*(C'\fR.
 .ie n .IP """avrxmega4""" 4
 .el .IP "\f(CWavrxmega4\fR" 4
 .IX Item "avrxmega4"
 \&\*(L"\s-1XMEGA\*(R"\s0 devices with more than 64 KiB and up to 128 KiB of program memory.
-\&\fImcu\fR = \f(CW\*(C`atxmega64a3\*(C'\fR, \f(CW\*(C`atxmega64a3u\*(C'\fR, \f(CW\*(C`atxmega64a4u\*(C'\fR, \f(CW\*(C`atxmega64b1\*(C'\fR, \f(CW\*(C`atxmega64b3\*(C'\fR, \f(CW\*(C`atxmega64c3\*(C'\fR, \f(CW\*(C`atxmega64d3\*(C'\fR, \f(CW\*(C`atxmega64d4\*(C'\fR.
+\&\fImcu\fR = \f(CW\*(C`atxmega64a3\*(C'\fR, \f(CW\*(C`atxmega64a3u\*(C'\fR, \f(CW\*(C`atxmega64a4u\*(C'\fR, \f(CW\*(C`atxmega64b1\*(C'\fR, \f(CW\*(C`atxmega64b3\*(C'\fR, \f(CW\*(C`atxmega64c3\*(C'\fR, \f(CW\*(C`atxmega64d3\*(C'\fR, \f(CW\*(C`atxmega64d4\*(C'\fR, \f(CW\*(C`avr128da28\*(C'\fR, \f(CW\*(C`avr128da32\*(C'\fR, \f(CW\*(C`avr128da48\*(C'\fR, \f(CW\*(C`avr128da64\*(C'\fR, \f(CW\*(C`avr128db28\*(C'\fR, \f(CW\*(C`avr128db32\*(C'\fR, \f(CW\*(C`avr128db48\*(C'\fR, \f(CW\*(C`avr128db64\*(C'\fR.
 .ie n .IP """avrxmega5""" 4
 .el .IP "\f(CWavrxmega5\fR" 4
 .IX Item "avrxmega5"

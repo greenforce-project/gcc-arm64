@@ -17,16 +17,22 @@ struct gcc_options
 {
 #endif
 #ifdef GENERATOR_FILE
-extern enum aarch64_arch explicit_arch;
+extern enum aarch64_arch selected_arch;
 #else
-  enum aarch64_arch x_explicit_arch;
-#define explicit_arch global_options.x_explicit_arch
+  enum aarch64_arch x_selected_arch;
+#define selected_arch global_options.x_selected_arch
 #endif
 #ifdef GENERATOR_FILE
-extern enum aarch64_processor explicit_tune_core;
+extern enum aarch64_key_type aarch64_ra_sign_key;
 #else
-  enum aarch64_processor x_explicit_tune_core;
-#define explicit_tune_core global_options.x_explicit_tune_core
+  enum aarch64_key_type x_aarch64_ra_sign_key;
+#define aarch64_ra_sign_key global_options.x_aarch64_ra_sign_key
+#endif
+#ifdef GENERATOR_FILE
+extern enum aarch64_processor selected_tune;
+#else
+  enum aarch64_processor x_selected_tune;
+#define selected_tune global_options.x_selected_tune
 #endif
 #ifdef GENERATOR_FILE
 extern long aarch64_stack_protector_guard_offset;
@@ -8571,23 +8577,24 @@ struct GTY(()) cl_optimization
 /* Structure to save/restore selected target specific options.  */
 struct GTY(()) cl_target_option
 {
-  const char *x_aarch64_override_tune_string;
   long x_aarch64_stack_protector_guard_offset;
   uint64_t x_aarch64_isa_flags;
   unsigned x_aarch64_enable_bti;
   const char *x_aarch64_branch_protection_string;
   enum aarch64_code_model x_aarch64_cmodel_var;
   /* - */ int x_target_flags;
+  const char *x_aarch64_override_tune_string;
   enum aarch64_function_type x_aarch64_ra_sign_scope;
   enum aarch64_tls_type x_aarch64_tls_dialect;
-  enum aarch64_arch x_explicit_arch;
-  enum aarch64_processor x_explicit_tune_core;
+  enum aarch64_arch x_selected_arch;
+  enum aarch64_key_type x_aarch64_ra_sign_key;
+  enum aarch64_processor x_selected_tune;
   signed char x_aarch64_fix_a53_err835769;
   signed char x_aarch64_fix_a53_err843419;
   signed char x_flag_omit_leaf_frame_pointer;
   signed char x_aarch64_flag_outline_atomics;
   signed char x_pcrelative_literal_loads;
-  /* 14 members */
+  /* 16 members */
   unsigned HOST_WIDE_INT explicit_mask[1];
   /* - */ int explicit_mask_target_flags;
 };
