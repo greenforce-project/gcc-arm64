@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2022-06-04" "gcc-13.0.0" "GNU"
+.TH GCC 1 "2022-06-17" "gcc-13.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -448,6 +448,7 @@ in the following sections.
 \&\-fno\-analyzer\-state\-merge 
 \&\-fno\-analyzer\-state\-purge 
 \&\-fanalyzer\-transitivity 
+\&\-fno\-analyzer\-undo\-inlining 
 \&\-fanalyzer\-verbose\-edges 
 \&\-fanalyzer\-verbose\-state\-changes 
 \&\-fanalyzer\-verbosity=\fR\fIlevel\fR 
@@ -637,7 +638,7 @@ in the following sections.
 \&\fB\-fno\-stack\-limit  \-fsplit\-stack 
 \&\-fvtable\-verify=\fR[\fBstd\fR|\fBpreinit\fR|\fBnone\fR] 
 \&\fB\-fvtv\-counts  \-fvtv\-debug 
-\&\-finstrument\-functions 
+\&\-finstrument\-functions  \-finstrument\-functions\-once 
 \&\-finstrument\-functions\-exclude\-function\-list=\fR\fIsym\fR\fB,\fR\fIsym\fR\fB,... 
 \&\-finstrument\-functions\-exclude\-file\-list=\fR\fIfile\fR\fB,\fR\fIfile\fR\fB,...\fR 
 \&\-fprofile\-prefix\-map=\fIold\fR=\fInew\fR
@@ -1481,7 +1482,8 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mauto\-litpools  \-mno\-auto\-litpools 
 \&\-mtarget\-align  \-mno\-target\-align 
 \&\-mlongcalls  \-mno\-longcalls 
-\&\-mabi=\fR\fIabi-type\fR
+\&\-mabi=\fR\fIabi-type\fR 
+\&\fB\-mextra\-l32r\-costs=\fR\fIcycles\fR
 .Sp
 \&\fIzSeries Options\fR
 See S/390 and zSeries Options.
@@ -5015,7 +5017,10 @@ This option provides additional information when printing control-flow paths
 associated with a diagnostic.
 .Sp
 If this is option is provided then the stack depth will be printed for
-each run of events within \fB\-fdiagnostics\-path\-format=separate\-events\fR.
+each run of events within \fB\-fdiagnostics\-path\-format=inline\-events\fR.
+If provided with \fB\-fdiagnostics\-path\-format=separate\-events\fR, then
+the stack depth and function declaration will be appended when printing
+each event.
 .Sp
 This is intended for use by \s-1GCC\s0 developers and plugin developers when
 debugging diagnostics that report interprocedural control flow.
@@ -8379,7 +8384,7 @@ such as in
 \&        void f (void);
 \&        void g (void)
 \&        {
-\&          if (!func)   // warning: expression evaluates to false
+\&          if (!f)   // warning: expression evaluates to false
 \&            abort ();
 \&        }
 .Ve
@@ -8410,7 +8415,7 @@ weak symbols), so their use in a conditional might indicate missing
 parentheses in a function call or a missing dereference in an array
 expression.  The subset of the warning for object pointers can be
 suppressed by casting the pointer operand to an integer type such
-as \f(CW\*(C`inptr_t\*(C'\fR or \f(CW\*(C`uinptr_t\*(C'\fR.
+as \f(CW\*(C`intptr_t\*(C'\fR or \f(CW\*(C`uintptr_t\*(C'\fR.
 Comparisons against string literals result in unspecified behavior
 and are not portable, and suggest the intent was to call \f(CW\*(C`strcmp\*(C'\fR.
 The warning is suppressed if the suspicious expression is the result
@@ -9457,6 +9462,23 @@ be suppressed, for debugging state-handling issues.
 .IP "\fB\-fanalyzer\-transitivity\fR" 4
 .IX Item "-fanalyzer-transitivity"
 This option enables transitivity of constraints within the analyzer.
+.IP "\fB\-fno\-analyzer\-undo\-inlining\fR" 4
+.IX Item "-fno-analyzer-undo-inlining"
+This option is intended for analyzer developers.
+.Sp
+\&\fB\-fanalyzer\fR runs relatively late compared to other code analysis
+tools, and some optimizations have already been applied to the code.  In
+particular function inlining may have occurred, leading to the
+interprocedural execution paths emitted by the analyzer containing
+function frames that don't correspond to those in the original source
+code.
+.Sp
+By default the analyzer attempts to reconstruct the original function
+frames, and to emit events showing the inlined calls.
+.Sp
+With \fB\-fno\-analyzer\-undo\-inlining\fR this attempt to reconstruct
+the original frame information can be be disabled, which may be of help
+when debugging issues in the analyzer.
 .IP "\fB\-fanalyzer\-verbose\-edges\fR" 4
 .IX Item "-fanalyzer-verbose-edges"
 This option is intended for analyzer developers.  It enables more
@@ -15303,6 +15325,21 @@ example, for the profiling functions listed above, high-priority
 interrupt routines, and any functions from which the profiling functions
 cannot safely be called (perhaps signal handlers, if the profiling
 routines generate output or allocate memory).
+.IP "\fB\-finstrument\-functions\-once\fR" 4
+.IX Item "-finstrument-functions-once"
+This is similar to \fB\-finstrument\-functions\fR, but the profiling
+functions are called only once per instrumented function, i.e. the first
+profiling function is called after the first entry into the instrumented
+function and the second profiling function is called before the exit
+corresponding to this first entry.
+.Sp
+The definition of \f(CW\*(C`once\*(C'\fR for the purpose of this option is a little
+vague because the implementation is not protected against data races.
+As a result, the implementation only guarantees that the profiling
+functions are called at \fIleast\fR once per process and at \fImost\fR
+once per thread, but the calls are always paired, that is to say, if a
+thread calls the first function, then it will call the second function,
+unless it never reaches the exit of the instrumented function.
 .IP "\fB\-finstrument\-functions\-exclude\-file\-list=\fR\fIfile\fR\fB,\fR\fIfile\fR\fB,...\fR" 4
 .IX Item "-finstrument-functions-exclude-file-list=file,file,..."
 Set the list of functions that are excluded from instrumentation (see
@@ -20409,7 +20446,8 @@ Permissible names are: \fBarm7tdmi\fR, \fBarm7tdmi\-s\fR, \fBarm710t\fR,
 \&\fBcortex\-m0plus.small\-multiply\fR, \fBexynos\-m1\fR, \fBmarvell\-pj4\fR,
 \&\fBneoverse\-n1\fR, \fBneoverse\-n2\fR, \fBneoverse\-v1\fR, \fBxscale\fR,
 \&\fBiwmmxt\fR, \fBiwmmxt2\fR, \fBep9312\fR, \fBfa526\fR, \fBfa626\fR,
-\&\fBfa606te\fR, \fBfa626te\fR, \fBfmp626\fR, \fBfa726te\fR, \fBxgene1\fR.
+\&\fBfa606te\fR, \fBfa626te\fR, \fBfmp626\fR, \fBfa726te\fR, \fBstar\-mc1\fR,
+\&\fBxgene1\fR.
 .Sp
 Additionally, this option can specify that \s-1GCC\s0 should tune the performance
 of the code for a big.LITTLE system.  Permissible names are:
@@ -20796,8 +20834,9 @@ Development Tools Engineering Specification\*(R", which can be found on
 Mitigate against a potential security issue with the \f(CW\*(C`VLLDM\*(C'\fR instruction
 in some M\-profile devices when using \s-1CMSE\s0 (\s-1CVE\-2021\-365465\s0).  This option is
 enabled by default when the option \fB\-mcpu=\fR is used with
-\&\f(CW\*(C`cortex\-m33\*(C'\fR, \f(CW\*(C`cortex\-m35p\*(C'\fR or \f(CW\*(C`cortex\-m55\*(C'\fR.  The option
-\&\fB\-mno\-fix\-cmse\-cve\-2021\-35465\fR can be used to disable the mitigation.
+\&\f(CW\*(C`cortex\-m33\*(C'\fR, \f(CW\*(C`cortex\-m35p\*(C'\fR, \f(CW\*(C`cortex\-m55\*(C'\fR or \f(CW\*(C`star\-mc1\*(C'\fR.
+The option \fB\-mno\-fix\-cmse\-cve\-2021\-35465\fR can be used to disable
+the mitigation.
 .IP "\fB\-mstack\-protector\-guard=\fR\fIguard\fR" 4
 .IX Item "-mstack-protector-guard=guard"
 .PD 0
@@ -32306,6 +32345,13 @@ by 8 registers on entry so that its arguments are found in registers
 pointer.  Register window is rotated 8 registers back upon return.
 When this version of the \s-1ABI\s0 is enabled the C preprocessor symbol
 \&\f(CW\*(C`_\|_XTENSA_WINDOWED_ABI_\|_\*(C'\fR is defined.
+.IP "\fB\-mextra\-l32r\-costs=\fR\fIn\fR" 4
+.IX Item "-mextra-l32r-costs=n"
+Specify an extra cost of instruction \s-1RAM/ROM\s0 access for \f(CW\*(C`L32R\*(C'\fR
+instructions, in clock cycles.  This affects, when optimizing for speed,
+whether loading a constant from literal pool using \f(CW\*(C`L32R\*(C'\fR or
+synthesizing the constant from a small one with a couple of arithmetic
+instructions.  The default value is 0.
 .PP
 \fIzSeries Options\fR
 .IX Subsection "zSeries Options"
