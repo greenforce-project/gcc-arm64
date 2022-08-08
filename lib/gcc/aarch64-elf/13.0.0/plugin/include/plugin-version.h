@@ -6,8 +6,8 @@
 #define GCCPLUGIN_VERSION  (GCCPLUGIN_VERSION_MAJOR*1000 + GCCPLUGIN_VERSION_MINOR)
 
 static char basever[] = "13.0.0";
-static char datestamp[] = "20220618";
-static char devphase[] = "";
+static char datestamp[] = "20220808";
+static char devphase[] = "Gf Cross v13";
 static char revision[] = "";
 
 /* FIXME plugins: We should make the version information more precise.

@@ -9,7 +9,7 @@
 BASEVER, DATESTAMP, DEVPHASE, and REVISION are defined by the
 Makefile.  */
 
-#define version_string "13.0.0"
+#define version_string "13.0.0 20220808 (Gf Cross v13)"
 #define pkgversion_string "(GCC) "
 
 /* This is the location of the online document giving instructions for
@@ -21,6 +21,6 @@ they are not bugs in your modifications.)  */
 
 #define bug_report_url "<https://gcc.gnu.org/bugs/>"
 
-#define GCOV_VERSION ((gcov_unsigned_t)0x4233302a)  /* B30* */
+#define GCOV_VERSION ((gcov_unsigned_t)0x42333020)  /* B30  */
 
 #endif /* VERSION_H */
