@@ -1151,12 +1151,6 @@ extern int param_max_find_base_term_values;
 #define param_max_find_base_term_values global_options.x_param_max_find_base_term_values
 #endif
 #ifdef GENERATOR_FILE
-extern int param_max_fsm_thread_length;
-#else
-  int x_param_max_fsm_thread_length;
-#define param_max_fsm_thread_length global_options.x_param_max_fsm_thread_length
-#endif
-#ifdef GENERATOR_FILE
 extern int param_max_fsm_thread_path_insns;
 #else
   int x_param_max_fsm_thread_path_insns;
@@ -1275,6 +1269,12 @@ extern int param_max_jump_thread_duplication_stmts;
 #else
   int x_param_max_jump_thread_duplication_stmts;
 #define param_max_jump_thread_duplication_stmts global_options.x_param_max_jump_thread_duplication_stmts
+#endif
+#ifdef GENERATOR_FILE
+extern int param_max_jump_thread_paths;
+#else
+  int x_param_max_jump_thread_paths;
+#define param_max_jump_thread_paths global_options.x_param_max_jump_thread_paths
 #endif
 #ifdef GENERATOR_FILE
 extern int param_max_last_value_rtl;
@@ -8238,7 +8238,6 @@ struct GTY(()) cl_optimization
   int x_param_max_dse_active_local_stores;
   int x_param_early_inliner_max_iterations;
   int x_param_max_find_base_term_values;
-  int x_param_max_fsm_thread_length;
   int x_param_max_fsm_thread_path_insns;
   int x_param_max_gcse_insertion_ratio;
   int x_param_max_gcse_memory;
@@ -8259,6 +8258,7 @@ struct GTY(()) cl_optimization
   int x_param_max_iterations_computation_cost;
   int x_param_max_iterations_to_track;
   int x_param_max_jump_thread_duplication_stmts;
+  int x_param_max_jump_thread_paths;
   int x_param_max_last_value_rtl;
   int x_param_max_loop_header_insns;
   int x_param_max_modulo_backtrack_attempts;
@@ -9065,27 +9065,27 @@ enum opt_code
   OPT__param_max_early_inliner_iterations_ = 195,/* --param=max-early-inliner-iterations= */
   OPT__param_max_fields_for_field_sensitive_ = 196,/* --param=max-fields-for-field-sensitive= */
   OPT__param_max_find_base_term_values_ = 197,/* --param=max-find-base-term-values= */
-  OPT__param_max_fsm_thread_length_ = 198,   /* --param=max-fsm-thread-length= */
-  OPT__param_max_fsm_thread_path_insns_ = 199,/* --param=max-fsm-thread-path-insns= */
-  OPT__param_max_gcse_insertion_ratio_ = 200,/* --param=max-gcse-insertion-ratio= */
-  OPT__param_max_gcse_memory_ = 201,         /* --param=max-gcse-memory= */
-  OPT__param_max_goto_duplication_insns_ = 202,/* --param=max-goto-duplication-insns= */
-  OPT__param_max_grow_copy_bb_insns_ = 203,  /* --param=max-grow-copy-bb-insns= */
-  OPT__param_max_hoist_depth_ = 204,         /* --param=max-hoist-depth= */
-  OPT__param_max_inline_functions_called_once_insns_ = 205,/* --param=max-inline-functions-called-once-insns= */
-  OPT__param_max_inline_functions_called_once_loop_depth_ = 206,/* --param=max-inline-functions-called-once-loop-depth= */
-  OPT__param_max_inline_insns_auto_ = 207,   /* --param=max-inline-insns-auto= */
-  OPT__param_max_inline_insns_recursive_auto_ = 208,/* --param=max-inline-insns-recursive-auto= */
-  OPT__param_max_inline_insns_recursive_ = 209,/* --param=max-inline-insns-recursive= */
-  OPT__param_max_inline_insns_single_ = 210, /* --param=max-inline-insns-single= */
-  OPT__param_max_inline_insns_size_ = 211,   /* --param=max-inline-insns-size= */
-  OPT__param_max_inline_insns_small_ = 212,  /* --param=max-inline-insns-small= */
-  OPT__param_max_inline_recursive_depth_auto_ = 213,/* --param=max-inline-recursive-depth-auto= */
-  OPT__param_max_inline_recursive_depth_ = 214,/* --param=max-inline-recursive-depth= */
-  OPT__param_max_isl_operations_ = 215,      /* --param=max-isl-operations= */
-  OPT__param_max_iterations_computation_cost_ = 216,/* --param=max-iterations-computation-cost= */
-  OPT__param_max_iterations_to_track_ = 217, /* --param=max-iterations-to-track= */
-  OPT__param_max_jump_thread_duplication_stmts_ = 218,/* --param=max-jump-thread-duplication-stmts= */
+  OPT__param_max_fsm_thread_path_insns_ = 198,/* --param=max-fsm-thread-path-insns= */
+  OPT__param_max_gcse_insertion_ratio_ = 199,/* --param=max-gcse-insertion-ratio= */
+  OPT__param_max_gcse_memory_ = 200,         /* --param=max-gcse-memory= */
+  OPT__param_max_goto_duplication_insns_ = 201,/* --param=max-goto-duplication-insns= */
+  OPT__param_max_grow_copy_bb_insns_ = 202,  /* --param=max-grow-copy-bb-insns= */
+  OPT__param_max_hoist_depth_ = 203,         /* --param=max-hoist-depth= */
+  OPT__param_max_inline_functions_called_once_insns_ = 204,/* --param=max-inline-functions-called-once-insns= */
+  OPT__param_max_inline_functions_called_once_loop_depth_ = 205,/* --param=max-inline-functions-called-once-loop-depth= */
+  OPT__param_max_inline_insns_auto_ = 206,   /* --param=max-inline-insns-auto= */
+  OPT__param_max_inline_insns_recursive_auto_ = 207,/* --param=max-inline-insns-recursive-auto= */
+  OPT__param_max_inline_insns_recursive_ = 208,/* --param=max-inline-insns-recursive= */
+  OPT__param_max_inline_insns_single_ = 209, /* --param=max-inline-insns-single= */
+  OPT__param_max_inline_insns_size_ = 210,   /* --param=max-inline-insns-size= */
+  OPT__param_max_inline_insns_small_ = 211,  /* --param=max-inline-insns-small= */
+  OPT__param_max_inline_recursive_depth_auto_ = 212,/* --param=max-inline-recursive-depth-auto= */
+  OPT__param_max_inline_recursive_depth_ = 213,/* --param=max-inline-recursive-depth= */
+  OPT__param_max_isl_operations_ = 214,      /* --param=max-isl-operations= */
+  OPT__param_max_iterations_computation_cost_ = 215,/* --param=max-iterations-computation-cost= */
+  OPT__param_max_iterations_to_track_ = 216, /* --param=max-iterations-to-track= */
+  OPT__param_max_jump_thread_duplication_stmts_ = 217,/* --param=max-jump-thread-duplication-stmts= */
+  OPT__param_max_jump_thread_paths_ = 218,   /* --param=max-jump-thread-paths= */
   OPT__param_max_last_value_rtl_ = 219,      /* --param=max-last-value-rtl= */
   OPT__param_max_loop_header_insns_ = 220,   /* --param=max-loop-header-insns= */
   OPT__param_max_modulo_backtrack_attempts_ = 221,/* --param=max-modulo-backtrack-attempts= */
