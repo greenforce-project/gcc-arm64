@@ -578,8 +578,8 @@ It looks like this: 'CPU-COMPANY-SYSTEM'.
    Here are the possible CPU types:
 
      aarch64, aarch64_be, alpha, alpha64, amdgcn, arc, arceb, arm,
-     armeb, avr, bfin, bpf, cr16, cris, csky, epiphany, fido, fr30, frv,
-     ft32, h8300, hppa, hppa2.0, hppa64, i486, i686, ia64, iq2000, lm32,
+     armeb, avr, bfin, bpf, cris, csky, epiphany, fido, fr30, frv, ft32,
+     h8300, hppa, hppa2.0, hppa64, i486, i686, ia64, iq2000, lm32,
      loongarch64, m32c, m32r, m32rle, m68k, mcore, microblaze,
      microblazeel, mips, mips64, mips64el, mips64octeon, mips64orion,
      mips64vr, mipsel, mipsisa32, mipsisa32r2, mipsisa64, mipsisa64r2,
@@ -3038,8 +3038,6 @@ them.  If you have any problems installing them, please contact their
 makers.
 
    * AIX:
-        * Bull's Open Source Software Archive for for AIX 6 and AIX 7;
-
         * AIX Open Source Packages (AIX5L AIX 6.1 AIX 7.1).
 
    * DOS--DJGPP.
@@ -3195,20 +3193,6 @@ The Blackfin processor, an Analog Devices DSP. *Note Blackfin Options:
    More information, and a version of binutils with support for this
 processor, are available at
 <https://sourceforge.net/projects/adi-toolchain/>.
-
-CR16
-====
-
-The CR16 CompactRISC architecture is a 16-bit architecture.  This
-architecture is used in embedded applications.
-
-   *Note CR16 Options: (gcc)CR16 Options,
-
-   Use 'configure --target=cr16-elf --enable-languages=c,c++' to
-configure GCC for building a CR16 elf cross-compiler.
-
-   Use 'configure --target=cr16-uclinux --enable-languages=c,c++' to
-configure GCC for building a CR16 uclinux cross-compiler.
 
 CRIS
 ====
@@ -4852,98 +4836,97 @@ Ref: GNAT-prerequisite5680
 Ref: GDC-prerequisite7077
 Node: Downloading the source16639
 Node: Configuration18310
-Ref: with-gnu-as36583
-Ref: with-as37478
-Ref: with-gnu-ld38887
-Ref: WithAixSoname64598
-Ref: AixLdCommand65259
-Node: Building107055
-Node: Testing123262
-Node: Final install131093
-Node: Binaries136394
-Node: Specific137501
-Ref: aarch64-x-x138035
-Ref: alpha-x-x140055
-Ref: amd64-x-solaris2140269
-Ref: amdgcn-x-amdhsa140351
-Ref: arc-x-elf32140877
-Ref: arc-linux-uclibc141053
-Ref: arm-x-eabi141194
-Ref: avr141447
-Ref: bfin142028
-Ref: cr16142291
-Ref: cris142707
-Ref: dos143033
-Ref: epiphany-x-elf143358
-Ref: x-x-freebsd143463
-Ref: ft32-x-elf145111
-Ref: h8300-hms145209
-Ref: hppa-hp-hpux145561
-Ref: hppa-hp-hpux10147933
-Ref: hppa-hp-hpux11148346
-Ref: x-x-linux-gnu153748
-Ref: ix86-x-linux154071
-Ref: ix86-x-solaris2154384
-Ref: ia64-x-linux155460
-Ref: ia64-x-hpux155707
-Ref: x-ibm-aix156262
-Ref: TransferAixShobj159924
-Ref: iq2000-x-elf163734
-Ref: lm32-x-elf163874
-Ref: lm32-x-uclinux163978
-Ref: loongarch164106
-Ref: m32c-x-elf164800
-Ref: m32r-x-elf164902
-Ref: m68k-x-x165004
-Ref: m68k-x-uclinux166042
-Ref: microblaze-x-elf166287
-Ref: mips-x-x166406
-Ref: moxie-x-elf168316
-Ref: msp430-x-elf168363
-Ref: nds32le-x-elf168920
-Ref: nds32be-x-elf168992
-Ref: nvptx-x-none169061
-Ref: or1k-x-elf169624
-Ref: or1k-x-linux169755
-Ref: powerpc-x-x169836
-Ref: powerpc-x-darwin170027
-Ref: powerpc-x-elf170522
-Ref: powerpc-x-linux-gnu170607
-Ref: powerpc-x-netbsd170702
-Ref: powerpc-x-eabisim170790
-Ref: powerpc-x-eabi170916
-Ref: powerpcle-x-elf170992
-Ref: powerpcle-x-eabisim171084
-Ref: powerpcle-x-eabi171217
-Ref: rl78-x-elf171300
-Ref: riscv32-x-elf171406
-Ref: riscv32-x-linux171595
-Ref: riscv64-x-elf171752
-Ref: riscv64-x-linux171941
-Ref: rx-x-elf172098
-Ref: s390-x-linux172144
-Ref: s390x-x-linux172216
-Ref: s390x-ibm-tpf172303
-Ref: x-x-solaris2172434
-Ref: sparc-x-x175868
-Ref: sparc-sun-solaris2176370
-Ref: sparc-x-linux177513
-Ref: sparc64-x-solaris2177544
-Ref: sparcv9-x-solaris2178262
-Ref: c6x-x-x178349
-Ref: visium-x-elf178441
-Ref: x-x-vxworks178549
-Ref: x86-64-x-x180072
-Ref: x86-64-x-solaris2180400
-Ref: xtensa-x-elf181050
-Ref: xtensa-x-linux181721
-Ref: windows182062
-Ref: x-x-cygwin183858
-Ref: x-x-mingw32184411
-Ref: older184793
-Ref: elf186910
-Node: GNU Free Documentation License187168
-Node: Concept Index212303
+Ref: with-gnu-as36577
+Ref: with-as37472
+Ref: with-gnu-ld38881
+Ref: WithAixSoname64592
+Ref: AixLdCommand65253
+Node: Building107049
+Node: Testing123256
+Node: Final install131087
+Node: Binaries136388
+Node: Specific137423
+Ref: aarch64-x-x137957
+Ref: alpha-x-x139977
+Ref: amd64-x-solaris2140191
+Ref: amdgcn-x-amdhsa140273
+Ref: arc-x-elf32140799
+Ref: arc-linux-uclibc140975
+Ref: arm-x-eabi141116
+Ref: avr141369
+Ref: bfin141950
+Ref: cris142213
+Ref: dos142539
+Ref: epiphany-x-elf142864
+Ref: x-x-freebsd142969
+Ref: ft32-x-elf144617
+Ref: h8300-hms144715
+Ref: hppa-hp-hpux145067
+Ref: hppa-hp-hpux10147439
+Ref: hppa-hp-hpux11147852
+Ref: x-x-linux-gnu153254
+Ref: ix86-x-linux153577
+Ref: ix86-x-solaris2153890
+Ref: ia64-x-linux154966
+Ref: ia64-x-hpux155213
+Ref: x-ibm-aix155768
+Ref: TransferAixShobj159430
+Ref: iq2000-x-elf163240
+Ref: lm32-x-elf163380
+Ref: lm32-x-uclinux163484
+Ref: loongarch163612
+Ref: m32c-x-elf164306
+Ref: m32r-x-elf164408
+Ref: m68k-x-x164510
+Ref: m68k-x-uclinux165548
+Ref: microblaze-x-elf165793
+Ref: mips-x-x165912
+Ref: moxie-x-elf167822
+Ref: msp430-x-elf167869
+Ref: nds32le-x-elf168426
+Ref: nds32be-x-elf168498
+Ref: nvptx-x-none168567
+Ref: or1k-x-elf169130
+Ref: or1k-x-linux169261
+Ref: powerpc-x-x169342
+Ref: powerpc-x-darwin169533
+Ref: powerpc-x-elf170028
+Ref: powerpc-x-linux-gnu170113
+Ref: powerpc-x-netbsd170208
+Ref: powerpc-x-eabisim170296
+Ref: powerpc-x-eabi170422
+Ref: powerpcle-x-elf170498
+Ref: powerpcle-x-eabisim170590
+Ref: powerpcle-x-eabi170723
+Ref: rl78-x-elf170806
+Ref: riscv32-x-elf170912
+Ref: riscv32-x-linux171101
+Ref: riscv64-x-elf171258
+Ref: riscv64-x-linux171447
+Ref: rx-x-elf171604
+Ref: s390-x-linux171650
+Ref: s390x-x-linux171722
+Ref: s390x-ibm-tpf171809
+Ref: x-x-solaris2171940
+Ref: sparc-x-x175374
+Ref: sparc-sun-solaris2175876
+Ref: sparc-x-linux177019
+Ref: sparc64-x-solaris2177050
+Ref: sparcv9-x-solaris2177768
+Ref: c6x-x-x177855
+Ref: visium-x-elf177947
+Ref: x-x-vxworks178055
+Ref: x86-64-x-x179578
+Ref: x86-64-x-solaris2179906
+Ref: xtensa-x-elf180556
+Ref: xtensa-x-linux181227
+Ref: windows181568
+Ref: x-x-cygwin183364
+Ref: x-x-mingw32183917
+Ref: older184299
+Ref: elf186416
+Node: GNU Free Documentation License186674
+Node: Concept Index211809
 
 End Tag Table
 

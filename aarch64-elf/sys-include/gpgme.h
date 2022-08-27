@@ -42,11 +42,11 @@ extern "C" {
  * instead.  The purpose of this macro is to let autoconf (using the
  * AM_PATH_GPGME macro) check that this header matches the installed
  * library.  */
-#define GPGME_VERSION "1.17.1"
+#define GPGME_VERSION "1.18.0"
 
 /* The version number of this header.  It may be used to handle minor
  * API incompatibilities.  */
-#define GPGME_VERSION_NUMBER 0x011101
+#define GPGME_VERSION_NUMBER 0x011200
 
 
 /* System specific typedefs.  */
@@ -385,8 +385,10 @@ gpgme_protocol_t;
 #define GPGME_KEYLIST_MODE_WITH_KEYGRIP       	64
 #define GPGME_KEYLIST_MODE_EPHEMERAL            128
 #define GPGME_KEYLIST_MODE_VALIDATE		256
+#define GPGME_KEYLIST_MODE_FORCE_EXTERN		512
 
 #define GPGME_KEYLIST_MODE_LOCATE		(1|2)
+#define GPGME_KEYLIST_MODE_LOCATE_EXTERNAL	(1|2|512)
 
 typedef unsigned int gpgme_keylist_mode_t;
 

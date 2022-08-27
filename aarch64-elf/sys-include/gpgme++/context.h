@@ -64,6 +64,17 @@ class GPGMEPP_EXPORT Context
 public:
     //using GpgME::Protocol;
 
+    /// RAII-style class for saving/restoring the key list mode.
+    class GPGMEPP_EXPORT KeyListModeSaver
+    {
+    public:
+        explicit KeyListModeSaver(Context *ctx);
+        ~KeyListModeSaver();
+    private:
+        Context *mCtx;
+        unsigned int mKeyListMode;
+    };
+
     //
     // Creation and destruction:
     //
@@ -283,6 +294,9 @@ public:
 
     Error revUid(const Key &key, const char *userid);
     Error startRevUid(const Key &key, const char *userid);
+
+    Error setPrimaryUid(const Key &key, const char *userid);
+    Error startSetPrimaryUid(const Key &key, const char *userid);
 
     Error createSubkey(const Key &key, const char *algo,
                        unsigned long reserved = 0,
