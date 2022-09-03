@@ -2,7 +2,7 @@
 #define DAVIS_SLANG_H_
 /* -*- mode: C; mode: fold; -*- */
 /*
-Copyright (C) 2004-2017,2018 John E. Davis
+Copyright (C) 2004-2021,2022 John E. Davis
 
 This file is part of the S-Lang Library.
 
@@ -22,8 +22,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
 USA.
 */
 
-#define SLANG_VERSION 20302
-#define SLANG_VERSION_STRING "2.3.2"
+#define SLANG_VERSION 20303
+#define SLANG_VERSION_STRING "2.3.3"
 /* #ifdef __DATE__ */
 /* # define SLANG_VERSION_STRING SLANG_VERSION_STRING0 " " __DATE__ */
 /* #else */
@@ -229,6 +229,7 @@ typedef unsigned char *VOID_STAR;
 #endif
 
 typedef int (*FVOID_STAR)(void);
+typedef void (*SLFvoid_Star)(void);
 
 #if defined(__MSDOS__) && defined(__BORLANDC__)
 # define SLFREE(buf)  farfree((void far *)(buf))
@@ -1333,6 +1334,7 @@ SL_EXTERN int SLstruct_create_struct (unsigned int,
 /* This is an interface to atexit */
 SL_EXTERN int SLang_add_cleanup_function (void (*)(void));
 
+/* The SLmake_[n]string functions return malloced strings, and not slang hashed slstrings */
 SL_EXTERN char *SLmake_string (SLFUTURE_CONST char *);
 SL_EXTERN char *SLmake_nstring (SLFUTURE_CONST char *, SLstrlen_Type);
 /* Returns a null terminated string made from the first n characters of the
@@ -1505,7 +1507,7 @@ SL_EXTERN int (*SLtty_VMS_Ctrl_Y_Hook) (void);
 typedef struct SLKeymap_Function_Type
 {
    SLFUTURE_CONST char *name;
-   int (*f)(void);
+   FVOID_STAR f;
 }
 SLKeymap_Function_Type;
 
@@ -2240,7 +2242,7 @@ SL_EXTERN int SLclass_patch_intrin_fun_table1 (SLang_Intrin_Fun_Type *table,
 					  SLtype from_type, SLtype to_type);
 
 #define MAKE_INTRINSIC_N(n,f,out,in,a1,a2,a3,a4,a5,a6,a7) \
-    {(n), NULL, SLANG_INTRINSIC, (FVOID_STAR) (f), \
+    {(n), NULL, SLANG_INTRINSIC, (FVOID_STAR)(SLFvoid_Star)(f), \
       {a1,a2,a3,a4,a5,a6,a7}, (in), (out)}
 
 #define MAKE_INTRINSIC_7(n,f,out,a1,a2,a3,a4,a5,a6,a7) \

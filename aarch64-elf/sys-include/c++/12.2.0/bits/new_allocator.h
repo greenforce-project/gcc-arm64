@@ -1,4 +1,4 @@
-// Allocator that wraps "C" malloc -*- C++ -*-
+// Allocator that wraps operator new -*- C++ -*-
 
 // Copyright (C) 2001-2022 Free Software Foundation, Inc.
 //
@@ -22,15 +22,15 @@
 // see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 // <http://www.gnu.org/licenses/>.
 
-/** @file ext/malloc_allocator.h
- *  This file is a GNU extension to the Standard C++ Library.
+/** @file bits/new_allocator.h
+ *  This is an internal header file, included by other library headers.
+ *  Do not attempt to use it directly. @headername{memory}
  */
 
-#ifndef _MALLOC_ALLOCATOR_H
-#define _MALLOC_ALLOCATOR_H 1
+#ifndef _STD_NEW_ALLOCATOR_H
+#define _STD_NEW_ALLOCATOR_H 1
 
-#include <cstdlib>
-#include <cstddef>
+#include <bits/c++config.h>
 #include <new>
 #include <bits/functexcept.h>
 #include <bits/move.h>
@@ -38,20 +38,22 @@
 #include <type_traits>
 #endif
 
-namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)
+namespace std _GLIBCXX_VISIBILITY(default)
 {
 _GLIBCXX_BEGIN_NAMESPACE_VERSION
 
   /**
-   *  @brief  An allocator that uses malloc.
+   *  @brief  An allocator that uses global new, as per C++03 [20.4.1].
    *  @ingroup allocators
    *
-   *  This is precisely the allocator defined in the C++ Standard. 
-   *    - all allocation calls malloc
-   *    - all deallocation calls free
+   *  This is precisely the allocator defined in the C++ Standard.
+   *    - all allocation calls operator new
+   *    - all deallocation calls operator delete
+   *
+   *  @tparam  _Tp  Type of allocated object.
    */
   template<typename _Tp>
-    class malloc_allocator
+    class __new_allocator
     {
     public:
       typedef _Tp        value_type;
@@ -64,8 +66,8 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       typedef const _Tp& const_reference;
 
       template<typename _Tp1>
-        struct rebind
-        { typedef malloc_allocator<_Tp1> other; };
+	struct rebind
+	{ typedef __new_allocator<_Tp1> other; };
 #endif
 
 #if __cplusplus >= 201103L
@@ -75,18 +77,17 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 #endif
 
       _GLIBCXX20_CONSTEXPR
-      malloc_allocator() _GLIBCXX_USE_NOEXCEPT { }
+      __new_allocator() _GLIBCXX_USE_NOEXCEPT { }
 
       _GLIBCXX20_CONSTEXPR
-      malloc_allocator(const malloc_allocator&) _GLIBCXX_USE_NOEXCEPT { }
+      __new_allocator(const __new_allocator&) _GLIBCXX_USE_NOEXCEPT { }
 
       template<typename _Tp1>
 	_GLIBCXX20_CONSTEXPR
-        malloc_allocator(const malloc_allocator<_Tp1>&)
-	_GLIBCXX_USE_NOEXCEPT { }
+	__new_allocator(const __new_allocator<_Tp1>&) _GLIBCXX_USE_NOEXCEPT { }
 
 #if __cplusplus <= 201703L
-      ~malloc_allocator() _GLIBCXX_USE_NOEXCEPT { }
+      ~__new_allocator() _GLIBCXX_USE_NOEXCEPT { }
 
       pointer
       address(reference __x) const _GLIBCXX_NOEXCEPT
@@ -97,15 +98,23 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       { return std::__addressof(__x); }
 #endif
 
+#if __has_builtin(__builtin_operator_new) >= 201802L
+# define _GLIBCXX_OPERATOR_NEW __builtin_operator_new
+# define _GLIBCXX_OPERATOR_DELETE __builtin_operator_delete
+#else
+# define _GLIBCXX_OPERATOR_NEW ::operator new
+# define _GLIBCXX_OPERATOR_DELETE ::operator delete
+#endif
+
       // NB: __n is permitted to be 0.  The C++ standard says nothing
       // about what the return value is when __n == 0.
       _GLIBCXX_NODISCARD _Tp*
-      allocate(size_type __n, const void* = 0)
+      allocate(size_type __n, const void* = static_cast<const void*>(0))
       {
 #if __cplusplus >= 201103L
-	 // _GLIBCXX_RESOLVE_LIB_DEFECTS
-	 // 3308. std::allocator<void>().allocate(n)
-	 static_assert(sizeof(_Tp) != 0, "cannot allocate incomplete types");
+	// _GLIBCXX_RESOLVE_LIB_DEFECTS
+	// 3308. std::allocator<void>().allocate(n)
+	static_assert(sizeof(_Tp) != 0, "cannot allocate incomplete types");
 #endif
 
 	if (__builtin_expect(__n > this->_M_max_size(), false))
@@ -117,54 +126,57 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 	    std::__throw_bad_alloc();
 	  }
 
-	_Tp* __ret = 0;
 #if __cpp_aligned_new
-#if __cplusplus > 201402L && _GLIBCXX_HAVE_ALIGNED_ALLOC
-	if (alignof(_Tp) > alignof(std::max_align_t))
+	if (alignof(_Tp) > __STDCPP_DEFAULT_NEW_ALIGNMENT__)
 	  {
-	    __ret = static_cast<_Tp*>(::aligned_alloc(alignof(_Tp),
-						      __n * sizeof(_Tp)));
+	    std::align_val_t __al = std::align_val_t(alignof(_Tp));
+	    return static_cast<_Tp*>(_GLIBCXX_OPERATOR_NEW(__n * sizeof(_Tp),
+							   __al));
 	  }
-#else
-# define _GLIBCXX_CHECK_MALLOC_RESULT
 #endif
-#endif
-	if (!__ret)
-	  __ret = static_cast<_Tp*>(std::malloc(__n * sizeof(_Tp)));
-	if (!__ret)
-	  std::__throw_bad_alloc();
-#ifdef _GLIBCXX_CHECK_MALLOC_RESULT
-#undef _GLIBCXX_CHECK_MALLOC_RESULT
-	  if (reinterpret_cast<std::size_t>(__ret) % alignof(_Tp))
-	    {
-	      // Memory returned by malloc is not suitably aligned for _Tp.
-	      deallocate(__ret, __n);
-	      std::__throw_bad_alloc();
-	    }
-#endif
-	return __ret;
+	return static_cast<_Tp*>(_GLIBCXX_OPERATOR_NEW(__n * sizeof(_Tp)));
       }
 
       // __p is not permitted to be a null pointer.
       void
-      deallocate(_Tp* __p, size_type)
-      { std::free(static_cast<void*>(__p)); }
+      deallocate(_Tp* __p, size_type __n __attribute__ ((__unused__)))
+      {
+#if __cpp_sized_deallocation
+# define _GLIBCXX_SIZED_DEALLOC(p, n) (p), (n) * sizeof(_Tp)
+#else
+# define _GLIBCXX_SIZED_DEALLOC(p, n) (p)
+#endif
+
+#if __cpp_aligned_new
+	if (alignof(_Tp) > __STDCPP_DEFAULT_NEW_ALIGNMENT__)
+	  {
+	    _GLIBCXX_OPERATOR_DELETE(_GLIBCXX_SIZED_DEALLOC(__p, __n),
+				     std::align_val_t(alignof(_Tp)));
+	    return;
+	  }
+#endif
+	_GLIBCXX_OPERATOR_DELETE(_GLIBCXX_SIZED_DEALLOC(__p, __n));
+      }
+
+#undef _GLIBCXX_SIZED_DEALLOC
+#undef _GLIBCXX_OPERATOR_DELETE
+#undef _GLIBCXX_OPERATOR_NEW
 
 #if __cplusplus <= 201703L
       size_type
-      max_size() const _GLIBCXX_USE_NOEXCEPT 
+      max_size() const _GLIBCXX_USE_NOEXCEPT
       { return _M_max_size(); }
 
 #if __cplusplus >= 201103L
       template<typename _Up, typename... _Args>
-        void
-        construct(_Up* __p, _Args&&... __args)
+	void
+	construct(_Up* __p, _Args&&... __args)
 	noexcept(std::is_nothrow_constructible<_Up, _Args...>::value)
 	{ ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
 
       template<typename _Up>
-        void 
-        destroy(_Up* __p)
+	void
+	destroy(_Up* __p)
 	noexcept(std::is_nothrow_destructible<_Up>::value)
 	{ __p->~_Up(); }
 #else
@@ -172,7 +184,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       // 402. wrong new expression in [some_] allocator::construct
       void
       construct(pointer __p, const _Tp& __val)
-      { ::new((void *)__p) value_type(__val); }
+      { ::new((void *)__p) _Tp(__val); }
 
       void
       destroy(pointer __p) { __p->~_Tp(); }
@@ -181,14 +193,14 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 
       template<typename _Up>
 	friend _GLIBCXX20_CONSTEXPR bool
-	operator==(const malloc_allocator&, const malloc_allocator<_Up>&)
+	operator==(const __new_allocator&, const __new_allocator<_Up>&)
 	_GLIBCXX_NOTHROW
 	{ return true; }
 
 #if __cpp_impl_three_way_comparison < 201907L
       template<typename _Up>
 	friend _GLIBCXX20_CONSTEXPR bool
-	operator!=(const malloc_allocator&, const malloc_allocator<_Up>&)
+	operator!=(const __new_allocator&, const __new_allocator<_Up>&)
 	_GLIBCXX_NOTHROW
 	{ return false; }
 #endif
