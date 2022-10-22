@@ -3130,13 +3130,13 @@ amdgcn-*-amdhsa
 
 AMD GCN GPU target.
 
-   Instead of GNU Binutils, you will need to install LLVM 6, or later,
-and copy 'bin/llvm-mc' to 'amdgcn-amdhsa/bin/as', 'bin/lld' to
+   Instead of GNU Binutils, you will need to install LLVM 13.0.1, or
+later, and copy 'bin/llvm-mc' to 'amdgcn-amdhsa/bin/as', 'bin/lld' to
 'amdgcn-amdhsa/bin/ld', 'bin/llvm-nm' to 'amdgcn-amdhsa/bin/nm', and
 'bin/llvm-ar' to both 'bin/amdgcn-amdhsa-ar' and
 'bin/amdgcn-amdhsa-ranlib'.
 
-   Use Newlib (2019-01-16, or newer).
+   Use Newlib (3.2.0, or newer).
 
    To run the binaries, install the HSA Runtime from the ROCm Platform,
 and use 'libexec/gcc/amdhsa-amdhsa/VERSION/gcn-run' to launch them on
@@ -3820,14 +3820,20 @@ Nvidia PTX target.
 GCC where to find it:
 '--with-build-time-tools=[install-nvptx-tools]/nvptx-none/bin'.
 
-   You will need newlib 3.0 git revision
-cd31fbb2aea25f94d7ecedc9db16dfc87ab0c316 or later.  It can be
-automatically built together with GCC.  For this, add a symbolic link to
-nvptx-newlib's 'newlib' directory to the directory containing the GCC
-sources.
+   You will need newlib 3.1.0 or later.  It can be automatically built
+together with GCC.  For this, add a symbolic link to nvptx-newlib's
+'newlib' directory to the directory containing the GCC sources.
 
    Use the '--disable-sjlj-exceptions' and
 '--enable-newlib-io-long-long' options when configuring.
+
+   The '--with-arch' option may be specified to override the default
+value for the '-march' option, and to also build corresponding target
+libraries.  The default is '--with-arch=sm_30'.
+
+   For example, if '--with-arch=sm_70' is specified, '-march=sm_30' and
+'-march=sm_70' target libraries are built, and code generation defaults
+to '-march=sm_70'.
 
 or1k-*-elf
 ==========
@@ -4885,47 +4891,47 @@ Ref: msp430-x-elf167785
 Ref: nds32le-x-elf168342
 Ref: nds32be-x-elf168414
 Ref: nvptx-x-none168483
-Ref: or1k-x-elf169046
-Ref: or1k-x-linux169177
-Ref: powerpc-x-x169258
-Ref: powerpc-x-darwin169449
-Ref: powerpc-x-elf169944
-Ref: powerpc-x-linux-gnu170029
-Ref: powerpc-x-netbsd170124
-Ref: powerpc-x-eabisim170212
-Ref: powerpc-x-eabi170338
-Ref: powerpcle-x-elf170414
-Ref: powerpcle-x-eabisim170506
-Ref: powerpcle-x-eabi170639
-Ref: rl78-x-elf170722
-Ref: riscv32-x-elf170828
-Ref: riscv32-x-linux171017
-Ref: riscv64-x-elf171174
-Ref: riscv64-x-linux171363
-Ref: rx-x-elf171520
-Ref: s390-x-linux171566
-Ref: s390x-x-linux171638
-Ref: s390x-ibm-tpf171725
-Ref: x-x-solaris2171856
-Ref: sparc-x-x175290
-Ref: sparc-sun-solaris2175792
-Ref: sparc-x-linux176935
-Ref: sparc64-x-solaris2176966
-Ref: sparcv9-x-solaris2177684
-Ref: c6x-x-x177771
-Ref: visium-x-elf177863
-Ref: x-x-vxworks177971
-Ref: x86-64-x-x179494
-Ref: x86-64-x-solaris2179822
-Ref: xtensa-x-elf180472
-Ref: xtensa-x-linux181143
-Ref: windows181484
-Ref: x-x-cygwin183280
-Ref: x-x-mingw32183833
-Ref: older184215
-Ref: elf186332
-Node: GNU Free Documentation License186590
-Node: Concept Index211725
+Ref: or1k-x-elf169346
+Ref: or1k-x-linux169477
+Ref: powerpc-x-x169558
+Ref: powerpc-x-darwin169749
+Ref: powerpc-x-elf170244
+Ref: powerpc-x-linux-gnu170329
+Ref: powerpc-x-netbsd170424
+Ref: powerpc-x-eabisim170512
+Ref: powerpc-x-eabi170638
+Ref: powerpcle-x-elf170714
+Ref: powerpcle-x-eabisim170806
+Ref: powerpcle-x-eabi170939
+Ref: rl78-x-elf171022
+Ref: riscv32-x-elf171128
+Ref: riscv32-x-linux171317
+Ref: riscv64-x-elf171474
+Ref: riscv64-x-linux171663
+Ref: rx-x-elf171820
+Ref: s390-x-linux171866
+Ref: s390x-x-linux171938
+Ref: s390x-ibm-tpf172025
+Ref: x-x-solaris2172156
+Ref: sparc-x-x175590
+Ref: sparc-sun-solaris2176092
+Ref: sparc-x-linux177235
+Ref: sparc64-x-solaris2177266
+Ref: sparcv9-x-solaris2177984
+Ref: c6x-x-x178071
+Ref: visium-x-elf178163
+Ref: x-x-vxworks178271
+Ref: x86-64-x-x179794
+Ref: x86-64-x-solaris2180122
+Ref: xtensa-x-elf180772
+Ref: xtensa-x-linux181443
+Ref: windows181784
+Ref: x-x-cygwin183580
+Ref: x-x-mingw32184133
+Ref: older184515
+Ref: elf186632
+Node: GNU Free Documentation License186890
+Node: Concept Index212025
 
 End Tag Table
 

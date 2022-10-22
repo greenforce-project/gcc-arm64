@@ -447,7 +447,7 @@ typedef struct lzma_internal_s lzma_internal;
  *
  * The lzma_stream structure is used for
  *  - passing pointers to input and output buffers to liblzma;
- *  - defining custom memory handler functions; and
+ *  - defining custom memory hander functions; and
  *  - holding a pointer to coder-specific internal data structures.
  *
  * Typical usage:

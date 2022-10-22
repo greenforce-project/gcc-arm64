@@ -4970,6 +4970,22 @@
 #define LN_hkdf         "hkdf"
 #define NID_hkdf                1036
 
+#define SN_sshkdf               "SSHKDF"
+#define LN_sshkdf               "sshkdf"
+#define NID_sshkdf              1203
+
+#define SN_kbkdf               "KBKDF"
+#define LN_kbkdf               "kbkdf"
+#define NID_kbkdf              1204
+
+#define SN_krb5kdf             "KRB5KDF"
+#define LN_krb5kdf             "krb5kdf"
+#define NID_krb5kdf            1205
+
+#define SN_sskdf                "SSKDF"
+#define LN_sskdf                "sskdf"
+#define NID_sskdf               1206
+
 #define SN_id_pkinit            "id-pkinit"
 #define NID_id_pkinit           1031
 #define OBJ_id_pkinit           1L,3L,6L,1L,5L,2L,3L
@@ -5098,6 +5114,24 @@
 
 #define SN_ffdhe8192            "ffdhe8192"
 #define NID_ffdhe8192           1130
+
+#define SN_modp_1536            "modp_1536"
+#define NID_modp_1536           1199
+
+#define SN_modp_2048            "modp_2048"
+#define NID_modp_2048           1200
+
+#define SN_modp_3072            "modp_3072"
+#define NID_modp_3072           1201
+
+#define SN_modp_4096            "modp_4096"
+#define NID_modp_4096           1202
+
+#define SN_modp_6144            "modp_6144"
+#define NID_modp_6144           1203
+
+#define SN_modp_8192            "modp_8192"
+#define NID_modp_8192           1204
 
 #define SN_ISO_UA               "ISO-UA"
 #define NID_ISO_UA              1150

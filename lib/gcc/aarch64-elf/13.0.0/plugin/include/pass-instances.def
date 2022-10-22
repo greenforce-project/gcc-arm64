@@ -265,7 +265,7 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS (pass_sancov, 1);
       NEXT_PASS (pass_asan, 1);
       NEXT_PASS (pass_tsan, 1);
-      NEXT_PASS (pass_dse, 3);
+      NEXT_PASS_WITH_ARG (pass_dse, 3, true /* use DR analysis */);
       NEXT_PASS (pass_dce, 4);
       /* Pass group that runs when 1) enabled, 2) there are loops
 	 in the function.  Make sure to run pass_fix_loops before
@@ -409,6 +409,7 @@ along with GCC; see the file COPYING3.  If not see
 	 and thus it should be run last.  */
       NEXT_PASS (pass_uncprop, 2);
   POP_INSERT_PASSES ()
+  NEXT_PASS (pass_assumptions, 1);
   NEXT_PASS (pass_tm_init, 1);
   PUSH_INSERT_PASSES_WITHIN (pass_tm_init)
       NEXT_PASS (pass_tm_mark, 1);

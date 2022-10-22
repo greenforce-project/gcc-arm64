@@ -111,11 +111,12 @@ enum arches {
   ARCHES_ANY = 0,
   ARCHES_RCPC8_4 = 1,
   ARCHES_FP = 2,
-  ARCHES_SIMD = 3,
-  ARCHES_SVE = 4,
-  ARCHES_FP16 = 5
+  ARCHES_FP_Q = 3,
+  ARCHES_SIMD = 4,
+  ARCHES_SVE = 5,
+  ARCHES_FP16 = 6
 };
-#define NUM_ARCHES_VALUES 6
+#define NUM_ARCHES_VALUES 7
 extern const char *const arches_strings[];
 
 enum unspec {

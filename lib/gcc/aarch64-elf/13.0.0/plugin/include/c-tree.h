@@ -164,12 +164,13 @@ struct c_expr
   }
 
   /* Set the value to error_mark_node whilst ensuring that src_range
-     is initialized.  */
+     and m_decimal are initialized.  */
   void set_error ()
   {
     value = error_mark_node;
     src_range.m_start = UNKNOWN_LOCATION;
     src_range.m_finish = UNKNOWN_LOCATION;
+    m_decimal = 0;
   }
 };
 
@@ -733,7 +734,7 @@ extern void set_init_label (location_t, tree, location_t, struct obstack *);
 extern void process_init_element (location_t, struct c_expr, bool,
 				  struct obstack *);
 extern tree build_compound_literal (location_t, tree, tree, bool,
-				    unsigned int);
+				    unsigned int, struct c_declspecs *);
 extern void check_compound_literal_type (location_t, struct c_type_name *);
 extern tree c_start_switch (location_t, location_t, tree, bool);
 extern void c_finish_switch (tree, tree);

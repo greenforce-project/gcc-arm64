@@ -364,7 +364,7 @@
 /* Define to the level of your assembler's compressed debug section support.
    */
 #ifndef USED_FOR_TARGET
-#define HAVE_AS_COMPRESS_DEBUG 2
+#define HAVE_AS_COMPRESS_DEBUG 1
 #endif
 
 
@@ -437,7 +437,7 @@
 
 /* Define if your assembler supports the --gdwarf-5 option. */
 #ifndef USED_FOR_TARGET
-#define HAVE_AS_GDWARF_5_DEBUG_FLAG 1
+/* #undef HAVE_AS_GDWARF_5_DEBUG_FLAG */
 #endif
 
 
@@ -770,7 +770,7 @@
 /* Define if your assembler supports --gdwarf-4/--gdwarf-5 even with compiler
    generated .debug_line. */
 #ifndef USED_FOR_TARGET
-#define HAVE_AS_WORKING_DWARF_N_FLAG 1
+/* #undef HAVE_AS_WORKING_DWARF_N_FLAG */
 #endif
 
 
@@ -1415,14 +1415,14 @@
 
 /* Define 0/1 if your assembler supports 'o' flag in .section directive. */
 #ifndef USED_FOR_TARGET
-#define HAVE_GAS_SECTION_LINK_ORDER 1
+#define HAVE_GAS_SECTION_LINK_ORDER 0
 #endif
 
 
 /* Define 0/1 if your assembler supports marking sections with SHF_GNU_RETAIN
    flag. */
 #ifndef USED_FOR_TARGET
-#define HAVE_GAS_SHF_GNU_RETAIN 1
+#define HAVE_GAS_SHF_GNU_RETAIN 0
 #endif
 
 
@@ -1449,6 +1449,12 @@
 /* Define if your assembler supports .weakref. */
 #ifndef USED_FOR_TARGET
 #define HAVE_GAS_WEAKREF 1
+#endif
+
+
+/* Define to 1 if you have the `getauxval' function. */
+#ifndef USED_FOR_TARGET
+#define HAVE_GETAUXVAL 1
 #endif
 
 
@@ -1622,7 +1628,7 @@
 
 /* Define to the level of your linker's compressed debug section support. */
 #ifndef USED_FOR_TARGET
-#define HAVE_LD_COMPRESS_DEBUG 3
+#define HAVE_LD_COMPRESS_DEBUG 1
 #endif
 
 
@@ -1937,6 +1943,12 @@
 /* Define to 1 if you have the `sysconf' function. */
 #ifndef USED_FOR_TARGET
 #define HAVE_SYSCONF 1
+#endif
+
+
+/* Define to 1 if you have the <sys/auxv.h> header file. */
+#ifndef USED_FOR_TARGET
+#define HAVE_SYS_AUXV_H 1
 #endif
 
 
