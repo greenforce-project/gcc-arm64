@@ -1,4 +1,5 @@
-/* Copyright (C) 1992-2021 Free Software Foundation, Inc.
+/* Copyright (C) 1992-2022 Free Software Foundation, Inc.
+   Copyright The GNU Toolchain Authors.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
@@ -291,6 +292,15 @@
 # define __attribute_alloc_size__(params) /* Ignore.  */
 #endif
 
+/* Tell the compiler which argument to an allocation function
+   indicates the alignment of the allocation.  */
+#if __GNUC_PREREQ (4, 9) || __glibc_has_attribute (__alloc_align__)
+# define __attribute_alloc_align__(param) \
+  __attribute__ ((__alloc_align__ param))
+#else
+# define __attribute_alloc_align__(param) /* Ignore.  */
+#endif
+
 /* At some point during the gcc 2.96 development the `pure' attribute
    for functions was introduced.  We don't want to use it unconditionally
    (although this would be possible) since it generates warnings.  */
@@ -366,16 +376,18 @@
 #endif
 
 /* The nonnull function attribute marks pointer parameters that
-   must not be NULL.  */
-#ifndef __nonnull
+   must not be NULL.  This has the name __nonnull in glibc,
+   and __attribute_nonnull__ in files shared with Gnulib to avoid
+   collision with a different __nonnull in DragonFlyBSD 5.9.  */
+#ifndef __attribute_nonnull__
 # if __GNUC_PREREQ (3,3) || __glibc_has_attribute (__nonnull__)
-#  define __nonnull(params) __attribute__ ((__nonnull__ params))
+#  define __attribute_nonnull__(params) __attribute__ ((__nonnull__ params))
 # else
-#  define __nonnull(params)
+#  define __attribute_nonnull__(params)
 # endif
-#elif !defined __GLIBC__
-# undef __nonnull
-# define __nonnull(params) _GL_ATTRIBUTE_NONNULL (params)
+#endif
+#ifndef __nonnull
+# define __nonnull(params) __attribute_nonnull__ (params)
 #endif
 
 /* The returns_nonnull function attribute marks the return type of the function
@@ -541,9 +553,9 @@
       [!!sizeof (struct { int __error_if_negative: (expr) ? 2 : -1; })]
 #endif
 
-/* The #ifndef lets Gnulib avoid including these on non-glibc
-   platforms, where the includes typically do not exist.  */
-#ifdef __GLIBC__
+/* Gnulib avoids including these, as they don't work on non-glibc or
+   older glibc platforms.  */
+#ifndef __GNULIB_CDEFS
 # include <bits/wordsize.h>
 # include <bits/long-double.h>
 #endif
