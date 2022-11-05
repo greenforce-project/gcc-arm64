@@ -10376,7 +10376,7 @@ enum opt_code
   OPT_fpreview_inclusiveincontracts = 1450,  /* -fpreview=inclusiveincontracts */
   OPT_fpreview_nosharedaccess = 1451,        /* -fpreview=nosharedaccess */
   OPT_fpreview_rvaluerefparam = 1452,        /* -fpreview=rvaluerefparam */
-  OPT_fpreview_shortenedmethods = 1453,      /* -fpreview=shortenedmethods */
+  OPT_fpreview_systemvariables = 1453,       /* -fpreview=systemvariables */
   OPT_fprintf_return_value = 1454,           /* -fprintf-return-value */
   OPT_fprofile = 1455,                       /* -fprofile */
   OPT_fprofile_abs_path = 1456,              /* -fprofile-abs-path */
