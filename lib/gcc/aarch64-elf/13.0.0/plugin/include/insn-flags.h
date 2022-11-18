@@ -258,6 +258,8 @@
 #define HAVE_csinc3di_insn 1
 #define HAVE_csneg3si_insn 1
 #define HAVE_csneg3di_insn 1
+#define HAVE_aarch64_umaxsi3_insn (TARGET_CSSC)
+#define HAVE_aarch64_umaxdi3_insn (TARGET_CSSC)
 #define HAVE_aarch64_uqdecsi (TARGET_SVE)
 #define HAVE_aarch64_uqdecdi (TARGET_SVE)
 #define HAVE_andsi3 1
@@ -480,6 +482,12 @@
 #define HAVE_abshf2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
 #define HAVE_abssf2 (TARGET_FLOAT)
 #define HAVE_absdf2 (TARGET_FLOAT)
+#define HAVE_smaxsi3 (TARGET_CSSC)
+#define HAVE_sminsi3 (TARGET_CSSC)
+#define HAVE_uminsi3 (TARGET_CSSC)
+#define HAVE_smaxdi3 (TARGET_CSSC)
+#define HAVE_smindi3 (TARGET_CSSC)
+#define HAVE_umindi3 (TARGET_CSSC)
 #define HAVE_smaxsf3 (TARGET_FLOAT)
 #define HAVE_smaxdf3 (TARGET_FLOAT)
 #define HAVE_sminsf3 (TARGET_FLOAT)
@@ -4415,10 +4423,14 @@
 #define HAVE_atomic_nand_fetchhi 1
 #define HAVE_atomic_nand_fetchsi 1
 #define HAVE_atomic_nand_fetchdi 1
-#define HAVE_atomic_loadqi 1
-#define HAVE_atomic_loadhi 1
-#define HAVE_atomic_loadsi 1
-#define HAVE_atomic_loaddi 1
+#define HAVE_aarch64_atomic_loadqi_rcpc (TARGET_RCPC)
+#define HAVE_aarch64_atomic_loadhi_rcpc (TARGET_RCPC)
+#define HAVE_aarch64_atomic_loadsi_rcpc (TARGET_RCPC)
+#define HAVE_aarch64_atomic_loaddi_rcpc (TARGET_RCPC)
+#define HAVE_aarch64_atomic_loadqi 1
+#define HAVE_aarch64_atomic_loadhi 1
+#define HAVE_aarch64_atomic_loadsi 1
+#define HAVE_aarch64_atomic_loaddi 1
 #define HAVE_atomic_storeqi 1
 #define HAVE_atomic_storehi 1
 #define HAVE_atomic_storesi 1
@@ -7136,12 +7148,12 @@
 #define HAVE_notsicc 1
 #define HAVE_negdicc 1
 #define HAVE_notdicc 1
-#define HAVE_umaxsi3 (TARGET_SVE)
-#define HAVE_umaxdi3 (TARGET_SVE)
+#define HAVE_umaxsi3 (TARGET_SVE || TARGET_CSSC)
+#define HAVE_umaxdi3 (TARGET_SVE || TARGET_CSSC)
 #define HAVE_ffssi2 1
 #define HAVE_ffsdi2 1
-#define HAVE_popcountsi2 (TARGET_SIMD)
-#define HAVE_popcountdi2 (TARGET_SIMD)
+#define HAVE_popcountsi2 (TARGET_CSSC || TARGET_SIMD)
+#define HAVE_popcountdi2 (TARGET_CSSC || TARGET_SIMD)
 #define HAVE_ashlsi3 1
 #define HAVE_ashrsi3 1
 #define HAVE_lshrsi3 1
@@ -7848,6 +7860,9 @@
 #define HAVE_aarch64_raddhn2v2di (TARGET_SIMD)
 #define HAVE_aarch64_subhn2v2di (TARGET_SIMD)
 #define HAVE_aarch64_rsubhn2v2di (TARGET_SIMD)
+#define HAVE_aarch64_bitmask_udivv8hi3 (TARGET_SIMD)
+#define HAVE_aarch64_bitmask_udivv4si3 (TARGET_SIMD)
+#define HAVE_aarch64_bitmask_udivv2di3 (TARGET_SIMD)
 #define HAVE_aarch64_pmull_hiv16qi (TARGET_SIMD)
 #define HAVE_aarch64_sqmovnv8hi (TARGET_SIMD)
 #define HAVE_aarch64_uqmovnv8hi (TARGET_SIMD)
@@ -8553,6 +8568,10 @@
 #define HAVE_atomic_or_fetchdi 1
 #define HAVE_atomic_xor_fetchdi 1
 #define HAVE_atomic_and_fetchdi 1
+#define HAVE_atomic_loadqi 1
+#define HAVE_atomic_loadhi 1
+#define HAVE_atomic_loadsi 1
+#define HAVE_atomic_loaddi 1
 #define HAVE_mem_thread_fence 1
 #define HAVE_dmb 1
 #define HAVE_movvnx16qi (TARGET_SVE)
@@ -10208,6 +10227,9 @@
 #define HAVE_cond_flogbvnx8hf (TARGET_SVE2)
 #define HAVE_cond_flogbvnx4sf (TARGET_SVE2)
 #define HAVE_cond_flogbvnx2df (TARGET_SVE2)
+#define HAVE_aarch64_bitmask_udivvnx8hi3 (TARGET_SVE2)
+#define HAVE_aarch64_bitmask_udivvnx4si3 (TARGET_SVE2)
+#define HAVE_aarch64_bitmask_udivvnx2di3 (TARGET_SVE2)
 #define HAVE_check_raw_ptrssi (TARGET_SVE2)
 #define HAVE_check_war_ptrssi (TARGET_SVE2)
 #define HAVE_check_raw_ptrsdi (TARGET_SVE2)
@@ -10364,6 +10386,8 @@ extern rtx        gen_csinc3si_insn                                  (rtx, rtx, 
 extern rtx        gen_csinc3di_insn                                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_csneg3si_insn                                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_csneg3di_insn                                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_umaxsi3_insn                           (rtx, rtx, rtx);
+extern rtx        gen_aarch64_umaxdi3_insn                           (rtx, rtx, rtx);
 extern rtx        gen_aarch64_uqdecsi                                (rtx, rtx, rtx);
 extern rtx        gen_aarch64_uqdecdi                                (rtx, rtx, rtx);
 extern rtx        gen_andsi3                                         (rtx, rtx, rtx);
@@ -10582,6 +10606,12 @@ extern rtx        gen_negdf2                                         (rtx, rtx);
 extern rtx        gen_abshf2                                         (rtx, rtx);
 extern rtx        gen_abssf2                                         (rtx, rtx);
 extern rtx        gen_absdf2                                         (rtx, rtx);
+extern rtx        gen_smaxsi3                                        (rtx, rtx, rtx);
+extern rtx        gen_sminsi3                                        (rtx, rtx, rtx);
+extern rtx        gen_uminsi3                                        (rtx, rtx, rtx);
+extern rtx        gen_smaxdi3                                        (rtx, rtx, rtx);
+extern rtx        gen_smindi3                                        (rtx, rtx, rtx);
+extern rtx        gen_umindi3                                        (rtx, rtx, rtx);
 extern rtx        gen_smaxsf3                                        (rtx, rtx, rtx);
 extern rtx        gen_smaxdf3                                        (rtx, rtx, rtx);
 extern rtx        gen_sminsf3                                        (rtx, rtx, rtx);
@@ -13673,10 +13703,14 @@ extern rtx        gen_atomic_nand_fetchqi                            (rtx, rtx, 
 extern rtx        gen_atomic_nand_fetchhi                            (rtx, rtx, rtx, rtx);
 extern rtx        gen_atomic_nand_fetchsi                            (rtx, rtx, rtx, rtx);
 extern rtx        gen_atomic_nand_fetchdi                            (rtx, rtx, rtx, rtx);
-extern rtx        gen_atomic_loadqi                                  (rtx, rtx, rtx);
-extern rtx        gen_atomic_loadhi                                  (rtx, rtx, rtx);
-extern rtx        gen_atomic_loadsi                                  (rtx, rtx, rtx);
-extern rtx        gen_atomic_loaddi                                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_atomic_loadqi_rcpc                     (rtx, rtx, rtx);
+extern rtx        gen_aarch64_atomic_loadhi_rcpc                     (rtx, rtx, rtx);
+extern rtx        gen_aarch64_atomic_loadsi_rcpc                     (rtx, rtx, rtx);
+extern rtx        gen_aarch64_atomic_loaddi_rcpc                     (rtx, rtx, rtx);
+extern rtx        gen_aarch64_atomic_loadqi                          (rtx, rtx, rtx);
+extern rtx        gen_aarch64_atomic_loadhi                          (rtx, rtx, rtx);
+extern rtx        gen_aarch64_atomic_loadsi                          (rtx, rtx, rtx);
+extern rtx        gen_aarch64_atomic_loaddi                          (rtx, rtx, rtx);
 extern rtx        gen_atomic_storeqi                                 (rtx, rtx, rtx);
 extern rtx        gen_atomic_storehi                                 (rtx, rtx, rtx);
 extern rtx        gen_atomic_storesi                                 (rtx, rtx, rtx);
@@ -19033,6 +19067,9 @@ extern rtx        gen_aarch64_addhn2v2di                             (rtx, rtx, 
 extern rtx        gen_aarch64_raddhn2v2di                            (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_subhn2v2di                             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_rsubhn2v2di                            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_bitmask_udivv8hi3                      (rtx, rtx, rtx);
+extern rtx        gen_aarch64_bitmask_udivv4si3                      (rtx, rtx, rtx);
+extern rtx        gen_aarch64_bitmask_udivv2di3                      (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pmull_hiv16qi                          (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sqmovnv8hi                             (rtx, rtx);
 extern rtx        gen_aarch64_uqmovnv8hi                             (rtx, rtx);
@@ -19738,6 +19775,10 @@ extern rtx        gen_atomic_sub_fetchdi                             (rtx, rtx, 
 extern rtx        gen_atomic_or_fetchdi                              (rtx, rtx, rtx, rtx);
 extern rtx        gen_atomic_xor_fetchdi                             (rtx, rtx, rtx, rtx);
 extern rtx        gen_atomic_and_fetchdi                             (rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_loadqi                                  (rtx, rtx, rtx);
+extern rtx        gen_atomic_loadhi                                  (rtx, rtx, rtx);
+extern rtx        gen_atomic_loadsi                                  (rtx, rtx, rtx);
+extern rtx        gen_atomic_loaddi                                  (rtx, rtx, rtx);
 extern rtx        gen_mem_thread_fence                               (rtx);
 extern rtx        gen_dmb                                            (rtx);
 extern rtx        gen_movvnx16qi                                     (rtx, rtx);
@@ -23361,6 +23402,9 @@ extern rtx        gen_cond_ursqrtevnx4si                             (rtx, rtx, 
 extern rtx        gen_cond_flogbvnx8hf                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_flogbvnx4sf                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_flogbvnx2df                               (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_bitmask_udivvnx8hi3                    (rtx, rtx, rtx);
+extern rtx        gen_aarch64_bitmask_udivvnx4si3                    (rtx, rtx, rtx);
+extern rtx        gen_aarch64_bitmask_udivvnx2di3                    (rtx, rtx, rtx);
 extern rtx        gen_check_raw_ptrssi                               (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_check_war_ptrssi                               (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_check_raw_ptrsdi                               (rtx, rtx, rtx, rtx, rtx);
