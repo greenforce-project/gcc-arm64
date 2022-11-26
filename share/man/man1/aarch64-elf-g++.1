@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2022-11-17" "gcc-13.0.0" "GNU"
+.TH GCC 1 "2022-11-26" "gcc-13.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -233,8 +233,8 @@ in the following sections.
 \&\-flax\-vector\-conversions  \-fms\-extensions 
 \&\-foffload=\fR\fIarg\fR  \fB\-foffload\-options=\fR\fIarg\fR 
 \&\fB\-fopenacc  \-fopenacc\-dim=\fR\fIgeom\fR 
-\&\fB\-fopenmp  \-fopenmp\-simd 
-\&\-fpermitted\-flt\-eval\-methods=\fR\fIstandard\fR 
+\&\fB\-fopenmp  \-fopenmp\-simd  \-fopenmp\-target\-simd\-clone\fR[\fB=\fR\fIdevice-type\fR] 
+\&\fB\-fpermitted\-flt\-eval\-methods=\fR\fIstandard\fR 
 \&\fB\-fplan9\-extensions  \-fsigned\-bitfields  \-funsigned\-bitfields 
 \&\-fsigned\-char  \-funsigned\-char \-fstrict\-flex\-arrays[=\fR\fIn\fR\fB] 
 \&\-fsso\-struct=\fR\fIendianness\fR
@@ -2220,7 +2220,8 @@ any references to them in the result of the compilation as if the
 files resided in directory \fI\fInew\fI\fR instead.  Specifying this
 option is equivalent to specifying all the individual
 \&\fB\-f*\-prefix\-map\fR options.  This can be used to make reproducible
-builds that are location independent.  See also
+builds that are location independent.  Directories referenced by
+directives are not affected by these options. See also
 \&\fB\-fmacro\-prefix\-map\fR, \fB\-fdebug\-prefix\-map\fR and
 \&\fB\-fprofile\-prefix\-map\fR.
 .IP "\fB\-fplugin=\fR\fIname\fR\fB.so\fR" 4
@@ -2768,6 +2769,28 @@ Enable handling of OpenMP's \f(CW\*(C`simd\*(C'\fR, \f(CW\*(C`declare simd\*(C'\
 \&\f(CW\*(C`simd\*(C'\fR as constituent with \f(CW\*(C`#pragma omp\*(C'\fR in C/\*(C+,
 \&\f(CW\*(C`[[omp::directive(...)]]\*(C'\fR and \f(CW\*(C`[[omp::sequence(...)]]\*(C'\fR in \*(C+
 and \f(CW\*(C`!$omp\*(C'\fR in Fortran.  Other OpenMP directives are ignored.
+.IP "\fB\-fopenmp\-target\-simd\-clone\fR" 4
+.IX Item "-fopenmp-target-simd-clone"
+.PD 0
+.IP "\fB\-fopenmp\-target\-simd\-clone=\fR\fIdevice-type\fR" 4
+.IX Item "-fopenmp-target-simd-clone=device-type"
+.PD
+In addition to generating \s-1SIMD\s0 clones for functions marked with the
+\&\f(CW\*(C`declare simd\*(C'\fR directive, \s-1GCC\s0 also generates clones
+for functions marked with the OpenMP \f(CW\*(C`declare target\*(C'\fR directive
+that are suitable for vectorization when this option is in effect.  The
+\&\fIdevice-type\fR may be one of \f(CW\*(C`none\*(C'\fR, \f(CW\*(C`host\*(C'\fR, \f(CW\*(C`nohost\*(C'\fR,
+and \f(CW\*(C`any\*(C'\fR, which correspond to keywords for the \f(CW\*(C`device_type\*(C'\fR
+clause of the \f(CW\*(C`declare target\*(C'\fR directive; clones are generated for
+the intersection of devices specified.
+\&\fB\-fopenmp\-target\-simd\-clone\fR is equivalent to
+\&\fB\-fopenmp\-target\-simd\-clone=any\fR and
+\&\fB\-fno\-openmp\-target\-simd\-clone\fR is equivalent to
+\&\fB\-fopenmp\-target\-simd\-clone=none\fR.
+.Sp
+At \fB\-O2\fR and higher (but not \fB\-Os\fR or \fB\-Og\fR) this
+optimization defaults to \fB\-fopenmp\-target\-simd\-clone=nohost\fR; otherwise
+it is disabled by default.
 .IP "\fB\-fpermitted\-flt\-eval\-methods=\fR\fIstyle\fR" 4
 .IX Item "-fpermitted-flt-eval-methods=style"
 \&\s-1ISO/IEC TS 18661\-3\s0 defines new permissible values for
@@ -3114,6 +3137,95 @@ smaller than the above limit, or if in a body of some loop or even outside
 of a loop too many expressions need to be evaluated, the resulting constexpr
 evaluation might take too long.
 The default is 33554432 (1<<25).
+.IP "\fB\-fcontracts\fR" 4
+.IX Item "-fcontracts"
+Enable experimental support for the \*(C+ Contracts feature, as briefly
+added to and then removed from the \*(C+20 working paper (N4820).  The
+implementation also includes proposed enhancements from papers P1290,
+P1332, and P1429.  This functionality is intended mostly for those
+interested in experimentation towards refining the feature to get it
+into shape for a future \*(C+ standard.
+.Sp
+On violation of a checked contract, the violation handler is called.
+Users can replace the violation handler by defining
+.Sp
+.Vb 1
+\&        void handle_contract_violation (const std::experimental::contract_violation&);
+.Ve
+.Sp
+There are different sets of additional flags that can be used together
+to specify which contracts will be checked and how, for N4820
+contracts, P1332 contracts, or P1429 contracts; these sets cannot be
+used together.
+.RS 4
+.IP "\fB\-fcontract\-mode=[on|off]\fR" 4
+.IX Item "-fcontract-mode=[on|off]"
+Control whether any contracts have any semantics at all.  Defaults to on.
+.IP "\fB\-fcontract\-assumption\-mode=[on|off]\fR" 4
+.IX Item "-fcontract-assumption-mode=[on|off]"
+[N4820] Control whether contracts with level \fBaxiom\fR
+should have the assume semantic.  Defaults to on.
+.IP "\fB\-fcontract\-build\-level=[off|default|audit]\fR" 4
+.IX Item "-fcontract-build-level=[off|default|audit]"
+[N4820] Specify which level of contracts to generate checks
+for.  Defaults to \fBdefault\fR.
+.IP "\fB\-fcontract\-continuation\-mode=[on|off]\fR" 4
+.IX Item "-fcontract-continuation-mode=[on|off]"
+[N4820] Control whether to allow the program to continue executing
+after a contract violation.  That is, do checked contracts have the
+\&\fBmaybe\fR semantic described below rather than the \fBnever\fR
+semantic.  Defaults to off.
+.IP "\fB\-fcontract\-role=<name>:<default>,<audit>,<axiom>\fR" 4
+.IX Item "-fcontract-role=<name>:<default>,<audit>,<axiom>"
+[P1332] Specify the concrete semantics for each contract level
+of a particular contract role.
+.IP "\fB\-fcontract\-semantic=[default|audit|axiom]:<semantic>\fR" 4
+.IX Item "-fcontract-semantic=[default|audit|axiom]:<semantic>"
+[P1429] Specify the concrete semantic for a particular
+contract level.
+.IP "\fB\-fcontract\-strict\-declarations=[on|off]\fR" 4
+.IX Item "-fcontract-strict-declarations=[on|off]"
+Control whether to reject adding contracts to a function after its
+first declaration.  Defaults to off.
+.RE
+.RS 4
+.Sp
+The possible concrete semantics for that can be specified with
+\&\fB\-fcontract\-role\fR or \fB\-fcontract\-semantic\fR are:
+.ie n .IP """ignore""" 4
+.el .IP "\f(CWignore\fR" 4
+.IX Item "ignore"
+This contract has no effect.
+.ie n .IP """assume""" 4
+.el .IP "\f(CWassume\fR" 4
+.IX Item "assume"
+This contract is treated like \*(C+23 \f(CW\*(C`[[assume]]\*(C'\fR.
+.ie n .IP """check_never_continue""" 4
+.el .IP "\f(CWcheck_never_continue\fR" 4
+.IX Item "check_never_continue"
+.PD 0
+.ie n .IP """never""" 4
+.el .IP "\f(CWnever\fR" 4
+.IX Item "never"
+.ie n .IP """abort""" 4
+.el .IP "\f(CWabort\fR" 4
+.IX Item "abort"
+.PD
+This contract is checked.  If it fails, the violation handler is
+called.  If the handler returns, \f(CW\*(C`std::terminate\*(C'\fR is called.
+.ie n .IP """check_maybe_continue""" 4
+.el .IP "\f(CWcheck_maybe_continue\fR" 4
+.IX Item "check_maybe_continue"
+.PD 0
+.ie n .IP """maybe""" 4
+.el .IP "\f(CWmaybe\fR" 4
+.IX Item "maybe"
+.PD
+This contract is checked.  If it fails, the violation handler is
+called.  If the handler returns, execution continues normally.
+.RE
+.RS 4
+.RE
 .IP "\fB\-fcoroutines\fR" 4
 .IX Item "-fcoroutines"
 Enable support for the \*(C+ coroutines extension (experimental).
@@ -3825,6 +3937,9 @@ destructor itself or in an accessible polymorphic base class, in which
 case it is possible but unsafe to delete an instance of a derived
 class through a pointer to the class itself or base class.  This
 warning is automatically enabled if \fB\-Weffc++\fR is specified.
+The \fB\-Wdelete\-non\-virtual\-dtor\fR option (enabled by \fB\-Wall\fR)
+should be preferred because it warns about the unsafe cases without false
+positives.
 .IP "\fB\-Wregister\fR (\*(C+ and Objective\-\*(C+ only)" 4
 .IX Item "-Wregister ( and Objective- only)"
 Warn on uses of the \f(CW\*(C`register\*(C'\fR storage class specifier, except
@@ -14740,19 +14855,9 @@ use-def chain.
 The maximum number of may-defs we analyze when looking for a must-def
 specifying the dynamic type of an object that invokes a virtual call
 we may be able to devirtualize speculatively.
-.IP "\fBmax-vrp-switch-assertions\fR" 4
-.IX Item "max-vrp-switch-assertions"
-The maximum number of assertions to add along the default edge of a switch
-statement during \s-1VRP.\s0
 .IP "\fBevrp-sparse-threshold\fR" 4
 .IX Item "evrp-sparse-threshold"
 Maximum number of basic blocks before \s-1EVRP\s0 uses a sparse cache.
-.IP "\fBvrp1\-mode\fR" 4
-.IX Item "vrp1-mode"
-Specifies the mode \s-1VRP\s0 pass 1 should operate in.
-.IP "\fBvrp2\-mode\fR" 4
-.IX Item "vrp2-mode"
-Specifies the mode \s-1VRP\s0 pass 2 should operate in.
 .IP "\fBranger-debug\fR" 4
 .IX Item "ranger-debug"
 Specifies the type of debug output to be issued for ranges.
