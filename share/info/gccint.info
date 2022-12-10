@@ -47096,11 +47096,6 @@ e.g.
      than LTO. For example, SSA names are printed to the user in "raw"
      form, rather than printing the underlying variable name.
 
- Some ideas for other checkers
-   * File-descriptor-based APIs
-   * Linux kernel internal APIs
-   * Signal handling
-
 
 File: gccint.info,  Node: Debugging the Analyzer,  Prev: Analyzer Internals,  Up: Static Analyzer
 
@@ -58501,18 +58496,18 @@ Node: GIMPLE API2025626
 Node: The Language2028428
 Node: Static Analyzer2041055
 Node: Analyzer Internals2041320
-Node: Debugging the Analyzer2057207
-Node: User Experience Guidelines2061205
-Node: Guidelines for Diagnostics2062141
-Ref: input_location_example2070316
-Node: Guidelines for Options2080001
-Node: Funding2080178
-Node: GNU Project2082685
-Node: Copying2083336
-Node: GNU Free Documentation License2120850
-Node: Contributors2145973
-Node: Option Index2186957
-Node: Concept Index2187834
+Node: Debugging the Analyzer2057090
+Node: User Experience Guidelines2061088
+Node: Guidelines for Diagnostics2062024
+Ref: input_location_example2070199
+Node: Guidelines for Options2079884
+Node: Funding2080061
+Node: GNU Project2082568
+Node: Copying2083219
+Node: GNU Free Documentation License2120733
+Node: Contributors2145856
+Node: Option Index2186840
+Node: Concept Index2187717
 
 End Tag Table
 
