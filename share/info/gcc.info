@@ -1,6 +1,6 @@
 This is gcc.info, produced by makeinfo version 6.8 from gcc.texi.
 
-Copyright (C) 1988-2022 Free Software Foundation, Inc.
+Copyright (C) 1988-2023 Free Software Foundation, Inc.
 
  Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -32,7 +32,7 @@ END-INFO-DIR-ENTRY
 
  This file documents the use of the GNU compilers.
 
- Copyright (C) 1988-2022 Free Software Foundation, Inc.
+ Copyright (C) 1988-2023 Free Software Foundation, Inc.
 
  Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -46839,8 +46839,11 @@ the transaction quickly.  This can be done with a '_mm_pause'.
 
 File: gcc.info,  Node: Object Size Checking,  Next: Other Builtins,  Prev: x86 specific memory model extensions for transactional memory,  Up: C Extensions
 
-6.58 Object Size Checking Built-in Functions
-============================================
+6.58 Object Size Checking
+=========================
+
+6.58.1 Object Size Checking Built-in Functions
+----------------------------------------------
 
 GCC implements a limited buffer overflow protection mechanism that can
 prevent some buffer overflow attacks by determining the sizes of objects
@@ -46902,11 +46905,18 @@ extent, they can be used without optimization as well.
      points to at compile time are the same as in the case of
      '__builtin_object_size'.
 
- There are built-in functions added for many common string operation
-functions, e.g., for 'memcpy' '__builtin___memcpy_chk' built-in is
-provided.  This built-in has an additional last argument, which is the
-number of bytes remaining in the object the DEST argument points to or
-'(size_t) -1' if the size is not known.
+6.58.2 Object Size Checking and Source Fortification
+----------------------------------------------------
+
+Hardening of function calls using the '_FORTIFY_SOURCE' macro is one of
+the key uses of the object size checking built-in functions.  To make
+implementation of these features more convenient and improve
+optimization and diagnostics, there are built-in functions added for
+many common string operation functions, e.g., for 'memcpy'
+'__builtin___memcpy_chk' built-in is provided.  This built-in has an
+additional last argument, which is the number of bytes remaining in the
+object the DEST argument points to or '(size_t) -1' if the size is not
+known.
 
  The built-in functions are optimized into the normal string functions
 like 'memcpy' if the last argument is '(size_t) -1' or if it is known at
@@ -47458,17 +47468,17 @@ without the '__builtin_' prefix.
      The standard rules for '<tgmath.h>' macros are used to find a
      common type U from the types of the arguments for parameters whose
      types vary between the functions; complex integer types (a GNU
-     extension) are treated like '_Complex double' for this purpose (or
-     '_Complex _Float64' if all the function return types are the same
-     '_FloatN' or '_FloatNx' type).  If the function return types vary,
-     or are all the same integer type, the function called is the one
-     for which T is U, and it is an error if there is no such function.
-     If the function return types are all the same floating-point type,
-     the type-generic macro is taken to be one of those from TS 18661
-     that rounds the result to a narrower type; if there is a function
-     for which T is U, it is called, and otherwise the first function,
-     if any, for which T has at least the range and precision of U is
-     called, and it is an error if there is no such function.
+     extension) are treated like the complex type corresponding to the
+     real floating type that would be chosen for the corresponding real
+     integer type.  If the function return types vary, or are all the
+     same integer type, the function called is the one for which T is U,
+     and it is an error if there is no such function.  If the function
+     return types are all the same floating-point type, the type-generic
+     macro is taken to be one of those from TS 18661 that rounds the
+     result to a narrower type; if there is a function for which T is U,
+     it is called, and otherwise the first function, if any, for which T
+     has at least the range and precision of U is called, and it is an
+     error if there is no such function.
 
  -- Built-in Function: int __builtin_constant_p (EXP)
      You can use the built-in function '__builtin_constant_p' to
@@ -68766,9 +68776,9 @@ Keyword Index
 * __builtin_divf128_round_to_odd:        Basic PowerPC Built-in Functions Available on ISA 3.0.
                                                              (line   29)
 * __builtin_dynamic_object_size:         Object Size Checking.
-                                                             (line    6)
+                                                             (line    9)
 * __builtin_dynamic_object_size <1>:     Object Size Checking.
-                                                             (line   53)
+                                                             (line   56)
 * __builtin_dynamic_object_size <2>:     Other Builtins.     (line  827)
 * __builtin_expect:                      Other Builtins.     (line  596)
 * __builtin_expect_with_probability:     Other Builtins.     (line  631)
@@ -68867,9 +68877,9 @@ Keyword Index
 * __builtin_non_tx_store:                S/390 System z Built-in Functions.
                                                              (line   98)
 * __builtin_object_size:                 Object Size Checking.
-                                                             (line    6)
+                                                             (line    9)
 * __builtin_object_size <1>:             Object Size Checking.
-                                                             (line   16)
+                                                             (line   19)
 * __builtin_object_size <2>:             Other Builtins.     (line    6)
 * __builtin_object_size <3>:             Other Builtins.     (line  821)
 * __builtin_offsetof:                    Offsetof.           (line    6)
@@ -69023,39 +69033,39 @@ Keyword Index
 * __builtin_va_arg_pack_len:             Constructing Calls. (line   75)
 * __builtin___clear_cache:               Other Builtins.     (line  769)
 * __builtin___fprintf_chk:               Object Size Checking.
-                                                             (line    6)
+                                                             (line    9)
 * __builtin___memcpy_chk:                Object Size Checking.
-                                                             (line    6)
+                                                             (line    9)
 * __builtin___memmove_chk:               Object Size Checking.
-                                                             (line    6)
+                                                             (line    9)
 * __builtin___mempcpy_chk:               Object Size Checking.
-                                                             (line    6)
+                                                             (line    9)
 * __builtin___memset_chk:                Object Size Checking.
-                                                             (line    6)
+                                                             (line    9)
 * __builtin___printf_chk:                Object Size Checking.
-                                                             (line    6)
+                                                             (line    9)
 * __builtin___snprintf_chk:              Object Size Checking.
-                                                             (line    6)
+                                                             (line    9)
 * __builtin___sprintf_chk:               Object Size Checking.
-                                                             (line    6)
+                                                             (line    9)
 * __builtin___stpcpy_chk:                Object Size Checking.
-                                                             (line    6)
+                                                             (line    9)
 * __builtin___strcat_chk:                Object Size Checking.
-                                                             (line    6)
+                                                             (line    9)
 * __builtin___strcpy_chk:                Object Size Checking.
-                                                             (line    6)
+                                                             (line    9)
 * __builtin___strncat_chk:               Object Size Checking.
-                                                             (line    6)
+                                                             (line    9)
 * __builtin___strncpy_chk:               Object Size Checking.
-                                                             (line    6)
+                                                             (line    9)
 * __builtin___vfprintf_chk:              Object Size Checking.
-                                                             (line    6)
+                                                             (line    9)
 * __builtin___vprintf_chk:               Object Size Checking.
-                                                             (line    6)
+                                                             (line    9)
 * __builtin___vsnprintf_chk:             Object Size Checking.
-                                                             (line    6)
+                                                             (line    9)
 * __builtin___vsprintf_chk:              Object Size Checking.
-                                                             (line    6)
+                                                             (line    9)
 * __complex__ keyword:                   Complex.            (line    6)
 * __declspec(dllexport):                 Microsoft Windows Function Attributes.
                                                              (line   10)
@@ -71663,169 +71673,169 @@ Node: __atomic Builtins1943335
 Node: Integer Overflow Builtins1956848
 Node: x86 specific memory model extensions for transactional memory1963331
 Node: Object Size Checking1964597
-Node: Other Builtins1971613
-Node: Target Builtins2025370
-Node: AArch64 Built-in Functions2027051
-Node: Alpha Built-in Functions2027747
-Node: Altera Nios II Built-in Functions2030841
-Node: ARC Built-in Functions2035280
-Node: ARC SIMD Built-in Functions2040492
-Node: ARM iWMMXt Built-in Functions2049490
-Node: ARM C Language Extensions (ACLE)2056626
-Node: ARM Floating Point Status and Control Intrinsics2057903
-Node: ARM ARMv8-M Security Extensions2058390
-Node: AVR Built-in Functions2059682
-Node: Blackfin Built-in Functions2063448
-Node: BPF Built-in Functions2064068
-Node: FR-V Built-in Functions2068516
-Node: Argument Types2069379
-Node: Directly-mapped Integer Functions2071210
-Node: Directly-mapped Media Functions2072370
-Node: Raw read/write Functions2080652
-Node: Other Built-in Functions2081560
-Node: MIPS DSP Built-in Functions2082746
-Node: MIPS Paired-Single Support2095501
-Node: MIPS Loongson Built-in Functions2097000
-Node: Paired-Single Arithmetic2103522
-Node: Paired-Single Built-in Functions2104545
-Node: MIPS-3D Built-in Functions2107212
-Node: MIPS SIMD Architecture (MSA) Support2112606
-Node: MIPS SIMD Architecture Built-in Functions2115446
-Node: Other MIPS Built-in Functions2142300
-Node: MSP430 Built-in Functions2143309
-Node: NDS32 Built-in Functions2144710
-Node: Basic PowerPC Built-in Functions2146008
-Node: Basic PowerPC Built-in Functions Available on all Configurations2146863
-Node: Basic PowerPC Built-in Functions Available on ISA 2.052155373
-Node: Basic PowerPC Built-in Functions Available on ISA 2.062160208
-Node: Basic PowerPC Built-in Functions Available on ISA 2.072162288
-Node: Basic PowerPC Built-in Functions Available on ISA 3.02163142
-Node: Basic PowerPC Built-in Functions Available on ISA 3.12170120
-Node: PowerPC AltiVec/VSX Built-in Functions2173285
-Node: PowerPC AltiVec Built-in Functions on ISA 2.052181354
-Node: PowerPC AltiVec Built-in Functions Available on ISA 2.062206754
-Node: PowerPC AltiVec Built-in Functions Available on ISA 2.072213820
-Node: PowerPC AltiVec Built-in Functions Available on ISA 3.02223630
-Node: PowerPC AltiVec Built-in Functions Available on ISA 3.12239353
-Node: PowerPC Hardware Transactional Memory Built-in Functions2272637
-Node: PowerPC Atomic Memory Operation Functions2281187
-Node: PowerPC Matrix-Multiply Assist Built-in Functions2283750
-Node: PRU Built-in Functions2289875
-Node: RISC-V Built-in Functions2291063
-Node: RX Built-in Functions2291718
-Node: S/390 System z Built-in Functions2295720
-Node: SH Built-in Functions2300950
-Node: SPARC VIS Built-in Functions2302678
-Node: TI C6X Built-in Functions2311209
-Node: x86 Built-in Functions2312256
-Node: x86 transactional memory intrinsics2377837
-Node: x86 control-flow protection intrinsics2381104
-Node: Target Format Checks2382875
-Node: Solaris Format Checks2383307
-Node: Darwin Format Checks2383733
-Node: Pragmas2384696
-Node: AArch64 Pragmas2385621
-Node: ARM Pragmas2386078
-Node: M32C Pragmas2386705
-Node: PRU Pragmas2387777
-Node: RS/6000 and PowerPC Pragmas2388356
-Node: S/390 Pragmas2389096
-Node: Darwin Pragmas2389662
-Node: Solaris Pragmas2390715
-Node: Symbol-Renaming Pragmas2391879
-Node: Structure-Layout Pragmas2393514
-Node: Weak Pragmas2395794
-Node: Diagnostic Pragmas2396529
-Node: Visibility Pragmas2401280
-Node: Push/Pop Macro Pragmas2401965
-Node: Function Specific Option Pragmas2402938
-Node: Loop-Specific Pragmas2404904
-Node: Unnamed Fields2406504
-Node: Thread-Local2408701
-Node: C99 Thread-Local Edits2410807
-Node: C++98 Thread-Local Edits2412805
-Node: Binary constants2416250
-Node: C++ Extensions2416921
-Node: C++ Volatiles2418551
-Node: Restricted Pointers2420899
-Node: Vague Linkage2422490
-Node: C++ Interface2426113
-Ref: C++ Interface-Footnote-12429910
-Node: Template Instantiation2430048
-Node: Bound member functions2436139
-Node: C++ Attributes2437671
-Node: Function Multiversioning2441743
-Node: Type Traits2443551
-Node: C++ Concepts2450800
-Node: Deprecated Features2452306
-Node: Backwards Compatibility2454131
-Node: Objective-C2455203
-Node: GNU Objective-C runtime API2455810
-Node: Modern GNU Objective-C runtime API2456817
-Node: Traditional GNU Objective-C runtime API2459253
-Node: Executing code before main2459980
-Node: What you can and what you cannot do in +load2462724
-Node: Type encoding2465094
-Node: Legacy type encoding2470460
-Node: @encode2471550
-Node: Method signatures2472095
-Node: Garbage Collection2474087
-Node: Constant string objects2476777
-Node: compatibility_alias2479286
-Node: Exceptions2480011
-Node: Synchronization2482721
-Node: Fast enumeration2483905
-Node: Using fast enumeration2484217
-Node: c99-like fast enumeration syntax2485428
-Node: Fast enumeration details2486131
-Node: Fast enumeration protocol2488471
-Node: Messaging with the GNU Objective-C runtime2491623
-Node: Dynamically registering methods2492995
-Node: Forwarding hook2494686
-Node: Compatibility2497726
-Node: Gcov2504282
-Node: Gcov Intro2504950
-Node: Invoking Gcov2507668
-Node: Gcov and Optimization2530401
-Node: Gcov Data Files2534154
-Node: Cross-profiling2535563
-Node: Freestanding Environments2537451
-Node: Gcov-tool2552314
-Node: Gcov-tool Intro2552739
-Node: Invoking Gcov-tool2555093
-Node: Gcov-dump2558506
-Node: Gcov-dump Intro2558829
-Node: Invoking Gcov-dump2559096
-Node: lto-dump2559829
-Node: lto-dump Intro2560128
-Node: Invoking lto-dump2560378
-Node: Trouble2561474
-Node: Actual Bugs2562891
-Node: Interoperation2563338
-Node: Incompatibilities2570229
-Node: Fixed Headers2578381
-Node: Standard Libraries2580039
-Node: Disappointments2581411
-Node: C++ Misunderstandings2585770
-Node: Static Definitions2586581
-Node: Name lookup2587634
-Ref: Name lookup-Footnote-12592415
-Node: Temporaries2592604
-Node: Copy Assignment2594580
-Node: Non-bugs2596415
-Node: Warnings and Errors2606921
-Node: Bugs2608683
-Node: Bug Criteria2609150
-Node: Bug Reporting2611360
-Node: Service2611578
-Node: Contributing2612399
-Node: Funding2613145
-Node: GNU Project2615635
-Node: Copying2616283
-Node: GNU Free Documentation License2653794
-Node: Contributors2678914
-Node: Option Index2719895
-Node: Keyword Index3025158
+Node: Other Builtins1972009
+Node: Target Builtins2025750
+Node: AArch64 Built-in Functions2027431
+Node: Alpha Built-in Functions2028127
+Node: Altera Nios II Built-in Functions2031221
+Node: ARC Built-in Functions2035660
+Node: ARC SIMD Built-in Functions2040872
+Node: ARM iWMMXt Built-in Functions2049870
+Node: ARM C Language Extensions (ACLE)2057006
+Node: ARM Floating Point Status and Control Intrinsics2058283
+Node: ARM ARMv8-M Security Extensions2058770
+Node: AVR Built-in Functions2060062
+Node: Blackfin Built-in Functions2063828
+Node: BPF Built-in Functions2064448
+Node: FR-V Built-in Functions2068896
+Node: Argument Types2069759
+Node: Directly-mapped Integer Functions2071590
+Node: Directly-mapped Media Functions2072750
+Node: Raw read/write Functions2081032
+Node: Other Built-in Functions2081940
+Node: MIPS DSP Built-in Functions2083126
+Node: MIPS Paired-Single Support2095881
+Node: MIPS Loongson Built-in Functions2097380
+Node: Paired-Single Arithmetic2103902
+Node: Paired-Single Built-in Functions2104925
+Node: MIPS-3D Built-in Functions2107592
+Node: MIPS SIMD Architecture (MSA) Support2112986
+Node: MIPS SIMD Architecture Built-in Functions2115826
+Node: Other MIPS Built-in Functions2142680
+Node: MSP430 Built-in Functions2143689
+Node: NDS32 Built-in Functions2145090
+Node: Basic PowerPC Built-in Functions2146388
+Node: Basic PowerPC Built-in Functions Available on all Configurations2147243
+Node: Basic PowerPC Built-in Functions Available on ISA 2.052155753
+Node: Basic PowerPC Built-in Functions Available on ISA 2.062160588
+Node: Basic PowerPC Built-in Functions Available on ISA 2.072162668
+Node: Basic PowerPC Built-in Functions Available on ISA 3.02163522
+Node: Basic PowerPC Built-in Functions Available on ISA 3.12170500
+Node: PowerPC AltiVec/VSX Built-in Functions2173665
+Node: PowerPC AltiVec Built-in Functions on ISA 2.052181734
+Node: PowerPC AltiVec Built-in Functions Available on ISA 2.062207134
+Node: PowerPC AltiVec Built-in Functions Available on ISA 2.072214200
+Node: PowerPC AltiVec Built-in Functions Available on ISA 3.02224010
+Node: PowerPC AltiVec Built-in Functions Available on ISA 3.12239733
+Node: PowerPC Hardware Transactional Memory Built-in Functions2273017
+Node: PowerPC Atomic Memory Operation Functions2281567
+Node: PowerPC Matrix-Multiply Assist Built-in Functions2284130
+Node: PRU Built-in Functions2290255
+Node: RISC-V Built-in Functions2291443
+Node: RX Built-in Functions2292098
+Node: S/390 System z Built-in Functions2296100
+Node: SH Built-in Functions2301330
+Node: SPARC VIS Built-in Functions2303058
+Node: TI C6X Built-in Functions2311589
+Node: x86 Built-in Functions2312636
+Node: x86 transactional memory intrinsics2378217
+Node: x86 control-flow protection intrinsics2381484
+Node: Target Format Checks2383255
+Node: Solaris Format Checks2383687
+Node: Darwin Format Checks2384113
+Node: Pragmas2385076
+Node: AArch64 Pragmas2386001
+Node: ARM Pragmas2386458
+Node: M32C Pragmas2387085
+Node: PRU Pragmas2388157
+Node: RS/6000 and PowerPC Pragmas2388736
+Node: S/390 Pragmas2389476
+Node: Darwin Pragmas2390042
+Node: Solaris Pragmas2391095
+Node: Symbol-Renaming Pragmas2392259
+Node: Structure-Layout Pragmas2393894
+Node: Weak Pragmas2396174
+Node: Diagnostic Pragmas2396909
+Node: Visibility Pragmas2401660
+Node: Push/Pop Macro Pragmas2402345
+Node: Function Specific Option Pragmas2403318
+Node: Loop-Specific Pragmas2405284
+Node: Unnamed Fields2406884
+Node: Thread-Local2409081
+Node: C99 Thread-Local Edits2411187
+Node: C++98 Thread-Local Edits2413185
+Node: Binary constants2416630
+Node: C++ Extensions2417301
+Node: C++ Volatiles2418931
+Node: Restricted Pointers2421279
+Node: Vague Linkage2422870
+Node: C++ Interface2426493
+Ref: C++ Interface-Footnote-12430290
+Node: Template Instantiation2430428
+Node: Bound member functions2436519
+Node: C++ Attributes2438051
+Node: Function Multiversioning2442123
+Node: Type Traits2443931
+Node: C++ Concepts2451180
+Node: Deprecated Features2452686
+Node: Backwards Compatibility2454511
+Node: Objective-C2455583
+Node: GNU Objective-C runtime API2456190
+Node: Modern GNU Objective-C runtime API2457197
+Node: Traditional GNU Objective-C runtime API2459633
+Node: Executing code before main2460360
+Node: What you can and what you cannot do in +load2463104
+Node: Type encoding2465474
+Node: Legacy type encoding2470840
+Node: @encode2471930
+Node: Method signatures2472475
+Node: Garbage Collection2474467
+Node: Constant string objects2477157
+Node: compatibility_alias2479666
+Node: Exceptions2480391
+Node: Synchronization2483101
+Node: Fast enumeration2484285
+Node: Using fast enumeration2484597
+Node: c99-like fast enumeration syntax2485808
+Node: Fast enumeration details2486511
+Node: Fast enumeration protocol2488851
+Node: Messaging with the GNU Objective-C runtime2492003
+Node: Dynamically registering methods2493375
+Node: Forwarding hook2495066
+Node: Compatibility2498106
+Node: Gcov2504662
+Node: Gcov Intro2505330
+Node: Invoking Gcov2508048
+Node: Gcov and Optimization2530781
+Node: Gcov Data Files2534534
+Node: Cross-profiling2535943
+Node: Freestanding Environments2537831
+Node: Gcov-tool2552694
+Node: Gcov-tool Intro2553119
+Node: Invoking Gcov-tool2555473
+Node: Gcov-dump2558886
+Node: Gcov-dump Intro2559209
+Node: Invoking Gcov-dump2559476
+Node: lto-dump2560209
+Node: lto-dump Intro2560508
+Node: Invoking lto-dump2560758
+Node: Trouble2561854
+Node: Actual Bugs2563271
+Node: Interoperation2563718
+Node: Incompatibilities2570609
+Node: Fixed Headers2578761
+Node: Standard Libraries2580419
+Node: Disappointments2581791
+Node: C++ Misunderstandings2586150
+Node: Static Definitions2586961
+Node: Name lookup2588014
+Ref: Name lookup-Footnote-12592795
+Node: Temporaries2592984
+Node: Copy Assignment2594960
+Node: Non-bugs2596795
+Node: Warnings and Errors2607301
+Node: Bugs2609063
+Node: Bug Criteria2609530
+Node: Bug Reporting2611740
+Node: Service2611958
+Node: Contributing2612779
+Node: Funding2613525
+Node: GNU Project2616015
+Node: Copying2616663
+Node: GNU Free Documentation License2654174
+Node: Contributors2679294
+Node: Option Index2720275
+Node: Keyword Index3025538
 
 End Tag Table
 
