@@ -370,7 +370,7 @@
 /* Define to the level of your assembler's compressed debug section support.
    */
 #ifndef USED_FOR_TARGET
-#define HAVE_AS_COMPRESS_DEBUG 1
+#define HAVE_AS_COMPRESS_DEBUG 2
 #endif
 
 
@@ -443,7 +443,7 @@
 
 /* Define if your assembler supports the --gdwarf-5 option. */
 #ifndef USED_FOR_TARGET
-/* #undef HAVE_AS_GDWARF_5_DEBUG_FLAG */
+#define HAVE_AS_GDWARF_5_DEBUG_FLAG 1
 #endif
 
 
@@ -776,7 +776,7 @@
 /* Define if your assembler supports --gdwarf-4/--gdwarf-5 even with compiler
    generated .debug_line. */
 #ifndef USED_FOR_TARGET
-/* #undef HAVE_AS_WORKING_DWARF_N_FLAG */
+#define HAVE_AS_WORKING_DWARF_N_FLAG 1
 #endif
 
 
@@ -1421,14 +1421,14 @@
 
 /* Define 0/1 if your assembler supports 'o' flag in .section directive. */
 #ifndef USED_FOR_TARGET
-#define HAVE_GAS_SECTION_LINK_ORDER 0
+#define HAVE_GAS_SECTION_LINK_ORDER 1
 #endif
 
 
 /* Define 0/1 if your assembler supports marking sections with SHF_GNU_RETAIN
    flag. */
 #ifndef USED_FOR_TARGET
-#define HAVE_GAS_SHF_GNU_RETAIN 0
+#define HAVE_GAS_SHF_GNU_RETAIN 1
 #endif
 
 
@@ -1634,7 +1634,7 @@
 
 /* Define to the level of your linker's compressed debug section support. */
 #ifndef USED_FOR_TARGET
-#define HAVE_LD_COMPRESS_DEBUG 1
+#define HAVE_LD_COMPRESS_DEBUG 2
 #endif
 
 

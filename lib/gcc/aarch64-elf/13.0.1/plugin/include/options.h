@@ -6,6 +6,7 @@
 #include "flag-types.h"
 
 #include "config/aarch64/aarch64-opts.h"
+#include "config/arm/aarch-common.h"
 
 #if !defined(IN_LIBGCC2) && !defined(IN_TARGET_LIBS) && !defined(IN_RTS)
 #ifndef GENERATOR_FILE
@@ -53,10 +54,10 @@ extern long aarch64_stack_protector_guard_offset;
 #define aarch64_stack_protector_guard_offset global_options.x_aarch64_stack_protector_guard_offset
 #endif
 #ifdef GENERATOR_FILE
-extern unsigned aarch64_enable_bti;
+extern unsigned aarch_enable_bti;
 #else
-  unsigned x_aarch64_enable_bti;
-#define aarch64_enable_bti global_options.x_aarch64_enable_bti
+  unsigned x_aarch_enable_bti;
+#define aarch_enable_bti global_options.x_aarch_enable_bti
 #endif
 #ifdef GENERATOR_FILE
 extern bool dump_base_name_prefixed;
@@ -8003,10 +8004,10 @@ extern int pcrelative_literal_loads;
 #define pcrelative_literal_loads global_options.x_pcrelative_literal_loads
 #endif
 #ifdef GENERATOR_FILE
-extern enum aarch64_function_type aarch64_ra_sign_scope;
+extern enum aarch_function_type aarch_ra_sign_scope;
 #else
-  enum aarch64_function_type x_aarch64_ra_sign_scope;
-#define aarch64_ra_sign_scope global_options.x_aarch64_ra_sign_scope
+  enum aarch_function_type x_aarch_ra_sign_scope;
+#define aarch_ra_sign_scope global_options.x_aarch_ra_sign_scope
 #endif
 #ifdef GENERATOR_FILE
 extern const char *aarch64_stack_protector_guard_offset_str;
@@ -8791,12 +8792,12 @@ struct GTY(()) cl_target_option
   aarch64_feature_flags x_aarch64_asm_isa_flags;
   aarch64_feature_flags x_aarch64_isa_flags;
   long x_aarch64_stack_protector_guard_offset;
-  unsigned x_aarch64_enable_bti;
+  unsigned x_aarch_enable_bti;
   const char *x_aarch64_branch_protection_string;
   enum aarch64_code_model x_aarch64_cmodel_var;
   /* - */ int x_target_flags;
   const char *x_aarch64_override_tune_string;
-  enum aarch64_function_type x_aarch64_ra_sign_scope;
+  enum aarch_function_type x_aarch_ra_sign_scope;
   enum aarch64_tls_type x_aarch64_tls_dialect;
   enum aarch64_arch x_selected_arch;
   enum aarch64_key_type x_aarch64_ra_sign_key;
