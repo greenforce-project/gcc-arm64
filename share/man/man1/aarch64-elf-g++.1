@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2023-02-04" "gcc-13.0.1" "GNU"
+.TH GCC 1 "2023-02-18" "gcc-13.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -3057,9 +3057,7 @@ incompatibilities with \s-1ISO \*(C+11\s0 and later standards.  For example, the
 following code is well-formed under \s-1ISO \*(C+11,\s0 but is ill-formed when
 \&\fB\-fchar8_t\fR is specified.
 .Sp
-.Vb 10
-\&        char ca[] = u8"xx";     // error: char\-array initialized from wide
-\&                                //        string
+.Vb 11
 \&        const char *cp = u8"xx";// error: invalid conversion from
 \&                                //        \`const char8_t*\*(Aq to \`const char*\*(Aq
 \&        int f(const char*);
@@ -4179,6 +4177,10 @@ like:
 .Ve
 .Sp
 fails to compile.
+.Sp
+In cases where the different signatures are not an accident, the
+simplest solution is to add a using-declaration to the derived class
+to un-hide the base function, e.g. add \f(CW\*(C`using A::f;\*(C'\fR to \f(CW\*(C`B\*(C'\fR.
 .Sp
 The optional level suffix controls the behavior when all the
 declarations in the derived class override virtual functions in the
@@ -5832,7 +5834,7 @@ Options\fR and \fBObjective-C and Objective\-\*(C+ Dialect Options\fR.
 \&\-Wunused\-label     
 \&\-Wunused\-value     
 \&\-Wunused\-variable  
-\&\-Wuse\-after\-free=3  
+\&\-Wuse\-after\-free=2  
 \&\-Wvla\-parameter\fR (C and Objective-C only) 
 \&\fB\-Wvolatile\-register\-var  
 \&\-Wzero\-length\-bounds\fR
@@ -13718,8 +13720,8 @@ The names of specific parameters, and the meaning of the values, are
 tied to the internals of the compiler, and are subject to change
 without notice in future releases.
 .Sp
-In order to get minimal, maximal and default value of a parameter,
-one can use \fB\-\-help=param \-Q\fR options.
+In order to get the minimal, maximal and default values of a parameter,
+use the \fB\-\-help=param \-Q\fR options.
 .Sp
 In each case, the \fIvalue\fR is an integer.  The following choices
 of \fIname\fR are recognized for all targets:
@@ -14567,6 +14569,9 @@ appropriate register class.  Otherwise, it means \s-1IRA\s0 will check all
 available alternatives for preferred register class even if it has
 found some choice with an appropriate register class and respect the
 found qualified matching constraint.
+.IP "\fBira-simple-lra-insn-threshold\fR" 4
+.IX Item "ira-simple-lra-insn-threshold"
+Approximate function insn number in 1K units triggering simple local \s-1RA.\s0
 .IP "\fBlra-inheritance-ebb-probability-cutoff\fR" 4
 .IX Item "lra-inheritance-ebb-probability-cutoff"
 \&\s-1LRA\s0 tries to reuse values reloaded in registers in subsequent insns.
@@ -14865,6 +14870,10 @@ If number of memory accesses in function being instrumented
 is greater or equal to this number, use callbacks instead of inline checks.
 E.g. to disable inline code use
 \&\fB\-\-param asan\-instrumentation\-with\-call\-threshold=0\fR.
+.IP "\fBasan-kernel-mem-intrinsic-prefix\fR" 4
+.IX Item "asan-kernel-mem-intrinsic-prefix"
+Prefix calls to memcpy, memset and memmove with _\|_asan_ or _\|_hwasan_
+for \-fsanitize=kernel\-address or \-fsanitize=kernel\-hwaddress.
 .IP "\fBhwasan-instrument-stack\fR" 4
 .IX Item "hwasan-instrument-stack"
 Enable hwasan instrumentation of statically sized stack-allocated variables.
