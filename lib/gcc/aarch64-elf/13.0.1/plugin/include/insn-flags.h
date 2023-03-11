@@ -7059,10 +7059,6 @@
 #define HAVE_tbranch_neqi3 1
 #define HAVE_tbranch_eqhi3 1
 #define HAVE_tbranch_nehi3 1
-#define HAVE_tbranch_eqsi3 1
-#define HAVE_tbranch_nesi3 1
-#define HAVE_tbranch_eqdi3 1
-#define HAVE_tbranch_nedi3 1
 #define HAVE_call 1
 #define HAVE_call_value 1
 #define HAVE_sibcall 1
@@ -18283,10 +18279,6 @@ extern rtx        gen_tbranch_eqqi3                                  (rtx, rtx, 
 extern rtx        gen_tbranch_neqi3                                  (rtx, rtx, rtx);
 extern rtx        gen_tbranch_eqhi3                                  (rtx, rtx, rtx);
 extern rtx        gen_tbranch_nehi3                                  (rtx, rtx, rtx);
-extern rtx        gen_tbranch_eqsi3                                  (rtx, rtx, rtx);
-extern rtx        gen_tbranch_nesi3                                  (rtx, rtx, rtx);
-extern rtx        gen_tbranch_eqdi3                                  (rtx, rtx, rtx);
-extern rtx        gen_tbranch_nedi3                                  (rtx, rtx, rtx);
 extern rtx        gen_call                                           (rtx, rtx, rtx);
 extern rtx        gen_call_value                                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_sibcall                                        (rtx, rtx, rtx);
