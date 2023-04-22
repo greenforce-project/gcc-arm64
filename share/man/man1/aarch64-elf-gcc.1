@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2023-04-08" "gcc-13.0.1" "GNU"
+.TH GCC 1 "2023-04-22" "gcc-14.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -530,6 +530,7 @@ in the following sections.
 \&\-gstrict\-dwarf  \-gno\-strict\-dwarf
 \&\-gas\-loc\-support  \-gno\-as\-loc\-support
 \&\-gas\-locview\-support  \-gno\-as\-locview\-support
+\&\-gcodeview
 \&\-gcolumn\-info  \-gno\-column\-info  \-gdwarf32  \-gdwarf64
 \&\-gstatement\-frontiers  \-gno\-statement\-frontiers
 \&\-gvariable\-location\-views  \-gno\-variable\-location\-views
@@ -1437,7 +1438,7 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mrdseed  \-msgx \-mavx512vp2intersect \-mserialize \-mtsxldtrk
 \&\-mamx\-tile  \-mamx\-int8  \-mamx\-bf16 \-muintr \-mhreset \-mavxvnni
 \&\-mavx512fp16 \-mavxifma \-mavxvnniint8 \-mavxneconvert \-mcmpccxadd \-mamx\-fp16
-\&\-mprefetchi \-mraoint
+\&\-mprefetchi \-mraoint \-mamx\-complex
 \&\-mcldemote  \-mms\-bitfields  \-mno\-align\-stringops  \-minline\-all\-stringops
 \&\-minline\-stringops\-dynamically  \-mstringop\-strategy=\fR\fIalg\fR
 \&\fB\-mkl \-mwidekl
@@ -1482,6 +1483,7 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mlongcalls  \-mno\-longcalls
 \&\-mabi=\fR\fIabi-type\fR
 \&\fB\-mextra\-l32r\-costs=\fR\fIcycles\fR
+\&\fB\-mstrict\-align  \-mno\-strict\-align\fR
 .Sp
 \&\fIzSeries Options\fR
 See S/390 and zSeries Options.
@@ -10618,6 +10620,11 @@ at file-scope or global-scope only.
 .IX Item "-gvms"
 Produce debugging information in Alpha/VMS debug format (if that is
 supported).  This is the format used by \s-1DEBUG\s0 on Alpha/VMS systems.
+.IP "\fB\-gcodeview\fR" 4
+.IX Item "-gcodeview"
+Produce debugging information in CodeView debug format (if that is
+supported).  This is the format used by Microsoft Visual \*(C+ on
+Windows.
 .IP "\fB\-g\fR\fIlevel\fR" 4
 .IX Item "-glevel"
 .PD 0
@@ -19401,6 +19408,15 @@ Generate code for the large code model.  This makes no assumptions about
 addresses and sizes of sections.  Programs can be statically linked only.  The
 \&\fB\-mcmodel=large\fR option is incompatible with \fB\-mabi=ilp32\fR,
 \&\fB\-fpic\fR and \fB\-fPIC\fR.
+.IP "\fB\-mtp=\fR\fIname\fR" 4
+.IX Item "-mtp=name"
+Specify the system register to use as a thread pointer.  The valid values
+are \fBel0\fR, \fBel1\fR, \fBel2\fR, \fBel3\fR.  These correspond to
+using the \fBtpidr_el0\fR, \fBtpidr_el1\fR, \fBtpidr_el2\fR,
+\&\fBtpidr_el3\fR registers accordingly.  The default setting is \fBel0\fR.
+It is recommended to compile all code intended to interoperate with the same
+value of this option to avoid accessing a different thread pointer from the
+wrong exception level.
 .IP "\fB\-mstrict\-align\fR" 4
 .IX Item "-mstrict-align"
 .PD 0
@@ -32280,6 +32296,8 @@ preferred alignment to \fB\-mpreferred\-stack\-boundary=2\fR.
 .IX Item "-mprefetchi"
 .IP "\fB\-mraoint\fR" 4
 .IX Item "-mraoint"
+.IP "\fB\-mamx\-complex\fR" 4
+.IX Item "-mamx-complex"
 .PD
 These switches enable the use of instructions in the \s-1MMX, SSE,
 SSE2, SSE3, SSSE3, SSE4, SSE4A, SSE4.1, SSE4.2, AVX, AVX2, AVX512F, AVX512PF,
@@ -32291,9 +32309,9 @@ XSAVEOPT, XSAVEC, XSAVES, RTM, HLE, TBM, MWAITX, CLZERO, PKU, AVX512VBMI2,
 GFNI, VAES, WAITPKG, VPCLMULQDQ, AVX512BITALG, MOVDIRI, MOVDIR64B, AVX512BF16,
 ENQCMD, AVX512VPOPCNTDQ, AVX5124FMAPS, AVX512VNNI, AVX5124VNNIW, SERIALIZE,
 UINTR, HRESET, AMXTILE, AMXINT8, AMXBF16, KL, WIDEKL, AVXVNNI, AVX512\-FP16,
-AVXIFMA, AVXVNNIINT8, AVXNECONVERT, CMPCCXADD, AMX\-FP16, PREFETCHI, RAOINT\s0 or
-\&\s-1CLDEMOTE\s0 extended instruction sets. Each has a corresponding \fB\-mno\-\fR
-option to disable use of these instructions.
+AVXIFMA, AVXVNNIINT8, AVXNECONVERT, CMPCCXADD, AMX\-FP16, PREFETCHI, RAOINT,\s0
+AMX-COMPLEX or \s-1CLDEMOTE\s0 extended instruction sets. Each has a corresponding
+\&\fB\-mno\-\fR option to disable use of these instructions.
 .Sp
 These extensions are also available as built-in functions: see
 \&\fBx86 Built-in Functions\fR, for details of the functions enabled and
@@ -33285,6 +33303,17 @@ instructions, in clock cycles.  This affects, when optimizing for speed,
 whether loading a constant from literal pool using \f(CW\*(C`L32R\*(C'\fR or
 synthesizing the constant from a small one with a couple of arithmetic
 instructions.  The default value is 0.
+.IP "\fB\-mstrict\-align\fR" 4
+.IX Item "-mstrict-align"
+.PD 0
+.IP "\fB\-mno\-strict\-align\fR" 4
+.IX Item "-mno-strict-align"
+.PD
+Avoid or allow generating memory accesses that may not be aligned on a natural
+object boundary as described in the architecture specification.
+The default is \fB\-mno\-strict\-align\fR for cores that support both
+unaligned loads and stores in hardware and \fB\-mstrict\-align\fR for all
+other cores.
 .PP
 \fIzSeries Options\fR
 .IX Subsection "zSeries Options"
