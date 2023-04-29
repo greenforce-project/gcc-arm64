@@ -125,6 +125,7 @@ extern bool aarch64_simd_shift_imm_vec_qi (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_vec_hi (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_vec_si (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_vec_di (rtx, machine_mode);
+extern bool aarch64_simd_rshrn_imm_vec (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_bitsize_qi (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_bitsize_hi (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_bitsize_si (rtx, machine_mode);
@@ -234,12 +235,12 @@ enum constraint_num
   CONSTRAINT_Q,
   CONSTRAINT_Ust,
   CONSTRAINT_Ump,
-  CONSTRAINT_Umn,
   CONSTRAINT_Utf,
   CONSTRAINT_Utn,
   CONSTRAINT_Utr,
   CONSTRAINT_Utv,
   CONSTRAINT_Utx,
+  CONSTRAINT_Umn,
   CONSTRAINT_Utq,
   CONSTRAINT_UtQ,
   CONSTRAINT_UOb,
@@ -378,7 +379,7 @@ insn_extra_special_memory_constraint (enum constraint_num)
 static inline bool
 insn_extra_relaxed_memory_constraint (enum constraint_num c)
 {
-  return c >= CONSTRAINT_Utq && c <= CONSTRAINT_Uty;
+  return c >= CONSTRAINT_Umn && c <= CONSTRAINT_Uty;
 }
 
 static inline bool
@@ -451,7 +452,7 @@ enum constraint_type
 static inline enum constraint_type
 get_constraint_type (enum constraint_num c)
 {
-  if (c >= CONSTRAINT_Utq)
+  if (c >= CONSTRAINT_Umn)
     {
       if (c >= CONSTRAINT_Uaa)
         return CT_FIXED_FORM;
