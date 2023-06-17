@@ -124,6 +124,7 @@ extern bool aarch64_simd_shift_imm_offset_si (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_offset_di (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_vec_exact_top (rtx, machine_mode);
 extern bool aarch64_simd_umax_half_mode (rtx, machine_mode);
+extern bool aarch64_simd_umax_quarter_mode (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_vec_qi (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_vec_hi (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_vec_si (rtx, machine_mode);

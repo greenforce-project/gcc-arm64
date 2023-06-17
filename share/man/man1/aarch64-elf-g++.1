@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2023-06-10" "gcc-14.0.0" "GNU"
+.TH GCC 1 "2023-06-17" "gcc-14.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -282,7 +282,8 @@ in the following sections.
 \&\-Wdelete\-non\-virtual\-dtor  \-Wno\-deprecated\-array\-compare
 \&\-Wdeprecated\-copy \-Wdeprecated\-copy\-dtor
 \&\-Wno\-deprecated\-enum\-enum\-conversion \-Wno\-deprecated\-enum\-float\-conversion
-\&\-Weffc++  \-Wno\-exceptions \-Wextra\-semi  \-Wno\-inaccessible\-base
+\&\-Weffc++ \-Wno\-elaborated\-enum\-base
+\&\-Wno\-exceptions \-Wextra\-semi  \-Wno\-inaccessible\-base
 \&\-Wno\-inherited\-variadic\-ctor  \-Wno\-init\-list\-lifetime
 \&\-Winvalid\-constexpr \-Winvalid\-imported\-macros
 \&\-Wno\-invalid\-offsetof  \-Wno\-literal\-suffix
@@ -1466,7 +1467,7 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-munroll\-only\-small\-loops \-mlam=\fR\fIchoice\fR
 .Sp
 \&\fIx86 Windows Options\fR
-\&\fB\-mconsole  \-mcygwin  \-mno\-cygwin  \-mdll
+\&\fB\-mconsole  \-mcrtdll=\fR\fIlibrary\fR  \fB\-mcygwin  \-mno\-cygwin  \-mdll
 \&\-mnop\-fun\-dllimport  \-mthread
 \&\-municode  \-mwin32  \-mwindows  \-fno\-set\-stack\-executable\fR
 .Sp
@@ -2750,10 +2751,9 @@ the \fB\-foffload\-options=\fR\fItarget-list\fR\fB=\fR\fIoptions\fR form.  The
 .Sp
 Typical command lines are
 .Sp
-.Vb 3
-\&        \-foffload\-options=\-lgfortran \-foffload\-options=\-lm
-\&        \-foffload\-options="\-lgfortran \-lm" \-foffload\-options=nvptx\-none=\-latomic
-\&        \-foffload\-options=amdgcn\-amdhsa=\-march=gfx906 \-foffload\-options=\-lm
+.Vb 2
+\&        \-foffload\-options=\*(Aq\-fno\-math\-errno \-ffinite\-math\-only\*(Aq \-foffload\-options=nvptx\-none=\-latomic
+\&        \-foffload\-options=amdgcn\-amdhsa=\-march=gfx906 \-foffload\-options=\-O3
 .Ve
 .IP "\fB\-fopenacc\fR" 4
 .IX Item "-fopenacc"
@@ -3795,6 +3795,13 @@ example:
 \&\fB\-Wdeprecated\-enum\-float\-conversion\fR is enabled by default with
 \&\fB\-std=c++20\fR.  In pre\-\*(C+20 dialects, this warning can be enabled
 by \fB\-Wenum\-conversion\fR.
+.IP "\fB\-Wno\-elaborated\-enum\-base\fR" 4
+.IX Item "-Wno-elaborated-enum-base"
+For \*(C+11 and above, warn if an (invalid) additional enum-base is used
+in an elaborated-type-specifier.  That is, if an enum with given
+underlying type and no enumerator list is used in a declaration other
+than just a standalone declaration of the enum.  Enabled by default.  This
+warning is upgraded to an error with \-pedantic\-errors.
 .IP "\fB\-Wno\-init\-list\-lifetime\fR (\*(C+ and Objective\-\*(C+ only)" 4
 .IX Item "-Wno-init-list-lifetime ( and Objective- only)"
 Do not warn about uses of \f(CW\*(C`std::initializer_list\*(C'\fR that are likely
@@ -5802,6 +5809,7 @@ errors by \fB\-pedantic\-errors\fR.  For instance:
 \&\fB\-Wchanges\-meaning\fR (\*(C+)
 \&\fB\-Wcomma\-subscript\fR (\*(C+23 or later)
 \&\fB\-Wdeclaration\-after\-statement\fR (C90 or earlier)
+\&\fB\-Welaborated\-enum\-base\fR (\*(C+11 or later)
 \&\fB\-Wimplicit\-int\fR (C99 or later)
 \&\fB\-Wimplicit\-function\-declaration\fR (C99 or later)
 \&\fB\-Wincompatible\-pointer\-types
@@ -19496,12 +19504,12 @@ addresses and sizes of sections.  Programs can be statically linked only.  The
 .IP "\fB\-mtp=\fR\fIname\fR" 4
 .IX Item "-mtp=name"
 Specify the system register to use as a thread pointer.  The valid values
-are \fBel0\fR, \fBel1\fR, \fBel2\fR, \fBel3\fR.  These correspond to
-using the \fBtpidr_el0\fR, \fBtpidr_el1\fR, \fBtpidr_el2\fR,
-\&\fBtpidr_el3\fR registers accordingly.  The default setting is \fBel0\fR.
-It is recommended to compile all code intended to interoperate with the same
-value of this option to avoid accessing a different thread pointer from the
-wrong exception level.
+are \fBtpidr_el0\fR, \fBtpidrro_el0\fR, \fBtpidr_el1\fR, \fBtpidr_el2\fR,
+\&\fBtpidr_el3\fR.  For backwards compatibility the aliases \fBel0\fR,
+\&\fBel1\fR, \fBel2\fR, \fBel3\fR are also accepted.
+The default setting is \fBtpidr_el0\fR.  It is recommended to compile all
+code intended to interoperate with the same value of this option to avoid
+accessing a different thread pointer from the wrong exception level.
 .IP "\fB\-mstrict\-align\fR" 4
 .IX Item "-mstrict-align"
 .PD 0
@@ -21904,12 +21912,15 @@ is not valid in \s-1AAPCS\s0 configurations because interworking is enabled
 by default.
 .IP "\fB\-mtp=\fR\fIname\fR" 4
 .IX Item "-mtp=name"
-Specify the access model for the thread local storage pointer.  The valid
-models are \fBsoft\fR, which generates calls to \f(CW\*(C`_\|_aeabi_read_tp\*(C'\fR,
-\&\fBcp15\fR, which fetches the thread pointer from \f(CW\*(C`cp15\*(C'\fR directly
-(supported in the arm6k architecture), and \fBauto\fR, which uses the
-best available method for the selected processor.  The default setting is
-\&\fBauto\fR.
+Specify the access model for the thread local storage pointer.  The model
+\&\fBsoft\fR generates calls to \f(CW\*(C`_\|_aeabi_read_tp\*(C'\fR.  Other accepted
+models are \fBtpidrurw\fR, \fBtpidruro\fR and \fBtpidrprw\fR which fetch
+the thread pointer from the corresponding system register directly
+(supported from the arm6k architecture and later).  These system registers
+are accessed through the \s-1CP15\s0 co-processor interface and the argument
+\&\fBcp15\fR is also accepted as a convenience alias of \fBtpidruro\fR.
+The argument \fBauto\fR uses the best available method for the selected
+processor.  The default setting is \fBauto\fR.
 .IP "\fB\-mtls\-dialect=\fR\fIdialect\fR" 4
 .IX Item "-mtls-dialect=dialect"
 Specify the dialect to use for accessing thread local storage.  Two
@@ -33196,6 +33207,27 @@ instructing the linker to set the \s-1PE\s0 header subsystem type
 required for console applications.
 This option is available for Cygwin and MinGW targets and is
 enabled by default on those targets.
+.IP "\fB\-mcrtdll=\fR\fIlibrary\fR" 4
+.IX Item "-mcrtdll=library"
+Preprocess, compile or link with specified C RunTime \s-1DLL\s0 \fIlibrary\fR.
+This option adjust predefined macros \f(CW\*(C`_\|_CRTDLL_\|_\*(C'\fR, \f(CW\*(C`_\|_MSVCRT_\|_\*(C'\fR
+and \f(CW\*(C`_\|_MSVCRT_VERSION_\|_\*(C'\fR for specified \s-1CRT\s0 \fIlibrary\fR, choose
+start file for \s-1CRT\s0 \fIlibrary\fR and link with \s-1CRT\s0 \fIlibrary\fR.
+Recognized \s-1CRT\s0 library names for proprocessor are:
+\&\f(CW\*(C`crtdll\*(C'\fR, \f(CW\*(C`msvcrt10\*(C'\fR, \f(CW\*(C`msvcrt20\*(C'\fR, \f(CW\*(C`msvcrt40\*(C'\fR,
+\&\f(CW\*(C`msvcrt\-os\*(C'\fR, \f(CW\*(C`msvcr70\*(C'\fR, \f(CW\*(C`msvcr80\*(C'\fR, \f(CW\*(C`msvcr90\*(C'\fR,
+\&\f(CW\*(C`msvcr100\*(C'\fR, \f(CW\*(C`msvcr110\*(C'\fR, \f(CW\*(C`msvcr120\*(C'\fR and \f(CW\*(C`ucrt\*(C'\fR.
+If this options is not specified then the default MinGW import library
+\&\f(CW\*(C`msvcrt\*(C'\fR is used for linking and no other adjustment for
+preprocessor is done. MinGW import library \f(CW\*(C`msvcrt\*(C'\fR is just a
+symlink to (or a copy of) another MinGW \s-1CRT\s0 import library
+chosen during MinGW compilation. MinGW import library \f(CW\*(C`msvcrt\-os\*(C'\fR
+is for Windows system \s-1CRT DLL\s0 library \f(CW\*(C`msvcrt.dll\*(C'\fR and
+in most cases is the default MinGW import library.
+Generally speaking, changing the \s-1CRT DLL\s0 requires recompiling
+the entire MinGW \s-1CRT.\s0 This option is for experimental and testing
+purposes only.
+This option is available for MinGW targets.
 .IP "\fB\-mdll\fR" 4
 .IX Item "-mdll"
 This option is available for Cygwin and MinGW targets.  It
