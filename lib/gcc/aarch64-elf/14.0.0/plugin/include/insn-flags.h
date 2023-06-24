@@ -533,7 +533,7 @@
 #define HAVE_tlsdesc_small_advsimd_di ((TARGET_TLS_DESC && !TARGET_SVE) && (ptr_mode == DImode))
 #define HAVE_tlsdesc_small_sve_si ((TARGET_TLS_DESC && TARGET_SVE) && (ptr_mode == SImode))
 #define HAVE_tlsdesc_small_sve_di ((TARGET_TLS_DESC && TARGET_SVE) && (ptr_mode == DImode))
-#define HAVE_stack_tie 1
+#define HAVE_stack_tie (REGNO (operands[0]) == INTVAL (operands[1]))
 #define HAVE_aarch64_fjcvtzs (TARGET_JSCVT)
 #define HAVE_paciasp 1
 #define HAVE_autiasp 1
