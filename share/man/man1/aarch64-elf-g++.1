@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2023-06-24" "gcc-14.0.0" "GNU"
+.TH GCC 1 "2023-07-15" "gcc-14.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -4683,10 +4683,12 @@ and Objective\-\*(C+ programs:
 Use \fIclass-name\fR as the name of the class to instantiate for each
 literal string specified with the syntax \f(CW\*(C`@"..."\*(C'\fR.  The default
 class name is \f(CW\*(C`NXConstantString\*(C'\fR if the \s-1GNU\s0 runtime is being used, and
-\&\f(CW\*(C`NSConstantString\*(C'\fR if the NeXT runtime is being used (see below).  The
-\&\fB\-fconstant\-cfstrings\fR option, if also present, overrides the
-\&\fB\-fconstant\-string\-class\fR setting and cause \f(CW\*(C`@"..."\*(C'\fR literals
-to be laid out as constant CoreFoundation strings.
+\&\f(CW\*(C`NSConstantString\*(C'\fR if the NeXT runtime is being used (see below).  On
+Darwin (macOS, MacOS X) platforms, the \fB\-fconstant\-cfstrings\fR option, if
+also present, overrides the \fB\-fconstant\-string\-class\fR setting and cause
+\&\f(CW\*(C`@"..."\*(C'\fR literals to be laid out as constant CoreFoundation strings.
+Note that \fB\-fconstant\-cfstrings\fR is an alias for the target-specific
+\&\fB\-mconstant\-cfstrings\fR equivalent.
 .IP "\fB\-fgnu\-runtime\fR" 4
 .IX Item "-fgnu-runtime"
 Generate object code compatible with the standard \s-1GNU\s0 Objective-C
@@ -6426,7 +6428,7 @@ Warn if the compiler does not elide the copy from a local variable to
 the return value of a function in a context where it is allowed by
 [class.copy.elision].  This elision is commonly known as the Named
 Return Value Optimization.  For instance, in the example below the
-compiler cannot elide copies from both v1 and b2, so it elides neither.
+compiler cannot elide copies from both v1 and v2, so it elides neither.
 .Sp
 .Vb 7
 \&        std::vector<int> f()
@@ -6759,7 +6761,7 @@ bracketed, but that for \f(CW\*(C`b\*(C'\fR is fully bracketed.
 This warning is enabled by \fB\-Wall\fR.
 .IP "\fB\-Wmissing\-include\-dirs\fR (C, \*(C+, Objective-C, Objective\-\*(C+ and Fortran only)" 4
 .IX Item "-Wmissing-include-dirs (C, , Objective-C, Objective- and Fortran only)"
-Warn if a user-supplied include directory does not exist. This opions is disabled
+Warn if a user-supplied include directory does not exist. This option is disabled
 by default for C, \*(C+, Objective-C and Objective\-\*(C+. For Fortran, it is partially
 enabled by default by warning for \-I and \-J, only.
 .IP "\fB\-Wno\-missing\-profile\fR" 4
@@ -23453,11 +23455,19 @@ This is by default \s-1ON.\s0
 .IP "\fB\-gfull\fR" 4
 .IX Item "-gfull"
 Emit debugging information for all symbols and types.
+.IP "\fB\-fconstant\-cfstrings\fR" 4
+.IX Item "-fconstant-cfstrings"
+The \fB\-fconstant\-cfstrings\fR is an alias for \fB\-mconstant\-cfstrings\fR.
+.IP "\fB\-mconstant\-cfstrings\fR" 4
+.IX Item "-mconstant-cfstrings"
+When the NeXT runtime is being used (the default on these systems), override
+any \fB\-fconstant\-string\-class\fR setting and cause \f(CW\*(C`@"..."\*(C'\fR
+literals to be laid out as constant CoreFoundation strings.
 .IP "\fB\-mmacosx\-version\-min=\fR\fIversion\fR" 4
 .IX Item "-mmacosx-version-min=version"
-The earliest version of MacOS X that this executable will run on
-is \fIversion\fR.  Typical values of \fIversion\fR include \f(CW10.1\fR,
-\&\f(CW10.2\fR, and \f(CW10.3.9\fR.
+The earliest version of MacOS X that this executable will run on is
+\&\fIversion\fR.  Typical values supported for \fIversion\fR include \f(CW12\fR,
+\&\f(CW10.12\fR, and \f(CW10.5.8\fR.
 .Sp
 If the compiler was built to use the system's headers by default,
 then the default for this option is the system version on which the
@@ -25997,6 +26007,14 @@ Generate (do not generate) \s-1MIPS16\s0 code.  If \s-1GCC\s0 is targeting a
 .Sp
 \&\s-1MIPS16\s0 code generation can also be controlled on a per-function basis
 by means of \f(CW\*(C`mips16\*(C'\fR and \f(CW\*(C`nomips16\*(C'\fR attributes.
+.IP "\fB\-mmips16e2\fR" 4
+.IX Item "-mmips16e2"
+.PD 0
+.IP "\fB\-mno\-mips16e2\fR" 4
+.IX Item "-mno-mips16e2"
+.PD
+Use (do not use) the MIPS16e2 \s-1ASE.\s0  This option modifies the behavior
+of the \fB\-mips16\fR option such that it targets the MIPS16e2 \s-1ASE.\s0
 .IP "\fB\-mflip\-mips16\fR" 4
 .IX Item "-mflip-mips16"
 Generate \s-1MIPS16\s0 code on alternating functions.  This option is provided
@@ -31562,7 +31580,8 @@ SSSE3, SSE4.1, SSE4.2, POPCNT, AES, PREFETCHW, PCLMUL, RDRND, XSAVE, XSAVEC,
 XSAVES, XSAVEOPT, FSGSBASE, PTWRITE, RDPID, SGX,\s0 GFNI-SSE, \s-1CLWB, MOVDIRI,
 MOVDIR64B, CLDEMOTE, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C, FMA, LZCNT,
 PCONFIG, PKU, VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL,\s0 AVX-VNNI,
-\&\s-1AVXIFMA, AVXVNNIINT8, AVXNECONVERT\s0 and \s-1CMPCCXADD\s0 instruction set support.
+\&\s-1AVXIFMA, AVXVNNIINT8, AVXNECONVERT, CMPCCXADD, ENQCMD\s0 and \s-1UINTR\s0 instruction set
+support.
 .IP "\fBgrandridge\fR" 4
 .IX Item "grandridge"
 Intel Grand Ridge \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3,
@@ -31570,8 +31589,8 @@ SSSE3, SSE4.1, SSE4.2, POPCNT, AES, PREFETCHW, PCLMUL, RDRND, XSAVE, XSAVEC,
 XSAVES, XSAVEOPT, FSGSBASE, PTWRITE, RDPID, SGX,\s0 GFNI-SSE, \s-1CLWB, MOVDIRI,
 MOVDIR64B, CLDEMOTE, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C, FMA, LZCNT,
 PCONFIG, PKU, VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL,\s0 AVX-VNNI,
-\&\s-1AVXIFMA, AVXVNNIINT8, AVXNECONVERT, CMPCCXADD\s0 and \s-1RAOINT\s0 instruction set
-support.
+\&\s-1AVXIFMA, AVXVNNIINT8, AVXNECONVERT, CMPCCXADD, ENQCMD, UINTR\s0 and \s-1RAOINT\s0
+instruction set support.
 .IP "\fBknl\fR" 4
 .IX Item "knl"
 Intel Knight's Landing \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3,
@@ -31678,6 +31697,17 @@ VPCLMULQDQ, AVX512BITALG, RDPID, AVX512VPOPCNTDQ, PCONFIG, WBNOINVD, CLWB,
 MOVDIRI, MOVDIR64B, AVX512VP2INTERSECT, ENQCMD, CLDEMOTE, PTWRITE, WAITPKG,
 SERIALIZE, TSXLDTRK, UINTR, AMX\-BF16,\s0 AMX-TILE, \s-1AMX\-INT8,\s0 AVX-VNNI, \s-1AVX512\-FP16,
 AVX512BF16, AMX\-FP16\s0 and \s-1PREFETCHI\s0 instruction set support.
+.IP "\fBgraniterapids-d\fR" 4
+.IX Item "graniterapids-d"
+Intel graniterapids D \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3,
+SSSE3, SSE4.1, SSE4.2, POPCNT, CX16, SAHF, FXSR, AVX, XSAVE, PCLMUL, FSGSBASE,
+RDRND, F16C, AVX2, BMI, BMI2, LZCNT, FMA, MOVBE, HLE, RDSEED, ADCX, PREFETCHW,
+AES, CLFLUSHOPT, XSAVEC, XSAVES, SGX, AVX512F, AVX512VL, AVX512BW, AVX512DQ,
+AVX512CD, PKU, AVX512VBMI, AVX512IFMA, SHA, AVX512VNNI, GFNI, VAES, AVX512VBMI2,
+VPCLMULQDQ, AVX512BITALG, RDPID, AVX512VPOPCNTDQ, PCONFIG, WBNOINVD, CLWB,
+MOVDIRI, MOVDIR64B, AVX512VP2INTERSECT, ENQCMD, CLDEMOTE, PTWRITE, WAITPKG,
+SERIALIZE, TSXLDTRK, UINTR, AMX\-BF16,\s0 AMX-TILE, \s-1AMX\-INT8,\s0 AVX-VNNI, \s-1AVX512FP16,
+AVX512BF16, AMX\-FP16, PREFETCHI\s0 and AMX-COMPLEX instruction set support.
 .IP "\fBk6\fR" 4
 .IX Item "k6"
 \&\s-1AMD K6 CPU\s0 with \s-1MMX\s0 instruction set support.

@@ -185,9 +185,8 @@ SECTIONS
   _edata = .; PROVIDE (edata = .);
   /* This section contains data that is initialized during load,
      but not during the application's initialization sequence.  */
-  .persistent :
+  .persistent   : ALIGN(32 / 8)
   {
-    . = ALIGN(32 / 8);
     PROVIDE (__persistent_start = .);
     *(.persistent .persistent.* .gnu.linkonce.p.*)
     . = ALIGN(32 / 8);
@@ -211,9 +210,8 @@ SECTIONS
   _bss_end__ = .; __bss_end__ = .;
   /* This section contains data that is not initialized during load,
      or during the application's initialization sequence.  */
-  .noinit (NOLOAD) :
+  .noinit   (NOLOAD) : ALIGN(32 / 8)
   {
-    . = ALIGN(32 / 8);
     PROVIDE (__noinit_start = .);
     *(.noinit .noinit.* .gnu.linkonce.n.*)
     . = ALIGN(32 / 8);

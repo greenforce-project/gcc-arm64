@@ -42,7 +42,7 @@ Introduction
 ************
 
 This brief manual contains documentation for the GNU binary utilities
-(GNU Binutils) version 2.40.50:
+(GNU Binutils) version 2.41.50:
 
    This document is distributed under the terms of the GNU Free
 Documentation License version 1.3.  A copy of the license is included in
@@ -1053,6 +1053,7 @@ File: binutils.info,  Node: objcopy,  Next: objdump,  Prev: nm,  Up: Top
              [-R SECTIONPATTERN|--remove-section=SECTIONPATTERN]
              [--keep-section=SECTIONPATTERN]
              [--remove-relocations=SECTIONPATTERN]
+             [--strip-section-headers]
              [-p|--preserve-dates]
              [-D|--enable-deterministic-archives]
              [-U|--disable-deterministic-archives]
@@ -1251,6 +1252,10 @@ the '--reverse-bytes' option.)
      will remove all relocations for sections matching the pattern
      '.text.*', but will not remove relocations for the section
      '.text.foo'.
+
+'--strip-section-headers'
+     Strip section header This option is specific to ELF files.  Implies
+     '--strip-all' and '--merge-notes'.
 
 '-S'
 '--strip-all'
@@ -1485,13 +1490,14 @@ the '--reverse-bytes' option.)
      Set the flags for any sections matching SECTIONPATTERN.  The FLAGS
      argument is a comma separated string of flag names.  The recognized
      names are 'alloc', 'contents', 'load', 'noload', 'readonly',
-     'code', 'data', 'rom', 'exclude', 'share', and 'debug'.  You can
-     set the 'contents' flag for a section which does not have contents,
-     but it is not meaningful to clear the 'contents' flag of a section
-     which does have contents-just remove the section instead.  Not all
-     flags are meaningful for all object file formats.  In particular
-     the 'share' flag is only meaningful for COFF format files and not
-     for ELF format files.
+     'code', 'data', 'rom', 'exclude', 'share', 'debug', and 'large'.
+     You can set the 'contents' flag for a section which does not have
+     contents, but it is not meaningful to clear the 'contents' flag of
+     a section which does have contents-just remove the section instead.
+     Not all flags are meaningful for all object file formats.  In
+     particular the 'share' flag is only meaningful for COFF format
+     files and not for ELF format files.  The ELF x86-64 specific flag
+     'large' corresponds to SHF_X86_64_LARGE.
 
 '--set-section-alignment SECTIONPATTERN=ALIGN'
      Set the alignment for any sections matching SECTIONPATTERN.  ALIGN
@@ -3222,6 +3228,7 @@ File: binutils.info,  Node: strip,  Next: c++filt,  Prev: strings,  Up: Top
            [-R SECTIONNAME |--remove-section=SECTIONNAME]
            [--keep-section=SECTIONPATTERN]
            [--remove-relocations=SECTIONPATTERN]
+           [--strip-section-headers]
            [-o FILE] [-p|--preserve-dates]
            [-D|--enable-deterministic-archives]
            [-U|--disable-deterministic-archives]
@@ -3308,6 +3315,10 @@ modified copies under different names.
      will remove all relocations for sections matching the pattern
      '.text.*', but will not remove relocations for the section
      '.text.foo'.
+
+'--strip-section-headers'
+     Strip section headers.  This option is specific to ELF files.
+     Implies '--strip-all' and '--merge-notes'.
 
 '-s'
 '--strip-all'
@@ -5960,12 +5971,12 @@ Binutils Index
 
 * -enable-deterministic-archives:        ar cmdline.          (line 150)
 * -enable-deterministic-archives <1>:    ar cmdline.          (line 238)
-* -enable-deterministic-archives <2>:    objcopy.             (line 359)
-* -enable-deterministic-archives <3>:    objcopy.             (line 369)
+* -enable-deterministic-archives <2>:    objcopy.             (line 364)
+* -enable-deterministic-archives <3>:    objcopy.             (line 374)
 * -enable-deterministic-archives <4>:    ranlib.              (line  32)
 * -enable-deterministic-archives <5>:    ranlib.              (line  44)
-* -enable-deterministic-archives <6>:    strip.               (line 158)
-* -enable-deterministic-archives <7>:    strip.               (line 168)
+* -enable-deterministic-archives <6>:    strip.               (line 163)
+* -enable-deterministic-archives <7>:    strip.               (line 173)
 * .stab:                                 objdump.             (line 793)
 * Add prefix to absolute paths:          objdump.             (line 538)
 * addr2line:                             addr2line.           (line   6)
@@ -5985,11 +5996,11 @@ Binutils Index
 * bugs:                                  Reporting Bugs.      (line   6)
 * bugs, reporting:                       Bug Reporting.       (line   6)
 * c++filt:                               c++filt.             (line   6)
-* changing object addresses:             objcopy.             (line 406)
-* changing section address:              objcopy.             (line 416)
-* changing section LMA:                  objcopy.             (line 425)
-* changing section VMA:                  objcopy.             (line 438)
-* changing start address:                objcopy.             (line 400)
+* changing object addresses:             objcopy.             (line 411)
+* changing section address:              objcopy.             (line 421)
+* changing section LMA:                  objcopy.             (line 430)
+* changing section VMA:                  objcopy.             (line 443)
+* changing start address:                objcopy.             (line 405)
 * collections of files:                  ar.                  (line   6)
 * Compact Type Format:                   objdump.             (line 764)
 * Compact Type Format <1>:               readelf.             (line 457)
@@ -6012,12 +6023,12 @@ Binutils Index
 * demangling in objdump <1>:             addr2line.           (line  91)
 * deterministic archives:                ar cmdline.          (line 150)
 * deterministic archives <1>:            ar cmdline.          (line 238)
-* deterministic archives <2>:            objcopy.             (line 359)
-* deterministic archives <3>:            objcopy.             (line 369)
+* deterministic archives <2>:            objcopy.             (line 364)
+* deterministic archives <3>:            objcopy.             (line 374)
 * deterministic archives <4>:            ranlib.              (line  32)
 * deterministic archives <5>:            ranlib.              (line  44)
-* deterministic archives <6>:            strip.               (line 158)
-* deterministic archives <7>:            strip.               (line 168)
+* deterministic archives <6>:            strip.               (line 163)
+* deterministic archives <7>:            strip.               (line 173)
 * disassembling object code:             objdump.             (line 153)
 * disassembly architecture:              objdump.             (line 275)
 * disassembly endianness:                objdump.             (line 202)
@@ -6153,30 +6164,30 @@ Node: ar cmdline6905
 Node: ar scripts20221
 Node: nm25907
 Node: objcopy41617
-Node: objdump82562
-Node: ranlib120523
-Node: size122122
-Node: strings126266
-Node: strip132101
-Node: c++filt141943
-Ref: c++filt-Footnote-1147804
-Node: addr2line147910
-Node: windmc153865
-Node: windres157524
-Node: dlltool164094
-Node: def file format177547
-Node: readelf180077
-Node: elfedit199208
-Node: Common Options202634
-Node: Selecting the Target System203668
-Node: Target Selection204596
-Node: Architecture Selection206577
-Node: debuginfod207405
-Node: Reporting Bugs208407
-Node: Bug Criteria209169
-Node: Bug Reporting209722
-Node: GNU Free Documentation License216589
-Node: Binutils Index241749
+Node: objdump82824
+Node: ranlib120785
+Node: size122384
+Node: strings126528
+Node: strip132363
+Node: c++filt142384
+Ref: c++filt-Footnote-1148245
+Node: addr2line148351
+Node: windmc154306
+Node: windres157965
+Node: dlltool164535
+Node: def file format177988
+Node: readelf180518
+Node: elfedit199649
+Node: Common Options203075
+Node: Selecting the Target System204109
+Node: Target Selection205037
+Node: Architecture Selection207018
+Node: debuginfod207846
+Node: Reporting Bugs208848
+Node: Bug Criteria209610
+Node: Bug Reporting210163
+Node: GNU Free Documentation License217030
+Node: Binutils Index242190
 
 End Tag Table
 
