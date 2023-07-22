@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "AS 1"
-.TH AS 1 "2023-07-15" "binutils-2.41.50" "GNU Development Tools"
+.TH AS 1 "2023-07-22" "binutils-2.41.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -1144,8 +1144,8 @@ The following options are available when as is configured for
 the Linux kernel \s-1BPF\s0 processor family.
 .PP
 \&\f(CW@chapter\fR \s-1BPF\s0 Dependent Features
-.SS "Options"
-.IX Subsection "Options"
+.SS "\s-1BPF\s0 Options"
+.IX Subsection "BPF Options"
 .IP "\fB\-EB\fR" 4
 .IX Item "-EB"
 This option specifies that the assembler should emit big-endian eBPF.
@@ -1153,6 +1153,19 @@ This option specifies that the assembler should emit big-endian eBPF.
 .IX Item "-EL"
 This option specifies that the assembler should emit little-endian
 eBPF.
+.IP "\fB\-mdialect=\fR\fIdialect\fR" 4
+.IX Item "-mdialect=dialect"
+This option specifies the assembly language dialect to recognize while
+assembling.  The assembler supports \fBnormal\fR and
+\&\fBpseudoc\fR.
+.IP "\fB\-misa\-spec=\fR\fIspec\fR" 4
+.IX Item "-misa-spec=spec"
+This option specifies the version of the \s-1BPF\s0 instruction set to use
+when assembling.  The \s-1BPF ISA\s0 versions supported are \fBv1\fR \fBv2\fR, \fBv3\fR and \fBv4\fR.
+.Sp
+The value \fBxbpf\fR can be specified to recognize extra
+instructions that are used by \s-1GCC\s0 for testing purposes.  But beware
+this is not valid \s-1BPF.\s0
 .PP
 Note that if no endianness option is specified in the command line,
 the host endianness is used.

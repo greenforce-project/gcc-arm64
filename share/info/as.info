@@ -9745,17 +9745,17 @@ File: as.info,  Node: BPF-Dependent,  Next: CR16-Dependent,  Prev: Blackfin-Depe
 
 * Menu:
 
-* BPF Options::                 Options
-* BPF Syntax::		        Syntax
-* BPF Directives::		Machine Directives
-* BPF Opcodes::			Opcodes
-* BPF Pseudo-C Syntax::         Alternative Pseudo-C Assembly Syntax
+* BPF Options::                 BPF specific command-line options.
+* BPF Special Characters::      Comments and statements.
+* BPF Registers::               Register names.
+* BPF Directives::		Machine directives.
+* BPF Instructions::            Machine instructions.
 
 
-File: as.info,  Node: BPF Options,  Next: BPF Syntax,  Up: BPF-Dependent
+File: as.info,  Node: BPF Options,  Next: BPF Special Characters,  Up: BPF-Dependent
 
-9.7.1 Options
--------------
+9.7.1 BPF Options
+-----------------
 
 '-EB'
      This option specifies that the assembler should emit big-endian
@@ -9765,26 +9765,27 @@ File: as.info,  Node: BPF Options,  Next: BPF Syntax,  Up: BPF-Dependent
      This option specifies that the assembler should emit little-endian
      eBPF.
 
+'-mdialect=DIALECT'
+     This option specifies the assembly language dialect to recognize
+     while assembling.  The assembler supports 'normal' and 'pseudoc'.
+
+'-misa-spec=SPEC'
+     This option specifies the version of the BPF instruction set to use
+     when assembling.  The BPF ISA versions supported are 'v1' 'v2',
+     'v3' and 'v4'.
+
+     The value 'xbpf' can be specified to recognize extra instructions
+     that are used by GCC for testing purposes.  But beware this is not
+     valid BPF.
+
    Note that if no endianness option is specified in the command line,
 the host endianness is used.
 
 
-File: as.info,  Node: BPF Syntax,  Next: BPF Directives,  Prev: BPF Options,  Up: BPF-Dependent
+File: as.info,  Node: BPF Special Characters,  Next: BPF Registers,  Prev: BPF Options,  Up: BPF-Dependent
 
-9.7.2 Syntax
-------------
-
-* Menu:
-
-* BPF-Chars::                Special Characters
-* BPF-Regs::                 Register Names
-* BPF-Pseudo-Maps::	     Pseudo map fds
-
-
-File: as.info,  Node: BPF-Chars,  Next: BPF-Regs,  Up: BPF Syntax
-
-9.7.2.1 Special Characters
-..........................
+9.7.2 BPF Special Characters
+----------------------------
 
 The presence of a ';' on a line indicates the start of a comment that
 extends to the end of the current line.  If a '#' appears as the first
@@ -9793,49 +9794,45 @@ character of a line, the whole line is treated as a comment.
    Statements and assembly directives are separated by newlines.
 
 
-File: as.info,  Node: BPF-Regs,  Next: BPF-Pseudo-Maps,  Prev: BPF-Chars,  Up: BPF Syntax
+File: as.info,  Node: BPF Registers,  Next: BPF Directives,  Prev: BPF Special Characters,  Up: BPF-Dependent
 
-9.7.2.2 Register Names
-......................
+9.7.3 BPF Registers
+-------------------
 
 The eBPF processor provides ten general-purpose 64-bit registers, which
 are read-write, and a read-only frame pointer register:
 
+In normal syntax:
+
 '%r0 .. %r9'
      General-purpose registers.
 '%r10'
-     Frame pointer register.
-
-   Some registers have additional names, to reflect their role in the
-eBPF ABI:
-
-'%a'
-     This is '%r0'.
-'%ctx'
-     This is '%r6'.
 '%fp'
-     This is '%r10'.
+     Read-only frame pointer register.
+
+   All BPF registers are 64-bit long.  However, in the Pseudo-C syntax
+registers can be referred using different names, which actually reflect
+the kind of instruction they appear on:
+
+In pseudoc syntax:
+
+'r0..r9'
+     General-purpose register in an instruction that operates on its
+     value as if it was a 64-bit value.
+'w0..w9'
+     General-purpose register in an instruction that operates on its
+     value as if it was a 32-bit value.
+'r10'
+     Read-only frame pointer register.
+
+Note that in the Pseudo-C syntax register names are not preceded by '%'
+characters.
 
 
-File: as.info,  Node: BPF-Pseudo-Maps,  Prev: BPF-Regs,  Up: BPF Syntax
+File: as.info,  Node: BPF Directives,  Next: BPF Instructions,  Prev: BPF Registers,  Up: BPF-Dependent
 
-9.7.2.3 Pseudo Maps
-...................
-
-The 'LDDW' instruction can take a literal pseudo map file descriptor as
-its second argument.  This uses the syntax '%map_fd(N)' where 'N' is a
-signed number.
-
-   For example, to load the address of the pseudo map with file
-descriptor '2' in register 'r1' we would do:
-
-             lddw %r1, %map_fd(2)
-
-
-File: as.info,  Node: BPF Directives,  Next: BPF Opcodes,  Prev: BPF Syntax,  Up: BPF-Dependent
-
-9.7.3 Machine Directives
-------------------------
+9.7.4 BPF Directives
+--------------------
 
 The BPF version of 'as' supports the following additional machine
 directives:
@@ -9850,18 +9847,18 @@ directives:
      The '.dword' directive produces a 64 bit value.
 
 
-File: as.info,  Node: BPF Opcodes,  Next: BPF Pseudo-C Syntax,  Prev: BPF Directives,  Up: BPF-Dependent
+File: as.info,  Node: BPF Instructions,  Prev: BPF Directives,  Up: BPF-Dependent
 
-9.7.4 Opcodes
--------------
+9.7.5 BPF Instructions
+----------------------
 
 In the instruction descriptions below the following field descriptors
 are used:
 
-'%d'
-     Destination general-purpose register whose role is to be
+'rd'
+     Destination general-purpose register whose role is to be the
      destination of an operation.
-'%s'
+'rs'
      Source general-purpose register whose role is to be the source of
      an operation.
 'disp16'
@@ -9871,96 +9868,253 @@ are used:
      32-bit signed PC-relative offset, measured in number of 64-bit
      words, minus one.
 'offset16'
-     Signed 16-bit immediate.
+     Signed 16-bit immediate representing an offset in bytes.
+'disp16'
+     Signed 16-bit immediate representing a displacement to a target,
+     measured in number of 64-bit words _minus one_.
 'imm32'
      Signed 32-bit immediate.
 'imm64'
      Signed 64-bit immediate.
 
-9.7.4.1 Arithmetic instructions
+9.7.5.1 Arithmetic instructions
 ...............................
 
 The destination register in these instructions act like an accumulator.
 
-'add %d, (%s|imm32)'
-     64-bit arithmetic addition.
-'sub %d, (%s|imm32)'
-     64-bit arithmetic subtraction.
-'mul %d, (%s|imm32)'
-     64-bit arithmetic multiplication.
-'div %d, (%s|imm32)'
-     64-bit arithmetic integer division.
-'mod %d, (%s|imm32)'
-     64-bit integer remainder.
-'and %d, (%s|imm32)'
-     64-bit bit-wise "and" operation.
-'or %d, (%s|imm32)'
-     64-bit bit-wise "or" operation.
-'xor %d, (%s|imm32)'
-     64-bit bit-wise exclusive-or operation.
-'lsh %d, (%s|imm32)'
-     64-bit left shift, by '%s' or 'imm32' bits.
-'rsh %d, (%s|imm32)'
-     64-bit right logical shift, by '%s' or 'imm32' bits.
-'arsh %d, (%s|imm32)'
-     64-bit right arithmetic shift, by '%s' or 'imm32' bits.
-'neg %d'
-     64-bit arithmetic negation.
-'mov %d, (%s|imm32)'
-     Move the 64-bit value of '%s' in '%d', or load 'imm32' in '%d'.
+   Note that in pseudoc syntax these instructions should use 'r'
+registers.
 
-9.7.4.2 32-bit arithmetic instructions
+'add rd, rs'
+'add rd, imm32'
+'rd += rs'
+'rd += imm32'
+     64-bit arithmetic addition.
+
+'sub rd, rs'
+'sub rd, rs'
+'rd -= rs'
+'rd -= imm32'
+     64-bit arithmetic subtraction.
+
+'mul rd, rs'
+'mul rd, imm32'
+'rd *= rs'
+'rd *= imm32'
+     64-bit arithmetic multiplication.
+
+'div rd, rs'
+'div rd, imm32'
+'rd /= rs'
+'rd /= imm32'
+     64-bit arithmetic integer division.
+
+'mod rd, rs'
+'mod rd, imm32'
+'rd %= rs'
+'rd %= imm32'
+     64-bit integer remainder.
+
+'and rd, rs'
+'and rd, imm32'
+'rd &= rs'
+'rd &= imm32'
+     64-bit bit-wise "and" operation.
+
+'or rd, rs'
+'or rd, imm32'
+'rd |= rs'
+'rd |= imm32'
+     64-bit bit-wise "or" operation.
+
+'xor rd, imm32'
+'xor rd, rs'
+'rd ^= rs'
+'rd ^= imm32'
+     64-bit bit-wise exclusive-or operation.
+
+'lsh rd, rs'
+'ldh rd, imm32'
+'rd <<= rs'
+'rd <<= imm32'
+     64-bit left shift, by 'rs' or 'imm32' bits.
+
+'rsh %d, %s'
+'rsh rd, imm32'
+'rd >>= rs'
+'rd >>= imm32'
+     64-bit right logical shift, by 'rs' or 'imm32' bits.
+
+'arsh rd, rs'
+'arsh rd, imm32'
+'rd s>>= rs'
+'rd s>>= imm32'
+     64-bit right arithmetic shift, by 'rs' or 'imm32' bits.
+
+'neg rd, rs'
+'neg rd, imm32'
+'rd = - rs'
+'rd = - imm32'
+     64-bit arithmetic negation.
+
+     Note that in the 'rd = - imm32' syntax there must be at least one
+     white space between '-' and 'imm32'.  Otherwise the instruction is
+     parsed as a 'mov rd, imm32' instruction with a negative 32-bit
+     immediate.  This is a consequence of a syntactic ambiguity in the
+     pseudoc syntax.
+
+'mov rd, rs'
+'mov rd, imm32'
+'rd = rs'
+'rd = imm32'
+     Move the 64-bit value of 'rs' in 'rd', or load 'imm32' in 'rd'.
+
+'movs rd, rs, 8'
+'rd s= (i8) rs'
+     Move the sign-extended 8-bit value in 'rs' to 'rd'.
+
+'movs rd, rs, 16'
+'rd s= (i16) rs'
+     Move the sign-extended 16-bit value in 'rs' to 'rd'.
+
+'movs rd, rs, 32'
+'rd s= (i32) rs'
+     Move the sign-extended 32-bit value in 'rs' to 'rd'.
+
+9.7.5.2 32-bit arithmetic instructions
 ......................................
 
 The destination register in these instructions act as an accumulator.
 
-'add32 %d, (%s|imm32)'
-     32-bit arithmetic addition.
-'sub32 %d, (%s|imm32)'
-     32-bit arithmetic subtraction.
-'mul32 %d, (%s|imm32)'
-     32-bit arithmetic multiplication.
-'div32 %d, (%s|imm32)'
-     32-bit arithmetic integer division.
-'mod32 %d, (%s|imm32)'
-     32-bit integer remainder.
-'and32 %d, (%s|imm32)'
-     32-bit bit-wise "and" operation.
-'or32 %d, (%s|imm32)'
-     32-bit bit-wise "or" operation.
-'xor32 %d, (%s|imm32)'
-     32-bit bit-wise exclusive-or operation.
-'lsh32 %d, (%s|imm32)'
-     32-bit left shift, by '%s' or 'imm32' bits.
-'rsh32 %d, (%s|imm32)'
-     32-bit right logical shift, by '%s' or 'imm32' bits.
-'arsh32 %d, (%s|imm32)'
-     32-bit right arithmetic shift, by '%s' or 'imm32' bits.
-'neg32 %d'
-     32-bit arithmetic negation.
-'mov32 %d, (%s|imm32)'
-     Move the 32-bit value of '%s' in '%d', or load 'imm32' in '%d'.
+   Note that in pseudoc syntax these instructions should use 'w'
+registers.  It is not allowed to mix 'w' and 'r' registers in the same
+instruction.
 
-9.7.4.3 Endianness conversion instructions
+'add32 rd, rs'
+'add32 rd, imm32'
+'rd += rs'
+'rd += imm32'
+     32-bit arithmetic addition.
+
+'sub32 rd, rs'
+'sub32 rd, imm32'
+'rd -= rs'
+'rd += imm32'
+     32-bit arithmetic subtraction.
+
+'mul32 rd, rs'
+'mul32 rd, imm32'
+'rd *= rs'
+'rd *= imm32'
+     32-bit arithmetic multiplication.
+
+'div32 rd, rs'
+'div32 rd, imm32'
+'rd /= rs'
+'rd /= imm32'
+     32-bit arithmetic integer division.
+
+'mod32 rd, rs'
+'mod32 rd, imm32'
+'rd %= rs'
+'rd %= imm32'
+     32-bit integer remainder.
+
+'and32 rd, rs'
+'and32 rd, imm32'
+'rd &= rs'
+'rd &= imm32'
+     32-bit bit-wise "and" operation.
+
+'or32 rd, rs'
+'or32 rd, imm32'
+'rd |= rs'
+'rd |= imm32'
+     32-bit bit-wise "or" operation.
+
+'xor32 rd, rs'
+'xor32 rd, imm32'
+'rd ^= rs'
+'rd ^= imm32'
+     32-bit bit-wise exclusive-or operation.
+
+'lsh32 rd, rs'
+'lsh32 rd, imm32'
+'rd <<= rs'
+'rd <<= imm32'
+     32-bit left shift, by 'rs' or 'imm32' bits.
+
+'rsh32 rd, rs'
+'rsh32 rd, imm32'
+'rd >>= rs'
+'rd >>= imm32'
+     32-bit right logical shift, by 'rs' or 'imm32' bits.
+
+'arsh32 rd, rs'
+'arsh32 rd, imm32'
+'rd s>>= rs'
+'rd s>>= imm32'
+     32-bit right arithmetic shift, by 'rs' or 'imm32' bits.
+
+'neg32 rd, rs'
+'neg32 rd, imm32'
+'rd = - rs'
+'rd = - imm32'
+     32-bit arithmetic negation.
+
+     Note that in the 'rd = - imm32' syntax there must be at least one
+     white space between '-' and 'imm32'.  Otherwise the instruction is
+     parsed as a 'mov32 rd, imm32' instruction with a negative 32-bit
+     immediate.  This is a consequence of a syntactic ambiguity in the
+     pseudoc syntax.
+
+'mov32 rd, rs'
+'mov32 rd, imm32'
+'rd = rs'
+'rd = imm32'
+     Move the 32-bit value of 'rs' in 'rd', or load 'imm32' in 'rd'.
+
+'mov32s rd, rs, 8'
+'rd s= (i8) rs'
+     Move the sign-extended 8-bit value in 'rs' to 'rd'.
+
+'mov32s rd, rs, 16'
+'rd s= (i16) rs'
+     Move the sign-extended 16-bit value in 'rs' to 'rd'.
+
+'mov32s rd, rs, 32'
+'rd s= (i32) rs'
+     Move the sign-extended 32-bit value in 'rs' to 'rd'.
+
+9.7.5.3 Endianness conversion instructions
 ..........................................
 
-'endle %d, (16|32|64)'
-     Convert the 16-bit, 32-bit or 64-bit value in '%d' to
-     little-endian.
-'endbe %d, (16|32|64)'
-     Convert the 16-bit, 32-bit or 64-bit value in '%d' to big-endian.
+'endle rd, 16'
+'endle rd, 32'
+'endle rd, 64'
+'rd = le16 rd'
+'rd = le32 rd'
+'rd = le64 rd'
+     Convert the 16-bit, 32-bit or 64-bit value in 'rd' to little-endian
+     and store it back in 'rd'.
+'endbe %d, 16'
+'endbe %d, 32'
+'endbe %d, 64'
+'rd = be16 rd'
+'rd = be32 rd'
+'rd = be64 rd'
+     Convert the 16-bit, 32-bit or 64-bit value in 'rd' to big-endian
+     and store it back in 'rd'.
 
-9.7.4.4 64-bit load and pseudo maps
+9.7.5.4 64-bit load and pseudo maps
 ...................................
 
-'lddw %d, imm64'
-     Load the given signed 64-bit immediate, or pseudo map descriptor,
-     to the destination register '%d'.
-'lddw %d, %map_fd(N)'
-     Load the address of the given pseudo map fd _N_ to the destination
-     register '%d'.
+'lddw rd, imm64'
+'rd = imm64 ll'
+     Load the given signed 64-bit immediate to the destination register
+     'rd'.
 
-9.7.4.5 Load instructions for socket filters
+9.7.5.5 Load instructions for socket filters
 ............................................
 
 The following instructions are intended to be used in socket filters,
@@ -9972,26 +10126,40 @@ for more information.
    Absolute loads:
 
 'ldabsdw imm32'
+'r0 = *(u64 *) skb[imm32]'
      Absolute 64-bit load.
+
 'ldabsw imm32'
+'r0 = *(u32 *) skb[imm32]'
      Absolute 32-bit load.
+
 'ldabsh imm32'
+'r0 = *(u16 *) skb[imm32]'
      Absolute 16-bit load.
+
 'ldabsb imm32'
+'r0 = *(u8 *) skb[imm32]'
      Absolute 8-bit load.
 
    Indirect loads:
 
-'ldinddw %s, imm32'
+'ldinddw rs, imm32'
+'r0 = *(u64 *) skb[rs + imm32]'
      Indirect 64-bit load.
-'ldindw %s, imm32'
+
+'ldindw rs, imm32'
+'r0 = *(u32 *) skb[rs + imm32]'
      Indirect 32-bit load.
-'ldindh %s, imm32'
+
+'ldindh rs, imm32'
+'r0 = *(u16 *) skb[rs + imm32]'
      Indirect 16-bit load.
+
 'ldindb %s, imm32'
+'r0 = *(u8 *) skb[rs + imm32]'
      Indirect 8-bit load.
 
-9.7.4.6 Generic load/store instructions
+9.7.5.6 Generic load/store instructions
 .......................................
 
 General-purpose load and store instructions are provided for several
@@ -9999,73 +10167,158 @@ word sizes.
 
    Load to register instructions:
 
-'ldxdw %d, [%s+offset16]'
+'ldxdw rd, [rs + offset16]'
+'rd = *(u64 *) (rs + offset16)'
      Generic 64-bit load.
-'ldxw %d, [%s+offset16]'
+
+'ldxw rd, [rs + offset16]'
+'rd = *(u32 *) (rs + offset16)'
      Generic 32-bit load.
-'ldxh %d, [%s+offset16]'
+
+'ldxh rd, [rs + offset16]'
+'rd = *(u16 *) (rs + offset16)'
      Generic 16-bit load.
-'ldxb %d, [%s+offset16]'
+
+'ldxb rd, [rs + offset16]'
+'rd = *(u8 *) (rs + offset16)'
      Generic 8-bit load.
+
+   Signed load to register instructions:
+
+'ldxsdw rd, [rs + offset16]'
+'rd = *(i64 *) (rs + offset16)'
+     Generic 64-bit signed load.
+
+'ldxsw rd, [rs + offset16]'
+'rd = *(i32 *) (rs + offset16)'
+     Generic 32-bit signed load.
+
+'ldxsh rd, [rs + offset16]'
+'rd = *(i16 *) (rs + offset16)'
+     Generic 16-bit signed load.
+
+'ldxsb rd, [rs + offset16]'
+'rd = *(i8 *) (rs + offset16)'
+     Generic 8-bit signed load.
 
    Store from register instructions:
 
-'stxdw [%d+offset16], %s'
+'stxdw [rd + offset16], %s'
+'*(u64 *) (rd + offset16)'
      Generic 64-bit store.
-'stxw [%d+offset16], %s'
+
+'stxw [rd + offset16], %s'
+'*(u32 *) (rd + offset16)'
      Generic 32-bit store.
-'stxh [%d+offset16], %s'
+
+'stxh [rd + offset16], %s'
+'*(u16 *) (rd + offset16)'
      Generic 16-bit store.
-'stxb [%d+offset16], %s'
+
+'stxb [rd + offset16], %s'
+'*(u8 *) (rd + offset16)'
      Generic 8-bit store.
 
    Store from immediates instructions:
 
-'stddw [%d+offset16], imm32'
+'stdw [rd + offset16], imm32'
+'*(u64 *) (rd + offset16) = imm32'
      Store immediate as 64-bit.
-'stdw [%d+offset16], imm32'
+
+'stw [rd + offset16], imm32'
+'*(u32 *) (rd + offset16) = imm32'
      Store immediate as 32-bit.
-'stdh [%d+offset16], imm32'
+
+'sth [rd + offset16], imm32'
+'*(u16 *) (rd + offset16) = imm32'
      Store immediate as 16-bit.
-'stdb [%d+offset16], imm32'
+
+'stb [rd + offset16], imm32'
+'*(u8 *) (rd + offset16) = imm32'
      Store immediate as 8-bit.
 
-9.7.4.7 Jump instructions
+9.7.5.7 Jump instructions
 .........................
 
 eBPF provides the following compare-and-jump instructions, which compare
 the values of the two given registers, or the values of a register and
 an immediate, and perform a branch in case the comparison holds true.
 
-'ja %d,(%s|imm32),disp16'
+'ja disp16'
+'goto disp16'
      Jump-always.
-'jeq %d,(%s|imm32),disp16'
+
+'jeq rd, rs, disp16'
+'jeq rd, imm32, disp16'
+'if rd == rs goto disp16'
+'if rd == imm32 goto disp16'
      Jump if equal, unsigned.
-'jgt %d,(%s|imm32),disp16'
+
+'jgt rd, rs, disp16'
+'jgt rd, imm32, disp16'
+'if rd > rs goto disp16'
+'if rd > imm32 goto disp16'
      Jump if greater, unsigned.
-'jge %d,(%s|imm32),disp16'
+
+'jge rd, rs, disp16'
+'jge rd, imm32, disp16'
+'if rd >= rs goto disp16'
+'if rd >= imm32 goto disp16'
      Jump if greater or equal.
-'jlt %d,(%s|imm32),disp16'
+
+'jlt rd, rs, disp16'
+'jlt rd, imm32, disp16'
+'if rd < rs goto disp16'
+'if rd < imm32 goto disp16'
      Jump if lesser.
-'jle %d,(%s|imm32),disp16'
+
+'jle rd , rs, disp16'
+'jle rd, imm32, disp16'
+'if rd <= rs goto disp16'
+'if rd <= imm32 goto disp16'
      Jump if lesser or equal.
-'jset %d,(%s|imm32),disp16'
+
+'jset rd, rs, disp16'
+'jset rd, imm32, disp16'
+'if rd & rs goto disp16'
+'if rd & imm32 goto disp16'
      Jump if signed equal.
-'jne %d,(%s|imm32),disp16'
+
+'jne rd, rs, disp16'
+'jne rd, imm32, disp16'
+'if rd != rs goto disp16'
+'if rd != imm32 goto disp16'
      Jump if not equal.
-'jsgt %d,(%s|imm32),disp16'
+
+'jsgt rd, rs, disp16'
+'jsgt rd, imm32, disp16'
+'if rd s> rs goto disp16'
+'if rd s> imm32 goto disp16'
      Jump if signed greater.
-'jsge %d,(%s|imm32),disp16'
+
+'jsge rd, rs, disp16'
+'jsge rd, imm32, disp16'
+'if rd s>= rd goto disp16'
+'if rd s>= imm32 goto disp16'
      Jump if signed greater or equal.
-'jslt %d,(%s|imm32),disp16'
+
+'jslt rd, rs, disp16'
+'jslt rd, imm32, disp16'
+'if rd s< rs goto disp16'
+'if rd s< imm32 goto disp16'
      Jump if signed lesser.
-'jsle %d,(%s|imm32),disp16'
+
+'jsle rd, rs, disp16'
+'jsle rd, imm32, disp16'
+'if rd s<= rs goto disp16'
+'if rd s<= imm32 goto disp16'
      Jump if signed lesser or equal.
 
    A call instruction is provided in order to perform calls to other
 eBPF functions, or to external kernel helpers:
 
-'call (disp32|imm32)'
+'call disp32'
+'call imm32'
      Jump and link to the offset _disp32_, or to the kernel helper
      function identified by _imm32_.
 
@@ -10074,191 +10327,177 @@ eBPF functions, or to external kernel helpers:
 'exit'
      Terminate the eBPF program.
 
-9.7.4.8 Atomic instructions
+9.7.5.8 32-bit jump instructions
+................................
+
+eBPF provides the following compare-and-jump instructions, which compare
+the 32-bit values of the two given registers, or the values of a
+register and an immediate, and perform a branch in case the comparison
+holds true.
+
+   These instructions are only available in BPF v3 or later.
+
+'jeq32 rd, rs, disp16'
+'jeq32 rd, imm32, disp16'
+'if rd == rs goto disp16'
+'if rd == imm32 goto disp16'
+     Jump if equal, unsigned.
+
+'jgt32 rd, rs, disp16'
+'jgt32 rd, imm32, disp16'
+'if rd > rs goto disp16'
+'if rd > imm32 goto disp16'
+     Jump if greater, unsigned.
+
+'jge32 rd, rs, disp16'
+'jge32 rd, imm32, disp16'
+'if rd >= rs goto disp16'
+'if rd >= imm32 goto disp16'
+     Jump if greater or equal.
+
+'jlt32 rd, rs, disp16'
+'jlt32 rd, imm32, disp16'
+'if rd < rs goto disp16'
+'if rd < imm32 goto disp16'
+     Jump if lesser.
+
+'jle32 rd , rs, disp16'
+'jle32 rd, imm32, disp16'
+'if rd <= rs goto disp16'
+'if rd <= imm32 goto disp16'
+     Jump if lesser or equal.
+
+'jset32 rd, rs, disp16'
+'jset32 rd, imm32, disp16'
+'if rd & rs goto disp16'
+'if rd & imm32 goto disp16'
+     Jump if signed equal.
+
+'jne32 rd, rs, disp16'
+'jne32 rd, imm32, disp16'
+'if rd != rs goto disp16'
+'if rd != imm32 goto disp16'
+     Jump if not equal.
+
+'jsgt32 rd, rs, disp16'
+'jsgt32 rd, imm32, disp16'
+'if rd s> rs goto disp16'
+'if rd s> imm32 goto disp16'
+     Jump if signed greater.
+
+'jsge32 rd, rs, disp16'
+'jsge32 rd, imm32, disp16'
+'if rd s>= rd goto disp16'
+'if rd s>= imm32 goto disp16'
+     Jump if signed greater or equal.
+
+'jslt32 rd, rs, disp16'
+'jslt32 rd, imm32, disp16'
+'if rd s< rs goto disp16'
+'if rd s< imm32 goto disp16'
+     Jump if signed lesser.
+
+'jsle32 rd, rs, disp16'
+'jsle32 rd, imm32, disp16'
+'if rd s<= rs goto disp16'
+'if rd s<= imm32 goto disp16'
+     Jump if signed lesser or equal.
+
+9.7.5.9 Atomic instructions
 ...........................
 
 Atomic exchange-and-add instructions are provided in two flavors: one
 for swapping 64-bit quantities and another for 32-bit quantities.
 
-'xadddw [%d+offset16],%s'
-     Exchange-and-add a 64-bit value at the specified location.
+'aadd [rd + offset16], rs'
+'*(u64 *)(rd + offset16) = rs'
+     Atomic add instruction.
+
+'aor [rd + offset16], rs'
+'*(u64 *) (rd + offset16) |= rs'
+     Atomic or instruction.
+
+'aand [rd + offset16], rs'
+'*(u64 *) (rd + offset16) &= rs'
+     Atomic and instruction.
+
+'axor [rd + offset16], rs'
+'*(u64 *) (rd + offset16) ^= rs'
+     Atomic xor instruction
 'xaddw [%d+offset16],%s'
      Exchange-and-add a 32-bit value at the specified location.
 
-
-File: as.info,  Node: BPF Pseudo-C Syntax,  Prev: BPF Opcodes,  Up: BPF-Dependent
+The following variants perform fetching before the atomic operation.
 
-9.7.5 BPF Pseudo-C Syntax
--------------------------
+'afadd [dr + offset16], rs'
+'???'
+     Atomic fetch-and-add instruction.
 
-This assembler supports another syntax to denote BPF instructions, which
-is an alternative to the normal looking syntax documented above.  This
-alternatative syntax, which we call "pseudo-C syntax", is supported by
-the LLVM/clang integrated assembler.
+'afor [dr + offset16], rs'
+'???'
+     Atomic fetch-and-or instruction.
 
-   This syntax is very unconventional, but we need to support it in
-order to support inline assembly in existing BPF programs.
+'afand [dr + offset16], rs'
+'???'
+     Atomic fetch-and-and instruction.
 
-   Note that the assembler is able to parse sources in which both
-syntaxes coexist: some instructions can use the usual assembly like
-syntax, whereas some other instructions in the same file can use the
-pseudo-C syntax.
+'afxor [dr + offset16], rs'
+'???'
+     Atomic fetch-and-or instruction
 
-9.7.5.1 Pseudo-C Register Names
-...............................
+   The above instructions were introduced in the V3 of the BPF
+instruction set.  The following instruction is supported for backwards
+compatibility:
 
-All BPF registers are 64-bit long.  However, in the Pseudo-C syntax
-registers can be referred using different names, which actually reflect
-the kind of instruction they appear on:
+'xadddw [rd + offset16], rs'
+     Alias to 'aadd'.
 
-'r0..r9'
-     General-purpose register in an instruction that operates on its
-     value as if it was a 64-bit value.
-'w0..w9'
-     General-purpose register in an instruction that operates on its
-     value as if it was a 32-bit value.
-
-Note that in the Pseudo-C syntax register names are not preceded by '%'
-characters.
-
-9.7.5.2 Arithmetic instructions
-...............................
-
-In all the instructions below, the operations are 64-bit or 32-bit
-depending on the names used to refer to the registers.  For example 'r3
-+= r2' will perform 64-bit addition, whereas 'w3 += w2' will perform
-32-bit addition.  Mixing register prefixes is an error, for example 'r3
-+= w2'.
-
-'dst_reg += (imm32|src_reg)'
-     Arithmetic addition.
-'dst_reg -= (imm32|src_reg)'
-     Arithmetic subtraction.
-'dst_reg *= (imm32|src_reg)'
-     Arithmetic multiplication.
-'dst_reg /= (imm32|src_reg)'
-     Arithmetic integer unsigned division.
-'dst_reg %= (imm32|src_reg)'
-     Arithmetic integer unsigned remainder.
-'dst_reg &= (imm32|src_reg)'
-     Bit-wise "and" operation.
-'dst_reg |= (imm32|src_reg)'
-     Bit-wise "or" operation.
-'dst_reg ^= (imm32|src_reg)'
-     Bit-wise exclusive-or operation.
-'dst_reg <<= (imm32|src_reg)'
-     Left shift, by whatever specified number of bits.
-'dst_reg >>= (imm32|src_reg)'
-     Right logical shift, by whatever specified number of bits.
-'dst_reg s>>= (imm32|src_reg)'
-     Right arithmetic shift, by whatever specified number of bits.
-'dst_reg = (imm32|src_reg)'
-     Move the value in 'imm32' or 'src_reg' in 'dst_reg'.
-'dst_reg = -dst_reg'
-     Arithmetic negation.
-
-9.7.5.3 Endianness conversion instructions
-..........................................
-
-'dst_reg = le16 src_reg'
-     Convert the 16-bit value in 'src_reg' to little-endian.
-'dst_reg = le32 src_reg'
-     Convert the 32-bit value in 'src_reg' to little-endian.
-'dst_reg = le64 src_reg'
-     Convert the 64-bit value in 'src_reg' to little-endian.
-'dst_reg = be16 src_reg'
-     Convert the 16-bit value in 'src_reg' to big-endian.
-'dst_reg = be32 src_reg'
-     Convert the 32-bit value in 'src_reg' to big-endian.
-'dst_reg = be64 src_reg'
-     Convert the 64-bit value in 'src_reg' to big-endian.
-
-9.7.5.4 64-bit load and pseudo maps
+9.7.5.10 32-bit atomic instructions
 ...................................
 
-'dst_reg = imm64 ll'
-     Load the given signed 64-bit immediate, or pseudo map descriptor,
-     to the destination register 'dst_reg'.
+Atomic exchange-and-add instructions are provided in two flavors: one
+for swapping 32-bit quantities and another for 32-bit quantities.
 
-9.7.5.5 Load instructions for socket filters
-............................................
+'aadd32 [rd + offset16], rs'
+'*(u32 *)(rd + offset16) = rs'
+     Atomic add instruction.
 
-'r0 = *(u8 *)skb[imm32]'
-     Absolute 8-bit load.
-'r0 = *(u16 *)skb[imm32]'
-     Absolute 16-bit load.
-'r0 = *(u32 *)skb[imm32]'
-     Absolute 32-bit load.
-'r0 = *(u64 *)skb[imm32]'
-     Absolute 64-bit load.
-'r0 = *(u8 *)skb[src_reg + imm32]'
-     Indirect 8-bit load.
-'r0 = *(u16 *)skb[src_reg + imm32]'
-     Indirect 16-bit load.
-'r0 = *(u32 *)skb[src_reg + imm32]'
-     Indirect 32-bit load.
-'r0 = *(u64 *)skb[src_reg + imm32]'
-     Indirect 64-bit load.
+'aor32 [rd + offset16], rs'
+'*(u32 *) (rd + offset16) |= rs'
+     Atomic or instruction.
 
-9.7.5.6 Generic load/store instructions
-.......................................
+'aand32 [rd + offset16], rs'
+'*(u32 *) (rd + offset16) &= rs'
+     Atomic and instruction.
 
-'dst_reg = *(u8 *)(src_reg + offset16)'
-     Generic 8-bit load.
-'dst_reg = *(u16 *)(src_reg + offset16)'
-     Generic 16-bit load.
-'dst_reg = *(u32 *)(src_reg + offset16)'
-     Generic 32-bit load.
-'dst_reg = *(u64 *)(src_reg + offset16)'
-     Generic 64-bit load.
-'*(u8 *)(dst_reg + offset16) = src_reg'
-     Generic 8-bit store.
-'*(u16 *)(dst_reg + offset16) = src_reg'
-     Generic 16-bit store.
-'*(u32 *)(dst_reg + offset16) = src_reg'
-     Generic 32-bit store.
-'*(u64 *)(dst_reg + offset16) = src_reg'
-     Generic 64-bit store.
+'axor32 [rd + offset16], rs'
+'*(u32 *) (rd + offset16) ^= rs'
+     Atomic xor instruction
 
-9.7.5.7 Jump instructions
-.........................
+The following variants perform fetching before the atomic operation.
 
-'goto disp16'
-     Jump-always.
-'if dst_reg == (imm32|src_reg) goto disp16'
-     Jump if equal.
-'if dst_reg & (imm32|src_reg) goto disp16'
-     Jump if signed equal.
-'if dst_reg != (imm32|src_reg) goto disp16'
-     Jump if not equal.
-'if dst_reg > (imm32|src_reg) goto disp16'
-     Jump if bigger, unsigned.
-'if dst_reg < (imm32|src_reg) goto disp16'
-     Jump if smaller, unsigned.
-'if dst_reg >= (imm32|src_reg) goto disp16'
-     Jump if bigger or equal, unsigned.
-'if dst_reg <= (imm32|src_reg) goto disp16'
-     Jump if smaller or equal, unsigned.
-'if dst_reg s> (imm32|src_reg) goto disp16'
-     Jump if bigger, signed.
-'if dst_reg s< (imm32|src_reg) goto disp16'
-     Jump if smaller, signed.
-'if dst_reg s>= (imm32|src_reg) goto disp16'
-     Jump if bigger or equal, signed.
-'if dst_reg s<= (imm32|src_reg) goto disp16'
-     Jump if smaller or equal, signed.
-'call imm32'
-     Jump and link.
-'exit'
-     Terminate the eBPF program.
+'afadd32 [dr + offset16], rs'
+'???'
+     Atomic fetch-and-add instruction.
 
-9.7.5.8 Atomic instructions
-...........................
+'afor32 [dr + offset16], rs'
+'???'
+     Atomic fetch-and-or instruction.
 
-'lock *(u64 *)(dst_reg + offset16) += src_reg'
-     Exchange-and-add a 64-bit value at the specified location.
-'lock *(u32 *)(dst_reg + offset16) += src_reg'
-     Exchange-and-add a 32-bit value at the specified location.
+'afand32 [dr + offset16], rs'
+'???'
+     Atomic fetch-and-and instruction.
+
+'afxor32 [dr + offset16], rs'
+'???'
+     Atomic fetch-and-or instruction
+
+   The above instructions were introduced in the V3 of the BPF
+instruction set.  The following instruction is supported for backwards
+compatibility:
+
+'xaddw [rd + offset16], rs'
+     Alias to 'aadd32'.
 
 
 File: as.info,  Node: CR16-Dependent,  Next: CRIS-Dependent,  Prev: BPF-Dependent,  Up: Machine Dependencies
@@ -27244,6 +27483,7 @@ AS Index
 * -mcsr-check option, RISC-V:            RISC-V-Options.     (line   60)
 * -mdcache-enabled command-line option, LM32: LM32 Options.  (line   24)
 * -mdebug command-line option, Alpha:    Alpha Options.      (line   25)
+* -mdialect command-line options, BPF:   BPF Options.        (line   14)
 * -mdivide-enabled command-line option, LM32: LM32 Options.  (line    9)
 * -mdollar-hex option, dollar-hex:       S12Z Options.       (line   17)
 * -mdpfp command-line option, ARC:       ARC Options.        (line  108)
@@ -27286,6 +27526,7 @@ AS Index
 * -mintel64 option, x86-64:              i386-Options.       (line  288)
 * -mip2022 option, IP2K:                 IP2K-Opts.          (line   14)
 * -mip2022ext option, IP2022:            IP2K-Opts.          (line    9)
+* -misa-spec command-line options, BPF:  BPF Options.        (line   18)
 * -misa-spec=ISAspec option, RISC-V:     RISC-V-Options.     (line   21)
 * -mj11:                                 PDP-11-Options.     (line  126)
 * -mka11:                                PDP-11-Options.     (line   92)
@@ -27954,10 +28195,11 @@ AS Index
 * block:                                 Z8000 Directives.   (line   55)
 * BMI, i386:                             i386-BMI.           (line    6)
 * BMI, x86-64:                           i386-BMI.           (line    6)
-* BPF line comment character:            BPF-Chars.          (line    6)
-* BPF opcodes:                           BPF Opcodes.        (line    6)
+* BPF line comment character:            BPF Special Characters.
+                                                             (line    6)
+* BPF opcodes:                           BPF Instructions.   (line    6)
 * BPF options (none):                    BPF Options.        (line    6)
-* BPF register names:                    BPF-Regs.           (line    6)
+* BPF register names:                    BPF Registers.      (line    6)
 * BPF support:                           BPF-Dependent.      (line    6)
 * branch improvement, M680x0:            M68K-Branch.        (line    6)
 * branch improvement, M68HC11:           M68HC11-Branch.     (line    6)
@@ -28612,7 +28854,8 @@ AS Index
 * line comment character, ARC:           ARC-Chars.          (line   11)
 * line comment character, ARM:           ARM-Chars.          (line    6)
 * line comment character, AVR:           AVR-Chars.          (line    6)
-* line comment character, BPF:           BPF-Chars.          (line    6)
+* line comment character, BPF:           BPF Special Characters.
+                                                             (line    6)
 * line comment character, CR16:          CR16-Chars.         (line    6)
 * line comment character, D10V:          D10V-Chars.         (line    6)
 * line comment character, D30V:          D30V-Chars.         (line    6)
@@ -29128,7 +29371,7 @@ AS Index
 * opcodes for AArch64:                   AArch64 Opcodes.    (line    6)
 * opcodes for ARC:                       ARC Opcodes.        (line    6)
 * opcodes for ARM:                       ARM Opcodes.        (line    6)
-* opcodes for BPF:                       BPF Opcodes.        (line    6)
+* opcodes for BPF:                       BPF Instructions.   (line    6)
 * opcodes for MSP 430:                   MSP430 Opcodes.     (line    6)
 * opcodes for Nios II:                   Nios II Opcodes.    (line    6)
 * opcodes for PRU:                       PRU Opcodes.        (line    6)
@@ -29278,7 +29521,6 @@ AS Index
 * PRU options:                           PRU Options.        (line    6)
 * PRU support:                           PRU-Dependent.      (line    6)
 * psect directive, Z80:                  Z80 Directives.     (line   58)
-* pseudo map fd, BPF:                    BPF-Pseudo-Maps.    (line    6)
 * pseudo-op .arch, CRIS:                 CRIS-Pseudos.       (line   50)
 * pseudo-op .dword, CRIS:                CRIS-Pseudos.       (line   12)
 * pseudo-op .syntax, CRIS:               CRIS-Pseudos.       (line   18)
@@ -29320,7 +29562,7 @@ AS Index
 * register names, ARC:                   ARC-Regs.           (line    6)
 * register names, ARM:                   ARM-Regs.           (line    6)
 * register names, AVR:                   AVR-Regs.           (line    6)
-* register names, BPF:                   BPF-Regs.           (line    6)
+* register names, BPF:                   BPF Registers.      (line    6)
 * register names, CRIS:                  CRIS-Regs.          (line    6)
 * register names, H8/300:                H8/300-Regs.        (line    6)
 * register names, IA-64:                 IA-64-Regs.         (line    6)
@@ -29563,7 +29805,8 @@ AS Index
 * statement separator, ARC:              ARC-Chars.          (line   27)
 * statement separator, ARM:              ARM-Chars.          (line   14)
 * statement separator, AVR:              AVR-Chars.          (line   14)
-* statement separator, BPF:              BPF-Chars.          (line   10)
+* statement separator, BPF:              BPF Special Characters.
+                                                             (line   10)
 * statement separator, CR16:             CR16-Chars.         (line   12)
 * statement separator, Epiphany:         Epiphany-Chars.     (line   14)
 * statement separator, H8/300:           H8/300-Chars.       (line    8)
@@ -30199,436 +30442,433 @@ Node: Blackfin Options359500
 Node: Blackfin Syntax360474
 Node: Blackfin Directives366680
 Node: BPF-Dependent367421
-Node: BPF Options367807
-Node: BPF Syntax368190
-Node: BPF-Chars368458
-Node: BPF-Regs368851
-Node: BPF-Pseudo-Maps369363
-Node: BPF Directives369783
-Node: BPF Opcodes370197
-Node: BPF Pseudo-C Syntax376812
-Node: CR16-Dependent382638
-Node: CR16 Operand Qualifiers382933
-Node: CR16 Syntax385642
-Node: CR16-Chars385828
-Node: CRIS-Dependent386365
-Node: CRIS-Opts386712
-Ref: march-option388397
-Node: CRIS-Expand390216
-Node: CRIS-Symbols391399
-Node: CRIS-Syntax392570
-Node: CRIS-Chars392906
-Node: CRIS-Pic393457
-Ref: crispic393652
-Node: CRIS-Regs397201
-Node: CRIS-Pseudos397618
-Ref: crisnous398395
-Node: C-SKY-Dependent399683
-Node: C-SKY Options399945
-Node: C-SKY Syntax402930
-Node: D10V-Dependent403175
-Node: D10V-Opts403529
-Node: D10V-Syntax404500
-Node: D10V-Size405031
-Node: D10V-Subs406004
-Node: D10V-Chars407041
-Node: D10V-Regs408854
-Node: D10V-Addressing409883
-Node: D10V-Word410563
-Node: D10V-Float411080
-Node: D10V-Opcodes411393
-Node: D30V-Dependent411788
-Node: D30V-Opts412145
-Node: D30V-Syntax412823
-Node: D30V-Size413357
-Node: D30V-Subs414330
-Node: D30V-Chars415367
-Node: D30V-Guarded417977
-Node: D30V-Regs418654
-Node: D30V-Addressing419773
-Node: D30V-Float420435
-Node: D30V-Opcodes420748
-Node: Epiphany-Dependent421143
-Node: Epiphany Options421431
-Node: Epiphany Syntax421830
-Node: Epiphany-Chars422031
-Node: H8/300-Dependent422585
-Node: H8/300 Options423001
-Node: H8/300 Syntax423441
-Node: H8/300-Chars423742
-Node: H8/300-Regs424041
-Node: H8/300-Addressing424960
-Node: H8/300 Floating Point425984
-Node: H8/300 Directives426311
-Node: H8/300 Opcodes427439
-Node: HPPA-Dependent435758
-Node: HPPA Notes436190
-Node: HPPA Options436949
-Node: HPPA Syntax437144
-Node: HPPA Floating Point438414
-Node: HPPA Directives438620
-Node: HPPA Opcodes447302
-Node: i386-Dependent447561
-Node: i386-Options448944
-Node: i386-Directives463639
-Node: i386-Syntax471594
-Node: i386-Variations471899
-Node: i386-Chars474823
-Node: i386-Mnemonics475552
-Node: i386-Regs480569
-Node: i386-Prefixes483227
-Node: i386-Memory485987
-Node: i386-Jumps488926
-Node: i386-Float490049
-Node: i386-SIMD491950
-Node: i386-LWP493059
-Node: i386-BMI493893
-Node: i386-TBM494271
-Node: i386-16bit494801
-Node: i386-Arch496872
-Node: i386-ISA500971
-Node: i386-Bugs501842
-Node: i386-Notes502592
-Node: IA-64-Dependent503451
-Node: IA-64 Options503752
-Node: IA-64 Syntax506903
-Node: IA-64-Chars507309
-Node: IA-64-Regs507539
-Node: IA-64-Bits508465
-Node: IA-64-Relocs508995
-Node: IA-64 Opcodes509466
-Node: IP2K-Dependent509738
-Node: IP2K-Opts510010
-Node: IP2K-Syntax510509
-Node: IP2K-Chars510683
-Node: LM32-Dependent511226
-Node: LM32 Options511521
-Node: LM32 Syntax512154
-Node: LM32-Regs512450
-Node: LM32-Modifiers513391
-Node: LM32-Chars514771
-Node: LM32 Opcodes515279
-Node: M32C-Dependent515583
-Node: M32C-Opts516089
-Node: M32C-Syntax516508
-Node: M32C-Modifiers516743
-Node: M32C-Chars518535
-Node: M32R-Dependent519101
-Node: M32R-Opts519422
-Node: M32R-Directives523584
-Node: M32R-Warnings527558
-Node: M68K-Dependent530563
-Node: M68K-Opts531030
-Node: M68K-Syntax538452
-Node: M68K-Moto-Syntax540292
-Node: M68K-Float542876
-Node: M68K-Directives543396
-Node: M68K-opcodes544723
-Node: M68K-Branch544949
-Node: M68K-Chars549144
-Node: M68HC11-Dependent550007
-Node: M68HC11-Opts550538
-Node: M68HC11-Syntax554850
-Node: M68HC11-Modifiers557644
-Node: M68HC11-Directives559471
-Node: M68HC11-Float560845
-Node: M68HC11-opcodes561373
-Node: M68HC11-Branch561555
-Node: S12Z-Dependent564005
-Node: S12Z Options564348
-Node: S12Z Syntax565332
-Node: S12Z Syntax Overview565651
-Node: S12Z Addressing Modes567313
-Node: S12Z Register Notation571117
-Node: Meta-Dependent572293
-Node: Meta Options572575
-Node: Meta Syntax573237
-Node: Meta-Chars573449
-Node: Meta-Regs573749
-Node: MicroBlaze-Dependent574025
-Node: MicroBlaze Directives574712
-Node: MicroBlaze Syntax576103
-Node: MicroBlaze-Chars576335
-Node: MIPS-Dependent576887
-Node: MIPS Options578321
-Node: MIPS Macros597413
-Ref: MIPS Macros-Footnote-1600127
-Node: MIPS Symbol Sizes600270
-Node: MIPS Small Data601942
-Node: MIPS ISA604106
-Node: MIPS assembly options605890
-Node: MIPS autoextend607023
-Node: MIPS insn607757
-Node: MIPS FP ABIs609038
-Node: MIPS FP ABI History609490
-Node: MIPS FP ABI Variants610250
-Node: MIPS FP ABI Selection612803
-Node: MIPS FP ABI Compatibility613866
-Node: MIPS NaN Encodings614676
-Node: MIPS Option Stack616639
-Node: MIPS ASE Instruction Generation Overrides617424
-Node: MIPS Floating-Point622185
-Node: MIPS Syntax623091
-Node: MIPS-Chars623353
-Node: MMIX-Dependent623895
-Node: MMIX-Opts624275
-Node: MMIX-Expand627881
-Node: MMIX-Syntax629193
-Ref: mmixsite629549
-Node: MMIX-Chars630391
-Node: MMIX-Symbols631264
-Node: MMIX-Regs633335
-Node: MMIX-Pseudos634360
-Ref: MMIX-loc634502
-Ref: MMIX-local635583
-Ref: MMIX-is636116
-Ref: MMIX-greg636388
-Ref: GREG-base637306
-Ref: MMIX-byte638625
-Ref: MMIX-constants639097
-Ref: MMIX-prefix639739
-Ref: MMIX-spec640114
-Node: MMIX-mmixal640448
-Node: MSP430-Dependent643943
-Node: MSP430 Options644412
-Node: MSP430 Syntax647980
-Node: MSP430-Macros648296
-Node: MSP430-Chars649026
-Node: MSP430-Regs649741
-Node: MSP430-Ext650302
-Node: MSP430 Floating Point652121
-Node: MSP430 Directives652345
-Node: MSP430 Opcodes654186
-Node: MSP430 Profiling Capability654581
-Node: NDS32-Dependent656909
-Node: NDS32 Options657518
-Node: NDS32 Syntax659401
-Node: NDS32-Chars659669
-Node: NDS32-Regs660136
-Node: NDS32-Ops660990
-Node: NiosII-Dependent664587
-Node: Nios II Options665006
-Node: Nios II Syntax666238
-Node: Nios II Chars666444
-Node: Nios II Relocations666635
-Node: Nios II Directives668206
-Node: Nios II Opcodes669768
-Node: NS32K-Dependent670043
-Node: NS32K Syntax670272
-Node: NS32K-Chars670421
-Node: OpenRISC-Dependent671161
-Node: OpenRISC-Syntax671504
-Node: OpenRISC-Chars671825
-Node: OpenRISC-Regs672148
-Node: OpenRISC-Relocs673161
-Node: OpenRISC-Float677941
-Node: OpenRISC-Directives678147
-Node: OpenRISC-Opcodes678945
-Node: PDP-11-Dependent679237
-Node: PDP-11-Options679630
-Node: PDP-11-Pseudos684689
-Node: PDP-11-Syntax685034
-Node: PDP-11-Mnemonics685866
-Node: PDP-11-Synthetic686168
-Node: PJ-Dependent686386
-Node: PJ Options686649
-Node: PJ Syntax686944
-Node: PJ-Chars687109
-Node: PPC-Dependent687658
-Node: PowerPC-Opts687990
-Node: PowerPC-Pseudo692032
-Node: PowerPC-Syntax692653
-Node: PowerPC-Chars692843
-Node: PRU-Dependent693594
-Node: PRU Options693977
-Node: PRU Syntax694716
-Node: PRU Chars694903
-Node: PRU Relocations695058
-Node: PRU Directives695609
-Node: PRU Opcodes696512
-Node: RISC-V-Dependent696929
-Node: RISC-V-Options697473
-Node: RISC-V-Directives700187
-Node: RISC-V-Modifiers705537
-Node: RISC-V-Floating-Point709612
-Node: RISC-V-Formats711076
-Node: RISC-V-ATTRIBUTE719683
-Node: RISC-V-CustomExts721671
-Node: RL78-Dependent725150
-Node: RL78-Opts725551
-Node: RL78-Modifiers726385
-Node: RL78-Directives727164
-Node: RL78-Syntax727768
-Node: RL78-Chars727964
-Node: RX-Dependent728520
-Node: RX-Opts728951
-Node: RX-Modifiers733213
-Node: RX-Directives734316
-Node: RX-Float735055
-Node: RX-Syntax735690
-Node: RX-Chars735869
-Node: S/390-Dependent736421
-Node: s390 Options737282
-Node: s390 Characters739468
-Node: s390 Syntax739989
-Node: s390 Register740891
-Node: s390 Mnemonics741707
-Node: s390 Operands744727
-Node: s390 Formats747358
-Node: s390 Aliases756949
-Node: s390 Operand Modifier760914
-Node: s390 Instruction Marker764717
-Node: s390 Literal Pool Entries765731
-Node: s390 Directives767664
-Node: s390 Floating Point773121
-Node: SCORE-Dependent773569
-Node: SCORE-Opts773871
-Node: SCORE-Pseudo775158
-Node: SCORE-Syntax777240
-Node: SCORE-Chars777422
-Node: SH-Dependent777980
-Node: SH Options778392
-Node: SH Syntax779443
-Node: SH-Chars779716
-Node: SH-Regs780259
-Node: SH-Addressing780873
-Node: SH Floating Point781781
-Node: SH Directives782878
-Node: SH Opcodes783279
-Node: Sparc-Dependent787600
-Node: Sparc-Opts788009
-Node: Sparc-Aligned-Data793722
-Node: Sparc-Syntax794554
-Node: Sparc-Chars795128
-Node: Sparc-Regs795691
-Node: Sparc-Constants801539
-Node: Sparc-Relocs806299
-Node: Sparc-Size-Translations811417
-Node: Sparc-Float813067
-Node: Sparc-Directives813262
-Node: TIC54X-Dependent815224
-Node: TIC54X-Opts815987
-Node: TIC54X-Block817028
-Node: TIC54X-Env817388
-Node: TIC54X-Constants817736
-Node: TIC54X-Subsyms818133
-Node: TIC54X-Locals820037
-Node: TIC54X-Builtins820777
-Node: TIC54X-Ext823191
-Node: TIC54X-Directives823762
-Node: TIC54X-Macros834670
-Node: TIC54X-MMRegs836757
-Node: TIC54X-Syntax836994
-Node: TIC54X-Chars837184
-Node: TIC6X-Dependent837875
-Node: TIC6X Options838178
-Node: TIC6X Syntax840177
-Node: TIC6X Directives841280
-Node: TILE-Gx-Dependent843564
-Node: TILE-Gx Options843874
-Node: TILE-Gx Syntax844223
-Node: TILE-Gx Opcodes846459
-Node: TILE-Gx Registers846747
-Node: TILE-Gx Modifiers847518
-Node: TILE-Gx Directives852517
-Node: TILEPro-Dependent853420
-Node: TILEPro Options853729
-Node: TILEPro Syntax853913
-Node: TILEPro Opcodes856149
-Node: TILEPro Registers856440
-Node: TILEPro Modifiers857210
-Node: TILEPro Directives861999
-Node: V850-Dependent862902
-Node: V850 Options863298
-Node: V850 Syntax867576
-Node: V850-Chars867816
-Node: V850-Regs868360
-Node: V850 Floating Point869870
-Node: V850 Directives870076
-Node: V850 Opcodes872142
-Node: Vax-Dependent878021
-Node: VAX-Opts878605
-Node: VAX-float882326
-Node: VAX-directives882959
-Node: VAX-opcodes883819
-Node: VAX-branch884208
-Node: VAX-operands886712
-Node: VAX-no887475
-Node: VAX-Syntax887731
-Node: VAX-Chars887897
-Node: Visium-Dependent888451
-Node: Visium Options888764
-Node: Visium Syntax889230
-Node: Visium Characters889475
-Node: Visium Registers890056
-Node: Visium Opcodes890328
-Node: WebAssembly-Dependent890754
-Node: WebAssembly-Notes891195
-Node: WebAssembly-Syntax891481
-Node: WebAssembly-Chars892047
-Node: WebAssembly-Relocs892426
-Node: WebAssembly-Signatures893152
-Node: WebAssembly-Floating-Point893653
-Node: WebAssembly-Opcodes893894
-Node: WebAssembly-module-layout894527
-Node: XGATE-Dependent895006
-Node: XGATE-Opts895433
-Node: XGATE-Syntax896422
-Node: XGATE-Directives898501
-Node: XGATE-Float898740
-Node: XGATE-opcodes899237
-Node: XSTORMY16-Dependent899349
-Node: XStormy16 Syntax899695
-Node: XStormy16-Chars899885
-Node: XStormy16 Directives900498
-Node: XStormy16 Opcodes901152
-Node: Xtensa-Dependent902207
-Node: Xtensa Options902938
-Node: Xtensa Syntax907511
-Node: Xtensa Opcodes909655
-Node: Xtensa Registers911448
-Node: Xtensa Optimizations912081
-Node: Density Instructions912533
-Node: Xtensa Automatic Alignment913635
-Node: Xtensa Relaxation916082
-Node: Xtensa Branch Relaxation917047
-Node: Xtensa Call Relaxation918419
-Node: Xtensa Jump Relaxation920200
-Node: Xtensa Immediate Relaxation922300
-Node: Xtensa Directives924875
-Node: Schedule Directive926583
-Node: Longcalls Directive926923
-Node: Transform Directive927467
-Node: Literal Directive928209
-Ref: Literal Directive-Footnote-1931748
-Node: Literal Position Directive931890
-Node: Literal Prefix Directive933589
-Node: Absolute Literals Directive934487
-Node: Z80-Dependent935794
-Node: Z80 Options936182
-Node: Z80 Syntax938681
-Node: Z80-Chars939389
-Node: Z80-Regs940240
-Node: Z80-Case940592
-Node: Z80-Labels941056
-Node: Z80 Floating Point941552
-Node: Z80 Directives942021
-Node: Z80 Opcodes944453
-Node: Z8000-Dependent946079
-Node: Z8000 Options947015
-Node: Z8000 Syntax947232
-Node: Z8000-Chars947522
-Node: Z8000-Regs948004
-Node: Z8000-Addressing948794
-Node: Z8000 Directives949904
-Node: Z8000 Opcodes951513
-Node: Reporting Bugs961455
-Node: Bug Criteria962181
-Node: Bug Reporting962948
-Node: Acknowledgements969589
-Ref: Acknowledgements-Footnote-1974555
-Node: GNU Free Documentation License974581
-Node: AS Index999731
+Node: BPF Options367868
+Node: BPF Special Characters368774
+Node: BPF Registers369212
+Node: BPF Directives370183
+Node: BPF Instructions370597
+Node: CR16-Dependent385485
+Node: CR16 Operand Qualifiers385780
+Node: CR16 Syntax388489
+Node: CR16-Chars388675
+Node: CRIS-Dependent389212
+Node: CRIS-Opts389559
+Ref: march-option391244
+Node: CRIS-Expand393063
+Node: CRIS-Symbols394246
+Node: CRIS-Syntax395417
+Node: CRIS-Chars395753
+Node: CRIS-Pic396304
+Ref: crispic396499
+Node: CRIS-Regs400048
+Node: CRIS-Pseudos400465
+Ref: crisnous401242
+Node: C-SKY-Dependent402530
+Node: C-SKY Options402792
+Node: C-SKY Syntax405777
+Node: D10V-Dependent406022
+Node: D10V-Opts406376
+Node: D10V-Syntax407347
+Node: D10V-Size407878
+Node: D10V-Subs408851
+Node: D10V-Chars409888
+Node: D10V-Regs411701
+Node: D10V-Addressing412730
+Node: D10V-Word413410
+Node: D10V-Float413927
+Node: D10V-Opcodes414240
+Node: D30V-Dependent414635
+Node: D30V-Opts414992
+Node: D30V-Syntax415670
+Node: D30V-Size416204
+Node: D30V-Subs417177
+Node: D30V-Chars418214
+Node: D30V-Guarded420824
+Node: D30V-Regs421501
+Node: D30V-Addressing422620
+Node: D30V-Float423282
+Node: D30V-Opcodes423595
+Node: Epiphany-Dependent423990
+Node: Epiphany Options424278
+Node: Epiphany Syntax424677
+Node: Epiphany-Chars424878
+Node: H8/300-Dependent425432
+Node: H8/300 Options425848
+Node: H8/300 Syntax426288
+Node: H8/300-Chars426589
+Node: H8/300-Regs426888
+Node: H8/300-Addressing427807
+Node: H8/300 Floating Point428831
+Node: H8/300 Directives429158
+Node: H8/300 Opcodes430286
+Node: HPPA-Dependent438605
+Node: HPPA Notes439037
+Node: HPPA Options439796
+Node: HPPA Syntax439991
+Node: HPPA Floating Point441261
+Node: HPPA Directives441467
+Node: HPPA Opcodes450149
+Node: i386-Dependent450408
+Node: i386-Options451791
+Node: i386-Directives466486
+Node: i386-Syntax474441
+Node: i386-Variations474746
+Node: i386-Chars477670
+Node: i386-Mnemonics478399
+Node: i386-Regs483416
+Node: i386-Prefixes486074
+Node: i386-Memory488834
+Node: i386-Jumps491773
+Node: i386-Float492896
+Node: i386-SIMD494797
+Node: i386-LWP495906
+Node: i386-BMI496740
+Node: i386-TBM497118
+Node: i386-16bit497648
+Node: i386-Arch499719
+Node: i386-ISA503818
+Node: i386-Bugs504689
+Node: i386-Notes505439
+Node: IA-64-Dependent506298
+Node: IA-64 Options506599
+Node: IA-64 Syntax509750
+Node: IA-64-Chars510156
+Node: IA-64-Regs510386
+Node: IA-64-Bits511312
+Node: IA-64-Relocs511842
+Node: IA-64 Opcodes512313
+Node: IP2K-Dependent512585
+Node: IP2K-Opts512857
+Node: IP2K-Syntax513356
+Node: IP2K-Chars513530
+Node: LM32-Dependent514073
+Node: LM32 Options514368
+Node: LM32 Syntax515001
+Node: LM32-Regs515297
+Node: LM32-Modifiers516238
+Node: LM32-Chars517618
+Node: LM32 Opcodes518126
+Node: M32C-Dependent518430
+Node: M32C-Opts518936
+Node: M32C-Syntax519355
+Node: M32C-Modifiers519590
+Node: M32C-Chars521382
+Node: M32R-Dependent521948
+Node: M32R-Opts522269
+Node: M32R-Directives526431
+Node: M32R-Warnings530405
+Node: M68K-Dependent533410
+Node: M68K-Opts533877
+Node: M68K-Syntax541299
+Node: M68K-Moto-Syntax543139
+Node: M68K-Float545723
+Node: M68K-Directives546243
+Node: M68K-opcodes547570
+Node: M68K-Branch547796
+Node: M68K-Chars551991
+Node: M68HC11-Dependent552854
+Node: M68HC11-Opts553385
+Node: M68HC11-Syntax557697
+Node: M68HC11-Modifiers560491
+Node: M68HC11-Directives562318
+Node: M68HC11-Float563692
+Node: M68HC11-opcodes564220
+Node: M68HC11-Branch564402
+Node: S12Z-Dependent566852
+Node: S12Z Options567195
+Node: S12Z Syntax568179
+Node: S12Z Syntax Overview568498
+Node: S12Z Addressing Modes570160
+Node: S12Z Register Notation573964
+Node: Meta-Dependent575140
+Node: Meta Options575422
+Node: Meta Syntax576084
+Node: Meta-Chars576296
+Node: Meta-Regs576596
+Node: MicroBlaze-Dependent576872
+Node: MicroBlaze Directives577559
+Node: MicroBlaze Syntax578950
+Node: MicroBlaze-Chars579182
+Node: MIPS-Dependent579734
+Node: MIPS Options581168
+Node: MIPS Macros600260
+Ref: MIPS Macros-Footnote-1602974
+Node: MIPS Symbol Sizes603117
+Node: MIPS Small Data604789
+Node: MIPS ISA606953
+Node: MIPS assembly options608737
+Node: MIPS autoextend609870
+Node: MIPS insn610604
+Node: MIPS FP ABIs611885
+Node: MIPS FP ABI History612337
+Node: MIPS FP ABI Variants613097
+Node: MIPS FP ABI Selection615650
+Node: MIPS FP ABI Compatibility616713
+Node: MIPS NaN Encodings617523
+Node: MIPS Option Stack619486
+Node: MIPS ASE Instruction Generation Overrides620271
+Node: MIPS Floating-Point625032
+Node: MIPS Syntax625938
+Node: MIPS-Chars626200
+Node: MMIX-Dependent626742
+Node: MMIX-Opts627122
+Node: MMIX-Expand630728
+Node: MMIX-Syntax632040
+Ref: mmixsite632396
+Node: MMIX-Chars633238
+Node: MMIX-Symbols634111
+Node: MMIX-Regs636182
+Node: MMIX-Pseudos637207
+Ref: MMIX-loc637349
+Ref: MMIX-local638430
+Ref: MMIX-is638963
+Ref: MMIX-greg639235
+Ref: GREG-base640153
+Ref: MMIX-byte641472
+Ref: MMIX-constants641944
+Ref: MMIX-prefix642586
+Ref: MMIX-spec642961
+Node: MMIX-mmixal643295
+Node: MSP430-Dependent646790
+Node: MSP430 Options647259
+Node: MSP430 Syntax650827
+Node: MSP430-Macros651143
+Node: MSP430-Chars651873
+Node: MSP430-Regs652588
+Node: MSP430-Ext653149
+Node: MSP430 Floating Point654968
+Node: MSP430 Directives655192
+Node: MSP430 Opcodes657033
+Node: MSP430 Profiling Capability657428
+Node: NDS32-Dependent659756
+Node: NDS32 Options660365
+Node: NDS32 Syntax662248
+Node: NDS32-Chars662516
+Node: NDS32-Regs662983
+Node: NDS32-Ops663837
+Node: NiosII-Dependent667434
+Node: Nios II Options667853
+Node: Nios II Syntax669085
+Node: Nios II Chars669291
+Node: Nios II Relocations669482
+Node: Nios II Directives671053
+Node: Nios II Opcodes672615
+Node: NS32K-Dependent672890
+Node: NS32K Syntax673119
+Node: NS32K-Chars673268
+Node: OpenRISC-Dependent674008
+Node: OpenRISC-Syntax674351
+Node: OpenRISC-Chars674672
+Node: OpenRISC-Regs674995
+Node: OpenRISC-Relocs676008
+Node: OpenRISC-Float680788
+Node: OpenRISC-Directives680994
+Node: OpenRISC-Opcodes681792
+Node: PDP-11-Dependent682084
+Node: PDP-11-Options682477
+Node: PDP-11-Pseudos687536
+Node: PDP-11-Syntax687881
+Node: PDP-11-Mnemonics688713
+Node: PDP-11-Synthetic689015
+Node: PJ-Dependent689233
+Node: PJ Options689496
+Node: PJ Syntax689791
+Node: PJ-Chars689956
+Node: PPC-Dependent690505
+Node: PowerPC-Opts690837
+Node: PowerPC-Pseudo694879
+Node: PowerPC-Syntax695500
+Node: PowerPC-Chars695690
+Node: PRU-Dependent696441
+Node: PRU Options696824
+Node: PRU Syntax697563
+Node: PRU Chars697750
+Node: PRU Relocations697905
+Node: PRU Directives698456
+Node: PRU Opcodes699359
+Node: RISC-V-Dependent699776
+Node: RISC-V-Options700320
+Node: RISC-V-Directives703034
+Node: RISC-V-Modifiers708384
+Node: RISC-V-Floating-Point712459
+Node: RISC-V-Formats713923
+Node: RISC-V-ATTRIBUTE722530
+Node: RISC-V-CustomExts724518
+Node: RL78-Dependent727997
+Node: RL78-Opts728398
+Node: RL78-Modifiers729232
+Node: RL78-Directives730011
+Node: RL78-Syntax730615
+Node: RL78-Chars730811
+Node: RX-Dependent731367
+Node: RX-Opts731798
+Node: RX-Modifiers736060
+Node: RX-Directives737163
+Node: RX-Float737902
+Node: RX-Syntax738537
+Node: RX-Chars738716
+Node: S/390-Dependent739268
+Node: s390 Options740129
+Node: s390 Characters742315
+Node: s390 Syntax742836
+Node: s390 Register743738
+Node: s390 Mnemonics744554
+Node: s390 Operands747574
+Node: s390 Formats750205
+Node: s390 Aliases759796
+Node: s390 Operand Modifier763761
+Node: s390 Instruction Marker767564
+Node: s390 Literal Pool Entries768578
+Node: s390 Directives770511
+Node: s390 Floating Point775968
+Node: SCORE-Dependent776416
+Node: SCORE-Opts776718
+Node: SCORE-Pseudo778005
+Node: SCORE-Syntax780087
+Node: SCORE-Chars780269
+Node: SH-Dependent780827
+Node: SH Options781239
+Node: SH Syntax782290
+Node: SH-Chars782563
+Node: SH-Regs783106
+Node: SH-Addressing783720
+Node: SH Floating Point784628
+Node: SH Directives785725
+Node: SH Opcodes786126
+Node: Sparc-Dependent790447
+Node: Sparc-Opts790856
+Node: Sparc-Aligned-Data796569
+Node: Sparc-Syntax797401
+Node: Sparc-Chars797975
+Node: Sparc-Regs798538
+Node: Sparc-Constants804386
+Node: Sparc-Relocs809146
+Node: Sparc-Size-Translations814264
+Node: Sparc-Float815914
+Node: Sparc-Directives816109
+Node: TIC54X-Dependent818071
+Node: TIC54X-Opts818834
+Node: TIC54X-Block819875
+Node: TIC54X-Env820235
+Node: TIC54X-Constants820583
+Node: TIC54X-Subsyms820980
+Node: TIC54X-Locals822884
+Node: TIC54X-Builtins823624
+Node: TIC54X-Ext826038
+Node: TIC54X-Directives826609
+Node: TIC54X-Macros837517
+Node: TIC54X-MMRegs839604
+Node: TIC54X-Syntax839841
+Node: TIC54X-Chars840031
+Node: TIC6X-Dependent840722
+Node: TIC6X Options841025
+Node: TIC6X Syntax843024
+Node: TIC6X Directives844127
+Node: TILE-Gx-Dependent846411
+Node: TILE-Gx Options846721
+Node: TILE-Gx Syntax847070
+Node: TILE-Gx Opcodes849306
+Node: TILE-Gx Registers849594
+Node: TILE-Gx Modifiers850365
+Node: TILE-Gx Directives855364
+Node: TILEPro-Dependent856267
+Node: TILEPro Options856576
+Node: TILEPro Syntax856760
+Node: TILEPro Opcodes858996
+Node: TILEPro Registers859287
+Node: TILEPro Modifiers860057
+Node: TILEPro Directives864846
+Node: V850-Dependent865749
+Node: V850 Options866145
+Node: V850 Syntax870423
+Node: V850-Chars870663
+Node: V850-Regs871207
+Node: V850 Floating Point872717
+Node: V850 Directives872923
+Node: V850 Opcodes874989
+Node: Vax-Dependent880868
+Node: VAX-Opts881452
+Node: VAX-float885173
+Node: VAX-directives885806
+Node: VAX-opcodes886666
+Node: VAX-branch887055
+Node: VAX-operands889559
+Node: VAX-no890322
+Node: VAX-Syntax890578
+Node: VAX-Chars890744
+Node: Visium-Dependent891298
+Node: Visium Options891611
+Node: Visium Syntax892077
+Node: Visium Characters892322
+Node: Visium Registers892903
+Node: Visium Opcodes893175
+Node: WebAssembly-Dependent893601
+Node: WebAssembly-Notes894042
+Node: WebAssembly-Syntax894328
+Node: WebAssembly-Chars894894
+Node: WebAssembly-Relocs895273
+Node: WebAssembly-Signatures895999
+Node: WebAssembly-Floating-Point896500
+Node: WebAssembly-Opcodes896741
+Node: WebAssembly-module-layout897374
+Node: XGATE-Dependent897853
+Node: XGATE-Opts898280
+Node: XGATE-Syntax899269
+Node: XGATE-Directives901348
+Node: XGATE-Float901587
+Node: XGATE-opcodes902084
+Node: XSTORMY16-Dependent902196
+Node: XStormy16 Syntax902542
+Node: XStormy16-Chars902732
+Node: XStormy16 Directives903345
+Node: XStormy16 Opcodes903999
+Node: Xtensa-Dependent905054
+Node: Xtensa Options905785
+Node: Xtensa Syntax910358
+Node: Xtensa Opcodes912502
+Node: Xtensa Registers914295
+Node: Xtensa Optimizations914928
+Node: Density Instructions915380
+Node: Xtensa Automatic Alignment916482
+Node: Xtensa Relaxation918929
+Node: Xtensa Branch Relaxation919894
+Node: Xtensa Call Relaxation921266
+Node: Xtensa Jump Relaxation923047
+Node: Xtensa Immediate Relaxation925147
+Node: Xtensa Directives927722
+Node: Schedule Directive929430
+Node: Longcalls Directive929770
+Node: Transform Directive930314
+Node: Literal Directive931056
+Ref: Literal Directive-Footnote-1934595
+Node: Literal Position Directive934737
+Node: Literal Prefix Directive936436
+Node: Absolute Literals Directive937334
+Node: Z80-Dependent938641
+Node: Z80 Options939029
+Node: Z80 Syntax941528
+Node: Z80-Chars942236
+Node: Z80-Regs943087
+Node: Z80-Case943439
+Node: Z80-Labels943903
+Node: Z80 Floating Point944399
+Node: Z80 Directives944868
+Node: Z80 Opcodes947300
+Node: Z8000-Dependent948926
+Node: Z8000 Options949862
+Node: Z8000 Syntax950079
+Node: Z8000-Chars950369
+Node: Z8000-Regs950851
+Node: Z8000-Addressing951641
+Node: Z8000 Directives952751
+Node: Z8000 Opcodes954360
+Node: Reporting Bugs964302
+Node: Bug Criteria965028
+Node: Bug Reporting965795
+Node: Acknowledgements972436
+Ref: Acknowledgements-Footnote-1977402
+Node: GNU Free Documentation License977428
+Node: AS Index1002578
 
 End Tag Table
 
