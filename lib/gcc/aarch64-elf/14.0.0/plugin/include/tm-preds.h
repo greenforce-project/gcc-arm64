@@ -131,6 +131,7 @@ extern bool aarch64_simd_shift_imm_vec_si (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_vec_di (rtx, machine_mode);
 extern bool aarch64_int_rnd_operand (rtx, machine_mode);
 extern bool aarch64_simd_raddsubhn_imm_vec (rtx, machine_mode);
+extern bool aarch64_simd_shll_imm_vec (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_bitsize_qi (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_bitsize_hi (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_bitsize_si (rtx, machine_mode);
@@ -297,6 +298,8 @@ enum constraint_num
   CONSTRAINT_Dt,
   CONSTRAINT_Dl,
   CONSTRAINT_D1,
+  CONSTRAINT_D2,
+  CONSTRAINT_DL,
   CONSTRAINT_Dr,
   CONSTRAINT_Dz,
   CONSTRAINT_Dm,
