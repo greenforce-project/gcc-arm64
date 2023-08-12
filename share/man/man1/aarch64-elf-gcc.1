@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2023-08-05" "gcc-14.0.0" "GNU"
+.TH GCC 1 "2023-08-12" "gcc-14.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -509,6 +509,7 @@ in the following sections.
 \&\-Wno\-analyzer\-tainted\-size
 \&\-Wanalyzer\-too\-complex
 \&\-Wno\-analyzer\-unsafe\-call\-within\-signal\-handler
+\&\-Wno\-analyzer\-unterminated\-string
 \&\-Wno\-analyzer\-use\-after\-free
 \&\-Wno\-analyzer\-use\-of\-pointer\-in\-stale\-stack\-frame
 \&\-Wno\-analyzer\-use\-of\-uninitialized\-value
@@ -1427,7 +1428,8 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\fB\-mcld  \-mcx16  \-msahf  \-mmovbe  \-mcrc32 \-mmwait
 \&\-mrecip  \-mrecip=\fR\fIopt\fR
 \&\fB\-mvzeroupper  \-mprefer\-avx128  \-mprefer\-vector\-width=\fR\fIopt\fR
-\&\fB\-mmove\-max=\fR\fIbits\fR \fB\-mstore\-max=\fR\fIbits\fR
+\&\fB\-mpartial\-vector\-fp\-math
+\&\-mmove\-max=\fR\fIbits\fR \fB\-mstore\-max=\fR\fIbits\fR
 \&\fB\-mmmx  \-msse  \-msse2  \-msse3  \-mssse3  \-msse4.1  \-msse4.2  \-msse4  \-mavx
 \&\-mavx2  \-mavx512f  \-mavx512pf  \-mavx512er  \-mavx512cd  \-mavx512vl
 \&\-mavx512bw  \-mavx512dq  \-mavx512ifma  \-mavx512vbmi  \-msha  \-maes
@@ -4637,8 +4639,8 @@ pointers after reallocation.
 .Sp
 \&\fB\-Wuse\-after\-free=2\fR is included in \fB\-Wall\fR.
 .RE
-.IP "\fB\-Wuseless\-cast\fR (\*(C+ and Objective\-\*(C+ only)" 4
-.IX Item "-Wuseless-cast ( and Objective- only)"
+.IP "\fB\-Wuseless\-cast\fR (C, Objective-C, \*(C+ and Objective\-\*(C+ only)" 4
+.IX Item "-Wuseless-cast (C, Objective-C, and Objective- only)"
 Warn when an expression is cast to its own type.  This warning does not
 occur when a class object is converted to a non-reference type as that
 is a way to create a temporary:
@@ -9649,6 +9651,7 @@ Enabling this option effectively enables the following warnings:
 \&\-Wanalyzer\-shift\-count\-overflow
 \&\-Wanalyzer\-stale\-setjmp\-buffer
 \&\-Wanalyzer\-unsafe\-call\-within\-signal\-handler
+\&\-Wanalyzer\-unterminated\-string
 \&\-Wanalyzer\-use\-after\-free
 \&\-Wanalyzer\-use\-of\-pointer\-in\-stale\-stack\-frame
 \&\-Wanalyzer\-use\-of\-uninitialized\-value
@@ -10153,6 +10156,15 @@ function known to be async-signal-unsafe (such as \f(CW\*(C`fprintf\*(C'\fR) is
 called from a signal handler.
 .Sp
 See  \s-1CWE\-479:\s0 Signal Handler Use of a Non-reentrant Function (\f(CW\*(C`https://cwe.mitre.org/data/definitions/479.html\*(C'\fR).
+.IP "\fB\-Wno\-analyzer\-unterminated\-string\fR" 4
+.IX Item "-Wno-analyzer-unterminated-string"
+This warning requires \fB\-fanalyzer\fR, which enables it; use
+\&\fB\-Wno\-analyzer\-unterminated\-string\fR to disable it.
+.Sp
+This diagnostic warns about code paths which attempt to find the length
+of an unterminated string.  For example, passing a pointer to an unterminated
+buffer to \f(CW\*(C`strlen\*(C'\fR would lead to accesses beyond the end of the buffer
+whilst attempting to find the terminating zero character.
 .IP "\fB\-Wno\-analyzer\-use\-after\-free\fR" 4
 .IX Item "-Wno-analyzer-use-after-free"
 This warning requires \fB\-fanalyzer\fR, which enables it; use
@@ -19814,8 +19826,8 @@ performance of the code.  Permissible values for this option are:
 \&\fBcortex\-a73.cortex\-a35\fR, \fBcortex\-a73.cortex\-a53\fR,
 \&\fBcortex\-a75.cortex\-a55\fR, \fBcortex\-a76.cortex\-a55\fR,
 \&\fBcortex\-r82\fR, \fBcortex\-x1\fR, \fBcortex\-x1c\fR, \fBcortex\-x2\fR,
-\&\fBcortex\-x3\fR, \fBcortex\-a510\fR, \fBcortex\-a710\fR, \fBcortex\-a715\fR,
-\&\fBampere1\fR, \fBampere1a\fR, and \fBnative\fR.
+\&\fBcortex\-x3\fR, \fBcortex\-a510\fR, \fBcortex\-a520\fR, \fBcortex\-a710\fR,
+\&\fBcortex\-a715\fR, \fBampere1\fR, \fBampere1a\fR, and \fBnative\fR.
 .Sp
 The values \fBcortex\-a57.cortex\-a53\fR, \fBcortex\-a72.cortex\-a53\fR,
 \&\fBcortex\-a73.cortex\-a35\fR, \fBcortex\-a73.cortex\-a53\fR,
@@ -32703,6 +32715,22 @@ This option instructs \s-1GCC\s0 to use 128\-bit \s-1AVX\s0 instructions instead
 .IX Item "-mprefer-vector-width=opt"
 This option instructs \s-1GCC\s0 to use \fIopt\fR\-bit vector width in instructions
 instead of default on the selected platform.
+.IP "\fB\-mpartial\-vector\-fp\-math\fR" 4
+.IX Item "-mpartial-vector-fp-math"
+This option enables \s-1GCC\s0 to generate floating-point operations that might
+affect the set of floating-point status flags on partial vectors, where
+vector elements reside in the low part of the 128\-bit \s-1SSE\s0 register.  Unless
+\&\fB\-fno\-trapping\-math\fR is specified, the compiler guarantees correct
+behavior by sanitizing all input operands to have zeroes in the unused
+upper part of the vector register.  Note that by using built-in functions
+or inline assembly with partial vector arguments, NaNs, denormal or invalid
+values can leak into the upper part of the vector, causing possible
+performance issues when \fB\-fno\-trapping\-math\fR is in effect.  These
+issues can be mitigated by manually sanitizing the upper part of the partial
+vector argument register or by using \fB\-mdaz\-ftz\fR to set
+denormals-are-zero (\s-1DAZ\s0) flag in the \s-1MXCSR\s0 register.
+.Sp
+This option is enabled by default.
 .IP "\fB\-mmove\-max=\fR\fIbits\fR" 4
 .IX Item "-mmove-max=bits"
 This option instructs \s-1GCC\s0 to set the maximum number of bits can be

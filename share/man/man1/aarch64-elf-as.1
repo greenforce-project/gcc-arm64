@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "AS 1"
-.TH AS 1 "2023-08-05" "binutils-2.41.50" "GNU Development Tools"
+.TH AS 1 "2023-08-12" "binutils-2.41.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -624,7 +624,7 @@ targets except the x86/x86_64, but a configure time option can be used to
 override this.
 .IP "\fB\-D\fR" 4
 .IX Item "-D"
-Enable denugging in target specific backends, if supported.  Otherwise ignored.
+Enable debugging in target specific backends, if supported.  Otherwise ignored.
 Even if ignored, this option is accepted for script compatibility with calls to
 other assemblers.
 .IP "\fB\-\-debug\-prefix\-map\fR \fIold\fR\fB=\fR\fInew\fR" 4
@@ -903,6 +903,7 @@ on the target processor.  The following processor names are recognized:
 \&\f(CW\*(C`cortex\-a78ae\*(C'\fR,
 \&\f(CW\*(C`cortex\-a78c\*(C'\fR,
 \&\f(CW\*(C`cortex\-a510\*(C'\fR,
+\&\f(CW\*(C`cortex\-a520\*(C'\fR,
 \&\f(CW\*(C`cortex\-a710\*(C'\fR,
 \&\f(CW\*(C`ares\*(C'\fR,
 \&\f(CW\*(C`exynos\-m1\*(C'\fR,
