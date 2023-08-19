@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2023-08-12" "gcc-14.0.0" "GNU"
+.TH GCC 1 "2023-08-19" "gcc-14.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -369,6 +369,7 @@ in the following sections.
 \&\-Wcast\-align  \-Wcast\-align=strict  \-Wcast\-function\-type  \-Wcast\-qual
 \&\-Wchar\-subscripts
 \&\-Wclobbered  \-Wcomment
+\&\-Wcompare\-distinct\-pointer\-types
 \&\-Wno\-complain\-wrong\-lang
 \&\-Wconversion  \-Wno\-coverage\-mismatch  \-Wno\-cpp
 \&\-Wdangling\-else  \-Wdangling\-pointer  \-Wdangling\-pointer=\fR\fIn\fR
@@ -453,6 +454,7 @@ in the following sections.
 \&\-fanalyzer\-checker=\fR\fIname\fR
 \&\fB\-fno\-analyzer\-feasibility
 \&\-fanalyzer\-fine\-grained
+\&\-fanalyzer\-show\-events\-in\-system\-headers
 \&\-fno\-analyzer\-state\-merge
 \&\-fno\-analyzer\-state\-purge
 \&\-fno\-analyzer\-suppress\-followups
@@ -1446,6 +1448,7 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mamx\-tile  \-mamx\-int8  \-mamx\-bf16 \-muintr \-mhreset \-mavxvnni
 \&\-mavx512fp16 \-mavxifma \-mavxvnniint8 \-mavxneconvert \-mcmpccxadd \-mamx\-fp16
 \&\-mprefetchi \-mraoint \-mamx\-complex \-mavxvnniint16 \-msm3 \-msha512 \-msm4
+\&\-mavx10.1 \-mavx10.1\-256 \-mavx10.1\-512
 \&\-mcldemote  \-mms\-bitfields  \-mno\-align\-stringops  \-minline\-all\-stringops
 \&\-minline\-stringops\-dynamically  \-mstringop\-strategy=\fR\fIalg\fR
 \&\fB\-mkl \-mwidekl
@@ -8616,6 +8619,10 @@ and the Fortran front end to compile \fIb.f90\fR.
 The latter front end diagnoses
 \&\fBf951: Warning: command-line option '\-fno\-rtti' is valid for \*(C+/D/ObjC++ but not for Fortran\fR,
 which may be disabled with \fB\-Wno\-complain\-wrong\-lang\fR.
+.IP "\fB\-Wcompare\-distinct\-pointer\-types\fR (C and Objective-C only)" 4
+.IX Item "-Wcompare-distinct-pointer-types (C and Objective-C only)"
+Warn if pointers of distinct types are compared without a cast.  This
+warning is enabled by default.
 .IP "\fB\-Wconversion\fR" 4
 .IX Item "-Wconversion"
 Warn for implicit conversions that may alter a value. This includes
@@ -10518,6 +10525,12 @@ This option is intended for analyzer developers: if multiple diagnostics
 have been detected as being duplicates of each other, it emits a note when
 reporting the best diagnostic, giving the number of additional diagnostics
 that were suppressed by the deduplication logic.
+.IP "\fB\-fanalyzer\-show\-events\-in\-system\-headers\fR" 4
+.IX Item "-fanalyzer-show-events-in-system-headers"
+By default the analyzer emits simplified diagnostics paths by hiding
+events fully located within a system header.
+With \fB\-fanalyzer\-show\-events\-in\-system\-headers\fR such
+events are no longer suppressed.
 .IP "\fB\-fno\-analyzer\-state\-merge\fR" 4
 .IX Item "-fno-analyzer-state-merge"
 This option is intended for analyzer developers.
@@ -19827,7 +19840,8 @@ performance of the code.  Permissible values for this option are:
 \&\fBcortex\-a75.cortex\-a55\fR, \fBcortex\-a76.cortex\-a55\fR,
 \&\fBcortex\-r82\fR, \fBcortex\-x1\fR, \fBcortex\-x1c\fR, \fBcortex\-x2\fR,
 \&\fBcortex\-x3\fR, \fBcortex\-a510\fR, \fBcortex\-a520\fR, \fBcortex\-a710\fR,
-\&\fBcortex\-a715\fR, \fBampere1\fR, \fBampere1a\fR, and \fBnative\fR.
+\&\fBcortex\-a715\fR, \fBcortex\-a720\fR, \fBampere1\fR, \fBampere1a\fR,
+and \fBnative\fR.
 .Sp
 The values \fBcortex\-a57.cortex\-a53\fR, \fBcortex\-a72.cortex\-a53\fR,
 \&\fBcortex\-a73.cortex\-a35\fR, \fBcortex\-a73.cortex\-a53\fR,
@@ -32638,6 +32652,12 @@ preferred alignment to \fB\-mpreferred\-stack\-boundary=2\fR.
 .IX Item "-msha512"
 .IP "\fB\-msm4\fR" 4
 .IX Item "-msm4"
+.IP "\fB\-mavx10.1\fR" 4
+.IX Item "-mavx10.1"
+.IP "\fB\-mavx10.1\-256\fR" 4
+.IX Item "-mavx10.1-256"
+.IP "\fB\-mavx10.1\-512\fR" 4
+.IX Item "-mavx10.1-512"
 .PD
 These switches enable the use of instructions in the \s-1MMX, SSE,
 AVX512ER, AVX512CD, AVX512VL, AVX512BW, AVX512DQ, AVX512IFMA, AVX512VBMI, SHA,
@@ -32649,9 +32669,9 @@ GFNI, VAES, WAITPKG, VPCLMULQDQ, AVX512BITALG, MOVDIRI, MOVDIR64B, AVX512BF16,
 ENQCMD, AVX512VPOPCNTDQ, AVX5124FMAPS, AVX512VNNI, AVX5124VNNIW, SERIALIZE,
 UINTR, HRESET, AMXTILE, AMXINT8, AMXBF16, KL, WIDEKL, AVXVNNI, AVX512\-FP16,
 AVXIFMA, AVXVNNIINT8, AVXNECONVERT, CMPCCXADD, AMX\-FP16, PREFETCHI, RAOINT,\s0
-AMX-COMPLEX, \s-1AVXVNNIINT16, SM3, SHA512, SM4\s0 or \s-1CLDEMOTE\s0 extended instruction
-sets. Each has a corresponding \fB\-mno\-\fR option to disable use of these
-instructions.
+AMX-COMPLEX, \s-1AVXVNNIINT16, SM3, SHA512, SM4, AVX10.1\s0 or \s-1CLDEMOTE\s0 extended
+instruction sets. Each has a corresponding \fB\-mno\-\fR option to disable
+use of these instructions.
 .Sp
 These extensions are also available as built-in functions: see
 \&\fBx86 Built-in Functions\fR, for details of the functions enabled and
