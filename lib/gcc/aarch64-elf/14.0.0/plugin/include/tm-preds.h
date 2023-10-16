@@ -153,7 +153,6 @@ extern bool aarch64_sve_general_operand (rtx, machine_mode);
 extern bool aarch64_sve_struct_memory_operand (rtx, machine_mode);
 extern bool aarch64_sve_struct_nonimmediate_operand (rtx, machine_mode);
 extern bool aarch64_sve_dup_operand (rtx, machine_mode);
-extern bool aarch64_sve_dup_ld1rq_operand (rtx, machine_mode);
 extern bool aarch64_sve_ptrue_svpattern_immediate (rtx, machine_mode);
 extern bool aarch64_sve_arith_immediate (rtx, machine_mode);
 extern bool aarch64_sve_sub_arith_immediate (rtx, machine_mode);

@@ -229,6 +229,7 @@ protected:
 						   have completed.  */
 #define PROP_assumptions_done	(1 << 19)	/* Assume function kept
 						   around.  */
+#define PROP_gimple_lbitint	(1 << 20)       /* lowered large _BitInt */
 
 #define PROP_gimple \
   (PROP_gimple_any | PROP_gimple_lcf | PROP_gimple_leh | PROP_gimple_lomp)
@@ -420,6 +421,8 @@ extern gimple_opt_pass *make_pass_strip_predict_hints (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_rebuild_frequencies (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_lower_complex_O0 (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_lower_complex (gcc::context *ctxt);
+extern gimple_opt_pass *make_pass_lower_bitint_O0 (gcc::context *ctxt);
+extern gimple_opt_pass *make_pass_lower_bitint (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_lower_switch (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_lower_switch_O0 (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_lower_vector (gcc::context *ctxt);
@@ -467,6 +470,7 @@ extern gimple_opt_pass *make_pass_check_data_deps (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_copy_prop (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_isolate_erroneous_paths (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_early_vrp (gcc::context *ctxt);
+extern gimple_opt_pass *make_pass_fast_vrp (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_vrp (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_assumptions (gcc::context *ctxt);
 extern gimple_opt_pass *make_pass_uncprop (gcc::context *ctxt);

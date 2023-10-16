@@ -223,7 +223,7 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS_WITH_ARG (pass_fre, 3, true /* may_iterate */);
       NEXT_PASS (pass_merge_phi, 2);
       NEXT_PASS_WITH_ARG (pass_thread_jumps_full, 1, /*first=*/true);
-      NEXT_PASS_WITH_ARG (pass_vrp, 1, true /* warn_array_bounds_p */);
+      NEXT_PASS_WITH_ARG (pass_vrp, 1, false /* final_p*/);
       NEXT_PASS (pass_dse, 2);
       NEXT_PASS (pass_dce, 2);
       /* pass_stdarg is always run and at this point we execute
@@ -239,6 +239,7 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS (pass_tail_recursion, 2);
       NEXT_PASS (pass_ch, 2);
       NEXT_PASS (pass_lower_complex, 1);
+      NEXT_PASS (pass_lower_bitint, 1);
       NEXT_PASS (pass_sra, 1);
       /* The dom pass will also resolve all __builtin_constant_p calls
          that are still there to 0.  This has to be done after some
@@ -349,7 +350,7 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS_WITH_ARG (pass_dominator, 3, false /* may_peel_loop_headers_p */);
       NEXT_PASS (pass_strlen, 1);
       NEXT_PASS_WITH_ARG (pass_thread_jumps_full, 2, /*first=*/false);
-      NEXT_PASS_WITH_ARG (pass_vrp, 2, false /* warn_array_bounds_p */);
+      NEXT_PASS_WITH_ARG (pass_vrp, 2, true /* final_p */);
       /* Run CCP to compute alignment and nonzero bits.  */
       NEXT_PASS_WITH_ARG (pass_ccp, 4, true /* nonzero_p */);
       NEXT_PASS (pass_warn_restrict, 1);
@@ -388,6 +389,7 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS_WITH_ARG (pass_strip_predict_hints, 3, false /* early_p */);
       /* Lower remaining pieces of GIMPLE.  */
       NEXT_PASS (pass_lower_complex, 2);
+      NEXT_PASS (pass_lower_bitint, 2);
       NEXT_PASS (pass_lower_vector_ssa, 2);
       NEXT_PASS (pass_lower_switch, 2);
       /* Perform simple scalar cleanup which is constant/copy propagation.  */
@@ -431,6 +433,7 @@ along with GCC; see the file COPYING3.  If not see
   NEXT_PASS (pass_lower_vaarg, 1);
   NEXT_PASS (pass_lower_vector, 1);
   NEXT_PASS (pass_lower_complex_O0, 1);
+  NEXT_PASS (pass_lower_bitint_O0, 1);
   NEXT_PASS (pass_sancov_O0, 1);
   NEXT_PASS (pass_lower_switch_O0, 1);
   NEXT_PASS (pass_asan_O0, 1);

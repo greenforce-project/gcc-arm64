@@ -363,6 +363,14 @@ code_helper::is_builtin_fn () const
 (tree_not_check5 ((T), __FILE__, __LINE__, __FUNCTION__, \
                                (CODE1), (CODE2), (CODE3), (CODE4), (CODE5)))
 
+#define TREE_CHECK6(T, CODE1, CODE2, CODE3, CODE4, CODE5, CODE6) \
+(tree_check6 ((T), __FILE__, __LINE__, __FUNCTION__, \
+			(CODE1), (CODE2), (CODE3), (CODE4), (CODE5), (CODE6)))
+
+#define TREE_NOT_CHECK6(T, CODE1, CODE2, CODE3, CODE4, CODE5, CODE6) \
+(tree_not_check6 ((T), __FILE__, __LINE__, __FUNCTION__, \
+			(CODE1), (CODE2), (CODE3), (CODE4), (CODE5), (CODE6)))
+
 #define CONTAINS_STRUCT_CHECK(T, STRUCT) \
 (contains_struct_check ((T), (STRUCT), __FILE__, __LINE__, __FUNCTION__))
 
@@ -485,6 +493,8 @@ extern void omp_clause_range_check_failed (const_tree, const char *, int,
 #define TREE_NOT_CHECK4(T, CODE1, CODE2, CODE3, CODE4) (T)
 #define TREE_CHECK5(T, CODE1, CODE2, CODE3, CODE4, CODE5) (T)
 #define TREE_NOT_CHECK5(T, CODE1, CODE2, CODE3, CODE4, CODE5) (T)
+#define TREE_CHECK6(T, CODE1, CODE2, CODE3, CODE4, CODE5, CODE6) (T)
+#define TREE_NOT_CHECK6(T, CODE1, CODE2, CODE3, CODE4, CODE5, CODE6) (T)
 #define TREE_CLASS_CHECK(T, CODE)		(T)
 #define TREE_RANGE_CHECK(T, CODE1, CODE2)	(T)
 #define EXPR_CHECK(T)				(T)
@@ -528,8 +538,8 @@ extern void omp_clause_range_check_failed (const_tree, const char *, int,
   TREE_CHECK2 (T, ARRAY_TYPE, INTEGER_TYPE)
 
 #define NUMERICAL_TYPE_CHECK(T)					\
-  TREE_CHECK5 (T, INTEGER_TYPE, ENUMERAL_TYPE, BOOLEAN_TYPE, REAL_TYPE,	\
-	       FIXED_POINT_TYPE)
+  TREE_CHECK6 (T, INTEGER_TYPE, ENUMERAL_TYPE, BOOLEAN_TYPE, REAL_TYPE,	\
+	       FIXED_POINT_TYPE, BITINT_TYPE)
 
 /* Here is how primitive or already-canonicalized types' hash codes
    are made.  */
@@ -603,7 +613,8 @@ extern void omp_clause_range_check_failed (const_tree, const char *, int,
 #define INTEGRAL_TYPE_P(TYPE)  \
   (TREE_CODE (TYPE) == ENUMERAL_TYPE  \
    || TREE_CODE (TYPE) == BOOLEAN_TYPE \
-   || TREE_CODE (TYPE) == INTEGER_TYPE)
+   || TREE_CODE (TYPE) == INTEGER_TYPE \
+   || TREE_CODE (TYPE) == BITINT_TYPE)
 
 /* Nonzero if TYPE represents an integral type, including complex
    and vector integer types.  */
@@ -613,6 +624,10 @@ extern void omp_clause_range_check_failed (const_tree, const char *, int,
    || ((TREE_CODE (TYPE) == COMPLEX_TYPE 	\
         || VECTOR_TYPE_P (TYPE))		\
        && INTEGRAL_TYPE_P (TREE_TYPE (TYPE))))
+
+/* Nonzero if TYPE is bit-precise integer type.  */
+
+#define BITINT_TYPE_P(TYPE) (TREE_CODE (TYPE) == BITINT_TYPE)
 
 /* Nonzero if TYPE represents a non-saturating fixed-point type.  */
 
@@ -1124,8 +1139,6 @@ extern void omp_clause_range_check_failed (const_tree, const char *, int,
   (INTEGER_CST_CHECK (NODE)->base.u.int_length.unextended)
 #define TREE_INT_CST_EXT_NUNITS(NODE) \
   (INTEGER_CST_CHECK (NODE)->base.u.int_length.extended)
-#define TREE_INT_CST_OFFSET_NUNITS(NODE) \
-  (INTEGER_CST_CHECK (NODE)->base.u.int_length.offset)
 #define TREE_INT_CST_ELT(NODE, I) TREE_INT_CST_ELT_CHECK (NODE, I)
 #define TREE_INT_CST_LOW(NODE) \
   ((unsigned HOST_WIDE_INT) TREE_INT_CST_ELT (NODE, 0))
@@ -1244,7 +1257,9 @@ extern void omp_clause_range_check_failed (const_tree, const char *, int,
 /* True if NODE, a FIELD_DECL, is to be processed as a bitfield for
    constructor output purposes.  */
 #define CONSTRUCTOR_BITFIELD_P(NODE) \
-  (DECL_BIT_FIELD (FIELD_DECL_CHECK (NODE)) && DECL_MODE (NODE) != BLKmode)
+  (DECL_BIT_FIELD (FIELD_DECL_CHECK (NODE)) \
+   && (DECL_MODE (NODE) != BLKmode \
+       || TREE_CODE (TREE_TYPE (NODE)) == BITINT_TYPE))
 
 /* True if NODE is a clobber right hand side, an expression of indeterminate
    value that clobbers the LHS in a copy instruction.  We use a volatile
@@ -3687,6 +3702,38 @@ tree_not_check5 (tree __t, const char *__f, int __l, const char *__g,
 }
 
 inline tree
+tree_check6 (tree __t, const char *__f, int __l, const char *__g,
+	     enum tree_code __c1, enum tree_code __c2, enum tree_code __c3,
+	     enum tree_code __c4, enum tree_code __c5, enum tree_code __c6)
+{
+  if (TREE_CODE (__t) != __c1
+      && TREE_CODE (__t) != __c2
+      && TREE_CODE (__t) != __c3
+      && TREE_CODE (__t) != __c4
+      && TREE_CODE (__t) != __c5
+      && TREE_CODE (__t) != __c6)
+    tree_check_failed (__t, __f, __l, __g, __c1, __c2, __c3, __c4, __c5, __c6,
+		       0);
+  return __t;
+}
+
+inline tree
+tree_not_check6 (tree __t, const char *__f, int __l, const char *__g,
+		 enum tree_code __c1, enum tree_code __c2, enum tree_code __c3,
+		 enum tree_code __c4, enum tree_code __c5, enum tree_code __c6)
+{
+  if (TREE_CODE (__t) == __c1
+      || TREE_CODE (__t) == __c2
+      || TREE_CODE (__t) == __c3
+      || TREE_CODE (__t) == __c4
+      || TREE_CODE (__t) == __c5
+      || TREE_CODE (__t) == __c6)
+    tree_not_check_failed (__t, __f, __l, __g, __c1, __c2, __c3, __c4, __c5,
+			   __c6, 0);
+  return __t;
+}
+
+inline tree
 contains_struct_check (tree __t, const enum tree_node_structure_enum __s,
                        const char *__f, int __l, const char *__g)
 {
@@ -3824,7 +3871,7 @@ any_integral_type_check (tree __t, const char *__f, int __l, const char *__g)
 {
   if (!ANY_INTEGRAL_TYPE_P (__t))
     tree_check_failed (__t, __f, __l, __g, BOOLEAN_TYPE, ENUMERAL_TYPE,
-		       INTEGER_TYPE, 0);
+		       INTEGER_TYPE, BITINT_TYPE, 0);
   return __t;
 }
 
@@ -3943,6 +3990,38 @@ tree_not_check5 (const_tree __t, const char *__f, int __l, const char *__g,
 }
 
 inline const_tree
+tree_check6 (const_tree __t, const char *__f, int __l, const char *__g,
+	     enum tree_code __c1, enum tree_code __c2, enum tree_code __c3,
+	     enum tree_code __c4, enum tree_code __c5, enum tree_code __c6)
+{
+  if (TREE_CODE (__t) != __c1
+      && TREE_CODE (__t) != __c2
+      && TREE_CODE (__t) != __c3
+      && TREE_CODE (__t) != __c4
+      && TREE_CODE (__t) != __c5
+      && TREE_CODE (__t) != __c6)
+    tree_check_failed (__t, __f, __l, __g, __c1, __c2, __c3, __c4, __c5, __c6,
+		       0);
+  return __t;
+}
+
+inline const_tree
+tree_not_check6 (const_tree __t, const char *__f, int __l, const char *__g,
+		 enum tree_code __c1, enum tree_code __c2, enum tree_code __c3,
+		 enum tree_code __c4, enum tree_code __c5, enum tree_code __c6)
+{
+  if (TREE_CODE (__t) == __c1
+      || TREE_CODE (__t) == __c2
+      || TREE_CODE (__t) == __c3
+      || TREE_CODE (__t) == __c4
+      || TREE_CODE (__t) == __c5
+      || TREE_CODE (__t) == __c6)
+    tree_not_check_failed (__t, __f, __l, __g, __c1, __c2, __c3, __c4, __c5,
+			   __c6, 0);
+  return __t;
+}
+
+inline const_tree
 contains_struct_check (const_tree __t, const enum tree_node_structure_enum __s,
                        const char *__f, int __l, const char *__g)
 {
@@ -4050,7 +4129,7 @@ any_integral_type_check (const_tree __t, const char *__f, int __l,
 {
   if (!ANY_INTEGRAL_TYPE_P (__t))
     tree_check_failed (__t, __f, __l, __g, BOOLEAN_TYPE, ENUMERAL_TYPE,
-		       INTEGER_TYPE, 0);
+		       INTEGER_TYPE, BITINT_TYPE, 0);
   return __t;
 }
 
@@ -4893,7 +4972,7 @@ extern tree max_object_size ();
    without loss of precision.  Store the value in *VALUE if so.  */
 
 inline bool
-poly_int_tree_p (const_tree t, poly_int64_pod *value)
+poly_int_tree_p (const_tree t, poly_int64 *value)
 {
   if (tree_fits_poly_int64_p (t))
     {
@@ -4907,7 +4986,7 @@ poly_int_tree_p (const_tree t, poly_int64_pod *value)
    without loss of precision.  Store the value in *VALUE if so.  */
 
 inline bool
-poly_int_tree_p (const_tree t, poly_uint64_pod *value)
+poly_int_tree_p (const_tree t, poly_uint64 *value)
 {
   if (tree_fits_poly_uint64_p (t))
     {
@@ -5536,7 +5615,7 @@ bit_field_offset (const_tree t)
 
 extern tree strip_float_extensions (tree);
 extern bool really_constant_p (const_tree);
-extern bool ptrdiff_tree_p (const_tree, poly_int64_pod *);
+extern bool ptrdiff_tree_p (const_tree, poly_int64 *);
 extern bool decl_address_invariant_p (const_tree);
 extern bool decl_address_ip_invariant_p (const_tree);
 extern bool int_fits_type_p (const_tree, const_tree)
@@ -5582,6 +5661,7 @@ extern void build_common_builtin_nodes (void);
 extern void tree_cc_finalize (void);
 extern tree build_nonstandard_integer_type (unsigned HOST_WIDE_INT, int);
 extern tree build_nonstandard_boolean_type (unsigned HOST_WIDE_INT);
+extern tree build_bitint_type (unsigned HOST_WIDE_INT, int);
 extern tree build_range_type (tree, tree, tree);
 extern tree build_nonshared_range_type (tree, tree, tree);
 extern bool subrange_type_for_debug_p (const_tree, tree *, tree *);
@@ -6155,6 +6235,7 @@ namespace wi
     static const enum precision_type precision_type = VAR_PRECISION;
     static const bool host_dependent_precision = false;
     static const bool is_sign_extended = false;
+    static const bool needs_write_val_arg = false;
   };
 
   template <int N>
@@ -6176,13 +6257,15 @@ namespace wi
   template <int N>
   struct int_traits <extended_tree <N> >
   {
-    static const enum precision_type precision_type = CONST_PRECISION;
+    static const enum precision_type precision_type
+      = N == ADDR_MAX_PRECISION ? INL_CONST_PRECISION : CONST_PRECISION;
     static const bool host_dependent_precision = false;
     static const bool is_sign_extended = true;
+    static const bool needs_write_val_arg = false;
     static const unsigned int precision = N;
   };
 
-  typedef extended_tree <WIDE_INT_MAX_PRECISION> widest_extended_tree;
+  typedef extended_tree <WIDEST_INT_MAX_PRECISION> widest_extended_tree;
   typedef extended_tree <ADDR_MAX_PRECISION> offset_extended_tree;
 
   typedef const generic_wide_int <widest_extended_tree> tree_to_widest_ref;
@@ -6210,6 +6293,13 @@ namespace wi
   tree_to_poly_wide_ref to_poly_wide (const_tree);
 
   template <int N>
+  struct ints_for <generic_wide_int <extended_tree <N> >, INL_CONST_PRECISION>
+  {
+    typedef generic_wide_int <extended_tree <N> > extended;
+    static extended zero (const extended &);
+  };
+
+  template <int N>
   struct ints_for <generic_wide_int <extended_tree <N> >, CONST_PRECISION>
   {
     typedef generic_wide_int <extended_tree <N> > extended;
@@ -6226,7 +6316,7 @@ namespace wi
 
 /* Used to convert a tree to a widest2_int like this:
    widest2_int foo = widest2_int_cst (some_tree).  */
-typedef generic_wide_int <wi::extended_tree <WIDE_INT_MAX_PRECISION * 2> >
+typedef generic_wide_int <wi::extended_tree <WIDEST_INT_MAX_PRECISION * 2> >
   widest2_int_cst;
 
 /* Refer to INTEGER_CST T as though it were a widest_int.
@@ -6361,8 +6451,16 @@ inline unsigned int
 wi::extended_tree <N>::get_len () const
 {
   if (N == ADDR_MAX_PRECISION)
-    return TREE_INT_CST_OFFSET_NUNITS (m_t);
-  else if (N >= WIDE_INT_MAX_PRECISION)
+    {
+      /* to_offset can only be applied to trees that are offset_int-sized
+	 or smaller.  EXT_LEN is correct if it fits, otherwise the constant
+	 must be exactly the precision of offset_int and so LEN is correct.  */
+      unsigned int ext_len = TREE_INT_CST_EXT_NUNITS (m_t);
+      if (ext_len <= OFFSET_INT_ELTS)
+	return ext_len;
+      return TREE_INT_CST_NUNITS (m_t);
+    }
+  else if (N >= WIDEST_INT_MAX_PRECISION)
     return TREE_INT_CST_EXT_NUNITS (m_t);
   else
     /* This class is designed to be used for specific output precisions
@@ -6443,6 +6541,14 @@ wi::to_poly_wide (const_tree t)
   if (POLY_INT_CST_P (t))
     return poly_int_cst_value (t);
   return t;
+}
+
+template <int N>
+inline generic_wide_int <wi::extended_tree <N> >
+wi::ints_for <generic_wide_int <wi::extended_tree <N> >,
+	      wi::INL_CONST_PRECISION>::zero (const extended &x)
+{
+  return build_zero_cst (TREE_TYPE (x.get_tree ()));
 }
 
 template <int N>
@@ -6555,7 +6661,7 @@ extern bool complete_ctor_at_level_p (const_tree, HOST_WIDE_INT, const_tree);
 /* Given an expression EXP that is a handled_component_p,
    look for the ultimate containing object, which is returned and specify
    the access position and size.  */
-extern tree get_inner_reference (tree, poly_int64_pod *, poly_int64_pod *,
+extern tree get_inner_reference (tree, poly_int64 *, poly_int64 *,
 				 tree *, machine_mode *, int *, int *, int *);
 
 extern tree build_personality_function (const char *);

@@ -571,6 +571,24 @@ gen_aarch64_rev16 (machine_mode arg0, rtx x0, rtx x1)
   return res;
 }
 
+extern insn_code maybe_code_for_xorsign3 (machine_mode);
+inline insn_code
+code_for_xorsign3 (machine_mode arg0)
+{
+  insn_code code = maybe_code_for_xorsign3 (arg0);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_xorsign3 (machine_mode, rtx, rtx, rtx);
+inline rtx
+gen_xorsign3 (machine_mode arg0, rtx x0, rtx x1, rtx x2)
+{
+  rtx res = maybe_gen_xorsign3 (arg0, x0, x1, x2);
+  gcc_assert (res);
+  return res;
+}
+
 extern insn_code maybe_code_for_aarch64_reload_movcp (machine_mode, machine_mode);
 inline insn_code
 code_for_aarch64_reload_movcp (machine_mode arg0, machine_mode arg1)

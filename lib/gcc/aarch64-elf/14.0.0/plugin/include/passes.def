@@ -221,7 +221,7 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS (pass_fre, true /* may_iterate */);
       NEXT_PASS (pass_merge_phi);
       NEXT_PASS (pass_thread_jumps_full, /*first=*/true);
-      NEXT_PASS (pass_vrp, true /* warn_array_bounds_p */);
+      NEXT_PASS (pass_vrp, false /* final_p*/);
       NEXT_PASS (pass_dse);
       NEXT_PASS (pass_dce);
       /* pass_stdarg is always run and at this point we execute
@@ -237,6 +237,7 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS (pass_tail_recursion);
       NEXT_PASS (pass_ch);
       NEXT_PASS (pass_lower_complex);
+      NEXT_PASS (pass_lower_bitint);
       NEXT_PASS (pass_sra);
       /* The dom pass will also resolve all __builtin_constant_p calls
          that are still there to 0.  This has to be done after some
@@ -347,7 +348,7 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS (pass_dominator, false /* may_peel_loop_headers_p */);
       NEXT_PASS (pass_strlen);
       NEXT_PASS (pass_thread_jumps_full, /*first=*/false);
-      NEXT_PASS (pass_vrp, false /* warn_array_bounds_p */);
+      NEXT_PASS (pass_vrp, true /* final_p */);
       /* Run CCP to compute alignment and nonzero bits.  */
       NEXT_PASS (pass_ccp, true /* nonzero_p */);
       NEXT_PASS (pass_warn_restrict);
@@ -386,6 +387,7 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS (pass_strip_predict_hints, false /* early_p */);
       /* Lower remaining pieces of GIMPLE.  */
       NEXT_PASS (pass_lower_complex);
+      NEXT_PASS (pass_lower_bitint);
       NEXT_PASS (pass_lower_vector_ssa);
       NEXT_PASS (pass_lower_switch);
       /* Perform simple scalar cleanup which is constant/copy propagation.  */
@@ -429,6 +431,7 @@ along with GCC; see the file COPYING3.  If not see
   NEXT_PASS (pass_lower_vaarg);
   NEXT_PASS (pass_lower_vector);
   NEXT_PASS (pass_lower_complex_O0);
+  NEXT_PASS (pass_lower_bitint_O0);
   NEXT_PASS (pass_sancov_O0);
   NEXT_PASS (pass_lower_switch_O0);
   NEXT_PASS (pass_asan_O0);
