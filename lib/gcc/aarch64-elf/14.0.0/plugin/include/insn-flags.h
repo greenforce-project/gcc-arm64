@@ -83,11 +83,51 @@
 		 plus_constant (Pmode, \
 				XEXP (operands[1], 0), \
 				GET_MODE_SIZE (DDmode))))
+#define HAVE_load_pair_dw_titi (TARGET_SIMD \
+    && rtx_equal_p (XEXP (operands[3], 0), \
+		    plus_constant (Pmode, \
+				   XEXP (operands[1], 0), \
+				   GET_MODE_SIZE (TImode))))
+#define HAVE_load_pair_dw_titf (TARGET_SIMD \
+    && rtx_equal_p (XEXP (operands[3], 0), \
+		    plus_constant (Pmode, \
+				   XEXP (operands[1], 0), \
+				   GET_MODE_SIZE (TImode))))
+#define HAVE_load_pair_dw_titd (TARGET_SIMD \
+    && rtx_equal_p (XEXP (operands[3], 0), \
+		    plus_constant (Pmode, \
+				   XEXP (operands[1], 0), \
+				   GET_MODE_SIZE (TImode))))
+#define HAVE_load_pair_dw_tfti (TARGET_SIMD \
+    && rtx_equal_p (XEXP (operands[3], 0), \
+		    plus_constant (Pmode, \
+				   XEXP (operands[1], 0), \
+				   GET_MODE_SIZE (TFmode))))
 #define HAVE_load_pair_dw_tftf (TARGET_SIMD \
     && rtx_equal_p (XEXP (operands[3], 0), \
 		    plus_constant (Pmode, \
 				   XEXP (operands[1], 0), \
 				   GET_MODE_SIZE (TFmode))))
+#define HAVE_load_pair_dw_tftd (TARGET_SIMD \
+    && rtx_equal_p (XEXP (operands[3], 0), \
+		    plus_constant (Pmode, \
+				   XEXP (operands[1], 0), \
+				   GET_MODE_SIZE (TFmode))))
+#define HAVE_load_pair_dw_tdti (TARGET_SIMD \
+    && rtx_equal_p (XEXP (operands[3], 0), \
+		    plus_constant (Pmode, \
+				   XEXP (operands[1], 0), \
+				   GET_MODE_SIZE (TDmode))))
+#define HAVE_load_pair_dw_tdtf (TARGET_SIMD \
+    && rtx_equal_p (XEXP (operands[3], 0), \
+		    plus_constant (Pmode, \
+				   XEXP (operands[1], 0), \
+				   GET_MODE_SIZE (TDmode))))
+#define HAVE_load_pair_dw_tdtd (TARGET_SIMD \
+    && rtx_equal_p (XEXP (operands[3], 0), \
+		    plus_constant (Pmode, \
+				   XEXP (operands[1], 0), \
+				   GET_MODE_SIZE (TDmode))))
 #define HAVE_store_pair_sw_sisi (rtx_equal_p (XEXP (operands[2], 0), \
 		 plus_constant (Pmode, \
 				XEXP (operands[0], 0), \
@@ -140,7 +180,47 @@
 		 plus_constant (Pmode, \
 				XEXP (operands[0], 0), \
 				GET_MODE_SIZE (DDmode))))
+#define HAVE_store_pair_dw_titi (TARGET_SIMD && \
+    rtx_equal_p (XEXP (operands[2], 0), \
+		 plus_constant (Pmode, \
+				XEXP (operands[0], 0), \
+				GET_MODE_SIZE (TFmode))))
+#define HAVE_store_pair_dw_titf (TARGET_SIMD && \
+    rtx_equal_p (XEXP (operands[2], 0), \
+		 plus_constant (Pmode, \
+				XEXP (operands[0], 0), \
+				GET_MODE_SIZE (TFmode))))
+#define HAVE_store_pair_dw_titd (TARGET_SIMD && \
+    rtx_equal_p (XEXP (operands[2], 0), \
+		 plus_constant (Pmode, \
+				XEXP (operands[0], 0), \
+				GET_MODE_SIZE (TFmode))))
+#define HAVE_store_pair_dw_tfti (TARGET_SIMD && \
+    rtx_equal_p (XEXP (operands[2], 0), \
+		 plus_constant (Pmode, \
+				XEXP (operands[0], 0), \
+				GET_MODE_SIZE (TFmode))))
 #define HAVE_store_pair_dw_tftf (TARGET_SIMD && \
+    rtx_equal_p (XEXP (operands[2], 0), \
+		 plus_constant (Pmode, \
+				XEXP (operands[0], 0), \
+				GET_MODE_SIZE (TFmode))))
+#define HAVE_store_pair_dw_tftd (TARGET_SIMD && \
+    rtx_equal_p (XEXP (operands[2], 0), \
+		 plus_constant (Pmode, \
+				XEXP (operands[0], 0), \
+				GET_MODE_SIZE (TFmode))))
+#define HAVE_store_pair_dw_tdti (TARGET_SIMD && \
+    rtx_equal_p (XEXP (operands[2], 0), \
+		 plus_constant (Pmode, \
+				XEXP (operands[0], 0), \
+				GET_MODE_SIZE (TFmode))))
+#define HAVE_store_pair_dw_tdtf (TARGET_SIMD && \
+    rtx_equal_p (XEXP (operands[2], 0), \
+		 plus_constant (Pmode, \
+				XEXP (operands[0], 0), \
+				GET_MODE_SIZE (TFmode))))
+#define HAVE_store_pair_dw_tdtd (TARGET_SIMD && \
     rtx_equal_p (XEXP (operands[2], 0), \
 		 plus_constant (Pmode, \
 				XEXP (operands[0], 0), \
@@ -11289,7 +11369,15 @@ extern rtx        gen_load_pair_dw_dfdd                                (rtx, rtx
 extern rtx        gen_load_pair_dw_dddi                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pair_dw_dddf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pair_dw_dddd                                (rtx, rtx, rtx, rtx);
+extern rtx        gen_load_pair_dw_titi                                (rtx, rtx, rtx, rtx);
+extern rtx        gen_load_pair_dw_titf                                (rtx, rtx, rtx, rtx);
+extern rtx        gen_load_pair_dw_titd                                (rtx, rtx, rtx, rtx);
+extern rtx        gen_load_pair_dw_tfti                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pair_dw_tftf                                (rtx, rtx, rtx, rtx);
+extern rtx        gen_load_pair_dw_tftd                                (rtx, rtx, rtx, rtx);
+extern rtx        gen_load_pair_dw_tdti                                (rtx, rtx, rtx, rtx);
+extern rtx        gen_load_pair_dw_tdtf                                (rtx, rtx, rtx, rtx);
+extern rtx        gen_load_pair_dw_tdtd                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_store_pair_sw_sisi                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_store_pair_sw_sfsi                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_store_pair_sw_sisf                               (rtx, rtx, rtx, rtx);
@@ -11303,7 +11391,15 @@ extern rtx        gen_store_pair_dw_dfdd                               (rtx, rtx
 extern rtx        gen_store_pair_dw_dddi                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_store_pair_dw_dddf                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_store_pair_dw_dddd                               (rtx, rtx, rtx, rtx);
+extern rtx        gen_store_pair_dw_titi                               (rtx, rtx, rtx, rtx);
+extern rtx        gen_store_pair_dw_titf                               (rtx, rtx, rtx, rtx);
+extern rtx        gen_store_pair_dw_titd                               (rtx, rtx, rtx, rtx);
+extern rtx        gen_store_pair_dw_tfti                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_store_pair_dw_tftf                               (rtx, rtx, rtx, rtx);
+extern rtx        gen_store_pair_dw_tftd                               (rtx, rtx, rtx, rtx);
+extern rtx        gen_store_pair_dw_tdti                               (rtx, rtx, rtx, rtx);
+extern rtx        gen_store_pair_dw_tdtf                               (rtx, rtx, rtx, rtx);
+extern rtx        gen_store_pair_dw_tdtd                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_loadwb_pairsi_si                                 (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_loadwb_pairsi_di                                 (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_loadwb_pairdi_si                                 (rtx, rtx, rtx, rtx, rtx, rtx);

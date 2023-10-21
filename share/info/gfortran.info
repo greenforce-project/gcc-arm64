@@ -17974,10 +17974,10 @@ File: gfortran.info,  Node: SIGNAL,  Next: SIN,  Prev: SIGN,  Up: Intrinsic Proc
 
 _Description_:
      ‘SIGNAL(NUMBER, HANDLER [, STATUS])’ causes external subroutine
-     HANDLER to be executed with a single integer argument when signal
-     NUMBER occurs.  If HANDLER is an integer, it can be used to turn
-     off handling of signal NUMBER or revert to its default action.  See
-     ‘signal(2)’.
+     HANDLER to be executed with a single integer argument passed by
+     value when signal NUMBER occurs.  If HANDLER is an integer, it can
+     be used to turn off handling of signal NUMBER or revert to its
+     default action.  See ‘signal(2)’.
 
      If ‘SIGNAL’ is called as a subroutine and the STATUS argument is
      supplied, it is set to the value returned by ‘signal(2)’.
@@ -18004,12 +18004,20 @@ _Return value_:
      The ‘SIGNAL’ function returns the value returned by ‘signal(2)’.
 
 _Example_:
+          module m_handler
+          contains
+            ! POSIX.1-2017:  void (*func)(int)
+            subroutine handler_print(signum) bind(C)
+              use iso_c_binding, only: c_int
+              integer(c_int), value :: signum
+              print *, 'handler_print invoked with signum =', signum
+            end subroutine
+          end module
           program test_signal
-            intrinsic signal
-            external handler_print
-
-            call signal (12, handler_print)
-            call signal (10, 1)
+            use m_handler
+            intrinsic :: signal, sleep
+            call signal (12, handler_print)  ! 12 = SIGUSR2 (on some systems)
+            call signal (10, 1)  ! 10 = SIGUSR1 and 1 = SIG_IGN (on some systems)
 
             call sleep (30)
           end program test_signal
@@ -23490,55 +23498,55 @@ Node: SHIFTL656598
 Node: SHIFTR657491
 Node: SIGN658385
 Node: SIGNAL659740
-Node: SIN661310
-Node: SIND662570
-Node: SINH664026
-Node: SIZE665011
-Node: SIZEOF666355
-Node: SLEEP668051
-Node: SPACING668624
-Node: SPREAD669650
-Node: SQRT670817
-Node: SRAND672138
-Node: STAT673442
-Node: STORAGE_SIZE676708
-Node: SUM677600
-Node: SYMLNK679128
-Node: SYSTEM680308
-Node: SYSTEM_CLOCK681599
-Node: TAN684512
-Node: TAND685630
-Node: TANH686865
-Node: THIS_IMAGE688076
-Node: TIME690401
-Node: TIME8691612
-Node: TINY692863
-Node: TRAILZ693488
-Node: TRANSFER694349
-Node: TRANSPOSE696409
-Node: TRIM697119
-Node: TTYNAM697998
-Node: UBOUND698938
-Node: UCOBOUND700353
-Node: UMASK701515
-Node: UNLINK702221
-Node: UNPACK703234
-Node: VERIFY704554
-Node: XOR706324
-Node: Intrinsic Modules708175
-Node: ISO_FORTRAN_ENV708462
-Node: ISO_C_BINDING713051
-Node: IEEE modules717548
-Node: OpenMP Modules OMP_LIB and OMP_LIB_KINDS718733
-Node: OpenACC Module OPENACC723345
-Node: Contributing724307
-Node: Contributors725143
-Node: Projects726877
-Node: Copying728055
-Node: GNU Free Documentation License765825
-Node: Funding791157
-Node: Option Index793702
-Node: Keyword Index812850
+Node: SIN661764
+Node: SIND663024
+Node: SINH664480
+Node: SIZE665465
+Node: SIZEOF666809
+Node: SLEEP668505
+Node: SPACING669078
+Node: SPREAD670104
+Node: SQRT671271
+Node: SRAND672592
+Node: STAT673896
+Node: STORAGE_SIZE677162
+Node: SUM678054
+Node: SYMLNK679582
+Node: SYSTEM680762
+Node: SYSTEM_CLOCK682053
+Node: TAN684966
+Node: TAND686084
+Node: TANH687319
+Node: THIS_IMAGE688530
+Node: TIME690855
+Node: TIME8692066
+Node: TINY693317
+Node: TRAILZ693942
+Node: TRANSFER694803
+Node: TRANSPOSE696863
+Node: TRIM697573
+Node: TTYNAM698452
+Node: UBOUND699392
+Node: UCOBOUND700807
+Node: UMASK701969
+Node: UNLINK702675
+Node: UNPACK703688
+Node: VERIFY705008
+Node: XOR706778
+Node: Intrinsic Modules708629
+Node: ISO_FORTRAN_ENV708916
+Node: ISO_C_BINDING713505
+Node: IEEE modules718002
+Node: OpenMP Modules OMP_LIB and OMP_LIB_KINDS719187
+Node: OpenACC Module OPENACC723799
+Node: Contributing724761
+Node: Contributors725597
+Node: Projects727331
+Node: Copying728509
+Node: GNU Free Documentation License766279
+Node: Funding791611
+Node: Option Index794156
+Node: Keyword Index813304
 
 End Tag Table
 

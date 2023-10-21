@@ -93,6 +93,10 @@ extern void gt_ggc_mx_edge_def (void *);
   if ((intptr_t)(X) != 0) gt_ggc_mx_basic_block_def (X);\
   } while (0)
 extern void gt_ggc_mx_basic_block_def (void *);
+#define gt_ggc_m_26vec_unsigned_va_gc_atomic_(X) do { \
+  if ((intptr_t)(X) != 0) gt_ggc_mx_vec_unsigned_va_gc_atomic_ (X);\
+  } while (0)
+extern void gt_ggc_mx_vec_unsigned_va_gc_atomic_ (void *);
 #define gt_ggc_m_14hash_set_tree_(X) do { \
   if ((intptr_t)(X) != 0) gt_ggc_mx_hash_set_tree_ (X);\
   } while (0)
@@ -1574,6 +1578,10 @@ extern void gt_pch_nx_edge_def (void *);
   if ((intptr_t)(X) != 0) gt_pch_nx_basic_block_def (X);\
   } while (0)
 extern void gt_pch_nx_basic_block_def (void *);
+#define gt_pch_n_26vec_unsigned_va_gc_atomic_(X) do { \
+  if ((intptr_t)(X) != 0) gt_pch_nx_vec_unsigned_va_gc_atomic_ (X);\
+  } while (0)
+extern void gt_pch_nx_vec_unsigned_va_gc_atomic_ (void *);
 #define gt_pch_n_14hash_set_tree_(X) do { \
   if ((intptr_t)(X) != 0) gt_pch_nx_hash_set_tree_ (X);\
   } while (0)
@@ -3106,6 +3114,8 @@ extern void gt_pch_p_15cl_optimization
 extern void gt_pch_p_8edge_def
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_15basic_block_def
+    (void *, void *, gt_pointer_operator, void *);
+extern void gt_pch_p_26vec_unsigned_va_gc_atomic_
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_14hash_set_tree_
     (void *, void *, gt_pointer_operator, void *);

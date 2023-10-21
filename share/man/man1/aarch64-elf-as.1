@@ -55,7 +55,7 @@
 .\" ========================================================================
 .\"
 .IX Title "AS 1"
-.TH AS 1 2023-10-15 binutils-2.41.50 "GNU Development Tools"
+.TH AS 1 2023-10-21 binutils-2.41.50 "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -2692,9 +2692,8 @@ aren't set, then assembler will check the default configure setting
 .IX Item "-mabi=ABI"
 Selects the ABI, which is either "ilp32" or "lp64", optionally followed
 by "f", "d", or "q" to indicate single-precision, double-precision, or
-quad-precision floating-point calling convention, or none to indicate
-the soft-float calling convention.  Also, "ilp32" can optionally be followed
-by "e" to indicate the RVE ABI, which is always soft-float.
+quad-precision floating-point calling convention, or none or "e" to indicate
+the soft-float calling convention ("e" indicates a soft-float RVE ABI).
 .IP \fB\-mrelax\fR 4
 .IX Item "-mrelax"
 Take advantage of linker relaxations to reduce the number of instructions
