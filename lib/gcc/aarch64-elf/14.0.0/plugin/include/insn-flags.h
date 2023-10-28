@@ -5264,10 +5264,10 @@
 #define HAVE_aarch64_compare_and_swapsi_lse (TARGET_LSE)
 #define HAVE_aarch64_compare_and_swapdi_lse (TARGET_LSE)
 #define HAVE_aarch64_compare_and_swapti_lse (TARGET_LSE)
-#define HAVE_aarch64_atomic_exchangeqi 1
-#define HAVE_aarch64_atomic_exchangehi 1
-#define HAVE_aarch64_atomic_exchangesi 1
-#define HAVE_aarch64_atomic_exchangedi 1
+#define HAVE_aarch64_atomic_exchangeqi (!TARGET_LSE)
+#define HAVE_aarch64_atomic_exchangehi (!TARGET_LSE)
+#define HAVE_aarch64_atomic_exchangesi (!TARGET_LSE)
+#define HAVE_aarch64_atomic_exchangedi (!TARGET_LSE)
 #define HAVE_aarch64_atomic_exchangeqi_lse (TARGET_LSE)
 #define HAVE_aarch64_atomic_exchangehi_lse (TARGET_LSE)
 #define HAVE_aarch64_atomic_exchangesi_lse (TARGET_LSE)
