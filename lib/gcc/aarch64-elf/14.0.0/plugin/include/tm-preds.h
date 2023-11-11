@@ -184,6 +184,7 @@ extern bool aarch64_sve_add_operand (rtx, machine_mode);
 extern bool aarch64_sve_sqadd_operand (rtx, machine_mode);
 extern bool aarch64_sve_pred_and_operand (rtx, machine_mode);
 extern bool aarch64_sve_logical_operand (rtx, machine_mode);
+extern bool aarch64_orr_imm_sve_advsimd (rtx, machine_mode);
 extern bool aarch64_sve_gather_offset_b (rtx, machine_mode);
 extern bool aarch64_sve_gather_offset_h (rtx, machine_mode);
 extern bool aarch64_sve_gather_offset_w (rtx, machine_mode);
@@ -300,6 +301,7 @@ enum constraint_num
   CONSTRAINT_D2,
   CONSTRAINT_DL,
   CONSTRAINT_Dr,
+  CONSTRAINT_Dx,
   CONSTRAINT_Dz,
   CONSTRAINT_Dm,
   CONSTRAINT_Dd,

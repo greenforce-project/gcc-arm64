@@ -1121,6 +1121,10 @@ extern void gt_ggc_mx_c_label_vars (void *);
   if ((intptr_t)(X) != 0) gt_ggc_mx_c_binding (X);\
   } while (0)
 extern void gt_ggc_mx_c_binding (void *);
+#define gt_ggc_m_18vec_c_token_va_gc_(X) do { \
+  if ((intptr_t)(X) != 0) gt_ggc_mx_vec_c_token_va_gc_ (X);\
+  } while (0)
+extern void gt_ggc_mx_vec_c_token_va_gc_ (void *);
 #define gt_ggc_m_7c_scope(X) do { \
   if ((intptr_t)(X) != 0) gt_ggc_mx_c_scope (X);\
   } while (0)
@@ -1169,14 +1173,14 @@ extern void gt_ggc_mx_opt_stack (void *);
   if ((intptr_t)(X) != 0) gt_ggc_mx_c_parser (X);\
   } while (0)
 extern void gt_ggc_mx_c_parser (void *);
-#define gt_ggc_m_18vec_c_token_va_gc_(X) do { \
-  if ((intptr_t)(X) != 0) gt_ggc_mx_vec_c_token_va_gc_ (X);\
-  } while (0)
-extern void gt_ggc_mx_vec_c_token_va_gc_ (void *);
 #define gt_ggc_m_36vec_c_omp_declare_target_attr_va_gc_(X) do { \
   if ((intptr_t)(X) != 0) gt_ggc_mx_vec_c_omp_declare_target_attr_va_gc_ (X);\
   } while (0)
 extern void gt_ggc_mx_vec_c_omp_declare_target_attr_va_gc_ (void *);
+#define gt_ggc_m_35vec_c_omp_begin_assumes_data_va_gc_(X) do { \
+  if ((intptr_t)(X) != 0) gt_ggc_mx_vec_c_omp_begin_assumes_data_va_gc_ (X);\
+  } while (0)
+extern void gt_ggc_mx_vec_c_omp_begin_assumes_data_va_gc_ (void *);
 #define gt_ggc_m_16cp_binding_level(X) do { \
   if ((intptr_t)(X) != 0) gt_ggc_mx_cp_binding_level (X);\
   } while (0)
@@ -2614,6 +2618,10 @@ extern void gt_pch_nx_c_label_vars (void *);
   if ((intptr_t)(X) != 0) gt_pch_nx_c_binding (X);\
   } while (0)
 extern void gt_pch_nx_c_binding (void *);
+#define gt_pch_n_18vec_c_token_va_gc_(X) do { \
+  if ((intptr_t)(X) != 0) gt_pch_nx_vec_c_token_va_gc_ (X);\
+  } while (0)
+extern void gt_pch_nx_vec_c_token_va_gc_ (void *);
 #define gt_pch_n_7c_scope(X) do { \
   if ((intptr_t)(X) != 0) gt_pch_nx_c_scope (X);\
   } while (0)
@@ -2662,14 +2670,14 @@ extern void gt_pch_nx_opt_stack (void *);
   if ((intptr_t)(X) != 0) gt_pch_nx_c_parser (X);\
   } while (0)
 extern void gt_pch_nx_c_parser (void *);
-#define gt_pch_n_18vec_c_token_va_gc_(X) do { \
-  if ((intptr_t)(X) != 0) gt_pch_nx_vec_c_token_va_gc_ (X);\
-  } while (0)
-extern void gt_pch_nx_vec_c_token_va_gc_ (void *);
 #define gt_pch_n_36vec_c_omp_declare_target_attr_va_gc_(X) do { \
   if ((intptr_t)(X) != 0) gt_pch_nx_vec_c_omp_declare_target_attr_va_gc_ (X);\
   } while (0)
 extern void gt_pch_nx_vec_c_omp_declare_target_attr_va_gc_ (void *);
+#define gt_pch_n_35vec_c_omp_begin_assumes_data_va_gc_(X) do { \
+  if ((intptr_t)(X) != 0) gt_pch_nx_vec_c_omp_begin_assumes_data_va_gc_ (X);\
+  } while (0)
+extern void gt_pch_nx_vec_c_omp_begin_assumes_data_va_gc_ (void *);
 #define gt_pch_n_16cp_binding_level(X) do { \
   if ((intptr_t)(X) != 0) gt_pch_nx_cp_binding_level (X);\
   } while (0)
@@ -3677,6 +3685,8 @@ extern void gt_pch_p_12c_label_vars
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_9c_binding
     (void *, void *, gt_pointer_operator, void *);
+extern void gt_pch_p_18vec_c_token_va_gc_
+    (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_7c_scope
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_15c_goto_bindings
@@ -3701,9 +3711,9 @@ extern void gt_pch_p_9opt_stack
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_8c_parser
     (void *, void *, gt_pointer_operator, void *);
-extern void gt_pch_p_18vec_c_token_va_gc_
-    (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_36vec_c_omp_declare_target_attr_va_gc_
+    (void *, void *, gt_pointer_operator, void *);
+extern void gt_pch_p_35vec_c_omp_begin_assumes_data_va_gc_
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_16cp_binding_level
     (void *, void *, gt_pointer_operator, void *);

@@ -1195,17 +1195,17 @@
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
 			       GET_MODE_SIZE (V16QImode))))
-#define HAVE_load_pairv16qiv8bf (TARGET_FLOAT \
-    && rtx_equal_p (XEXP (operands[3], 0), \
-		    plus_constant (Pmode, \
-			       XEXP (operands[1], 0), \
-			       GET_MODE_SIZE (V16QImode))))
 #define HAVE_load_pairv16qiv4sf (TARGET_FLOAT \
     && rtx_equal_p (XEXP (operands[3], 0), \
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
 			       GET_MODE_SIZE (V16QImode))))
 #define HAVE_load_pairv16qiv2df (TARGET_FLOAT \
+    && rtx_equal_p (XEXP (operands[3], 0), \
+		    plus_constant (Pmode, \
+			       XEXP (operands[1], 0), \
+			       GET_MODE_SIZE (V16QImode))))
+#define HAVE_load_pairv16qiv8bf (TARGET_FLOAT \
     && rtx_equal_p (XEXP (operands[3], 0), \
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
@@ -1235,17 +1235,17 @@
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
 			       GET_MODE_SIZE (V8HImode))))
-#define HAVE_load_pairv8hiv8bf (TARGET_FLOAT \
-    && rtx_equal_p (XEXP (operands[3], 0), \
-		    plus_constant (Pmode, \
-			       XEXP (operands[1], 0), \
-			       GET_MODE_SIZE (V8HImode))))
 #define HAVE_load_pairv8hiv4sf (TARGET_FLOAT \
     && rtx_equal_p (XEXP (operands[3], 0), \
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
 			       GET_MODE_SIZE (V8HImode))))
 #define HAVE_load_pairv8hiv2df (TARGET_FLOAT \
+    && rtx_equal_p (XEXP (operands[3], 0), \
+		    plus_constant (Pmode, \
+			       XEXP (operands[1], 0), \
+			       GET_MODE_SIZE (V8HImode))))
+#define HAVE_load_pairv8hiv8bf (TARGET_FLOAT \
     && rtx_equal_p (XEXP (operands[3], 0), \
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
@@ -1275,17 +1275,17 @@
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
 			       GET_MODE_SIZE (V4SImode))))
-#define HAVE_load_pairv4siv8bf (TARGET_FLOAT \
-    && rtx_equal_p (XEXP (operands[3], 0), \
-		    plus_constant (Pmode, \
-			       XEXP (operands[1], 0), \
-			       GET_MODE_SIZE (V4SImode))))
 #define HAVE_load_pairv4siv4sf (TARGET_FLOAT \
     && rtx_equal_p (XEXP (operands[3], 0), \
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
 			       GET_MODE_SIZE (V4SImode))))
 #define HAVE_load_pairv4siv2df (TARGET_FLOAT \
+    && rtx_equal_p (XEXP (operands[3], 0), \
+		    plus_constant (Pmode, \
+			       XEXP (operands[1], 0), \
+			       GET_MODE_SIZE (V4SImode))))
+#define HAVE_load_pairv4siv8bf (TARGET_FLOAT \
     && rtx_equal_p (XEXP (operands[3], 0), \
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
@@ -1315,17 +1315,17 @@
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
 			       GET_MODE_SIZE (V2DImode))))
-#define HAVE_load_pairv2div8bf (TARGET_FLOAT \
-    && rtx_equal_p (XEXP (operands[3], 0), \
-		    plus_constant (Pmode, \
-			       XEXP (operands[1], 0), \
-			       GET_MODE_SIZE (V2DImode))))
 #define HAVE_load_pairv2div4sf (TARGET_FLOAT \
     && rtx_equal_p (XEXP (operands[3], 0), \
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
 			       GET_MODE_SIZE (V2DImode))))
 #define HAVE_load_pairv2div2df (TARGET_FLOAT \
+    && rtx_equal_p (XEXP (operands[3], 0), \
+		    plus_constant (Pmode, \
+			       XEXP (operands[1], 0), \
+			       GET_MODE_SIZE (V2DImode))))
+#define HAVE_load_pairv2div8bf (TARGET_FLOAT \
     && rtx_equal_p (XEXP (operands[3], 0), \
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
@@ -1355,17 +1355,17 @@
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
 			       GET_MODE_SIZE (V8HFmode))))
-#define HAVE_load_pairv8hfv8bf (TARGET_FLOAT \
-    && rtx_equal_p (XEXP (operands[3], 0), \
-		    plus_constant (Pmode, \
-			       XEXP (operands[1], 0), \
-			       GET_MODE_SIZE (V8HFmode))))
 #define HAVE_load_pairv8hfv4sf (TARGET_FLOAT \
     && rtx_equal_p (XEXP (operands[3], 0), \
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
 			       GET_MODE_SIZE (V8HFmode))))
 #define HAVE_load_pairv8hfv2df (TARGET_FLOAT \
+    && rtx_equal_p (XEXP (operands[3], 0), \
+		    plus_constant (Pmode, \
+			       XEXP (operands[1], 0), \
+			       GET_MODE_SIZE (V8HFmode))))
+#define HAVE_load_pairv8hfv8bf (TARGET_FLOAT \
     && rtx_equal_p (XEXP (operands[3], 0), \
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
@@ -1395,17 +1395,17 @@
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
 			       GET_MODE_SIZE (V4SFmode))))
-#define HAVE_load_pairv4sfv8bf (TARGET_FLOAT \
-    && rtx_equal_p (XEXP (operands[3], 0), \
-		    plus_constant (Pmode, \
-			       XEXP (operands[1], 0), \
-			       GET_MODE_SIZE (V4SFmode))))
 #define HAVE_load_pairv4sfv4sf (TARGET_FLOAT \
     && rtx_equal_p (XEXP (operands[3], 0), \
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
 			       GET_MODE_SIZE (V4SFmode))))
 #define HAVE_load_pairv4sfv2df (TARGET_FLOAT \
+    && rtx_equal_p (XEXP (operands[3], 0), \
+		    plus_constant (Pmode, \
+			       XEXP (operands[1], 0), \
+			       GET_MODE_SIZE (V4SFmode))))
+#define HAVE_load_pairv4sfv8bf (TARGET_FLOAT \
     && rtx_equal_p (XEXP (operands[3], 0), \
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
@@ -1435,17 +1435,17 @@
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
 			       GET_MODE_SIZE (V2DFmode))))
-#define HAVE_load_pairv2dfv8bf (TARGET_FLOAT \
-    && rtx_equal_p (XEXP (operands[3], 0), \
-		    plus_constant (Pmode, \
-			       XEXP (operands[1], 0), \
-			       GET_MODE_SIZE (V2DFmode))))
 #define HAVE_load_pairv2dfv4sf (TARGET_FLOAT \
     && rtx_equal_p (XEXP (operands[3], 0), \
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
 			       GET_MODE_SIZE (V2DFmode))))
 #define HAVE_load_pairv2dfv2df (TARGET_FLOAT \
+    && rtx_equal_p (XEXP (operands[3], 0), \
+		    plus_constant (Pmode, \
+			       XEXP (operands[1], 0), \
+			       GET_MODE_SIZE (V2DFmode))))
+#define HAVE_load_pairv2dfv8bf (TARGET_FLOAT \
     && rtx_equal_p (XEXP (operands[3], 0), \
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
@@ -1475,17 +1475,17 @@
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
 			       GET_MODE_SIZE (V8BFmode))))
-#define HAVE_load_pairv8bfv8bf (TARGET_FLOAT \
-    && rtx_equal_p (XEXP (operands[3], 0), \
-		    plus_constant (Pmode, \
-			       XEXP (operands[1], 0), \
-			       GET_MODE_SIZE (V8BFmode))))
 #define HAVE_load_pairv8bfv4sf (TARGET_FLOAT \
     && rtx_equal_p (XEXP (operands[3], 0), \
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
 			       GET_MODE_SIZE (V8BFmode))))
 #define HAVE_load_pairv8bfv2df (TARGET_FLOAT \
+    && rtx_equal_p (XEXP (operands[3], 0), \
+		    plus_constant (Pmode, \
+			       XEXP (operands[1], 0), \
+			       GET_MODE_SIZE (V8BFmode))))
+#define HAVE_load_pairv8bfv8bf (TARGET_FLOAT \
     && rtx_equal_p (XEXP (operands[3], 0), \
 		    plus_constant (Pmode, \
 			       XEXP (operands[1], 0), \
@@ -1515,17 +1515,17 @@
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
 				  GET_MODE_SIZE (V16QImode))))
-#define HAVE_vec_store_pairv16qiv8bf (TARGET_FLOAT \
-   && rtx_equal_p (XEXP (operands[2], 0), \
-		   plus_constant (Pmode, \
-				  XEXP (operands[0], 0), \
-				  GET_MODE_SIZE (V16QImode))))
 #define HAVE_vec_store_pairv16qiv4sf (TARGET_FLOAT \
    && rtx_equal_p (XEXP (operands[2], 0), \
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
 				  GET_MODE_SIZE (V16QImode))))
 #define HAVE_vec_store_pairv16qiv2df (TARGET_FLOAT \
+   && rtx_equal_p (XEXP (operands[2], 0), \
+		   plus_constant (Pmode, \
+				  XEXP (operands[0], 0), \
+				  GET_MODE_SIZE (V16QImode))))
+#define HAVE_vec_store_pairv16qiv8bf (TARGET_FLOAT \
    && rtx_equal_p (XEXP (operands[2], 0), \
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
@@ -1555,17 +1555,17 @@
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
 				  GET_MODE_SIZE (V8HImode))))
-#define HAVE_vec_store_pairv8hiv8bf (TARGET_FLOAT \
-   && rtx_equal_p (XEXP (operands[2], 0), \
-		   plus_constant (Pmode, \
-				  XEXP (operands[0], 0), \
-				  GET_MODE_SIZE (V8HImode))))
 #define HAVE_vec_store_pairv8hiv4sf (TARGET_FLOAT \
    && rtx_equal_p (XEXP (operands[2], 0), \
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
 				  GET_MODE_SIZE (V8HImode))))
 #define HAVE_vec_store_pairv8hiv2df (TARGET_FLOAT \
+   && rtx_equal_p (XEXP (operands[2], 0), \
+		   plus_constant (Pmode, \
+				  XEXP (operands[0], 0), \
+				  GET_MODE_SIZE (V8HImode))))
+#define HAVE_vec_store_pairv8hiv8bf (TARGET_FLOAT \
    && rtx_equal_p (XEXP (operands[2], 0), \
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
@@ -1595,17 +1595,17 @@
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
 				  GET_MODE_SIZE (V4SImode))))
-#define HAVE_vec_store_pairv4siv8bf (TARGET_FLOAT \
-   && rtx_equal_p (XEXP (operands[2], 0), \
-		   plus_constant (Pmode, \
-				  XEXP (operands[0], 0), \
-				  GET_MODE_SIZE (V4SImode))))
 #define HAVE_vec_store_pairv4siv4sf (TARGET_FLOAT \
    && rtx_equal_p (XEXP (operands[2], 0), \
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
 				  GET_MODE_SIZE (V4SImode))))
 #define HAVE_vec_store_pairv4siv2df (TARGET_FLOAT \
+   && rtx_equal_p (XEXP (operands[2], 0), \
+		   plus_constant (Pmode, \
+				  XEXP (operands[0], 0), \
+				  GET_MODE_SIZE (V4SImode))))
+#define HAVE_vec_store_pairv4siv8bf (TARGET_FLOAT \
    && rtx_equal_p (XEXP (operands[2], 0), \
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
@@ -1635,17 +1635,17 @@
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
 				  GET_MODE_SIZE (V2DImode))))
-#define HAVE_vec_store_pairv2div8bf (TARGET_FLOAT \
-   && rtx_equal_p (XEXP (operands[2], 0), \
-		   plus_constant (Pmode, \
-				  XEXP (operands[0], 0), \
-				  GET_MODE_SIZE (V2DImode))))
 #define HAVE_vec_store_pairv2div4sf (TARGET_FLOAT \
    && rtx_equal_p (XEXP (operands[2], 0), \
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
 				  GET_MODE_SIZE (V2DImode))))
 #define HAVE_vec_store_pairv2div2df (TARGET_FLOAT \
+   && rtx_equal_p (XEXP (operands[2], 0), \
+		   plus_constant (Pmode, \
+				  XEXP (operands[0], 0), \
+				  GET_MODE_SIZE (V2DImode))))
+#define HAVE_vec_store_pairv2div8bf (TARGET_FLOAT \
    && rtx_equal_p (XEXP (operands[2], 0), \
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
@@ -1675,17 +1675,17 @@
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
 				  GET_MODE_SIZE (V8HFmode))))
-#define HAVE_vec_store_pairv8hfv8bf (TARGET_FLOAT \
-   && rtx_equal_p (XEXP (operands[2], 0), \
-		   plus_constant (Pmode, \
-				  XEXP (operands[0], 0), \
-				  GET_MODE_SIZE (V8HFmode))))
 #define HAVE_vec_store_pairv8hfv4sf (TARGET_FLOAT \
    && rtx_equal_p (XEXP (operands[2], 0), \
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
 				  GET_MODE_SIZE (V8HFmode))))
 #define HAVE_vec_store_pairv8hfv2df (TARGET_FLOAT \
+   && rtx_equal_p (XEXP (operands[2], 0), \
+		   plus_constant (Pmode, \
+				  XEXP (operands[0], 0), \
+				  GET_MODE_SIZE (V8HFmode))))
+#define HAVE_vec_store_pairv8hfv8bf (TARGET_FLOAT \
    && rtx_equal_p (XEXP (operands[2], 0), \
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
@@ -1715,17 +1715,17 @@
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
 				  GET_MODE_SIZE (V4SFmode))))
-#define HAVE_vec_store_pairv4sfv8bf (TARGET_FLOAT \
-   && rtx_equal_p (XEXP (operands[2], 0), \
-		   plus_constant (Pmode, \
-				  XEXP (operands[0], 0), \
-				  GET_MODE_SIZE (V4SFmode))))
 #define HAVE_vec_store_pairv4sfv4sf (TARGET_FLOAT \
    && rtx_equal_p (XEXP (operands[2], 0), \
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
 				  GET_MODE_SIZE (V4SFmode))))
 #define HAVE_vec_store_pairv4sfv2df (TARGET_FLOAT \
+   && rtx_equal_p (XEXP (operands[2], 0), \
+		   plus_constant (Pmode, \
+				  XEXP (operands[0], 0), \
+				  GET_MODE_SIZE (V4SFmode))))
+#define HAVE_vec_store_pairv4sfv8bf (TARGET_FLOAT \
    && rtx_equal_p (XEXP (operands[2], 0), \
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
@@ -1755,17 +1755,17 @@
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
 				  GET_MODE_SIZE (V2DFmode))))
-#define HAVE_vec_store_pairv2dfv8bf (TARGET_FLOAT \
-   && rtx_equal_p (XEXP (operands[2], 0), \
-		   plus_constant (Pmode, \
-				  XEXP (operands[0], 0), \
-				  GET_MODE_SIZE (V2DFmode))))
 #define HAVE_vec_store_pairv2dfv4sf (TARGET_FLOAT \
    && rtx_equal_p (XEXP (operands[2], 0), \
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
 				  GET_MODE_SIZE (V2DFmode))))
 #define HAVE_vec_store_pairv2dfv2df (TARGET_FLOAT \
+   && rtx_equal_p (XEXP (operands[2], 0), \
+		   plus_constant (Pmode, \
+				  XEXP (operands[0], 0), \
+				  GET_MODE_SIZE (V2DFmode))))
+#define HAVE_vec_store_pairv2dfv8bf (TARGET_FLOAT \
    && rtx_equal_p (XEXP (operands[2], 0), \
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
@@ -1795,17 +1795,17 @@
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
 				  GET_MODE_SIZE (V8BFmode))))
-#define HAVE_vec_store_pairv8bfv8bf (TARGET_FLOAT \
-   && rtx_equal_p (XEXP (operands[2], 0), \
-		   plus_constant (Pmode, \
-				  XEXP (operands[0], 0), \
-				  GET_MODE_SIZE (V8BFmode))))
 #define HAVE_vec_store_pairv8bfv4sf (TARGET_FLOAT \
    && rtx_equal_p (XEXP (operands[2], 0), \
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
 				  GET_MODE_SIZE (V8BFmode))))
 #define HAVE_vec_store_pairv8bfv2df (TARGET_FLOAT \
+   && rtx_equal_p (XEXP (operands[2], 0), \
+		   plus_constant (Pmode, \
+				  XEXP (operands[0], 0), \
+				  GET_MODE_SIZE (V8BFmode))))
+#define HAVE_vec_store_pairv8bfv8bf (TARGET_FLOAT \
    && rtx_equal_p (XEXP (operands[2], 0), \
 		   plus_constant (Pmode, \
 				  XEXP (operands[0], 0), \
@@ -10648,6 +10648,9 @@
 #define HAVE_copysignvnx8hf3 (TARGET_SVE)
 #define HAVE_copysignvnx4sf3 (TARGET_SVE)
 #define HAVE_copysignvnx2df3 (TARGET_SVE)
+#define HAVE_cond_copysignvnx8hf (TARGET_SVE)
+#define HAVE_cond_copysignvnx4sf (TARGET_SVE)
+#define HAVE_cond_copysignvnx2df (TARGET_SVE)
 #define HAVE_xorsignvnx8hf3 (TARGET_SVE)
 #define HAVE_xorsignvnx4sf3 (TARGET_SVE)
 #define HAVE_xorsignvnx2df3 (TARGET_SVE)
@@ -12014,129 +12017,129 @@ extern rtx        gen_load_pairv16qiv8hi                               (rtx, rtx
 extern rtx        gen_load_pairv16qiv4si                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv16qiv2di                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv16qiv8hf                               (rtx, rtx, rtx, rtx);
-extern rtx        gen_load_pairv16qiv8bf                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv16qiv4sf                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv16qiv2df                               (rtx, rtx, rtx, rtx);
+extern rtx        gen_load_pairv16qiv8bf                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8hiv16qi                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8hiv8hi                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8hiv4si                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8hiv2di                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8hiv8hf                                (rtx, rtx, rtx, rtx);
-extern rtx        gen_load_pairv8hiv8bf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8hiv4sf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8hiv2df                                (rtx, rtx, rtx, rtx);
+extern rtx        gen_load_pairv8hiv8bf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv4siv16qi                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv4siv8hi                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv4siv4si                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv4siv2di                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv4siv8hf                                (rtx, rtx, rtx, rtx);
-extern rtx        gen_load_pairv4siv8bf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv4siv4sf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv4siv2df                                (rtx, rtx, rtx, rtx);
+extern rtx        gen_load_pairv4siv8bf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv2div16qi                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv2div8hi                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv2div4si                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv2div2di                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv2div8hf                                (rtx, rtx, rtx, rtx);
-extern rtx        gen_load_pairv2div8bf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv2div4sf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv2div2df                                (rtx, rtx, rtx, rtx);
+extern rtx        gen_load_pairv2div8bf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8hfv16qi                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8hfv8hi                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8hfv4si                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8hfv2di                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8hfv8hf                                (rtx, rtx, rtx, rtx);
-extern rtx        gen_load_pairv8hfv8bf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8hfv4sf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8hfv2df                                (rtx, rtx, rtx, rtx);
+extern rtx        gen_load_pairv8hfv8bf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv4sfv16qi                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv4sfv8hi                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv4sfv4si                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv4sfv2di                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv4sfv8hf                                (rtx, rtx, rtx, rtx);
-extern rtx        gen_load_pairv4sfv8bf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv4sfv4sf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv4sfv2df                                (rtx, rtx, rtx, rtx);
+extern rtx        gen_load_pairv4sfv8bf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv2dfv16qi                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv2dfv8hi                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv2dfv4si                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv2dfv2di                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv2dfv8hf                                (rtx, rtx, rtx, rtx);
-extern rtx        gen_load_pairv2dfv8bf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv2dfv4sf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv2dfv2df                                (rtx, rtx, rtx, rtx);
+extern rtx        gen_load_pairv2dfv8bf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8bfv16qi                               (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8bfv8hi                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8bfv4si                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8bfv2di                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8bfv8hf                                (rtx, rtx, rtx, rtx);
-extern rtx        gen_load_pairv8bfv8bf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8bfv4sf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_load_pairv8bfv2df                                (rtx, rtx, rtx, rtx);
+extern rtx        gen_load_pairv8bfv8bf                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv16qiv16qi                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv16qiv8hi                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv16qiv4si                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv16qiv2di                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv16qiv8hf                          (rtx, rtx, rtx, rtx);
-extern rtx        gen_vec_store_pairv16qiv8bf                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv16qiv4sf                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv16qiv2df                          (rtx, rtx, rtx, rtx);
+extern rtx        gen_vec_store_pairv16qiv8bf                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8hiv16qi                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8hiv8hi                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8hiv4si                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8hiv2di                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8hiv8hf                           (rtx, rtx, rtx, rtx);
-extern rtx        gen_vec_store_pairv8hiv8bf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8hiv4sf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8hiv2df                           (rtx, rtx, rtx, rtx);
+extern rtx        gen_vec_store_pairv8hiv8bf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv4siv16qi                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv4siv8hi                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv4siv4si                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv4siv2di                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv4siv8hf                           (rtx, rtx, rtx, rtx);
-extern rtx        gen_vec_store_pairv4siv8bf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv4siv4sf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv4siv2df                           (rtx, rtx, rtx, rtx);
+extern rtx        gen_vec_store_pairv4siv8bf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv2div16qi                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv2div8hi                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv2div4si                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv2div2di                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv2div8hf                           (rtx, rtx, rtx, rtx);
-extern rtx        gen_vec_store_pairv2div8bf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv2div4sf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv2div2df                           (rtx, rtx, rtx, rtx);
+extern rtx        gen_vec_store_pairv2div8bf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8hfv16qi                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8hfv8hi                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8hfv4si                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8hfv2di                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8hfv8hf                           (rtx, rtx, rtx, rtx);
-extern rtx        gen_vec_store_pairv8hfv8bf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8hfv4sf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8hfv2df                           (rtx, rtx, rtx, rtx);
+extern rtx        gen_vec_store_pairv8hfv8bf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv4sfv16qi                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv4sfv8hi                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv4sfv4si                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv4sfv2di                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv4sfv8hf                           (rtx, rtx, rtx, rtx);
-extern rtx        gen_vec_store_pairv4sfv8bf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv4sfv4sf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv4sfv2df                           (rtx, rtx, rtx, rtx);
+extern rtx        gen_vec_store_pairv4sfv8bf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv2dfv16qi                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv2dfv8hi                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv2dfv4si                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv2dfv2di                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv2dfv8hf                           (rtx, rtx, rtx, rtx);
-extern rtx        gen_vec_store_pairv2dfv8bf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv2dfv4sf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv2dfv2df                           (rtx, rtx, rtx, rtx);
+extern rtx        gen_vec_store_pairv2dfv8bf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8bfv16qi                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8bfv8hi                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8bfv4si                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8bfv2di                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8bfv8hf                           (rtx, rtx, rtx, rtx);
-extern rtx        gen_vec_store_pairv8bfv8bf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8bfv4sf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_store_pairv8bfv2df                           (rtx, rtx, rtx, rtx);
+extern rtx        gen_vec_store_pairv8bfv8bf                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_simd_mov_from_v16qilow                   (rtx, rtx, rtx);
 extern rtx        gen_aarch64_simd_mov_from_v8hilow                    (rtx, rtx, rtx);
 extern rtx        gen_aarch64_simd_mov_from_v4silow                    (rtx, rtx, rtx);
@@ -23213,6 +23216,9 @@ extern rtx        gen_aarch64_frecpsvnx2df                             (rtx, rtx
 extern rtx        gen_copysignvnx8hf3                                  (rtx, rtx, rtx);
 extern rtx        gen_copysignvnx4sf3                                  (rtx, rtx, rtx);
 extern rtx        gen_copysignvnx2df3                                  (rtx, rtx, rtx);
+extern rtx        gen_cond_copysignvnx8hf                              (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_cond_copysignvnx4sf                              (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_cond_copysignvnx2df                              (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_xorsignvnx8hf3                                   (rtx, rtx, rtx);
 extern rtx        gen_xorsignvnx4sf3                                   (rtx, rtx, rtx);
 extern rtx        gen_xorsignvnx2df3                                   (rtx, rtx, rtx);
