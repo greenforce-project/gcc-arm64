@@ -4,7 +4,7 @@
 ;;; Don't parse this file wihout knowing GCC gengtype internals.
 ;;; This file should be parsed by the same gengtype which wrote it.
 
-(!version  "14.0.0 20231109 (Gf Cross v14)")
+(!version  "14.0.0 20231118 (Gf Cross v14)")
 (!srcdir  "../../gcc/gcc")
 (!languages 12 ada c cp d fortran go jit lto m2 objc objcp rust)
 (!fileslist 242 0
@@ -16234,15 +16234,15 @@
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 744 nil  gc_unused "char_span"nil 
+ (!type struct 744 nil  gc_unused "file_cache"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 745 nil  gc_unused "file_cache_slot"nil 
+ (!type struct 745 nil  gc_unused "char_span"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 746 nil  gc_unused "file_cache"nil 
+ (!type struct 746 nil  gc_unused "file_cache_slot"nil 
   (!fields 0 )
   nil 0 nil nil )
  
@@ -16251,15 +16251,15 @@
    (!type already_seen 747)
   )
   gc_pointed_to "string_concat"
-  (!srcfileloc  "input.h" 266)
+  (!srcfileloc  "input.h" 265)
   (!fields 2 
    (!pair  "m_num"
     (!type already_seen 2)
-    (!srcfileloc  "input.h" 264)
+    (!srcfileloc  "input.h" 263)
     nil )
    (!pair  "m_locs"
     (!type already_seen 3)
-    (!srcfileloc  "input.h" 265)
+    (!srcfileloc  "input.h" 264)
     (!options 
      (!option atomic string  "")
     )
@@ -16272,29 +16272,29 @@
    (!type already_seen 749)
   )
   gc_pointed_to "string_concat_db"
-  (!srcfileloc  "input.h" 291)
+  (!srcfileloc  "input.h" 290)
   (!fields 1 
    (!pair  "m_table"
     (!type pointer 751 nil  gc_used
      (!type user_struct 752 
       (!type already_seen 751)
       gc_pointed_to "hash_map<location_hash,string_concat*>"
-      (!srcfileloc  "input.h" 290)
+      (!srcfileloc  "input.h" 289)
       (!fields 2 
        (!pair  "string_concat"
         (!type already_seen 748)
-        (!srcfileloc  "input.h" 290)
+        (!srcfileloc  "input.h" 289)
         nil )
        (!pair  "location_hash"
         (!type undefined 753 nil  gc_unused "location_hash"
-         (!srcfileloc  "input.h" 290)
+         (!srcfileloc  "input.h" 289)
         )
-        (!srcfileloc  "input.h" 290)
+        (!srcfileloc  "input.h" 289)
         nil )
       )
      )
     )
-    (!srcfileloc  "input.h" 290)
+    (!srcfileloc  "input.h" 289)
     nil )
   )
   nil 4095 nil nil )
@@ -23224,7 +23224,7 @@
   nil 0 nil nil )
  
  (!type struct 1367 nil  gc_used "addr_hasher"
-  (!srcfileloc  "dwarf2out.cc" 5082)
+  (!srcfileloc  "dwarf2out.cc" 5085)
   (!fields 0 )
   nil 4095 nil nil )
  
@@ -23233,28 +23233,28 @@
    (!type already_seen 1368)
   )
   gc_pointed_to "hash_table<addr_hasher>"
-  (!srcfileloc  "dwarf2out.cc" 5082)
+  (!srcfileloc  "dwarf2out.cc" 5085)
   (!fields 1 
    (!pair  "addr_hasher"
     (!type already_seen 1367)
-    (!srcfileloc  "dwarf2out.cc" 5082)
+    (!srcfileloc  "dwarf2out.cc" 5085)
     nil )
   )
  )
  
  (!type struct 1370 nil  gc_used "sym_off_pair"
-  (!srcfileloc  "dwarf2out.cc" 5960)
+  (!srcfileloc  "dwarf2out.cc" 5963)
   (!fields 2 
    (!pair  "sym"
     (!type already_seen 11)
-    (!srcfileloc  "dwarf2out.cc" 5957)
+    (!srcfileloc  "dwarf2out.cc" 5960)
     (!options 
      (!option skip string  "")
     )
    )
    (!pair  "off"
     (!type already_seen 2)
-    (!srcfileloc  "dwarf2out.cc" 5958)
+    (!srcfileloc  "dwarf2out.cc" 5961)
     nil )
   )
   nil 4095 nil nil )
@@ -23264,15 +23264,15 @@
    (!type already_seen 1371)
   )
   gc_pointed_to "hash_map<tree,sym_off_pair>"
-  (!srcfileloc  "dwarf2out.cc" 5960)
+  (!srcfileloc  "dwarf2out.cc" 5963)
   (!fields 2 
    (!pair  "sym_off_pair"
     (!type already_seen 1370)
-    (!srcfileloc  "dwarf2out.cc" 5960)
+    (!srcfileloc  "dwarf2out.cc" 5963)
     nil )
    (!pair  "tree"
     (!type already_seen 23)
-    (!srcfileloc  "dwarf2out.cc" 5960)
+    (!srcfileloc  "dwarf2out.cc" 5963)
     nil )
   )
  )
@@ -23282,16 +23282,16 @@
   nil 0 nil nil )
  
  (!type struct 1374 nil  gc_unused "decl_table_entry_hasher"
-  (!srcfileloc  "dwarf2out.cc" 8348)
+  (!srcfileloc  "dwarf2out.cc" 8351)
   (!fields 0 )
   nil 4095 nil nil )
  
  (!type user_struct 1375 nil  gc_unused "hash_table<decl_table_entry_hasher>"
-  (!srcfileloc  "dwarf2out.cc" 8348)
+  (!srcfileloc  "dwarf2out.cc" 8351)
   (!fields 1 
    (!pair  "decl_table_entry_hasher"
     (!type already_seen 1374)
-    (!srcfileloc  "dwarf2out.cc" 8348)
+    (!srcfileloc  "dwarf2out.cc" 8351)
     nil )
   )
  )
@@ -23301,16 +23301,16 @@
   nil 0 nil nil )
  
  (!type struct 1377 nil  gc_unused "external_ref_hasher"
-  (!srcfileloc  "dwarf2out.cc" 9106)
+  (!srcfileloc  "dwarf2out.cc" 9109)
   (!fields 0 )
   nil 4095 nil nil )
  
  (!type user_struct 1378 nil  gc_unused "hash_table<external_ref_hasher>"
-  (!srcfileloc  "dwarf2out.cc" 9106)
+  (!srcfileloc  "dwarf2out.cc" 9109)
   (!fields 1 
    (!pair  "external_ref_hasher"
     (!type already_seen 1377)
-    (!srcfileloc  "dwarf2out.cc" 9106)
+    (!srcfileloc  "dwarf2out.cc" 9109)
     nil )
   )
  )
@@ -23336,23 +23336,23 @@
   nil 0 nil nil )
  
  (!type struct 1384 nil  gc_pointed_to "inline_entry_data"
-  (!srcfileloc  "dwarf2out.cc" 24332)
+  (!srcfileloc  "dwarf2out.cc" 24335)
   (!fields 4 
    (!pair  "block"
     (!type already_seen 23)
-    (!srcfileloc  "dwarf2out.cc" 24324)
+    (!srcfileloc  "dwarf2out.cc" 24327)
     nil )
    (!pair  "label_pfx"
     (!type already_seen 11)
-    (!srcfileloc  "dwarf2out.cc" 24327)
+    (!srcfileloc  "dwarf2out.cc" 24330)
     nil )
    (!pair  "label_num"
     (!type already_seen 2)
-    (!srcfileloc  "dwarf2out.cc" 24328)
+    (!srcfileloc  "dwarf2out.cc" 24331)
     nil )
    (!pair  "view"
     (!type already_seen 2)
-    (!srcfileloc  "dwarf2out.cc" 24331)
+    (!srcfileloc  "dwarf2out.cc" 24334)
     nil )
   )
   (!options 
@@ -23361,7 +23361,7 @@
   4095 nil nil )
  
  (!type struct 1385 nil  gc_used "inline_entry_data_hasher"
-  (!srcfileloc  "dwarf2out.cc" 24358)
+  (!srcfileloc  "dwarf2out.cc" 24361)
   (!fields 0 )
   nil 4095 nil nil )
  
@@ -23370,26 +23370,26 @@
    (!type already_seen 1386)
   )
   gc_pointed_to "hash_table<inline_entry_data_hasher>"
-  (!srcfileloc  "dwarf2out.cc" 24358)
+  (!srcfileloc  "dwarf2out.cc" 24361)
   (!fields 1 
    (!pair  "inline_entry_data_hasher"
     (!type already_seen 1385)
-    (!srcfileloc  "dwarf2out.cc" 24358)
+    (!srcfileloc  "dwarf2out.cc" 24361)
     nil )
   )
  )
  
  (!type struct 1388 nil  gc_unused "macinfo_entry_hasher"
-  (!srcfileloc  "dwarf2out.cc" 28927)
+  (!srcfileloc  "dwarf2out.cc" 28930)
   (!fields 0 )
   nil 4095 nil nil )
  
  (!type user_struct 1389 nil  gc_unused "hash_table<macinfo_entry_hasher>"
-  (!srcfileloc  "dwarf2out.cc" 28927)
+  (!srcfileloc  "dwarf2out.cc" 28930)
   (!fields 1 
    (!pair  "macinfo_entry_hasher"
     (!type already_seen 1388)
-    (!srcfileloc  "dwarf2out.cc" 28927)
+    (!srcfileloc  "dwarf2out.cc" 28930)
     nil )
   )
  )
@@ -23399,16 +23399,16 @@
   nil 0 nil nil )
  
  (!type struct 1391 nil  gc_unused "loc_list_hasher"
-  (!srcfileloc  "dwarf2out.cc" 31990)
+  (!srcfileloc  "dwarf2out.cc" 31993)
   (!fields 0 )
   nil 4095 nil nil )
  
  (!type user_struct 1392 nil  gc_unused "hash_table<loc_list_hasher>"
-  (!srcfileloc  "dwarf2out.cc" 31990)
+  (!srcfileloc  "dwarf2out.cc" 31993)
   (!fields 1 
    (!pair  "loc_list_hasher"
     (!type already_seen 1391)
-    (!srcfileloc  "dwarf2out.cc" 31990)
+    (!srcfileloc  "dwarf2out.cc" 31993)
     nil )
   )
  )
@@ -27666,15 +27666,15 @@
    (!type already_seen 1952)
   )
   gc_pointed_to "vec<const_char_p,va_gc>"
-  (!srcfileloc  "c-family/c-common.cc" 5893)
+  (!srcfileloc  "c-family/c-common.cc" 5895)
   (!fields 2 
    (!pair  "va_gc"
     (!type already_seen 80)
-    (!srcfileloc  "c-family/c-common.cc" 5893)
+    (!srcfileloc  "c-family/c-common.cc" 5895)
     nil )
    (!pair  "const_char_p"
     (!type already_seen 11)
-    (!srcfileloc  "c-family/c-common.cc" 5893)
+    (!srcfileloc  "c-family/c-common.cc" 5895)
     nil )
   )
  )
@@ -27684,31 +27684,31 @@
    (!type already_seen 1954)
   )
   gc_pointed_to "vec<tree_gc_vec,va_gc>"
-  (!srcfileloc  "c-family/c-common.cc" 8548)
+  (!srcfileloc  "c-family/c-common.cc" 8616)
   (!fields 2 
    (!pair  "va_gc"
     (!type already_seen 80)
-    (!srcfileloc  "c-family/c-common.cc" 8548)
+    (!srcfileloc  "c-family/c-common.cc" 8616)
     nil )
    (!pair  "tree_gc_vec"
     (!type already_seen 85)
-    (!srcfileloc  "c-family/c-common.cc" 8548)
+    (!srcfileloc  "c-family/c-common.cc" 8616)
     nil )
   )
  )
  
  (!type user_struct 1956 nil  gc_unused "hash_set<char*,false,nofree_string_hash>"
-  (!srcfileloc  "c-family/c-common.cc" 9522)
+  (!srcfileloc  "c-family/c-common.cc" 9590)
   (!fields 2 
    (!pair  "nofree_string_hash"
     (!type undefined 1957 nil  gc_unused "nofree_string_hash"
-     (!srcfileloc  "c-family/c-common.cc" 9522)
+     (!srcfileloc  "c-family/c-common.cc" 9590)
     )
-    (!srcfileloc  "c-family/c-common.cc" 9522)
+    (!srcfileloc  "c-family/c-common.cc" 9590)
     nil )
    (!pair  "false"
     (!type already_seen 898)
-    (!srcfileloc  "c-family/c-common.cc" 9522)
+    (!srcfileloc  "c-family/c-common.cc" 9590)
     nil )
   )
  )
@@ -27716,7 +27716,7 @@
  (!type already_seen 1957)
  
  (!type user_struct 1958 nil  gc_unused "hash_map<char*,per_file_includes_t*>"
-  (!srcfileloc  "c-family/c-common.cc" 9527)
+  (!srcfileloc  "c-family/c-common.cc" 9595)
   (!fields 1 
    (!pair  "per_file_includes_t"
     (!type pointer 1959 nil  gc_unused
@@ -27726,7 +27726,7 @@
       (!fields 0 )
       nil 0 nil nil )
     )
-    (!srcfileloc  "c-family/c-common.cc" 9527)
+    (!srcfileloc  "c-family/c-common.cc" 9595)
     nil )
   )
  )
@@ -29972,19 +29972,19 @@
   nil 0 nil nil )
  
  (!type struct 2166 nil  gc_pointed_to "source_location_table_entry"
-  (!srcfileloc  "cp/cp-gimplify.cc" 3508)
+  (!srcfileloc  "cp/cp-gimplify.cc" 3512)
   (!fields 3 
    (!pair  "loc"
     (!type already_seen 2)
-    (!srcfileloc  "cp/cp-gimplify.cc" 3505)
+    (!srcfileloc  "cp/cp-gimplify.cc" 3509)
     nil )
    (!pair  "uid"
     (!type already_seen 2)
-    (!srcfileloc  "cp/cp-gimplify.cc" 3506)
+    (!srcfileloc  "cp/cp-gimplify.cc" 3510)
     nil )
    (!pair  "var"
     (!type already_seen 23)
-    (!srcfileloc  "cp/cp-gimplify.cc" 3507)
+    (!srcfileloc  "cp/cp-gimplify.cc" 3511)
     nil )
   )
   (!options 
@@ -29993,7 +29993,7 @@
   1028 nil nil )
  
  (!type struct 2167 nil  gc_used "source_location_table_entry_hash"
-  (!srcfileloc  "cp/cp-gimplify.cc" 3584)
+  (!srcfileloc  "cp/cp-gimplify.cc" 3588)
   (!fields 0 )
   nil 1028 nil nil )
  
@@ -30002,11 +30002,11 @@
    (!type already_seen 2168)
   )
   gc_pointed_to "hash_table<source_location_table_entry_hash>"
-  (!srcfileloc  "cp/cp-gimplify.cc" 3584)
+  (!srcfileloc  "cp/cp-gimplify.cc" 3588)
   (!fields 1 
    (!pair  "source_location_table_entry_hash"
     (!type already_seen 2167)
-    (!srcfileloc  "cp/cp-gimplify.cc" 3584)
+    (!srcfileloc  "cp/cp-gimplify.cc" 3588)
     nil )
   )
  )
@@ -30718,15 +30718,15 @@
   nil 0 nil nil )
  
  (!type struct 2259 nil  gc_used "macro_export"
-  (!srcfileloc  "cp/module.cc" 16787)
+  (!srcfileloc  "cp/module.cc" 16793)
   (!fields 2 
    (!pair  "def"
     (!type already_seen 19)
-    (!srcfileloc  "cp/module.cc" 16780)
+    (!srcfileloc  "cp/module.cc" 16786)
     nil )
    (!pair  "undef_loc"
     (!type already_seen 2)
-    (!srcfileloc  "cp/module.cc" 16781)
+    (!srcfileloc  "cp/module.cc" 16787)
     nil )
   )
   nil 1028 nil nil )
@@ -30740,15 +30740,15 @@
    (!type already_seen 2261)
   )
   gc_pointed_to "vec<macro_export,va_gc>"
-  (!srcfileloc  "cp/module.cc" 16944)
+  (!srcfileloc  "cp/module.cc" 16950)
   (!fields 2 
    (!pair  "va_gc"
     (!type already_seen 80)
-    (!srcfileloc  "cp/module.cc" 16944)
+    (!srcfileloc  "cp/module.cc" 16950)
     nil )
    (!pair  "macro_export"
     (!type already_seen 2259)
-    (!srcfileloc  "cp/module.cc" 16944)
+    (!srcfileloc  "cp/module.cc" 16950)
     nil )
   )
  )
@@ -30822,7 +30822,7 @@
   nil 0 nil nil )
  
  (!type undefined 2280 nil  gc_unused "class_to_loc_map_t::iterator"
-  (!srcfileloc  "cp/parser.cc" 34923)
+  (!srcfileloc  "cp/parser.cc" 34936)
  )
  
  (!type struct 2281 nil  gc_unused "sit_data"nil 
@@ -31046,7 +31046,7 @@
   nil 0 nil nil )
  
  (!type struct 2314 nil  gc_used "list_hasher"
-  (!srcfileloc  "cp/tree.cc" 2146)
+  (!srcfileloc  "cp/tree.cc" 2151)
   (!fields 0 )
   nil 1028 nil nil )
  
@@ -31055,11 +31055,11 @@
    (!type already_seen 2315)
   )
   gc_pointed_to "hash_table<list_hasher>"
-  (!srcfileloc  "cp/tree.cc" 2146)
+  (!srcfileloc  "cp/tree.cc" 2151)
   (!fields 1 
    (!pair  "list_hasher"
     (!type already_seen 2314)
-    (!srcfileloc  "cp/tree.cc" 2146)
+    (!srcfileloc  "cp/tree.cc" 2151)
     nil )
   )
  )
@@ -32231,11 +32231,11 @@
   nil )
  (!pair  "list_hasher"
   (!type already_seen 2314)
-  (!srcfileloc  "cp/tree.cc" 2146)
+  (!srcfileloc  "cp/tree.cc" 2151)
   nil )
  (!pair  "hash_table<list_hasher>"
   (!type already_seen 2315)
-  (!srcfileloc  "cp/tree.cc" 2146)
+  (!srcfileloc  "cp/tree.cc" 2151)
   nil )
  (!pair  "cplus_array_hasher"
   (!type already_seen 2310)
@@ -32299,11 +32299,11 @@
   nil )
  (!pair  "iter_t"
   (!type already_seen 2280)
-  (!srcfileloc  "cp/parser.cc" 34923)
+  (!srcfileloc  "cp/parser.cc" 34936)
   nil )
  (!pair  "class_to_loc_map_t::iterator"
   (!type already_seen 2280)
-  (!srcfileloc  "cp/parser.cc" 34923)
+  (!srcfileloc  "cp/parser.cc" 34936)
   nil )
  (!pair  "cp_parser_expression_stack"
   (!type array 2422 nil  gc_unused "NUM_PREC_VALUES" 
@@ -32321,11 +32321,11 @@
   nil )
  (!pair  "vec<macro_export,va_gc>"
   (!type already_seen 2261)
-  (!srcfileloc  "cp/module.cc" 16944)
+  (!srcfileloc  "cp/module.cc" 16950)
   nil )
  (!pair  "macro_export"
   (!type already_seen 2259)
-  (!srcfileloc  "cp/module.cc" 16783)
+  (!srcfileloc  "cp/module.cc" 16789)
   nil )
  (!pair  "note_defs_table_t"
   (!type already_seen 2255)
@@ -32587,11 +32587,11 @@
   nil )
  (!pair  "source_location_table_entry_hash"
   (!type already_seen 2167)
-  (!srcfileloc  "cp/cp-gimplify.cc" 3584)
+  (!srcfileloc  "cp/cp-gimplify.cc" 3588)
   nil )
  (!pair  "hash_table<source_location_table_entry_hash>"
   (!type already_seen 2168)
-  (!srcfileloc  "cp/cp-gimplify.cc" 3584)
+  (!srcfileloc  "cp/cp-gimplify.cc" 3588)
   nil )
  (!pair  "coroutine_info_hasher"
   (!type already_seen 2147)
@@ -32927,39 +32927,39 @@
   nil )
  (!pair  "added_includes_t"
   (!type already_seen 1958)
-  (!srcfileloc  "c-family/c-common.cc" 9527)
+  (!srcfileloc  "c-family/c-common.cc" 9595)
   nil )
  (!pair  "hash_map<char*,per_file_includes_t*>"
   (!type already_seen 1958)
-  (!srcfileloc  "c-family/c-common.cc" 9527)
+  (!srcfileloc  "c-family/c-common.cc" 9595)
   nil )
  (!pair  "per_file_includes_t"
   (!type already_seen 1956)
-  (!srcfileloc  "c-family/c-common.cc" 9522)
+  (!srcfileloc  "c-family/c-common.cc" 9590)
   nil )
  (!pair  "nofree_string_hash"
   (!type already_seen 1957)
-  (!srcfileloc  "c-family/c-common.cc" 9522)
+  (!srcfileloc  "c-family/c-common.cc" 9590)
   nil )
  (!pair  "hash_set<char*,false,nofree_string_hash>"
   (!type already_seen 1956)
-  (!srcfileloc  "c-family/c-common.cc" 9522)
+  (!srcfileloc  "c-family/c-common.cc" 9590)
   nil )
  (!pair  "vec<tree_gc_vec,va_gc>"
   (!type already_seen 1954)
-  (!srcfileloc  "c-family/c-common.cc" 8548)
+  (!srcfileloc  "c-family/c-common.cc" 8616)
   nil )
  (!pair  "tree_gc_vec"
   (!type already_seen 85)
-  (!srcfileloc  "c-family/c-common.cc" 8547)
+  (!srcfileloc  "c-family/c-common.cc" 8615)
   nil )
  (!pair  "vec<const_char_p,va_gc>"
   (!type already_seen 1952)
-  (!srcfileloc  "c-family/c-common.cc" 5893)
+  (!srcfileloc  "c-family/c-common.cc" 5895)
   nil )
  (!pair  "const_char_p"
   (!type already_seen 9)
-  (!srcfileloc  "c-family/c-common.cc" 5892)
+  (!srcfileloc  "c-family/c-common.cc" 5894)
   nil )
  (!pair  "c_binding_ptr"
   (!type already_seen 650)
@@ -33035,7 +33035,7 @@
   nil )
  (!pair  "vinfo_t"
   (!type already_seen 1909)
-  (!srcfileloc  "ada/gcc-interface/decl.cc" 7985)
+  (!srcfileloc  "ada/gcc-interface/decl.cc" 7991)
   nil )
  (!pair  "intrin_binding_t"
   (!type already_seen 1907)
@@ -34053,75 +34053,75 @@
   nil )
  (!pair  "loc_list_hash_type"
   (!type already_seen 1392)
-  (!srcfileloc  "dwarf2out.cc" 31990)
+  (!srcfileloc  "dwarf2out.cc" 31993)
   nil )
  (!pair  "loc_list_hasher"
   (!type already_seen 1391)
-  (!srcfileloc  "dwarf2out.cc" 31990)
+  (!srcfileloc  "dwarf2out.cc" 31993)
   nil )
  (!pair  "hash_table<loc_list_hasher>"
   (!type already_seen 1392)
-  (!srcfileloc  "dwarf2out.cc" 31990)
+  (!srcfileloc  "dwarf2out.cc" 31993)
   nil )
  (!pair  "macinfo_hash_type"
   (!type already_seen 1389)
-  (!srcfileloc  "dwarf2out.cc" 28927)
+  (!srcfileloc  "dwarf2out.cc" 28930)
   nil )
  (!pair  "macinfo_entry_hasher"
   (!type already_seen 1388)
-  (!srcfileloc  "dwarf2out.cc" 28927)
+  (!srcfileloc  "dwarf2out.cc" 28930)
   nil )
  (!pair  "hash_table<macinfo_entry_hasher>"
   (!type already_seen 1389)
-  (!srcfileloc  "dwarf2out.cc" 28927)
+  (!srcfileloc  "dwarf2out.cc" 28930)
   nil )
  (!pair  "inline_entry_data_hasher"
   (!type already_seen 1385)
-  (!srcfileloc  "dwarf2out.cc" 24358)
+  (!srcfileloc  "dwarf2out.cc" 24361)
   nil )
  (!pair  "hash_table<inline_entry_data_hasher>"
   (!type already_seen 1386)
-  (!srcfileloc  "dwarf2out.cc" 24358)
+  (!srcfileloc  "dwarf2out.cc" 24361)
   nil )
  (!pair  "external_ref_hash_type"
   (!type already_seen 1378)
-  (!srcfileloc  "dwarf2out.cc" 9106)
+  (!srcfileloc  "dwarf2out.cc" 9109)
   nil )
  (!pair  "external_ref_hasher"
   (!type already_seen 1377)
-  (!srcfileloc  "dwarf2out.cc" 9106)
+  (!srcfileloc  "dwarf2out.cc" 9109)
   nil )
  (!pair  "hash_table<external_ref_hasher>"
   (!type already_seen 1378)
-  (!srcfileloc  "dwarf2out.cc" 9106)
+  (!srcfileloc  "dwarf2out.cc" 9109)
   nil )
  (!pair  "decl_hash_type"
   (!type already_seen 1375)
-  (!srcfileloc  "dwarf2out.cc" 8348)
+  (!srcfileloc  "dwarf2out.cc" 8351)
   nil )
  (!pair  "decl_table_entry_hasher"
   (!type already_seen 1374)
-  (!srcfileloc  "dwarf2out.cc" 8348)
+  (!srcfileloc  "dwarf2out.cc" 8351)
   nil )
  (!pair  "hash_table<decl_table_entry_hasher>"
   (!type already_seen 1375)
-  (!srcfileloc  "dwarf2out.cc" 8348)
+  (!srcfileloc  "dwarf2out.cc" 8351)
   nil )
  (!pair  "sym_off_pair"
   (!type already_seen 1370)
-  (!srcfileloc  "dwarf2out.cc" 5960)
+  (!srcfileloc  "dwarf2out.cc" 5963)
   nil )
  (!pair  "hash_map<tree,sym_off_pair>"
   (!type already_seen 1371)
-  (!srcfileloc  "dwarf2out.cc" 5960)
+  (!srcfileloc  "dwarf2out.cc" 5963)
   nil )
  (!pair  "addr_hasher"
   (!type already_seen 1367)
-  (!srcfileloc  "dwarf2out.cc" 5082)
+  (!srcfileloc  "dwarf2out.cc" 5085)
   nil )
  (!pair  "hash_table<addr_hasher>"
   (!type already_seen 1368)
-  (!srcfileloc  "dwarf2out.cc" 5082)
+  (!srcfileloc  "dwarf2out.cc" 5085)
   nil )
  (!pair  "vec<die_arg_entry,va_gc>"
   (!type already_seen 1361)
@@ -35661,19 +35661,19 @@
   nil )
  (!pair  "location_hash"
   (!type already_seen 753)
-  (!srcfileloc  "input.h" 290)
+  (!srcfileloc  "input.h" 289)
   nil )
  (!pair  "hash_map<location_hash,string_concat*>"
   (!type already_seen 752)
-  (!srcfileloc  "input.h" 290)
+  (!srcfileloc  "input.h" 289)
   nil )
  (!pair  "string_concat_db"
   (!type already_seen 749)
-  (!srcfileloc  "input.h" 271)
+  (!srcfileloc  "input.h" 270)
   nil )
  (!pair  "string_concat"
   (!type already_seen 747)
-  (!srcfileloc  "input.h" 262)
+  (!srcfileloc  "input.h" 261)
   nil )
  (!pair  "cpp_cb"
   (!type already_seen 2)
@@ -37256,11 +37256,11 @@
   nil )
  (!pair  "deleted_copy_types"
   (!type already_seen 436)
-  (!srcfileloc  "cp/tree.cc" 4469)
+  (!srcfileloc  "cp/tree.cc" 4483)
   nil )
  (!pair  "list_hash_table"
   (!type already_seen 2316)
-  (!srcfileloc  "cp/tree.cc" 2146)
+  (!srcfileloc  "cp/tree.cc" 2151)
   nil )
  (!pair  "cplus_array_htab"
   (!type already_seen 2312)
@@ -37369,7 +37369,7 @@
   nil )
  (!pair  "generic_parm_count"
   (!type already_seen 2)
-  (!srcfileloc  "cp/parser.cc" 50715)
+  (!srcfileloc  "cp/parser.cc" 50728)
   nil )
  (!pair  "cp_parser_decl_specs_attrs"
   (!type already_seen 85)
@@ -37388,7 +37388,7 @@
   nil )
  (!pair  "free_saved_scope"
   (!type already_seen 2035)
-  (!srcfileloc  "cp/name-lookup.cc" 8147)
+  (!srcfileloc  "cp/name-lookup.cc" 8151)
   (!options 
    (!option deletable string  "")
   )
@@ -37413,11 +37413,11 @@
  )
  (!pair  "headers"
   (!type already_seen 392)
-  (!srcfileloc  "cp/module.cc" 16948)
+  (!srcfileloc  "cp/module.cc" 16954)
   nil )
  (!pair  "macro_exports"
   (!type already_seen 2262)
-  (!srcfileloc  "cp/module.cc" 16944)
+  (!srcfileloc  "cp/module.cc" 16950)
   nil )
  (!pair  "note_defs"
   (!type already_seen 2256)
@@ -37536,11 +37536,11 @@
   nil )
  (!pair  "start_cleanup_cnt"
   (!type already_seen 2)
-  (!srcfileloc  "cp/decl.cc" 9635)
+  (!srcfileloc  "cp/decl.cc" 9636)
   nil )
  (!pair  "decomp_type_table"
   (!type already_seen 972)
-  (!srcfileloc  "cp/decl.cc" 9073)
+  (!srcfileloc  "cp/decl.cc" 9074)
   (!options 
    (!option cache string  "")
   )
@@ -37573,17 +37573,17 @@
   nil )
  (!pair  "source_location_id"
   (!type already_seen 2)
-  (!srcfileloc  "cp/cp-gimplify.cc" 3586)
+  (!srcfileloc  "cp/cp-gimplify.cc" 3590)
   nil )
  (!pair  "source_location_table"
   (!type already_seen 2169)
-  (!srcfileloc  "cp/cp-gimplify.cc" 3585)
+  (!srcfileloc  "cp/cp-gimplify.cc" 3589)
   nil )
  (!pair  "fold_caches"
   (!type array 2454 nil  gc_used "2" 
    (!type already_seen 399)
   )
-  (!srcfileloc  "cp/cp-gimplify.cc" 2635)
+  (!srcfileloc  "cp/cp-gimplify.cc" 2639)
   (!options 
    (!option deletable string  "")
   )
@@ -37763,11 +37763,11 @@
  )
  (!pair  "decl_post_fn"
   (!type already_seen 399)
-  (!srcfileloc  "cp/contracts.cc" 1301)
+  (!srcfileloc  "cp/contracts.cc" 1302)
   nil )
  (!pair  "decl_pre_fn"
   (!type already_seen 399)
-  (!srcfileloc  "cp/contracts.cc" 1300)
+  (!srcfileloc  "cp/contracts.cc" 1301)
   nil )
  (!pair  "cv_cache"
   (!type already_seen 399)
@@ -37790,11 +37790,11 @@
   nil )
  (!pair  "dvirt_fn"
   (!type already_seen 23)
-  (!srcfileloc  "cp/class.cc" 9983)
+  (!srcfileloc  "cp/class.cc" 9984)
   nil )
  (!pair  "abort_fndecl_addr"
   (!type already_seen 23)
-  (!srcfileloc  "cp/class.cc" 9982)
+  (!srcfileloc  "cp/class.cc" 9983)
   nil )
  (!pair  "enum_to_min_precision"
   (!type already_seen 2118)
@@ -37809,7 +37809,7 @@
   nil )
  (!pair  "default_arg_context"
   (!type already_seen 85)
-  (!srcfileloc  "cp/call.cc" 9140)
+  (!srcfileloc  "cp/call.cc" 9166)
   nil )
  (!pair  "unemitted_tinfo_decls"
   (!type already_seen 85)
@@ -37958,24 +37958,24 @@
  )
  (!pair  "tree_vector_cache"
   (!type already_seen 1955)
-  (!srcfileloc  "c-family/c-common.cc" 8548)
+  (!srcfileloc  "c-family/c-common.cc" 8616)
   (!options 
    (!option deletable string  "")
   )
  )
  (!pair  "optimize_args"
   (!type already_seen 1953)
-  (!srcfileloc  "c-family/c-common.cc" 5893)
+  (!srcfileloc  "c-family/c-common.cc" 5895)
   nil )
  (!pair  "compound_literal_number"
   (!type already_seen 2)
-  (!srcfileloc  "c-family/c-common.cc" 4761)
+  (!srcfileloc  "c-family/c-common.cc" 4763)
   nil )
  (!pair  "built_in_attributes"
   (!type array 2462 nil  gc_used "(int) ATTR_LAST" 
    (!type already_seen 23)
   )
-  (!srcfileloc  "c-family/c-common.cc" 4026)
+  (!srcfileloc  "c-family/c-common.cc" 4028)
   nil )
  (!pair  "ext_block"
   (!type already_seen 23)
@@ -38593,27 +38593,27 @@
   nil )
  (!pair  "gcc_eh_personality_decl"
   (!type already_seen 23)
-  (!srcfileloc  "tree.cc" 12192)
+  (!srcfileloc  "tree.cc" 12193)
   nil )
  (!pair  "anon_cnt"
   (!type already_seen 2)
-  (!srcfileloc  "tree.cc" 8807)
+  (!srcfileloc  "tree.cc" 8808)
   nil )
  (!pair  "bitint_type_cache"
   (!type already_seen 85)
-  (!srcfileloc  "tree.cc" 7169)
+  (!srcfileloc  "tree.cc" 7170)
   nil )
  (!pair  "nonstandard_boolean_type_cache"
   (!type array 2486 nil  gc_used "MAX_BOOL_CACHED_PREC + 1" 
    (!type already_seen 23)
   )
-  (!srcfileloc  "tree.cc" 7143)
+  (!srcfileloc  "tree.cc" 7144)
   nil )
  (!pair  "nonstandard_integer_type_cache"
   (!type array 2487 nil  gc_used "2 * MAX_INT_CACHED_PREC + 2" 
    (!type already_seen 23)
   )
-  (!srcfileloc  "tree.cc" 7094)
+  (!srcfileloc  "tree.cc" 7095)
   nil )
  (!pair  "debug_args_for_decl"
   (!type already_seen 1583)
@@ -38953,15 +38953,15 @@
   nil )
  (!pair  "inline_entry_data_table"
   (!type already_seen 1387)
-  (!srcfileloc  "dwarf2out.cc" 24358)
+  (!srcfileloc  "dwarf2out.cc" 24361)
   nil )
  (!pair  "external_die_map"
   (!type already_seen 1372)
-  (!srcfileloc  "dwarf2out.cc" 5960)
+  (!srcfileloc  "dwarf2out.cc" 5963)
   nil )
  (!pair  "addr_index_table"
   (!type already_seen 1369)
-  (!srcfileloc  "dwarf2out.cc" 5082)
+  (!srcfileloc  "dwarf2out.cc" 5085)
   nil )
  (!pair  "generic_type_instances"
   (!type already_seen 85)
@@ -39599,11 +39599,11 @@
   nil )
  (!pair  "saved_line_table"
   (!type already_seen 716)
-  (!srcfileloc  "input.h" 27)
+  (!srcfileloc  "input.h" 29)
   nil )
  (!pair  "line_table"
   (!type already_seen 716)
-  (!srcfileloc  "input.h" 26)
+  (!srcfileloc  "input.h" 28)
   nil )
 )
 
