@@ -219,6 +219,7 @@ extern bool default_libc_has_fast_function (int fcode);
 extern bool no_c99_libc_has_function (enum function_class, tree);
 extern bool gnu_libc_has_function (enum function_class, tree);
 extern bool bsd_libc_has_function (enum function_class, tree);
+extern unsigned default_fortify_source_default_level (void);
 extern unsigned default_libm_function_max_error (unsigned, machine_mode, bool);
 extern unsigned glibc_linux_libm_function_max_error (unsigned, machine_mode,
 						     bool);
@@ -301,7 +302,5 @@ extern rtx default_memtag_add_tag (rtx, poly_int64, uint8_t);
 extern rtx default_memtag_set_tag (rtx, rtx, rtx);
 extern rtx default_memtag_extract_tag (rtx, rtx);
 extern rtx default_memtag_untagged_pointer (rtx, rtx);
-
-extern HOST_WIDE_INT default_gcov_type_size (void);
 
 #endif /* GCC_TARGHOOKS_H */

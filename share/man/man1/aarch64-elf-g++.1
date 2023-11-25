@@ -55,7 +55,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 2023-11-18 gcc-14.0.0 GNU
+.TH GCC 1 2023-11-25 gcc-14.0.0 GNU
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -312,7 +312,7 @@ in the following sections.
 \&\fB\-Wformat\-y2k  \-Wframe\-address
 \&\-Wframe\-larger\-than=\fR\fIbyte-size\fR  \fB\-Wno\-free\-nonheap\-object
 \&\-Wno\-if\-not\-aligned  \-Wno\-ignored\-attributes
-\&\-Wignored\-qualifiers  \-Wno\-incompatible\-pointer\-types
+\&\-Wignored\-qualifiers  \-Wno\-incompatible\-pointer\-types  \-Whardened
 \&\-Wimplicit  \-Wimplicit\-fallthrough  \-Wimplicit\-fallthrough=\fR\fIn\fR
 \&\fB\-Wno\-implicit\-function\-declaration  \-Wno\-implicit\-int
 \&\-Winfinite\-recursion
@@ -329,7 +329,7 @@ in the following sections.
 \&\-Wnormalized=\fR[\fBnone\fR|\fBid\fR|\fBnfc\fR|\fBnfkc\fR]
 \&\fB\-Wnull\-dereference  \-Wno\-odr
 \&\-Wopenacc\-parallelism
-\&\-Wopenmp\-simd
+\&\-Wopenmp \-Wopenmp\-simd
 \&\-Wno\-overflow  \-Woverlength\-strings  \-Wno\-override\-init\-side\-effects
 \&\-Wpacked  \-Wno\-packed\-bitfield\-compat  \-Wpacked\-not\-aligned  \-Wpadded
 \&\-Wparentheses  \-Wno\-pedantic\-ms\-format
@@ -393,6 +393,7 @@ in the following sections.
 \&\-fdump\-analyzer\-exploded\-nodes\-3
 \&\-fdump\-analyzer\-exploded\-paths
 \&\-fdump\-analyzer\-feasibility
+\&\-fdump\-analyzer\-infinite\-loop
 \&\-fdump\-analyzer\-json
 \&\-fdump\-analyzer\-state\-purge
 \&\-fdump\-analyzer\-stderr
@@ -412,6 +413,7 @@ in the following sections.
 \&\-Wno\-analyzer\-file\-leak
 \&\-Wno\-analyzer\-free\-of\-non\-heap
 \&\-Wno\-analyzer\-imprecise\-fp\-arithmetic
+\&\-Wno\-analyzer\-infinite\-loop
 \&\-Wno\-analyzer\-infinite\-recursion
 \&\-Wno\-analyzer\-jump\-through\-null
 \&\-Wno\-analyzer\-malloc\-leak
@@ -433,6 +435,7 @@ in the following sections.
 \&\-Wno\-analyzer\-tainted\-offset
 \&\-Wno\-analyzer\-tainted\-size
 \&\-Wanalyzer\-too\-complex
+\&\-Wno\-analyzer\-undefined\-behavior\-strtok
 \&\-Wno\-analyzer\-unsafe\-call\-within\-signal\-handler
 \&\-Wno\-analyzer\-use\-after\-free
 \&\-Wno\-analyzer\-use\-of\-pointer\-in\-stale\-stack\-frame
@@ -582,7 +585,7 @@ in the following sections.
 \&\fB\-fasan\-shadow\-offset=\fR\fInumber\fR  \fB\-fsanitize\-sections=\fR\fIs1\fR\fB,\fR\fIs2\fR\fB,...
 \&\-fsanitize\-undefined\-trap\-on\-error  \-fbounds\-check
 \&\-fcf\-protection=\fR[\fBfull\fR|\fBbranch\fR|\fBreturn\fR|\fBnone\fR|\fBcheck\fR]
-\&\fB\-fharden\-compares \-fharden\-conditional\-branches
+\&\fB\-fharden\-compares \-fharden\-conditional\-branches  \-fhardened
 \&\-fharden\-control\-flow\-redundancy  \-fhardcfr\-skip\-leaf
 \&\-fhardcfr\-check\-exceptions  \-fhardcfr\-check\-returning\-calls
 \&\-fhardcfr\-check\-noreturn\-calls=\fR[\fBalways\fR|\fBno-xthrow\fR|\fBnothrow\fR|\fBnever\fR]
@@ -1172,6 +1175,7 @@ See RS/6000 and PowerPC Options.
 \&\-mstack\-protector\-guard=\fR\fIguard\fR  \fB\-mstack\-protector\-guard\-reg=\fR\fIreg\fR
 \&\fB\-mstack\-protector\-guard\-offset=\fR\fIoffset\fR
 \&\fB\-mcsr\-check \-mno\-csr\-check
+\&\-mmovcc  \-mno\-movcc
 \&\-minline\-atomics  \-mno\-inline\-atomics
 \&\-minline\-strlen  \-mno\-inline\-strlen
 \&\-minline\-strcmp  \-mno\-inline\-strcmp
@@ -1380,7 +1384,7 @@ See RS/6000 and PowerPC Options.
 \&\-mamx\-tile  \-mamx\-int8  \-mamx\-bf16 \-muintr \-mhreset \-mavxvnni
 \&\-mavx512fp16 \-mavxifma \-mavxvnniint8 \-mavxneconvert \-mcmpccxadd \-mamx\-fp16
 \&\-mprefetchi \-mraoint \-mamx\-complex \-mavxvnniint16 \-msm3 \-msha512 \-msm4 \-mapxf
-\&\-musermsr
+\&\-musermsr \-mavx10.1 \-mavx10.1\-256 \-mavx10.1\-512
 \&\-mcldemote  \-mms\-bitfields  \-mno\-align\-stringops  \-minline\-all\-stringops
 \&\-minline\-stringops\-dynamically  \-mstringop\-strategy=\fR\fIalg\fR
 \&\fB\-mkl \-mwidekl
@@ -6478,6 +6482,16 @@ This warning is upgraded to an error by \fB\-pedantic\-errors\fR.
 .IX Item "-Wimplicit (C and Objective-C only)"
 Same as \fB\-Wimplicit\-int\fR and \fB\-Wimplicit\-function\-declaration\fR.
 This warning is enabled by \fB\-Wall\fR.
+.IP \fB\-Whardened\fR 4
+.IX Item "-Whardened"
+Warn when \fB\-fhardened\fR did not enable an option from its set (for
+which see \fB\-fhardened\fR).  For instance, using \fB\-fhardened\fR
+and \fB\-fstack\-protector\fR at the same time on the command line causes
+\&\fB\-Whardened\fR to warn because \fB\-fstack\-protector\-strong\fR is
+not enabled by \fB\-fhardened\fR.
+.Sp
+This warning is enabled by default and has effect only when \fB\-fhardened\fR
+is enabled.
 .IP \fB\-Wimplicit\-fallthrough\fR 4
 .IX Item "-Wimplicit-fallthrough"
 \&\fB\-Wimplicit\-fallthrough\fR is the same as \fB\-Wimplicit\-fallthrough=3\fR
@@ -7602,8 +7616,8 @@ if the array is referenced as a flexible array member.
 when \fIlevel\fR=3, in addition to \fIlevel\fR=2, additional warnings will be
 issued for a trailing zero-length array reference of a structure
 if the array is referenced as a flexible array member.
-.IP \fB\-Wsuggest\-attribute=\fR[\fBpure\fR|\fBconst\fR|\fBnoreturn\fR|\fBformat\fR|\fBcold\fR|\fBmalloc\fR] 4
-.IX Item "-Wsuggest-attribute=[pure|const|noreturn|format|cold|malloc]"
+.IP \fB\-Wsuggest\-attribute=\fR[\fBpure\fR|\fBconst\fR|\fBnoreturn\fR|\fBformat\fR|\fBcold\fR|\fBmalloc\fR]\fBreturns_nonnull\fR| 4
+.IX Item "-Wsuggest-attribute=[pure|const|noreturn|format|cold|malloc]returns_nonnull|"
 Warn for cases where adding an attribute may be beneficial. The
 attributes currently supported are listed below.
 .RS 4
@@ -7618,9 +7632,13 @@ attributes currently supported are listed below.
 .IX Item "-Wmissing-noreturn"
 .IP \fB\-Wsuggest\-attribute=malloc\fR 4
 .IX Item "-Wsuggest-attribute=malloc"
+.IP \fB\-Wsuggest\-attribute=returns_nonnull\fR 4
+.IX Item "-Wsuggest-attribute=returns_nonnull"
+.IP \fB\-Wno\-suggest\-attribute=returns_nonnull\fR 4
+.IX Item "-Wno-suggest-attribute=returns_nonnull"
 .PD
 Warn about functions that might be candidates for attributes
-\&\f(CW\*(C`pure\*(C'\fR, \f(CW\*(C`const\*(C'\fR or \f(CW\*(C`noreturn\*(C'\fR or \f(CW\*(C`malloc\*(C'\fR. The compiler
+\&\f(CW\*(C`pure\*(C'\fR, \f(CW\*(C`const\*(C'\fR, \f(CW\*(C`noreturn\*(C'\fR, \f(CW\*(C`malloc\*(C'\fR or \f(CW\*(C`returns_nonnull\*(C'\fR. The compiler
 only warns for functions visible in other compilation units or (in the case of
 \&\f(CW\*(C`pure\*(C'\fR and \f(CW\*(C`const\*(C'\fR) if it cannot prove that the function returns
 normally. A function returns normally if it doesn't contain an infinite loop or
@@ -8548,6 +8566,11 @@ will only be diagnosed if \fB\-Wpedantic\fR is used.
 Do not warn about C++23 constructs in code being compiled using
 an older C++ standard.  Even without this option, some C++23 constructs
 will only be diagnosed if \fB\-Wpedantic\fR is used.
+.IP "\fB\-Wno\-c++26\-extensions\fR (C++ and Objective\-C++ only)" 4
+.IX Item "-Wno-c++26-extensions (C++ and Objective-C++ only)"
+Do not warn about C++26 constructs in code being compiled using
+an older C++ standard.  Even without this option, some C++26 constructs
+will only be diagnosed if \fB\-Wpedantic\fR is used.
 .IP \fB\-Wcast\-qual\fR 4
 .IX Item "-Wcast-qual"
 Warn whenever a pointer is cast so as to remove a type qualifier from
@@ -9270,6 +9293,9 @@ Enabled by default.
 .IP \fB\-Wopenacc\-parallelism\fR 4
 .IX Item "-Wopenacc-parallelism"
 Warn about potentially suboptimal choices related to OpenACC parallelism.
+.IP \fB\-Wno\-openmp\fR 4
+.IX Item "-Wno-openmp"
+Warn about suspicious OpenMP code.
 .IP \fB\-Wopenmp\-simd\fR 4
 .IX Item "-Wopenmp-simd"
 Warn if the vectorizer cost model overrides the OpenMP
@@ -9653,6 +9679,7 @@ Enabling this option effectively enables the following warnings:
 \&\-Wanalyzer\-file\-leak
 \&\-Wanalyzer\-free\-of\-non\-heap
 \&\-Wanalyzer\-imprecise\-fp\-arithmetic
+\&\-Wanalyzer\-infinite\-loop
 \&\-Wanalyzer\-infinite\-recursion
 \&\-Wanalyzer\-jump\-through\-null
 \&\-Wanalyzer\-malloc\-leak
@@ -9673,6 +9700,7 @@ Enabling this option effectively enables the following warnings:
 \&\-Wanalyzer\-tainted\-divisor
 \&\-Wanalyzer\-tainted\-offset
 \&\-Wanalyzer\-tainted\-size
+\&\-Wanalyzer\-undefined\-behavior\-strtok
 \&\-Wanalyzer\-unsafe\-call\-within\-signal\-handler
 \&\-Wanalyzer\-use\-after\-free
 \&\-Wanalyzer\-use\-of\-pointer\-in\-stale\-stack\-frame
@@ -9882,6 +9910,57 @@ This diagnostic warns for paths through the code in which floating-point
 arithmetic is used in locations where precise computation is needed.  This
 diagnostic only warns on use of floating-point operands inside the
 calculation of an allocation size at the moment.
+.IP \fB\-Wno\-analyzer\-infinite\-loop\fR 4
+.IX Item "-Wno-analyzer-infinite-loop"
+This warning requires \fB\-fanalyzer\fR, which enables it; use
+\&\fB\-Wno\-analyzer\-infinite\-loop\fR to disable it.
+.Sp
+This diagnostics warns for paths through the code which appear to
+lead to an infinite loop.
+.Sp
+Specifically, the analyzer will issue this warning when it "sees" a loop
+in which:
+.RS 4
+.IP * 4
+no externally-visible work could be being done within the loop
+.IP * 4
+there is no way to escape from the loop
+.IP * 4
+the analyzer is sufficiently confident about the program state
+throughout the loop to know that the above are true
+.RE
+.RS 4
+.Sp
+One way for this warning to be emitted is when there is an execution
+path through a loop for which taking the path on one iteration implies
+that the same path will be taken on all subsequent iterations.
+.Sp
+For example, consider:
+.Sp
+.Vb 10
+\&          while (1)
+\&            {
+\&              char opcode = *cpu_state.pc;
+\&              switch (opcode)
+\&               {
+\&               case OPCODE_FOO:
+\&                 handle_opcode_foo (&cpu_state);
+\&                 break;
+\&               case OPCODE_BAR:
+\&                 handle_opcode_bar (&cpu_state);
+\&                 break;
+\&               }
+\&            }
+.Ve
+.Sp
+The analyzer will complain for the above case because if \f(CW\*(C`opcode\*(C'\fR
+ever matches none of the cases, the \f(CW\*(C`switch\*(C'\fR will follow the
+implicit \f(CW\*(C`default\*(C'\fR case, making the body of the loop be a "no-op"
+with \f(CW\*(C`cpu_state.pc\*(C'\fR unchanged, and thus using the same value of
+\&\f(CW\*(C`opcode\*(C'\fR on all subseqent iterations, leading to an infinite loop.
+.Sp
+See  CWE\-835: Loop with Unreachable Exit Condition ('Infinite Loop') (\f(CW\*(C`https://cwe.mitre.org/data/definitions/835.html\*(C'\fR).
+.RE
 .IP \fB\-Wno\-analyzer\-infinite\-recursion\fR 4
 .IX Item "-Wno-analyzer-infinite-recursion"
 This warning requires \fB\-fanalyzer\fR, which enables it; use
@@ -9904,6 +9983,8 @@ this diagnostic.
 .Sp
 Compare with \fB\-Winfinite\-recursion\fR, which provides a similar
 diagnostic, but is implemented in a different way.
+.Sp
+See  CWE\-674: Uncontrolled Recursion (\f(CW\*(C`https://cwe.mitre.org/data/definitions/674.html\*(C'\fR).
 .IP \fB\-Wno\-analyzer\-jump\-through\-null\fR 4
 .IX Item "-Wno-analyzer-jump-through-null"
 This warning requires \fB\-fanalyzer\fR, which enables it; use
@@ -10189,6 +10270,16 @@ an operation such as \f(CW\*(C`memset\*(C'\fR without being sanitized, so that a
 attacker could inject an out-of-bounds access.
 .Sp
 See  CWE\-129: Improper Validation of Array Index (\f(CW\*(C`https://cwe.mitre.org/data/definitions/129.html\*(C'\fR).
+.IP \fB\-Wno\-analyzer\-undefined\-behavior\-strtok\fR 4
+.IX Item "-Wno-analyzer-undefined-behavior-strtok"
+This warning requires \fB\-fanalyzer\fR, which enables it; use
+\&\fB\-Wno\-analyzer\-undefined\-behavior\-strtok\fR to disable it.
+.Sp
+This diagnostic warns for paths through the code in which a
+call is made to \f(CW\*(C`strtok\*(C'\fR with undefined behavior.
+.Sp
+Specifically, passing NULL as the first parameter for the initial
+call to \f(CW\*(C`strtok\*(C'\fR within a process has undefined behavior.
 .IP \fB\-Wno\-analyzer\-unsafe\-call\-within\-signal\-handler\fR 4
 .IX Item "-Wno-analyzer-unsafe-call-within-signal-handler"
 This warning requires \fB\-fanalyzer\fR, which enables it; use
@@ -10687,6 +10778,11 @@ Dump internal details about the analyzer's search for feasible paths.
 The details are written in a form suitable for viewing with GraphViz
 to filenames of the form \fIfile.*.fg.dot\fR,
 \&\fIfile.*.tg.dot\fR, and \fIfile.*.fpath.txt\fR.
+.IP \fB\-fdump\-analyzer\-infinite\-loop\fR 4
+.IX Item "-fdump-analyzer-infinite-loop"
+Dump internal details about the analyzer's search for infinite loops.
+The details are written in a form suitable for viewing with GraphViz
+to filenames of the form \fIfile.*.infinite\-loop.dot\fR.
 .IP \fB\-fdump\-analyzer\-json\fR 4
 .IX Item "-fdump-analyzer-json"
 Dump a compressed JSON representation of analyzer internals to
@@ -15885,7 +15981,24 @@ while the second one prevents profile corruption by emitting thread-safe code.
 Using \fBprefer-atomic\fR would be transformed either to \fBatomic\fR,
 when supported by a target, or to \fBsingle\fR otherwise.  The GCC driver
 automatically selects \fBprefer-atomic\fR when \fB\-pthread\fR
-is present in the command line.
+is present in the command line, otherwise the default method is \fBsingle\fR.
+.Sp
+If \fBatomic\fR is selected, then the profile information is updated using
+atomic operations on a best-effort basis.  Ideally, the profile information is
+updated through atomic operations in hardware.  If the target platform does not
+support the required atomic operations in hardware, however, \fIlibatomic\fR
+is available, then the profile information is updated through calls to
+\&\fIlibatomic\fR.  If the target platform neither supports the required atomic
+operations in hardware nor \fIlibatomic\fR, then the profile information is
+not atomically updated and a warning is issued.  In this case, the obtained
+profiling information may be corrupt for multi-threaded applications.
+.Sp
+For performance reasons, if 64\-bit counters are used for the profiling
+information and the target platform only supports 32\-bit atomic operations in
+hardware, then the performance critical profiling updates are done using two
+32\-bit atomic operations for each counter update.  If a signal interrupts these
+two operations updating a counter, then the profiling information may be in an
+inconsistent state.
 .IP \fB\-fprofile\-filter\-files=\fR\fIregex\fR 4
 .IX Item "-fprofile-filter-files=regex"
 Instrument only functions from files whose name matches
@@ -16432,6 +16545,35 @@ frequently amounts to implicitly calling \f(CW\*(C`noreturn\*(C'\fR functions, h
 made \fBno-xthrow\fR the default setting for this option: it excludes
 from the \f(CW\*(C`noreturn\*(C'\fR treatment only internal functions used to
 (re)raise exceptions, that are not affected by these optimizations.
+.IP \fB\-fhardened\fR 4
+.IX Item "-fhardened"
+Enable a set of flags for C and C++ that improve the security of the
+generated code without affecting its ABI.  The precise flags enabled
+may change between major releases of GCC, but are currently:
+.Sp
+\&\fB\-D_FORTIFY_SOURCE=3
+\&\-D_GLIBCXX_ASSERTIONS
+\&\-ftrivial\-auto\-var\-init=zero
+\&\-fPIE  \-pie  \-Wl,\-z,relro,\-z,now
+\&\-fstack\-protector\-strong
+\&\-fstack\-clash\-protection
+\&\-fcf\-protection=full\fR (x86 GNU/Linux only)\fB \fR
+.Sp
+The list of options enabled by \fB\-fhardened\fR can be generated using
+the \fB\-\-help=hardened\fR option.
+.Sp
+When the system glibc is older than 2.35, \fB\-D_FORTIFY_SOURCE=2\fR
+is used instead.
+.Sp
+This option is intended to be used in production builds, not merely
+in debug builds.
+.Sp
+Currently, \fB\-fhardened\fR is only supported on GNU/Linux targets.
+.Sp
+\&\fB\-fhardened\fR only enables a particular option if it wasn't
+already specified anywhere on the command line.  For instance,
+\&\fB\-fhardened\fR \fB\-fstack\-protector\fR will only enable
+\&\fB\-fstack\-protector\fR, but not \fB\-fstack\-protector\-strong\fR.
 .IP \fB\-fstack\-protector\fR 4
 .IX Item "-fstack-protector"
 Emit extra code to check for buffer overflows, such as stack smashing
@@ -28621,6 +28763,16 @@ Put global and static data smaller than \fIn\fR bytes into a special section
 Do or don't use smaller but slower prologue and epilogue code that uses
 library function calls.  The default is to use fast inline prologues and
 epilogues.
+.IP \fB\-mmovcc\fR 4
+.IX Item "-mmovcc"
+.PD 0
+.IP \fB\-mno\-movcc\fR 4
+.IX Item "-mno-movcc"
+.PD
+Do or don't produce branchless conditional-move code sequences even with
+targets that do not have specific instructions for conditional operations.
+If enabled, sequences of ALU operations are produced using base integer
+ISA instructions where profitable.
 .IP \fB\-minline\-atomics\fR 4
 .IX Item "-minline-atomics"
 .PD 0
@@ -32933,6 +33085,12 @@ preferred alignment to \fB\-mpreferred\-stack\-boundary=2\fR.
 .IX Item "-mapxf"
 .IP \fB\-musermsr\fR 4
 .IX Item "-musermsr"
+.IP \fB\-mavx10.1\fR 4
+.IX Item "-mavx10.1"
+.IP \fB\-mavx10.1\-256\fR 4
+.IX Item "-mavx10.1-256"
+.IP \fB\-mavx10.1\-512\fR 4
+.IX Item "-mavx10.1-512"
 .PD
 These switches enable the use of instructions in the MMX, SSE,
 AVX512ER, AVX512CD, AVX512VL, AVX512BW, AVX512DQ, AVX512IFMA, AVX512VBMI, SHA,
@@ -32944,9 +33102,9 @@ GFNI, VAES, WAITPKG, VPCLMULQDQ, AVX512BITALG, MOVDIRI, MOVDIR64B, AVX512BF16,
 ENQCMD, AVX512VPOPCNTDQ, AVX5124FMAPS, AVX512VNNI, AVX5124VNNIW, SERIALIZE,
 UINTR, HRESET, AMXTILE, AMXINT8, AMXBF16, KL, WIDEKL, AVXVNNI, AVX512\-FP16,
 AVXIFMA, AVXVNNIINT8, AVXNECONVERT, CMPCCXADD, AMX\-FP16, PREFETCHI, RAOINT,
-AMX-COMPLEX, AVXVNNIINT16, SM3, SHA512, SM4, APX_F, USER_MSR or CLDEMOTE
-extended instruction sets.  Each has a corresponding \fB\-mno\-\fR option
-to disable use of these instructions.
+AMX-COMPLEX, AVXVNNIINT16, SM3, SHA512, SM4, APX_F, USER_MSR, AVX10.1 or
+CLDEMOTE extended instruction sets.  Each has a corresponding \fB\-mno\-\fR
+option to disable use of these instructions.
 .Sp
 These extensions are also available as built-in functions: see
 \&\fBx86 Built-in Functions\fR, for details of the functions enabled and

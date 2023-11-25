@@ -3335,7 +3335,7 @@ the GPU.
    To enable support for GCN3 Fiji devices (gfx803), GCC has to be
 configured with ‘--with-arch=fiji’ or ‘--with-multilib-list=fiji,...’.
 Note that support for Fiji devices has been removed in ROCm 4.0 and
-support in LLVM is deprecated and will be removed in the future.
+support in LLVM is deprecated and will be removed in LLVM 18.
 
 arc-*-elf32
 ===========
@@ -5033,83 +5033,83 @@ Node: Specific151641
 Ref: aarch64-x-x152175
 Ref: amd64-x-solaris2154259
 Ref: amdgcn-x-amdhsa154345
-Ref: arc-x-elf32155190
-Ref: arc-linux-uclibc155382
-Ref: arm-x-eabi155527
-Ref: avr155784
-Ref: bfin156373
-Ref: cris156636
-Ref: dos156966
-Ref: epiphany-x-elf157291
-Ref: x-x-freebsd157396
-Ref: ft32-x-elf158984
-Ref: h8300-hms159082
-Ref: hppa-hp-hpux159434
-Ref: hppa-hp-hpux10161856
-Ref: hppa-hp-hpux11162273
-Ref: x-x-linux-gnu167791
-Ref: ix86-x-linux168122
-Ref: ix86-x-solaris2168435
-Ref: ia64-x-linux168695
-Ref: ia64-x-hpux168946
-Ref: x-ibm-aix169513
-Ref: TransferAixShobj173241
-Ref: iq2000-x-elf177143
-Ref: lm32-x-elf177283
-Ref: lm32-x-uclinux177387
-Ref: loongarch177515
-Ref: m32c-x-elf178188
-Ref: m32r-x-elf178290
-Ref: m68k-x-x178392
-Ref: m68k-x-uclinux179522
-Ref: microblaze-x-elf179775
-Ref: mips-x-x179894
-Ref: moxie-x-elf181888
-Ref: msp430-x-elf181935
-Ref: nds32le-x-elf182504
-Ref: nds32be-x-elf182576
-Ref: nvptx-x-none182645
-Ref: or1k-x-elf183554
-Ref: or1k-x-linux183685
-Ref: powerpc-x-x183766
-Ref: powerpc-x-darwin183965
-Ref: powerpc-x-elf184460
-Ref: powerpc-x-linux-gnu184545
-Ref: powerpc-x-netbsd184640
-Ref: powerpc-x-eabisim184728
-Ref: powerpc-x-eabi184854
-Ref: powerpcle-x-elf184930
-Ref: powerpcle-x-eabisim185022
-Ref: powerpcle-x-eabi185155
-Ref: rl78-x-elf185238
-Ref: riscv32-x-elf185344
-Ref: riscv32-x-linux185533
-Ref: riscv64-x-elf185690
-Ref: riscv64-x-linux185879
-Ref: rx-x-elf186036
-Ref: s390-x-linux186082
-Ref: s390x-x-linux186154
-Ref: s390x-ibm-tpf186241
-Ref: x-x-solaris2186372
-Ref: sparc-x-x190313
-Ref: sparc-sun-solaris2190815
-Ref: sparc-x-linux191730
-Ref: sparc64-x-solaris2191761
-Ref: sparcv9-x-solaris2191852
-Ref: c6x-x-x192601
-Ref: visium-x-elf192693
-Ref: x-x-vxworks192801
-Ref: x86-64-x-x194390
-Ref: x86-64-x-solaris2194722
-Ref: xtensa-x-elf195376
-Ref: xtensa-x-linux196055
-Ref: windows196408
-Ref: x-x-cygwin198061
-Ref: x-x-mingw32198616
-Ref: older199014
-Ref: elf201155
-Node: GNU Free Documentation License201409
-Node: Concept Index226750
+Ref: arc-x-elf32155187
+Ref: arc-linux-uclibc155379
+Ref: arm-x-eabi155524
+Ref: avr155781
+Ref: bfin156370
+Ref: cris156633
+Ref: dos156963
+Ref: epiphany-x-elf157288
+Ref: x-x-freebsd157393
+Ref: ft32-x-elf158981
+Ref: h8300-hms159079
+Ref: hppa-hp-hpux159431
+Ref: hppa-hp-hpux10161853
+Ref: hppa-hp-hpux11162270
+Ref: x-x-linux-gnu167788
+Ref: ix86-x-linux168119
+Ref: ix86-x-solaris2168432
+Ref: ia64-x-linux168692
+Ref: ia64-x-hpux168943
+Ref: x-ibm-aix169510
+Ref: TransferAixShobj173238
+Ref: iq2000-x-elf177140
+Ref: lm32-x-elf177280
+Ref: lm32-x-uclinux177384
+Ref: loongarch177512
+Ref: m32c-x-elf178185
+Ref: m32r-x-elf178287
+Ref: m68k-x-x178389
+Ref: m68k-x-uclinux179519
+Ref: microblaze-x-elf179772
+Ref: mips-x-x179891
+Ref: moxie-x-elf181885
+Ref: msp430-x-elf181932
+Ref: nds32le-x-elf182501
+Ref: nds32be-x-elf182573
+Ref: nvptx-x-none182642
+Ref: or1k-x-elf183551
+Ref: or1k-x-linux183682
+Ref: powerpc-x-x183763
+Ref: powerpc-x-darwin183962
+Ref: powerpc-x-elf184457
+Ref: powerpc-x-linux-gnu184542
+Ref: powerpc-x-netbsd184637
+Ref: powerpc-x-eabisim184725
+Ref: powerpc-x-eabi184851
+Ref: powerpcle-x-elf184927
+Ref: powerpcle-x-eabisim185019
+Ref: powerpcle-x-eabi185152
+Ref: rl78-x-elf185235
+Ref: riscv32-x-elf185341
+Ref: riscv32-x-linux185530
+Ref: riscv64-x-elf185687
+Ref: riscv64-x-linux185876
+Ref: rx-x-elf186033
+Ref: s390-x-linux186079
+Ref: s390x-x-linux186151
+Ref: s390x-ibm-tpf186238
+Ref: x-x-solaris2186369
+Ref: sparc-x-x190310
+Ref: sparc-sun-solaris2190812
+Ref: sparc-x-linux191727
+Ref: sparc64-x-solaris2191758
+Ref: sparcv9-x-solaris2191849
+Ref: c6x-x-x192598
+Ref: visium-x-elf192690
+Ref: x-x-vxworks192798
+Ref: x86-64-x-x194387
+Ref: x86-64-x-solaris2194719
+Ref: xtensa-x-elf195373
+Ref: xtensa-x-linux196052
+Ref: windows196405
+Ref: x-x-cygwin198058
+Ref: x-x-mingw32198613
+Ref: older199011
+Ref: elf201152
+Node: GNU Free Documentation License201406
+Node: Concept Index226747
 
 End Tag Table
 
