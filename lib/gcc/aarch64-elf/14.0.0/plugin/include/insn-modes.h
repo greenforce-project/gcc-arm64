@@ -139,21 +139,21 @@ enum machine_mode
 #else
 #define TImode (scalar_int_mode ((scalar_int_mode::from_int) E_TImode))
 #endif
-  E_OImode,                /* config/aarch64/aarch64-modes.def:87 */
+  E_OImode,                /* config/aarch64/aarch64-modes.def:90 */
 #define HAVE_OImode
 #ifdef USE_ENUM_MODES
 #define OImode E_OImode
 #else
 #define OImode (scalar_int_mode ((scalar_int_mode::from_int) E_OImode))
 #endif
-  E_CImode,                /* config/aarch64/aarch64-modes.def:91 */
+  E_CImode,                /* config/aarch64/aarch64-modes.def:94 */
 #define HAVE_CImode
 #ifdef USE_ENUM_MODES
 #define CImode E_CImode
 #else
 #define CImode (scalar_int_mode ((scalar_int_mode::from_int) E_CImode))
 #endif
-  E_XImode,                /* config/aarch64/aarch64-modes.def:92 */
+  E_XImode,                /* config/aarch64/aarch64-modes.def:95 */
 #define HAVE_XImode
 #ifdef USE_ENUM_MODES
 #define XImode E_XImode
@@ -293,7 +293,7 @@ enum machine_mode
 #else
 #define HFmode (scalar_float_mode ((scalar_float_mode::from_int) E_HFmode))
 #endif
-  E_BFmode,                /* config/aarch64/aarch64-modes.def:67 */
+  E_BFmode,                /* config/aarch64/aarch64-modes.def:70 */
 #define HAVE_BFmode
 #ifdef USE_ENUM_MODES
 #define BFmode E_BFmode
@@ -314,7 +314,7 @@ enum machine_mode
 #else
 #define DFmode (scalar_float_mode ((scalar_float_mode::from_int) E_DFmode))
 #endif
-  E_TFmode,                /* config/aarch64/aarch64-modes.def:235 */
+  E_TFmode,                /* config/aarch64/aarch64-modes.def:245 */
 #define HAVE_TFmode
 #ifdef USE_ENUM_MODES
 #define TFmode E_TFmode
@@ -433,847 +433,861 @@ enum machine_mode
 #else
 #define TCmode (complex_mode ((complex_mode::from_int) E_TCmode))
 #endif
-  E_VNx16BImode,           /* config/aarch64/aarch64-modes.def:51 */
+  E_VNx16BImode,           /* config/aarch64/aarch64-modes.def:52 */
 #define HAVE_VNx16BImode
 #ifdef USE_ENUM_MODES
 #define VNx16BImode E_VNx16BImode
 #else
 #define VNx16BImode ((void) 0, E_VNx16BImode)
 #endif
-  E_VNx8BImode,            /* config/aarch64/aarch64-modes.def:52 */
+  E_VNx8BImode,            /* config/aarch64/aarch64-modes.def:53 */
 #define HAVE_VNx8BImode
 #ifdef USE_ENUM_MODES
 #define VNx8BImode E_VNx8BImode
 #else
 #define VNx8BImode ((void) 0, E_VNx8BImode)
 #endif
-  E_VNx4BImode,            /* config/aarch64/aarch64-modes.def:53 */
+  E_VNx4BImode,            /* config/aarch64/aarch64-modes.def:54 */
 #define HAVE_VNx4BImode
 #ifdef USE_ENUM_MODES
 #define VNx4BImode E_VNx4BImode
 #else
 #define VNx4BImode ((void) 0, E_VNx4BImode)
 #endif
-  E_VNx2BImode,            /* config/aarch64/aarch64-modes.def:54 */
+  E_VNx2BImode,            /* config/aarch64/aarch64-modes.def:55 */
 #define HAVE_VNx2BImode
 #ifdef USE_ENUM_MODES
 #define VNx2BImode E_VNx2BImode
 #else
 #define VNx2BImode ((void) 0, E_VNx2BImode)
 #endif
-  E_V8QImode,              /* config/aarch64/aarch64-modes.def:70 */
+  E_VNx32BImode,           /* config/aarch64/aarch64-modes.def:51 */
+#define HAVE_VNx32BImode
+#ifdef USE_ENUM_MODES
+#define VNx32BImode E_VNx32BImode
+#else
+#define VNx32BImode ((void) 0, E_VNx32BImode)
+#endif
+  E_V8QImode,              /* config/aarch64/aarch64-modes.def:73 */
 #define HAVE_V8QImode
 #ifdef USE_ENUM_MODES
 #define V8QImode E_V8QImode
 #else
 #define V8QImode ((void) 0, E_V8QImode)
 #endif
-  E_V4HImode,              /* config/aarch64/aarch64-modes.def:70 */
+  E_V4HImode,              /* config/aarch64/aarch64-modes.def:73 */
 #define HAVE_V4HImode
 #ifdef USE_ENUM_MODES
 #define V4HImode E_V4HImode
 #else
 #define V4HImode ((void) 0, E_V4HImode)
 #endif
-  E_V2SImode,              /* config/aarch64/aarch64-modes.def:70 */
+  E_V2SImode,              /* config/aarch64/aarch64-modes.def:73 */
 #define HAVE_V2SImode
 #ifdef USE_ENUM_MODES
 #define V2SImode E_V2SImode
 #else
 #define V2SImode ((void) 0, E_V2SImode)
 #endif
-  E_V1DImode,              /* config/aarch64/aarch64-modes.def:74 */
+  E_V1DImode,              /* config/aarch64/aarch64-modes.def:77 */
 #define HAVE_V1DImode
 #ifdef USE_ENUM_MODES
 #define V1DImode E_V1DImode
 #else
 #define V1DImode ((void) 0, E_V1DImode)
 #endif
-  E_V16QImode,             /* config/aarch64/aarch64-modes.def:71 */
+  E_V16QImode,             /* config/aarch64/aarch64-modes.def:74 */
 #define HAVE_V16QImode
 #ifdef USE_ENUM_MODES
 #define V16QImode E_V16QImode
 #else
 #define V16QImode ((void) 0, E_V16QImode)
 #endif
-  E_V8HImode,              /* config/aarch64/aarch64-modes.def:71 */
+  E_V8HImode,              /* config/aarch64/aarch64-modes.def:74 */
 #define HAVE_V8HImode
 #ifdef USE_ENUM_MODES
 #define V8HImode E_V8HImode
 #else
 #define V8HImode ((void) 0, E_V8HImode)
 #endif
-  E_V4SImode,              /* config/aarch64/aarch64-modes.def:71 */
+  E_V4SImode,              /* config/aarch64/aarch64-modes.def:74 */
 #define HAVE_V4SImode
 #ifdef USE_ENUM_MODES
 #define V4SImode E_V4SImode
 #else
 #define V4SImode ((void) 0, E_V4SImode)
 #endif
-  E_V2DImode,              /* config/aarch64/aarch64-modes.def:71 */
+  E_V2DImode,              /* config/aarch64/aarch64-modes.def:74 */
 #define HAVE_V2DImode
 #ifdef USE_ENUM_MODES
 #define V2DImode E_V2DImode
 #else
 #define V2DImode ((void) 0, E_V2DImode)
 #endif
-  E_V16HImode,             /* config/aarch64/aarch64-modes.def:81 */
+  E_V16HImode,             /* config/aarch64/aarch64-modes.def:84 */
 #define HAVE_V16HImode
 #ifdef USE_ENUM_MODES
 #define V16HImode E_V16HImode
 #else
 #define V16HImode ((void) 0, E_V16HImode)
 #endif
-  E_V8SImode,              /* config/aarch64/aarch64-modes.def:82 */
+  E_V8SImode,              /* config/aarch64/aarch64-modes.def:85 */
 #define HAVE_V8SImode
 #ifdef USE_ENUM_MODES
 #define V8SImode E_V8SImode
 #else
 #define V8SImode ((void) 0, E_V8SImode)
 #endif
-  E_V4DImode,              /* config/aarch64/aarch64-modes.def:83 */
+  E_V4DImode,              /* config/aarch64/aarch64-modes.def:86 */
 #define HAVE_V4DImode
 #ifdef USE_ENUM_MODES
 #define V4DImode E_V4DImode
 #else
 #define V4DImode ((void) 0, E_V4DImode)
 #endif
-  E_V2TImode,              /* config/aarch64/aarch64-modes.def:84 */
+  E_V2TImode,              /* config/aarch64/aarch64-modes.def:87 */
 #define HAVE_V2TImode
 #ifdef USE_ENUM_MODES
 #define V2TImode E_V2TImode
 #else
 #define V2TImode ((void) 0, E_V2TImode)
 #endif
-  E_VNx16QImode,           /* config/aarch64/aarch64-modes.def:183 */
+  E_VNx16QImode,           /* config/aarch64/aarch64-modes.def:193 */
 #define HAVE_VNx16QImode
 #ifdef USE_ENUM_MODES
 #define VNx16QImode E_VNx16QImode
 #else
 #define VNx16QImode ((void) 0, E_VNx16QImode)
 #endif
-  E_VNx8HImode,            /* config/aarch64/aarch64-modes.def:183 */
+  E_VNx8HImode,            /* config/aarch64/aarch64-modes.def:193 */
 #define HAVE_VNx8HImode
 #ifdef USE_ENUM_MODES
 #define VNx8HImode E_VNx8HImode
 #else
 #define VNx8HImode ((void) 0, E_VNx8HImode)
 #endif
-  E_VNx4SImode,            /* config/aarch64/aarch64-modes.def:183 */
+  E_VNx4SImode,            /* config/aarch64/aarch64-modes.def:193 */
 #define HAVE_VNx4SImode
 #ifdef USE_ENUM_MODES
 #define VNx4SImode E_VNx4SImode
 #else
 #define VNx4SImode ((void) 0, E_VNx4SImode)
 #endif
-  E_VNx2DImode,            /* config/aarch64/aarch64-modes.def:183 */
+  E_VNx2DImode,            /* config/aarch64/aarch64-modes.def:193 */
 #define HAVE_VNx2DImode
 #ifdef USE_ENUM_MODES
 #define VNx2DImode E_VNx2DImode
 #else
 #define VNx2DImode ((void) 0, E_VNx2DImode)
 #endif
-  E_VNx2QImode,            /* config/aarch64/aarch64-modes.def:200 */
+  E_VNx1TImode,            /* config/aarch64/aarch64-modes.def:192 */
+#define HAVE_VNx1TImode
+#ifdef USE_ENUM_MODES
+#define VNx1TImode E_VNx1TImode
+#else
+#define VNx1TImode ((void) 0, E_VNx1TImode)
+#endif
+  E_VNx2QImode,            /* config/aarch64/aarch64-modes.def:210 */
 #define HAVE_VNx2QImode
 #ifdef USE_ENUM_MODES
 #define VNx2QImode E_VNx2QImode
 #else
 #define VNx2QImode ((void) 0, E_VNx2QImode)
 #endif
-  E_VNx4QImode,            /* config/aarch64/aarch64-modes.def:201 */
+  E_VNx4QImode,            /* config/aarch64/aarch64-modes.def:211 */
 #define HAVE_VNx4QImode
 #ifdef USE_ENUM_MODES
 #define VNx4QImode E_VNx4QImode
 #else
 #define VNx4QImode ((void) 0, E_VNx4QImode)
 #endif
-  E_VNx2HImode,            /* config/aarch64/aarch64-modes.def:201 */
+  E_VNx2HImode,            /* config/aarch64/aarch64-modes.def:211 */
 #define HAVE_VNx2HImode
 #ifdef USE_ENUM_MODES
 #define VNx2HImode E_VNx2HImode
 #else
 #define VNx2HImode ((void) 0, E_VNx2HImode)
 #endif
-  E_VNx8QImode,            /* config/aarch64/aarch64-modes.def:202 */
+  E_VNx8QImode,            /* config/aarch64/aarch64-modes.def:212 */
 #define HAVE_VNx8QImode
 #ifdef USE_ENUM_MODES
 #define VNx8QImode E_VNx8QImode
 #else
 #define VNx8QImode ((void) 0, E_VNx8QImode)
 #endif
-  E_VNx4HImode,            /* config/aarch64/aarch64-modes.def:202 */
+  E_VNx4HImode,            /* config/aarch64/aarch64-modes.def:212 */
 #define HAVE_VNx4HImode
 #ifdef USE_ENUM_MODES
 #define VNx4HImode E_VNx4HImode
 #else
 #define VNx4HImode ((void) 0, E_VNx4HImode)
 #endif
-  E_VNx2SImode,            /* config/aarch64/aarch64-modes.def:202 */
+  E_VNx2SImode,            /* config/aarch64/aarch64-modes.def:212 */
 #define HAVE_VNx2SImode
 #ifdef USE_ENUM_MODES
 #define VNx2SImode E_VNx2SImode
 #else
 #define VNx2SImode ((void) 0, E_VNx2SImode)
 #endif
-  E_V2x8QImode,            /* config/aarch64/aarch64-modes.def:124 */
+  E_V2x8QImode,            /* config/aarch64/aarch64-modes.def:127 */
 #define HAVE_V2x8QImode
 #ifdef USE_ENUM_MODES
 #define V2x8QImode E_V2x8QImode
 #else
 #define V2x8QImode ((void) 0, E_V2x8QImode)
 #endif
-  E_V3x8QImode,            /* config/aarch64/aarch64-modes.def:125 */
+  E_V3x8QImode,            /* config/aarch64/aarch64-modes.def:128 */
 #define HAVE_V3x8QImode
 #ifdef USE_ENUM_MODES
 #define V3x8QImode E_V3x8QImode
 #else
 #define V3x8QImode ((void) 0, E_V3x8QImode)
 #endif
-  E_V4x8QImode,            /* config/aarch64/aarch64-modes.def:126 */
+  E_V4x8QImode,            /* config/aarch64/aarch64-modes.def:129 */
 #define HAVE_V4x8QImode
 #ifdef USE_ENUM_MODES
 #define V4x8QImode E_V4x8QImode
 #else
 #define V4x8QImode ((void) 0, E_V4x8QImode)
 #endif
-  E_V2x4HImode,            /* config/aarch64/aarch64-modes.def:124 */
+  E_V2x4HImode,            /* config/aarch64/aarch64-modes.def:127 */
 #define HAVE_V2x4HImode
 #ifdef USE_ENUM_MODES
 #define V2x4HImode E_V2x4HImode
 #else
 #define V2x4HImode ((void) 0, E_V2x4HImode)
 #endif
-  E_V3x4HImode,            /* config/aarch64/aarch64-modes.def:125 */
+  E_V3x4HImode,            /* config/aarch64/aarch64-modes.def:128 */
 #define HAVE_V3x4HImode
 #ifdef USE_ENUM_MODES
 #define V3x4HImode E_V3x4HImode
 #else
 #define V3x4HImode ((void) 0, E_V3x4HImode)
 #endif
-  E_V4x4HImode,            /* config/aarch64/aarch64-modes.def:126 */
+  E_V4x4HImode,            /* config/aarch64/aarch64-modes.def:129 */
 #define HAVE_V4x4HImode
 #ifdef USE_ENUM_MODES
 #define V4x4HImode E_V4x4HImode
 #else
 #define V4x4HImode ((void) 0, E_V4x4HImode)
 #endif
-  E_V2x2SImode,            /* config/aarch64/aarch64-modes.def:124 */
+  E_V2x2SImode,            /* config/aarch64/aarch64-modes.def:127 */
 #define HAVE_V2x2SImode
 #ifdef USE_ENUM_MODES
 #define V2x2SImode E_V2x2SImode
 #else
 #define V2x2SImode ((void) 0, E_V2x2SImode)
 #endif
-  E_V3x2SImode,            /* config/aarch64/aarch64-modes.def:125 */
+  E_V3x2SImode,            /* config/aarch64/aarch64-modes.def:128 */
 #define HAVE_V3x2SImode
 #ifdef USE_ENUM_MODES
 #define V3x2SImode E_V3x2SImode
 #else
 #define V3x2SImode ((void) 0, E_V3x2SImode)
 #endif
-  E_V4x2SImode,            /* config/aarch64/aarch64-modes.def:126 */
+  E_V4x2SImode,            /* config/aarch64/aarch64-modes.def:129 */
 #define HAVE_V4x2SImode
 #ifdef USE_ENUM_MODES
 #define V4x2SImode E_V4x2SImode
 #else
 #define V4x2SImode ((void) 0, E_V4x2SImode)
 #endif
-  E_V2x1DImode,            /* config/aarch64/aarch64-modes.def:124 */
+  E_V2x1DImode,            /* config/aarch64/aarch64-modes.def:127 */
 #define HAVE_V2x1DImode
 #ifdef USE_ENUM_MODES
 #define V2x1DImode E_V2x1DImode
 #else
 #define V2x1DImode ((void) 0, E_V2x1DImode)
 #endif
-  E_V3x1DImode,            /* config/aarch64/aarch64-modes.def:125 */
+  E_V3x1DImode,            /* config/aarch64/aarch64-modes.def:128 */
 #define HAVE_V3x1DImode
 #ifdef USE_ENUM_MODES
 #define V3x1DImode E_V3x1DImode
 #else
 #define V3x1DImode ((void) 0, E_V3x1DImode)
 #endif
-  E_V4x1DImode,            /* config/aarch64/aarch64-modes.def:126 */
+  E_V4x1DImode,            /* config/aarch64/aarch64-modes.def:129 */
 #define HAVE_V4x1DImode
 #ifdef USE_ENUM_MODES
 #define V4x1DImode E_V4x1DImode
 #else
 #define V4x1DImode ((void) 0, E_V4x1DImode)
 #endif
-  E_V2x16QImode,           /* config/aarch64/aarch64-modes.def:151 */
+  E_V2x16QImode,           /* config/aarch64/aarch64-modes.def:154 */
 #define HAVE_V2x16QImode
 #ifdef USE_ENUM_MODES
 #define V2x16QImode E_V2x16QImode
 #else
 #define V2x16QImode ((void) 0, E_V2x16QImode)
 #endif
-  E_V3x16QImode,           /* config/aarch64/aarch64-modes.def:152 */
+  E_V3x16QImode,           /* config/aarch64/aarch64-modes.def:155 */
 #define HAVE_V3x16QImode
 #ifdef USE_ENUM_MODES
 #define V3x16QImode E_V3x16QImode
 #else
 #define V3x16QImode ((void) 0, E_V3x16QImode)
 #endif
-  E_V4x16QImode,           /* config/aarch64/aarch64-modes.def:153 */
+  E_V4x16QImode,           /* config/aarch64/aarch64-modes.def:156 */
 #define HAVE_V4x16QImode
 #ifdef USE_ENUM_MODES
 #define V4x16QImode E_V4x16QImode
 #else
 #define V4x16QImode ((void) 0, E_V4x16QImode)
 #endif
-  E_V2x8HImode,            /* config/aarch64/aarch64-modes.def:151 */
+  E_V2x8HImode,            /* config/aarch64/aarch64-modes.def:154 */
 #define HAVE_V2x8HImode
 #ifdef USE_ENUM_MODES
 #define V2x8HImode E_V2x8HImode
 #else
 #define V2x8HImode ((void) 0, E_V2x8HImode)
 #endif
-  E_V3x8HImode,            /* config/aarch64/aarch64-modes.def:152 */
+  E_V3x8HImode,            /* config/aarch64/aarch64-modes.def:155 */
 #define HAVE_V3x8HImode
 #ifdef USE_ENUM_MODES
 #define V3x8HImode E_V3x8HImode
 #else
 #define V3x8HImode ((void) 0, E_V3x8HImode)
 #endif
-  E_V4x8HImode,            /* config/aarch64/aarch64-modes.def:153 */
+  E_V4x8HImode,            /* config/aarch64/aarch64-modes.def:156 */
 #define HAVE_V4x8HImode
 #ifdef USE_ENUM_MODES
 #define V4x8HImode E_V4x8HImode
 #else
 #define V4x8HImode ((void) 0, E_V4x8HImode)
 #endif
-  E_V2x4SImode,            /* config/aarch64/aarch64-modes.def:151 */
+  E_V2x4SImode,            /* config/aarch64/aarch64-modes.def:154 */
 #define HAVE_V2x4SImode
 #ifdef USE_ENUM_MODES
 #define V2x4SImode E_V2x4SImode
 #else
 #define V2x4SImode ((void) 0, E_V2x4SImode)
 #endif
-  E_V3x4SImode,            /* config/aarch64/aarch64-modes.def:152 */
+  E_V3x4SImode,            /* config/aarch64/aarch64-modes.def:155 */
 #define HAVE_V3x4SImode
 #ifdef USE_ENUM_MODES
 #define V3x4SImode E_V3x4SImode
 #else
 #define V3x4SImode ((void) 0, E_V3x4SImode)
 #endif
-  E_V4x4SImode,            /* config/aarch64/aarch64-modes.def:153 */
+  E_V4x4SImode,            /* config/aarch64/aarch64-modes.def:156 */
 #define HAVE_V4x4SImode
 #ifdef USE_ENUM_MODES
 #define V4x4SImode E_V4x4SImode
 #else
 #define V4x4SImode ((void) 0, E_V4x4SImode)
 #endif
-  E_V2x2DImode,            /* config/aarch64/aarch64-modes.def:151 */
+  E_V2x2DImode,            /* config/aarch64/aarch64-modes.def:154 */
 #define HAVE_V2x2DImode
 #ifdef USE_ENUM_MODES
 #define V2x2DImode E_V2x2DImode
 #else
 #define V2x2DImode ((void) 0, E_V2x2DImode)
 #endif
-  E_V3x2DImode,            /* config/aarch64/aarch64-modes.def:152 */
+  E_V3x2DImode,            /* config/aarch64/aarch64-modes.def:155 */
 #define HAVE_V3x2DImode
 #ifdef USE_ENUM_MODES
 #define V3x2DImode E_V3x2DImode
 #else
 #define V3x2DImode ((void) 0, E_V3x2DImode)
 #endif
-  E_V4x2DImode,            /* config/aarch64/aarch64-modes.def:153 */
+  E_V4x2DImode,            /* config/aarch64/aarch64-modes.def:156 */
 #define HAVE_V4x2DImode
 #ifdef USE_ENUM_MODES
 #define V4x2DImode E_V4x2DImode
 #else
 #define V4x2DImode ((void) 0, E_V4x2DImode)
 #endif
-  E_VNx32QImode,           /* config/aarch64/aarch64-modes.def:184 */
+  E_VNx32QImode,           /* config/aarch64/aarch64-modes.def:194 */
 #define HAVE_VNx32QImode
 #ifdef USE_ENUM_MODES
 #define VNx32QImode E_VNx32QImode
 #else
 #define VNx32QImode ((void) 0, E_VNx32QImode)
 #endif
-  E_VNx16HImode,           /* config/aarch64/aarch64-modes.def:184 */
+  E_VNx16HImode,           /* config/aarch64/aarch64-modes.def:194 */
 #define HAVE_VNx16HImode
 #ifdef USE_ENUM_MODES
 #define VNx16HImode E_VNx16HImode
 #else
 #define VNx16HImode ((void) 0, E_VNx16HImode)
 #endif
-  E_VNx8SImode,            /* config/aarch64/aarch64-modes.def:184 */
+  E_VNx8SImode,            /* config/aarch64/aarch64-modes.def:194 */
 #define HAVE_VNx8SImode
 #ifdef USE_ENUM_MODES
 #define VNx8SImode E_VNx8SImode
 #else
 #define VNx8SImode ((void) 0, E_VNx8SImode)
 #endif
-  E_VNx4DImode,            /* config/aarch64/aarch64-modes.def:184 */
+  E_VNx4DImode,            /* config/aarch64/aarch64-modes.def:194 */
 #define HAVE_VNx4DImode
 #ifdef USE_ENUM_MODES
 #define VNx4DImode E_VNx4DImode
 #else
 #define VNx4DImode ((void) 0, E_VNx4DImode)
 #endif
-  E_VNx2TImode,            /* config/aarch64/aarch64-modes.def:184 */
+  E_VNx2TImode,            /* config/aarch64/aarch64-modes.def:194 */
 #define HAVE_VNx2TImode
 #ifdef USE_ENUM_MODES
 #define VNx2TImode E_VNx2TImode
 #else
 #define VNx2TImode ((void) 0, E_VNx2TImode)
 #endif
-  E_VNx48QImode,           /* config/aarch64/aarch64-modes.def:185 */
+  E_VNx48QImode,           /* config/aarch64/aarch64-modes.def:195 */
 #define HAVE_VNx48QImode
 #ifdef USE_ENUM_MODES
 #define VNx48QImode E_VNx48QImode
 #else
 #define VNx48QImode ((void) 0, E_VNx48QImode)
 #endif
-  E_VNx24HImode,           /* config/aarch64/aarch64-modes.def:185 */
+  E_VNx24HImode,           /* config/aarch64/aarch64-modes.def:195 */
 #define HAVE_VNx24HImode
 #ifdef USE_ENUM_MODES
 #define VNx24HImode E_VNx24HImode
 #else
 #define VNx24HImode ((void) 0, E_VNx24HImode)
 #endif
-  E_VNx12SImode,           /* config/aarch64/aarch64-modes.def:185 */
+  E_VNx12SImode,           /* config/aarch64/aarch64-modes.def:195 */
 #define HAVE_VNx12SImode
 #ifdef USE_ENUM_MODES
 #define VNx12SImode E_VNx12SImode
 #else
 #define VNx12SImode ((void) 0, E_VNx12SImode)
 #endif
-  E_VNx6DImode,            /* config/aarch64/aarch64-modes.def:185 */
+  E_VNx6DImode,            /* config/aarch64/aarch64-modes.def:195 */
 #define HAVE_VNx6DImode
 #ifdef USE_ENUM_MODES
 #define VNx6DImode E_VNx6DImode
 #else
 #define VNx6DImode ((void) 0, E_VNx6DImode)
 #endif
-  E_VNx3TImode,            /* config/aarch64/aarch64-modes.def:185 */
+  E_VNx3TImode,            /* config/aarch64/aarch64-modes.def:195 */
 #define HAVE_VNx3TImode
 #ifdef USE_ENUM_MODES
 #define VNx3TImode E_VNx3TImode
 #else
 #define VNx3TImode ((void) 0, E_VNx3TImode)
 #endif
-  E_VNx64QImode,           /* config/aarch64/aarch64-modes.def:186 */
+  E_VNx64QImode,           /* config/aarch64/aarch64-modes.def:196 */
 #define HAVE_VNx64QImode
 #ifdef USE_ENUM_MODES
 #define VNx64QImode E_VNx64QImode
 #else
 #define VNx64QImode ((void) 0, E_VNx64QImode)
 #endif
-  E_VNx32HImode,           /* config/aarch64/aarch64-modes.def:186 */
+  E_VNx32HImode,           /* config/aarch64/aarch64-modes.def:196 */
 #define HAVE_VNx32HImode
 #ifdef USE_ENUM_MODES
 #define VNx32HImode E_VNx32HImode
 #else
 #define VNx32HImode ((void) 0, E_VNx32HImode)
 #endif
-  E_VNx16SImode,           /* config/aarch64/aarch64-modes.def:186 */
+  E_VNx16SImode,           /* config/aarch64/aarch64-modes.def:196 */
 #define HAVE_VNx16SImode
 #ifdef USE_ENUM_MODES
 #define VNx16SImode E_VNx16SImode
 #else
 #define VNx16SImode ((void) 0, E_VNx16SImode)
 #endif
-  E_VNx8DImode,            /* config/aarch64/aarch64-modes.def:186 */
+  E_VNx8DImode,            /* config/aarch64/aarch64-modes.def:196 */
 #define HAVE_VNx8DImode
 #ifdef USE_ENUM_MODES
 #define VNx8DImode E_VNx8DImode
 #else
 #define VNx8DImode ((void) 0, E_VNx8DImode)
 #endif
-  E_VNx4TImode,            /* config/aarch64/aarch64-modes.def:186 */
+  E_VNx4TImode,            /* config/aarch64/aarch64-modes.def:196 */
 #define HAVE_VNx4TImode
 #ifdef USE_ENUM_MODES
 #define VNx4TImode E_VNx4TImode
 #else
 #define VNx4TImode ((void) 0, E_VNx4TImode)
 #endif
-  E_VNx2OImode,            /* config/aarch64/aarch64-modes.def:186 */
+  E_VNx2OImode,            /* config/aarch64/aarch64-modes.def:196 */
 #define HAVE_VNx2OImode
 #ifdef USE_ENUM_MODES
 #define VNx2OImode E_VNx2OImode
 #else
 #define VNx2OImode ((void) 0, E_VNx2OImode)
 #endif
-  E_V8DImode,              /* config/aarch64/aarch64-modes.def:95 */
+  E_V8DImode,              /* config/aarch64/aarch64-modes.def:98 */
 #define HAVE_V8DImode
 #ifdef USE_ENUM_MODES
 #define V8DImode E_V8DImode
 #else
 #define V8DImode ((void) 0, E_V8DImode)
 #endif
-  E_V2HFmode,              /* config/aarch64/aarch64-modes.def:76 */
+  E_V2HFmode,              /* config/aarch64/aarch64-modes.def:79 */
 #define HAVE_V2HFmode
 #ifdef USE_ENUM_MODES
 #define V2HFmode E_V2HFmode
 #else
 #define V2HFmode ((void) 0, E_V2HFmode)
 #endif
-  E_V4BFmode,              /* config/aarch64/aarch64-modes.def:72 */
+  E_V4BFmode,              /* config/aarch64/aarch64-modes.def:75 */
 #define HAVE_V4BFmode
 #ifdef USE_ENUM_MODES
 #define V4BFmode E_V4BFmode
 #else
 #define V4BFmode ((void) 0, E_V4BFmode)
 #endif
-  E_V4HFmode,              /* config/aarch64/aarch64-modes.def:72 */
+  E_V4HFmode,              /* config/aarch64/aarch64-modes.def:75 */
 #define HAVE_V4HFmode
 #ifdef USE_ENUM_MODES
 #define V4HFmode E_V4HFmode
 #else
 #define V4HFmode ((void) 0, E_V4HFmode)
 #endif
-  E_V2SFmode,              /* config/aarch64/aarch64-modes.def:72 */
+  E_V2SFmode,              /* config/aarch64/aarch64-modes.def:75 */
 #define HAVE_V2SFmode
 #ifdef USE_ENUM_MODES
 #define V2SFmode E_V2SFmode
 #else
 #define V2SFmode ((void) 0, E_V2SFmode)
 #endif
-  E_V1DFmode,              /* config/aarch64/aarch64-modes.def:75 */
+  E_V1DFmode,              /* config/aarch64/aarch64-modes.def:78 */
 #define HAVE_V1DFmode
 #ifdef USE_ENUM_MODES
 #define V1DFmode E_V1DFmode
 #else
 #define V1DFmode ((void) 0, E_V1DFmode)
 #endif
-  E_V8BFmode,              /* config/aarch64/aarch64-modes.def:73 */
+  E_V8BFmode,              /* config/aarch64/aarch64-modes.def:76 */
 #define HAVE_V8BFmode
 #ifdef USE_ENUM_MODES
 #define V8BFmode E_V8BFmode
 #else
 #define V8BFmode ((void) 0, E_V8BFmode)
 #endif
-  E_V8HFmode,              /* config/aarch64/aarch64-modes.def:73 */
+  E_V8HFmode,              /* config/aarch64/aarch64-modes.def:76 */
 #define HAVE_V8HFmode
 #ifdef USE_ENUM_MODES
 #define V8HFmode E_V8HFmode
 #else
 #define V8HFmode ((void) 0, E_V8HFmode)
 #endif
-  E_V4SFmode,              /* config/aarch64/aarch64-modes.def:73 */
+  E_V4SFmode,              /* config/aarch64/aarch64-modes.def:76 */
 #define HAVE_V4SFmode
 #ifdef USE_ENUM_MODES
 #define V4SFmode E_V4SFmode
 #else
 #define V4SFmode ((void) 0, E_V4SFmode)
 #endif
-  E_V2DFmode,              /* config/aarch64/aarch64-modes.def:73 */
+  E_V2DFmode,              /* config/aarch64/aarch64-modes.def:76 */
 #define HAVE_V2DFmode
 #ifdef USE_ENUM_MODES
 #define V2DFmode E_V2DFmode
 #else
 #define V2DFmode ((void) 0, E_V2DFmode)
 #endif
-  E_VNx8BFmode,            /* config/aarch64/aarch64-modes.def:183 */
+  E_VNx8BFmode,            /* config/aarch64/aarch64-modes.def:193 */
 #define HAVE_VNx8BFmode
 #ifdef USE_ENUM_MODES
 #define VNx8BFmode E_VNx8BFmode
 #else
 #define VNx8BFmode ((void) 0, E_VNx8BFmode)
 #endif
-  E_VNx8HFmode,            /* config/aarch64/aarch64-modes.def:183 */
+  E_VNx8HFmode,            /* config/aarch64/aarch64-modes.def:193 */
 #define HAVE_VNx8HFmode
 #ifdef USE_ENUM_MODES
 #define VNx8HFmode E_VNx8HFmode
 #else
 #define VNx8HFmode ((void) 0, E_VNx8HFmode)
 #endif
-  E_VNx4SFmode,            /* config/aarch64/aarch64-modes.def:183 */
+  E_VNx4SFmode,            /* config/aarch64/aarch64-modes.def:193 */
 #define HAVE_VNx4SFmode
 #ifdef USE_ENUM_MODES
 #define VNx4SFmode E_VNx4SFmode
 #else
 #define VNx4SFmode ((void) 0, E_VNx4SFmode)
 #endif
-  E_VNx2DFmode,            /* config/aarch64/aarch64-modes.def:183 */
+  E_VNx2DFmode,            /* config/aarch64/aarch64-modes.def:193 */
 #define HAVE_VNx2DFmode
 #ifdef USE_ENUM_MODES
 #define VNx2DFmode E_VNx2DFmode
 #else
 #define VNx2DFmode ((void) 0, E_VNx2DFmode)
 #endif
-  E_VNx2BFmode,            /* config/aarch64/aarch64-modes.def:203 */
+  E_VNx2BFmode,            /* config/aarch64/aarch64-modes.def:213 */
 #define HAVE_VNx2BFmode
 #ifdef USE_ENUM_MODES
 #define VNx2BFmode E_VNx2BFmode
 #else
 #define VNx2BFmode ((void) 0, E_VNx2BFmode)
 #endif
-  E_VNx2HFmode,            /* config/aarch64/aarch64-modes.def:203 */
+  E_VNx2HFmode,            /* config/aarch64/aarch64-modes.def:213 */
 #define HAVE_VNx2HFmode
 #ifdef USE_ENUM_MODES
 #define VNx2HFmode E_VNx2HFmode
 #else
 #define VNx2HFmode ((void) 0, E_VNx2HFmode)
 #endif
-  E_VNx4BFmode,            /* config/aarch64/aarch64-modes.def:204 */
+  E_VNx4BFmode,            /* config/aarch64/aarch64-modes.def:214 */
 #define HAVE_VNx4BFmode
 #ifdef USE_ENUM_MODES
 #define VNx4BFmode E_VNx4BFmode
 #else
 #define VNx4BFmode ((void) 0, E_VNx4BFmode)
 #endif
-  E_VNx4HFmode,            /* config/aarch64/aarch64-modes.def:204 */
+  E_VNx4HFmode,            /* config/aarch64/aarch64-modes.def:214 */
 #define HAVE_VNx4HFmode
 #ifdef USE_ENUM_MODES
 #define VNx4HFmode E_VNx4HFmode
 #else
 #define VNx4HFmode ((void) 0, E_VNx4HFmode)
 #endif
-  E_VNx2SFmode,            /* config/aarch64/aarch64-modes.def:204 */
+  E_VNx2SFmode,            /* config/aarch64/aarch64-modes.def:214 */
 #define HAVE_VNx2SFmode
 #ifdef USE_ENUM_MODES
 #define VNx2SFmode E_VNx2SFmode
 #else
 #define VNx2SFmode ((void) 0, E_VNx2SFmode)
 #endif
-  E_V2x4BFmode,            /* config/aarch64/aarch64-modes.def:124 */
+  E_V2x4BFmode,            /* config/aarch64/aarch64-modes.def:127 */
 #define HAVE_V2x4BFmode
 #ifdef USE_ENUM_MODES
 #define V2x4BFmode E_V2x4BFmode
 #else
 #define V2x4BFmode ((void) 0, E_V2x4BFmode)
 #endif
-  E_V2x4HFmode,            /* config/aarch64/aarch64-modes.def:124 */
+  E_V2x4HFmode,            /* config/aarch64/aarch64-modes.def:127 */
 #define HAVE_V2x4HFmode
 #ifdef USE_ENUM_MODES
 #define V2x4HFmode E_V2x4HFmode
 #else
 #define V2x4HFmode ((void) 0, E_V2x4HFmode)
 #endif
-  E_V3x4BFmode,            /* config/aarch64/aarch64-modes.def:125 */
+  E_V3x4BFmode,            /* config/aarch64/aarch64-modes.def:128 */
 #define HAVE_V3x4BFmode
 #ifdef USE_ENUM_MODES
 #define V3x4BFmode E_V3x4BFmode
 #else
 #define V3x4BFmode ((void) 0, E_V3x4BFmode)
 #endif
-  E_V3x4HFmode,            /* config/aarch64/aarch64-modes.def:125 */
+  E_V3x4HFmode,            /* config/aarch64/aarch64-modes.def:128 */
 #define HAVE_V3x4HFmode
 #ifdef USE_ENUM_MODES
 #define V3x4HFmode E_V3x4HFmode
 #else
 #define V3x4HFmode ((void) 0, E_V3x4HFmode)
 #endif
-  E_V4x4BFmode,            /* config/aarch64/aarch64-modes.def:126 */
+  E_V4x4BFmode,            /* config/aarch64/aarch64-modes.def:129 */
 #define HAVE_V4x4BFmode
 #ifdef USE_ENUM_MODES
 #define V4x4BFmode E_V4x4BFmode
 #else
 #define V4x4BFmode ((void) 0, E_V4x4BFmode)
 #endif
-  E_V4x4HFmode,            /* config/aarch64/aarch64-modes.def:126 */
+  E_V4x4HFmode,            /* config/aarch64/aarch64-modes.def:129 */
 #define HAVE_V4x4HFmode
 #ifdef USE_ENUM_MODES
 #define V4x4HFmode E_V4x4HFmode
 #else
 #define V4x4HFmode ((void) 0, E_V4x4HFmode)
 #endif
-  E_V2x2SFmode,            /* config/aarch64/aarch64-modes.def:124 */
+  E_V2x2SFmode,            /* config/aarch64/aarch64-modes.def:127 */
 #define HAVE_V2x2SFmode
 #ifdef USE_ENUM_MODES
 #define V2x2SFmode E_V2x2SFmode
 #else
 #define V2x2SFmode ((void) 0, E_V2x2SFmode)
 #endif
-  E_V3x2SFmode,            /* config/aarch64/aarch64-modes.def:125 */
+  E_V3x2SFmode,            /* config/aarch64/aarch64-modes.def:128 */
 #define HAVE_V3x2SFmode
 #ifdef USE_ENUM_MODES
 #define V3x2SFmode E_V3x2SFmode
 #else
 #define V3x2SFmode ((void) 0, E_V3x2SFmode)
 #endif
-  E_V4x2SFmode,            /* config/aarch64/aarch64-modes.def:126 */
+  E_V4x2SFmode,            /* config/aarch64/aarch64-modes.def:129 */
 #define HAVE_V4x2SFmode
 #ifdef USE_ENUM_MODES
 #define V4x2SFmode E_V4x2SFmode
 #else
 #define V4x2SFmode ((void) 0, E_V4x2SFmode)
 #endif
-  E_V2x1DFmode,            /* config/aarch64/aarch64-modes.def:124 */
+  E_V2x1DFmode,            /* config/aarch64/aarch64-modes.def:127 */
 #define HAVE_V2x1DFmode
 #ifdef USE_ENUM_MODES
 #define V2x1DFmode E_V2x1DFmode
 #else
 #define V2x1DFmode ((void) 0, E_V2x1DFmode)
 #endif
-  E_V3x1DFmode,            /* config/aarch64/aarch64-modes.def:125 */
+  E_V3x1DFmode,            /* config/aarch64/aarch64-modes.def:128 */
 #define HAVE_V3x1DFmode
 #ifdef USE_ENUM_MODES
 #define V3x1DFmode E_V3x1DFmode
 #else
 #define V3x1DFmode ((void) 0, E_V3x1DFmode)
 #endif
-  E_V4x1DFmode,            /* config/aarch64/aarch64-modes.def:126 */
+  E_V4x1DFmode,            /* config/aarch64/aarch64-modes.def:129 */
 #define HAVE_V4x1DFmode
 #ifdef USE_ENUM_MODES
 #define V4x1DFmode E_V4x1DFmode
 #else
 #define V4x1DFmode ((void) 0, E_V4x1DFmode)
 #endif
-  E_V2x8BFmode,            /* config/aarch64/aarch64-modes.def:151 */
+  E_V2x8BFmode,            /* config/aarch64/aarch64-modes.def:154 */
 #define HAVE_V2x8BFmode
 #ifdef USE_ENUM_MODES
 #define V2x8BFmode E_V2x8BFmode
 #else
 #define V2x8BFmode ((void) 0, E_V2x8BFmode)
 #endif
-  E_V2x8HFmode,            /* config/aarch64/aarch64-modes.def:151 */
+  E_V2x8HFmode,            /* config/aarch64/aarch64-modes.def:154 */
 #define HAVE_V2x8HFmode
 #ifdef USE_ENUM_MODES
 #define V2x8HFmode E_V2x8HFmode
 #else
 #define V2x8HFmode ((void) 0, E_V2x8HFmode)
 #endif
-  E_V3x8BFmode,            /* config/aarch64/aarch64-modes.def:152 */
+  E_V3x8BFmode,            /* config/aarch64/aarch64-modes.def:155 */
 #define HAVE_V3x8BFmode
 #ifdef USE_ENUM_MODES
 #define V3x8BFmode E_V3x8BFmode
 #else
 #define V3x8BFmode ((void) 0, E_V3x8BFmode)
 #endif
-  E_V3x8HFmode,            /* config/aarch64/aarch64-modes.def:152 */
+  E_V3x8HFmode,            /* config/aarch64/aarch64-modes.def:155 */
 #define HAVE_V3x8HFmode
 #ifdef USE_ENUM_MODES
 #define V3x8HFmode E_V3x8HFmode
 #else
 #define V3x8HFmode ((void) 0, E_V3x8HFmode)
 #endif
-  E_V4x8BFmode,            /* config/aarch64/aarch64-modes.def:153 */
+  E_V4x8BFmode,            /* config/aarch64/aarch64-modes.def:156 */
 #define HAVE_V4x8BFmode
 #ifdef USE_ENUM_MODES
 #define V4x8BFmode E_V4x8BFmode
 #else
 #define V4x8BFmode ((void) 0, E_V4x8BFmode)
 #endif
-  E_V4x8HFmode,            /* config/aarch64/aarch64-modes.def:153 */
+  E_V4x8HFmode,            /* config/aarch64/aarch64-modes.def:156 */
 #define HAVE_V4x8HFmode
 #ifdef USE_ENUM_MODES
 #define V4x8HFmode E_V4x8HFmode
 #else
 #define V4x8HFmode ((void) 0, E_V4x8HFmode)
 #endif
-  E_V2x4SFmode,            /* config/aarch64/aarch64-modes.def:151 */
+  E_V2x4SFmode,            /* config/aarch64/aarch64-modes.def:154 */
 #define HAVE_V2x4SFmode
 #ifdef USE_ENUM_MODES
 #define V2x4SFmode E_V2x4SFmode
 #else
 #define V2x4SFmode ((void) 0, E_V2x4SFmode)
 #endif
-  E_V3x4SFmode,            /* config/aarch64/aarch64-modes.def:152 */
+  E_V3x4SFmode,            /* config/aarch64/aarch64-modes.def:155 */
 #define HAVE_V3x4SFmode
 #ifdef USE_ENUM_MODES
 #define V3x4SFmode E_V3x4SFmode
 #else
 #define V3x4SFmode ((void) 0, E_V3x4SFmode)
 #endif
-  E_V4x4SFmode,            /* config/aarch64/aarch64-modes.def:153 */
+  E_V4x4SFmode,            /* config/aarch64/aarch64-modes.def:156 */
 #define HAVE_V4x4SFmode
 #ifdef USE_ENUM_MODES
 #define V4x4SFmode E_V4x4SFmode
 #else
 #define V4x4SFmode ((void) 0, E_V4x4SFmode)
 #endif
-  E_V2x2DFmode,            /* config/aarch64/aarch64-modes.def:151 */
+  E_V2x2DFmode,            /* config/aarch64/aarch64-modes.def:154 */
 #define HAVE_V2x2DFmode
 #ifdef USE_ENUM_MODES
 #define V2x2DFmode E_V2x2DFmode
 #else
 #define V2x2DFmode ((void) 0, E_V2x2DFmode)
 #endif
-  E_V3x2DFmode,            /* config/aarch64/aarch64-modes.def:152 */
+  E_V3x2DFmode,            /* config/aarch64/aarch64-modes.def:155 */
 #define HAVE_V3x2DFmode
 #ifdef USE_ENUM_MODES
 #define V3x2DFmode E_V3x2DFmode
 #else
 #define V3x2DFmode ((void) 0, E_V3x2DFmode)
 #endif
-  E_V4x2DFmode,            /* config/aarch64/aarch64-modes.def:153 */
+  E_V4x2DFmode,            /* config/aarch64/aarch64-modes.def:156 */
 #define HAVE_V4x2DFmode
 #ifdef USE_ENUM_MODES
 #define V4x2DFmode E_V4x2DFmode
 #else
 #define V4x2DFmode ((void) 0, E_V4x2DFmode)
 #endif
-  E_VNx16BFmode,           /* config/aarch64/aarch64-modes.def:184 */
+  E_VNx16BFmode,           /* config/aarch64/aarch64-modes.def:194 */
 #define HAVE_VNx16BFmode
 #ifdef USE_ENUM_MODES
 #define VNx16BFmode E_VNx16BFmode
 #else
 #define VNx16BFmode ((void) 0, E_VNx16BFmode)
 #endif
-  E_VNx16HFmode,           /* config/aarch64/aarch64-modes.def:184 */
+  E_VNx16HFmode,           /* config/aarch64/aarch64-modes.def:194 */
 #define HAVE_VNx16HFmode
 #ifdef USE_ENUM_MODES
 #define VNx16HFmode E_VNx16HFmode
 #else
 #define VNx16HFmode ((void) 0, E_VNx16HFmode)
 #endif
-  E_VNx8SFmode,            /* config/aarch64/aarch64-modes.def:184 */
+  E_VNx8SFmode,            /* config/aarch64/aarch64-modes.def:194 */
 #define HAVE_VNx8SFmode
 #ifdef USE_ENUM_MODES
 #define VNx8SFmode E_VNx8SFmode
 #else
 #define VNx8SFmode ((void) 0, E_VNx8SFmode)
 #endif
-  E_VNx4DFmode,            /* config/aarch64/aarch64-modes.def:184 */
+  E_VNx4DFmode,            /* config/aarch64/aarch64-modes.def:194 */
 #define HAVE_VNx4DFmode
 #ifdef USE_ENUM_MODES
 #define VNx4DFmode E_VNx4DFmode
 #else
 #define VNx4DFmode ((void) 0, E_VNx4DFmode)
 #endif
-  E_VNx24BFmode,           /* config/aarch64/aarch64-modes.def:185 */
+  E_VNx24BFmode,           /* config/aarch64/aarch64-modes.def:195 */
 #define HAVE_VNx24BFmode
 #ifdef USE_ENUM_MODES
 #define VNx24BFmode E_VNx24BFmode
 #else
 #define VNx24BFmode ((void) 0, E_VNx24BFmode)
 #endif
-  E_VNx24HFmode,           /* config/aarch64/aarch64-modes.def:185 */
+  E_VNx24HFmode,           /* config/aarch64/aarch64-modes.def:195 */
 #define HAVE_VNx24HFmode
 #ifdef USE_ENUM_MODES
 #define VNx24HFmode E_VNx24HFmode
 #else
 #define VNx24HFmode ((void) 0, E_VNx24HFmode)
 #endif
-  E_VNx12SFmode,           /* config/aarch64/aarch64-modes.def:185 */
+  E_VNx12SFmode,           /* config/aarch64/aarch64-modes.def:195 */
 #define HAVE_VNx12SFmode
 #ifdef USE_ENUM_MODES
 #define VNx12SFmode E_VNx12SFmode
 #else
 #define VNx12SFmode ((void) 0, E_VNx12SFmode)
 #endif
-  E_VNx6DFmode,            /* config/aarch64/aarch64-modes.def:185 */
+  E_VNx6DFmode,            /* config/aarch64/aarch64-modes.def:195 */
 #define HAVE_VNx6DFmode
 #ifdef USE_ENUM_MODES
 #define VNx6DFmode E_VNx6DFmode
 #else
 #define VNx6DFmode ((void) 0, E_VNx6DFmode)
 #endif
-  E_VNx32BFmode,           /* config/aarch64/aarch64-modes.def:186 */
+  E_VNx32BFmode,           /* config/aarch64/aarch64-modes.def:196 */
 #define HAVE_VNx32BFmode
 #ifdef USE_ENUM_MODES
 #define VNx32BFmode E_VNx32BFmode
 #else
 #define VNx32BFmode ((void) 0, E_VNx32BFmode)
 #endif
-  E_VNx32HFmode,           /* config/aarch64/aarch64-modes.def:186 */
+  E_VNx32HFmode,           /* config/aarch64/aarch64-modes.def:196 */
 #define HAVE_VNx32HFmode
 #ifdef USE_ENUM_MODES
 #define VNx32HFmode E_VNx32HFmode
 #else
 #define VNx32HFmode ((void) 0, E_VNx32HFmode)
 #endif
-  E_VNx16SFmode,           /* config/aarch64/aarch64-modes.def:186 */
+  E_VNx16SFmode,           /* config/aarch64/aarch64-modes.def:196 */
 #define HAVE_VNx16SFmode
 #ifdef USE_ENUM_MODES
 #define VNx16SFmode E_VNx16SFmode
 #else
 #define VNx16SFmode ((void) 0, E_VNx16SFmode)
 #endif
-  E_VNx8DFmode,            /* config/aarch64/aarch64-modes.def:186 */
+  E_VNx8DFmode,            /* config/aarch64/aarch64-modes.def:196 */
 #define HAVE_VNx8DFmode
 #ifdef USE_ENUM_MODES
 #define VNx8DFmode E_VNx8DFmode
@@ -1322,7 +1336,7 @@ enum machine_mode
   MAX_MODE_COMPLEX_FLOAT = E_TCmode,
 
   MIN_MODE_VECTOR_BOOL = E_VNx16BImode,
-  MAX_MODE_VECTOR_BOOL = E_VNx2BImode,
+  MAX_MODE_VECTOR_BOOL = E_VNx32BImode,
 
   MIN_MODE_VECTOR_INT = E_V8QImode,
   MAX_MODE_VECTOR_INT = E_V8DImode,

@@ -60,6 +60,9 @@ extern enum attr_predicated get_attr_predicated (rtx_insn *);
 #define HAVE_ATTR_speculation_barrier 1
 extern enum attr_speculation_barrier get_attr_speculation_barrier (rtx_insn *);
 
+#define HAVE_ATTR_stride_type 1
+extern enum attr_stride_type get_attr_stride_type (rtx_insn *);
+
 #define HAVE_ATTR_tune 1
 extern enum attr_tune get_attr_tune (void);
 

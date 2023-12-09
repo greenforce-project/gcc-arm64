@@ -489,13 +489,13 @@ GCC is distributed via git and via HTTPS as tarballs compressed with
    Please refer to the releases web page for information on how to
 obtain GCC.
 
-   The source distribution includes the C, C++, Objective-C, Fortran,
-and Ada (in the case of GCC 3.1 and later) compilers, as well as runtime
-libraries for C++, Objective-C, and Fortran.  For previous versions
-these were downloadable as separate components such as the core GCC
-distribution, which included the C language front end and shared
-components, and language-specific distributions including the language
-front end and the language runtime (where appropriate).
+   The source distribution includes the Ada, C, C++, Objective-C, D (GCC
+9 and later), Fortran, Go, and Modula-2 (GCC 13 and later) compilers, as
+well as runtime libraries for C++, Objective-C, and Fortran.  For
+previous versions these were downloadable as separate components such as
+the core GCC distribution, which included the C language front end and
+shared components, and language-specific distributions including the
+language front end and the language runtime (where appropriate).
 
    If you also intend to build binutils (either to upgrade an existing
 installation or for use in place of the corresponding tools of your OS),
@@ -540,9 +540,9 @@ configuration and build phases.
 
    First, we *highly* recommend that GCC be built into a separate
 directory from the sources which does *not* reside within the source
-tree.  This is how we generally build GCC; building where SRCDIR ==
-OBJDIR should still work, but doesn’t get extensive testing; building
-where OBJDIR is a subdirectory of SRCDIR is unsupported.
+tree.  This is how we generally build GCC; building where OBJDIR is a
+subdirectory of SRCDIR should work as well; building where OBJDIR ==
+SRCDIR is unsupported.
 
    If you have previously built GCC in the same directory for a
 different target machine, do ‘make distclean’ to delete all files that
@@ -3419,16 +3419,8 @@ Adapteva Epiphany.  This configuration is intended for embedded systems.
 *-*-freebsd*
 ============
 
-In order to better utilize FreeBSD base system functionality and match
-the configuration of the system compiler, GCC 4.5 and above as well as
-GCC 4.4 past 2010-06-20 leverage SSP support in libc (which is present
-on FreeBSD 7 or later) and the use of ‘__cxa_atexit’ by default (on
-FreeBSD 6 or later).  The use of ‘dl_iterate_phdr’ inside
-‘libgcc_s.so.1’ and boehm-gc (on FreeBSD 7 or later) is enabled by GCC
-4.5 and above.
-
-   We support FreeBSD using the ELF file format with DWARF 2 debugging
-for all CPU architectures.  There are no known issues with mixing object
+We support FreeBSD using the ELF file format with DWARF 2 debugging for
+all CPU architectures.  There are no known issues with mixing object
 files and libraries with different debugging formats.  Otherwise, this
 release of GCC should now match more of the configuration used in the
 stock FreeBSD configuration of GCC.  In particular, ‘--enable-threads’
@@ -5018,98 +5010,98 @@ Ref: GNAT-prerequisite5871
 Ref: GDC-prerequisite7296
 Ref: GM2-prerequisite8501
 Node: Downloading the source19317
-Node: Configuration21069
-Ref: with-gnu-as40907
-Ref: with-as41796
-Ref: with-gnu-ld43205
-Ref: WithAixSoname74016
-Ref: AixLdCommand74731
-Ref: with-included-gettext91477
-Node: Building121154
-Node: Testing137851
-Node: Final install145814
-Node: Binaries150627
-Node: Specific151641
-Ref: aarch64-x-x152175
-Ref: amd64-x-solaris2154259
-Ref: amdgcn-x-amdhsa154345
-Ref: arc-x-elf32155187
-Ref: arc-linux-uclibc155379
-Ref: arm-x-eabi155524
-Ref: avr155781
-Ref: bfin156370
-Ref: cris156633
-Ref: dos156963
-Ref: epiphany-x-elf157288
-Ref: x-x-freebsd157393
-Ref: ft32-x-elf158981
-Ref: h8300-hms159079
-Ref: hppa-hp-hpux159431
-Ref: hppa-hp-hpux10161853
-Ref: hppa-hp-hpux11162270
-Ref: x-x-linux-gnu167788
-Ref: ix86-x-linux168119
-Ref: ix86-x-solaris2168432
-Ref: ia64-x-linux168692
-Ref: ia64-x-hpux168943
-Ref: x-ibm-aix169510
-Ref: TransferAixShobj173238
-Ref: iq2000-x-elf177140
-Ref: lm32-x-elf177280
-Ref: lm32-x-uclinux177384
-Ref: loongarch177512
-Ref: m32c-x-elf178185
-Ref: m32r-x-elf178287
-Ref: m68k-x-x178389
-Ref: m68k-x-uclinux179519
-Ref: microblaze-x-elf179772
-Ref: mips-x-x179891
-Ref: moxie-x-elf181885
-Ref: msp430-x-elf181932
-Ref: nds32le-x-elf182501
-Ref: nds32be-x-elf182573
-Ref: nvptx-x-none182642
-Ref: or1k-x-elf183551
-Ref: or1k-x-linux183682
-Ref: powerpc-x-x183763
-Ref: powerpc-x-darwin183962
-Ref: powerpc-x-elf184457
-Ref: powerpc-x-linux-gnu184542
-Ref: powerpc-x-netbsd184637
-Ref: powerpc-x-eabisim184725
-Ref: powerpc-x-eabi184851
-Ref: powerpcle-x-elf184927
-Ref: powerpcle-x-eabisim185019
-Ref: powerpcle-x-eabi185152
-Ref: rl78-x-elf185235
-Ref: riscv32-x-elf185341
-Ref: riscv32-x-linux185530
-Ref: riscv64-x-elf185687
-Ref: riscv64-x-linux185876
-Ref: rx-x-elf186033
-Ref: s390-x-linux186079
-Ref: s390x-x-linux186151
-Ref: s390x-ibm-tpf186238
-Ref: x-x-solaris2186369
-Ref: sparc-x-x190310
-Ref: sparc-sun-solaris2190812
-Ref: sparc-x-linux191727
-Ref: sparc64-x-solaris2191758
-Ref: sparcv9-x-solaris2191849
-Ref: c6x-x-x192598
-Ref: visium-x-elf192690
-Ref: x-x-vxworks192798
-Ref: x86-64-x-x194387
-Ref: x86-64-x-solaris2194719
-Ref: xtensa-x-elf195373
-Ref: xtensa-x-linux196052
-Ref: windows196405
-Ref: x-x-cygwin198058
-Ref: x-x-mingw32198613
-Ref: older199011
-Ref: elf201152
-Node: GNU Free Documentation License201406
-Node: Concept Index226747
+Node: Configuration21088
+Ref: with-gnu-as40891
+Ref: with-as41780
+Ref: with-gnu-ld43189
+Ref: WithAixSoname74000
+Ref: AixLdCommand74715
+Ref: with-included-gettext91461
+Node: Building121138
+Node: Testing137835
+Node: Final install145798
+Node: Binaries150611
+Node: Specific151625
+Ref: aarch64-x-x152159
+Ref: amd64-x-solaris2154243
+Ref: amdgcn-x-amdhsa154329
+Ref: arc-x-elf32155171
+Ref: arc-linux-uclibc155363
+Ref: arm-x-eabi155508
+Ref: avr155765
+Ref: bfin156354
+Ref: cris156617
+Ref: dos156947
+Ref: epiphany-x-elf157272
+Ref: x-x-freebsd157377
+Ref: ft32-x-elf158524
+Ref: h8300-hms158622
+Ref: hppa-hp-hpux158974
+Ref: hppa-hp-hpux10161396
+Ref: hppa-hp-hpux11161813
+Ref: x-x-linux-gnu167331
+Ref: ix86-x-linux167662
+Ref: ix86-x-solaris2167975
+Ref: ia64-x-linux168235
+Ref: ia64-x-hpux168486
+Ref: x-ibm-aix169053
+Ref: TransferAixShobj172781
+Ref: iq2000-x-elf176683
+Ref: lm32-x-elf176823
+Ref: lm32-x-uclinux176927
+Ref: loongarch177055
+Ref: m32c-x-elf177728
+Ref: m32r-x-elf177830
+Ref: m68k-x-x177932
+Ref: m68k-x-uclinux179062
+Ref: microblaze-x-elf179315
+Ref: mips-x-x179434
+Ref: moxie-x-elf181428
+Ref: msp430-x-elf181475
+Ref: nds32le-x-elf182044
+Ref: nds32be-x-elf182116
+Ref: nvptx-x-none182185
+Ref: or1k-x-elf183094
+Ref: or1k-x-linux183225
+Ref: powerpc-x-x183306
+Ref: powerpc-x-darwin183505
+Ref: powerpc-x-elf184000
+Ref: powerpc-x-linux-gnu184085
+Ref: powerpc-x-netbsd184180
+Ref: powerpc-x-eabisim184268
+Ref: powerpc-x-eabi184394
+Ref: powerpcle-x-elf184470
+Ref: powerpcle-x-eabisim184562
+Ref: powerpcle-x-eabi184695
+Ref: rl78-x-elf184778
+Ref: riscv32-x-elf184884
+Ref: riscv32-x-linux185073
+Ref: riscv64-x-elf185230
+Ref: riscv64-x-linux185419
+Ref: rx-x-elf185576
+Ref: s390-x-linux185622
+Ref: s390x-x-linux185694
+Ref: s390x-ibm-tpf185781
+Ref: x-x-solaris2185912
+Ref: sparc-x-x189853
+Ref: sparc-sun-solaris2190355
+Ref: sparc-x-linux191270
+Ref: sparc64-x-solaris2191301
+Ref: sparcv9-x-solaris2191392
+Ref: c6x-x-x192141
+Ref: visium-x-elf192233
+Ref: x-x-vxworks192341
+Ref: x86-64-x-x193930
+Ref: x86-64-x-solaris2194262
+Ref: xtensa-x-elf194916
+Ref: xtensa-x-linux195595
+Ref: windows195948
+Ref: x-x-cygwin197601
+Ref: x-x-mingw32198156
+Ref: older198554
+Ref: elf200695
+Node: GNU Free Documentation License200949
+Node: Concept Index226290
 
 End Tag Table
 

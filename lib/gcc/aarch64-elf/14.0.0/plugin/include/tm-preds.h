@@ -27,10 +27,16 @@ extern bool const_1_to_4_operand (rtx, machine_mode);
 extern bool const_2_4_8_16_operand (rtx, machine_mode);
 extern bool alu_shift_operator_lsl_1_to_4 (rtx, machine_mode);
 extern bool alu_shift_reg_p (rtx, machine_mode);
+extern bool aarch64_sysreg_string (rtx, machine_mode);
 extern bool cc_register (rtx, machine_mode);
 extern bool aarch64_call_insn_operand (rtx, machine_mode);
 extern bool aarch64_general_reg (rtx, machine_mode);
 extern bool const0_operand (rtx, machine_mode);
+extern bool const_0_to_7_operand (rtx, machine_mode);
+extern bool const_0_to_4_step_4_operand (rtx, machine_mode);
+extern bool const_0_to_6_step_2_operand (rtx, machine_mode);
+extern bool const_0_to_12_step_4_operand (rtx, machine_mode);
+extern bool const_0_to_14_step_2_operand (rtx, machine_mode);
 extern bool const_1_to_3_operand (rtx, machine_mode);
 extern bool subreg_lowpart_operator (rtx, machine_mode);
 extern bool aarch64_ccmp_immediate (rtx, machine_mode);
@@ -62,6 +68,7 @@ extern bool aarch64_sve_scalar_inc_dec_immediate (rtx, machine_mode);
 extern bool aarch64_sve_addvl_addpl_immediate (rtx, machine_mode);
 extern bool aarch64_sve_plus_immediate (rtx, machine_mode);
 extern bool aarch64_split_add_offset_immediate (rtx, machine_mode);
+extern bool aarch64_addsvl_addspl_immediate (rtx, machine_mode);
 extern bool aarch64_pluslong_operand (rtx, machine_mode);
 extern bool aarch64_pluslong_or_poly_operand (rtx, machine_mode);
 extern bool aarch64_logical_immediate (rtx, machine_mode);
@@ -219,7 +226,7 @@ extern bool aarch64_granule16_simm9 (rtx, machine_mode);
 
 #ifdef GCC_HARD_REG_SET_H
 struct target_constraints {
-  HARD_REG_SET register_filters[1];
+  HARD_REG_SET register_filters[4];
 };
 
 extern struct target_constraints default_target_constraints;
@@ -230,11 +237,15 @@ extern struct target_constraints *this_target_constraints;
 #endif
 
 #define TEST_REGISTER_FILTER_BIT(ID, REGNO) \
-  ((void) (ID), (void) (REGNO), false)
+  TEST_HARD_REG_BIT (this_target_constraints->register_filters[ID], REGNO)
 
 inline bool
-test_register_filters (unsigned int, unsigned int)
+test_register_filters (unsigned int mask, unsigned int regno)
 {
+  for (unsigned int id = 0; id < 4; ++id)
+    if ((mask & (1U << id))
+	&& !TEST_REGISTER_FILTER_BIT (id, regno))
+      return false;
   return true;
 }
 #endif
@@ -245,13 +256,21 @@ enum constraint_num
   CONSTRAINT__UNKNOWN = 0,
   CONSTRAINT_r,
   CONSTRAINT_k,
+  CONSTRAINT_Uci,
+  CONSTRAINT_Ucj,
   CONSTRAINT_Ucs,
   CONSTRAINT_Ucr,
   CONSTRAINT_w,
-  CONSTRAINT_Upa,
-  CONSTRAINT_Upl,
   CONSTRAINT_x,
   CONSTRAINT_y,
+  CONSTRAINT_Uw2,
+  CONSTRAINT_Uw4,
+  CONSTRAINT_Uwd,
+  CONSTRAINT_Uwt,
+  CONSTRAINT_Upa,
+  CONSTRAINT_Up2,
+  CONSTRAINT_Upl,
+  CONSTRAINT_Uph,
   CONSTRAINT_I,
   CONSTRAINT_J,
   CONSTRAINT_K,
@@ -286,6 +305,7 @@ enum constraint_num
   CONSTRAINT_Uaa,
   CONSTRAINT_Uai,
   CONSTRAINT_Uav,
+  CONSTRAINT_UaV,
   CONSTRAINT_Uat,
   CONSTRAINT_Uti,
   CONSTRAINT_UsO,
@@ -303,13 +323,15 @@ enum constraint_num
   CONSTRAINT_Usg,
   CONSTRAINT_Usj,
   CONSTRAINT_Ulc,
+  CONSTRAINT_Usr,
+  CONSTRAINT_UsR,
   CONSTRAINT_Usv,
   CONSTRAINT_Usi,
   CONSTRAINT_Ui2,
   CONSTRAINT_Ui3,
   CONSTRAINT_Ui7,
   CONSTRAINT_Up3,
-  CONSTRAINT_Uph,
+  CONSTRAINT_Uih,
   CONSTRAINT_Ufc,
   CONSTRAINT_Uum,
   CONSTRAINT_Uvi,
@@ -393,7 +415,7 @@ constraint_satisfied_p (rtx x, enum constraint_num c)
 static inline bool
 insn_extra_register_constraint (enum constraint_num c)
 {
-  return c >= CONSTRAINT_r && c <= CONSTRAINT_y;
+  return c >= CONSTRAINT_r && c <= CONSTRAINT_Uph;
 }
 
 static inline bool
@@ -501,15 +523,35 @@ get_constraint_type (enum constraint_num c)
 
 #ifdef GCC_HARD_REG_SET_H
 static inline const HARD_REG_SET *
-get_register_filter (constraint_num)
+get_register_filter (constraint_num c)
 {
+  if (c == CONSTRAINT_Uw2)
+    return &this_target_constraints->register_filters[0];
+  if (c == CONSTRAINT_Uw4)
+    return &this_target_constraints->register_filters[1];
+  if (c == CONSTRAINT_Uwd)
+    return &this_target_constraints->register_filters[2];
+  if (c == CONSTRAINT_Uwt)
+    return &this_target_constraints->register_filters[3];
+  if (c == CONSTRAINT_Up2)
+    return &this_target_constraints->register_filters[0];
   return nullptr;
 }
 #endif
 
 static inline int
-get_register_filter_id (constraint_num)
+get_register_filter_id (constraint_num c)
 {
+  if (c == CONSTRAINT_Uw2)
+    return 0;
+  if (c == CONSTRAINT_Uw4)
+    return 1;
+  if (c == CONSTRAINT_Uwd)
+    return 2;
+  if (c == CONSTRAINT_Uwt)
+    return 3;
+  if (c == CONSTRAINT_Up2)
+    return 0;
   return -1;
 }
 #endif /* tm-preds.h */
