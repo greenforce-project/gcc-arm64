@@ -103,6 +103,7 @@ along with GCC; see the file COPYING3.  If not see
 	  NEXT_PASS (pass_if_to_switch, 1);
 	  NEXT_PASS (pass_convert_switch, 1);
 	  NEXT_PASS (pass_cleanup_eh, 1);
+	  NEXT_PASS (pass_sccopy, 1);
 	  NEXT_PASS (pass_profile, 1);
 	  NEXT_PASS (pass_local_pure_const, 1);
 	  NEXT_PASS (pass_modref, 1);
@@ -372,6 +373,7 @@ along with GCC; see the file COPYING3.  If not see
 	 However, this also causes us to misdiagnose cases that should be
 	 real warnings (e.g., testsuite/gcc.dg/pr18501.c).  */
       NEXT_PASS_WITH_ARG (pass_cd_dce, 3, false /* update_address_taken_p */);
+      NEXT_PASS (pass_sccopy, 2);
       NEXT_PASS (pass_tail_calls, 1);
       /* Split critical edges before late uninit warning to reduce the
          number of false positives from it.  */
@@ -507,6 +509,7 @@ NEXT_PASS (pass_cc_fusion, 1);
       NEXT_PASS (pass_live_range_shrinkage, 1);
 NEXT_PASS (pass_aarch64_early_ra, 1);
       NEXT_PASS (pass_sched, 1);
+NEXT_PASS (pass_ldp_fusion, 1);
       NEXT_PASS (pass_early_remat, 1);
       NEXT_PASS (pass_ira, 1);
       NEXT_PASS (pass_reload, 1);
@@ -523,6 +526,7 @@ NEXT_PASS (pass_aarch64_early_ra, 1);
 	  NEXT_PASS (pass_jump2, 1);
 	  NEXT_PASS (pass_duplicate_computed_gotos, 1);
 	  NEXT_PASS (pass_sched_fusion, 1);
+NEXT_PASS (pass_ldp_fusion, 2);
 	  NEXT_PASS (pass_peephole2, 1);
 	  NEXT_PASS (pass_if_after_reload, 1);
 	  NEXT_PASS (pass_regrename, 1);

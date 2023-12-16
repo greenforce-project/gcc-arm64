@@ -1,4 +1,4 @@
-USER_H=float.h iso646.h stdarg.h stdbool.h stddef.h varargs.h stdfix.h stdnoreturn.h stdalign.h stdatomic.h stdckdint.h config/aarch64/arm_fp16.h arm_neon.h arm_bf16.h arm_acle.h arm_sve.h arm_sme.h tgmath.h
+USER_H=float.h iso646.h stdarg.h stdbool.h stddef.h varargs.h stdfix.h stdnoreturn.h stdalign.h stdatomic.h stdckdint.h config/aarch64/arm_fp16.h arm_neon.h arm_bf16.h arm_acle.h arm_sve.h arm_sme.h arm_neon_sve_bridge.h tgmath.h
 T_GLIMITS_H=glimits.h
 T_STDINT_GCC_H=stdint-gcc.h
 HASHTAB_H=hashtab.h

@@ -55,7 +55,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 2023-12-09 gcc-14.0.0 GNU
+.TH GCC 1 2023-12-16 gcc-14.0.0 GNU
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -733,7 +733,7 @@ in the following sections.
 \&\fB\-moverride=\fR\fIstring\fR  \fB\-mverbose\-cost\-dump
 \&\-mstack\-protector\-guard=\fR\fIguard\fR \fB\-mstack\-protector\-guard\-reg=\fR\fIsysreg\fR
 \&\fB\-mstack\-protector\-guard\-offset=\fR\fIoffset\fR \fB\-mtrack\-speculation
-\&\-moutline\-atomics\fR
+\&\-moutline\-atomics \-mearly\-ldp\-fusion \-mlate\-ldp\-fusion\fR
 .Sp
 \&\fIAdapteva Epiphany Options\fR
 \&\fB\-mhalf\-reg\-file  \-mprefer\-short\-insn\-regs
@@ -3262,6 +3262,10 @@ called.  If the handler returns, execution continues normally.
 .IP \fB\-fcoroutines\fR 4
 .IX Item "-fcoroutines"
 Enable support for the C++ coroutines extension (experimental).
+.IP \fB\-fdiagnostics\-all\-candidates\fR 4
+.IX Item "-fdiagnostics-all-candidates"
+Permit the C++ front end to note all candidates during overload resolution
+failure, including when a deleted function is selected.
 .IP \fB\-fno\-elide\-constructors\fR 4
 .IX Item "-fno-elide-constructors"
 The C++ standard allows an implementation to omit creating a temporary
@@ -5915,7 +5919,7 @@ that have their own flag:
 \&\fB\-Wimplicit\-int\fR (C and Objective-C only)
 \&\fB\-Wincompatible\-pointer\-types\fR (C and Objective-C only)
 \&\fB\-Wint\-conversion\fR (C and Objective-C only)
-\&\fB\-Wnarrowing\fR (C++)
+\&\fB\-Wnarrowing\fR (C++ and Objective\-C++ only)
 \&\fB\-Wreturn\-mismatch\fR (C and Objective-C only)\fB \fR
 .Sp
 The \fB\-fpermissive\fR option is the default for historic C language
@@ -15554,6 +15558,12 @@ Maximum number of basic blocks for VRP to use a basic cache vector.
 .IP \fBavoid-fma-max-bits\fR 4
 .IX Item "avoid-fma-max-bits"
 Maximum number of bits for which we avoid creating FMAs.
+.IP \fBfully-pipelined-fma\fR 4
+.IX Item "fully-pipelined-fma"
+Whether the target fully pipelines FMA instructions.  If non-zero,
+reassociation considers the benefit of parallelizing FMA's multiplication
+part and addition part, assuming FMUL and FMA use the same units that can
+also do FADD.
 .IP \fBsms-loop-average-count-threshold\fR 4
 .IX Item "sms-loop-average-count-threshold"
 A threshold on the average loop count considered by the swing modulo scheduler.
@@ -15790,6 +15800,20 @@ of alignment.
 With \fB\-\-param=aarch64\-stp\-policy=never\fR, do not emit stp.
 With \fB\-\-param=aarch64\-stp\-policy=aligned\fR, emit stp only if the
 source pointer is aligned to at least double the alignment of the type.
+.IP \fBaarch64\-ldp\-alias\-check\-limit\fR 4
+.IX Item "aarch64-ldp-alias-check-limit"
+Limit on the number of alias checks performed by the AArch64 load/store pair
+fusion pass when attempting to form an ldp/stp.  Higher values make the pass
+more aggressive at re-ordering loads over stores, at the expense of increased
+compile time.
+.IP \fBaarch64\-ldp\-writeback\fR 4
+.IX Item "aarch64-ldp-writeback"
+Param to control which writeback opportunities we try to handle in the AArch64
+load/store pair fusion pass.  A value of zero disables writeback handling.  One
+means we try to form pairs involving one or more existing individual writeback
+accesses where possible.  A value of two means we also try to opportunistically
+form writeback opportunities by folding in trailing destructive updates of the
+base register used by a pair.
 .IP \fBaarch64\-loop\-vect\-issue\-rate\-niters\fR 4
 .IX Item "aarch64-loop-vect-issue-rate-niters"
 The tuning for some AArch64 CPUs tries to take both latencies and issue
@@ -19860,7 +19884,8 @@ allocation before or after interprocedural optimization.
 .IX Item "-fmultiflags"
 This option enables multilib-aware \f(CW\*(C`TFLAGS\*(C'\fR to be used to build
 target libraries with options different from those the compiler is
-configured to use by default, through the use of specs
+configured to use by default, through the use of specs set up by compiler internals, by the target, or by builders at
+configure time.
 .Sp
 Like \f(CW\*(C`TFLAGS\*(C'\fR, this allows the target libraries to be built for
 portable baseline environments, while the compiler defaults to more
@@ -20435,6 +20460,14 @@ disables the pass.
 .Sp
 \&\fB\-mearly\-ra=all\fR is the default for \fB\-O2\fR and above, and for
 \&\fB\-Os\fR.  \fB\-mearly\-ra=none\fR is the default otherwise.
+.IP \fB\-mearly\-ldp\-fusion\fR 4
+.IX Item "-mearly-ldp-fusion"
+Enable the copy of the AArch64 load/store pair fusion pass that runs before
+register allocation.  Enabled by default at \fB\-O\fR and above.
+.IP \fB\-mlate\-ldp\-fusion\fR 4
+.IX Item "-mlate-ldp-fusion"
+Enable the copy of the AArch64 load/store pair fusion pass that runs after
+register allocation.  Enabled by default at \fB\-O\fR and above.
 .IP \fB\-msve\-vector\-bits=\fR\fIbits\fR 4
 .IX Item "-msve-vector-bits=bits"
 Specify the number of bits in an SVE vector register.  This option only has
@@ -20841,7 +20874,8 @@ run-time performance.  The default is 32KB when using OpenACC or OpenMP, and
 Compile binaries suitable for devices with the XNACK feature enabled, disabled,
 or either mode.  Some devices always require XNACK and some allow the user to
 configure XNACK.  The compiled code must match the device mode.
-At present this option is a placeholder for support that is not yet implemented.
+The default is \fB\-mxnack=any\fR on devices that support Unified Shared
+Memory, and \fB\-mxnack=no\fR otherwise.
 .PP
 \fIARC Options\fR
 .IX Subsection "ARC Options"
@@ -25807,8 +25841,8 @@ The text segment and data segment must be within 2GB addressing space.
 .IX Item "extreme"
 .PD
 This mode does not limit the size of the code segment and data segment.
-The \fB\-mcmodel=extreme\fR option is incompatible with \fB\-fplt\fR,
-and it requires \fB\-mexplicit\-relocs=always\fR.
+The \fB\-mcmodel=extreme\fR option is incompatible with \fB\-fplt\fR
+and/or \fB\-mexplicit\-relocs=none\fR.
 .RE
 .RS 4
 .Sp
@@ -32418,8 +32452,8 @@ SSSE3, SSE4.1, SSE4.2, POPCNT, AES, PREFETCHW, PCLMUL, RDRND, XSAVE, XSAVEC,
 XSAVES, XSAVEOPT, FSGSBASE, PTWRITE, RDPID, SGX, GFNI-SSE, CLWB, MOVDIRI,
 MOVDIR64B, CLDEMOTE, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C, FMA, LZCNT,
 PCONFIG, PKU, VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL, AVX-VNNI,
-AVXIFMA, AVXVNNIINT8, AVXNECONVERT, CMPCCXADD, ENQCMD, UINTR and RAOINT
-instruction set support.
+AVXIFMA, AVXVNNIINT8, AVXNECONVERT, CMPCCXADD, ENQCMD and UINTR instruction set
+support.
 .IP \fBclearwaterforest\fR 4
 .IX Item "clearwaterforest"
 Intel Clearwater Forest CPU with 64\-bit extensions, MOVBE, MMX, SSE, SSE2,
