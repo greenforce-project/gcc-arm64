@@ -9223,6 +9223,13 @@
 #define HAVE_vcond_mask_v4sfv4si (TARGET_SIMD)
 #define HAVE_vcond_mask_v2dfv2di (TARGET_SIMD)
 #define HAVE_vcond_mask_didi (TARGET_SIMD)
+#define HAVE_cbranchv8qi4 (TARGET_SIMD)
+#define HAVE_cbranchv16qi4 (TARGET_SIMD)
+#define HAVE_cbranchv4hi4 (TARGET_SIMD)
+#define HAVE_cbranchv8hi4 (TARGET_SIMD)
+#define HAVE_cbranchv2si4 (TARGET_SIMD)
+#define HAVE_cbranchv4si4 (TARGET_SIMD)
+#define HAVE_cbranchv2di4 (TARGET_SIMD)
 #define HAVE_vec_cmpv8qiv8qi (TARGET_SIMD)
 #define HAVE_vec_cmpv16qiv16qi (TARGET_SIMD)
 #define HAVE_vec_cmpv4hiv4hi (TARGET_SIMD)
@@ -22971,6 +22978,13 @@ extern rtx        gen_vcond_mask_v2sfv2si                              (rtx, rtx
 extern rtx        gen_vcond_mask_v4sfv4si                              (rtx, rtx, rtx, rtx);
 extern rtx        gen_vcond_mask_v2dfv2di                              (rtx, rtx, rtx, rtx);
 extern rtx        gen_vcond_mask_didi                                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_cbranchv8qi4                                     (rtx, rtx, rtx, rtx);
+extern rtx        gen_cbranchv16qi4                                    (rtx, rtx, rtx, rtx);
+extern rtx        gen_cbranchv4hi4                                     (rtx, rtx, rtx, rtx);
+extern rtx        gen_cbranchv8hi4                                     (rtx, rtx, rtx, rtx);
+extern rtx        gen_cbranchv2si4                                     (rtx, rtx, rtx, rtx);
+extern rtx        gen_cbranchv4si4                                     (rtx, rtx, rtx, rtx);
+extern rtx        gen_cbranchv2di4                                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_cmpv8qiv8qi                                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_cmpv16qiv16qi                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_cmpv4hiv4hi                                  (rtx, rtx, rtx, rtx);

@@ -4,7 +4,7 @@
 ;;; Don't parse this file wihout knowing GCC gengtype internals.
 ;;; This file should be parsed by the same gengtype which wrote it.
 
-(!version  "14.0.0 20231223 (Gf Cross v14)")
+(!version  "14.0.0 20231230 (Gf Cross v14)")
 (!srcdir  "../../gcc/gcc")
 (!languages 12 ada c cp d fortran go jit lto m2 objc objcp rust)
 (!fileslist 245 0
@@ -26198,7 +26198,7 @@
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 1718 nil  gc_unused "anonymous:../../gcc/gcc/config/aarch64/aarch64.cc:19483"nil 
+ (!type struct 1718 nil  gc_unused "anonymous:../../gcc/gcc/config/aarch64/aarch64.cc:19515"nil 
   (!fields 0 )
   nil 0 nil nil )
  
@@ -26211,29 +26211,29 @@
   nil 0 nil nil )
  
  (!type user_struct 1721 nil  gc_unused "auto_vec<std::pair<rtx,rtx>,12>"
-  (!srcfileloc  "config/aarch64/aarch64.cc" 26306)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 26338)
   (!fields 3 
    (!pair  "12"
     (!type undefined 1722 nil  gc_unused "12"
-     (!srcfileloc  "config/aarch64/aarch64.cc" 26306)
+     (!srcfileloc  "config/aarch64/aarch64.cc" 26338)
     )
-    (!srcfileloc  "config/aarch64/aarch64.cc" 26306)
+    (!srcfileloc  "config/aarch64/aarch64.cc" 26338)
     nil )
    (!pair  "rtx"
     (!type already_seen 100)
-    (!srcfileloc  "config/aarch64/aarch64.cc" 26306)
+    (!srcfileloc  "config/aarch64/aarch64.cc" 26338)
     nil )
    (!pair  "std::pair<rtx"
     (!type user_struct 1723 nil  gc_unused "std::pair<rtx"
-     (!srcfileloc  "config/aarch64/aarch64.cc" 26306)
+     (!srcfileloc  "config/aarch64/aarch64.cc" 26338)
      (!fields 1 
       (!pair  "rtx"
        (!type already_seen 100)
-       (!srcfileloc  "config/aarch64/aarch64.cc" 26306)
+       (!srcfileloc  "config/aarch64/aarch64.cc" 26338)
        nil )
      )
     )
-    (!srcfileloc  "config/aarch64/aarch64.cc" 26306)
+    (!srcfileloc  "config/aarch64/aarch64.cc" 26338)
     nil )
   )
  )
@@ -33776,27 +33776,27 @@
   nil )
  (!pair  "copy_ops"
   (!type already_seen 1721)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 26306)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 26338)
   nil )
  (!pair  "12"
   (!type already_seen 1722)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 26306)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 26338)
   nil )
  (!pair  "std::pair<rtx"
   (!type already_seen 1723)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 26306)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 26338)
   nil )
  (!pair  "auto_vec<std::pair<rtx,rtx>,12>"
   (!type already_seen 1721)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 26306)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 26338)
   nil )
  (!pair  "aarch64_fmv_feature_datum"
   (!type already_seen 1718)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 19487)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 19519)
   nil )
  (!pair  "aarch64_fmv_feature_mask"
   (!type already_seen 2)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 19480)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 19512)
   nil )
  (!pair  "aarch64_cc"
   (!type already_seen 2)
@@ -38757,21 +38757,21 @@
   nil )
  (!pair  "aarch64_sls_shared_thunks_needed"
   (!type already_seen 2)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 28809)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 28841)
   nil )
  (!pair  "aarch64_sls_shared_thunks"
   (!type array 2528 nil  gc_used "30" 
    (!type already_seen 23)
   )
-  (!srcfileloc  "config/aarch64/aarch64.cc" 28808)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 28840)
   nil )
  (!pair  "va_list_type"
   (!type already_seen 23)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 20810)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 20842)
   nil )
  (!pair  "aarch64_previous_fndecl"
   (!type already_seen 23)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 18812)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 18844)
   nil )
  (!pair  "tls_get_addr_libfunc"
   (!type already_seen 100)
