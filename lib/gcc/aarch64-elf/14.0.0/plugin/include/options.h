@@ -408,10 +408,10 @@ extern enum aarch64_ldp_stp_policy aarch64_stp_policy_param;
 #define aarch64_stp_policy_param global_options.x_aarch64_stp_policy_param
 #endif
 #ifdef GENERATOR_FILE
-extern int aarch64_sve_compare_costs;
+extern int aarch64_vect_compare_costs;
 #else
-  int x_aarch64_sve_compare_costs;
-#define aarch64_sve_compare_costs global_options.x_aarch64_sve_compare_costs
+  int x_aarch64_vect_compare_costs;
+#define aarch64_vect_compare_costs global_options.x_aarch64_vect_compare_costs
 #endif
 #ifdef GENERATOR_FILE
 extern int aarch64_vect_unroll_limit;
@@ -9502,7 +9502,7 @@ enum opt_code
   OPT__param_aarch64_mops_memmove_size_threshold_ = 71,/* --param=aarch64-mops-memmove-size-threshold= */
   OPT__param_aarch64_mops_memset_size_threshold_ = 72,/* --param=aarch64-mops-memset-size-threshold= */
   OPT__param_aarch64_stp_policy_ = 73,       /* --param=aarch64-stp-policy= */
-  OPT__param_aarch64_sve_compare_costs_ = 74,/* --param=aarch64-sve-compare-costs= */
+  OPT__param_aarch64_vect_compare_costs_ = 74,/* --param=aarch64-vect-compare-costs= */
   OPT__param_aarch64_vect_unroll_limit_ = 75,/* --param=aarch64-vect-unroll-limit= */
   OPT__param_align_loop_iterations_ = 76,    /* --param=align-loop-iterations= */
   OPT__param_align_threshold_ = 77,          /* --param=align-threshold= */
