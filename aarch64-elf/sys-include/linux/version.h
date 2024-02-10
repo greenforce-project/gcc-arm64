@@ -1,7 +1,7 @@
-#define LINUX_VERSION_CODE 394755
+#define LINUX_VERSION_CODE 395011
 #define KERNEL_VERSION(a,b,c) (((a) << 16) + ((b) << 8) + ((c) > 255 ? 255 : (c)))
 #define LINUX_VERSION_MAJOR 6
-#define LINUX_VERSION_PATCHLEVEL 6
+#define LINUX_VERSION_PATCHLEVEL 7
 #define LINUX_VERSION_SUBLEVEL 3
 #define RHEL_MAJOR 9
 #define RHEL_MINOR 99
