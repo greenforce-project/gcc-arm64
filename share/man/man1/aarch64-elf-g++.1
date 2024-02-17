@@ -55,7 +55,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 2024-02-10 gcc-14.0.1 GNU
+.TH GCC 1 2024-02-17 gcc-14.0.1 GNU
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -220,7 +220,7 @@ in the following sections.
 \&\-Wno\-non\-template\-friend  \-Wold\-style\-cast
 \&\-Woverloaded\-virtual  \-Wno\-pmf\-conversions \-Wself\-move \-Wsign\-promo
 \&\-Wsized\-deallocation  \-Wsuggest\-final\-methods
-\&\-Wsuggest\-final\-types  \-Wsuggest\-override
+\&\-Wsuggest\-final\-types  \-Wsuggest\-override  \-Wno\-template\-id\-cdtor
 \&\-Wno\-terminate  \-Wno\-vexing\-parse  \-Wvirtual\-inheritance
 \&\-Wno\-virtual\-move\-assign  \-Wvolatile  \-Wzero\-as\-null\-pointer\-constant\fR
 .IP "\fIObjective-C and Objective\-C++ Language Options\fR" 4
@@ -4412,6 +4412,21 @@ Warn when a namespace definition is opened.  Some coding rules disallow
 namespaces, and this may be used to enforce that rule.  The warning is
 inactive inside a system header file, such as the STL, so one can still
 use the STL.  One may also use using directives and qualified names.
+.IP "\fB\-Wno\-template\-id\-cdtor\fR (C++ and Objective\-C++ only)" 4
+.IX Item "-Wno-template-id-cdtor (C++ and Objective-C++ only)"
+Disable the warning about the use of simple-template-id as the declarator-id
+of a constructor or destructor, which became invalid in C++20 via DR 2237.
+For example:
+.Sp
+.Vb 4
+\&        template<typename T> struct S {
+\&          S<T>(); // should be S();
+\&          ~S<T>();  // should be ~S();
+\&        };
+.Ve
+.Sp
+\&\fB\-Wtemplate\-id\-cdtor\fR is enabled by default with
+\&\fB\-std=c++20\fR; it is also enabled by \fB\-Wc++20\-compat\fR.
 .IP "\fB\-Wno\-terminate\fR (C++ and Objective\-C++ only)" 4
 .IX Item "-Wno-terminate (C++ and Objective-C++ only)"
 Disable the warning about a throw-expression that will immediately
@@ -23348,6 +23363,10 @@ If \fIdevice\fR is not a device but only a core architecture like
 .el .IP \f(CW_\|_AVR_XMEGA_\|_\fR 4
 .IX Item "__AVR_XMEGA__"
 The device / architecture belongs to the XMEGA family of devices.
+.ie n .IP """_\|_AVR_HAVE_ADIW_\|_""" 4
+.el .IP \f(CW_\|_AVR_HAVE_ADIW_\|_\fR 4
+.IX Item "__AVR_HAVE_ADIW__"
+The device has the \f(CW\*(C`ADIW\*(C'\fR and \f(CW\*(C`SBIW\*(C'\fR instructions.
 .ie n .IP """_\|_AVR_HAVE_ELPM_\|_""" 4
 .el .IP \f(CW_\|_AVR_HAVE_ELPM_\|_\fR 4
 .IX Item "__AVR_HAVE_ELPM__"
@@ -23357,16 +23376,16 @@ The device has the \f(CW\*(C`ELPM\*(C'\fR instruction.
 .IX Item "__AVR_HAVE_ELPMX__"
 The device has the \f(CW\*(C`ELPM R\fR\f(CIn\fR\f(CW,Z\*(C'\fR and \f(CW\*(C`ELPM
 R\fR\f(CIn\fR\f(CW,Z+\*(C'\fR instructions.
-.ie n .IP """_\|_AVR_HAVE_MOVW_\|_""" 4
-.el .IP \f(CW_\|_AVR_HAVE_MOVW_\|_\fR 4
-.IX Item "__AVR_HAVE_MOVW__"
-The device has the \f(CW\*(C`MOVW\*(C'\fR instruction to perform 16\-bit
-register-register moves.
 .ie n .IP """_\|_AVR_HAVE_LPMX_\|_""" 4
 .el .IP \f(CW_\|_AVR_HAVE_LPMX_\|_\fR 4
 .IX Item "__AVR_HAVE_LPMX__"
 The device has the \f(CW\*(C`LPM R\fR\f(CIn\fR\f(CW,Z\*(C'\fR and
 \&\f(CW\*(C`LPM R\fR\f(CIn\fR\f(CW,Z+\*(C'\fR instructions.
+.ie n .IP """_\|_AVR_HAVE_MOVW_\|_""" 4
+.el .IP \f(CW_\|_AVR_HAVE_MOVW_\|_\fR 4
+.IX Item "__AVR_HAVE_MOVW__"
+The device has the \f(CW\*(C`MOVW\*(C'\fR instruction to perform 16\-bit
+register-register moves.
 .ie n .IP """_\|_AVR_HAVE_MUL_\|_""" 4
 .el .IP \f(CW_\|_AVR_HAVE_MUL_\|_\fR 4
 .IX Item "__AVR_HAVE_MUL__"
@@ -29203,7 +29222,8 @@ with \fB\-\-with\-isa\-spec=\fR specifying a different default version.
 .IX Item "-march=ISA-string"
 Generate code for given RISC-V ISA (e.g. \fBrv64im\fR).  ISA strings must be
 lower-case.  Examples include \fBrv64i\fR, \fBrv32g\fR, \fBrv32e\fR, and
-\&\fBrv32imaf\fR.
+\&\fBrv32imaf\fR. Additionally, a special value \fBhelp\fR
+(\fB\-march=help\fR) is accepted to list all supported extensions.
 .Sp
 The syntax of the ISA string is defined as follows:
 .RS 4
