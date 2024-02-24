@@ -574,6 +574,24 @@ gen_aarch64_rbit (machine_mode arg0, rtx x0, rtx x1)
   return res;
 }
 
+extern insn_code maybe_code_for_aarch64_and3nr_compare0 (machine_mode);
+inline insn_code
+code_for_aarch64_and3nr_compare0 (machine_mode arg0)
+{
+  insn_code code = maybe_code_for_aarch64_and3nr_compare0 (arg0);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_and3nr_compare0 (machine_mode, rtx, rtx);
+inline rtx
+gen_aarch64_and3nr_compare0 (machine_mode arg0, rtx x0, rtx x1)
+{
+  rtx res = maybe_gen_aarch64_and3nr_compare0 (arg0, x0, x1);
+  gcc_assert (res);
+  return res;
+}
+
 extern insn_code maybe_code_for_aarch64_rev16 (machine_mode);
 inline insn_code
 code_for_aarch64_rev16 (machine_mode arg0)

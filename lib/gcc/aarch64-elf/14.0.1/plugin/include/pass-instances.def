@@ -546,6 +546,7 @@ NEXT_PASS (pass_track_speculation, 1);
 	  POP_INSERT_PASSES ()
       POP_INSERT_PASSES ()
 NEXT_PASS (pass_switch_pstate_sm, 1);
+NEXT_PASS (pass_late_track_speculation, 1);
       NEXT_PASS (pass_late_thread_prologue_and_epilogue, 1);
       /* No target-independent code motion is allowed beyond this point,
          excepting the legacy delayed-branch pass.  */

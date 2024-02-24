@@ -221,6 +221,8 @@
 #define HAVE_aarch64_rbitdi 1
 #define HAVE_ctzsi2 1
 #define HAVE_ctzdi2 1
+#define HAVE_aarch64_andsi3nr_compare0 1
+#define HAVE_aarch64_anddi3nr_compare0 1
 #define HAVE_bswapsi2 1
 #define HAVE_bswapdi2 1
 #define HAVE_bswaphi2 1
@@ -7696,7 +7698,6 @@
 #define HAVE_aarch64_asm_update_zt0 1
 #define HAVE_aarch64_start_private_za_call 1
 #define HAVE_aarch64_end_private_za_call 1
-#define HAVE_aarch64_commit_lazy_save 1
 #define HAVE_aarch64_sme_ld1_horvnx16qi (TARGET_STREAMING_SME)
 #define HAVE_aarch64_sme_ld1_vervnx16qi (TARGET_STREAMING_SME)
 #define HAVE_aarch64_sme_ld1_horvnx8hi (TARGET_STREAMING_SME)
@@ -12140,6 +12141,8 @@ extern rtx        gen_aarch64_rbitsi                                   (rtx, rtx
 extern rtx        gen_aarch64_rbitdi                                   (rtx, rtx);
 extern rtx        gen_ctzsi2                                           (rtx, rtx);
 extern rtx        gen_ctzdi2                                           (rtx, rtx);
+extern rtx        gen_aarch64_andsi3nr_compare0                        (rtx, rtx);
+extern rtx        gen_aarch64_anddi3nr_compare0                        (rtx, rtx);
 extern rtx        gen_bswapsi2                                         (rtx, rtx);
 extern rtx        gen_bswapdi2                                         (rtx, rtx);
 extern rtx        gen_bswaphi2                                         (rtx, rtx);
@@ -21206,7 +21209,6 @@ extern rtx        gen_aarch64_asm_update_za                            (rtx);
 extern rtx        gen_aarch64_asm_update_zt0                           (rtx);
 extern rtx        gen_aarch64_start_private_za_call                    (void);
 extern rtx        gen_aarch64_end_private_za_call                      (void);
-extern rtx        gen_aarch64_commit_lazy_save                         (rtx, rtx);
 extern rtx        gen_aarch64_sme_ld1_horvnx16qi                       (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_ld1_vervnx16qi                       (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_ld1_horvnx8hi                        (rtx, rtx, rtx, rtx);

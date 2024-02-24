@@ -9,7 +9,7 @@
 BASEVER, DATESTAMP, DEVPHASE, and REVISION are defined by the
 Makefile.  */
 
-#define version_string "14.0.1 20240217 (Gf Cross v14)"
+#define version_string "14.0.1 20240224 (Gf Cross v14)"
 #define pkgversion_string "(GCC) "
 
 /* This is the location of the online document giving instructions for
