@@ -55,7 +55,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 2024-02-24 gcc-14.0.1 GNU
+.TH GCC 1 2024-03-02 gcc-14.0.1 GNU
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -814,7 +814,7 @@ in the following sections.
 .Sp
 \&\fIAVR Options\fR
 \&\fB\-mmcu=\fR\fImcu\fR  \fB\-mabsdata  \-maccumulate\-args
-\&\-mbranch\-cost=\fR\fIcost\fR
+\&\-mbranch\-cost=\fR\fIcost\fR  \fB\-mfuse\-add=\fR\fIlevel\fR
 \&\fB\-mcall\-prologues  \-mgas\-isr\-prologues  \-mint8  \-mflmap
 \&\-mdouble=\fR\fIbits\fR  \fB\-mlong\-double=\fR\fIbits\fR
 \&\fB\-mn_flash=\fR\fIsize\fR  \fB\-mno\-interrupts
@@ -3799,6 +3799,9 @@ by wrapping them in a \f(CW\*(C`#pragma\*(C'\fR:
 \&        #pragma GCC diagnostic pop
 .Ve
 .Sp
+The \f(CW\*(C`#pragma\*(C'\fR can also surround the class; in that case, the warning
+will be disabled for all the member functions.
+.Sp
 \&\fB\-Wdangling\-reference\fR also warns about code like
 .Sp
 .Vb 1
@@ -3822,6 +3825,8 @@ classes of the form:
 .Sp
 as \f(CW\*(C`std::span\*(C'\fR\-like; that is, the class is a non-union class
 that has a pointer data member and a trivial destructor.
+.Sp
+The warning can be disabled by using the \f(CW\*(C`gnu::no_dangling\*(C'\fR attribute.
 .Sp
 This warning is enabled by \fB\-Wall\fR.
 .IP "\fB\-Wdelete\-non\-virtual\-dtor\fR (C++ and Objective\-C++ only)" 4
@@ -23017,6 +23022,18 @@ integers. The default branch cost is 0.
 .IX Item "-mcall-prologues"
 Functions prologues/epilogues are expanded as calls to appropriate
 subroutines.  Code size is smaller.
+.IP \fB\-mfuse\-add\fR 4
+.IX Item "-mfuse-add"
+.PD 0
+.IP \fB\-mno\-fuse\-add\fR 4
+.IX Item "-mno-fuse-add"
+.IP \fB\-mfuse\-add=\fR\fIlevel\fR 4
+.IX Item "-mfuse-add=level"
+.PD
+Optimize indirect memory accesses on reduced Tiny devices.
+The default uses \f(CW\*(C`\fR\f(CIlevel\fR\f(CW=1\*(C'\fR for optimizations \fB\-Og\fR
+and \fB\-O1\fR, and \f(CW\*(C`\fR\f(CIlevel\fR\f(CW=2\*(C'\fR for higher optimizations.
+Valid values for \fIlevel\fR are \f(CW0\fR, \f(CW1\fR and \f(CW2\fR.
 .IP \fB\-mdouble=\fR\fIbits\fR 4
 .IX Item "-mdouble=bits"
 .PD 0

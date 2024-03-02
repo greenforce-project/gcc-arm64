@@ -55,7 +55,7 @@
 .\" ========================================================================
 .\"
 .IX Title "AS 1"
-.TH AS 1 2024-02-24 binutils-2.42.50 "GNU Development Tools"
+.TH AS 1 2024-03-02 binutils-2.42.50 "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -337,6 +337,10 @@ as [\fB\-a\fR[\fBcdghilns\fR][=\fIfile\fR]]
    [\fB\-m31\fR|\fB\-m64\fR] [\fB\-mesa\fR|\fB\-mzarch\fR] [\fB\-march\fR=\fICPU\fR]
    [\fB\-mregnames\fR|\fB\-mno\-regnames\fR]
    [\fB\-mwarn\-areg\-zero\fR]
+   [\fB\-mwarn\-regtype\-mismatch=strict\fR
+    \fB\-mwarn\-regtype\-mismatch=relaxed\fR
+    \fB\-mwarn\-regtype\-mismatch=no\fR
+    \fB\-mno\-warn\-regtype\-mismatch\fR]
 .PP
 \&\fITarget SCORE options:\fR
    [\fB\-EB\fR][\fB\-EL\fR][\fB\-FIXDD\fR][\fB\-NWARN\fR]
@@ -2808,6 +2812,28 @@ Allow or disallow symbolic names for registers.
 .IX Item "-mwarn-areg-zero"
 Warn whenever the operand for a base or index register has been specified
 but evaluates to zero.
+.IP \fB\-mwarn\-regtype\-mismatch=strict\fR 4
+.IX Item "-mwarn-regtype-mismatch=strict"
+.PD 0
+.IP \fB\-mwarn\-regtype\-mismatch=relaxed\fR 4
+.IX Item "-mwarn-regtype-mismatch=relaxed"
+.IP \fB\-mwarn\-regtype\-mismatch=no\fR 4
+.IX Item "-mwarn-regtype-mismatch=no"
+.IP \fB\-mno\-warn\-regtype\-mismatch\fR 4
+.IX Item "-mno-warn-regtype-mismatch"
+.PD
+Controls whether the assembler performs register name type checks and generates
+a warning message in case of a mismatch with the operand register type.
+The default (which can be restored by using the \fBrelaxed\fR argument) is
+to perform relaxed register name type checks, which allow floating point
+register (FPR) names \f(CW%f0\fR to \f(CW%f15\fR to be specified as argument to vector register
+(VR) operands and vector register (VR) names \f(CW%v0\fR to \f(CW%v15\fR to be specified as
+argument to floating point register (FPR) operands.  This is acceptable as the
+FPR are embedded into the lower half of the VR.
+Using the \fBstrict\fR argument strict register name type checks are
+performed.
+The \fBno\fR argument, which is equivalent to
+\&\fB\-mno\-warn\-regtype\-mismatch\fR, disables any register name type checks.
 .PP
 The following options are available when as is configured for a
 TMS320C6000 processor.
