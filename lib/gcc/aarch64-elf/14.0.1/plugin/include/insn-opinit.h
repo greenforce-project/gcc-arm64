@@ -3831,42 +3831,6 @@ gen_aarch64_sme_lut (int arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2)
   gcc_assert (res);
   return res;
 }
-
-extern insn_code maybe_code_for_aarch64_sme_lut_strided2 (int, machine_mode);
-inline insn_code
-code_for_aarch64_sme_lut_strided2 (int arg0, machine_mode arg1)
-{
-  insn_code code = maybe_code_for_aarch64_sme_lut_strided2 (arg0, arg1);
-  gcc_assert (code != CODE_FOR_nothing);
-  return code;
-}
-
-extern rtx maybe_gen_aarch64_sme_lut_strided2 (int, machine_mode, rtx, rtx, rtx, rtx);
-inline rtx
-gen_aarch64_sme_lut_strided2 (int arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2, rtx x3)
-{
-  rtx res = maybe_gen_aarch64_sme_lut_strided2 (arg0, arg1, x0, x1, x2, x3);
-  gcc_assert (res);
-  return res;
-}
-
-extern insn_code maybe_code_for_aarch64_sme_lut_strided4 (int, machine_mode);
-inline insn_code
-code_for_aarch64_sme_lut_strided4 (int arg0, machine_mode arg1)
-{
-  insn_code code = maybe_code_for_aarch64_sme_lut_strided4 (arg0, arg1);
-  gcc_assert (code != CODE_FOR_nothing);
-  return code;
-}
-
-extern rtx maybe_gen_aarch64_sme_lut_strided4 (int, machine_mode, rtx, rtx, rtx, rtx, rtx, rtx);
-inline rtx
-gen_aarch64_sme_lut_strided4 (int arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2, rtx x3, rtx x4, rtx x5)
-{
-  rtx res = maybe_gen_aarch64_sme_lut_strided4 (arg0, arg1, x0, x1, x2, x3, x4, x5);
-  gcc_assert (res);
-  return res;
-}
 #endif
 
 extern const struct convert_optab_libcall_d convlib_def[NUM_CONVLIB_OPTABS];

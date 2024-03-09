@@ -4547,8 +4547,7 @@ single-letter options may _not_ be grouped: ‘-dM’ is very different from
           shows all the predefined macros.
 
      ‘-dD’
-          Like ‘-dM’ except in two respects: it does _not_ include the
-          predefined macros, and it outputs _both_ the ‘#define’
+          Like ‘-dM’ except that it outputs _both_ the ‘#define’
           directives and the result of preprocessing.  Both kinds of
           output go to the standard output file.
 
@@ -5369,11 +5368,11 @@ without any initial ‘-’ or ‘--’.
 * dD:                                    Invocation.          (line 425)
 * DEPENDENCIES_OUTPUT:                   Environment Variables.
                                                               (line  44)
-* dI:                                    Invocation.          (line 435)
+* dI:                                    Invocation.          (line 434)
 * dM:                                    Invocation.          (line 414)
-* dN:                                    Invocation.          (line 431)
-* dU:                                    Invocation.          (line 439)
-* fdebug-cpp:                            Invocation.          (line 446)
+* dN:                                    Invocation.          (line 430)
+* dU:                                    Invocation.          (line 438)
+* fdebug-cpp:                            Invocation.          (line 445)
 * fdirectives-only:                      Invocation.          (line 229)
 * fdollars-in-identifiers:               Invocation.          (line 250)
 * fexec-charset:                         Invocation.          (line 297)
@@ -5389,18 +5388,18 @@ without any initial ‘-’ or ‘--’.
 * fwide-exec-charset:                    Invocation.          (line 302)
 * fworking-directory:                    Invocation.          (line 322)
 * H:                                     Invocation.          (line 399)
-* I:                                     Invocation.          (line 454)
-* I-:                                    Invocation.          (line 511)
-* idirafter:                             Invocation.          (line 454)
+* I:                                     Invocation.          (line 453)
+* I-:                                    Invocation.          (line 510)
+* idirafter:                             Invocation.          (line 453)
 * imacros:                               Invocation.          (line  80)
-* imultilib:                             Invocation.          (line 545)
+* imultilib:                             Invocation.          (line 544)
 * include:                               Invocation.          (line  69)
-* iprefix:                               Invocation.          (line 527)
-* iquote:                                Invocation.          (line 454)
-* isysroot:                              Invocation.          (line 539)
-* isystem:                               Invocation.          (line 454)
-* iwithprefix:                           Invocation.          (line 532)
-* iwithprefixbefore:                     Invocation.          (line 532)
+* iprefix:                               Invocation.          (line 526)
+* iquote:                                Invocation.          (line 453)
+* isysroot:                              Invocation.          (line 538)
+* isystem:                               Invocation.          (line 453)
+* iwithprefix:                           Invocation.          (line 531)
+* iwithprefixbefore:                     Invocation.          (line 531)
 * M:                                     Invocation.          (line 101)
 * MD:                                    Invocation.          (line 196)
 * MF:                                    Invocation.          (line 135)
@@ -5411,8 +5410,8 @@ without any initial ‘-’ or ‘--’.
 * MP:                                    Invocation.          (line 159)
 * MQ:                                    Invocation.          (line 186)
 * MT:                                    Invocation.          (line 171)
-* nostdinc:                              Invocation.          (line 549)
-* nostdinc++:                            Invocation.          (line 555)
+* nostdinc:                              Invocation.          (line 548)
+* nostdinc++:                            Invocation.          (line 554)
 * OBJC_INCLUDE_PATH:                     Environment Variables.
                                                               (line  18)
 * P:                                     Invocation.          (line 369)
@@ -5427,15 +5426,15 @@ without any initial ‘-’ or ‘--’.
 * trigraphs:                             Invocation.          (line 386)
 * U:                                     Invocation.          (line  65)
 * undef:                                 Invocation.          (line  89)
-* Wcomment:                              Invocation.          (line 560)
-* Wcomments:                             Invocation.          (line 560)
-* Wendif-labels:                         Invocation.          (line 605)
-* Wexpansion-to-defined:                 Invocation.          (line 580)
-* Wno-endif-labels:                      Invocation.          (line 605)
-* Wno-undef:                             Invocation.          (line 576)
-* Wtrigraphs:                            Invocation.          (line 566)
-* Wundef:                                Invocation.          (line 576)
-* Wunused-macros:                        Invocation.          (line 586)
+* Wcomment:                              Invocation.          (line 559)
+* Wcomments:                             Invocation.          (line 559)
+* Wendif-labels:                         Invocation.          (line 604)
+* Wexpansion-to-defined:                 Invocation.          (line 579)
+* Wno-endif-labels:                      Invocation.          (line 604)
+* Wno-undef:                             Invocation.          (line 575)
+* Wtrigraphs:                            Invocation.          (line 565)
+* Wundef:                                Invocation.          (line 575)
+* Wunused-macros:                        Invocation.          (line 585)
 
 
 File: cpp.info,  Node: Concept Index,  Prev: Option Index,  Up: Top
@@ -5667,12 +5666,12 @@ Node: Obsolete Features171378
 Node: Invocation174280
 Ref: dashMF180557
 Ref: fdollars-in-identifiers185491
-Ref: Wtrigraphs200374
-Node: Environment Variables202499
-Node: GNU Free Documentation License206324
-Node: Index of Directives231677
-Node: Option Index233976
-Node: Concept Index240088
+Ref: Wtrigraphs200303
+Node: Environment Variables202428
+Node: GNU Free Documentation License206253
+Node: Index of Directives231606
+Node: Option Index233905
+Node: Concept Index240017
 
 End Tag Table
 

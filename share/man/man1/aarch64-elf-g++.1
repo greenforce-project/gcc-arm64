@@ -55,7 +55,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 2024-03-02 gcc-14.0.1 GNU
+.TH GCC 1 2024-03-09 gcc-14.0.1 GNU
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -206,7 +206,7 @@ in the following sections.
 \&\-Wdeprecated\-copy \-Wdeprecated\-copy\-dtor
 \&\-Wno\-deprecated\-enum\-enum\-conversion \-Wno\-deprecated\-enum\-float\-conversion
 \&\-Weffc++ \-Wno\-elaborated\-enum\-base
-\&\-Wno\-exceptions \-Wextra\-semi  \-Wno\-inaccessible\-base
+\&\-Wno\-exceptions \-Wextra\-semi \-Wno\-global\-module \-Wno\-inaccessible\-base
 \&\-Wno\-inherited\-variadic\-ctor  \-Wno\-init\-list\-lifetime
 \&\-Winvalid\-constexpr \-Winvalid\-imported\-macros
 \&\-Wno\-invalid\-offsetof  \-Wno\-literal\-suffix
@@ -901,7 +901,7 @@ in the following sections.
 \&\fB\-mbig\-endian \-mlittle\-endian
 \&\-mframe\-limit=\fR\fIbytes\fR \fB\-mxbpf \-mco\-re \-mno\-co\-re \-mjmpext
 \&\-mjmp32 \-malu32 \-mv3\-atomics \-mbswap \-msdiv \-msmov \-mcpu=\fR\fIversion\fR
-\&\fB\-masm=\fR\fIdialect\fR
+\&\fB\-masm=\fR\fIdialect\fR \fB\-minline\-memops\-threshold=\fR\fIbytes\fR
 .Sp
 \&\fIFR30 Options\fR
 \&\fB\-msmall\-model  \-mno\-lsim\fR
@@ -1380,7 +1380,8 @@ See RS/6000 and PowerPC Options.
 \&\fB\-mvzeroupper  \-mprefer\-avx128  \-mprefer\-vector\-width=\fR\fIopt\fR
 \&\fB\-mpartial\-vector\-fp\-math
 \&\-mmove\-max=\fR\fIbits\fR \fB\-mstore\-max=\fR\fIbits\fR
-\&\fB\-mmmx  \-msse  \-msse2  \-msse3  \-mssse3  \-msse4.1  \-msse4.2  \-msse4  \-mavx
+\&\fB\-mnoreturn\-no\-callee\-saved\-registers
+\&\-mmmx  \-msse  \-msse2  \-msse3  \-mssse3  \-msse4.1  \-msse4.2  \-msse4  \-mavx
 \&\-mavx2  \-mavx512f  \-mavx512pf  \-mavx512er  \-mavx512cd  \-mavx512vl
 \&\-mavx512bw  \-mavx512dq  \-mavx512ifma  \-mavx512vbmi  \-msha  \-maes
 \&\-mpclmul  \-mfsgsbase  \-mrdrnd  \-mf16c  \-mfma  \-mpconfig  \-mwbnoinvd
@@ -4568,6 +4569,10 @@ undefined behavior at runtime.  This warning is enabled by default.
 .IP "\fB\-Wextra\-semi\fR (C++, Objective\-C++ only)" 4
 .IX Item "-Wextra-semi (C++, Objective-C++ only)"
 Warn about redundant semicolons after in-class function definitions.
+.IP "\fB\-Wno\-global\-module\fR (C++ and Objective\-C++ only)" 4
+.IX Item "-Wno-global-module (C++ and Objective-C++ only)"
+Disable the diagnostic for when the global module fragment of a module
+unit does not consist only of preprocessor directives.
 .IP "\fB\-Wno\-inaccessible\-base\fR (C++, Objective\-C++ only)" 4
 .IX Item "-Wno-inaccessible-base (C++, Objective-C++ only)"
 This option controls warnings
@@ -17647,8 +17652,7 @@ If you use \fB\-dM\fR without the \fB\-E\fR option, \fB\-dM\fR is
 interpreted as a synonym for \fB\-fdump\-rtl\-mach\fR.
 .IP \fB\-dD\fR 4
 .IX Item "-dD"
-Like \fB\-dM\fR except in two respects: it does \fInot\fR include the
-predefined macros, and it outputs \fIboth\fR the \fB#define\fR
+Like \fB\-dM\fR except that it outputs \fIboth\fR the \fB#define\fR
 directives and the result of preprocessing.  Both kinds of output go to
 the standard output file.
 .IP \fB\-dN\fR 4
@@ -24973,6 +24977,14 @@ Outputs pseudo-c assembly dialect.
 .RE
 .RS 4
 .RE
+.IP \fB\-minline\-memops\-threshold=\fR\fIbytes\fR 4
+.IX Item "-minline-memops-threshold=bytes"
+Specifies a size threshold in bytes at or below which memmove, memcpy
+and memset shall always be expanded inline.  Operations dealing with
+sizes larger than this threshold would have to be be implemented using
+a library call instead of being expanded inline, but since BPF doesn't
+allow libcalls, exceeding this threshold results in a compile-time
+error.  The default is \fB1024\fR bytes.
 .PP
 \fIFR30 Options\fR
 .IX Subsection "FR30 Options"
@@ -34277,6 +34289,14 @@ Prefer 512\-bit vector width for instructions.
 .RE
 .RS 4
 .RE
+.IP \fB\-mnoreturn\-no\-callee\-saved\-registers\fR 4
+.IX Item "-mnoreturn-no-callee-saved-registers"
+This option optimizes functions with \f(CW\*(C`noreturn\*(C'\fR attribute or
+\&\f(CW\*(C`_Noreturn\*(C'\fR specifier by not saving in the function prologue callee-saved
+registers which are used in the function (except for the \f(CW\*(C`BP\*(C'\fR
+register).  This option can interfere with debugging of the caller of the
+\&\f(CW\*(C`noreturn\*(C'\fR function or any function further up in the call stack, so it
+is not enabled by default.
 .IP \fB\-mcx16\fR 4
 .IX Item "-mcx16"
 This option enables GCC to generate \f(CW\*(C`CMPXCHG16B\*(C'\fR instructions in 64\-bit

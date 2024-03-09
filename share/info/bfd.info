@@ -7224,7 +7224,7 @@ BFD_JUMP_TABLE macros.
      #define BFD_JUMP_TABLE_COPY(NAME) \
        NAME##_bfd_copy_private_bfd_data, \
        NAME##_bfd_merge_private_bfd_data, \
-       _bfd_generic_init_private_section_data, \
+       NAME##_init_private_section_data, \
        NAME##_bfd_copy_private_section_data, \
        NAME##_bfd_copy_private_symbol_data, \
        NAME##_bfd_copy_private_header_data, \
@@ -14795,39 +14795,39 @@ Node: howto manager129691
 Node: Core Files270649
 Node: Targets272682
 Node: bfd_target274729
-Node: Architectures301608
-Node: Opening and Closing334192
-Node: Internal350215
-Node: File Caching361659
-Node: Linker Functions363902
-Node: Creating a Linker Hash Table365600
-Node: Adding Symbols to the Hash Table367363
-Node: Differing file formats368271
-Node: Adding symbols from an object file370032
-Node: Adding symbols from an archive372266
-Node: Performing the Final Link374678
-Node: Information provided by the linker375935
-Node: Relocating the section contents377125
-Node: Writing the symbol table378945
-Node: Hash Tables386188
-Node: Creating and Freeing a Hash Table387390
-Node: Looking Up or Entering a String388692
-Node: Traversing a Hash Table389993
-Node: Deriving a New Hash Table Type390814
-Node: Define the Derived Structures391888
-Node: Write the Derived Creation Routine393009
-Node: Write Other Derived Routines395660
-Node: BFD back ends401189
-Node: What to Put Where401459
-Node: aout401639
-Node: coff407864
-Node: elf429373
-Node: mmo429776
-Node: File layout430656
-Node: Symbol-table436781
-Node: mmo section mapping440600
-Node: GNU Free Documentation License444298
-Node: BFD Index469565
+Node: Architectures301602
+Node: Opening and Closing334186
+Node: Internal350209
+Node: File Caching361653
+Node: Linker Functions363896
+Node: Creating a Linker Hash Table365594
+Node: Adding Symbols to the Hash Table367357
+Node: Differing file formats368265
+Node: Adding symbols from an object file370026
+Node: Adding symbols from an archive372260
+Node: Performing the Final Link374672
+Node: Information provided by the linker375929
+Node: Relocating the section contents377119
+Node: Writing the symbol table378939
+Node: Hash Tables386182
+Node: Creating and Freeing a Hash Table387384
+Node: Looking Up or Entering a String388686
+Node: Traversing a Hash Table389987
+Node: Deriving a New Hash Table Type390808
+Node: Define the Derived Structures391882
+Node: Write the Derived Creation Routine393003
+Node: Write Other Derived Routines395654
+Node: BFD back ends401183
+Node: What to Put Where401453
+Node: aout401633
+Node: coff407858
+Node: elf429367
+Node: mmo429770
+Node: File layout430650
+Node: Symbol-table436775
+Node: mmo section mapping440594
+Node: GNU Free Documentation License444292
+Node: BFD Index469559
 
 End Tag Table
 

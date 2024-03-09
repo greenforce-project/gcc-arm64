@@ -8435,63 +8435,6 @@
    && !(2 == 4 && 4 == 4 && 32 == 8))
 #define HAVE_aarch64_sme_lut4vnx16sf (TARGET_STREAMING_SME2 \
    && !(4 == 4 && 4 == 4 && 32 == 8))
-#define HAVE_aarch64_sme_lut2vnx16qi_strided2 (TARGET_STREAMING_SME2 \
-   && aarch64_strided_registers_p (operands, 2, 8))
-#define HAVE_aarch64_sme_lut4vnx16qi_strided2 (TARGET_STREAMING_SME2 \
-   && aarch64_strided_registers_p (operands, 2, 8))
-#define HAVE_aarch64_sme_lut2vnx8hi_strided2 (TARGET_STREAMING_SME2 \
-   && aarch64_strided_registers_p (operands, 2, 8))
-#define HAVE_aarch64_sme_lut4vnx8hi_strided2 (TARGET_STREAMING_SME2 \
-   && aarch64_strided_registers_p (operands, 2, 8))
-#define HAVE_aarch64_sme_lut2vnx4si_strided2 (TARGET_STREAMING_SME2 \
-   && aarch64_strided_registers_p (operands, 2, 8))
-#define HAVE_aarch64_sme_lut4vnx4si_strided2 (TARGET_STREAMING_SME2 \
-   && aarch64_strided_registers_p (operands, 2, 8))
-#define HAVE_aarch64_sme_lut2vnx8bf_strided2 (TARGET_STREAMING_SME2 \
-   && aarch64_strided_registers_p (operands, 2, 8))
-#define HAVE_aarch64_sme_lut4vnx8bf_strided2 (TARGET_STREAMING_SME2 \
-   && aarch64_strided_registers_p (operands, 2, 8))
-#define HAVE_aarch64_sme_lut2vnx8hf_strided2 (TARGET_STREAMING_SME2 \
-   && aarch64_strided_registers_p (operands, 2, 8))
-#define HAVE_aarch64_sme_lut4vnx8hf_strided2 (TARGET_STREAMING_SME2 \
-   && aarch64_strided_registers_p (operands, 2, 8))
-#define HAVE_aarch64_sme_lut2vnx4sf_strided2 (TARGET_STREAMING_SME2 \
-   && aarch64_strided_registers_p (operands, 2, 8))
-#define HAVE_aarch64_sme_lut4vnx4sf_strided2 (TARGET_STREAMING_SME2 \
-   && aarch64_strided_registers_p (operands, 2, 8))
-#define HAVE_aarch64_sme_lut2vnx16qi_strided4 (TARGET_STREAMING_SME2 \
-   && !(2 == 4 && 8 == 8) \
-   && aarch64_strided_registers_p (operands, 4, 4))
-#define HAVE_aarch64_sme_lut2vnx8hi_strided4 (TARGET_STREAMING_SME2 \
-   && !(2 == 4 && 16 == 8) \
-   && aarch64_strided_registers_p (operands, 4, 4))
-#define HAVE_aarch64_sme_lut4vnx8hi_strided4 (TARGET_STREAMING_SME2 \
-   && !(4 == 4 && 16 == 8) \
-   && aarch64_strided_registers_p (operands, 4, 4))
-#define HAVE_aarch64_sme_lut2vnx4si_strided4 (TARGET_STREAMING_SME2 \
-   && !(2 == 4 && 32 == 8) \
-   && aarch64_strided_registers_p (operands, 4, 4))
-#define HAVE_aarch64_sme_lut4vnx4si_strided4 (TARGET_STREAMING_SME2 \
-   && !(4 == 4 && 32 == 8) \
-   && aarch64_strided_registers_p (operands, 4, 4))
-#define HAVE_aarch64_sme_lut2vnx8bf_strided4 (TARGET_STREAMING_SME2 \
-   && !(2 == 4 && 16 == 8) \
-   && aarch64_strided_registers_p (operands, 4, 4))
-#define HAVE_aarch64_sme_lut4vnx8bf_strided4 (TARGET_STREAMING_SME2 \
-   && !(4 == 4 && 16 == 8) \
-   && aarch64_strided_registers_p (operands, 4, 4))
-#define HAVE_aarch64_sme_lut2vnx8hf_strided4 (TARGET_STREAMING_SME2 \
-   && !(2 == 4 && 16 == 8) \
-   && aarch64_strided_registers_p (operands, 4, 4))
-#define HAVE_aarch64_sme_lut4vnx8hf_strided4 (TARGET_STREAMING_SME2 \
-   && !(4 == 4 && 16 == 8) \
-   && aarch64_strided_registers_p (operands, 4, 4))
-#define HAVE_aarch64_sme_lut2vnx4sf_strided4 (TARGET_STREAMING_SME2 \
-   && !(2 == 4 && 32 == 8) \
-   && aarch64_strided_registers_p (operands, 4, 4))
-#define HAVE_aarch64_sme_lut4vnx4sf_strided4 (TARGET_STREAMING_SME2 \
-   && !(4 == 4 && 32 == 8) \
-   && aarch64_strided_registers_p (operands, 4, 4))
 #define HAVE_cbranchsi4 1
 #define HAVE_cbranchdi4 1
 #define HAVE_cbranchsf4 1
@@ -22233,35 +22176,6 @@ extern rtx        gen_aarch64_sme_lut2vnx32hf                          (rtx, rtx
 extern rtx        gen_aarch64_sme_lut4vnx32hf                          (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lut2vnx16sf                          (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lut4vnx16sf                          (rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut2vnx16qi_strided2                 (rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut4vnx16qi_strided2                 (rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut2vnx8hi_strided2                  (rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut4vnx8hi_strided2                  (rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut2vnx4si_strided2                  (rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut4vnx4si_strided2                  (rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut2vnx8bf_strided2                  (rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut4vnx8bf_strided2                  (rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut2vnx8hf_strided2                  (rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut4vnx8hf_strided2                  (rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut2vnx4sf_strided2                  (rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut4vnx4sf_strided2                  (rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut2vnx16qi_strided4                 (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_lut4vnx16qi_strided4                 (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lut4vnx16qi_strided4(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-extern rtx        gen_aarch64_sme_lut2vnx8hi_strided4                  (rtx, rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut4vnx8hi_strided4                  (rtx, rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut2vnx4si_strided4                  (rtx, rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut4vnx4si_strided4                  (rtx, rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut2vnx8bf_strided4                  (rtx, rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut4vnx8bf_strided4                  (rtx, rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut2vnx8hf_strided4                  (rtx, rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut4vnx8hf_strided4                  (rtx, rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut2vnx4sf_strided4                  (rtx, rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_sme_lut4vnx4sf_strided4                  (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchsi4                                       (rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchdi4                                       (rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchsf4                                       (rtx, rtx, rtx, rtx);
