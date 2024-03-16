@@ -55,7 +55,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 2024-03-09 gcc-14.0.1 GNU
+.TH GCC 1 2024-03-16 gcc-14.0.1 GNU
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -1073,7 +1073,8 @@ in the following sections.
 \&\fB\-mcheck\-zero\-division  \-mno\-check\-zero\-division
 \&\-mdivide\-traps  \-mdivide\-breaks
 \&\-mload\-store\-pairs  \-mno\-load\-store\-pairs
-\&\-munaligned\-access  \-mno\-unaligned\-access
+\&\-mstrict\-align  \-mno\-strict\-align
+\&\-mno\-unaligned\-access  \-munaligned\-access
 \&\-mmemcpy  \-mno\-memcpy  \-mlong\-calls  \-mno\-long\-calls
 \&\-mmad  \-mno\-mad  \-mimadd  \-mno\-imadd  \-mfused\-madd  \-mno\-fused\-madd  \-nocpp
 \&\-mfix\-24k  \-mno\-fix\-24k
@@ -27643,16 +27644,21 @@ Enable (disable) an optimization that pairs consecutive load or store
 instructions to enable load/store bonding.  This option is enabled by
 default but only takes effect when the selected architecture is known
 to support bonding.
+.IP \fB\-mstrict\-align\fR 4
+.IX Item "-mstrict-align"
+.PD 0
+.IP \fB\-mno\-strict\-align\fR 4
+.IX Item "-mno-strict-align"
 .IP \fB\-munaligned\-access\fR 4
 .IX Item "-munaligned-access"
-.PD 0
 .IP \fB\-mno\-unaligned\-access\fR 4
 .IX Item "-mno-unaligned-access"
 .PD
-Enable (disable) direct unaligned access for MIPS Release 6.
-MIPSr6 requires load/store unaligned-access support,
-by hardware or trap&emulate.
-So \fB\-mno\-unaligned\-access\fR may be needed by kernel.
+Disable (enable) direct unaligned access for MIPS Release 6.
+MIPSr6 requires load/store unaligned-access support, by hardware or
+trap&emulate.  So \fB\-mstrict\-align\fR may be needed by kernel.  The
+options \fB\-munaligned\-access\fR and \fB\-mno\-unaligned\-access\fR
+are obsoleted, and only for backward-compatible.
 .IP \fB\-mmemcpy\fR 4
 .IX Item "-mmemcpy"
 .PD 0

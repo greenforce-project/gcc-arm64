@@ -36,16 +36,16 @@ extern enum aarch64_arch selected_arch;
 #define selected_arch global_options.x_selected_arch
 #endif
 #ifdef GENERATOR_FILE
+extern enum aarch64_key_type aarch64_ra_sign_key;
+#else
+  enum aarch64_key_type x_aarch64_ra_sign_key;
+#define aarch64_ra_sign_key global_options.x_aarch64_ra_sign_key
+#endif
+#ifdef GENERATOR_FILE
 extern enum aarch64_processor selected_tune;
 #else
   enum aarch64_processor x_selected_tune;
 #define selected_tune global_options.x_selected_tune
-#endif
-#ifdef GENERATOR_FILE
-extern enum aarch_key_type aarch_ra_sign_key;
-#else
-  enum aarch_key_type x_aarch_ra_sign_key;
-#define aarch_ra_sign_key global_options.x_aarch_ra_sign_key
 #endif
 #ifdef GENERATOR_FILE
 extern long aarch64_stack_protector_guard_offset;
@@ -9223,8 +9223,8 @@ struct GTY(()) cl_target_option
   enum aarch64_tls_type x_aarch64_tls_dialect;
   enum aarch64_tp_reg x_aarch64_tpidr_reg;
   enum aarch64_arch x_selected_arch;
+  enum aarch64_key_type x_aarch64_ra_sign_key;
   enum aarch64_processor x_selected_tune;
-  enum aarch_key_type x_aarch_ra_sign_key;
   signed char x_aarch64_fix_a53_err835769;
   signed char x_aarch64_fix_a53_err843419;
   signed char x_flag_omit_leaf_frame_pointer;

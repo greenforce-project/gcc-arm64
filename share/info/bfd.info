@@ -1292,9 +1292,9 @@ is assumed that the instance implements all methods listed below).
           Also write in MAP_ADDR the address of the page aligned buffer and in
           MAP_LEN the size mapped (a page multiple).  Use unmap with MAP_ADDR and
           MAP_LEN to unmap.  */
-       void *(*bmmap) (struct bfd *abfd, void *addr, bfd_size_type len,
+       void *(*bmmap) (struct bfd *abfd, void *addr, size_t len,
                        int prot, int flags, file_ptr offset,
-                       void **map_addr, bfd_size_type *map_len);
+                       void **map_addr, size_t *map_len);
      };
      extern const struct bfd_iovec _bfd_memory_iovec;
 
@@ -1391,9 +1391,9 @@ is assumed that the instance implements all methods listed below).
 2.4.1.33 ‘bfd_mmap’
 ...................
 
- -- Function: void *bfd_mmap (bfd *abfd, void *addr, bfd_size_type len,
-          int prot, int flags, file_ptr offset, void **map_addr,
-          bfd_size_type *map_len) ATTRIBUTE_WARN_UNUSED_RESULT;
+ -- Function: void *bfd_mmap (bfd *abfd, void *addr, size_t len, int
+          prot, int flags, file_ptr offset, void **map_addr, size_t
+          *map_len) ATTRIBUTE_WARN_UNUSED_RESULT;
      Return mmap()ed region of the file, if possible and implemented.
      LEN and OFFSET do not need to be page aligned.  The page aligned
      address and length are written to MAP_ADDR and MAP_LEN.
@@ -14775,59 +14775,59 @@ Node: Error reporting27112
 Node: Initialization34266
 Node: Threading34801
 Node: Miscellaneous36696
-Node: Memory Usage56219
-Node: Sections57464
-Node: Section Input57949
-Node: Section Output59182
-Node: typedef asection61709
-Node: section prototypes78990
-Node: Symbols90565
-Node: Reading Symbols92186
-Node: Writing Symbols93294
-Node: Mini Symbols95062
-Node: typedef asymbol96064
-Node: symbol handling functions102274
-Node: Archives107586
-Node: Formats111806
-Node: Relocations114953
-Node: typedef arelent115688
-Node: howto manager129691
-Node: Core Files270649
-Node: Targets272682
-Node: bfd_target274729
-Node: Architectures301602
-Node: Opening and Closing334186
-Node: Internal350209
-Node: File Caching361653
-Node: Linker Functions363896
-Node: Creating a Linker Hash Table365594
-Node: Adding Symbols to the Hash Table367357
-Node: Differing file formats368265
-Node: Adding symbols from an object file370026
-Node: Adding symbols from an archive372260
-Node: Performing the Final Link374672
-Node: Information provided by the linker375929
-Node: Relocating the section contents377119
-Node: Writing the symbol table378939
-Node: Hash Tables386182
-Node: Creating and Freeing a Hash Table387384
-Node: Looking Up or Entering a String388686
-Node: Traversing a Hash Table389987
-Node: Deriving a New Hash Table Type390808
-Node: Define the Derived Structures391882
-Node: Write the Derived Creation Routine393003
-Node: Write Other Derived Routines395654
-Node: BFD back ends401183
-Node: What to Put Where401453
-Node: aout401633
-Node: coff407858
-Node: elf429367
-Node: mmo429770
-Node: File layout430650
-Node: Symbol-table436775
-Node: mmo section mapping440594
-Node: GNU Free Documentation License444292
-Node: BFD Index469559
+Node: Memory Usage56191
+Node: Sections57436
+Node: Section Input57921
+Node: Section Output59154
+Node: typedef asection61681
+Node: section prototypes78962
+Node: Symbols90537
+Node: Reading Symbols92158
+Node: Writing Symbols93266
+Node: Mini Symbols95034
+Node: typedef asymbol96036
+Node: symbol handling functions102246
+Node: Archives107558
+Node: Formats111778
+Node: Relocations114925
+Node: typedef arelent115660
+Node: howto manager129663
+Node: Core Files270621
+Node: Targets272654
+Node: bfd_target274701
+Node: Architectures301574
+Node: Opening and Closing334158
+Node: Internal350181
+Node: File Caching361625
+Node: Linker Functions363868
+Node: Creating a Linker Hash Table365566
+Node: Adding Symbols to the Hash Table367329
+Node: Differing file formats368237
+Node: Adding symbols from an object file369998
+Node: Adding symbols from an archive372232
+Node: Performing the Final Link374644
+Node: Information provided by the linker375901
+Node: Relocating the section contents377091
+Node: Writing the symbol table378911
+Node: Hash Tables386154
+Node: Creating and Freeing a Hash Table387356
+Node: Looking Up or Entering a String388658
+Node: Traversing a Hash Table389959
+Node: Deriving a New Hash Table Type390780
+Node: Define the Derived Structures391854
+Node: Write the Derived Creation Routine392975
+Node: Write Other Derived Routines395626
+Node: BFD back ends401155
+Node: What to Put Where401425
+Node: aout401605
+Node: coff407830
+Node: elf429339
+Node: mmo429742
+Node: File layout430622
+Node: Symbol-table436747
+Node: mmo section mapping440566
+Node: GNU Free Documentation License444264
+Node: BFD Index469531
 
 End Tag Table
 
