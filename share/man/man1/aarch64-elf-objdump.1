@@ -55,7 +55,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OBJDUMP 1"
-.TH OBJDUMP 1 2024-03-16 binutils-2.42.50 "GNU Development Tools"
+.TH OBJDUMP 1 2024-03-16 binutils-2.38 "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -89,16 +89,12 @@ objdump [\fB\-a\fR|\fB\-\-archive\-headers\fR]
         [\fB\-r\fR|\fB\-\-reloc\fR]
         [\fB\-R\fR|\fB\-\-dynamic\-reloc\fR]
         [\fB\-s\fR|\fB\-\-full\-contents\fR]
-        [\fB\-Z\fR|\fB\-\-decompress\fR]
         [\fB\-W[lLiaprmfFsoORtUuTgAck]\fR|
          \fB\-\-dwarf\fR[=rawline,=decodedline,=info,=abbrev,=pubnames,=aranges,=macro,=frames,=frames\-interp,=str,=str\-offsets,=loc,=Ranges,=pubtypes,=trace_info,=trace_abbrev,=trace_aranges,=gdb_index,=addr,=cu_index,=links]]
         [\fB\-WK\fR|\fB\-\-dwarf=follow\-links\fR]
         [\fB\-WN\fR|\fB\-\-dwarf=no\-follow\-links\fR]
-        [\fB\-wD\fR|\fB\-\-dwarf=use\-debuginfod\fR]
-        [\fB\-wE\fR|\fB\-\-dwarf=do\-not\-use\-debuginfod\fR]
         [\fB\-L\fR|\fB\-\-process\-links\fR]
         [\fB\-\-ctf=\fR\fIsection\fR]
-        [\fB\-\-sframe=\fR\fIsection\fR]
         [\fB\-G\fR|\fB\-\-stabs\fR]
         [\fB\-t\fR|\fB\-\-syms\fR]
         [\fB\-T\fR|\fB\-\-dynamic\-syms\fR]
@@ -110,7 +106,6 @@ objdump [\fB\-a\fR|\fB\-\-archive\-headers\fR]
         [\fB\-\-prefix\-addresses\fR]
         [\fB\-\-[no\-]show\-raw\-insn\fR]
         [\fB\-\-adjust\-vma=\fR\fIoffset\fR]
-        [\fB\-\-show\-all\-symbols\fR]
         [\fB\-\-dwarf\-depth=\fR\fIn\fR]
         [\fB\-\-dwarf\-start=\fR\fIn\fR]
         [\fB\-\-ctf\-parent=\fR\fIsection\fR]
@@ -120,7 +115,6 @@ objdump [\fB\-a\fR|\fB\-\-archive\-headers\fR]
         [\fB\-\-prefix\-strip=\fR\fIlevel\fR]
         [\fB\-\-insn\-width=\fR\fIwidth\fR]
         [\fB\-\-visualize\-jumps[=color|=extended\-color|=off]\fR
-        [\fB\-\-disassembler\-color=[off|terminal|on|extended]\fR
         [\fB\-U\fR \fImethod\fR] [\fB\-\-unicode=\fR\fImethod\fR]
         [\fB\-V\fR|\fB\-\-version\fR]
         [\fB\-H\fR|\fB\-\-help\fR]
@@ -255,9 +249,8 @@ used when disassembling.
 .IP \fB\-\-disassemble\-all\fR 4
 .IX Item "--disassemble-all"
 .PD
-Like \fB\-d\fR, but disassemble the contents of all non-empty
-non-bss sections, not just those expected to contain instructions.
-\&\fB\-j\fR may be used to select specific sections.
+Like \fB\-d\fR, but disassemble the contents of all sections, not just
+those expected to contain instructions.
 .Sp
 This option also has a subtle effect on the disassembly of
 instructions in code sections.  When option \fB\-d\fR is in effect
@@ -365,8 +358,7 @@ for specification with \fB\-b\fR or \fB\-m\fR.
 .IP \fB\-\-section=\fR\fIname\fR 4
 .IX Item "--section=name"
 .PD
-Display information for section \fIname\fR.  This option may be
-specified multiple times.
+Display information only for section \fIname\fR.
 .IP \fB\-L\fR 4
 .IX Item "-L"
 .PD 0
@@ -396,12 +388,6 @@ Specify the architecture to use when disassembling object files.  This
 can be useful when disassembling object files which do not describe
 architecture information, such as S\-records.  You can list the available
 architectures with the \fB\-i\fR option.
-.Sp
-For most architectures it is possible to supply an architecture
-name and a machine name, separated by a colon.  For example
-\&\fBfoo:bar\fR would refer to the \fBbar\fR machine type in the
-\&\fBfoo\fR architecture.  This can be helpful if objdump has been
-configured to support multiple architectures.
 .Sp
 If the target is an ARM architecture then this switch has an
 additional effect.  It restricts the disassembly to only those
@@ -549,22 +535,20 @@ rather than \f(CW\*(C`li\*(C'\fR.  All of the \fB\-m\fR arguments for
 \&\fB601\fR, \fB603\fR, \fB604\fR, \fB620\fR, \fB7400\fR,
 \&\fB7410\fR, \fB7450\fR, \fB7455\fR, \fB750cl\fR,
 \&\fB821\fR, \fB850\fR, \fB860\fR, \fBa2\fR, \fBbooke\fR,
-\&\fBbooke32\fR, \fBcell\fR, \fBcom\fR, \fBe200z2\fR, \fBe200z4\fR,
+\&\fBbooke32\fR, \fBcell\fR, \fBcom\fR, \fBe200z4\fR,
 \&\fBe300\fR, \fBe500\fR, \fBe500mc\fR, \fBe500mc64\fR,
 \&\fBe500x2\fR, \fBe5500\fR, \fBe6500\fR, \fBefs\fR,
 \&\fBpower4\fR, \fBpower5\fR, \fBpower6\fR, \fBpower7\fR,
-\&\fBpower8\fR, \fBpower9\fR, \fBpower10\fR, \fBpower11\fR,
-\&\fBppc\fR, \fBppc32\fR, \fBppc64\fR, \fBppc64bridge\fR,
-\&\fBppcps\fR, \fBpwr\fR, \fBpwr2\fR, \fBpwr4\fR, \fBpwr5\fR,
-\&\fBpwr5x\fR, \fBpwr6\fR, \fBpwr7\fR, \fBpwr8\fR, \fBpwr9\fR,
-\&\fBpwr10\fR, \fBpwr11\fR, \fBpwrx\fR, \fBtitan\fR, \fBvle\fR,
-and \fBfuture\fR.
+\&\fBpower8\fR, \fBpower9\fR, \fBpower10\fR, \fBppc\fR,
+\&\fBppc32\fR, \fBppc64\fR, \fBppc64bridge\fR, \fBppcps\fR,
+\&\fBpwr\fR, \fBpwr2\fR, \fBpwr4\fR, \fBpwr5\fR, \fBpwr5x\fR,
+\&\fBpwr6\fR, \fBpwr7\fR, \fBpwr8\fR, \fBpwr9\fR, \fBpwr10\fR,
+\&\fBpwrx\fR, \fBtitan\fR, and \fBvle\fR.
 \&\fB32\fR and \fB64\fR modify the default or a prior CPU
 selection, disabling and enabling 64\-bit insns respectively.  In
-addition, \fBaltivec\fR, \fBany\fR, \fBlsp\fR, \fBhtm\fR,
-\&\fBvsx\fR, \fBspe\fR and  \fBspe2\fR add capabilities to a
-previous \fIor later\fR CPU selection.
-\&\fBany\fR will disassemble any opcode known to
+addition, \fBaltivec\fR, \fBany\fR, \fBhtm\fR, \fBvsx\fR,
+and \fBspe\fR add capabilities to a previous \fIor later\fR CPU
+selection.  \fBany\fR will disassemble any opcode known to
 binutils, but in cases where an opcode has two different meanings or
 different arguments, you may not see the disassembly you expect.
 If you disassemble without giving a CPU selection, a default will be
@@ -706,18 +690,6 @@ For XCOFF, the available options are:
 .RS 4
 .PD
 .Sp
-For PE, the available options are:
-.ie n .IP """header""" 4
-.el .IP \f(CWheader\fR 4
-.IX Item "header"
-.PD 0
-.ie n .IP """sections""" 4
-.el .IP \f(CWsections\fR 4
-.IX Item "sections"
-.RE
-.RS 4
-.PD
-.Sp
 Not all object formats support this option.  In particular the ELF
 format does not use it.
 .RE
@@ -747,12 +719,8 @@ disassembly.
 .IP \fB\-\-full\-contents\fR 4
 .IX Item "--full-contents"
 .PD
-Display the full contents of sections, often used in combination with
-\&\fB\-j\fR to request specific sections.  By default all non-empty
-non-bss sections are displayed.  By default any compressed section
-will be displayed in its compressed form.  In order to see the
-contents in a decompressed form add the \fB\-Z\fR option to the
-command line.
+Display the full contents of any sections requested.  By default all
+non-empty sections are displayed.
 .IP \fB\-S\fR 4
 .IX Item "-S"
 .PD 0
@@ -761,10 +729,6 @@ command line.
 .PD
 Display source code intermixed with disassembly, if possible.  Implies
 \&\fB\-d\fR.
-.IP \fB\-\-show\-all\-symbols\fR 4
-.IX Item "--show-all-symbols"
-When disassembling, show all the symbols that match a given address,
-not just the first one.
 .IP \fB\-\-source\-comment[=\fR\fItxt\fR\fB]\fR 4
 .IX Item "--source-comment[=txt]"
 Like the \fB\-S\fR option, but all source code lines are displayed
@@ -804,32 +768,6 @@ colors, but these might not work on all terminals.
 If it is necessary to disable the \fBvisualize-jumps\fR option
 after it has previously been enabled then use
 \&\fBvisualize\-jumps=off\fR.
-.IP \fB\-\-disassembler\-color=off\fR 4
-.IX Item "--disassembler-color=off"
-.PD 0
-.IP \fB\-\-disassembler\-color=terminal\fR 4
-.IX Item "--disassembler-color=terminal"
-.IP \fB\-\-disassembler\-color=on|color|colour\fR 4
-.IX Item "--disassembler-color=on|color|colour"
-.IP \fB\-\-disassembler\-color=extened|extended\-color|extened\-colour\fR 4
-.IX Item "--disassembler-color=extened|extended-color|extened-colour"
-.PD
-Enables or disables the use of colored syntax highlighting in
-disassembly output.  The default behaviour is determined via a
-configure time option.  Note, not all architectures support colored
-syntax highlighting, and depending upon the terminal used, colored
-output may not actually be legible.
-.Sp
-The \fBon\fR argument adds colors using simple terminal colors.
-.Sp
-The \fBterminal\fR argument does the same, but only if the output
-device is a terminal.
-.Sp
-The \fBextended-color\fR argument is similar to the \fBon\fR
-argument, but it uses 8\-bit colors.  These may not work on all
-terminals.
-.Sp
-The \fBoff\fR argument disables colored disassembly.
 .IP \fB\-W[lLiaprmfFsoORtUuTgAckK]\fR 4
 .IX Item "-W[lLiaprmfFsoORtUuTgAckK]"
 .PD 0
@@ -946,13 +884,6 @@ chosen when configuring the binutils via the
 \&\fB\-\-enable\-follow\-debug\-links=yes\fR or
 \&\fB\-\-enable\-follow\-debug\-links=no\fR options.  If these are not
 used then the default is to enable the following of debug links.
-.Sp
-Note \- if support for the debuginfod protocol was enabled when the
-binutils were built then this option will also include an attempt to
-contact any debuginfod servers mentioned in the \fIDEBUGINFOD_URLS\fR
-environment variable.  This could take some time to resolve.  This
-behaviour can be disabled via the \fB=do\-not\-use\-debuginfod\fR debug
-option.
 .ie n .IP """N""" 4
 .el .IP \f(CWN\fR 4
 .IX Item "N"
@@ -962,26 +893,6 @@ option.
 .IX Item "=no-follow-links"
 .PD
 Disables the following of links to separate debug info files.
-.ie n .IP """D""" 4
-.el .IP \f(CWD\fR 4
-.IX Item "D"
-.PD 0
-.ie n .IP """=use\-debuginfod""" 4
-.el .IP \f(CW=use\-debuginfod\fR 4
-.IX Item "=use-debuginfod"
-.PD
-Enables contacting debuginfod servers if there is a need to follow
-debug links.  This is the default behaviour.
-.ie n .IP """E""" 4
-.el .IP \f(CWE\fR 4
-.IX Item "E"
-.PD 0
-.ie n .IP """=do\-not\-use\-debuginfod""" 4
-.el .IP \f(CW=do\-not\-use\-debuginfod\fR 4
-.IX Item "=do-not-use-debuginfod"
-.PD
-Disables contacting debuginfod servers when there is a need to follow
-debug links.
 .ie n .IP """l""" 4
 .el .IP \f(CWl\fR 4
 .IX Item "l"
@@ -1153,12 +1064,6 @@ function at link time.  When looking at CTF archives that have been
 created by a linker that uses the name changer to rename the parent
 archive member, \fB\-\-ctf\-parent\fR can be used to specify the name
 used for the parent.
-.IP \fB\-\-sframe[=\fR\fIsection\fR\fB]\fR 4
-.IX Item "--sframe[=section]"
-Display the contents of the specified SFrame section.
-.Sp
-By default, display the name of the section named \fI.sframe\fR, which is the
-name emitted by \fBld\fR.
 .IP \fB\-G\fR 4
 .IX Item "-G"
 .PD 0
@@ -1372,15 +1277,6 @@ Also do not truncate symbol names when they are displayed.
 Normally the disassembly output will skip blocks of zeroes.  This
 option directs the disassembler to disassemble those blocks, just like
 any other data.
-.IP \fB\-Z\fR 4
-.IX Item "-Z"
-.PD 0
-.IP \fB\-\-decompress\fR 4
-.IX Item "--decompress"
-.PD
-The \fB\-Z\fR option is meant to be used in conunction with the
-\&\fB\-s\fR option.  It instructs \fBobjdump\fR to decompress any
-compressed sections before displaying their contents.
 .IP \fB@\fR\fIfile\fR 4
 .IX Item "@file"
 Read command-line options from \fIfile\fR.  The options read are
@@ -1399,7 +1295,7 @@ with a backslash.  The \fIfile\fR may itself contain additional
 \&\fBnm\fR\|(1), \fBreadelf\fR\|(1), and the Info entries for \fIbinutils\fR.
 .SH COPYRIGHT
 .IX Header "COPYRIGHT"
-Copyright (c) 1991\-2024 Free Software Foundation, Inc.
+Copyright (c) 1991\-2022 Free Software Foundation, Inc.
 .PP
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3

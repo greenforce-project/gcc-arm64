@@ -30572,19 +30572,19 @@
   (!fields 4 
    (!pair  "decl"
     (!type already_seen 23)
-    (!srcfileloc  "cp/cp-tree.h" 8640)
+    (!srcfileloc  "cp/cp-tree.h" 8642)
     nil )
    (!pair  "body"
     (!type already_seen 23)
-    (!srcfileloc  "cp/cp-tree.h" 8641)
+    (!srcfileloc  "cp/cp-tree.h" 8643)
     nil )
    (!pair  "parms"
     (!type already_seen 23)
-    (!srcfileloc  "cp/cp-tree.h" 8642)
+    (!srcfileloc  "cp/cp-tree.h" 8644)
     nil )
    (!pair  "result"
     (!type already_seen 23)
-    (!srcfileloc  "cp/cp-tree.h" 8643)
+    (!srcfileloc  "cp/cp-tree.h" 8645)
     nil )
   )
   (!options 
@@ -39991,7 +39991,7 @@
   nil )
  (!pair  "unemitted_tinfo_decls"
   (!type already_seen 85)
-  (!srcfileloc  "cp/cp-tree.h" 7654)
+  (!srcfileloc  "cp/cp-tree.h" 7656)
   nil )
  (!pair  "ovl_op_alternate"
   (!type array 2572 nil  gc_used "OVL_OP_MAX" 
