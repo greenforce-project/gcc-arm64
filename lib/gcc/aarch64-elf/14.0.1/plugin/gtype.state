@@ -4,7 +4,7 @@
 ;;; Don't parse this file wihout knowing GCC gengtype internals.
 ;;; This file should be parsed by the same gengtype which wrote it.
 
-(!version  "14.0.1 20240316 (Gf Cross v14)")
+(!version  "14.0.1 20240323 (Gf Cross v14)")
 (!srcdir  "../../gcc/gcc")
 (!languages 12 ada c cp d fortran go jit lto m2 objc objcp rust)
 (!fileslist 249 0
@@ -2303,11 +2303,11 @@
                           nil )
                          
                          (!type struct 111 nil  gc_pointed_to "lang_decl"
-                          (!srcfileloc  "m2/gm2-lang.cc" 83)
+                          (!srcfileloc  "m2/gm2-lang.cc" 85)
                           (!fields 1 
                            (!pair  "dummy"
                             (!type already_seen 8)
-                            (!srcfileloc  "m2/gm2-lang.cc" 82)
+                            (!srcfileloc  "m2/gm2-lang.cc" 84)
                             nil )
                           )
                           nil 256 
@@ -9517,11 +9517,11 @@
                               nil )
                              
                              (!type struct 472 nil  gc_pointed_to "language_function"
-                              (!srcfileloc  "m2/gm2-lang.cc" 112)
+                              (!srcfileloc  "m2/gm2-lang.cc" 114)
                               (!fields 1 
                                (!pair  "stmt_tree"
                                 (!type already_seen 23)
-                                (!srcfileloc  "m2/gm2-lang.cc" 111)
+                                (!srcfileloc  "m2/gm2-lang.cc" 113)
                                 nil )
                               )
                               nil 256 
@@ -11793,11 +11793,11 @@
                           nil )
                          
                          (!type struct 565 nil  gc_pointed_to "lang_type"
-                          (!srcfileloc  "m2/gm2-lang.cc" 76)
+                          (!srcfileloc  "m2/gm2-lang.cc" 78)
                           (!fields 1 
                            (!pair  "dummy"
                             (!type already_seen 8)
-                            (!srcfileloc  "m2/gm2-lang.cc" 75)
+                            (!srcfileloc  "m2/gm2-lang.cc" 77)
                             nil )
                           )
                           nil 256 
@@ -15488,11 +15488,11 @@
                            nil )
                           
                           (!type struct 676 nil  gc_used "lang_identifier"
-                           (!srcfileloc  "m2/gm2-lang.cc" 91)
+                           (!srcfileloc  "m2/gm2-lang.cc" 93)
                            (!fields 1 
                             (!pair  "common"
                              (!type already_seen 50)
-                             (!srcfileloc  "m2/gm2-lang.cc" 90)
+                             (!srcfileloc  "m2/gm2-lang.cc" 92)
                              nil )
                            )
                            nil 256 
@@ -15863,11 +15863,11 @@
                      )
                      
                      (!type union 698 nil  gc_pointed_to "lang_tree_node"
-                      (!srcfileloc  "m2/gm2-lang.cc" 103)
+                      (!srcfileloc  "m2/gm2-lang.cc" 105)
                       (!fields 2 
                        (!pair  "generic"
                         (!type already_seen 22)
-                        (!srcfileloc  "m2/gm2-lang.cc" 101)
+                        (!srcfileloc  "m2/gm2-lang.cc" 103)
                         (!options 
                          (!option desc string  "tree_node_structure (&%h)")
                          (!option tag string  "0")
@@ -15875,7 +15875,7 @@
                        )
                        (!pair  "identifier"
                         (!type already_seen 671)
-                        (!srcfileloc  "m2/gm2-lang.cc" 102)
+                        (!srcfileloc  "m2/gm2-lang.cc" 104)
                         (!options 
                          (!option tag string  "1")
                         )
@@ -26933,15 +26933,15 @@
   nil 0 nil nil )
  
  (!type struct 1705 nil  gc_unused "numbered_tree"
-  (!srcfileloc  "tree-dfa.cc" 959)
+  (!srcfileloc  "tree-dfa.cc" 961)
   (!fields 2 
    (!pair  "t"
     (!type already_seen 23)
-    (!srcfileloc  "tree-dfa.cc" 957)
+    (!srcfileloc  "tree-dfa.cc" 959)
     nil )
    (!pair  "num"
     (!type already_seen 2)
-    (!srcfileloc  "tree-dfa.cc" 958)
+    (!srcfileloc  "tree-dfa.cc" 960)
     nil )
   )
   nil 4095 nil nil )
@@ -30572,19 +30572,19 @@
   (!fields 4 
    (!pair  "decl"
     (!type already_seen 23)
-    (!srcfileloc  "cp/cp-tree.h" 8642)
+    (!srcfileloc  "cp/cp-tree.h" 8648)
     nil )
    (!pair  "body"
     (!type already_seen 23)
-    (!srcfileloc  "cp/cp-tree.h" 8643)
+    (!srcfileloc  "cp/cp-tree.h" 8649)
     nil )
    (!pair  "parms"
     (!type already_seen 23)
-    (!srcfileloc  "cp/cp-tree.h" 8644)
+    (!srcfileloc  "cp/cp-tree.h" 8650)
     nil )
    (!pair  "result"
     (!type already_seen 23)
-    (!srcfileloc  "cp/cp-tree.h" 8645)
+    (!srcfileloc  "cp/cp-tree.h" 8651)
     nil )
   )
   (!options 
@@ -34094,7 +34094,7 @@
   nil )
  (!pair  "named_path"
   (!type already_seen 2473)
-  (!srcfileloc  "m2/gm2-lang.cc" 55)
+  (!srcfileloc  "m2/gm2-lang.cc" 57)
   nil )
  (!pair  "code_id_hash"
   (!type already_seen 2467)
@@ -38428,11 +38428,11 @@
   nil )
  (!pair  "last_function"
   (!type already_seen 23)
-  (!srcfileloc  "m2/gm2-gcc/m2statement.cc" 42)
+  (!srcfileloc  "m2/gm2-gcc/m2statement.cc" 43)
   nil )
  (!pair  "param_list"
   (!type already_seen 23)
-  (!srcfileloc  "m2/gm2-gcc/m2statement.cc" 40)
+  (!srcfileloc  "m2/gm2-gcc/m2statement.cc" 41)
   nil )
  (!pair  "set_full_complement"
   (!type already_seen 23)
@@ -38616,7 +38616,7 @@
   nil )
  (!pair  "gm2_eh_personality_decl"
   (!type already_seen 23)
-  (!srcfileloc  "m2/gm2-lang.cc" 1075)
+  (!srcfileloc  "m2/gm2-lang.cc" 1109)
   nil )
  (!pair  "real_file_decl_data"
   (!type already_seen 351)
@@ -39416,7 +39416,7 @@
   nil )
  (!pair  "deleted_copy_types"
   (!type already_seen 459)
-  (!srcfileloc  "cp/tree.cc" 4492)
+  (!srcfileloc  "cp/tree.cc" 4503)
   nil )
  (!pair  "list_hash_table"
   (!type already_seen 2405)
@@ -39991,7 +39991,7 @@
   nil )
  (!pair  "unemitted_tinfo_decls"
   (!type already_seen 85)
-  (!srcfileloc  "cp/cp-tree.h" 7656)
+  (!srcfileloc  "cp/cp-tree.h" 7662)
   nil )
  (!pair  "ovl_op_alternate"
   (!type array 2572 nil  gc_used "OVL_OP_MAX" 
@@ -40489,7 +40489,7 @@
   nil )
  (!pair  "ubsan_vptr_type_cache_decl"
   (!type already_seen 23)
-  (!srcfileloc  "ubsan.cc" 1275)
+  (!srcfileloc  "ubsan.cc" 1282)
   nil )
  (!pair  "ubsan_ids"
   (!type array 2600 nil  gc_used "2" 
@@ -40514,11 +40514,11 @@
  )
  (!pair  "hwasan_ctor_statements"
   (!type already_seen 23)
-  (!srcfileloc  "asan.cc" 4658)
+  (!srcfileloc  "asan.cc" 4662)
   nil )
  (!pair  "asan_ctor_statements"
   (!type already_seen 23)
-  (!srcfileloc  "asan.cc" 3607)
+  (!srcfileloc  "asan.cc" 3611)
   nil )
  (!pair  "asan_detect_stack_use_after_return"
   (!type already_seen 23)

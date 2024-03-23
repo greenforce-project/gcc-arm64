@@ -422,6 +422,8 @@ guile version 1.4.1 (or later)
      Necessary to regenerate the top level ‘Makefile.in’ file from
      ‘Makefile.tpl’ and ‘Makefile.def’.
 
+     Necessary to regenerate the ‘bits/version.h’ header for libstdc++.
+
 Flex version 2.5.4 (or later)
 
      Necessary when modifying ‘*.l’ files.
@@ -1067,10 +1069,10 @@ option.
      ‘amdgcn*-*-*’
           LIST is a comma separated list of ISA names (allowed values:
           ‘fiji’, ‘gfx900’, ‘gfx906’, ‘gfx908’, ‘gfx90a’, ‘gfx1030’,
-          ‘gfx1100’).  It ought not include the name of the default ISA,
-          specified via ‘--with-arch’.  If LIST is empty, then there
-          will be no multilibs and only the default run-time library
-          will be built.  If LIST is ‘default’ or
+          ‘gfx1100’, ‘gfx1103’).  It ought not include the name of the
+          default ISA, specified via ‘--with-arch’.  If LIST is empty,
+          then there will be no multilibs and only the default run-time
+          library will be built.  If LIST is ‘default’ or
           ‘--with-multilib-list=’ is not specified, then the default set
           of libraries is selected.
 
@@ -3292,7 +3294,7 @@ and copy ‘bin/llvm-mc’ to ‘amdgcn-amdhsa/bin/as’, ‘bin/lld’ to
 ‘bin/llvm-ar’ to both ‘bin/amdgcn-amdhsa-ar’ and
 ‘bin/amdgcn-amdhsa-ranlib’.  Note that LLVM 13.0.1 or LLVM 14 can be
 used by specifying a ‘--with-multilib-list=’ that does not list
-‘gfx1100’.
+‘gfx1100’ and ‘gfx1103’.
 
    Use Newlib (4.3.0 or newer; 4.4.0 or later is recommended).
 
@@ -4940,98 +4942,98 @@ Node: Prerequisites3681
 Ref: GNAT-prerequisite5904
 Ref: GDC-prerequisite7329
 Ref: GM2-prerequisite8534
-Node: Downloading the source19361
-Node: Configuration21132
-Ref: with-gnu-as40935
-Ref: with-as41824
-Ref: with-gnu-ld43233
-Ref: WithAixSoname74085
-Ref: AixLdCommand74800
-Ref: with-included-gettext91546
-Node: Building121223
-Node: Testing137920
-Node: Final install145673
-Node: Binaries148947
-Node: Specific149961
-Ref: aarch64-x-x150495
-Ref: amd64-x-solaris2152579
-Ref: amdgcn-x-amdhsa152665
-Ref: arc-x-elf32153658
-Ref: arc-linux-uclibc153850
-Ref: arm-x-eabi153995
-Ref: avr154252
-Ref: bfin154841
-Ref: cris155104
-Ref: dos155434
-Ref: epiphany-x-elf155759
-Ref: x-x-freebsd155864
-Ref: ft32-x-elf157011
-Ref: h8300-hms157109
-Ref: hppa-hp-hpux157461
-Ref: hppa-hp-hpux11159011
-Ref: x-x-linux-gnu164229
-Ref: ix86-x-linux164560
-Ref: ix86-x-solaris2164873
-Ref: ia64-x-linux165133
-Ref: ia64-x-hpux165384
-Ref: x-ibm-aix165951
-Ref: TransferAixShobj169679
-Ref: iq2000-x-elf173581
-Ref: lm32-x-elf173721
-Ref: lm32-x-uclinux173825
-Ref: loongarch173953
-Ref: m32c-x-elf174626
-Ref: m32r-x-elf174728
-Ref: m68k-x-x174830
-Ref: m68k-x-uclinux175960
-Ref: microblaze-x-elf176213
-Ref: mips-x-x176332
-Ref: moxie-x-elf178326
-Ref: msp430-x-elf178373
-Ref: nds32le-x-elf178942
-Ref: nds32be-x-elf179014
-Ref: nvptx-x-none179083
-Ref: or1k-x-elf179992
-Ref: or1k-x-linux180123
-Ref: powerpc-x-x180204
-Ref: powerpc-x-darwin180403
-Ref: powerpc-x-elf180898
-Ref: powerpc-x-linux-gnu180983
-Ref: powerpc-x-netbsd181078
-Ref: powerpc-x-eabisim181166
-Ref: powerpc-x-eabi181292
-Ref: powerpcle-x-elf181368
-Ref: powerpcle-x-eabisim181460
-Ref: powerpcle-x-eabi181593
-Ref: rl78-x-elf181676
-Ref: riscv32-x-elf181782
-Ref: riscv32-x-linux181971
-Ref: riscv64-x-elf182128
-Ref: riscv64-x-linux182317
-Ref: rx-x-elf182474
-Ref: s390-x-linux182520
-Ref: s390x-x-linux182592
-Ref: s390x-ibm-tpf182679
-Ref: x-x-solaris2182810
-Ref: sparc-x-x186751
-Ref: sparc-sun-solaris2187253
-Ref: sparc-x-linux188168
-Ref: sparc64-x-solaris2188199
-Ref: sparcv9-x-solaris2188290
-Ref: c6x-x-x189039
-Ref: visium-x-elf189131
-Ref: x-x-vxworks189239
-Ref: x86-64-x-x190828
-Ref: x86-64-x-solaris2191160
-Ref: xtensa-x-elf191814
-Ref: xtensa-x-linux192493
-Ref: windows192846
-Ref: x-x-cygwin194499
-Ref: x-x-mingw32195054
-Ref: older195452
-Ref: elf197593
-Node: GNU Free Documentation License197847
-Node: Concept Index223188
+Node: Downloading the source19438
+Node: Configuration21209
+Ref: with-gnu-as41012
+Ref: with-as41901
+Ref: with-gnu-ld43310
+Ref: WithAixSoname74177
+Ref: AixLdCommand74892
+Ref: with-included-gettext91638
+Node: Building121315
+Node: Testing138012
+Node: Final install145765
+Node: Binaries149039
+Node: Specific150053
+Ref: aarch64-x-x150587
+Ref: amd64-x-solaris2152671
+Ref: amdgcn-x-amdhsa152757
+Ref: arc-x-elf32153768
+Ref: arc-linux-uclibc153960
+Ref: arm-x-eabi154105
+Ref: avr154362
+Ref: bfin154951
+Ref: cris155214
+Ref: dos155544
+Ref: epiphany-x-elf155869
+Ref: x-x-freebsd155974
+Ref: ft32-x-elf157121
+Ref: h8300-hms157219
+Ref: hppa-hp-hpux157571
+Ref: hppa-hp-hpux11159121
+Ref: x-x-linux-gnu164339
+Ref: ix86-x-linux164670
+Ref: ix86-x-solaris2164983
+Ref: ia64-x-linux165243
+Ref: ia64-x-hpux165494
+Ref: x-ibm-aix166061
+Ref: TransferAixShobj169789
+Ref: iq2000-x-elf173691
+Ref: lm32-x-elf173831
+Ref: lm32-x-uclinux173935
+Ref: loongarch174063
+Ref: m32c-x-elf174736
+Ref: m32r-x-elf174838
+Ref: m68k-x-x174940
+Ref: m68k-x-uclinux176070
+Ref: microblaze-x-elf176323
+Ref: mips-x-x176442
+Ref: moxie-x-elf178436
+Ref: msp430-x-elf178483
+Ref: nds32le-x-elf179052
+Ref: nds32be-x-elf179124
+Ref: nvptx-x-none179193
+Ref: or1k-x-elf180102
+Ref: or1k-x-linux180233
+Ref: powerpc-x-x180314
+Ref: powerpc-x-darwin180513
+Ref: powerpc-x-elf181008
+Ref: powerpc-x-linux-gnu181093
+Ref: powerpc-x-netbsd181188
+Ref: powerpc-x-eabisim181276
+Ref: powerpc-x-eabi181402
+Ref: powerpcle-x-elf181478
+Ref: powerpcle-x-eabisim181570
+Ref: powerpcle-x-eabi181703
+Ref: rl78-x-elf181786
+Ref: riscv32-x-elf181892
+Ref: riscv32-x-linux182081
+Ref: riscv64-x-elf182238
+Ref: riscv64-x-linux182427
+Ref: rx-x-elf182584
+Ref: s390-x-linux182630
+Ref: s390x-x-linux182702
+Ref: s390x-ibm-tpf182789
+Ref: x-x-solaris2182920
+Ref: sparc-x-x186861
+Ref: sparc-sun-solaris2187363
+Ref: sparc-x-linux188278
+Ref: sparc64-x-solaris2188309
+Ref: sparcv9-x-solaris2188400
+Ref: c6x-x-x189149
+Ref: visium-x-elf189241
+Ref: x-x-vxworks189349
+Ref: x86-64-x-x190938
+Ref: x86-64-x-solaris2191270
+Ref: xtensa-x-elf191924
+Ref: xtensa-x-linux192603
+Ref: windows192956
+Ref: x-x-cygwin194609
+Ref: x-x-mingw32195164
+Ref: older195562
+Ref: elf197703
+Node: GNU Free Documentation License197957
+Node: Concept Index223298
 
 End Tag Table
 

@@ -38,7 +38,7 @@
 #define _GLIBCXX_RELEASE 13
 
 // The datestamp of the C++ library in compressed ISO date format.
-#define __GLIBCXX__ 20231205
+#define __GLIBCXX__ 20240316
 
 // Macros for various attributes.
 //   _GLIBCXX_PURE
@@ -2331,7 +2331,7 @@ namespace __gnu_cxx
 #define _GLIBCXX_RELEASE 13
 
 // The datestamp of the C++ library in compressed ISO date format.
-#define __GLIBCXX__ 20231205
+#define __GLIBCXX__ 20240316
 
 // Macros for various attributes.
 //   _GLIBCXX_PURE
