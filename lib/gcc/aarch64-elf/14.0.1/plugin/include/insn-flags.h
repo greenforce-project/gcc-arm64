@@ -10535,10 +10535,10 @@
 #define HAVE_zero_extendvnx2hivnx2di2 (TARGET_SVE && (~0x27 & 0x22) == 0)
 #define HAVE_extendvnx2sivnx2di2 (TARGET_SVE && (~0x27 & 0x24) == 0)
 #define HAVE_zero_extendvnx2sivnx2di2 (TARGET_SVE && (~0x27 & 0x24) == 0)
-#define HAVE_aarch64_pred_cnotvnx16qi (TARGET_SVE)
-#define HAVE_aarch64_pred_cnotvnx8hi (TARGET_SVE)
-#define HAVE_aarch64_pred_cnotvnx4si (TARGET_SVE)
-#define HAVE_aarch64_pred_cnotvnx2di (TARGET_SVE)
+#define HAVE_aarch64_ptrue_cnotvnx16qi (TARGET_SVE)
+#define HAVE_aarch64_ptrue_cnotvnx8hi (TARGET_SVE)
+#define HAVE_aarch64_ptrue_cnotvnx4si (TARGET_SVE)
+#define HAVE_aarch64_ptrue_cnotvnx2di (TARGET_SVE)
 #define HAVE_cond_cnotvnx16qi (TARGET_SVE)
 #define HAVE_cond_cnotvnx8hi (TARGET_SVE)
 #define HAVE_cond_cnotvnx4si (TARGET_SVE)
@@ -24616,10 +24616,10 @@ extern rtx        gen_extendvnx2hivnx2di2                              (rtx, rtx
 extern rtx        gen_zero_extendvnx2hivnx2di2                         (rtx, rtx);
 extern rtx        gen_extendvnx2sivnx2di2                              (rtx, rtx);
 extern rtx        gen_zero_extendvnx2sivnx2di2                         (rtx, rtx);
-extern rtx        gen_aarch64_pred_cnotvnx16qi                         (rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_pred_cnotvnx8hi                          (rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_pred_cnotvnx4si                          (rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_pred_cnotvnx2di                          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ptrue_cnotvnx16qi                        (rtx, rtx, rtx);
+extern rtx        gen_aarch64_ptrue_cnotvnx8hi                         (rtx, rtx, rtx);
+extern rtx        gen_aarch64_ptrue_cnotvnx4si                         (rtx, rtx, rtx);
+extern rtx        gen_aarch64_ptrue_cnotvnx2di                         (rtx, rtx, rtx);
 extern rtx        gen_cond_cnotvnx16qi                                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_cnotvnx8hi                                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_cnotvnx4si                                  (rtx, rtx, rtx, rtx);

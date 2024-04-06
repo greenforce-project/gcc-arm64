@@ -55,7 +55,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 2024-03-30 gcc-14.0.1 GNU
+.TH GCC 1 2024-04-05 gcc-14.0.1 GNU
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -581,6 +581,7 @@ in the following sections.
 .IP "\fIProgram Instrumentation Options\fR" 4
 .IX Item "Program Instrumentation Options"
 \&\fB\-p  \-pg  \-fprofile\-arcs  \-\-coverage  \-ftest\-coverage
+\&\-fcondition\-coverage
 \&\-fprofile\-abs\-path
 \&\-fprofile\-dir=\fR\fIpath\fR  \fB\-fprofile\-generate  \-fprofile\-generate=\fR\fIpath\fR
 \&\fB\-fprofile\-info\-section  \-fprofile\-info\-section=\fR\fIname\fR
@@ -988,8 +989,10 @@ in the following sections.
 \&\-mmax\-inline\-memcpy\-size=\fR\fIn\fR
 \&\fB\-mexplicit\-relocs=\fR\fIstyle\fR \fB\-mexplicit\-relocs \-mno\-explicit\-relocs
 \&\-mdirect\-extern\-access \-mno\-direct\-extern\-access
-\&\-mcmodel=\fR\fIcode-model\fR \fB\-mrelax \-mpass\-mrelax\-to\-as\fR
-\&\-mrecip  \-mrecip=\fIopt\fR
+\&\-mcmodel=\fR\fIcode-model\fR \fB\-mrelax \-mpass\-mrelax\-to\-as
+\&\-mrecip  \-mrecip=\fR\fIopt\fR \fB\-mfrecipe \-mno\-frecipe \-mdiv32 \-mno\-div32
+\&\-mlam\-bh \-mno\-lam\-bh \-mlamcas \-mno\-lamcas \-mld\-seq\-sa \-mno\-ld\-seq\-sa
+\&\-mtls\-dialect=\fR\fIopt\fR
 .Sp
 \&\fIM32R/D Options\fR
 \&\fB\-m32r2  \-m32rx  \-m32r
@@ -4970,7 +4973,7 @@ The default \fBGCC_COLORS\fR is
 \&        error=01;31:warning=01;35:note=01;36:range1=32:range2=34:locus=01:\e
 \&        quote=01:path=01;36:fixit\-insert=32:fixit\-delete=31:\e
 \&        diff\-filename=01:diff\-hunk=32:diff\-delete=31:diff\-insert=32:\e
-\&        type\-diff=01;32:fnname=01;32:targs=35
+\&        type\-diff=01;32:fnname=01;32:targs=35:valid=01;31:invalid=01;32
 .Ve
 .Sp
 where \fB01;31\fR is bold red, \fB01;35\fR is bold magenta,
@@ -5053,6 +5056,14 @@ SGR substring for inserted lines within generated patches.
 .IX Item "type-diff="
 SGR substring for highlighting mismatching types within template
 arguments in the C++ frontend.
+.ie n .IP """valid=""" 4
+.el .IP \f(CWvalid=\fR 4
+.IX Item "valid="
+SGR substring for highlighting valid elements within text art diagrams.
+.ie n .IP """invalid=""" 4
+.el .IP \f(CWinvalid=\fR 4
+.IX Item "invalid="
+SGR substring for highlighting invalid elements within text art diagrams.
 .RE
 .RS 4
 .RE
@@ -6207,6 +6218,12 @@ disable the error.  Disabling the error for this warning can result in
 poorly optimized code and is useful only in the
 case of very minor changes such as bug fixes to an existing code-base.
 Completely disabling the warning is not recommended.
+.IP \fB\-Wno\-coverage\-too\-many\-conditions\fR 4
+.IX Item "-Wno-coverage-too-many-conditions"
+Warn if \fB\-fcondition\-coverage\fR is used and an expression have too many
+terms and GCC gives up coverage.  Coverage is given up when there are more
+terms in the conditional than there are bits in a \f(CW\*(C`gcov_type_unsigned\*(C'\fR.
+This warning is enabled by default.
 .IP \fB\-Wno\-coverage\-invalid\-line\-number\fR 4
 .IX Item "-Wno-coverage-invalid-line-number"
 Warn in case a function ends earlier than it begins due
@@ -16032,6 +16049,13 @@ Note that if a command line directly links source files, the corresponding
 \&\fI.gcda\fR files will be prefixed with the unsuffixed name of the output file.
 E.g. \f(CW\*(C`gcc a.c b.c \-o binary\*(C'\fR would generate \fIbinary\-a.gcda\fR and
 \&\fIbinary\-b.gcda\fR files.
+.IP \fB\-fcondition\-coverage\fR 4
+.IX Item "-fcondition-coverage"
+Add code so that program conditions are instrumented.  During execution the
+program records what terms in a conditional contributes to a decision, which
+can be used to verify that all terms in a Boolean function are tested and have
+an independent effect on the outcome of a decision.  The result can be read
+with \f(CW\*(C`gcov \-\-conditions\*(C'\fR.
 .IP \fB\-\-coverage\fR 4
 .IX Item "--coverage"
 This option is used to compile and link code instrumented for coverage
@@ -16081,6 +16105,10 @@ compiler adds code to count the number of times that these arcs are
 executed.  When an arc is the only exit or only entrance to a block, the
 instrumentation code can be added to the block; otherwise, a new basic
 block must be created to hold the instrumentation code.
+.Sp
+With \fB\-fcondition\-coverage\fR, for each conditional in your program GCC
+creates a bitset and records the exercised boolean values that have an
+independent effect on the outcome of that expression.
 .RE
 .IP \fB\-ftest\-coverage\fR 4
 .IX Item "-ftest-coverage"
@@ -26209,6 +26237,65 @@ Enable the approximation for vectorized reciprocal square root.
 .Sp
 So, for example, \fB\-mrecip=all,!sqrt\fR enables
 all of the reciprocal approximations, except for scalar square root.
+.RE
+.IP \fB\-mfrecipe\fR 4
+.IX Item "-mfrecipe"
+.PD 0
+.IP \fB\-mno\-frecipe\fR 4
+.IX Item "-mno-frecipe"
+.PD
+Use (do not use) \f(CW\*(C`frecipe.{s/d}\*(C'\fR and \f(CW\*(C`frsqrte.{s/d}\*(C'\fR
+instructions.  When build with \fB\-march=la664\fR, it is enabled by default.
+The default is \fB\-mno\-frecipe\fR.
+.IP \fB\-mdiv32\fR 4
+.IX Item "-mdiv32"
+.PD 0
+.IP \fB\-mno\-div32\fR 4
+.IX Item "-mno-div32"
+.PD
+Use (do not use) \f(CW\*(C`div.w[u]\*(C'\fR and \f(CW\*(C`mod.w[u]\*(C'\fR instructions with input
+not sign-extended.  When build with \fB\-march=la664\fR, it is enabled by
+default.  The default is \fB\-mno\-div32\fR.
+.IP \fB\-mlam\-bh\fR 4
+.IX Item "-mlam-bh"
+.PD 0
+.IP \fB\-mno\-lam\-bh\fR 4
+.IX Item "-mno-lam-bh"
+.PD
+Use (do not use) \f(CW\*(C`am{swap/add}[_db].{b/h}\*(C'\fR instructions.  When build
+with \fB\-march=la664\fR, it is enabled by default.  The default is
+\&\fB\-mno\-lam\-bh\fR.
+.IP \fB\-mlamcas\fR 4
+.IX Item "-mlamcas"
+.PD 0
+.IP \fB\-mno\-lamcas\fR 4
+.IX Item "-mno-lamcas"
+.PD
+Use (do not use) \f(CW\*(C`amcas[_db].{b/h/w/d}\*(C'\fR instructions.  When build with
+\&\fB\-march=la664\fR, it is enabled by default.  The default is
+\&\fB\-mno\-lamcas\fR.
+.IP \fB\-mld\-seq\-sa\fR 4
+.IX Item "-mld-seq-sa"
+.PD 0
+.IP \fB\-mno\-ld\-seq\-sa\fR 4
+.IX Item "-mno-ld-seq-sa"
+.PD
+Whether a load-load barrier (\f(CW\*(C`dbar 0x700\*(C'\fR) is needed.  When build with
+\&\fB\-march=la664\fR, it is enabled by default.  The default is
+\&\fB\-mno\-ld\-seq\-sa\fR, the load-load barrier is needed.
+.IP \fB\-mtls\-dialect=\fR\fIopt\fR 4
+.IX Item "-mtls-dialect=opt"
+This option controls which tls dialect may be used for general dynamic and
+local dynamic TLS models.
+.RS 4
+.IP \fBtrad\fR 4
+.IX Item "trad"
+Use traditional TLS. This is the default.
+.IP \fBdesc\fR 4
+.IX Item "desc"
+Use TLS descriptors.
+.RE
+.RS 4
 .RE
 .IP \fBloongarch-vect-unroll-limit\fR 4
 .IX Item "loongarch-vect-unroll-limit"

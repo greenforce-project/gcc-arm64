@@ -55,7 +55,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCOV 1"
-.TH GCOV 1 2024-03-30 gcc-14.0.1 GNU
+.TH GCOV 1 2024-04-05 gcc-14.0.1 GNU
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -68,6 +68,7 @@ gcov [\fB\-v\fR|\fB\-\-version\fR] [\fB\-h\fR|\fB\-\-help\fR]
      [\fB\-a\fR|\fB\-\-all\-blocks\fR]
      [\fB\-b\fR|\fB\-\-branch\-probabilities\fR]
      [\fB\-c\fR|\fB\-\-branch\-counts\fR]
+     [\fB\-g\fR|\fB\-\-conditions\fR]
      [\fB\-d\fR|\fB\-\-display\-progress\fR]
      [\fB\-f\fR|\fB\-\-function\-summaries\fR]
      [\fB\-j\fR|\fB\-\-json\-format\fR]
@@ -169,6 +170,17 @@ be shown, unless the \fB\-u\fR option is given.
 .PD
 Write branch frequencies as the number of branches taken, rather than
 the percentage of branches taken.
+.IP \fB\-g\fR 4
+.IX Item "-g"
+.PD 0
+.IP \fB\-\-conditions\fR 4
+.IX Item "--conditions"
+.PD
+Write condition coverage to the output file, and write condition summary info
+to the standard output.  This option allows you to see if the conditions in
+your program at least once had an independent effect on the outcome of the
+boolean expression (modified condition/decision coverage).  This requires you
+to compile the source with \fB\-fcondition\-coverage\fR.
 .IP \fB\-d\fR 4
 .IX Item "-d"
 .PD 0
@@ -297,12 +309,13 @@ this is likely to be fixed in the future.
 .Sp
 Each \fIline\fR has the following form:
 .Sp
-.Vb 9
+.Vb 10
 \&        {
 \&          "block_ids": ["$block_id"],
 \&          "branches": ["$branch"],
 \&          "calls": ["$call"],
 \&          "count": 2,
+\&          "conditions": ["$condition"],
 \&          "line_number": 15,
 \&          "unexecuted_block": false,
 \&          "function_name": "foo",
@@ -370,6 +383,29 @@ to \fIline::count\fR)
 \&\fIisource_block_id\fR: ID of the basic block where this call happens
 .IP * 4
 \&\fIdestination_block_id\fR: ID of the basic block this calls continues after return
+.RE
+.RS 4
+.Sp
+Each \fIcondition\fR has the following form:
+.Sp
+.Vb 6
+\&        {
+\&          "count": 4,
+\&          "covered": 2,
+\&          "not_covered_false": [],
+\&          "not_covered_true": [0, 1],
+\&        }
+.Ve
+.Sp
+Fields of the \fIcondition\fR element have following semantics:
+.IP * 4
+\&\fIcount\fR: number of condition outcomes in this expression
+.IP * 4
+\&\fIcovered\fR: number of covered condition outcomes in this expression
+.IP * 4
+\&\fInot_covered_true\fR: terms, by index, not seen as true in this expression
+.IP * 4
+\&\fInot_covered_false\fR: terms, by index, not seen as false in this expression
 .RE
 .RS 4
 .RE

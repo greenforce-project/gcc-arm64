@@ -1573,20 +1573,20 @@ gen_aarch64_cond_sxt (machine_mode arg0, machine_mode arg1, rtx x0, rtx x1, rtx 
   return res;
 }
 
-extern insn_code maybe_code_for_aarch64_pred_cnot (machine_mode);
+extern insn_code maybe_code_for_aarch64_ptrue_cnot (machine_mode);
 inline insn_code
-code_for_aarch64_pred_cnot (machine_mode arg0)
+code_for_aarch64_ptrue_cnot (machine_mode arg0)
 {
-  insn_code code = maybe_code_for_aarch64_pred_cnot (arg0);
+  insn_code code = maybe_code_for_aarch64_ptrue_cnot (arg0);
   gcc_assert (code != CODE_FOR_nothing);
   return code;
 }
 
-extern rtx maybe_gen_aarch64_pred_cnot (machine_mode, rtx, rtx, rtx, rtx);
+extern rtx maybe_gen_aarch64_ptrue_cnot (machine_mode, rtx, rtx, rtx);
 inline rtx
-gen_aarch64_pred_cnot (machine_mode arg0, rtx x0, rtx x1, rtx x2, rtx x3)
+gen_aarch64_ptrue_cnot (machine_mode arg0, rtx x0, rtx x1, rtx x2)
 {
-  rtx res = maybe_gen_aarch64_pred_cnot (arg0, x0, x1, x2, x3);
+  rtx res = maybe_gen_aarch64_ptrue_cnot (arg0, x0, x1, x2);
   gcc_assert (res);
   return res;
 }
