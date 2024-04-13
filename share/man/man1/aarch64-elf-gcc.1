@@ -55,7 +55,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 2024-04-05 gcc-14.0.1 GNU
+.TH GCC 1 2024-04-13 gcc-14.0.1 GNU
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -1195,7 +1195,8 @@ See RS/6000 and PowerPC Options.
 \&\-minline\-atomics  \-mno\-inline\-atomics
 \&\-minline\-strlen  \-mno\-inline\-strlen
 \&\-minline\-strcmp  \-mno\-inline\-strcmp
-\&\-minline\-strncmp  \-mno\-inline\-strncmp\fR
+\&\-minline\-strncmp  \-mno\-inline\-strncmp
+\&\-mtls\-dialect=desc  \-mtls\-dialect=trad\fR
 .Sp
 \&\fIRL78 Options\fR
 \&\fB\-msim  \-mmul=none  \-mmul=g13  \-mmul=g14  \-mallregs
@@ -8816,6 +8817,17 @@ be used to suppress this warning.
 In a cast involving pointer to member types this warning warns whenever
 the type cast is changing the pointer to member type.
 This warning is enabled by \fB\-Wextra\fR.
+.IP \fB\-Wcast\-user\-defined\fR 4
+.IX Item "-Wcast-user-defined"
+Warn when a cast to reference type does not involve a user-defined
+conversion that the programmer might expect to be called.
+.Sp
+.Vb 2
+\&        struct A { operator const int&(); } a;
+\&        auto r = (int&)a; // warning
+.Ve
+.Sp
+This warning is enabled by default.
 .IP \fB\-Wwrite\-strings\fR 4
 .IX Item "-Wwrite-strings"
 When compiling C, give string constants the type \f(CW\*(C`const
@@ -10925,7 +10937,7 @@ By default the analyzer attempts to reconstruct the original function
 frames, and to emit events showing the inlined calls.
 .Sp
 With \fB\-fno\-analyzer\-undo\-inlining\fR this attempt to reconstruct
-the original frame information can be be disabled, which may be of help
+the original frame information can be disabled, which may be of help
 when debugging issues in the analyzer.
 .IP \fB\-fanalyzer\-verbose\-edges\fR 4
 .IX Item "-fanalyzer-verbose-edges"
@@ -15983,6 +15995,13 @@ The vectorizer will use available tuning information to determine whether it
 would be beneficial to unroll the main vectorized loop and by how much.  This
 parameter set's the upper bound of how much the vectorizer will unroll the main
 loop.  The default value is four.
+.RE
+.RS 4
+.Sp
+The following choices of \fIname\fR are available on GCN targets:
+.IP \fBgcn-preferred-vectorization-factor\fR 4
+.IX Item "gcn-preferred-vectorization-factor"
+Preferred vectorization factor: \fBdefault\fR, \fB32\fR, \fB64\fR.
 .RE
 .RS 4
 .Sp
@@ -25024,7 +25043,7 @@ Outputs pseudo-c assembly dialect.
 .IX Item "-minline-memops-threshold=bytes"
 Specifies a size threshold in bytes at or below which memmove, memcpy
 and memset shall always be expanded inline.  Operations dealing with
-sizes larger than this threshold would have to be be implemented using
+sizes larger than this threshold would have to be implemented using
 a library call instead of being expanded inline, but since BPF doesn't
 allow libcalls, exceeding this threshold results in a compile-time
 error.  The default is \fB1024\fR bytes.
@@ -30111,6 +30130,14 @@ which register to use as base register for reading the canary,
 and from what offset from that base register. There is no default
 register or offset as this is entirely for use within the Linux
 kernel.
+.IP \fB\-mtls\-dialect=desc\fR 4
+.IX Item "-mtls-dialect=desc"
+Use TLS descriptors as the thread-local storage mechanism for dynamic accesses
+of TLS variables.
+.IP \fB\-mtls\-dialect=trad\fR 4
+.IX Item "-mtls-dialect=trad"
+Use traditional TLS as the thread-local storage mechanism for dynamic accesses
+of TLS variables.  This is the default.
 .PP
 \fIRL78 Options\fR
 .IX Subsection "RL78 Options"
