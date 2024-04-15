@@ -27,7 +27,7 @@ to determine which parts of a program are taking most of the execution
 time.  We assume that you know how to write, compile, and execute
 programs.  GNU 'gprof' was written by Jay Fenlason.
 
-   This manual is for 'gprof' (GNU Binutils) version 2.42.50.
+   This manual is for 'gprof' (Gf Cross Binutils) version 2.42.50.
 
    This document is distributed under the terms of the GNU Free
 Documentation License version 1.3.  A copy of the license is included in
@@ -2429,35 +2429,35 @@ their use in free software.
 
 Tag Table:
 Node: Top719
-Node: Introduction2045
-Node: Compiling4536
-Node: Executing8592
-Node: Invoking11485
-Node: Output Options12900
-Node: Analysis Options20068
-Node: Miscellaneous Options23988
-Node: Deprecated Options25242
-Node: Symspecs27305
-Node: Output29131
-Node: Flat Profile30171
-Node: Call Graph35124
-Node: Primary38356
-Node: Callers40944
-Node: Subroutines43062
-Node: Cycles44903
-Node: Line-by-line51680
-Node: Annotated Source55756
-Node: Inaccuracy58754
-Node: Sampling Error59012
-Node: Assumptions61916
-Node: How do I?63386
-Node: Incompatibilities64943
-Node: Details66437
-Node: Implementation66830
-Node: File Format72729
-Node: Internals77021
-Node: Debugging85511
-Node: GNU Free Documentation License87101
+Node: Introduction2050
+Node: Compiling4541
+Node: Executing8597
+Node: Invoking11490
+Node: Output Options12905
+Node: Analysis Options20073
+Node: Miscellaneous Options23993
+Node: Deprecated Options25247
+Node: Symspecs27310
+Node: Output29136
+Node: Flat Profile30176
+Node: Call Graph35129
+Node: Primary38361
+Node: Callers40949
+Node: Subroutines43067
+Node: Cycles44908
+Node: Line-by-line51685
+Node: Annotated Source55761
+Node: Inaccuracy58759
+Node: Sampling Error59017
+Node: Assumptions61921
+Node: How do I?63391
+Node: Incompatibilities64948
+Node: Details66442
+Node: Implementation66835
+Node: File Format72734
+Node: Internals77026
+Node: Debugging85516
+Node: GNU Free Documentation License87106
 
 End Tag Table
 
