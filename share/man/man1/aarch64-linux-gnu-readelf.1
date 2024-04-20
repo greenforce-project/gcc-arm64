@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "READELF 1"
-.TH READELF 1 "2024-04-15" "binutils-2.42.50" "GNU Development Tools"
+.TH READELF 1 "2024-04-20" "binutils-2.42.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -864,6 +864,15 @@ function at link time.  When looking at \s-1CTF\s0 archives that have been
 created by a linker that uses the name changer to rename the parent
 archive member, \fB\-\-ctf\-parent\fR can be used to specify the name
 used for the parent.
+.IP "\fB\-\-ctf\-parent\-section=\fR\fIsection\fR" 4
+.IX Item "--ctf-parent-section=section"
+This option lets you pick a completely different section for the \s-1CTF\s0
+parent dictionary containing unambiguous types than for the child
+dictionaries that contain the ambiguous remainder.  The linker does
+not emit \s-1ELF\s0 objects structured like this, but some third-party linkers
+may.  It's also convenient to inspect \s-1CTF\s0 written out as multiple raw
+files to compose them with objcopy, which can put them in different
+\&\s-1ELF\s0 sections but not in different members of a single \s-1CTF\s0 dict.
 .IP "\fB\-\-ctf\-symbols=\fR\fIsection\fR" 4
 .IX Item "--ctf-symbols=section"
 .PD 0
