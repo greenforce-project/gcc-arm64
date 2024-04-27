@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-04-20" "gcc-14.0.1" "GNU"
+.TH GCC 1 "2024-04-27" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -1057,7 +1057,7 @@ in the following sections.
 \&\-msign\-extend\-enabled  \-muser\-enabled\fR
 .Sp
 \&\fILoongArch Options\fR
-\&\fB\-march=\fR\fIcpu-type\fR  \fB\-mtune=\fR\fIcpu-type\fR \fB\-mabi=\fR\fIbase-abi-type\fR
+\&\fB\-march=\fR\fIarch-type\fR  \fB\-mtune=\fR\fItune-type\fR \fB\-mabi=\fR\fIbase-abi-type\fR
 \&\fB\-mfpu=\fR\fIfpu-type\fR \fB\-msimd=\fR\fIsimd-type\fR
 \&\fB\-msoft\-float \-msingle\-float \-mdouble\-float \-mlsx \-mno\-lsx \-mlasx \-mno\-lasx
 \&\-mbranch\-cost=\fR\fIn\fR  \fB\-mcheck\-zero\-division \-mno\-check\-zero\-division
@@ -12950,8 +12950,6 @@ is transformed to
 .Ve
 .Sp
 and the initialization loop is transformed into a call to memset zero.
-This flag is enabled by default at \fB\-O3\fR.
-It is also enabled by \fB\-fprofile\-use\fR and \fB\-fauto\-profile\fR.
 .IP "\fB\-floop\-interchange\fR" 4
 .IX Item "-floop-interchange"
 Perform loop interchange outside of graphite.  This flag can improve cache
@@ -21109,6 +21107,9 @@ Compile for \s-1CDNA1\s0 Instinct \s-1MI100\s0 series devices (gfx908).
 .IP "\fBgfx90a\fR" 4
 .IX Item "gfx90a"
 Compile for \s-1CDNA2\s0 Instinct \s-1MI200\s0 series devices (gfx90a).
+.IP "\fBgfx90c\fR" 4
+.IX Item "gfx90c"
+Compile for \s-1GCN5\s0 Vega 7 devices (gfx90c).
 .IP "\fBgfx1030\fR" 4
 .IX Item "gfx1030"
 Compile for \s-1RDNA2\s0 gfx1030 devices (\s-1GFX10\s0 series).
@@ -25102,7 +25103,7 @@ exit, respectively.
 .IP "\fB\-masm=\fR\fIdialect\fR" 4
 .IX Item "-masm=dialect"
 Outputs assembly instructions using eBPF selected \fIdialect\fR.  The default
-is \fBnormal\fR.
+is \fBpseudoc\fR.
 .Sp
 Supported values for \fIdialect\fR are:
 .RS 4
@@ -25996,38 +25997,63 @@ Enable user-defined instructions.
 .IX Subsection "LoongArch Options"
 .PP
 These command-line options are defined for LoongArch targets:
-.IP "\fB\-march=\fR\fIcpu-type\fR" 4
-.IX Item "-march=cpu-type"
-Generate instructions for the machine type \fIcpu-type\fR.  In contrast to
-\&\fB\-mtune=\fR\fIcpu-type\fR, which merely tunes the generated code
-for the specified \fIcpu-type\fR, \fB\-march=\fR\fIcpu-type\fR allows \s-1GCC\s0
-to generate code that may not run at all on processors other than the one
-indicated.  Specifying \fB\-march=\fR\fIcpu-type\fR implies
-\&\fB\-mtune=\fR\fIcpu-type\fR, except where noted otherwise.
+.IP "\fB\-march=\fR\fIarch-type\fR" 4
+.IX Item "-march=arch-type"
+Generate instructions for the machine type \fIarch-type\fR.
+\&\fB\-march=\fR\fIarch-type\fR allows \s-1GCC\s0 to generate code that
+may not run at all on processors other than the one indicated.
 .Sp
-The choices for \fIcpu-type\fR are:
+The choices for \fIarch-type\fR are:
 .RS 4
 .IP "\fBnative\fR" 4
 .IX Item "native"
-This selects the \s-1CPU\s0 to generate code for at compilation time by determining
-the processor type of the compiling machine.  Using \fB\-march=native\fR
-enables all instruction subsets supported by the local machine (hence
-the result might not run on different machines).  Using \fB\-mtune=native\fR
-produces code optimized for the local machine under the constraints
-of the selected instruction set.
+Local processor type detected by the native compiler.
 .IP "\fBloongarch64\fR" 4
 .IX Item "loongarch64"
-A generic \s-1CPU\s0 with 64\-bit extensions.
+Generic LoongArch 64\-bit processor.
 .IP "\fBla464\fR" 4
 .IX Item "la464"
-LoongArch \s-1LA464 CPU\s0 with \s-1LBT, LSX, LASX, LVZ.\s0
+LoongArch LA464\-based processor with \s-1LSX, LASX.\s0
+.IP "\fBla664\fR" 4
+.IX Item "la664"
+LoongArch LA664\-based processor with \s-1LSX, LASX\s0
+and all LoongArch v1.1 instructions.
+.IP "\fBla64v1.0\fR" 4
+.IX Item "la64v1.0"
+LoongArch64 \s-1ISA\s0 version 1.0.
+.IP "\fBla64v1.1\fR" 4
+.IX Item "la64v1.1"
+LoongArch64 \s-1ISA\s0 version 1.1.
+.RE
+.RS 4
+.Sp
+More information about LoongArch \s-1ISA\s0 versions can be found at
+<\fBhttps://github.com/loongson/la\-toolchain\-conventions\fR>.
+.RE
+.IP "\fB\-mtune=\fR\fItune-type\fR" 4
+.IX Item "-mtune=tune-type"
+Optimize the generated code for the given processor target.
+.Sp
+The choices for \fItune-type\fR are:
+.RS 4
+.IP "\fBnative\fR" 4
+.IX Item "native"
+Local processor type detected by the native compiler.
+.IP "\fBgeneric\fR" 4
+.IX Item "generic"
+Generic LoongArch processor.
+.IP "\fBloongarch64\fR" 4
+.IX Item "loongarch64"
+Generic LoongArch 64\-bit processor.
+.IP "\fBla464\fR" 4
+.IX Item "la464"
+LoongArch \s-1LA464\s0 core.
+.IP "\fBla664\fR" 4
+.IX Item "la664"
+LoongArch \s-1LA664\s0 core.
 .RE
 .RS 4
 .RE
-.IP "\fB\-mtune=\fR\fIcpu-type\fR" 4
-.IX Item "-mtune=cpu-type"
-Optimize the output for the given processor, specified by microarchitecture
-name.
 .IP "\fB\-mabi=\fR\fIbase-abi-type\fR" 4
 .IX Item "-mabi=base-abi-type"
 Generate code for the specified calling convention.

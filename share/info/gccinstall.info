@@ -593,7 +593,9 @@ to make clear that your version contains modifications.
      Specify the URL root that contains GCC option documentation.  The
      URL should end with a '/' character.
 
-     The default value is https://gcc.gnu.org/onlinedocs/.
+     The default value is https://gcc.gnu.org/onlinedocs/ on the GCC
+     main development trunk.  On release branches, the default is
+     'https://gcc.gnu.org/onlinedocs/gcc-MAJOR.MINOR.0/'.
 
 '--with-changes-root-url=URL'
      Specify the URL root that contains information about changes in GCC
@@ -1070,13 +1072,13 @@ option.
 
      'amdgcn*-*-*'
           LIST is a comma separated list of ISA names (allowed values:
-          'fiji', 'gfx900', 'gfx906', 'gfx908', 'gfx90a', 'gfx1030',
-          'gfx1036', 'gfx1100', 'gfx1103').  It ought not include the
-          name of the default ISA, specified via '--with-arch'.  If LIST
-          is empty, then there will be no multilibs and only the default
-          run-time library will be built.  If LIST is 'default' or
-          '--with-multilib-list=' is not specified, then the default set
-          of libraries is selected.
+          'fiji', 'gfx900', 'gfx906', 'gfx908', 'gfx90a', 'gfx90c',
+          'gfx1030', 'gfx1036', 'gfx1100', 'gfx1103').  It ought not
+          include the name of the default ISA, specified via
+          '--with-arch'.  If LIST is empty, then there will be no
+          multilibs and only the default run-time library will be built.
+          If LIST is 'default' or '--with-multilib-list=' is not
+          specified, then the default set of libraries is selected.
 
      'arm*-*-*'
           LIST is a comma separated list of 'aprofile' and 'rmprofile'
@@ -4914,7 +4916,7 @@ Concept Index
 * Menu:
 
 * Binaries:                              Binaries.           (line    6)
-* build_configargs:                      Configuration.      (line 1969)
+* build_configargs:                      Configuration.      (line 1971)
 * Configuration:                         Configuration.      (line    6)
 * Downloading GCC:                       Downloading the source.
                                                              (line    6)
@@ -4923,7 +4925,7 @@ Concept Index
 * FDL, GNU Free Documentation License:   GNU Free Documentation License.
                                                              (line    6)
 * Host specific installation:            Specific.           (line    6)
-* host_configargs:                       Configuration.      (line 1973)
+* host_configargs:                       Configuration.      (line 1975)
 * Installing GCC: Binaries:              Binaries.           (line    6)
 * Installing GCC: Building:              Building.           (line    6)
 * Installing GCC: Configuration:         Configuration.      (line    6)
@@ -4933,7 +4935,7 @@ Concept Index
 * Specific installation notes:           Specific.           (line    6)
 * Target specific installation:          Specific.           (line    6)
 * Target specific installation notes:    Specific.           (line    6)
-* target_configargs:                     Configuration.      (line 1977)
+* target_configargs:                     Configuration.      (line 1979)
 * Testing:                               Testing.            (line    6)
 * Testsuite:                             Testing.            (line    6)
 
@@ -4948,96 +4950,96 @@ Ref: GDC-prerequisite7247
 Ref: GM2-prerequisite8430
 Node: Downloading the source18878
 Node: Configuration20597
-Ref: with-gnu-as39730
-Ref: with-as40581
-Ref: with-gnu-ld41946
-Ref: WithAixSoname71776
-Ref: AixLdCommand72437
-Ref: with-included-gettext88321
-Node: Building116676
-Node: Testing132887
-Node: Final install140418
-Node: Binaries143596
-Node: Specific144581
-Ref: aarch64-x-x145115
-Ref: amd64-x-solaris2147135
-Ref: amdgcn-x-amdhsa147217
-Ref: arc-x-elf32148279
-Ref: arc-linux-uclibc148455
-Ref: arm-x-eabi148596
-Ref: avr148849
-Ref: bfin149430
-Ref: cris149693
-Ref: dos150019
-Ref: epiphany-x-elf150344
-Ref: x-x-freebsd150449
-Ref: ft32-x-elf151584
-Ref: h8300-hms151682
-Ref: hppa-hp-hpux152034
-Ref: hppa-hp-hpux11153548
-Ref: x-x-linux-gnu158654
-Ref: ix86-x-linux158977
-Ref: ix86-x-solaris2159290
-Ref: ia64-x-linux159538
-Ref: ia64-x-hpux159785
-Ref: x-ibm-aix160340
-Ref: TransferAixShobj164002
-Ref: iq2000-x-elf167812
-Ref: lm32-x-elf167952
-Ref: lm32-x-uclinux168056
-Ref: loongarch168184
-Ref: m32c-x-elf168821
-Ref: m32r-x-elf168923
-Ref: m68k-x-x169025
-Ref: m68k-x-uclinux170063
-Ref: microblaze-x-elf170308
-Ref: mips-x-x170427
-Ref: moxie-x-elf172337
-Ref: msp430-x-elf172384
-Ref: nds32le-x-elf172941
-Ref: nds32be-x-elf173013
-Ref: nvptx-x-none173082
-Ref: or1k-x-elf173945
-Ref: or1k-x-linux174076
-Ref: powerpc-x-x174157
-Ref: powerpc-x-darwin174348
-Ref: powerpc-x-elf174843
-Ref: powerpc-x-linux-gnu174928
-Ref: powerpc-x-netbsd175023
-Ref: powerpc-x-eabisim175111
-Ref: powerpc-x-eabi175237
-Ref: powerpcle-x-elf175313
-Ref: powerpcle-x-eabisim175405
-Ref: powerpcle-x-eabi175538
-Ref: rl78-x-elf175621
-Ref: riscv32-x-elf175727
-Ref: riscv32-x-linux175916
-Ref: riscv64-x-elf176073
-Ref: riscv64-x-linux176262
-Ref: rx-x-elf176419
-Ref: s390-x-linux176465
-Ref: s390x-x-linux176537
-Ref: s390x-ibm-tpf176624
-Ref: x-x-solaris2176755
-Ref: sparc-x-x180528
-Ref: sparc-sun-solaris2181030
-Ref: sparc-x-linux181929
-Ref: sparc64-x-solaris2181960
-Ref: sparcv9-x-solaris2182047
-Ref: c6x-x-x182768
-Ref: visium-x-elf182860
-Ref: x-x-vxworks182968
-Ref: x86-64-x-x184491
-Ref: x86-64-x-solaris2184819
-Ref: xtensa-x-elf185445
-Ref: xtensa-x-linux186116
-Ref: windows186457
-Ref: x-x-cygwin188104
-Ref: x-x-mingw32188657
-Ref: older189039
-Ref: elf191156
-Node: GNU Free Documentation License191410
-Node: Concept Index216548
+Ref: with-gnu-as39864
+Ref: with-as40715
+Ref: with-gnu-ld42080
+Ref: WithAixSoname71919
+Ref: AixLdCommand72580
+Ref: with-included-gettext88464
+Node: Building116819
+Node: Testing133030
+Node: Final install140561
+Node: Binaries143739
+Node: Specific144724
+Ref: aarch64-x-x145258
+Ref: amd64-x-solaris2147278
+Ref: amdgcn-x-amdhsa147360
+Ref: arc-x-elf32148422
+Ref: arc-linux-uclibc148598
+Ref: arm-x-eabi148739
+Ref: avr148992
+Ref: bfin149573
+Ref: cris149836
+Ref: dos150162
+Ref: epiphany-x-elf150487
+Ref: x-x-freebsd150592
+Ref: ft32-x-elf151727
+Ref: h8300-hms151825
+Ref: hppa-hp-hpux152177
+Ref: hppa-hp-hpux11153691
+Ref: x-x-linux-gnu158797
+Ref: ix86-x-linux159120
+Ref: ix86-x-solaris2159433
+Ref: ia64-x-linux159681
+Ref: ia64-x-hpux159928
+Ref: x-ibm-aix160483
+Ref: TransferAixShobj164145
+Ref: iq2000-x-elf167955
+Ref: lm32-x-elf168095
+Ref: lm32-x-uclinux168199
+Ref: loongarch168327
+Ref: m32c-x-elf168964
+Ref: m32r-x-elf169066
+Ref: m68k-x-x169168
+Ref: m68k-x-uclinux170206
+Ref: microblaze-x-elf170451
+Ref: mips-x-x170570
+Ref: moxie-x-elf172480
+Ref: msp430-x-elf172527
+Ref: nds32le-x-elf173084
+Ref: nds32be-x-elf173156
+Ref: nvptx-x-none173225
+Ref: or1k-x-elf174088
+Ref: or1k-x-linux174219
+Ref: powerpc-x-x174300
+Ref: powerpc-x-darwin174491
+Ref: powerpc-x-elf174986
+Ref: powerpc-x-linux-gnu175071
+Ref: powerpc-x-netbsd175166
+Ref: powerpc-x-eabisim175254
+Ref: powerpc-x-eabi175380
+Ref: powerpcle-x-elf175456
+Ref: powerpcle-x-eabisim175548
+Ref: powerpcle-x-eabi175681
+Ref: rl78-x-elf175764
+Ref: riscv32-x-elf175870
+Ref: riscv32-x-linux176059
+Ref: riscv64-x-elf176216
+Ref: riscv64-x-linux176405
+Ref: rx-x-elf176562
+Ref: s390-x-linux176608
+Ref: s390x-x-linux176680
+Ref: s390x-ibm-tpf176767
+Ref: x-x-solaris2176898
+Ref: sparc-x-x180671
+Ref: sparc-sun-solaris2181173
+Ref: sparc-x-linux182072
+Ref: sparc64-x-solaris2182103
+Ref: sparcv9-x-solaris2182190
+Ref: c6x-x-x182911
+Ref: visium-x-elf183003
+Ref: x-x-vxworks183111
+Ref: x86-64-x-x184634
+Ref: x86-64-x-solaris2184962
+Ref: xtensa-x-elf185588
+Ref: xtensa-x-linux186259
+Ref: windows186600
+Ref: x-x-cygwin188247
+Ref: x-x-mingw32188800
+Ref: older189182
+Ref: elf191299
+Node: GNU Free Documentation License191553
+Node: Concept Index216691
 
 End Tag Table
 
