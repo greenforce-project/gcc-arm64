@@ -69527,8 +69527,8 @@ in alphabetical order.
    * Geoff Berry for his Java object serialization work and various
      patches.
 
-   * David Binderman tests weekly snapshots of GCC trunk against Fedora
-     Rawhide for several architectures.
+   * David Binderman for testing GCC trunk against Fedora Rawhide and
+     csmith.
 
    * Laurynas Biveinis for memory management work and DJGPP port fixes.
 
@@ -79293,9 +79293,9 @@ Node: GNU Project2898748
 Node: Copying2899396
 Node: GNU Free Documentation License2936910
 Node: Contributors2962033
-Node: Indices3003229
-Node: Option Index3003475
-Node: Concept and Symbol Index3321942
+Node: Indices3003200
+Node: Option Index3003446
+Node: Concept and Symbol Index3321913
 
 End Tag Table
 

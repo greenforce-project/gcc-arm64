@@ -2429,14 +2429,15 @@ Options::)
 The 'KIND' value matches the storage size in bytes, except for 'COMPLEX'
 where the storage size is twice as much (or both real and imaginary part
 are a real value of the given size).  It is recommended to use the *note
-SELECTED_CHAR_KIND::, *note SELECTED_INT_KIND:: and *note
-SELECTED_REAL_KIND:: intrinsics or the 'INT8', 'INT16', 'INT32',
-'INT64', 'REAL32', 'REAL64', and 'REAL128' parameters of the
-'ISO_FORTRAN_ENV' module instead of the concrete values.  The available
-kind parameters can be found in the constant arrays 'CHARACTER_KINDS',
-'INTEGER_KINDS', 'LOGICAL_KINDS' and 'REAL_KINDS' in the *note
-ISO_FORTRAN_ENV:: module.  For C interoperability, the kind parameters
-of the *note ISO_C_BINDING:: module should be used.
+SELECTED_CHAR_KIND::, *note SELECTED_INT_KIND::, *note
+SELECTED_LOGICAL_KIND:: and *note SELECTED_REAL_KIND:: intrinsics or the
+'INT8', 'INT16', 'INT32', 'INT64', 'REAL32', 'REAL64', and 'REAL128'
+parameters of the 'ISO_FORTRAN_ENV' module instead of the concrete
+values.  The available kind parameters can be found in the constant
+arrays 'CHARACTER_KINDS', 'INTEGER_KINDS', 'LOGICAL_KINDS' and
+'REAL_KINDS' in the *note ISO_FORTRAN_ENV:: module.  For C
+interoperability, the kind parameters of the *note ISO_C_BINDING::
+module should be used.
 
 
 File: gfortran.info,  Node: Internal representation of LOGICAL variables,  Next: Evaluation of logical expressions,  Prev: KIND Type Parameters,  Up: Compiler Characteristics
@@ -2821,8 +2822,9 @@ equivalent to the standard-conforming declaration
            TYPESPEC(k) x,y,z
 where 'k' is the kind parameter suitable for the intended precision.  As
 kind parameters are implementation-dependent, use the 'KIND',
-'SELECTED_INT_KIND' and 'SELECTED_REAL_KIND' intrinsics to retrieve the
-correct value, for instance 'REAL*8 x' can be replaced by:
+'SELECTED_INT_KIND', 'SELECTED_LOGICAL_KIND' and 'SELECTED_REAL_KIND'
+intrinsics to retrieve the correct value, for instance 'REAL*8 x' can be
+replaced by:
      INTEGER, PARAMETER :: dbl = KIND(1.0d0)
      REAL(KIND=dbl) :: x
 
@@ -7043,6 +7045,7 @@ File: gfortran.info,  Node: Intrinsic Procedures,  Next: Intrinsic Modules,  Pre
 * 'SECOND':        SECOND,    CPU time function
 * 'SELECTED_CHAR_KIND': SELECTED_CHAR_KIND,  Choose character kind
 * 'SELECTED_INT_KIND': SELECTED_INT_KIND,  Choose integer kind
+* 'SELECTED_LOGICAL_KIND': SELECTED_LOGICAL_KIND,  Choose logical kind
 * 'SELECTED_REAL_KIND': SELECTED_REAL_KIND,  Choose real kind
 * 'SET_EXPONENT':  SET_EXPONENT, Set the exponent of the model
 * 'SHAPE':         SHAPE,     Determine the shape of an array
@@ -17658,7 +17661,7 @@ _Example_:
           end program character_kind
 
 
-File: gfortran.info,  Node: SELECTED_INT_KIND,  Next: SELECTED_REAL_KIND,  Prev: SELECTED_CHAR_KIND,  Up: Intrinsic Procedures
+File: gfortran.info,  Node: SELECTED_INT_KIND,  Next: SELECTED_LOGICAL_KIND,  Prev: SELECTED_CHAR_KIND,  Up: Intrinsic Procedures
 
 8.240 'SELECTED_INT_KIND' -- Choose integer kind
 ================================================
@@ -17696,9 +17699,43 @@ _Example_:
           end program large_integers
 
 
-File: gfortran.info,  Node: SELECTED_REAL_KIND,  Next: SET_EXPONENT,  Prev: SELECTED_INT_KIND,  Up: Intrinsic Procedures
+File: gfortran.info,  Node: SELECTED_LOGICAL_KIND,  Next: SELECTED_REAL_KIND,  Prev: SELECTED_INT_KIND,  Up: Intrinsic Procedures
 
-8.241 'SELECTED_REAL_KIND' -- Choose real kind
+8.241 'SELECTED_LOGICAL_KIND' -- Choose logical kind
+====================================================
+
+_Description_:
+     'SELECTED_LOGICAL_KIND(BITS)' return the kind value of the smallest
+     logical type whose storage size in bits is at least BITS.  If there
+     is no such logical kind, 'SELECTED_LOGICAL_KIND' returns -1.
+
+_Standard_:
+     Fortran 2023 and later
+
+_Class_:
+     Transformational function
+
+_Syntax_:
+     'RESULT = SELECTED_LOGICAL_KIND(BITS)'
+
+_Arguments_:
+     BITS        Shall be a scalar and of type 'INTEGER'.
+
+_Example_:
+          program logical_kinds
+            integer, parameter :: k1 = selected_logical_kind(1)
+            integer, parameter :: k40 = selected_logical_kind(40)
+            logical(kind=k1) :: l1    ! At least one bit
+            logical(kind=k40) :: l40  ! At least 40 bits
+
+            ! What is their actual size?
+            print *, storage_size(l1), storage_size(l40)
+          end program logical_kinds
+
+
+File: gfortran.info,  Node: SELECTED_REAL_KIND,  Next: SET_EXPONENT,  Prev: SELECTED_LOGICAL_KIND,  Up: Intrinsic Procedures
+
+8.242 'SELECTED_REAL_KIND' -- Choose real kind
 ==============================================
 
 _Description_:
@@ -17768,7 +17805,7 @@ _See also_:
 
 File: gfortran.info,  Node: SET_EXPONENT,  Next: SHAPE,  Prev: SELECTED_REAL_KIND,  Up: Intrinsic Procedures
 
-8.242 'SET_EXPONENT' -- Set the exponent of the model
+8.243 'SET_EXPONENT' -- Set the exponent of the model
 =====================================================
 
 _Description_:
@@ -17803,7 +17840,7 @@ _Example_:
 
 File: gfortran.info,  Node: SHAPE,  Next: SHIFTA,  Prev: SET_EXPONENT,  Up: Intrinsic Procedures
 
-8.243 'SHAPE' -- Determine the shape of an array
+8.244 'SHAPE' -- Determine the shape of an array
 ================================================
 
 _Description_:
@@ -17848,7 +17885,7 @@ _See also_:
 
 File: gfortran.info,  Node: SHIFTA,  Next: SHIFTL,  Prev: SHAPE,  Up: Intrinsic Procedures
 
-8.244 'SHIFTA' -- Right shift with fill
+8.245 'SHIFTA' -- Right shift with fill
 =======================================
 
 _Description_:
@@ -17883,7 +17920,7 @@ _See also_:
 
 File: gfortran.info,  Node: SHIFTL,  Next: SHIFTR,  Prev: SHIFTA,  Up: Intrinsic Procedures
 
-8.245 'SHIFTL' -- Left shift
+8.246 'SHIFTL' -- Left shift
 ============================
 
 _Description_:
@@ -17916,7 +17953,7 @@ _See also_:
 
 File: gfortran.info,  Node: SHIFTR,  Next: SIGN,  Prev: SHIFTL,  Up: Intrinsic Procedures
 
-8.246 'SHIFTR' -- Right shift
+8.247 'SHIFTR' -- Right shift
 =============================
 
 _Description_:
@@ -17949,7 +17986,7 @@ _See also_:
 
 File: gfortran.info,  Node: SIGN,  Next: SIGNAL,  Prev: SHIFTR,  Up: Intrinsic Procedures
 
-8.247 'SIGN' -- Sign copying function
+8.248 'SIGN' -- Sign copying function
 =====================================
 
 _Description_:
@@ -17993,7 +18030,7 @@ _Specific names_:
 
 File: gfortran.info,  Node: SIGNAL,  Next: SIN,  Prev: SIGN,  Up: Intrinsic Procedures
 
-8.248 'SIGNAL' -- Signal handling subroutine (or function)
+8.249 'SIGNAL' -- Signal handling subroutine (or function)
 ==========================================================
 
 _Description_:
@@ -18049,7 +18086,7 @@ _Example_:
 
 File: gfortran.info,  Node: SIN,  Next: SIND,  Prev: SIGNAL,  Up: Intrinsic Procedures
 
-8.249 'SIN' -- Sine function
+8.250 'SIN' -- Sine function
 ============================
 
 _Description_:
@@ -18094,7 +18131,7 @@ _See also_:
 
 File: gfortran.info,  Node: SIND,  Next: SINH,  Prev: SIN,  Up: Intrinsic Procedures
 
-8.250 'SIND' -- Sine function, degrees
+8.251 'SIND' -- Sine function, degrees
 ======================================
 
 _Description_:
@@ -18140,7 +18177,7 @@ _See also_:
 
 File: gfortran.info,  Node: SINH,  Next: SIZE,  Prev: SIND,  Up: Intrinsic Procedures
 
-8.251 'SINH' -- Hyperbolic sine function
+8.252 'SINH' -- Hyperbolic sine function
 ========================================
 
 _Description_:
@@ -18179,7 +18216,7 @@ _See also_:
 
 File: gfortran.info,  Node: SIZE,  Next: SIZEOF,  Prev: SINH,  Up: Intrinsic Procedures
 
-8.252 'SIZE' -- Determine the size of an array
+8.253 'SIZE' -- Determine the size of an array
 ==============================================
 
 _Description_:
@@ -18222,7 +18259,7 @@ _See also_:
 
 File: gfortran.info,  Node: SIZEOF,  Next: SLEEP,  Prev: SIZE,  Up: Intrinsic Procedures
 
-8.253 'SIZEOF' -- Size in bytes of an expression
+8.254 'SIZEOF' -- Size in bytes of an expression
 ================================================
 
 _Description_:
@@ -18271,7 +18308,7 @@ _See also_:
 
 File: gfortran.info,  Node: SLEEP,  Next: SPACING,  Prev: SIZEOF,  Up: Intrinsic Procedures
 
-8.254 'SLEEP' -- Sleep for the specified number of seconds
+8.255 'SLEEP' -- Sleep for the specified number of seconds
 ==========================================================
 
 _Description_:
@@ -18298,7 +18335,7 @@ _Example_:
 
 File: gfortran.info,  Node: SPACING,  Next: SPREAD,  Prev: SLEEP,  Up: Intrinsic Procedures
 
-8.255 'SPACING' -- Smallest distance between two numbers of a given type
+8.256 'SPACING' -- Smallest distance between two numbers of a given type
 ========================================================================
 
 _Description_:
@@ -18335,7 +18372,7 @@ _See also_:
 
 File: gfortran.info,  Node: SPREAD,  Next: SQRT,  Prev: SPACING,  Up: Intrinsic Procedures
 
-8.256 'SPREAD' -- Add a dimension to an array
+8.257 'SPREAD' -- Add a dimension to an array
 =============================================
 
 _Description_:
@@ -18376,7 +18413,7 @@ _See also_:
 
 File: gfortran.info,  Node: SQRT,  Next: SRAND,  Prev: SPREAD,  Up: Intrinsic Procedures
 
-8.257 'SQRT' -- Square-root function
+8.258 'SQRT' -- Square-root function
 ====================================
 
 _Description_:
@@ -18418,7 +18455,7 @@ _Specific names_:
 
 File: gfortran.info,  Node: SRAND,  Next: STAT,  Prev: SQRT,  Up: Intrinsic Procedures
 
-8.258 'SRAND' -- Reinitialize the random number generator
+8.259 'SRAND' -- Reinitialize the random number generator
 =========================================================
 
 _Description_:
@@ -18463,7 +18500,7 @@ _See also_:
 
 File: gfortran.info,  Node: STAT,  Next: STORAGE_SIZE,  Prev: SRAND,  Up: Intrinsic Procedures
 
-8.259 'STAT' -- Get file status
+8.260 'STAT' -- Get file status
 ===============================
 
 _Description_:
@@ -18544,7 +18581,7 @@ _See also_:
 
 File: gfortran.info,  Node: STORAGE_SIZE,  Next: SUM,  Prev: STAT,  Up: Intrinsic Procedures
 
-8.260 'STORAGE_SIZE' -- Storage size in bits
+8.261 'STORAGE_SIZE' -- Storage size in bits
 ============================================
 
 _Description_:
@@ -18574,7 +18611,7 @@ _See also_:
 
 File: gfortran.info,  Node: SUM,  Next: SYMLNK,  Prev: STORAGE_SIZE,  Up: Intrinsic Procedures
 
-8.261 'SUM' -- Sum of array elements
+8.262 'SUM' -- Sum of array elements
 ====================================
 
 _Description_:
@@ -18622,7 +18659,7 @@ _See also_:
 
 File: gfortran.info,  Node: SYMLNK,  Next: SYSTEM,  Prev: SUM,  Up: Intrinsic Procedures
 
-8.262 'SYMLNK' -- Create a symbolic link
+8.263 'SYMLNK' -- Create a symbolic link
 ========================================
 
 _Description_:
@@ -18658,7 +18695,7 @@ _See also_:
 
 File: gfortran.info,  Node: SYSTEM,  Next: SYSTEM_CLOCK,  Prev: SYMLNK,  Up: Intrinsic Procedures
 
-8.263 'SYSTEM' -- Execute a shell command
+8.264 'SYSTEM' -- Execute a shell command
 =========================================
 
 _Description_:
@@ -18696,7 +18733,7 @@ _See also_:
 
 File: gfortran.info,  Node: SYSTEM_CLOCK,  Next: TAN,  Prev: SYSTEM,  Up: Intrinsic Procedures
 
-8.264 'SYSTEM_CLOCK' -- Time function
+8.265 'SYSTEM_CLOCK' -- Time function
 =====================================
 
 _Description_:
@@ -18765,7 +18802,7 @@ _See also_:
 
 File: gfortran.info,  Node: TAN,  Next: TAND,  Prev: SYSTEM_CLOCK,  Up: Intrinsic Procedures
 
-8.265 'TAN' -- Tangent function
+8.266 'TAN' -- Tangent function
 ===============================
 
 _Description_:
@@ -18808,7 +18845,7 @@ _See also_:
 
 File: gfortran.info,  Node: TAND,  Next: TANH,  Prev: TAN,  Up: Intrinsic Procedures
 
-8.266 'TAND' -- Tangent function, degrees
+8.267 'TAND' -- Tangent function, degrees
 =========================================
 
 _Description_:
@@ -18850,7 +18887,7 @@ _See also_:
 
 File: gfortran.info,  Node: TANH,  Next: THIS_IMAGE,  Prev: TAND,  Up: Intrinsic Procedures
 
-8.267 'TANH' -- Hyperbolic tangent function
+8.268 'TANH' -- Hyperbolic tangent function
 ===========================================
 
 _Description_:
@@ -18891,7 +18928,7 @@ _See also_:
 
 File: gfortran.info,  Node: THIS_IMAGE,  Next: TIME,  Prev: TANH,  Up: Intrinsic Procedures
 
-8.268 'THIS_IMAGE' -- Function that returns the cosubscript index of this image
+8.269 'THIS_IMAGE' -- Function that returns the cosubscript index of this image
 ===============================================================================
 
 _Description_:
@@ -18954,7 +18991,7 @@ _See also_:
 
 File: gfortran.info,  Node: TIME,  Next: TIME8,  Prev: THIS_IMAGE,  Up: Intrinsic Procedures
 
-8.269 'TIME' -- Time function
+8.270 'TIME' -- Time function
 =============================
 
 _Description_:
@@ -18996,7 +19033,7 @@ _See also_:
 
 File: gfortran.info,  Node: TIME8,  Next: TINY,  Prev: TIME,  Up: Intrinsic Procedures
 
-8.270 'TIME8' -- Time function (64-bit)
+8.271 'TIME8' -- Time function (64-bit)
 =======================================
 
 _Description_:
@@ -19036,7 +19073,7 @@ _See also_:
 
 File: gfortran.info,  Node: TINY,  Next: TRAILZ,  Prev: TIME8,  Up: Intrinsic Procedures
 
-8.271 'TINY' -- Smallest positive number of a real kind
+8.272 'TINY' -- Smallest positive number of a real kind
 =======================================================
 
 _Description_:
@@ -19064,7 +19101,7 @@ _Example_:
 
 File: gfortran.info,  Node: TRAILZ,  Next: TRANSFER,  Prev: TINY,  Up: Intrinsic Procedures
 
-8.272 'TRAILZ' -- Number of trailing zero bits of an integer
+8.273 'TRAILZ' -- Number of trailing zero bits of an integer
 ============================================================
 
 _Description_:
@@ -19100,7 +19137,7 @@ _See also_:
 
 File: gfortran.info,  Node: TRANSFER,  Next: TRANSPOSE,  Prev: TRAILZ,  Up: Intrinsic Procedures
 
-8.273 'TRANSFER' -- Transfer bit patterns
+8.274 'TRANSFER' -- Transfer bit patterns
 =========================================
 
 _Description_:
@@ -19154,7 +19191,7 @@ _Example_:
 
 File: gfortran.info,  Node: TRANSPOSE,  Next: TRIM,  Prev: TRANSFER,  Up: Intrinsic Procedures
 
-8.274 'TRANSPOSE' -- Transpose an array of rank two
+8.275 'TRANSPOSE' -- Transpose an array of rank two
 ===================================================
 
 _Description_:
@@ -19181,7 +19218,7 @@ _Return value_:
 
 File: gfortran.info,  Node: TRIM,  Next: TTYNAM,  Prev: TRANSPOSE,  Up: Intrinsic Procedures
 
-8.275 'TRIM' -- Remove trailing blank characters of a string
+8.276 'TRIM' -- Remove trailing blank characters of a string
 ============================================================
 
 _Description_:
@@ -19216,7 +19253,7 @@ _See also_:
 
 File: gfortran.info,  Node: TTYNAM,  Next: UBOUND,  Prev: TRIM,  Up: Intrinsic Procedures
 
-8.276 'TTYNAM' -- Get the name of a terminal device
+8.277 'TTYNAM' -- Get the name of a terminal device
 ===================================================
 
 _Description_:
@@ -19254,7 +19291,7 @@ _See also_:
 
 File: gfortran.info,  Node: UBOUND,  Next: UCOBOUND,  Prev: TTYNAM,  Up: Intrinsic Procedures
 
-8.277 'UBOUND' -- Upper dimension bounds of an array
+8.278 'UBOUND' -- Upper dimension bounds of an array
 ====================================================
 
 _Description_:
@@ -19293,7 +19330,7 @@ _See also_:
 
 File: gfortran.info,  Node: UCOBOUND,  Next: UMASK,  Prev: UBOUND,  Up: Intrinsic Procedures
 
-8.278 'UCOBOUND' -- Upper codimension bounds of an array
+8.279 'UCOBOUND' -- Upper codimension bounds of an array
 ========================================================
 
 _Description_:
@@ -19329,7 +19366,7 @@ _See also_:
 
 File: gfortran.info,  Node: UMASK,  Next: UNLINK,  Prev: UCOBOUND,  Up: Intrinsic Procedures
 
-8.279 'UMASK' -- Set the file creation mask
+8.280 'UMASK' -- Set the file creation mask
 ===========================================
 
 _Description_:
@@ -19354,7 +19391,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: UNLINK,  Next: UNPACK,  Prev: UMASK,  Up: Intrinsic Procedures
 
-8.280 'UNLINK' -- Remove a file from the file system
+8.281 'UNLINK' -- Remove a file from the file system
 ====================================================
 
 _Description_:
@@ -19388,7 +19425,7 @@ _See also_:
 
 File: gfortran.info,  Node: UNPACK,  Next: VERIFY,  Prev: UNLINK,  Up: Intrinsic Procedures
 
-8.281 'UNPACK' -- Unpack an array of rank one into an array
+8.282 'UNPACK' -- Unpack an array of rank one into an array
 ===========================================================
 
 _Description_:
@@ -19432,7 +19469,7 @@ _See also_:
 
 File: gfortran.info,  Node: VERIFY,  Next: XOR,  Prev: UNPACK,  Up: Intrinsic Procedures
 
-8.282 'VERIFY' -- Scan a string for characters not a given set
+8.283 'VERIFY' -- Scan a string for characters not a given set
 ==============================================================
 
 _Description_:
@@ -19481,7 +19518,7 @@ _See also_:
 
 File: gfortran.info,  Node: XOR,  Prev: VERIFY,  Up: Intrinsic Procedures
 
-8.283 'XOR' -- Bitwise logical exclusive OR
+8.284 'XOR' -- Bitwise logical exclusive OR
 ===========================================
 
 _Description_:
@@ -22478,6 +22515,8 @@ Keyword Index
 * kind <1>:                              KIND.                (line   6)
 * kind, character:                       SELECTED_CHAR_KIND.  (line   6)
 * kind, integer:                         SELECTED_INT_KIND.   (line   6)
+* kind, logical:                         SELECTED_LOGICAL_KIND.
+                                                              (line   6)
 * kind, old-style:                       Old-style kind specifications.
                                                               (line   6)
 * kind, real:                            SELECTED_REAL_KIND.  (line   6)
@@ -22535,6 +22574,8 @@ Keyword Index
 * logical and, bitwise <1>:              IAND.                (line   6)
 * logical exclusive or, bitwise:         IEOR.                (line   6)
 * logical exclusive or, bitwise <1>:     XOR.                 (line   6)
+* logical kind:                          SELECTED_LOGICAL_KIND.
+                                                              (line   6)
 * logical not, bitwise:                  NOT.                 (line   6)
 * logical or, bitwise:                   IOR.                 (line   6)
 * logical or, bitwise <1>:               OR.                  (line   6)
@@ -22830,6 +22871,8 @@ Keyword Index
 * seeding a random number generator <1>: SRAND.               (line   6)
 * SELECTED_CHAR_KIND:                    SELECTED_CHAR_KIND.  (line   6)
 * SELECTED_INT_KIND:                     SELECTED_INT_KIND.   (line   6)
+* SELECTED_LOGICAL_KIND:                 SELECTED_LOGICAL_KIND.
+                                                              (line   6)
 * SELECTED_REAL_KIND:                    SELECTED_REAL_KIND.  (line   6)
 * sequential, unformatted:               File format of unformatted sequential files.
                                                               (line   6)
@@ -23153,425 +23196,426 @@ Node: GFORTRAN_FORMATTED_BUFFER_SIZE105921
 Node: GFORTRAN_UNFORMATTED_BUFFER_SIZE106369
 Node: Compiler Characteristics106798
 Node: KIND Type Parameters107597
-Node: Internal representation of LOGICAL variables109025
-Node: Evaluation of logical expressions109882
-Node: MAX and MIN intrinsics with REAL NaN arguments110733
-Node: Thread-safety of the runtime library111554
-Node: Data consistency and durability113959
-Node: Files opened without an explicit ACTION= specifier117069
-Node: File operations on symbolic links117760
-Node: File format of unformatted sequential files118880
-Node: Asynchronous I/O121254
-Node: Behavior on integer overflow121991
-Node: Extensions122764
-Node: Extensions implemented in GNU Fortran123369
-Node: Old-style kind specifications125314
-Node: Old-style variable initialization126416
-Node: Extensions to namelist127728
-Node: X format descriptor without count field130031
-Node: Commas in FORMAT specifications130558
-Node: Missing period in FORMAT specifications131311
-Node: Default widths for F, G and I format descriptors131907
-Node: I/O item lists132612
-Node: Q exponent-letter133006
-Node: BOZ literal constants133604
-Node: Real array indices135181
-Node: Unary operators135480
-Node: Implicitly convert LOGICAL and INTEGER values135894
-Node: Hollerith constants support136853
-Node: Character conversion139077
-Node: Cray pointers139971
-Node: CONVERT specifier145472
-Node: OpenMP147787
-Node: OpenACC150036
-Node: Argument list functions151177
-Node: Read/Write after EOF marker152820
-Node: STRUCTURE and RECORD153423
-Node: UNION and MAP158510
-Node: Type variants for integer intrinsics161478
-Node: AUTOMATIC and STATIC attributes163373
-Node: Form feed as whitespace164906
-Node: TYPE as an alias for PRINT165459
-Node: %LOC as an rvalue165924
-Node: .XOR. operator166571
-Node: Bitwise logical operators166971
-Node: Extended I/O specifiers168472
-Node: Legacy PARAMETER statements172192
-Node: Default exponents172797
-Node: Extensions not implemented in GNU Fortran173149
-Node: ENCODE and DECODE statements174116
-Node: Variable FORMAT expressions175447
-Node: Alternate complex function syntax176552
-Node: Volatile COMMON blocks177102
-Node: OPEN( ... NAME=)177604
-Node: Q edit descriptor178032
-Node: Mixed-Language Programming178984
-Node: Interoperability with C180217
-Node: Intrinsic Types181552
-Node: Derived Types and struct182573
-Node: Interoperable Global Variables183915
-Node: Interoperable Subroutines and Functions185190
-Node: Working with C Pointers188681
-Node: Further Interoperability of Fortran with C193346
-Node: GNU Fortran Compiler Directives194690
-Node: ATTRIBUTES directive195066
-Node: UNROLL directive198889
-Node: BUILTIN directive199534
-Node: IVDEP directive200376
-Node: VECTOR directive201289
-Node: NOVECTOR directive201795
-Node: Non-Fortran Main Program202288
-Node: _gfortran_set_args204476
-Node: _gfortran_set_options205414
-Node: _gfortran_set_convert209141
-Node: _gfortran_set_record_marker210009
-Node: _gfortran_set_fpe210819
-Node: _gfortran_set_max_subrecord_length212017
-Node: Naming and argument-passing conventions212940
-Node: Naming conventions213659
-Node: Argument passing conventions215131
-Node: Coarray Programming220469
-Node: Type and enum ABI Documentation220716
-Node: caf_token_t221014
-Node: caf_register_t221250
-Node: caf_deregister_t222461
-Node: caf_reference_t222962
-Node: caf_team_t227287
-Node: Function ABI Documentation227586
-Node: _gfortran_caf_init230036
-Node: _gfortran_caf_finish231462
-Node: _gfortran_caf_this_image232401
-Node: _gfortran_caf_num_images233156
-Node: _gfortran_caf_image_status234267
-Node: _gfortran_caf_failed_images235387
-Node: _gfortran_caf_stopped_images236557
-Node: _gfortran_caf_register237730
-Node: _gfortran_caf_deregister241911
-Node: _gfortran_caf_is_present243517
-Node: _gfortran_caf_send244596
-Node: _gfortran_caf_get247786
-Node: _gfortran_caf_sendget250867
-Node: _gfortran_caf_send_by_ref254778
-Node: _gfortran_caf_get_by_ref258387
-Node: _gfortran_caf_sendget_by_ref261906
-Node: _gfortran_caf_lock266202
-Node: _gfortran_caf_unlock267991
-Node: _gfortran_caf_event_post269472
-Node: _gfortran_caf_event_wait270920
-Node: _gfortran_caf_event_query273026
-Node: _gfortran_caf_sync_all274357
-Node: _gfortran_caf_sync_images275285
-Node: _gfortran_caf_sync_memory276820
-Node: _gfortran_caf_error_stop277812
-Node: _gfortran_caf_error_stop_str278416
-Node: _gfortran_caf_fail_image279121
-Node: _gfortran_caf_atomic_define279657
-Node: _gfortran_caf_atomic_ref280972
-Node: _gfortran_caf_atomic_cas282276
-Node: _gfortran_caf_atomic_op284037
-Node: _gfortran_caf_co_broadcast286139
-Node: _gfortran_caf_co_max287244
-Node: _gfortran_caf_co_min288870
-Node: _gfortran_caf_co_sum290490
-Node: _gfortran_caf_co_reduce292030
-Node: Intrinsic Procedures294674
-Node: Introduction to Intrinsics311878
-Node: ABORT314072
-Node: ABS314827
-Node: ACCESS316551
-Node: ACHAR318452
-Node: ACOS319666
-Node: ACOSD320955
-Node: ACOSH322167
-Node: ADJUSTL323253
-Node: ADJUSTR324200
-Node: AIMAG325155
-Node: AINT326605
-Node: ALARM328199
-Node: ALL329831
-Node: ALLOCATED331755
-Node: AND332894
-Node: ANINT334634
-Node: ANY336119
-Node: ASIN338045
-Node: ASIND339323
-Node: ASINH340513
-Node: ASSOCIATED341609
-Node: ATAN344620
-Node: ATAND346096
-Node: ATAN2347373
-Node: ATAN2D349242
-Node: ATANH351129
-Node: ATOMIC_ADD352225
-Node: ATOMIC_AND353774
-Node: ATOMIC_CAS355377
-Node: ATOMIC_DEFINE357246
-Node: ATOMIC_FETCH_ADD358985
-Node: ATOMIC_FETCH_AND360802
-Node: ATOMIC_FETCH_OR362607
-Node: ATOMIC_FETCH_XOR364399
-Node: ATOMIC_OR366197
-Node: ATOMIC_REF367797
-Node: ATOMIC_XOR369713
-Node: BACKTRACE371313
-Node: BESSEL_J0371893
-Node: BESSEL_J1372994
-Node: BESSEL_JN374096
-Node: BESSEL_Y0376001
-Node: BESSEL_Y1377041
-Node: BESSEL_YN378081
-Node: BGE379997
-Node: BGT380699
-Node: BIT_SIZE381359
-Node: BLE382181
-Node: BLT382873
-Node: BTEST383521
-Node: C_ASSOCIATED384966
-Node: C_F_POINTER386182
-Node: C_F_PROCPOINTER387622
-Node: C_FUNLOC389134
-Node: C_LOC390515
-Node: C_SIZEOF391804
-Node: CEILING393217
-Node: CHAR394230
-Node: CHDIR395544
-Node: CHMOD396718
-Node: CMPLX398633
-Node: CO_BROADCAST400076
-Node: CO_MAX401903
-Node: CO_MIN403811
-Node: CO_REDUCE405705
-Node: CO_SUM409281
-Node: COMMAND_ARGUMENT_COUNT411262
-Node: COMPILER_OPTIONS412184
-Node: COMPILER_VERSION413214
-Node: COMPLEX414182
-Node: CONJG415321
-Node: COS416377
-Node: COSD417748
-Node: COSH418981
-Node: COTAN420157
-Node: COTAND421399
-Node: COUNT422641
-Node: CPU_TIME424666
-Node: CSHIFT426028
-Node: CTIME427688
-Node: DATE_AND_TIME429211
-Node: DBLE431598
-Node: DCMPLX432393
-Node: DIGITS433575
-Node: DIM434542
-Node: DOT_PRODUCT435950
-Node: DPROD437593
-Node: DREAL438555
-Node: DSHIFTL439221
-Node: DSHIFTR440554
-Node: DTIME441888
-Node: EOSHIFT444594
-Node: EPSILON446667
-Node: ERF447394
-Node: ERFC448260
-Node: ERFC_SCALED449155
-Node: ETIME449848
-Node: EVENT_QUERY452018
-Node: EXECUTE_COMMAND_LINE453607
-Node: EXIT456387
-Node: EXP457270
-Node: EXPONENT458424
-Node: EXTENDS_TYPE_OF459188
-Node: FDATE460046
-Node: FGET461537
-Node: FGETC463374
-Node: FINDLOC465194
-Node: FLOOR467793
-Node: FLUSH468789
-Node: FNUM470668
-Node: FPUT471393
-Node: FPUTC473037
-Node: FRACTION474828
-Node: FREE475732
-Node: FSEEK476575
-Node: FSTAT478881
-Node: FTELL479982
-Node: GAMMA480964
-Node: GERROR482044
-Node: GETARG482797
-Node: GET_COMMAND484536
-Node: GET_COMMAND_ARGUMENT485915
-Node: GETCWD487967
-Node: GETENV488947
-Node: GET_ENVIRONMENT_VARIABLE490379
-Node: GETGID492542
-Node: GETLOG493084
-Node: GETPID493942
-Node: GETUID494677
-Node: GMTIME495198
-Node: HOSTNM496973
-Node: HUGE497894
-Node: HYPOT498616
-Node: IACHAR499442
-Node: IALL500620
-Node: IAND502115
-Node: IANY503872
-Node: IARGC505376
-Node: IBCLR506410
-Node: IBITS507633
-Node: IBSET509112
-Node: ICHAR510330
-Node: IDATE512545
-Node: IEOR513845
-Node: IERRNO515495
-Node: IMAGE_INDEX516043
-Node: INDEX intrinsic517070
-Node: INT518691
-Node: INT2520473
-Node: INT8521179
-Node: IOR521885
-Node: IPARITY523511
-Node: IRAND525074
-Node: IS_CONTIGUOUS526433
-Node: IS_IOSTAT_END527599
-Node: IS_IOSTAT_EOR528706
-Node: ISATTY529835
-Node: ISHFT530616
-Node: ISHFTC532140
-Node: ISNAN533902
-Node: ITIME534669
-Node: KILL535967
-Node: KIND537108
-Node: LBOUND538006
-Node: LCOBOUND539349
-Node: LEADZ540489
-Node: LEN541365
-Node: LEN_TRIM542706
-Node: LGE543704
-Node: LGT545317
-Node: LINK546895
-Node: LLE547939
-Node: LLT549539
-Node: LNBLNK551110
-Node: LOC551893
-Node: LOG552625
-Node: LOG10554061
-Node: LOG_GAMMA555039
-Node: LOGICAL556237
-Node: LSHIFT557061
-Node: LSTAT558193
-Node: LTIME559407
-Node: MALLOC561104
-Node: MASKL562566
-Node: MASKR563333
-Node: MATMUL564103
-Node: MAX565263
-Node: MAXEXPONENT566655
-Node: MAXLOC567472
-Node: MAXVAL570090
-Node: MCLOCK571737
-Node: MCLOCK8572775
-Node: MERGE574020
-Node: MERGE_BITS574772
-Node: MIN575811
-Node: MINEXPONENT577206
-Node: MINLOC577837
-Node: MINVAL580486
-Node: MOD582135
-Node: MODULO584320
-Node: MOVE_ALLOC585785
-Node: MVBITS586818
-Node: NEAREST588445
-Node: NEW_LINE589545
-Node: NINT590318
-Node: NORM2591732
-Node: NOT592871
-Node: NULL594016
-Node: NUM_IMAGES594924
-Node: OR596630
-Node: PACK598358
-Node: PARITY600402
-Node: PERROR601623
-Node: POPCNT602248
-Node: POPPAR603129
-Node: PRECISION604192
-Node: PRESENT605129
-Node: PRODUCT606241
-Node: RADIX607775
-Node: RAN608586
-Node: RAND609047
-Node: RANDOM_INIT610385
-Node: RANDOM_NUMBER612461
-Node: RANDOM_SEED613718
-Node: RANGE616193
-Node: RANK616878
-Node: REAL617659
-Node: RENAME619738
-Node: REPEAT620760
-Node: RESHAPE621488
-Node: RRSPACING622955
-Node: RSHIFT623648
-Node: SAME_TYPE_AS624836
-Node: SCALE625668
-Node: SCAN626449
-Node: SECNDS628012
-Node: SECOND629104
-Node: SELECTED_CHAR_KIND629980
-Node: SELECTED_INT_KIND631575
-Node: SELECTED_REAL_KIND632752
-Node: SET_EXPONENT635438
-Node: SHAPE636425
-Node: SHIFTA637854
-Node: SHIFTL638850
-Node: SHIFTR639715
-Node: SIGN640581
-Node: SIGNAL641872
-Node: SIN643832
-Node: SIND645012
-Node: SINH646217
-Node: SIZE647170
-Node: SIZEOF648494
-Node: SLEEP650154
-Node: SPACING650715
-Node: SPREAD651729
-Node: SQRT652880
-Node: SRAND654113
-Node: STAT655357
-Node: STORAGE_SIZE658539
-Node: SUM659423
-Node: SYMLNK660915
-Node: SYSTEM662055
-Node: SYSTEM_CLOCK663310
-Node: TAN666163
-Node: TAND667237
-Node: TANH668220
-Node: THIS_IMAGE669383
-Node: TIME671688
-Node: TIME8672879
-Node: TINY674098
-Node: TRAILZ674699
-Node: TRANSFER675532
-Node: TRANSPOSE677568
-Node: TRIM678258
-Node: TTYNAM679121
-Node: UBOUND680037
-Node: UCOBOUND681432
-Node: UMASK682574
-Node: UNLINK683256
-Node: UNPACK684241
-Node: VERIFY685541
-Node: XOR687275
-Node: Intrinsic Modules689090
-Node: ISO_FORTRAN_ENV689377
-Node: ISO_C_BINDING693778
-Node: IEEE modules697723
-Node: OpenMP Modules OMP_LIB and OMP_LIB_KINDS698864
-Node: OpenACC Module OPENACC703080
-Node: Contributing704006
-Node: Contributors704836
-Node: Projects706490
-Node: Copying707668
-Node: GNU Free Documentation License745219
-Node: Funding770348
-Node: Option Index772874
-Node: Keyword Index792286
+Node: Internal representation of LOGICAL variables109056
+Node: Evaluation of logical expressions109913
+Node: MAX and MIN intrinsics with REAL NaN arguments110764
+Node: Thread-safety of the runtime library111585
+Node: Data consistency and durability113990
+Node: Files opened without an explicit ACTION= specifier117100
+Node: File operations on symbolic links117791
+Node: File format of unformatted sequential files118911
+Node: Asynchronous I/O121285
+Node: Behavior on integer overflow122022
+Node: Extensions122795
+Node: Extensions implemented in GNU Fortran123400
+Node: Old-style kind specifications125345
+Node: Old-style variable initialization126472
+Node: Extensions to namelist127784
+Node: X format descriptor without count field130087
+Node: Commas in FORMAT specifications130614
+Node: Missing period in FORMAT specifications131367
+Node: Default widths for F, G and I format descriptors131963
+Node: I/O item lists132668
+Node: Q exponent-letter133062
+Node: BOZ literal constants133660
+Node: Real array indices135237
+Node: Unary operators135536
+Node: Implicitly convert LOGICAL and INTEGER values135950
+Node: Hollerith constants support136909
+Node: Character conversion139133
+Node: Cray pointers140027
+Node: CONVERT specifier145528
+Node: OpenMP147843
+Node: OpenACC150092
+Node: Argument list functions151233
+Node: Read/Write after EOF marker152876
+Node: STRUCTURE and RECORD153479
+Node: UNION and MAP158566
+Node: Type variants for integer intrinsics161534
+Node: AUTOMATIC and STATIC attributes163429
+Node: Form feed as whitespace164962
+Node: TYPE as an alias for PRINT165515
+Node: %LOC as an rvalue165980
+Node: .XOR. operator166627
+Node: Bitwise logical operators167027
+Node: Extended I/O specifiers168528
+Node: Legacy PARAMETER statements172248
+Node: Default exponents172853
+Node: Extensions not implemented in GNU Fortran173205
+Node: ENCODE and DECODE statements174172
+Node: Variable FORMAT expressions175503
+Node: Alternate complex function syntax176608
+Node: Volatile COMMON blocks177158
+Node: OPEN( ... NAME=)177660
+Node: Q edit descriptor178088
+Node: Mixed-Language Programming179040
+Node: Interoperability with C180273
+Node: Intrinsic Types181608
+Node: Derived Types and struct182629
+Node: Interoperable Global Variables183971
+Node: Interoperable Subroutines and Functions185246
+Node: Working with C Pointers188737
+Node: Further Interoperability of Fortran with C193402
+Node: GNU Fortran Compiler Directives194746
+Node: ATTRIBUTES directive195122
+Node: UNROLL directive198945
+Node: BUILTIN directive199590
+Node: IVDEP directive200432
+Node: VECTOR directive201345
+Node: NOVECTOR directive201851
+Node: Non-Fortran Main Program202344
+Node: _gfortran_set_args204532
+Node: _gfortran_set_options205470
+Node: _gfortran_set_convert209197
+Node: _gfortran_set_record_marker210065
+Node: _gfortran_set_fpe210875
+Node: _gfortran_set_max_subrecord_length212073
+Node: Naming and argument-passing conventions212996
+Node: Naming conventions213715
+Node: Argument passing conventions215187
+Node: Coarray Programming220525
+Node: Type and enum ABI Documentation220772
+Node: caf_token_t221070
+Node: caf_register_t221306
+Node: caf_deregister_t222517
+Node: caf_reference_t223018
+Node: caf_team_t227343
+Node: Function ABI Documentation227642
+Node: _gfortran_caf_init230092
+Node: _gfortran_caf_finish231518
+Node: _gfortran_caf_this_image232457
+Node: _gfortran_caf_num_images233212
+Node: _gfortran_caf_image_status234323
+Node: _gfortran_caf_failed_images235443
+Node: _gfortran_caf_stopped_images236613
+Node: _gfortran_caf_register237786
+Node: _gfortran_caf_deregister241967
+Node: _gfortran_caf_is_present243573
+Node: _gfortran_caf_send244652
+Node: _gfortran_caf_get247842
+Node: _gfortran_caf_sendget250923
+Node: _gfortran_caf_send_by_ref254834
+Node: _gfortran_caf_get_by_ref258443
+Node: _gfortran_caf_sendget_by_ref261962
+Node: _gfortran_caf_lock266258
+Node: _gfortran_caf_unlock268047
+Node: _gfortran_caf_event_post269528
+Node: _gfortran_caf_event_wait270976
+Node: _gfortran_caf_event_query273082
+Node: _gfortran_caf_sync_all274413
+Node: _gfortran_caf_sync_images275341
+Node: _gfortran_caf_sync_memory276876
+Node: _gfortran_caf_error_stop277868
+Node: _gfortran_caf_error_stop_str278472
+Node: _gfortran_caf_fail_image279177
+Node: _gfortran_caf_atomic_define279713
+Node: _gfortran_caf_atomic_ref281028
+Node: _gfortran_caf_atomic_cas282332
+Node: _gfortran_caf_atomic_op284093
+Node: _gfortran_caf_co_broadcast286195
+Node: _gfortran_caf_co_max287300
+Node: _gfortran_caf_co_min288926
+Node: _gfortran_caf_co_sum290546
+Node: _gfortran_caf_co_reduce292086
+Node: Intrinsic Procedures294730
+Node: Introduction to Intrinsics312005
+Node: ABORT314199
+Node: ABS314954
+Node: ACCESS316678
+Node: ACHAR318579
+Node: ACOS319793
+Node: ACOSD321082
+Node: ACOSH322294
+Node: ADJUSTL323380
+Node: ADJUSTR324327
+Node: AIMAG325282
+Node: AINT326732
+Node: ALARM328326
+Node: ALL329958
+Node: ALLOCATED331882
+Node: AND333021
+Node: ANINT334761
+Node: ANY336246
+Node: ASIN338172
+Node: ASIND339450
+Node: ASINH340640
+Node: ASSOCIATED341736
+Node: ATAN344747
+Node: ATAND346223
+Node: ATAN2347500
+Node: ATAN2D349369
+Node: ATANH351256
+Node: ATOMIC_ADD352352
+Node: ATOMIC_AND353901
+Node: ATOMIC_CAS355504
+Node: ATOMIC_DEFINE357373
+Node: ATOMIC_FETCH_ADD359112
+Node: ATOMIC_FETCH_AND360929
+Node: ATOMIC_FETCH_OR362734
+Node: ATOMIC_FETCH_XOR364526
+Node: ATOMIC_OR366324
+Node: ATOMIC_REF367924
+Node: ATOMIC_XOR369840
+Node: BACKTRACE371440
+Node: BESSEL_J0372020
+Node: BESSEL_J1373121
+Node: BESSEL_JN374223
+Node: BESSEL_Y0376128
+Node: BESSEL_Y1377168
+Node: BESSEL_YN378208
+Node: BGE380124
+Node: BGT380826
+Node: BIT_SIZE381486
+Node: BLE382308
+Node: BLT383000
+Node: BTEST383648
+Node: C_ASSOCIATED385093
+Node: C_F_POINTER386309
+Node: C_F_PROCPOINTER387749
+Node: C_FUNLOC389261
+Node: C_LOC390642
+Node: C_SIZEOF391931
+Node: CEILING393344
+Node: CHAR394357
+Node: CHDIR395671
+Node: CHMOD396845
+Node: CMPLX398760
+Node: CO_BROADCAST400203
+Node: CO_MAX402030
+Node: CO_MIN403938
+Node: CO_REDUCE405832
+Node: CO_SUM409408
+Node: COMMAND_ARGUMENT_COUNT411389
+Node: COMPILER_OPTIONS412311
+Node: COMPILER_VERSION413341
+Node: COMPLEX414309
+Node: CONJG415448
+Node: COS416504
+Node: COSD417875
+Node: COSH419108
+Node: COTAN420284
+Node: COTAND421526
+Node: COUNT422768
+Node: CPU_TIME424793
+Node: CSHIFT426155
+Node: CTIME427815
+Node: DATE_AND_TIME429338
+Node: DBLE431725
+Node: DCMPLX432520
+Node: DIGITS433702
+Node: DIM434669
+Node: DOT_PRODUCT436077
+Node: DPROD437720
+Node: DREAL438682
+Node: DSHIFTL439348
+Node: DSHIFTR440681
+Node: DTIME442015
+Node: EOSHIFT444721
+Node: EPSILON446794
+Node: ERF447521
+Node: ERFC448387
+Node: ERFC_SCALED449282
+Node: ETIME449975
+Node: EVENT_QUERY452145
+Node: EXECUTE_COMMAND_LINE453734
+Node: EXIT456514
+Node: EXP457397
+Node: EXPONENT458551
+Node: EXTENDS_TYPE_OF459315
+Node: FDATE460173
+Node: FGET461664
+Node: FGETC463501
+Node: FINDLOC465321
+Node: FLOOR467920
+Node: FLUSH468916
+Node: FNUM470795
+Node: FPUT471520
+Node: FPUTC473164
+Node: FRACTION474955
+Node: FREE475859
+Node: FSEEK476702
+Node: FSTAT479008
+Node: FTELL480109
+Node: GAMMA481091
+Node: GERROR482171
+Node: GETARG482924
+Node: GET_COMMAND484663
+Node: GET_COMMAND_ARGUMENT486042
+Node: GETCWD488094
+Node: GETENV489074
+Node: GET_ENVIRONMENT_VARIABLE490506
+Node: GETGID492669
+Node: GETLOG493211
+Node: GETPID494069
+Node: GETUID494804
+Node: GMTIME495325
+Node: HOSTNM497100
+Node: HUGE498021
+Node: HYPOT498743
+Node: IACHAR499569
+Node: IALL500747
+Node: IAND502242
+Node: IANY503999
+Node: IARGC505503
+Node: IBCLR506537
+Node: IBITS507760
+Node: IBSET509239
+Node: ICHAR510457
+Node: IDATE512672
+Node: IEOR513972
+Node: IERRNO515622
+Node: IMAGE_INDEX516170
+Node: INDEX intrinsic517197
+Node: INT518818
+Node: INT2520600
+Node: INT8521306
+Node: IOR522012
+Node: IPARITY523638
+Node: IRAND525201
+Node: IS_CONTIGUOUS526560
+Node: IS_IOSTAT_END527726
+Node: IS_IOSTAT_EOR528833
+Node: ISATTY529962
+Node: ISHFT530743
+Node: ISHFTC532267
+Node: ISNAN534029
+Node: ITIME534796
+Node: KILL536094
+Node: KIND537235
+Node: LBOUND538133
+Node: LCOBOUND539476
+Node: LEADZ540616
+Node: LEN541492
+Node: LEN_TRIM542833
+Node: LGE543831
+Node: LGT545444
+Node: LINK547022
+Node: LLE548066
+Node: LLT549666
+Node: LNBLNK551237
+Node: LOC552020
+Node: LOG552752
+Node: LOG10554188
+Node: LOG_GAMMA555166
+Node: LOGICAL556364
+Node: LSHIFT557188
+Node: LSTAT558320
+Node: LTIME559534
+Node: MALLOC561231
+Node: MASKL562693
+Node: MASKR563460
+Node: MATMUL564230
+Node: MAX565390
+Node: MAXEXPONENT566782
+Node: MAXLOC567599
+Node: MAXVAL570217
+Node: MCLOCK571864
+Node: MCLOCK8572902
+Node: MERGE574147
+Node: MERGE_BITS574899
+Node: MIN575938
+Node: MINEXPONENT577333
+Node: MINLOC577964
+Node: MINVAL580613
+Node: MOD582262
+Node: MODULO584447
+Node: MOVE_ALLOC585912
+Node: MVBITS586945
+Node: NEAREST588572
+Node: NEW_LINE589672
+Node: NINT590445
+Node: NORM2591859
+Node: NOT592998
+Node: NULL594143
+Node: NUM_IMAGES595051
+Node: OR596757
+Node: PACK598485
+Node: PARITY600529
+Node: PERROR601750
+Node: POPCNT602375
+Node: POPPAR603256
+Node: PRECISION604319
+Node: PRESENT605256
+Node: PRODUCT606368
+Node: RADIX607902
+Node: RAN608713
+Node: RAND609174
+Node: RANDOM_INIT610512
+Node: RANDOM_NUMBER612588
+Node: RANDOM_SEED613845
+Node: RANGE616320
+Node: RANK617005
+Node: REAL617786
+Node: RENAME619865
+Node: REPEAT620887
+Node: RESHAPE621615
+Node: RRSPACING623082
+Node: RSHIFT623775
+Node: SAME_TYPE_AS624963
+Node: SCALE625795
+Node: SCAN626576
+Node: SECNDS628139
+Node: SECOND629231
+Node: SELECTED_CHAR_KIND630107
+Node: SELECTED_INT_KIND631702
+Node: SELECTED_LOGICAL_KIND632882
+Node: SELECTED_REAL_KIND633982
+Node: SET_EXPONENT636672
+Node: SHAPE637659
+Node: SHIFTA639088
+Node: SHIFTL640084
+Node: SHIFTR640949
+Node: SIGN641815
+Node: SIGNAL643106
+Node: SIN645066
+Node: SIND646246
+Node: SINH647451
+Node: SIZE648404
+Node: SIZEOF649728
+Node: SLEEP651388
+Node: SPACING651949
+Node: SPREAD652963
+Node: SQRT654114
+Node: SRAND655347
+Node: STAT656591
+Node: STORAGE_SIZE659773
+Node: SUM660657
+Node: SYMLNK662149
+Node: SYSTEM663289
+Node: SYSTEM_CLOCK664544
+Node: TAN667397
+Node: TAND668471
+Node: TANH669454
+Node: THIS_IMAGE670617
+Node: TIME672922
+Node: TIME8674113
+Node: TINY675332
+Node: TRAILZ675933
+Node: TRANSFER676766
+Node: TRANSPOSE678802
+Node: TRIM679492
+Node: TTYNAM680355
+Node: UBOUND681271
+Node: UCOBOUND682666
+Node: UMASK683808
+Node: UNLINK684490
+Node: UNPACK685475
+Node: VERIFY686775
+Node: XOR688509
+Node: Intrinsic Modules690324
+Node: ISO_FORTRAN_ENV690611
+Node: ISO_C_BINDING695012
+Node: IEEE modules698957
+Node: OpenMP Modules OMP_LIB and OMP_LIB_KINDS700098
+Node: OpenACC Module OPENACC704314
+Node: Contributing705240
+Node: Contributors706070
+Node: Projects707724
+Node: Copying708902
+Node: GNU Free Documentation License746453
+Node: Funding771582
+Node: Option Index774108
+Node: Keyword Index793520
 
 End Tag Table
 

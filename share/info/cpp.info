@@ -1684,9 +1684,9 @@ the current function.  They tend to be useful in conjunction with
      the 1999 revision of the C standard; the value '201112L' signifies
      the 2011 revision of the C standard; the value '201710L' signifies
      the 2017 revision of the C standard (which is otherwise identical
-     to the 2011 version apart from correction of defects).  An
-     unspecified value larger than '201710L' is used for the
-     experimental '-std=c23' and '-std=gnu23' modes.
+     to the 2011 version apart from correction of defects).  The value
+     '202311L' is used for the experimental '-std=c23' and '-std=gnu23'
+     modes.
 
      This macro is not defined if the '-traditional-cpp' option is used,
      nor when compiling C++ or Objective-C.
@@ -5619,59 +5619,59 @@ Node: Concatenation56032
 Node: Variadic Macros59129
 Node: Predefined Macros64081
 Node: Standard Predefined Macros64669
-Node: Common Predefined Macros71085
-Node: System-specific Predefined Macros93720
-Node: C++ Named Operators95743
-Node: Undefining and Redefining Macros96707
-Node: Directives Within Macro Arguments98805
-Node: Macro Pitfalls99746
-Node: Misnesting100279
-Node: Operator Precedence Problems101391
-Node: Swallowing the Semicolon103257
-Node: Duplication of Side Effects105280
-Node: Self-Referential Macros107463
-Node: Argument Prescan109872
-Node: Newlines in Arguments113623
-Node: Conditionals114574
-Node: Conditional Uses116270
-Node: Conditional Syntax117628
-Node: Ifdef118088
-Node: If121245
-Node: Defined123549
-Node: Else124942
-Node: Elif125512
-Node: __has_attribute126825
-Node: __has_cpp_attribute128419
-Node: __has_c_attribute129309
-Node: __has_builtin130082
-Node: __has_feature131215
-Node: __has_extension132094
-Node: __has_include133216
-Node: Deleted Code134807
-Node: Diagnostics136054
-Node: Line Control137603
-Node: Pragmas139881
-Node: Other Directives144393
-Node: Preprocessor Output145443
-Node: Traditional Mode148596
-Node: Traditional lexical analysis149733
-Node: Traditional macros152236
-Node: Traditional miscellany156033
-Node: Traditional warnings157029
-Node: Implementation Details159226
-Node: Implementation-defined behavior159789
-Ref: Identifier characters160539
-Node: Implementation limits163588
-Node: Obsolete Features166261
-Node: Invocation169105
-Ref: dashMF175140
-Ref: fdollars-in-identifiers179802
-Ref: Wtrigraphs194002
-Node: Environment Variables196057
-Node: GNU Free Documentation License199748
-Node: Index of Directives224898
-Node: Option Index227197
-Node: Concept Index233299
+Node: Common Predefined Macros71062
+Node: System-specific Predefined Macros93697
+Node: C++ Named Operators95720
+Node: Undefining and Redefining Macros96684
+Node: Directives Within Macro Arguments98782
+Node: Macro Pitfalls99723
+Node: Misnesting100256
+Node: Operator Precedence Problems101368
+Node: Swallowing the Semicolon103234
+Node: Duplication of Side Effects105257
+Node: Self-Referential Macros107440
+Node: Argument Prescan109849
+Node: Newlines in Arguments113600
+Node: Conditionals114551
+Node: Conditional Uses116247
+Node: Conditional Syntax117605
+Node: Ifdef118065
+Node: If121222
+Node: Defined123526
+Node: Else124919
+Node: Elif125489
+Node: __has_attribute126802
+Node: __has_cpp_attribute128396
+Node: __has_c_attribute129286
+Node: __has_builtin130059
+Node: __has_feature131192
+Node: __has_extension132071
+Node: __has_include133193
+Node: Deleted Code134784
+Node: Diagnostics136031
+Node: Line Control137580
+Node: Pragmas139858
+Node: Other Directives144370
+Node: Preprocessor Output145420
+Node: Traditional Mode148573
+Node: Traditional lexical analysis149710
+Node: Traditional macros152213
+Node: Traditional miscellany156010
+Node: Traditional warnings157006
+Node: Implementation Details159203
+Node: Implementation-defined behavior159766
+Ref: Identifier characters160516
+Node: Implementation limits163565
+Node: Obsolete Features166238
+Node: Invocation169082
+Ref: dashMF175117
+Ref: fdollars-in-identifiers179779
+Ref: Wtrigraphs193979
+Node: Environment Variables196034
+Node: GNU Free Documentation License199725
+Node: Index of Directives224875
+Node: Option Index227174
+Node: Concept Index233276
 
 End Tag Table
 
