@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "LD 1"
-.TH LD 1 "2024-05-06" "binutils-2.42.50" "GNU Development Tools"
+.TH LD 1 "2024-05-11" "binutils-2.42.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -1012,12 +1012,22 @@ a linker bug report.
 .PD
 Use \fIscriptfile\fR as the linker script.  This script replaces
 \&\fBld\fR's default linker script (rather than adding to it),
-unless the script contains \f(CW\*(C`INSERT\*(C'\fR, so
-\&\fIcommandfile\fR must specify everything necessary to describe the
-output file.    If \fIscriptfile\fR does not exist in
-the current directory, \f(CW\*(C`ld\*(C'\fR looks for it in the directories
-specified by any preceding \fB\-L\fR options.  Multiple \fB\-T\fR
-options accumulate.
+unless the script contains \f(CW\*(C`INSERT\*(C'\fR, so \fIcommandfile\fR must
+specify everything necessary to describe the output file.
+.Sp
+If \fIscriptfile\fR does not exist in the current directory, \f(CW\*(C`ld\*(C'\fR
+looks for it in the directories specified by any preceding \fB\-L\fR
+options.
+.Sp
+Command line options that appear before the \fB\-T\fR option can
+affect the script, but command line options that appear after it do
+not.
+.Sp
+Multiple \fB\-T\fR options will accumulate if they are augmenting the
+current script, otherwise the last, non-augmenting, \fB\-T\fR option
+will be used.
+.Sp
+There are other ways of specifying linker scripts.  See
 .IP "\fB\-dT\fR \fIscriptfile\fR" 4
 .IX Item "-dT scriptfile"
 .PD 0
@@ -2350,6 +2360,49 @@ of the first.
 If the required shared library is not found, the linker will issue a
 warning and continue with the link.
 .RE
+.IP "\fB\-\-section\-ordering\-file=\fR\fIscript\fR" 4
+.IX Item "--section-ordering-file=script"
+This option is used to augment the current linker script with
+additional mapping of input sections to output sections.  This file
+must use the same syntax for \f(CW\*(C`SECTIONS\*(C'\fR as is used in normal
+linker scripts, but it should not do anything other than place input
+sections into output sections. \f(CW@pxref\fR{\s-1SECTIONS\s0}
+.Sp
+A second constraint on the section ordering script is that it can only
+reference output sections that are already defined by whichever linker
+script is currently in use.  (Ie the default linker script or a script
+specified on the command line).  The benefit of the section ordering
+script however is that the input sections are mapped to the start of
+the output sections, so that they can ensure the ordering of sections
+in the output section.  For example, imagine that the default linker
+script looks like this:
+.Sp
+.Vb 4
+\&        SECTIONS {
+\&          .text : { *(.text.hot) ; *(.text .text.*) }
+\&          .data : { *(.data.big) ; *(.data .data.*) }
+\&          }
+.Ve
+.Sp
+Then if a section ordering file like this is used:
+.Sp
+.Vb 2
+\&          .text : { *(.text.first) ; *(.text.z*) }
+\&          .data : { foo.o(.data.first) ; *(.data.small) }
+.Ve
+.Sp
+This would be equivalent to a linker script like this:
+.Sp
+.Vb 4
+\&        SECTIONS {
+\&          .text : { *(.text.first) ; *(.text.z*) ; *(.text.hot) ; *(.text .text.*) }
+\&          .data : { foo.o(.data.first) ; *(.data.small) ; *(.data.big) ; *(.data .data.*) }
+\&          }
+.Ve
+.Sp
+The advantage of the section ordering file is that it can be used to
+order those sections that matter to the user without having to worry
+about any other sections, or memory regions, or anything else.
 .IP "\fB\-shared\fR" 4
 .IX Item "-shared"
 .PD 0

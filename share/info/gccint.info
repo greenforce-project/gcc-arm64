@@ -43816,6 +43816,14 @@ File: gccint.info,  Node: C++ ABI,  Next: D Language and ABI,  Prev: PCH Target,
      shared libraries are run in the correct order when the libraries
      are unloaded.  The default is to return false.
 
+ -- Target Hook: tree TARGET_CXX_ADJUST_CDTOR_CALLABI_FNTYPE (tree
+          FNTYPE)
+     This hook returns a possibly modified 'FUNCTION_TYPE' for arguments
+     to '__cxa_atexit', '__cxa_thread_atexit' or '__cxa_throw' function
+     pointers.  ABIs like mingw32 require special attributes to be added
+     to function types pointed to by arguments of these functions.  The
+     default is to return the passed argument unmodified.
+
  -- Target Hook: void TARGET_CXX_ADJUST_CLASS_AT_DEFINITION (tree TYPE)
      TYPE is a C++ class (i.e., RECORD_TYPE or UNION_TYPE) that has just
      been defined.  Use this hook to make adjustments to the class (eg,
@@ -58679,11 +58687,12 @@ Concept Index
 * TARGET_CPU_CPP_BUILTINS:               Run-time Target.    (line    8)
 * TARGET_CSTORE_MODE:                    Register Classes.   (line  676)
 * TARGET_CUSTOM_FUNCTION_DESCRIPTORS:    Trampolines.        (line   43)
-* TARGET_CXX_ADJUST_CLASS_AT_DEFINITION: C++ ABI.            (line   86)
+* TARGET_CXX_ADJUST_CDTOR_CALLABI_FNTYPE: C++ ABI.           (line   86)
+* TARGET_CXX_ADJUST_CLASS_AT_DEFINITION: C++ ABI.            (line   94)
 * TARGET_CXX_CDTOR_RETURNS_THIS:         C++ ABI.            (line   37)
 * TARGET_CXX_CLASS_DATA_ALWAYS_COMDAT:   C++ ABI.            (line   61)
 * TARGET_CXX_COOKIE_HAS_SIZE:            C++ ABI.            (line   24)
-* TARGET_CXX_DECL_MANGLING_CONTEXT:      C++ ABI.            (line   92)
+* TARGET_CXX_DECL_MANGLING_CONTEXT:      C++ ABI.            (line  100)
 * TARGET_CXX_DETERMINE_CLASS_DATA_VISIBILITY: C++ ABI.       (line   52)
 * TARGET_CXX_GET_COOKIE_SIZE:            C++ ABI.            (line   17)
 * TARGET_CXX_GUARD_MASK_BIT:             C++ ABI.            (line   11)
@@ -60113,63 +60122,63 @@ Node: Emulated TLS1892630
 Node: MIPS Coprocessors1896020
 Node: PCH Target1897179
 Node: C++ ABI1899021
-Node: D Language and ABI1903813
-Node: Rust Language and ABI1907038
-Node: Named Address Spaces1907777
-Node: Misc1913819
-Ref: TARGET_SHIFT_TRUNCATION_MASK1921690
-Node: Host Config1983753
-Node: Host Common1984822
-Node: Filesystem1987196
-Node: Host Misc1991311
-Node: Fragments1993760
-Node: Target Fragment1994955
-Node: Host Fragment2005767
-Node: Collect22006007
-Node: Header Dirs2008643
-Node: Type Information2010066
-Node: GTY Options2013597
-Node: Inheritance and GTY2026743
-Ref: Inheritance and GTY-Footnote-12028308
-Node: User GC2028578
-Node: GGC Roots2032329
-Node: Files2033042
-Node: Invoking the garbage collector2035673
-Node: Troubleshooting2037315
-Node: Plugins2038390
-Node: Plugins loading2039519
-Node: Plugin API2040615
-Node: Plugins pass2048482
-Node: Plugins GC2050453
-Node: Plugins description2052170
-Node: Plugins attr2052706
-Node: Plugins recording2054986
-Node: Plugins gate2055836
-Node: Plugins tracking2056427
-Node: Plugins building2057015
-Node: LTO2060518
-Node: LTO Overview2061390
-Node: LTO object file layout2067146
-Node: IPA2071645
-Node: WHOPR2080697
-Node: Internal flags2085257
-Node: Match and Simplify2086668
-Node: GIMPLE API2087638
-Node: The Language2090440
-Node: Static Analyzer2103067
-Node: Analyzer Internals2103332
-Node: Debugging the Analyzer2119297
-Node: User Experience Guidelines2126955
-Node: Guidelines for Diagnostics2127891
-Ref: input_location_example2136066
-Node: Guidelines for Options2145751
-Node: Funding2145928
-Node: GNU Project2148435
-Node: Copying2149086
-Node: GNU Free Documentation License2186603
-Node: Contributors2211729
-Node: Option Index2252904
-Node: Concept Index2253781
+Node: D Language and ABI1904247
+Node: Rust Language and ABI1907472
+Node: Named Address Spaces1908211
+Node: Misc1914253
+Ref: TARGET_SHIFT_TRUNCATION_MASK1922124
+Node: Host Config1984187
+Node: Host Common1985256
+Node: Filesystem1987630
+Node: Host Misc1991745
+Node: Fragments1994194
+Node: Target Fragment1995389
+Node: Host Fragment2006201
+Node: Collect22006441
+Node: Header Dirs2009077
+Node: Type Information2010500
+Node: GTY Options2014031
+Node: Inheritance and GTY2027177
+Ref: Inheritance and GTY-Footnote-12028742
+Node: User GC2029012
+Node: GGC Roots2032763
+Node: Files2033476
+Node: Invoking the garbage collector2036107
+Node: Troubleshooting2037749
+Node: Plugins2038824
+Node: Plugins loading2039953
+Node: Plugin API2041049
+Node: Plugins pass2048916
+Node: Plugins GC2050887
+Node: Plugins description2052604
+Node: Plugins attr2053140
+Node: Plugins recording2055420
+Node: Plugins gate2056270
+Node: Plugins tracking2056861
+Node: Plugins building2057449
+Node: LTO2060952
+Node: LTO Overview2061824
+Node: LTO object file layout2067580
+Node: IPA2072079
+Node: WHOPR2081131
+Node: Internal flags2085691
+Node: Match and Simplify2087102
+Node: GIMPLE API2088072
+Node: The Language2090874
+Node: Static Analyzer2103501
+Node: Analyzer Internals2103766
+Node: Debugging the Analyzer2119731
+Node: User Experience Guidelines2127389
+Node: Guidelines for Diagnostics2128325
+Ref: input_location_example2136500
+Node: Guidelines for Options2146185
+Node: Funding2146362
+Node: GNU Project2148869
+Node: Copying2149520
+Node: GNU Free Documentation License2187037
+Node: Contributors2212163
+Node: Option Index2253338
+Node: Concept Index2254215
 
 End Tag Table
 

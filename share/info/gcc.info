@@ -1596,7 +1596,7 @@ _Machine-Dependent Options_
           -msave-restore  -mno-save-restore
           -mshorten-memrefs  -mno-shorten-memrefs
           -mstrict-align  -mno-strict-align
-          -mcmodel=medlow  -mcmodel=medany
+          -mcmodel=medlow  -mcmodel=medany -mcmodel=large
           -mexplicit-relocs  -mno-explicit-relocs
           -mrelax  -mno-relax
           -mriscv-attribute  -mno-riscv-attribute
@@ -1843,6 +1843,8 @@ _Machine-Dependent Options_
           -munroll-only-small-loops -mlam=CHOICE
 
      _x86 Windows Options_
+
+     _Cygwin and MinGW Options_
           -mconsole  -mcrtdll=LIBRARY  -mdll
           -mnop-fun-dllimport  -mthread
           -municode  -mwin32  -mwindows  -fno-set-stack-executable
@@ -13541,11 +13543,11 @@ correctness.  All must be specifically enabled.
      IEEE exceptions for math error handling may want to use this flag
      for speed while maintaining IEEE arithmetic compatibility.
 
-     This option is not turned on by any '-O' option since it can result
-     in incorrect output for programs that depend on an exact
-     implementation of IEEE or ISO rules/specifications for math
-     functions.  It may, however, yield faster code for programs that do
-     not require the guarantees of these specifications.
+     This option is not turned on by any '-O' option besides '-Ofast'
+     since it can result in incorrect output for programs that depend on
+     an exact implementation of IEEE or ISO rules/specifications for
+     math functions.  It may, however, yield faster code for programs
+     that do not require the guarantees of these specifications.
 
      The default is '-fmath-errno'.
 
@@ -13561,13 +13563,13 @@ correctness.  All must be specifically enabled.
      or startup files that change the default FPU control word or other
      similar optimizations.
 
-     This option is not turned on by any '-O' option since it can result
-     in incorrect output for programs that depend on an exact
-     implementation of IEEE or ISO rules/specifications for math
-     functions.  It may, however, yield faster code for programs that do
-     not require the guarantees of these specifications.  Enables
-     '-fno-signed-zeros', '-fno-trapping-math', '-fassociative-math' and
-     '-freciprocal-math'.
+     This option is not turned on by any '-O' option besides '-Ofast'
+     since it can result in incorrect output for programs that depend on
+     an exact implementation of IEEE or ISO rules/specifications for
+     math functions.  It may, however, yield faster code for programs
+     that do not require the guarantees of these specifications.
+     Enables '-fno-signed-zeros', '-fno-trapping-math',
+     '-fassociative-math' and '-freciprocal-math'.
 
      The default is '-fno-unsafe-math-optimizations'.
 
@@ -13602,11 +13604,11 @@ correctness.  All must be specifically enabled.
      Allow optimizations for floating-point arithmetic that assume that
      arguments and results are not NaNs or +-Infs.
 
-     This option is not turned on by any '-O' option since it can result
-     in incorrect output for programs that depend on an exact
-     implementation of IEEE or ISO rules/specifications for math
-     functions.  It may, however, yield faster code for programs that do
-     not require the guarantees of these specifications.
+     This option is not turned on by any '-O' option besides '-Ofast'
+     since it can result in incorrect output for programs that depend on
+     an exact implementation of IEEE or ISO rules/specifications for
+     math functions.  It may, however, yield faster code for programs
+     that do not require the guarantees of these specifications.
 
      The default is '-fno-finite-math-only'.
 
@@ -13628,10 +13630,10 @@ correctness.  All must be specifically enabled.
      this option may allow faster code if one relies on "non-stop" IEEE
      arithmetic, for example.
 
-     This option should never be turned on by any '-O' option since it
-     can result in incorrect output for programs that depend on an exact
-     implementation of IEEE or ISO rules/specifications for math
-     functions.
+     This option is not turned on by any '-O' option besides '-Ofast'
+     since it can result in incorrect output for programs that depend on
+     an exact implementation of IEEE or ISO rules/specifications for
+     math functions.
 
      The default is '-ftrapping-math'.
 
@@ -19752,6 +19754,7 @@ on the same platform.
 * C6X Options::
 * CRIS Options::
 * C-SKY Options::
+* Cygwin and MinGW Options::
 * Darwin Options::
 * DEC Alpha Options::
 * eBPF Options::
@@ -28366,6 +28369,10 @@ These command-line options are defined for RISC-V targets:
      position-independent, but is not guaranteed to function correctly
      when linked into position-independent executables or libraries.
 
+'-mcmodel=large'
+     Generate code for a large code model, which has no restrictions on
+     size or placement of symbols.
+
 '-mexplicit-relocs'
 '-mno-exlicit-relocs'
      Use or do not use assembler relocation operators when dealing with
@@ -32875,10 +32882,18 @@ processors in 64-bit environments.
      pointer bits in positions 62:57 can be used for metadata.
 
 
-File: gcc.info,  Node: x86 Windows Options,  Next: Xstormy16 Options,  Prev: x86 Options,  Up: Submodel Options
+File: gcc.info,  Node: x86 Windows Options,  Next: Cygwin and MinGW Options,  Prev: x86 Options,  Up: Submodel Options
 
 3.19.55 x86 Windows Options
 ---------------------------
+
+*Note Cygwin and MinGW Options::.
+
+
+File: gcc.info,  Node: Cygwin and MinGW Options,  Next: Xstormy16 Options,  Prev: x86 Windows Options,  Up: Submodel Options
+
+3.19.56 Cygwin and MinGW Options
+--------------------------------
 
 These additional options are available for Microsoft Windows targets:
 
@@ -32961,9 +32976,9 @@ These additional options are available for Microsoft Windows targets:
  See also under *note x86 Options:: for standard options.
 
 
-File: gcc.info,  Node: Xstormy16 Options,  Next: Xtensa Options,  Prev: x86 Windows Options,  Up: Submodel Options
+File: gcc.info,  Node: Xstormy16 Options,  Next: Xtensa Options,  Prev: Cygwin and MinGW Options,  Up: Submodel Options
 
-3.19.56 Xstormy16 Options
+3.19.57 Xstormy16 Options
 -------------------------
 
 These options are defined for Xstormy16:
@@ -32974,7 +32989,7 @@ These options are defined for Xstormy16:
 
 File: gcc.info,  Node: Xtensa Options,  Next: zSeries Options,  Prev: Xstormy16 Options,  Up: Submodel Options
 
-3.19.57 Xtensa Options
+3.19.58 Xtensa Options
 ----------------------
 
 These options are supported for Xtensa targets:
@@ -33112,7 +33127,7 @@ These options are supported for Xtensa targets:
 
 File: gcc.info,  Node: zSeries Options,  Prev: Xtensa Options,  Up: Submodel Options
 
-3.19.58 zSeries Options
+3.19.59 zSeries Options
 -----------------------
 
 These are listed under *Note S/390 and zSeries Options::.
@@ -35182,6 +35197,8 @@ extensions, accepted by GCC in C90 mode and in C++.
 * Named Address Spaces::Named address spaces.
 * Zero Length::         Zero-length arrays.
 * Empty Structures::    Structures with no members.
+* Flexible Array Members in Unions::  Unions with Flexible Array Members.
+* Flexible Array Members alone in Structures::  Structures with only Flexible Array Members.
 * Variable Length::     Arrays whose length is computed at run time.
 * Variadic Macros::     Macros with a variable number of arguments.
 * Escaped Newlines::    Slightly looser rules for escaped newlines.
@@ -36675,7 +36692,7 @@ example:
      struct foo d[1] = { { 1, { 2, 3, 4 } } };  // Invalid.
 
 
-File: gcc.info,  Node: Empty Structures,  Next: Variable Length,  Prev: Zero Length,  Up: C Extensions
+File: gcc.info,  Node: Empty Structures,  Next: Flexible Array Members in Unions,  Prev: Zero Length,  Up: C Extensions
 
 6.19 Structures with No Members
 ===============================
@@ -36690,9 +36707,40 @@ language.  G++ treats empty structures as if they had a single member of
 type 'char'.
 
 
-File: gcc.info,  Node: Variable Length,  Next: Variadic Macros,  Prev: Empty Structures,  Up: C Extensions
+File: gcc.info,  Node: Flexible Array Members in Unions,  Next: Flexible Array Members alone in Structures,  Prev: Empty Structures,  Up: C Extensions
 
-6.20 Arrays of Variable Length
+6.20 Unions with Flexible Array Members
+=======================================
+
+GCC permits a C99 flexible array member (FAM) to be in a union:
+
+     union with_fam {
+       int a;
+       int b[];
+     };
+
+ If every member of a union is a flexible array member, the size of such
+a union is zero.
+
+
+File: gcc.info,  Node: Flexible Array Members alone in Structures,  Next: Variable Length,  Prev: Flexible Array Members in Unions,  Up: C Extensions
+
+6.21 Structures with only Flexible Array Members
+================================================
+
+GCC permits a C99 flexible array member (FAM) to be alone in a
+structure:
+
+     struct only_fam {
+       int b[];
+     };
+
+ The size of such a structure is zero.
+
+
+File: gcc.info,  Node: Variable Length,  Next: Variadic Macros,  Prev: Flexible Array Members alone in Structures,  Up: C Extensions
+
+6.22 Arrays of Variable Length
 ==============================
 
 Variable-length automatic arrays are allowed in ISO C99, and as an
@@ -36769,7 +36817,7 @@ parameter forward declarations.
 
 File: gcc.info,  Node: Variadic Macros,  Next: Escaped Newlines,  Prev: Variable Length,  Up: C Extensions
 
-6.21 Macros with a Variable Number of Arguments.
+6.23 Macros with a Variable Number of Arguments.
 ================================================
 
 In the ISO C standard of 1999, a macro can be declared to accept a
@@ -36825,7 +36873,7 @@ these arguments are not macro expanded.
 
 File: gcc.info,  Node: Escaped Newlines,  Next: Subscripting,  Prev: Variadic Macros,  Up: C Extensions
 
-6.22 Slightly Looser Rules for Escaped Newlines
+6.24 Slightly Looser Rules for Escaped Newlines
 ===============================================
 
 The preprocessor treatment of escaped newlines is more relaxed than that
@@ -36842,7 +36890,7 @@ been replaced with spaces.
 
 File: gcc.info,  Node: Subscripting,  Next: Pointer Arith,  Prev: Escaped Newlines,  Up: C Extensions
 
-6.23 Non-Lvalue Arrays May Have Subscripts
+6.25 Non-Lvalue Arrays May Have Subscripts
 ==========================================
 
 In ISO C99, arrays that are not lvalues still decay to pointers, and may
@@ -36864,7 +36912,7 @@ example, this is valid in GNU C though not valid in C90:
 
 File: gcc.info,  Node: Pointer Arith,  Next: Variadic Pointer Args,  Prev: Subscripting,  Up: C Extensions
 
-6.24 Arithmetic on 'void'- and Function-Pointers
+6.26 Arithmetic on 'void'- and Function-Pointers
 ================================================
 
 In GNU C, addition and subtraction operations are supported on pointers
@@ -36880,7 +36928,7 @@ used.
 
 File: gcc.info,  Node: Variadic Pointer Args,  Next: Pointers to Arrays,  Prev: Pointer Arith,  Up: C Extensions
 
-6.25 Pointer Arguments in Variadic Functions
+6.27 Pointer Arguments in Variadic Functions
 ============================================
 
 Standard C requires that pointer types used with 'va_arg' in functions
@@ -36896,7 +36944,7 @@ consume an argument of any pointer type.
 
 File: gcc.info,  Node: Pointers to Arrays,  Next: Initializers,  Prev: Variadic Pointer Args,  Up: C Extensions
 
-6.26 Pointers to Arrays with Qualifiers Work as Expected
+6.28 Pointers to Arrays with Qualifiers Work as Expected
 ========================================================
 
 In GNU C, pointers to arrays with qualifiers work similar to pointers to
@@ -36915,7 +36963,7 @@ attached to the element type of the array and not the array itself.
 
 File: gcc.info,  Node: Initializers,  Next: Compound Literals,  Prev: Pointers to Arrays,  Up: C Extensions
 
-6.27 Non-Constant Initializers
+6.29 Non-Constant Initializers
 ==============================
 
 As in standard C++ and ISO C99, the elements of an aggregate initializer
@@ -36932,7 +36980,7 @@ elements:
 
 File: gcc.info,  Node: Compound Literals,  Next: Designated Inits,  Prev: Initializers,  Up: C Extensions
 
-6.28 Compound Literals
+6.30 Compound Literals
 ======================
 
 A compound literal looks like a cast of a brace-enclosed aggregate
@@ -37015,7 +37063,7 @@ code.
 
 File: gcc.info,  Node: Designated Inits,  Next: Case Ranges,  Prev: Compound Literals,  Up: C Extensions
 
-6.29 Designated Initializers
+6.31 Designated Initializers
 ============================
 
 Standard C90 requires the elements of an initializer to appear in a
@@ -37126,7 +37174,7 @@ expressions and issues a warning.
 
 File: gcc.info,  Node: Case Ranges,  Next: Cast to Union,  Prev: Designated Inits,  Up: C Extensions
 
-6.30 Case Ranges
+6.32 Case Ranges
 ================
 
 You can specify a range of consecutive values in a single 'case' label,
@@ -37154,7 +37202,7 @@ rather than this:
 
 File: gcc.info,  Node: Cast to Union,  Next: Mixed Labels and Declarations,  Prev: Case Ranges,  Up: C Extensions
 
-6.31 Cast to a Union Type
+6.33 Cast to a Union Type
 =========================
 
 A cast to a union type is a C extension not available in C++.  It looks
@@ -37205,7 +37253,7 @@ same type
 
 File: gcc.info,  Node: Mixed Labels and Declarations,  Next: Function Attributes,  Prev: Cast to Union,  Up: C Extensions
 
-6.32 Mixed Declarations, Labels and Code
+6.34 Mixed Declarations, Labels and Code
 ========================================
 
 ISO C99 and ISO C++ allow declarations and code to be freely mixed
@@ -37224,7 +37272,7 @@ the enclosing block.
 
 File: gcc.info,  Node: Function Attributes,  Next: Variable Attributes,  Prev: Mixed Labels and Declarations,  Up: C Extensions
 
-6.33 Declaring Attributes of Functions
+6.35 Declaring Attributes of Functions
 ======================================
 
 In GNU C and C++, you can use function attributes to specify certain
@@ -37325,7 +37373,7 @@ their own attributes.
 
 File: gcc.info,  Node: Common Function Attributes,  Next: AArch64 Function Attributes,  Up: Function Attributes
 
-6.33.1 Common Function Attributes
+6.35.1 Common Function Attributes
 ---------------------------------
 
 The following attributes are supported on most targets.
@@ -39069,7 +39117,7 @@ before calling the function.  Such registers are also called
 
 File: gcc.info,  Node: AArch64 Function Attributes,  Next: AMD GCN Function Attributes,  Prev: Common Function Attributes,  Up: Function Attributes
 
-6.33.2 AArch64 Function Attributes
+6.35.2 AArch64 Function Attributes
 ----------------------------------
 
 The following target-specific function attributes are available for the
@@ -39191,7 +39239,7 @@ with a comma.  For example:
  is valid and compiles function 'foo' for ARMv8-A with 'crc' and
 'crypto' extensions and tunes it for 'cortex-a53'.
 
-6.33.2.1 Inlining rules
+6.35.2.1 Inlining rules
 .......................
 
 Specifying target attributes on individual functions or performing
@@ -39220,7 +39268,7 @@ feature rules specified above.
 
 File: gcc.info,  Node: AMD GCN Function Attributes,  Next: ARC Function Attributes,  Prev: AArch64 Function Attributes,  Up: Function Attributes
 
-6.33.3 AMD GCN Function Attributes
+6.35.3 AMD GCN Function Attributes
 ----------------------------------
 
 These function attributes are supported by the AMD GCN back end:
@@ -39309,7 +39357,7 @@ These function attributes are supported by the AMD GCN back end:
 
 File: gcc.info,  Node: ARC Function Attributes,  Next: ARM Function Attributes,  Prev: AMD GCN Function Attributes,  Up: Function Attributes
 
-6.33.4 ARC Function Attributes
+6.35.4 ARC Function Attributes
 ------------------------------
 
 These function attributes are supported by the ARC back end:
@@ -39376,7 +39424,7 @@ These function attributes are supported by the ARC back end:
 
 File: gcc.info,  Node: ARM Function Attributes,  Next: AVR Function Attributes,  Prev: ARC Function Attributes,  Up: Function Attributes
 
-6.33.5 ARM Function Attributes
+6.35.5 ARM Function Attributes
 ------------------------------
 
 These function attributes are supported for ARM targets:
@@ -39505,7 +39553,7 @@ These function attributes are supported for ARM targets:
 
 File: gcc.info,  Node: AVR Function Attributes,  Next: Blackfin Function Attributes,  Prev: ARM Function Attributes,  Up: Function Attributes
 
-6.33.6 AVR Function Attributes
+6.35.6 AVR Function Attributes
 ------------------------------
 
 These function attributes are supported by the AVR back end:
@@ -39607,7 +39655,7 @@ These function attributes are supported by the AVR back end:
 
 File: gcc.info,  Node: Blackfin Function Attributes,  Next: BPF Function Attributes,  Prev: AVR Function Attributes,  Up: Function Attributes
 
-6.33.7 Blackfin Function Attributes
+6.35.7 Blackfin Function Attributes
 -----------------------------------
 
 These function attributes are supported by the Blackfin back end:
@@ -39667,7 +39715,7 @@ These function attributes are supported by the Blackfin back end:
 
 File: gcc.info,  Node: BPF Function Attributes,  Next: C-SKY Function Attributes,  Prev: Blackfin Function Attributes,  Up: Function Attributes
 
-6.33.8 BPF Function Attributes
+6.35.8 BPF Function Attributes
 ------------------------------
 
 These function attributes are supported by the BPF back end:
@@ -39693,7 +39741,7 @@ These function attributes are supported by the BPF back end:
 
 File: gcc.info,  Node: C-SKY Function Attributes,  Next: Epiphany Function Attributes,  Prev: BPF Function Attributes,  Up: Function Attributes
 
-6.33.9 C-SKY Function Attributes
+6.35.9 C-SKY Function Attributes
 --------------------------------
 
 These function attributes are supported by the C-SKY back end:
@@ -39722,7 +39770,7 @@ These function attributes are supported by the C-SKY back end:
 
 File: gcc.info,  Node: Epiphany Function Attributes,  Next: H8/300 Function Attributes,  Prev: C-SKY Function Attributes,  Up: Function Attributes
 
-6.33.10 Epiphany Function Attributes
+6.35.10 Epiphany Function Attributes
 ------------------------------------
 
 These function attributes are supported by the Epiphany back end:
@@ -39784,7 +39832,7 @@ These function attributes are supported by the Epiphany back end:
 
 File: gcc.info,  Node: H8/300 Function Attributes,  Next: IA-64 Function Attributes,  Prev: Epiphany Function Attributes,  Up: Function Attributes
 
-6.33.11 H8/300 Function Attributes
+6.35.11 H8/300 Function Attributes
 ----------------------------------
 
 These function attributes are available for H8/300 targets:
@@ -39811,7 +39859,7 @@ These function attributes are available for H8/300 targets:
 
 File: gcc.info,  Node: IA-64 Function Attributes,  Next: M32C Function Attributes,  Prev: H8/300 Function Attributes,  Up: Function Attributes
 
-6.33.12 IA-64 Function Attributes
+6.35.12 IA-64 Function Attributes
 ---------------------------------
 
 These function attributes are supported on IA-64 targets:
@@ -39836,7 +39884,7 @@ These function attributes are supported on IA-64 targets:
 
 File: gcc.info,  Node: M32C Function Attributes,  Next: M32R/D Function Attributes,  Prev: IA-64 Function Attributes,  Up: Function Attributes
 
-6.33.13 M32C Function Attributes
+6.35.13 M32C Function Attributes
 --------------------------------
 
 These function attributes are supported by the M32C back end:
@@ -39894,7 +39942,7 @@ These function attributes are supported by the M32C back end:
 
 File: gcc.info,  Node: M32R/D Function Attributes,  Next: m68k Function Attributes,  Prev: M32C Function Attributes,  Up: Function Attributes
 
-6.33.14 M32R/D Function Attributes
+6.35.14 M32R/D Function Attributes
 ----------------------------------
 
 These function attributes are supported by the M32R/D back end:
@@ -39929,7 +39977,7 @@ These function attributes are supported by the M32R/D back end:
 
 File: gcc.info,  Node: m68k Function Attributes,  Next: MCORE Function Attributes,  Prev: M32R/D Function Attributes,  Up: Function Attributes
 
-6.33.15 m68k Function Attributes
+6.35.15 m68k Function Attributes
 --------------------------------
 
 These function attributes are supported by the m68k back end:
@@ -39952,7 +40000,7 @@ These function attributes are supported by the m68k back end:
 
 File: gcc.info,  Node: MCORE Function Attributes,  Next: MicroBlaze Function Attributes,  Prev: m68k Function Attributes,  Up: Function Attributes
 
-6.33.16 MCORE Function Attributes
+6.35.16 MCORE Function Attributes
 ---------------------------------
 
 These function attributes are supported by the MCORE back end:
@@ -39970,7 +40018,7 @@ These function attributes are supported by the MCORE back end:
 
 File: gcc.info,  Node: MicroBlaze Function Attributes,  Next: Microsoft Windows Function Attributes,  Prev: MCORE Function Attributes,  Up: Function Attributes
 
-6.33.17 MicroBlaze Function Attributes
+6.35.17 MicroBlaze Function Attributes
 --------------------------------------
 
 These function attributes are supported on MicroBlaze targets:
@@ -40004,7 +40052,7 @@ These function attributes are supported on MicroBlaze targets:
 
 File: gcc.info,  Node: Microsoft Windows Function Attributes,  Next: MIPS Function Attributes,  Prev: MicroBlaze Function Attributes,  Up: Function Attributes
 
-6.33.18 Microsoft Windows Function Attributes
+6.35.18 Microsoft Windows Function Attributes
 ---------------------------------------------
 
 The following attributes are available on Microsoft Windows and Symbian
@@ -40096,7 +40144,7 @@ OS targets.
 
 File: gcc.info,  Node: MIPS Function Attributes,  Next: MSP430 Function Attributes,  Prev: Microsoft Windows Function Attributes,  Up: Function Attributes
 
-6.33.19 MIPS Function Attributes
+6.35.19 MIPS Function Attributes
 --------------------------------
 
 These function attributes are supported by the MIPS back end:
@@ -40229,7 +40277,7 @@ These function attributes are supported by the MIPS back end:
 
 File: gcc.info,  Node: MSP430 Function Attributes,  Next: NDS32 Function Attributes,  Prev: MIPS Function Attributes,  Up: Function Attributes
 
-6.33.20 MSP430 Function Attributes
+6.35.20 MSP430 Function Attributes
 ----------------------------------
 
 These function attributes are supported by the MSP430 back end:
@@ -40312,7 +40360,7 @@ These function attributes are supported by the MSP430 back end:
 
 File: gcc.info,  Node: NDS32 Function Attributes,  Next: Nios II Function Attributes,  Prev: MSP430 Function Attributes,  Up: Function Attributes
 
-6.33.21 NDS32 Function Attributes
+6.35.21 NDS32 Function Attributes
 ---------------------------------
 
 These function attributes are supported by the NDS32 back end:
@@ -40367,7 +40415,7 @@ These function attributes are supported by the NDS32 back end:
 
 File: gcc.info,  Node: Nios II Function Attributes,  Next: Nvidia PTX Function Attributes,  Prev: NDS32 Function Attributes,  Up: Function Attributes
 
-6.33.22 Nios II Function Attributes
+6.35.22 Nios II Function Attributes
 -----------------------------------
 
 These function attributes are supported by the Nios II back end:
@@ -40397,7 +40445,7 @@ These function attributes are supported by the Nios II back end:
 
 File: gcc.info,  Node: Nvidia PTX Function Attributes,  Next: PowerPC Function Attributes,  Prev: Nios II Function Attributes,  Up: Function Attributes
 
-6.33.23 Nvidia PTX Function Attributes
+6.35.23 Nvidia PTX Function Attributes
 --------------------------------------
 
 These function attributes are supported by the Nvidia PTX back end:
@@ -40413,7 +40461,7 @@ These function attributes are supported by the Nvidia PTX back end:
 
 File: gcc.info,  Node: PowerPC Function Attributes,  Next: RISC-V Function Attributes,  Prev: Nvidia PTX Function Attributes,  Up: Function Attributes
 
-6.33.24 PowerPC Function Attributes
+6.35.24 PowerPC Function Attributes
 -----------------------------------
 
 These function attributes are supported by the PowerPC back end:
@@ -40587,7 +40635,7 @@ These function attributes are supported by the PowerPC back end:
 
 File: gcc.info,  Node: RISC-V Function Attributes,  Next: RL78 Function Attributes,  Prev: PowerPC Function Attributes,  Up: Function Attributes
 
-6.33.25 RISC-V Function Attributes
+6.35.25 RISC-V Function Attributes
 ----------------------------------
 
 These function attributes are supported by the RISC-V back end:
@@ -40675,7 +40723,7 @@ and tunes it for 'rocket'.
 
 File: gcc.info,  Node: RL78 Function Attributes,  Next: RX Function Attributes,  Prev: RISC-V Function Attributes,  Up: Function Attributes
 
-6.33.26 RL78 Function Attributes
+6.35.26 RL78 Function Attributes
 --------------------------------
 
 These function attributes are supported by the RL78 back end:
@@ -40704,7 +40752,7 @@ These function attributes are supported by the RL78 back end:
 
 File: gcc.info,  Node: RX Function Attributes,  Next: S/390 Function Attributes,  Prev: RL78 Function Attributes,  Up: Function Attributes
 
-6.33.27 RX Function Attributes
+6.35.27 RX Function Attributes
 ------------------------------
 
 These function attributes are supported by the RX back end:
@@ -40759,7 +40807,7 @@ These function attributes are supported by the RX back end:
 
 File: gcc.info,  Node: S/390 Function Attributes,  Next: SH Function Attributes,  Prev: RX Function Attributes,  Up: Function Attributes
 
-6.33.28 S/390 Function Attributes
+6.35.28 S/390 Function Attributes
 ---------------------------------
 
 These function attributes are supported on the S/390:
@@ -40819,7 +40867,7 @@ These function attributes are supported on the S/390:
 
 File: gcc.info,  Node: SH Function Attributes,  Next: Symbian OS Function Attributes,  Prev: S/390 Function Attributes,  Up: Function Attributes
 
-6.33.29 SH Function Attributes
+6.35.29 SH Function Attributes
 ------------------------------
 
 These function attributes are supported on the SH family of processors:
@@ -40895,7 +40943,7 @@ These function attributes are supported on the SH family of processors:
 
 File: gcc.info,  Node: Symbian OS Function Attributes,  Next: V850 Function Attributes,  Prev: SH Function Attributes,  Up: Function Attributes
 
-6.33.30 Symbian OS Function Attributes
+6.35.30 Symbian OS Function Attributes
 --------------------------------------
 
 *Note Microsoft Windows Function Attributes::, for discussion of the
@@ -40904,7 +40952,7 @@ File: gcc.info,  Node: Symbian OS Function Attributes,  Next: V850 Function Attr
 
 File: gcc.info,  Node: V850 Function Attributes,  Next: Visium Function Attributes,  Prev: Symbian OS Function Attributes,  Up: Function Attributes
 
-6.33.31 V850 Function Attributes
+6.35.31 V850 Function Attributes
 --------------------------------
 
 The V850 back end supports these function attributes:
@@ -40919,7 +40967,7 @@ The V850 back end supports these function attributes:
 
 File: gcc.info,  Node: Visium Function Attributes,  Next: x86 Function Attributes,  Prev: V850 Function Attributes,  Up: Function Attributes
 
-6.33.32 Visium Function Attributes
+6.35.32 Visium Function Attributes
 ----------------------------------
 
 These function attributes are supported by the Visium back end:
@@ -40933,7 +40981,7 @@ These function attributes are supported by the Visium back end:
 
 File: gcc.info,  Node: x86 Function Attributes,  Next: Xstormy16 Function Attributes,  Prev: Visium Function Attributes,  Up: Function Attributes
 
-6.33.33 x86 Function Attributes
+6.35.33 x86 Function Attributes
 -------------------------------
 
 These function attributes are supported by the x86 back end:
@@ -41717,7 +41765,7 @@ These function attributes are supported by the x86 back end:
      This attribute, attached to a global variable or function, is the
      counterpart to option '-mno-direct-extern-access'.
 
-6.33.33.1 Inlining rules
+6.35.33.1 Inlining rules
 ........................
 
 On the x86, the inliner does not inline a function that has different
@@ -41735,7 +41783,7 @@ features and marked with always_inline.
 
 File: gcc.info,  Node: Xstormy16 Function Attributes,  Prev: x86 Function Attributes,  Up: Function Attributes
 
-6.33.34 Xstormy16 Function Attributes
+6.35.34 Xstormy16 Function Attributes
 -------------------------------------
 
 These function attributes are supported by the Xstormy16 back end:
@@ -41749,7 +41797,7 @@ These function attributes are supported by the Xstormy16 back end:
 
 File: gcc.info,  Node: Variable Attributes,  Next: Type Attributes,  Prev: Function Attributes,  Up: C Extensions
 
-6.34 Specifying Attributes of Variables
+6.36 Specifying Attributes of Variables
 =======================================
 
 You can use attributes to specify special properties of variables,
@@ -41791,7 +41839,7 @@ in your source code are different depending on which syntax you use.
 
 File: gcc.info,  Node: Common Variable Attributes,  Next: ARC Variable Attributes,  Up: Variable Attributes
 
-6.34.1 Common Variable Attributes
+6.36.1 Common Variable Attributes
 ---------------------------------
 
 The following attributes are supported on most targets.
@@ -42313,7 +42361,7 @@ The following attributes are supported on most targets.
 
 File: gcc.info,  Node: ARC Variable Attributes,  Next: AVR Variable Attributes,  Prev: Common Variable Attributes,  Up: Variable Attributes
 
-6.34.2 ARC Variable Attributes
+6.36.2 ARC Variable Attributes
 ------------------------------
 
 'aux'
@@ -42324,7 +42372,7 @@ File: gcc.info,  Node: ARC Variable Attributes,  Next: AVR Variable Attributes, 
 
 File: gcc.info,  Node: AVR Variable Attributes,  Next: Blackfin Variable Attributes,  Prev: ARC Variable Attributes,  Up: Variable Attributes
 
-6.34.3 AVR Variable Attributes
+6.36.3 AVR Variable Attributes
 ------------------------------
 
 'progmem'
@@ -42456,7 +42504,7 @@ File: gcc.info,  Node: AVR Variable Attributes,  Next: Blackfin Variable Attribu
 
 File: gcc.info,  Node: Blackfin Variable Attributes,  Next: H8/300 Variable Attributes,  Prev: AVR Variable Attributes,  Up: Variable Attributes
 
-6.34.4 Blackfin Variable Attributes
+6.36.4 Blackfin Variable Attributes
 -----------------------------------
 
 Three attributes are currently defined for the Blackfin.
@@ -42479,7 +42527,7 @@ Three attributes are currently defined for the Blackfin.
 
 File: gcc.info,  Node: H8/300 Variable Attributes,  Next: IA-64 Variable Attributes,  Prev: Blackfin Variable Attributes,  Up: Variable Attributes
 
-6.34.5 H8/300 Variable Attributes
+6.36.5 H8/300 Variable Attributes
 ---------------------------------
 
 These variable attributes are available for H8/300 targets:
@@ -42504,7 +42552,7 @@ These variable attributes are available for H8/300 targets:
 
 File: gcc.info,  Node: IA-64 Variable Attributes,  Next: LoongArch Variable Attributes,  Prev: H8/300 Variable Attributes,  Up: Variable Attributes
 
-6.34.6 IA-64 Variable Attributes
+6.36.6 IA-64 Variable Attributes
 --------------------------------
 
 The IA-64 back end supports the following variable attribute:
@@ -42522,7 +42570,7 @@ The IA-64 back end supports the following variable attribute:
 
 File: gcc.info,  Node: LoongArch Variable Attributes,  Next: M32R/D Variable Attributes,  Prev: IA-64 Variable Attributes,  Up: Variable Attributes
 
-6.34.7 LoongArch Variable Attributes
+6.36.7 LoongArch Variable Attributes
 ------------------------------------
 
 One attribute is currently defined for the LoongArch.
@@ -42538,7 +42586,7 @@ One attribute is currently defined for the LoongArch.
 
 File: gcc.info,  Node: M32R/D Variable Attributes,  Next: Microsoft Windows Variable Attributes,  Prev: LoongArch Variable Attributes,  Up: Variable Attributes
 
-6.34.8 M32R/D Variable Attributes
+6.36.8 M32R/D Variable Attributes
 ---------------------------------
 
 One attribute is currently defined for the M32R/D.
@@ -42558,7 +42606,7 @@ One attribute is currently defined for the M32R/D.
 
 File: gcc.info,  Node: Microsoft Windows Variable Attributes,  Next: MSP430 Variable Attributes,  Prev: M32R/D Variable Attributes,  Up: Variable Attributes
 
-6.34.9 Microsoft Windows Variable Attributes
+6.36.9 Microsoft Windows Variable Attributes
 --------------------------------------------
 
 You can use these attributes on Microsoft Windows targets.  *note x86
@@ -42617,7 +42665,7 @@ available on all x86 targets.
 
 File: gcc.info,  Node: MSP430 Variable Attributes,  Next: Nvidia PTX Variable Attributes,  Prev: Microsoft Windows Variable Attributes,  Up: Variable Attributes
 
-6.34.10 MSP430 Variable Attributes
+6.36.10 MSP430 Variable Attributes
 ----------------------------------
 
 'upper'
@@ -42645,7 +42693,7 @@ File: gcc.info,  Node: MSP430 Variable Attributes,  Next: Nvidia PTX Variable At
 
 File: gcc.info,  Node: Nvidia PTX Variable Attributes,  Next: PowerPC Variable Attributes,  Prev: MSP430 Variable Attributes,  Up: Variable Attributes
 
-6.34.11 Nvidia PTX Variable Attributes
+6.36.11 Nvidia PTX Variable Attributes
 --------------------------------------
 
 These variable attributes are supported by the Nvidia PTX back end:
@@ -42660,7 +42708,7 @@ These variable attributes are supported by the Nvidia PTX back end:
 
 File: gcc.info,  Node: PowerPC Variable Attributes,  Next: RL78 Variable Attributes,  Prev: Nvidia PTX Variable Attributes,  Up: Variable Attributes
 
-6.34.12 PowerPC Variable Attributes
+6.36.12 PowerPC Variable Attributes
 -----------------------------------
 
 Three attributes currently are defined for PowerPC configurations:
@@ -42675,7 +42723,7 @@ in *note PowerPC Type Attributes::.
 
 File: gcc.info,  Node: RL78 Variable Attributes,  Next: V850 Variable Attributes,  Prev: PowerPC Variable Attributes,  Up: Variable Attributes
 
-6.34.13 RL78 Variable Attributes
+6.36.13 RL78 Variable Attributes
 --------------------------------
 
 The RL78 back end supports the 'saddr' variable attribute.  This
@@ -42685,7 +42733,7 @@ which can be accessed more efficiently than the default memory region.
 
 File: gcc.info,  Node: V850 Variable Attributes,  Next: x86 Variable Attributes,  Prev: RL78 Variable Attributes,  Up: Variable Attributes
 
-6.34.14 V850 Variable Attributes
+6.36.14 V850 Variable Attributes
 --------------------------------
 
 These variable attributes are supported by the V850 back end:
@@ -42705,7 +42753,7 @@ These variable attributes are supported by the V850 back end:
 
 File: gcc.info,  Node: x86 Variable Attributes,  Next: Xstormy16 Variable Attributes,  Prev: V850 Variable Attributes,  Up: Variable Attributes
 
-6.34.15 x86 Variable Attributes
+6.36.15 x86 Variable Attributes
 -------------------------------
 
 Two attributes are currently defined for x86 configurations: 'ms_struct'
@@ -42730,7 +42778,7 @@ and 'gcc_struct'.
 
 File: gcc.info,  Node: Xstormy16 Variable Attributes,  Prev: x86 Variable Attributes,  Up: Variable Attributes
 
-6.34.16 Xstormy16 Variable Attributes
+6.36.16 Xstormy16 Variable Attributes
 -------------------------------------
 
 One attribute is currently defined for xstormy16 configurations:
@@ -42746,7 +42794,7 @@ One attribute is currently defined for xstormy16 configurations:
 
 File: gcc.info,  Node: Type Attributes,  Next: Label Attributes,  Prev: Variable Attributes,  Up: C Extensions
 
-6.35 Specifying Attributes of Types
+6.37 Specifying Attributes of Types
 ===================================
 
 You can use attributes to specify various special properties of types.
@@ -42788,7 +42836,7 @@ You can also include type attributes in a 'typedef' declaration.
 
 File: gcc.info,  Node: Common Type Attributes,  Next: ARC Type Attributes,  Up: Type Attributes
 
-6.35.1 Common Type Attributes
+6.37.1 Common Type Attributes
 -----------------------------
 
 The following type attributes are supported on most targets.
@@ -43578,7 +43626,7 @@ packed))'.
 
 File: gcc.info,  Node: ARC Type Attributes,  Next: ARM Type Attributes,  Prev: Common Type Attributes,  Up: Type Attributes
 
-6.35.2 ARC Type Attributes
+6.37.2 ARC Type Attributes
 --------------------------
 
 Declaring objects with 'uncached' allows you to exclude data-cache
@@ -43590,7 +43638,7 @@ instruction suffix is used for all loads and stores of data declared
 
 File: gcc.info,  Node: ARM Type Attributes,  Next: BPF Type Attributes,  Prev: ARC Type Attributes,  Up: Type Attributes
 
-6.35.3 ARM Type Attributes
+6.37.3 ARM Type Attributes
 --------------------------
 
 On those ARM targets that support 'dllimport' (such as Symbian OS), you
@@ -43614,7 +43662,7 @@ table for 'C' is not exported.  (You can use '__attribute__' instead of
 
 File: gcc.info,  Node: BPF Type Attributes,  Next: PowerPC Type Attributes,  Prev: ARM Type Attributes,  Up: Type Attributes
 
-6.35.4 BPF Type Attributes
+6.37.4 BPF Type Attributes
 --------------------------
 
 BPF Compile Once - Run Everywhere (CO-RE) support.  When attached to a
@@ -43626,7 +43674,7 @@ every such access with '__builtin_preserve_access_index'.
 
 File: gcc.info,  Node: PowerPC Type Attributes,  Next: x86 Type Attributes,  Prev: BPF Type Attributes,  Up: Type Attributes
 
-6.35.5 PowerPC Type Attributes
+6.37.5 PowerPC Type Attributes
 ------------------------------
 
 Three attributes currently are defined for PowerPC configurations:
@@ -43651,7 +43699,7 @@ followed by unsigned).
 
 File: gcc.info,  Node: x86 Type Attributes,  Prev: PowerPC Type Attributes,  Up: Type Attributes
 
-6.35.6 x86 Type Attributes
+6.37.6 x86 Type Attributes
 --------------------------
 
 Two attributes are currently defined for x86 configurations: 'ms_struct'
@@ -43676,7 +43724,7 @@ and 'gcc_struct'.
 
 File: gcc.info,  Node: Label Attributes,  Next: Enumerator Attributes,  Prev: Type Attributes,  Up: C Extensions
 
-6.36 Label Attributes
+6.38 Label Attributes
 =====================
 
 GCC allows attributes to be set on C labels.  *Note Attribute Syntax::,
@@ -43727,7 +43775,7 @@ appertains to the label and not the declaration.
 
 File: gcc.info,  Node: Enumerator Attributes,  Next: Statement Attributes,  Prev: Label Attributes,  Up: C Extensions
 
-6.37 Enumerator Attributes
+6.39 Enumerator Attributes
 ==========================
 
 GCC allows attributes to be set on enumerators.  *Note Attribute
@@ -43769,7 +43817,7 @@ Attributes::), statements (*note Statement Attributes::), and for types
 
 File: gcc.info,  Node: Statement Attributes,  Next: Attribute Syntax,  Prev: Enumerator Attributes,  Up: C Extensions
 
-6.38 Statement Attributes
+6.40 Statement Attributes
 =========================
 
 GCC allows attributes to be set on null statements.  *Note Attribute
@@ -43826,7 +43874,7 @@ types (*note Type Attributes::).
 
 File: gcc.info,  Node: Attribute Syntax,  Next: Function Prototypes,  Prev: Statement Attributes,  Up: C Extensions
 
-6.39 Attribute Syntax
+6.41 Attribute Syntax
 =====================
 
 GCC provides two different ways to specify attributes: the standard C
@@ -44073,7 +44121,7 @@ type.
 
 File: gcc.info,  Node: Function Prototypes,  Next: C++ Comments,  Prev: Attribute Syntax,  Up: C Extensions
 
-6.40 Prototypes and Old-Style Function Definitions
+6.42 Prototypes and Old-Style Function Definitions
 ==================================================
 
 GNU C extends ISO C to allow a function prototype to override a later
@@ -44126,7 +44174,7 @@ extension is irrelevant.
 
 File: gcc.info,  Node: C++ Comments,  Next: Dollar Signs,  Prev: Function Prototypes,  Up: C Extensions
 
-6.41 C++ Style Comments
+6.43 C++ Style Comments
 =======================
 
 In GNU C, you may use C++ style comments, which start with '//' and
@@ -44139,7 +44187,7 @@ specifying a version of ISO C before C99, or '-ansi' (equivalent to
 
 File: gcc.info,  Node: Dollar Signs,  Next: Character Escapes,  Prev: C++ Comments,  Up: C Extensions
 
-6.42 Dollar Signs in Identifier Names
+6.44 Dollar Signs in Identifier Names
 =====================================
 
 In GNU C, you may normally use dollar signs in identifier names.  This
@@ -44150,7 +44198,7 @@ machines, typically because the target assembler does not allow them.
 
 File: gcc.info,  Node: Character Escapes,  Next: Alignment,  Prev: Dollar Signs,  Up: C Extensions
 
-6.43 The Character <ESC> in Constants
+6.45 The Character <ESC> in Constants
 =====================================
 
 You can use the sequence '\e' in a string or character constant to stand
@@ -44159,7 +44207,7 @@ for the ASCII character <ESC>.
 
 File: gcc.info,  Node: Alignment,  Next: Inline,  Prev: Character Escapes,  Up: C Extensions
 
-6.44 Determining the Alignment of Functions, Types or Variables
+6.46 Determining the Alignment of Functions, Types or Variables
 ===============================================================
 
 The keyword '__alignof__' determines the alignment requirement of a
@@ -44194,7 +44242,7 @@ specified by attribute 'aligned' (*note Common Function Attributes::).
 
 File: gcc.info,  Node: Inline,  Next: Const and Volatile Functions,  Prev: Alignment,  Up: C Extensions
 
-6.45 An Inline Function is As Fast As a Macro
+6.47 An Inline Function is As Fast As a Macro
 =============================================
 
 By declaring a function inline, you can direct GCC to make calls to that
@@ -44297,7 +44345,7 @@ library.
 
 File: gcc.info,  Node: Const and Volatile Functions,  Next: Volatiles,  Prev: Inline,  Up: C Extensions
 
-6.46 Const and Volatile Functions
+6.48 Const and Volatile Functions
 =================================
 
 The C standard explicitly leaves the behavior of the 'const' and
@@ -44329,7 +44377,7 @@ way is specific to GNU C and does not work in GNU C++.
 
 File: gcc.info,  Node: Volatiles,  Next: Using Assembly Language with C,  Prev: Const and Volatile Functions,  Up: C Extensions
 
-6.47 When is a Volatile Object Accessed?
+6.49 When is a Volatile Object Accessed?
 ========================================
 
 C has the concept of volatile objects.  These are normally accessed by
@@ -44400,7 +44448,7 @@ access hardware.
 
 File: gcc.info,  Node: Using Assembly Language with C,  Next: Alternate Keywords,  Prev: Volatiles,  Up: C Extensions
 
-6.48 How to Use Inline Assembly Language in C Code
+6.50 How to Use Inline Assembly Language in C Code
 ==================================================
 
 The 'asm' keyword allows you to embed assembler instructions within C
@@ -44427,7 +44475,7 @@ C symbol, or to place a C variable in a specific register.
 
 File: gcc.info,  Node: Basic Asm,  Next: Extended Asm,  Up: Using Assembly Language with C
 
-6.48.1 Basic Asm -- Assembler Instructions Without Operands
+6.50.1 Basic Asm -- Assembler Instructions Without Operands
 -----------------------------------------------------------
 
 A basic 'asm' statement has the following syntax:
@@ -44551,7 +44599,7 @@ may read or write any globally accessible variable.
 
 File: gcc.info,  Node: Extended Asm,  Next: Constraints,  Prev: Basic Asm,  Up: Using Assembly Language with C
 
-6.48.2 Extended Asm - Assembler Instructions with C Expression Operands
+6.50.2 Extended Asm - Assembler Instructions with C Expression Operands
 -----------------------------------------------------------------------
 
 With extended 'asm' you can read and write C variables from assembler
@@ -44661,7 +44709,7 @@ useful) example for i386 using 'asm' might look like this:
 
  This code copies 'src' to 'dst' and add 1 to 'dst'.
 
-6.48.2.1 Volatile
+6.50.2.1 Volatile
 .................
 
 GCC's optimizers sometimes discard 'asm' statements if they determine
@@ -44771,7 +44819,7 @@ duplicate symbol errors during compilation if your 'asm' code defines
 symbols or labels.  Using '%=' (*note AssemblerTemplate::) may help
 resolve this problem.
 
-6.48.2.2 Assembler Template
+6.50.2.2 Assembler Template
 ...........................
 
 An assembler template is a literal string containing assembler
@@ -44874,7 +44922,7 @@ corresponds to either
 
  There is no support for nesting dialect alternatives.
 
-6.48.2.3 Output Operands
+6.50.2.3 Output Operands
 ........................
 
 An 'asm' statement has zero or more output operands indicating the names
@@ -45035,7 +45083,7 @@ might already have the current value of the 'uint32_t' location pointed
 to by 'e' in a register, you can enable it to choose the best location
 for 'd' by specifying both constraints.
 
-6.48.2.4 Flag Output Operands
+6.50.2.4 Flag Output Operands
 .............................
 
 Some targets have a special register that holds the "flags" for the
@@ -45150,7 +45198,7 @@ s390
      constraint is allowed.  The variable has to be stored in a 'int'
      variable.
 
-6.48.2.5 Input Operands
+6.50.2.5 Input Operands
 .......................
 
 Input operands make values from C variables and expressions available to
@@ -45247,7 +45295,7 @@ are in the same place in the generated assembler code.
         : [result] "=r"(result)
         : "r" (test), "r" (new), "[result]" (old));
 
-6.48.2.6 Clobbers and Scratch Registers
+6.50.2.6 Clobbers and Scratch Registers
 .......................................
 
 While the compiler is aware of changes to entries listed in the output
@@ -45434,7 +45482,7 @@ technique except for GCC's limit on the number of 'asm' parameters.
           );
      }
 
-6.48.2.7 Goto Labels
+6.50.2.7 Goto Labels
 ....................
 
 'asm goto' allows assembly code to jump to one or more C labels.  The
@@ -45537,7 +45585,7 @@ paths from the 'asm goto'.
        return inp * factor; /* return 2 * inp or 0 if inp < 10 */
      }
 
-6.48.2.8 Generic Operand Modifiers
+6.50.2.8 Generic Operand Modifiers
 ..................................
 
 The following table shows the modifiers supported by all targets and
@@ -45557,7 +45605,7 @@ Modifier    Description                                        Example
             the operand as if it were a memory reference.
 'l'         Print the label name with no punctuation.          '%l0'
 
-6.48.2.9 AArch64 Operand Modifiers
+6.50.2.9 AArch64 Operand Modifiers
 ..................................
 
 The following table shows the modifiers supported by AArch64 and their
@@ -45581,7 +45629,7 @@ ModifierDescription
 'Z'     Print an FP/SIMD register name as an SVE register (i.e.  with a
         'z' prefix).  This is a no-op for SVE register operands.
 
-6.48.2.10 x86 Operand Modifiers
+6.50.2.10 x86 Operand Modifiers
 ...............................
 
 References to input, output, and goto operands in the assembler template
@@ -45686,7 +45734,7 @@ Modifier   Description                                  Operand   'att'   'intel
 'Z'        Like 'z', with special suffixes for x87
            instructions.
 
-6.48.2.11 x86 Floating-Point 'asm' Operands
+6.50.2.11 x86 Floating-Point 'asm' Operands
 ...........................................
 
 On x86 targets, there are several rules on the usage of stack-like
@@ -45764,7 +45812,7 @@ the compiler to know that 'fyl2xp1' pops both inputs.
 
      asm ("fyl2xp1" : "=t" (result) : "0" (x), "u" (y) : "st(1)");
 
-6.48.2.12 MSP430 Operand Modifiers
+6.50.2.12 MSP430 Operand Modifiers
 ..................................
 
 The list below describes the supported modifiers and their effects for
@@ -45798,7 +45846,7 @@ ModifierDescription
 'r'     Inverse of condition code, for signed comparisons.
 'x'     Equivialent to 'X', but only for pointers.
 
-6.48.2.13 LoongArch Operand Modifiers
+6.50.2.13 LoongArch Operand Modifiers
 .....................................
 
 The list below describes the supported modifiers and their effects for
@@ -45851,7 +45899,7 @@ type, and the 'f' in the input operand represents a constraint using a
 floating-point register operand, which can refer to the definition of a
 constraint (*Note Constraints::) in gcc.
 
-6.48.2.14 RISC-V Operand Modifiers
+6.50.2.14 RISC-V Operand Modifiers
 ..................................
 
 The list below describes the supported modifiers and their effects for
@@ -45866,7 +45914,7 @@ ModifierDescription
 
 File: gcc.info,  Node: Constraints,  Next: Asm Labels,  Prev: Extended Asm,  Up: Using Assembly Language with C
 
-6.48.3 Constraints for 'asm' Operands
+6.50.3 Constraints for 'asm' Operands
 -------------------------------------
 
 Here are specific details on what constraint letters you can use with
@@ -45889,7 +45937,7 @@ exactly once in an instruction that can update the addressing register.
 
 File: gcc.info,  Node: Simple Constraints,  Next: Multi-Alternative,  Up: Constraints
 
-6.48.3.1 Simple Constraints
+6.50.3.1 Simple Constraints
 ...........................
 
 The simplest kind of constraint is a string full of letters, each of
@@ -46056,7 +46104,7 @@ OTHER-LETTERS
 
 File: gcc.info,  Node: Multi-Alternative,  Next: Modifiers,  Prev: Simple Constraints,  Up: Constraints
 
-6.48.3.2 Multiple Alternative Constraints
+6.50.3.2 Multiple Alternative Constraints
 .........................................
 
 Sometimes a single instruction has multiple alternative sets of possible
@@ -46089,7 +46137,7 @@ builtins such as '__builtin_constant_p' to achieve the desired results.
 
 File: gcc.info,  Node: Modifiers,  Next: Machine Constraints,  Prev: Multi-Alternative,  Up: Constraints
 
-6.48.3.3 Constraint Modifier Characters
+6.50.3.3 Constraint Modifier Characters
 .......................................
 
 Here are constraint modifier characters.
@@ -46154,7 +46202,7 @@ Here are constraint modifier characters.
 
 File: gcc.info,  Node: Machine Constraints,  Prev: Modifiers,  Up: Constraints
 
-6.48.3.4 Constraints for Particular Machines
+6.50.3.4 Constraints for Particular Machines
 ............................................
 
 Whenever possible, you should use the general-purpose constraint letters
@@ -48361,7 +48409,7 @@ _Xtensa--'config/xtensa/constraints.md'_
 
 File: gcc.info,  Node: Asm Labels,  Next: Explicit Register Variables,  Prev: Constraints,  Up: Using Assembly Language with C
 
-6.48.4 Controlling Names Used in Assembler Code
+6.50.4 Controlling Names Used in Assembler Code
 -----------------------------------------------
 
 You can specify the name to be used in the assembler code for a C
@@ -48407,7 +48455,7 @@ assembler code should be 'MYFUNC'.
 
 File: gcc.info,  Node: Explicit Register Variables,  Next: Size of an asm,  Prev: Asm Labels,  Up: Using Assembly Language with C
 
-6.48.5 Variables in Specified Registers
+6.50.5 Variables in Specified Registers
 ---------------------------------------
 
 GNU C allows you to associate specific hardware registers with C
@@ -48428,7 +48476,7 @@ the two, as explained in the sections below.
 
 File: gcc.info,  Node: Global Register Variables,  Next: Local Register Variables,  Up: Explicit Register Variables
 
-6.48.5.1 Defining Global Register Variables
+6.50.5.1 Defining Global Register Variables
 ...........................................
 
 You can define a global register variable and associate it with a
@@ -48528,7 +48576,7 @@ happens regardless of what 'longjmp' does.
 
 File: gcc.info,  Node: Local Register Variables,  Prev: Global Register Variables,  Up: Explicit Register Variables
 
-6.48.5.2 Specifying Registers for Local Variables
+6.50.5.2 Specifying Registers for Local Variables
 .................................................
 
 You can define a local register variable and associate it with a
@@ -48607,7 +48655,7 @@ specifics for MIPS targets: (gccint)MIPS Coprocessors.).
 
 File: gcc.info,  Node: Size of an asm,  Prev: Explicit Register Variables,  Up: Using Assembly Language with C
 
-6.48.6 Size of an 'asm'
+6.50.6 Size of an 'asm'
 -----------------------
 
 Some targets require that GCC track the size of each instruction used in
@@ -48637,7 +48685,7 @@ is.
 
 File: gcc.info,  Node: Alternate Keywords,  Next: Incomplete Enums,  Prev: Using Assembly Language with C,  Up: C Extensions
 
-6.49 Alternate Keywords
+6.51 Alternate Keywords
 =======================
 
 '-ansi' and the various '-std' options disable certain keywords.  This
@@ -48683,7 +48731,7 @@ Specifically:
 
 File: gcc.info,  Node: Incomplete Enums,  Next: Function Names,  Prev: Alternate Keywords,  Up: C Extensions
 
-6.50 Incomplete 'enum' Types
+6.52 Incomplete 'enum' Types
 ============================
 
 You can define an 'enum' tag without specifying its possible values.
@@ -48702,7 +48750,7 @@ incomplete.  However, you can work with pointers to that type.
 
 File: gcc.info,  Node: Function Names,  Next: Return Address,  Prev: Incomplete Enums,  Up: C Extensions
 
-6.51 Function Names as Strings
+6.53 Function Names as Strings
 ==============================
 
 GCC provides three magic constants that hold the name of the current
@@ -48762,7 +48810,7 @@ literals.
 
 File: gcc.info,  Node: Return Address,  Next: Stack Scrubbing,  Prev: Function Names,  Up: C Extensions
 
-6.52 Getting the Return or Frame Address of a Function
+6.54 Getting the Return or Frame Address of a Function
 ======================================================
 
 These functions may be used to get information about the callers of a
@@ -48879,7 +48927,7 @@ function.
 
 File: gcc.info,  Node: Stack Scrubbing,  Next: Vector Extensions,  Prev: Return Address,  Up: C Extensions
 
-6.53 Stack scrubbing internal interfaces
+6.55 Stack scrubbing internal interfaces
 ========================================
 
 Stack scrubbing involves cooperation between a 'strub' context, i.e., a
@@ -48924,7 +48972,7 @@ for code size.
 
 File: gcc.info,  Node: Vector Extensions,  Next: Offsetof,  Prev: Stack Scrubbing,  Up: C Extensions
 
-6.54 Using Vector Instructions through Built-in Functions
+6.56 Using Vector Instructions through Built-in Functions
 =========================================================
 
 On some targets, the instruction set contains SIMD vector instructions
@@ -49176,7 +49224,7 @@ intrinsics:
 
 File: gcc.info,  Node: Offsetof,  Next: __sync Builtins,  Prev: Vector Extensions,  Up: C Extensions
 
-6.55 Support for 'offsetof'
+6.57 Support for 'offsetof'
 ===========================
 
 GCC implements for both C and C++ a syntactic extension to implement the
@@ -49201,7 +49249,7 @@ or a sequence of member accesses and array references.
 
 File: gcc.info,  Node: __sync Builtins,  Next: __atomic Builtins,  Prev: Offsetof,  Up: C Extensions
 
-6.56 Legacy '__sync' Built-in Functions for Atomic Memory Access
+6.58 Legacy '__sync' Built-in Functions for Atomic Memory Access
 ================================================================
 
 The following built-in functions are intended to be compatible with
@@ -49344,7 +49392,7 @@ variables should be protected.
 
 File: gcc.info,  Node: __atomic Builtins,  Next: Integer Overflow Builtins,  Prev: __sync Builtins,  Up: C Extensions
 
-6.57 Built-in Functions for Memory Model Aware Atomic Operations
+6.59 Built-in Functions for Memory Model Aware Atomic Operations
 ================================================================
 
 The following built-in functions approximately match the requirements
@@ -49636,7 +49684,7 @@ values ensures proper usage.
 
 File: gcc.info,  Node: Integer Overflow Builtins,  Next: x86 specific memory model extensions for transactional memory,  Prev: __atomic Builtins,  Up: C Extensions
 
-6.58 Built-in Functions to Perform Arithmetic with Overflow Checking
+6.60 Built-in Functions to Perform Arithmetic with Overflow Checking
 ====================================================================
 
 The following built-in functions allow performing simple arithmetic
@@ -49813,7 +49861,7 @@ operation would overflow.
 
 File: gcc.info,  Node: x86 specific memory model extensions for transactional memory,  Next: Object Size Checking,  Prev: Integer Overflow Builtins,  Up: C Extensions
 
-6.59 x86-Specific Memory Model Extensions for Transactional Memory
+6.61 x86-Specific Memory Model Extensions for Transactional Memory
 ==================================================================
 
 The x86 architecture supports additional memory ordering flags to mark
@@ -49844,10 +49892,10 @@ the transaction quickly.  This can be done with a '_mm_pause'.
 
 File: gcc.info,  Node: Object Size Checking,  Next: Other Builtins,  Prev: x86 specific memory model extensions for transactional memory,  Up: C Extensions
 
-6.60 Object Size Checking
+6.62 Object Size Checking
 =========================
 
-6.60.1 Object Size Checking Built-in Functions
+6.62.1 Object Size Checking Built-in Functions
 ----------------------------------------------
 
 GCC implements a limited buffer overflow protection mechanism that can
@@ -49910,7 +49958,7 @@ extent, they can be used without optimization as well.
      points to at compile time are the same as in the case of
      '__builtin_object_size'.
 
-6.60.2 Object Size Checking and Source Fortification
+6.62.2 Object Size Checking and Source Fortification
 ----------------------------------------------------
 
 Hardening of function calls using the '_FORTIFY_SOURCE' macro is one of
@@ -49957,7 +50005,7 @@ overflowed, it issues a warning.
 'memmove', 'memset', 'strcpy', 'stpcpy', 'strncpy', 'strcat' and
 'strncat'.
 
-6.60.2.1 Formatted Output Function Checking
+6.62.2.1 Formatted Output Function Checking
 ...........................................
 
  -- Built-in Function: int __builtin___sprintf_chk (char *S, int FLAG,
@@ -49992,7 +50040,7 @@ overflowed, it issues a warning.
 
 File: gcc.info,  Node: Other Builtins,  Next: Target Builtins,  Prev: Object Size Checking,  Up: C Extensions
 
-6.61 Other Built-in Functions Provided by GCC
+6.63 Other Built-in Functions Provided by GCC
 =============================================
 
 GCC provides a large number of built-in functions other than the ones
@@ -51260,7 +51308,7 @@ without the '__builtin_' prefix.
 
 File: gcc.info,  Node: Target Builtins,  Next: Target Format Checks,  Prev: Other Builtins,  Up: C Extensions
 
-6.62 Built-in Functions Specific to Particular Target Machines
+6.64 Built-in Functions Specific to Particular Target Machines
 ==============================================================
 
 On some target machines, GCC supports many built-in functions specific
@@ -51314,7 +51362,7 @@ instructions, but allow the compiler to schedule those calls.
 
 File: gcc.info,  Node: AArch64 Built-in Functions,  Next: Alpha Built-in Functions,  Up: Target Builtins
 
-6.62.1 AArch64 Built-in Functions
+6.64.1 AArch64 Built-in Functions
 ---------------------------------
 
 These built-in functions are available for the AArch64 family of
@@ -51332,7 +51380,7 @@ processors.
 
 File: gcc.info,  Node: Alpha Built-in Functions,  Next: Altera Nios II Built-in Functions,  Prev: AArch64 Built-in Functions,  Up: Target Builtins
 
-6.62.2 Alpha Built-in Functions
+6.64.2 Alpha Built-in Functions
 -------------------------------
 
 These built-in functions are available for the Alpha family of
@@ -51407,7 +51455,7 @@ calls, but when invoked with '-mtls-kernel', they invoke 'rdval' and
 
 File: gcc.info,  Node: Altera Nios II Built-in Functions,  Next: ARC Built-in Functions,  Prev: Alpha Built-in Functions,  Up: Target Builtins
 
-6.62.3 Altera Nios II Built-in Functions
+6.64.3 Altera Nios II Built-in Functions
 ----------------------------------------
 
 These built-in functions are available for the Altera Nios II family of
@@ -51515,7 +51563,7 @@ two parameters to the function.
 
 File: gcc.info,  Node: ARC Built-in Functions,  Next: ARC SIMD Built-in Functions,  Prev: Altera Nios II Built-in Functions,  Up: Target Builtins
 
-6.62.4 ARC Built-in Functions
+6.64.4 ARC Built-in Functions
 -----------------------------
 
 The following built-in functions are provided for ARC targets.  The
@@ -51669,7 +51717,7 @@ uses '-mnorm'.
 
 File: gcc.info,  Node: ARC SIMD Built-in Functions,  Next: ARM iWMMXt Built-in Functions,  Prev: ARC Built-in Functions,  Up: Target Builtins
 
-6.62.5 ARC SIMD Built-in Functions
+6.64.5 ARC SIMD Built-in Functions
 ----------------------------------
 
 SIMD builtins provided by the compiler can be used to generate the
@@ -51893,7 +51941,7 @@ constant.
 
 File: gcc.info,  Node: ARM iWMMXt Built-in Functions,  Next: ARM C Language Extensions (ACLE),  Prev: ARC SIMD Built-in Functions,  Up: Target Builtins
 
-6.62.6 ARM iWMMXt Built-in Functions
+6.64.6 ARM iWMMXt Built-in Functions
 ------------------------------------
 
 These built-in functions are available for the ARM family of processors
@@ -52047,7 +52095,7 @@ when the '-mcpu=iwmmxt' switch is used:
 
 File: gcc.info,  Node: ARM C Language Extensions (ACLE),  Next: ARM Floating Point Status and Control Intrinsics,  Prev: ARM iWMMXt Built-in Functions,  Up: Target Builtins
 
-6.62.7 ARM C Language Extensions (ACLE)
+6.64.7 ARM C Language Extensions (ACLE)
 ---------------------------------------
 
 GCC implements extensions for C as described in the ARM C Language
@@ -52074,7 +52122,7 @@ information on the availability of extensions.
 
 File: gcc.info,  Node: ARM Floating Point Status and Control Intrinsics,  Next: ARM ARMv8-M Security Extensions,  Prev: ARM C Language Extensions (ACLE),  Up: Target Builtins
 
-6.62.8 ARM Floating Point Status and Control Intrinsics
+6.64.8 ARM Floating Point Status and Control Intrinsics
 -------------------------------------------------------
 
 These built-in functions are available for the ARM family of processors
@@ -52086,7 +52134,7 @@ with floating-point unit.
 
 File: gcc.info,  Node: ARM ARMv8-M Security Extensions,  Next: AVR Built-in Functions,  Prev: ARM Floating Point Status and Control Intrinsics,  Up: Target Builtins
 
-6.62.9 ARM ARMv8-M Security Extensions
+6.64.9 ARM ARMv8-M Security Extensions
 --------------------------------------
 
 GCC implements the ARMv8-M Security Extensions as described in the
@@ -52116,7 +52164,7 @@ FPTR is used here to mean any function pointer type.
 
 File: gcc.info,  Node: AVR Built-in Functions,  Next: Blackfin Built-in Functions,  Prev: ARM ARMv8-M Security Extensions,  Up: Target Builtins
 
-6.62.10 AVR Built-in Functions
+6.64.10 AVR Built-in Functions
 ------------------------------
 
 For each built-in function for AVR, there is an equally named, uppercase
@@ -52208,7 +52256,7 @@ GNU-C99:
 
 File: gcc.info,  Node: Blackfin Built-in Functions,  Next: BPF Built-in Functions,  Prev: AVR Built-in Functions,  Up: Target Builtins
 
-6.62.11 Blackfin Built-in Functions
+6.64.11 Blackfin Built-in Functions
 -----------------------------------
 
 Currently, there are two Blackfin-specific built-in functions.  These
@@ -52223,7 +52271,7 @@ instructions.  These functions are named as follows:
 
 File: gcc.info,  Node: BPF Built-in Functions,  Next: FR-V Built-in Functions,  Prev: Blackfin Built-in Functions,  Up: Target Builtins
 
-6.62.12 BPF Built-in Functions
+6.64.12 BPF Built-in Functions
 ------------------------------
 
 The following built-in functions are available for eBPF targets.
@@ -52379,7 +52427,7 @@ The following built-in functions are available for eBPF targets.
 
 File: gcc.info,  Node: FR-V Built-in Functions,  Next: LoongArch Base Built-in Functions,  Prev: BPF Built-in Functions,  Up: Target Builtins
 
-6.62.13 FR-V Built-in Functions
+6.64.13 FR-V Built-in Functions
 -------------------------------
 
 GCC provides many FR-V-specific built-in functions.  In general, these
@@ -52403,7 +52451,7 @@ tabular form.
 
 File: gcc.info,  Node: Argument Types,  Next: Directly-mapped Integer Functions,  Up: FR-V Built-in Functions
 
-6.62.13.1 Argument Types
+6.64.13.1 Argument Types
 ........................
 
 The arguments to the built-in functions can be divided into three
@@ -52443,7 +52491,7 @@ details.
 
 File: gcc.info,  Node: Directly-mapped Integer Functions,  Next: Directly-mapped Media Functions,  Prev: Argument Types,  Up: FR-V Built-in Functions
 
-6.62.13.2 Directly-Mapped Integer Functions
+6.64.13.2 Directly-Mapped Integer Functions
 ...........................................
 
 The functions listed below map directly to FR-V I-type instructions.
@@ -52464,7 +52512,7 @@ Function prototype               Example usage           Assembly output
 
 File: gcc.info,  Node: Directly-mapped Media Functions,  Next: Raw read/write Functions,  Prev: Directly-mapped Integer Functions,  Up: FR-V Built-in Functions
 
-6.62.13.3 Directly-Mapped Media Functions
+6.64.13.3 Directly-Mapped Media Functions
 .........................................
 
 The functions listed below map directly to FR-V M-type instructions.
@@ -52612,7 +52660,7 @@ sw2)'                            B)'                     A,B,C'
 
 File: gcc.info,  Node: Raw read/write Functions,  Next: Other Built-in Functions,  Prev: Directly-mapped Media Functions,  Up: FR-V Built-in Functions
 
-6.62.13.4 Raw Read/Write Functions
+6.64.13.4 Raw Read/Write Functions
 ..................................
 
 This sections describes built-in functions related to read and write
@@ -52633,7 +52681,7 @@ described in Fujitsu's manual described above.
 
 File: gcc.info,  Node: Other Built-in Functions,  Prev: Raw read/write Functions,  Up: FR-V Built-in Functions
 
-6.62.13.5 Other Built-in Functions
+6.64.13.5 Other Built-in Functions
 ..................................
 
 This section describes built-in functions that are not named after a
@@ -52666,7 +52714,7 @@ specific FR-V instruction.
 
 File: gcc.info,  Node: LoongArch Base Built-in Functions,  Next: LoongArch SX Vector Intrinsics,  Prev: FR-V Built-in Functions,  Up: Target Builtins
 
-6.62.14 LoongArch Base Built-in Functions
+6.64.14 LoongArch Base Built-in Functions
 -----------------------------------------
 
 These built-in functions are available for LoongArch.
@@ -52816,7 +52864,7 @@ values.
 
 File: gcc.info,  Node: LoongArch SX Vector Intrinsics,  Next: LoongArch ASX Vector Intrinsics,  Prev: LoongArch Base Built-in Functions,  Up: Target Builtins
 
-6.62.15 LoongArch SX Vector Intrinsics
+6.64.15 LoongArch SX Vector Intrinsics
 --------------------------------------
 
 GCC provides intrinsics to access the LSX (Loongson SIMD Extension)
@@ -53632,7 +53680,7 @@ using '-mfrecipe' and '-mlsx'.
 
 File: gcc.info,  Node: LoongArch ASX Vector Intrinsics,  Next: MIPS DSP Built-in Functions,  Prev: LoongArch SX Vector Intrinsics,  Up: Target Builtins
 
-6.62.16 LoongArch ASX Vector Intrinsics
+6.64.16 LoongArch ASX Vector Intrinsics
 ---------------------------------------
 
 GCC provides intrinsics to access the LASX (Loongson Advanced SIMD
@@ -54469,7 +54517,7 @@ using '-mfrecipe' and '-mlasx'.
 
 File: gcc.info,  Node: MIPS DSP Built-in Functions,  Next: MIPS Paired-Single Support,  Prev: LoongArch ASX Vector Intrinsics,  Up: Target Builtins
 
-6.62.17 MIPS DSP Built-in Functions
+6.64.17 MIPS DSP Built-in Functions
 -----------------------------------
 
 The MIPS DSP Application-Specific Extension (ASE) includes new
@@ -54744,7 +54792,7 @@ details on what each instruction does.
 
 File: gcc.info,  Node: MIPS Paired-Single Support,  Next: MIPS Loongson Built-in Functions,  Prev: MIPS DSP Built-in Functions,  Up: Target Builtins
 
-6.62.18 MIPS Paired-Single Support
+6.64.18 MIPS Paired-Single Support
 ----------------------------------
 
 The MIPS64 architecture includes a number of instructions that operate
@@ -54780,7 +54828,7 @@ targets.  For example, the code above sets the lower half of 'a' to
 
 File: gcc.info,  Node: MIPS Loongson Built-in Functions,  Next: MIPS SIMD Architecture (MSA) Support,  Prev: MIPS Paired-Single Support,  Up: Target Builtins
 
-6.62.19 MIPS Loongson Built-in Functions
+6.64.19 MIPS Loongson Built-in Functions
 ----------------------------------------
 
 GCC provides intrinsics to access the SIMD instructions provided by the
@@ -54911,7 +54959,7 @@ each instruction.
 
 File: gcc.info,  Node: Paired-Single Arithmetic,  Next: Paired-Single Built-in Functions,  Up: MIPS Loongson Built-in Functions
 
-6.62.19.1 Paired-Single Arithmetic
+6.64.19.1 Paired-Single Arithmetic
 ..................................
 
 The table below lists the 'v2sf' operations for which hardware support
@@ -54936,7 +54984,7 @@ the command-line option '-mno-fused-madd'.
 
 File: gcc.info,  Node: Paired-Single Built-in Functions,  Next: MIPS-3D Built-in Functions,  Prev: Paired-Single Arithmetic,  Up: MIPS Loongson Built-in Functions
 
-6.62.19.2 Paired-Single Built-in Functions
+6.64.19.2 Paired-Single Built-in Functions
 ..........................................
 
 The following paired-single functions map directly to a particular MIPS
@@ -55015,7 +55063,7 @@ case, COND can be any of the 16 floating-point conditions: 'f', 'un',
 
 File: gcc.info,  Node: MIPS-3D Built-in Functions,  Prev: Paired-Single Built-in Functions,  Up: MIPS Loongson Built-in Functions
 
-6.62.19.3 MIPS-3D Built-in Functions
+6.64.19.3 MIPS-3D Built-in Functions
 ....................................
 
 The MIPS-3D Application-Specific Extension (ASE) includes additional
@@ -55163,7 +55211,7 @@ case, COND can be any of the 16 floating-point conditions: 'f', 'un',
 
 File: gcc.info,  Node: MIPS SIMD Architecture (MSA) Support,  Next: Other MIPS Built-in Functions,  Prev: MIPS Loongson Built-in Functions,  Up: Target Builtins
 
-6.62.20 MIPS SIMD Architecture (MSA) Support
+6.64.20 MIPS SIMD Architecture (MSA) Support
 --------------------------------------------
 
 * Menu:
@@ -55233,7 +55281,7 @@ restrictions and/or input/output values manipulated:
 
 File: gcc.info,  Node: MIPS SIMD Architecture Built-in Functions,  Up: MIPS SIMD Architecture (MSA) Support
 
-6.62.20.1 MIPS SIMD Architecture Built-in Functions
+6.64.20.1 MIPS SIMD Architecture Built-in Functions
 ...................................................
 
 The intrinsics provided are listed below; each is named after the
@@ -55950,7 +55998,7 @@ machine instruction.
 
 File: gcc.info,  Node: Other MIPS Built-in Functions,  Next: MSP430 Built-in Functions,  Prev: MIPS SIMD Architecture (MSA) Support,  Up: Target Builtins
 
-6.62.21 Other MIPS Built-in Functions
+6.64.21 Other MIPS Built-in Functions
 -------------------------------------
 
 GCC provides other MIPS-specific built-in functions:
@@ -55974,7 +56022,7 @@ GCC provides other MIPS-specific built-in functions:
 
 File: gcc.info,  Node: MSP430 Built-in Functions,  Next: NDS32 Built-in Functions,  Prev: Other MIPS Built-in Functions,  Up: Target Builtins
 
-6.62.22 MSP430 Built-in Functions
+6.64.22 MSP430 Built-in Functions
 ---------------------------------
 
 GCC provides a couple of special builtin functions to aid in the writing
@@ -56004,7 +56052,7 @@ of interrupt handlers in C.
 
 File: gcc.info,  Node: NDS32 Built-in Functions,  Next: Nvidia PTX Built-in Functions,  Prev: MSP430 Built-in Functions,  Up: Target Builtins
 
-6.62.23 NDS32 Built-in Functions
+6.64.23 NDS32 Built-in Functions
 --------------------------------
 
 These built-in functions are available for the NDS32 target:
@@ -56037,7 +56085,7 @@ These built-in functions are available for the NDS32 target:
 
 File: gcc.info,  Node: Nvidia PTX Built-in Functions,  Next: Basic PowerPC Built-in Functions,  Prev: NDS32 Built-in Functions,  Up: Target Builtins
 
-6.62.24 Nvidia PTX Built-in Functions
+6.64.24 Nvidia PTX Built-in Functions
 -------------------------------------
 
 These built-in functions are available for the Nvidia PTX target:
@@ -56053,7 +56101,7 @@ These built-in functions are available for the Nvidia PTX target:
 
 File: gcc.info,  Node: Basic PowerPC Built-in Functions,  Next: PowerPC AltiVec/VSX Built-in Functions,  Prev: Nvidia PTX Built-in Functions,  Up: Target Builtins
 
-6.62.25 Basic PowerPC Built-in Functions
+6.64.25 Basic PowerPC Built-in Functions
 ----------------------------------------
 
 * Menu:
@@ -56073,7 +56121,7 @@ PowerPC built-in functions.
 
 File: gcc.info,  Node: Basic PowerPC Built-in Functions Available on all Configurations,  Next: Basic PowerPC Built-in Functions Available on ISA 2.05,  Up: Basic PowerPC Built-in Functions
 
-6.62.25.1 Basic PowerPC Built-in Functions Available on all Configurations
+6.64.25.1 Basic PowerPC Built-in Functions Available on all Configurations
 ..........................................................................
 
  -- Built-in Function: void __builtin_cpu_init (void)
@@ -56306,7 +56354,7 @@ will not return a value.
 
 File: gcc.info,  Node: Basic PowerPC Built-in Functions Available on ISA 2.05,  Next: Basic PowerPC Built-in Functions Available on ISA 2.06,  Prev: Basic PowerPC Built-in Functions Available on all Configurations,  Up: Basic PowerPC Built-in Functions
 
-6.62.25.2 Basic PowerPC Built-in Functions Available on ISA 2.05
+6.64.25.2 Basic PowerPC Built-in Functions Available on ISA 2.05
 ................................................................
 
 The basic built-in functions described in this section are available on
@@ -56421,7 +56469,7 @@ family of processors, for efficient use of 128-bit floating point
 
 File: gcc.info,  Node: Basic PowerPC Built-in Functions Available on ISA 2.06,  Next: Basic PowerPC Built-in Functions Available on ISA 2.07,  Prev: Basic PowerPC Built-in Functions Available on ISA 2.05,  Up: Basic PowerPC Built-in Functions
 
-6.62.25.3 Basic PowerPC Built-in Functions Available on ISA 2.06
+6.64.25.3 Basic PowerPC Built-in Functions Available on ISA 2.06
 ................................................................
 
 The basic built-in functions described in this section are available on
@@ -56462,7 +56510,7 @@ targets, require '-mfloat128'.
 
 File: gcc.info,  Node: Basic PowerPC Built-in Functions Available on ISA 2.07,  Next: Basic PowerPC Built-in Functions Available on ISA 3.0,  Prev: Basic PowerPC Built-in Functions Available on ISA 2.06,  Up: Basic PowerPC Built-in Functions
 
-6.62.25.4 Basic PowerPC Built-in Functions Available on ISA 2.07
+6.64.25.4 Basic PowerPC Built-in Functions Available on ISA 2.07
 ................................................................
 
 The basic built-in functions described in this section are available on
@@ -56478,7 +56526,7 @@ options.
 
 File: gcc.info,  Node: Basic PowerPC Built-in Functions Available on ISA 3.0,  Next: Basic PowerPC Built-in Functions Available on ISA 3.1,  Prev: Basic PowerPC Built-in Functions Available on ISA 2.07,  Up: Basic PowerPC Built-in Functions
 
-6.62.25.5 Basic PowerPC Built-in Functions Available on ISA 3.0
+6.64.25.5 Basic PowerPC Built-in Functions Available on ISA 3.0
 ...............................................................
 
 The basic built-in functions described in this section are available on
@@ -56619,7 +56667,7 @@ builtin uses the older 'mffs' instruction to read the FPSCR.
 
 File: gcc.info,  Node: Basic PowerPC Built-in Functions Available on ISA 3.1,  Prev: Basic PowerPC Built-in Functions Available on ISA 3.0,  Up: Basic PowerPC Built-in Functions
 
-6.62.25.6 Basic PowerPC Built-in Functions Available on ISA 3.1
+6.64.25.6 Basic PowerPC Built-in Functions Available on ISA 3.1
 ...............................................................
 
 The basic built-in functions described in this section are available on
@@ -56701,7 +56749,7 @@ that use a future architecture instruction set ('-mcpu=power10'):
 
 File: gcc.info,  Node: PowerPC AltiVec/VSX Built-in Functions,  Next: PowerPC Hardware Transactional Memory Built-in Functions,  Prev: Basic PowerPC Built-in Functions,  Up: Target Builtins
 
-6.62.26 PowerPC AltiVec/VSX Built-in Functions
+6.64.26 PowerPC AltiVec/VSX Built-in Functions
 ----------------------------------------------
 
 GCC provides an interface for the PowerPC family of processors to access
@@ -56867,7 +56915,7 @@ same capabilities should be considered deprecated.
 
 File: gcc.info,  Node: PowerPC AltiVec Built-in Functions on ISA 2.05,  Next: PowerPC AltiVec Built-in Functions Available on ISA 2.06,  Up: PowerPC AltiVec/VSX Built-in Functions
 
-6.62.26.1 PowerPC AltiVec Built-in Functions on ISA 2.05
+6.64.26.1 PowerPC AltiVec Built-in Functions on ISA 2.05
 ........................................................
 
 The following interfaces are supported for the generic and specific
@@ -57349,7 +57397,7 @@ values within the range required for that operation.
 
 File: gcc.info,  Node: PowerPC AltiVec Built-in Functions Available on ISA 2.06,  Next: PowerPC AltiVec Built-in Functions Available on ISA 2.07,  Prev: PowerPC AltiVec Built-in Functions on ISA 2.05,  Up: PowerPC AltiVec/VSX Built-in Functions
 
-6.62.26.2 PowerPC AltiVec Built-in Functions Available on ISA 2.06
+6.64.26.2 PowerPC AltiVec Built-in Functions Available on ISA 2.06
 ..................................................................
 
 The AltiVec built-in functions described in this section are available
@@ -57478,7 +57526,7 @@ instructions.
 
 File: gcc.info,  Node: PowerPC AltiVec Built-in Functions Available on ISA 2.07,  Next: PowerPC AltiVec Built-in Functions Available on ISA 3.0,  Prev: PowerPC AltiVec Built-in Functions Available on ISA 2.06,  Up: PowerPC AltiVec/VSX Built-in Functions
 
-6.62.26.3 PowerPC AltiVec Built-in Functions Available on ISA 2.07
+6.64.26.3 PowerPC AltiVec Built-in Functions Available on ISA 2.07
 ..................................................................
 
 If the ISA 2.07 additions to the vector/scalar (power8-vector)
@@ -57671,7 +57719,7 @@ and VECTOR __UINT128 types, but the index value must be 0.
 
 File: gcc.info,  Node: PowerPC AltiVec Built-in Functions Available on ISA 3.0,  Next: PowerPC AltiVec Built-in Functions Available on ISA 3.1,  Prev: PowerPC AltiVec Built-in Functions Available on ISA 2.07,  Up: PowerPC AltiVec/VSX Built-in Functions
 
-6.62.26.4 PowerPC AltiVec Built-in Functions Available on ISA 3.0
+6.64.26.4 PowerPC AltiVec Built-in Functions Available on ISA 3.0
 .................................................................
 
 The following additional built-in functions are also available for the
@@ -57998,7 +58046,7 @@ doubleword.
 
 File: gcc.info,  Node: PowerPC AltiVec Built-in Functions Available on ISA 3.1,  Prev: PowerPC AltiVec Built-in Functions Available on ISA 3.0,  Up: PowerPC AltiVec/VSX Built-in Functions
 
-6.62.26.5 PowerPC AltiVec Built-in Functions Available on ISA 3.1
+6.64.26.5 PowerPC AltiVec Built-in Functions Available on ISA 3.1
 .................................................................
 
 The following additional built-in functions are also available for the
@@ -58665,7 +58713,7 @@ Otherwise, the element of the returned vector contains all zeros.
 
 File: gcc.info,  Node: PowerPC Hardware Transactional Memory Built-in Functions,  Next: PowerPC Atomic Memory Operation Functions,  Prev: PowerPC AltiVec/VSX Built-in Functions,  Up: Target Builtins
 
-6.62.27 PowerPC Hardware Transactional Memory Built-in Functions
+6.64.27 PowerPC Hardware Transactional Memory Built-in Functions
 ----------------------------------------------------------------
 
 GCC provides two interfaces for accessing the Hardware Transactional
@@ -58675,7 +58723,7 @@ interface, consisting of built-in functions specific to PowerPC and a
 higher level interface consisting of inline functions that are common
 between PowerPC and S/390.
 
-6.62.27.1 PowerPC HTM Low Level Built-in Functions
+6.64.27.1 PowerPC HTM Low Level Built-in Functions
 ..................................................
 
 The following low level built-in functions are available with '-mhtm' or
@@ -58809,7 +58857,7 @@ using the following code example:
          /* Code to use in transaction suspended state.  */
        }
 
-6.62.27.2 PowerPC HTM High Level Inline Functions
+6.64.27.2 PowerPC HTM High Level Inline Functions
 .................................................
 
 The following high level HTM interface is made available by including
@@ -58875,7 +58923,7 @@ work on either PowerPC or S/390:
 
 File: gcc.info,  Node: PowerPC Atomic Memory Operation Functions,  Next: PowerPC Matrix-Multiply Assist Built-in Functions,  Prev: PowerPC Hardware Transactional Memory Built-in Functions,  Up: Target Builtins
 
-6.62.28 PowerPC Atomic Memory Operation Functions
+6.64.28 PowerPC Atomic Memory Operation Functions
 -------------------------------------------------
 
 ISA 3.0 of the PowerPC added new atomic memory operation (amo)
@@ -58938,7 +58986,7 @@ environments.  All of the functions are declared in the include file
 
 File: gcc.info,  Node: PowerPC Matrix-Multiply Assist Built-in Functions,  Next: PRU Built-in Functions,  Prev: PowerPC Atomic Memory Operation Functions,  Up: Target Builtins
 
-6.62.29 PowerPC Matrix-Multiply Assist Built-in Functions
+6.64.29 PowerPC Matrix-Multiply Assist Built-in Functions
 ---------------------------------------------------------
 
 ISA 3.1 of the PowerPC added new Matrix-Multiply Assist (MMA)
@@ -59037,7 +59085,7 @@ they are constants and that their values are within range.
 
 File: gcc.info,  Node: PRU Built-in Functions,  Next: RISC-V Built-in Functions,  Prev: PowerPC Matrix-Multiply Assist Built-in Functions,  Up: Target Builtins
 
-6.62.30 PRU Built-in Functions
+6.64.30 PRU Built-in Functions
 ------------------------------
 
 GCC provides a couple of special builtin functions to aid in utilizing
@@ -59066,7 +59114,7 @@ special PRU instructions.
 
 File: gcc.info,  Node: RISC-V Built-in Functions,  Next: RISC-V Vector Intrinsics,  Prev: PRU Built-in Functions,  Up: Target Builtins
 
-6.62.31 RISC-V Built-in Functions
+6.64.31 RISC-V Built-in Functions
 ---------------------------------
 
 These built-in functions are available for the RISC-V family of
@@ -59083,7 +59131,7 @@ processors.
 
 File: gcc.info,  Node: RISC-V Vector Intrinsics,  Next: CORE-V Built-in Functions,  Prev: RISC-V Built-in Functions,  Up: Target Builtins
 
-6.62.32 RISC-V Vector Intrinsics
+6.64.32 RISC-V Vector Intrinsics
 --------------------------------
 
 GCC supports vector intrinsics as specified in version 0.11 of the
@@ -59095,7 +59143,7 @@ of these functions are declared in the include file 'riscv_vector.h'.
 
 File: gcc.info,  Node: CORE-V Built-in Functions,  Next: RX Built-in Functions,  Prev: RISC-V Vector Intrinsics,  Up: Target Builtins
 
-6.62.33 CORE-V Built-in Functions
+6.64.33 CORE-V Built-in Functions
 ---------------------------------
 
 For more information on all CORE-V built-ins, please see
@@ -60170,7 +60218,7 @@ architecture.  For more information on CORE-V SIMD built-ins, please see
 
 File: gcc.info,  Node: RX Built-in Functions,  Next: S/390 System z Built-in Functions,  Prev: CORE-V Built-in Functions,  Up: Target Builtins
 
-6.62.34 RX Built-in Functions
+6.64.34 RX Built-in Functions
 -----------------------------
 
 GCC supports some of the RX instructions which cannot be expressed in
@@ -60268,7 +60316,7 @@ following functions are supported:
 
 File: gcc.info,  Node: S/390 System z Built-in Functions,  Next: SH Built-in Functions,  Prev: RX Built-in Functions,  Up: Target Builtins
 
-6.62.35 S/390 System z Built-in Functions
+6.64.35 S/390 System z Built-in Functions
 -----------------------------------------
 
  -- Built-in Function: int __builtin_tbegin (void*)
@@ -60376,7 +60424,7 @@ File: gcc.info,  Node: S/390 System z Built-in Functions,  Next: SH Built-in Fun
 
 File: gcc.info,  Node: SH Built-in Functions,  Next: SPARC VIS Built-in Functions,  Prev: S/390 System z Built-in Functions,  Up: Target Builtins
 
-6.62.36 SH Built-in Functions
+6.64.36 SH Built-in Functions
 -----------------------------
 
 The following built-in functions are supported on the SH1, SH2, SH3 and
@@ -60418,7 +60466,7 @@ SH4 families of processors:
 
 File: gcc.info,  Node: SPARC VIS Built-in Functions,  Next: TI C6X Built-in Functions,  Prev: SH Built-in Functions,  Up: Target Builtins
 
-6.62.37 SPARC VIS Built-in Functions
+6.64.37 SPARC VIS Built-in Functions
 ------------------------------------
 
 GCC supports SIMD operations on the SPARC using both the generic vector
@@ -60631,7 +60679,7 @@ functions also become available:
 
 File: gcc.info,  Node: TI C6X Built-in Functions,  Next: x86 Built-in Functions,  Prev: SPARC VIS Built-in Functions,  Up: Target Builtins
 
-6.62.38 TI C6X Built-in Functions
+6.64.38 TI C6X Built-in Functions
 ---------------------------------
 
 GCC provides intrinsics to access certain instructions of the TI C6X
@@ -60669,7 +60717,7 @@ C6X instructions.
 
 File: gcc.info,  Node: x86 Built-in Functions,  Next: x86 transactional memory intrinsics,  Prev: TI C6X Built-in Functions,  Up: Target Builtins
 
-6.62.39 x86 Built-in Functions
+6.64.39 x86 Built-in Functions
 ------------------------------
 
 These built-in functions are available for the x86-32 and x86-64 family
@@ -62228,7 +62276,7 @@ These are the internal low-level functions.  Normally the functions in
 
 File: gcc.info,  Node: x86 transactional memory intrinsics,  Next: x86 control-flow protection intrinsics,  Prev: x86 Built-in Functions,  Up: Target Builtins
 
-6.62.40 x86 Transactional Memory Intrinsics
+6.64.40 x86 Transactional Memory Intrinsics
 -------------------------------------------
 
 These hardware transactional memory intrinsics for x86 allow you to use
@@ -62323,7 +62371,7 @@ must synchronize together to ensure consistency.
 
 File: gcc.info,  Node: x86 control-flow protection intrinsics,  Prev: x86 transactional memory intrinsics,  Up: Target Builtins
 
-6.62.41 x86 Control-Flow Protection Intrinsics
+6.64.41 x86 Control-Flow Protection Intrinsics
 ----------------------------------------------
 
  -- CET Function: ret_type _get_ssp (void)
@@ -62367,7 +62415,7 @@ instructions.
 
 File: gcc.info,  Node: Target Format Checks,  Next: Pragmas,  Prev: Target Builtins,  Up: C Extensions
 
-6.63 Format Checks Specific to Particular Target Machines
+6.65 Format Checks Specific to Particular Target Machines
 =========================================================
 
 For some target machines, GCC supports additional options to the format
@@ -62382,7 +62430,7 @@ Attributes.).
 
 File: gcc.info,  Node: Solaris Format Checks,  Next: Darwin Format Checks,  Up: Target Format Checks
 
-6.63.1 Solaris Format Checks
+6.65.1 Solaris Format Checks
 ----------------------------
 
 Solaris targets support the 'cmn_err' (or '__cmn_err__') format check.
@@ -62393,7 +62441,7 @@ man page for 'cmn_err' for more information.
 
 File: gcc.info,  Node: Darwin Format Checks,  Prev: Solaris Format Checks,  Up: Target Format Checks
 
-6.63.2 Darwin Format Checks
+6.65.2 Darwin Format Checks
 ---------------------------
 
 In addition to the full set of format archetypes (attribute format style
@@ -62413,7 +62461,7 @@ of 'CFString', 'CFStringRefs' and associated functions.
 
 File: gcc.info,  Node: Pragmas,  Next: Unnamed Fields,  Prev: Target Format Checks,  Up: C Extensions
 
-6.64 Pragmas Accepted by GCC
+6.66 Pragmas Accepted by GCC
 ============================
 
 GCC supports several types of pragmas, primarily in order to compile
@@ -62447,7 +62495,7 @@ information.
 
 File: gcc.info,  Node: AArch64 Pragmas,  Next: ARM Pragmas,  Up: Pragmas
 
-6.64.1 AArch64 Pragmas
+6.66.1 AArch64 Pragmas
 ----------------------
 
 The pragmas defined by the AArch64 target correspond to the AArch64
@@ -62461,7 +62509,7 @@ permissible values of 'string'.
 
 File: gcc.info,  Node: ARM Pragmas,  Next: M32C Pragmas,  Prev: AArch64 Pragmas,  Up: Pragmas
 
-6.64.2 ARM Pragmas
+6.66.2 ARM Pragmas
 ------------------
 
 The ARM target defines pragmas for controlling the default addition of
@@ -62481,7 +62529,7 @@ Attributes::, for information about the effects of these attributes.
 
 File: gcc.info,  Node: M32C Pragmas,  Next: PRU Pragmas,  Prev: ARM Pragmas,  Up: Pragmas
 
-6.64.3 M32C Pragmas
+6.66.3 M32C Pragmas
 -------------------
 
 'GCC memregs NUMBER'
@@ -62507,7 +62555,7 @@ File: gcc.info,  Node: M32C Pragmas,  Next: PRU Pragmas,  Prev: ARM Pragmas,  Up
 
 File: gcc.info,  Node: PRU Pragmas,  Next: RS/6000 and PowerPC Pragmas,  Prev: M32C Pragmas,  Up: Pragmas
 
-6.64.4 PRU Pragmas
+6.66.4 PRU Pragmas
 ------------------
 
 'ctable_entry INDEX CONSTANT_ADDRESS'
@@ -62523,7 +62571,7 @@ File: gcc.info,  Node: PRU Pragmas,  Next: RS/6000 and PowerPC Pragmas,  Prev: M
 
 File: gcc.info,  Node: RS/6000 and PowerPC Pragmas,  Next: S/390 Pragmas,  Prev: PRU Pragmas,  Up: Pragmas
 
-6.64.5 RS/6000 and PowerPC Pragmas
+6.66.5 RS/6000 and PowerPC Pragmas
 ----------------------------------
 
 The RS/6000 and PowerPC targets define one pragma for controlling
@@ -62544,7 +62592,7 @@ are not necessary.
 
 File: gcc.info,  Node: S/390 Pragmas,  Next: Darwin Pragmas,  Prev: RS/6000 and PowerPC Pragmas,  Up: Pragmas
 
-6.64.6 S/390 Pragmas
+6.66.6 S/390 Pragmas
 --------------------
 
 The pragmas defined by the S/390 target correspond to the S/390 target
@@ -62563,7 +62611,7 @@ They can be specified as below:
 
 File: gcc.info,  Node: Darwin Pragmas,  Next: Solaris Pragmas,  Prev: S/390 Pragmas,  Up: Pragmas
 
-6.64.7 Darwin Pragmas
+6.66.7 Darwin Pragmas
 ---------------------
 
 The following pragmas are available for all architectures running the
@@ -62592,7 +62640,7 @@ macOS compilers.
 
 File: gcc.info,  Node: Solaris Pragmas,  Next: Symbol-Renaming Pragmas,  Prev: Darwin Pragmas,  Up: Pragmas
 
-6.64.8 Solaris Pragmas
+6.66.8 Solaris Pragmas
 ----------------------
 
 The Solaris target supports '#pragma redefine_extname' (*note
@@ -62623,7 +62671,7 @@ directives for compatibility with the system compiler.
 
 File: gcc.info,  Node: Symbol-Renaming Pragmas,  Next: Structure-Layout Pragmas,  Prev: Solaris Pragmas,  Up: Pragmas
 
-6.64.9 Symbol-Renaming Pragmas
+6.66.9 Symbol-Renaming Pragmas
 ------------------------------
 
 GCC supports a '#pragma' directive that changes the name used in
@@ -62660,7 +62708,7 @@ manner.  Here are some corner cases you may want to be aware of:
 
 File: gcc.info,  Node: Structure-Layout Pragmas,  Next: Weak Pragmas,  Prev: Symbol-Renaming Pragmas,  Up: Pragmas
 
-6.64.10 Structure-Layout Pragmas
+6.66.10 Structure-Layout Pragmas
 --------------------------------
 
 For compatibility with Microsoft Windows compilers, GCC supports a set
@@ -62705,7 +62753,7 @@ documented '__attribute__ ((scalar_storage_order))'.
 
 File: gcc.info,  Node: Weak Pragmas,  Next: Diagnostic Pragmas,  Prev: Structure-Layout Pragmas,  Up: Pragmas
 
-6.64.11 Weak Pragmas
+6.66.11 Weak Pragmas
 --------------------
 
 For compatibility with SVR4, GCC supports a set of '#pragma' directives
@@ -62724,7 +62772,7 @@ for declaring symbols to be weak, and defining weak aliases.
 
 File: gcc.info,  Node: Diagnostic Pragmas,  Next: Visibility Pragmas,  Prev: Weak Pragmas,  Up: Pragmas
 
-6.64.12 Diagnostic Pragmas
+6.66.12 Diagnostic Pragmas
 --------------------------
 
 GCC allows the user to selectively enable or disable certain types of
@@ -62842,7 +62890,7 @@ compilation.
 
 File: gcc.info,  Node: Visibility Pragmas,  Next: Push/Pop Macro Pragmas,  Prev: Diagnostic Pragmas,  Up: Pragmas
 
-6.64.13 Visibility Pragmas
+6.66.13 Visibility Pragmas
 --------------------------
 
 '#pragma GCC visibility push(VISIBILITY)'
@@ -62860,7 +62908,7 @@ File: gcc.info,  Node: Visibility Pragmas,  Next: Push/Pop Macro Pragmas,  Prev:
 
 File: gcc.info,  Node: Push/Pop Macro Pragmas,  Next: Function Specific Option Pragmas,  Prev: Visibility Pragmas,  Up: Pragmas
 
-6.64.14 Push/Pop Macro Pragmas
+6.66.14 Push/Pop Macro Pragmas
 ------------------------------
 
 For compatibility with Microsoft Windows compilers, GCC supports
@@ -62891,7 +62939,7 @@ push_macro' and restored by '#pragma pop_macro'.
 
 File: gcc.info,  Node: Function Specific Option Pragmas,  Next: Loop-Specific Pragmas,  Prev: Push/Pop Macro Pragmas,  Up: Pragmas
 
-6.64.15 Function Specific Option Pragmas
+6.66.15 Function Specific Option Pragmas
 ----------------------------------------
 
 '#pragma GCC target (STRING, ...)'
@@ -62937,7 +62985,7 @@ File: gcc.info,  Node: Function Specific Option Pragmas,  Next: Loop-Specific Pr
 
 File: gcc.info,  Node: Loop-Specific Pragmas,  Prev: Function Specific Option Pragmas,  Up: Pragmas
 
-6.64.16 Loop-Specific Pragmas
+6.66.16 Loop-Specific Pragmas
 -----------------------------
 
 '#pragma GCC ivdep'
@@ -62999,7 +63047,7 @@ File: gcc.info,  Node: Loop-Specific Pragmas,  Prev: Function Specific Option Pr
 
 File: gcc.info,  Node: Unnamed Fields,  Next: Thread-Local,  Prev: Pragmas,  Up: C Extensions
 
-6.65 Unnamed Structure and Union Fields
+6.67 Unnamed Structure and Union Fields
 =======================================
 
 As permitted by ISO C11 and for compatibility with other compilers, GCC
@@ -63065,7 +63113,7 @@ pointer to the anonymous field.
 
 File: gcc.info,  Node: Thread-Local,  Next: Binary constants,  Prev: Unnamed Fields,  Up: C Extensions
 
-6.66 Thread-Local Storage
+6.68 Thread-Local Storage
 =========================
 
 Thread-local storage (TLS) is a mechanism by which variables are
@@ -63118,7 +63166,7 @@ expected to function.
 
 File: gcc.info,  Node: C99 Thread-Local Edits,  Next: C++98 Thread-Local Edits,  Up: Thread-Local
 
-6.66.1 ISO/IEC 9899:1999 Edits for Thread-Local Storage
+6.68.1 ISO/IEC 9899:1999 Edits for Thread-Local Storage
 -------------------------------------------------------
 
 The following are a set of changes to ISO/IEC 9899:1999 (aka C99) that
@@ -63172,7 +63220,7 @@ document the exact semantics of the language extension.
 
 File: gcc.info,  Node: C++98 Thread-Local Edits,  Prev: C99 Thread-Local Edits,  Up: Thread-Local
 
-6.66.2 ISO/IEC 14882:1998 Edits for Thread-Local Storage
+6.68.2 ISO/IEC 14882:1998 Edits for Thread-Local Storage
 --------------------------------------------------------
 
 The following are a set of changes to ISO/IEC 14882:1998 (aka C++98)
@@ -63282,7 +63330,7 @@ that document the exact semantics of the language extension.
 
 File: gcc.info,  Node: Binary constants,  Prev: Thread-Local,  Up: C Extensions
 
-6.67 Binary Constants using the '0b' Prefix
+6.69 Binary Constants using the '0b' Prefix
 ===========================================
 
 Integer constants can be written as binary constants, consisting of a
@@ -70821,6 +70869,7 @@ look up both forms.
 * ###:                                   Overall Options.    (line  473)
 * -fstrub=disable:                       Instrumentation Options.
                                                              (line 1045)
+* -mcmodel=large:                        RISC-V Options.     (line  478)
 * -minline-memops-threshold:             eBPF Options.       (line  106)
 * A:                                     Preprocessor Options.
                                                              (line  336)
@@ -71557,7 +71606,7 @@ look up both forms.
                                                              (line  669)
 * fno-sched-interblock:                  Optimize Options.   (line  798)
 * fno-sched-spec:                        Optimize Options.   (line  803)
-* fno-set-stack-executable:              x86 Windows Options.
+* fno-set-stack-executable:              Cygwin and MinGW Options.
                                                              (line   64)
 * fno-show-column:                       Diagnostic Message Formatting Options.
                                                              (line  432)
@@ -71579,7 +71628,7 @@ look up both forms.
                                                              (line  652)
 * fno-working-directory:                 Preprocessor Options.
                                                              (line  322)
-* fno-writable-relocated-rdata:          x86 Windows Options.
+* fno-writable-relocated-rdata:          Cygwin and MinGW Options.
                                                              (line   71)
 * fno-zero-initialized-in-bss:           Optimize Options.   (line  466)
 * fnon-call-exceptions:                  Code Gen Options.   (line  132)
@@ -71806,7 +71855,7 @@ look up both forms.
 * fselective-scheduling:                 Optimize Options.   (line  902)
 * fselective-scheduling2:                Optimize Options.   (line  906)
 * fsemantic-interposition:               Optimize Options.   (line  920)
-* fset-stack-executable:                 x86 Windows Options.
+* fset-stack-executable:                 Cygwin and MinGW Options.
                                                              (line   64)
 * fshort-enums:                          Code Gen Options.   (line  213)
 * fshort-enums <1>:                      Structures unions enumerations and bit-fields implementation.
@@ -71995,7 +72044,7 @@ look up both forms.
                                                              (line  322)
 * fwrapv:                                Code Gen Options.   (line   98)
 * fwrapv-pointer:                        Code Gen Options.   (line  108)
-* fwritable-relocated-rdata:             x86 Windows Options.
+* fwritable-relocated-rdata:             Cygwin and MinGW Options.
                                                              (line   71)
 * fzero-call-used-regs:                  Optimize Options.   (line 2803)
 * fzero-initialized-in-bss:              Optimize Options.   (line  466)
@@ -72209,7 +72258,7 @@ look up both forms.
                                                              (line  273)
 * malign-300:                            H8/300 Options.     (line   40)
 * malign-call:                           ARC Options.        (line  440)
-* malign-data:                           RISC-V Options.     (line  499)
+* malign-data:                           RISC-V Options.     (line  503)
 * malign-data <1>:                       x86 Options.        (line  811)
 * malign-double:                         x86 Options.        (line  755)
 * malign-int:                            M680x0 Options.     (line  260)
@@ -72335,7 +72384,7 @@ look up both forms.
 * mbig-endian <7>:                       MCore Options.      (line   37)
 * mbig-endian <8>:                       MicroBlaze Options. (line   55)
 * mbig-endian <9>:                       NDS32 Options.      (line    8)
-* mbig-endian <10>:                      RISC-V Options.     (line  505)
+* mbig-endian <10>:                      RISC-V Options.     (line  509)
 * mbig-endian <11>:                      RS/6000 and PowerPC Options.
                                                              (line  430)
 * mbig-endian-data:                      RX Options.         (line   40)
@@ -72466,7 +72515,7 @@ look up both forms.
 * mcond-move:                            FRV Options.        (line  158)
 * mcond-move-float:                      LoongArch Options.  (line  132)
 * mcond-move-int:                        LoongArch Options.  (line  127)
-* mconsole:                              x86 Windows Options.
+* mconsole:                              Cygwin and MinGW Options.
                                                              (line    8)
 * mconst-align:                          CRIS Options.       (line   47)
 * mconst16:                              Xtensa Options.     (line    8)
@@ -72500,11 +72549,11 @@ look up both forms.
 * mcpu= <4>:                             MSP430 Options.     (line   71)
 * mcrc:                                  MIPS Options.       (line  420)
 * mcrc32:                                x86 Options.        (line 1221)
-* mcrtdll:                               x86 Windows Options.
+* mcrtdll:                               Cygwin and MinGW Options.
                                                              (line   15)
 * mcrypto:                               RS/6000 and PowerPC Options.
                                                              (line  176)
-* mcsr-check:                            RISC-V Options.     (line  495)
+* mcsr-check:                            RISC-V Options.     (line  499)
 * mcsync-anomaly:                        Blackfin Options.   (line   56)
 * mcsync-anomaly <1>:                    Blackfin Options.   (line   62)
 * mctor-dtor:                            NDS32 Options.      (line   80)
@@ -72539,7 +72588,7 @@ look up both forms.
 * mdivide-enabled:                       LM32 Options.       (line   11)
 * mdivide-traps:                         MIPS Options.       (line  584)
 * mdivsi3_libfunc=NAME:                  SH Options.         (line  319)
-* mdll:                                  x86 Windows Options.
+* mdll:                                  Cygwin and MinGW Options.
                                                              (line   34)
 * mdlmzb:                                RS/6000 and PowerPC Options.
                                                              (line  375)
@@ -72894,7 +72943,7 @@ look up both forms.
 * mlittle-endian <7>:                    MCore Options.      (line   37)
 * mlittle-endian <8>:                    MicroBlaze Options. (line   58)
 * mlittle-endian <9>:                    NDS32 Options.      (line   11)
-* mlittle-endian <10>:                   RISC-V Options.     (line  509)
+* mlittle-endian <10>:                   RISC-V Options.     (line  513)
 * mlittle-endian <11>:                   RS/6000 and PowerPC Options.
                                                              (line  424)
 * mlittle-endian-data:                   RX Options.         (line   40)
@@ -73433,7 +73482,7 @@ look up both forms.
 * mnobitfield:                           M680x0 Options.     (line  226)
 * mnodiv:                                FT32 Options.       (line   19)
 * mnomacsave:                            SH Options.         (line  159)
-* mnop-fun-dllimport:                    x86 Windows Options.
+* mnop-fun-dllimport:                    Cygwin and MinGW Options.
                                                              (line   40)
 * mnop-mcount:                           x86 Options.        (line 1581)
 * mnopm:                                 FT32 Options.       (line   28)
@@ -73475,7 +73524,7 @@ look up both forms.
 * mpdebug:                               CRIS Options.       (line   33)
 * mpe:                                   RS/6000 and PowerPC Options.
                                                              (line  301)
-* mpe-aligned-commons:                   x86 Windows Options.
+* mpe-aligned-commons:                   Cygwin and MinGW Options.
                                                              (line   77)
 * mpic-data-is-text-relative:            ARM Options.        (line  821)
 * mpic-data-is-text-relative <1>:        MicroBlaze Options. (line   91)
@@ -73576,7 +73625,7 @@ look up both forms.
 * mrelax <3>:                            MN10300 Options.    (line   45)
 * mrelax <4>:                            MSP430 Options.     (line   87)
 * mrelax <5>:                            NDS32 Options.      (line   83)
-* mrelax <6>:                            RISC-V Options.     (line  484)
+* mrelax <6>:                            RISC-V Options.     (line  488)
 * mrelax <7>:                            RX Options.         (line   94)
 * mrelax <8>:                            SH Options.         (line  136)
 * mrelax <9>:                            V850 Options.       (line  101)
@@ -73593,7 +73642,7 @@ look up both forms.
 * mrf16:                                 ARC Options.        (line  332)
 * mrgf-banked-regs:                      ARC Options.        (line  312)
 * mrh850-abi:                            V850 Options.       (line  125)
-* mriscv-attribute:                      RISC-V Options.     (line  490)
+* mriscv-attribute:                      RISC-V Options.     (line  494)
 * mrl78:                                 RL78 Options.       (line   58)
 * mrmw:                                  AVR Options.        (line  687)
 * mrodata-in-ram:                        AVR Options.        (line  272)
@@ -73795,18 +73844,18 @@ look up both forms.
                                                              (line   36)
 * mstack-protector-guard:                AArch64 Options.    (line   70)
 * mstack-protector-guard <1>:            ARM Options.        (line 1006)
-* mstack-protector-guard <2>:            RISC-V Options.     (line  514)
+* mstack-protector-guard <2>:            RISC-V Options.     (line  518)
 * mstack-protector-guard <3>:            RS/6000 and PowerPC Options.
                                                              (line  904)
 * mstack-protector-guard <4>:            x86 Options.        (line 1633)
 * mstack-protector-guard-offset:         AArch64 Options.    (line   70)
 * mstack-protector-guard-offset <1>:     ARM Options.        (line 1006)
-* mstack-protector-guard-offset <2>:     RISC-V Options.     (line  514)
+* mstack-protector-guard-offset <2>:     RISC-V Options.     (line  518)
 * mstack-protector-guard-offset <3>:     RS/6000 and PowerPC Options.
                                                              (line  904)
 * mstack-protector-guard-offset <4>:     x86 Options.        (line 1633)
 * mstack-protector-guard-reg:            AArch64 Options.    (line   70)
-* mstack-protector-guard-reg <1>:        RISC-V Options.     (line  514)
+* mstack-protector-guard-reg <1>:        RISC-V Options.     (line  518)
 * mstack-protector-guard-reg <2>:        RS/6000 and PowerPC Options.
                                                              (line  904)
 * mstack-protector-guard-reg <3>:        x86 Options.        (line 1633)
@@ -73852,7 +73901,7 @@ look up both forms.
 * mtelephony:                            ARC Options.        (line  376)
 * mtext-section-literals:                Xtensa Options.     (line   45)
 * mthreads:                              x86 Options.        (line 1367)
-* mthreads <1>:                          x86 Windows Options.
+* mthreads <1>:                          Cygwin and MinGW Options.
                                                              (line   44)
 * mthumb:                                ARM Options.        (line  850)
 * mthumb-interwork:                      ARM Options.        (line   23)
@@ -73864,8 +73913,8 @@ look up both forms.
 * mtls-dialect <1>:                      LoongArch Options.  (line  319)
 * mtls-dialect <2>:                      x86 Options.        (line 1345)
 * mtls-dialect=desc:                     AArch64 Options.    (line   85)
-* mtls-dialect=desc <1>:                 RISC-V Options.     (line  528)
-* mtls-dialect=trad:                     RISC-V Options.     (line  532)
+* mtls-dialect=desc <1>:                 RISC-V Options.     (line  532)
+* mtls-dialect=trad:                     RISC-V Options.     (line  536)
 * mtls-dialect=traditional:              AArch64 Options.    (line   89)
 * mtls-direct-seg-refs:                  x86 Options.        (line 1553)
 * mtls-markers:                          RS/6000 and PowerPC Options.
@@ -73924,7 +73973,7 @@ look up both forms.
 * munaligned-access:                     ARM Options.        (line  939)
 * munaligned-access <1>:                 MIPS Options.       (line  605)
 * munaligned-doubles:                    SPARC Options.      (line   71)
-* municode:                              x86 Windows Options.
+* municode:                              Cygwin and MinGW Options.
                                                              (line   48)
 * muniform-simt:                         Nvidia PTX Options. (line   60)
 * muninit-const-in-rodata:               MIPS Options.       (line  529)
@@ -73993,9 +74042,9 @@ look up both forms.
 * mwbnoinvd:                             x86 Options.        (line  994)
 * mwide-bitfields:                       MCore Options.      (line   21)
 * mwidekl:                               x86 Options.        (line 1048)
-* mwin32:                                x86 Windows Options.
+* mwin32:                                Cygwin and MinGW Options.
                                                              (line   53)
-* mwindows:                              x86 Windows Options.
+* mwindows:                              Cygwin and MinGW Options.
                                                              (line   59)
 * mword-relocations:                     ARM Options.        (line  917)
 * mx32:                                  x86 Options.        (line 1729)
@@ -76839,6 +76888,8 @@ A.2 Concept and Symbol Index
 * ctanl:                                 Other Builtins.     (line    6)
 * CXX_MODULE_MAPPER environment variable: C++ Dialect Options.
                                                              (line  452)
+* Cygwin and MinGW Options:              Cygwin and MinGW Options.
+                                                             (line    6)
 * C_INCLUDE_PATH:                        Environment Variables.
                                                              (line  145)
 * D:                                     G++ and GCC.        (line    6)
@@ -77765,6 +77816,8 @@ A.2 Concept and Symbol Index
 * optimize function attribute:           Common Function Attributes.
                                                              (line 1123)
 * optimize options:                      Optimize Options.   (line    6)
+* Options for Cygwin and MinGW:          Cygwin and MinGW Options.
+                                                             (line    6)
 * options to control diagnostics formatting: Diagnostic Message Formatting Options.
                                                              (line    6)
 * options to control warnings:           Warning Options.    (line    6)
@@ -78170,6 +78223,10 @@ A.2 Concept and Symbol Index
 * struct __htm_tdb:                      S/390 System z Built-in Functions.
                                                              (line   52)
 * structures:                            Incompatibilities.  (line  146)
+* structures with only FAMs:             Flexible Array Members alone in Structures.
+                                                             (line    6)
+* structures with only flexible array members: Flexible Array Members alone in Structures.
+                                                             (line    6)
 * structures, constructor expression:    Compound Literals.  (line    6)
 * submodel options:                      Submodel Options.   (line    6)
 * subscripting:                          Subscripting.       (line    6)
@@ -78596,6 +78653,10 @@ A.2 Concept and Symbol Index
 * union:                                 Unnamed Fields.     (line    6)
 * union, casting to a:                   Cast to Union.      (line    6)
 * unions:                                Incompatibilities.  (line  146)
+* unions with FAMs:                      Flexible Array Members in Unions.
+                                                             (line    6)
+* unions with flexible array members:    Flexible Array Members in Unions.
+                                                             (line    6)
 * unknown pragmas, warning:              Warning Options.    (line 1631)
 * unresolved references and -nodefaultlibs: Link Options.    (line  157)
 * unresolved references and -nostdlib:   Link Options.       (line  157)
@@ -78844,458 +78905,461 @@ Node: G++ and GCC4141
 Node: Standards6187
 Node: Invoking GCC20583
 Node: Option Summary25810
-Node: Overall Options88090
-Node: Invoking G++116268
-Node: C Dialect Options117791
-Node: C++ Dialect Options143433
-Node: Objective-C and Objective-C++ Dialect Options213315
-Node: Diagnostic Message Formatting Options225200
-Node: Warning Options258858
-Ref: Wtrigraphs378742
-Node: Static Analyzer Options429422
-Node: Debugging Options472892
-Node: Optimize Options493006
-Ref: Type-punning567646
-Node: Instrumentation Options695393
-Node: Preprocessor Options756551
-Ref: dashMF761398
-Ref: fdollars-in-identifiers766060
-Node: Assembler Options779339
-Node: Link Options780030
-Ref: Link Options-Footnote-1797062
-Node: Directory Options797576
-Node: Code Gen Options805979
-Node: Developer Options835714
-Node: Submodel Options879227
-Node: AArch64 Options880947
-Ref: aarch64-feature-modifiers898437
-Node: Adapteva Epiphany Options904833
-Node: AMD GCN Options910785
-Node: ARC Options913082
-Node: ARM Options934067
-Node: AVR Options979170
-Ref: avr2980068
-Ref: avr25980335
-Ref: avr3980915
-Ref: avr31981043
-Ref: avr35981160
-Ref: avr4981455
-Ref: avr5981927
-Ref: avr51983784
-Ref: avr6984085
-Ref: avrxmega2984289
-Ref: avrxmega3984903
-Ref: avrxmega4986337
-Ref: avrxmega5986740
-Ref: avrxmega6986928
-Ref: avrxmega7987400
-Ref: avrtiny987590
-Ref: avr1987860
-Ref: eind994327
-Ref: ramp999098
-Ref: avr-macros1000605
-Node: Blackfin Options1009462
-Node: C6X Options1017354
-Node: CRIS Options1018897
-Node: C-SKY Options1022084
-Node: Darwin Options1027811
-Node: DEC Alpha Options1035962
-Node: eBPF Options1047578
-Node: FR30 Options1051160
-Node: FT32 Options1051720
-Node: FRV Options1052666
-Node: GNU/Linux Options1059430
-Node: H8/300 Options1060811
-Node: HPPA Options1062263
-Node: IA-64 Options1072908
-Node: LM32 Options1081036
-Node: LoongArch Options1081564
-Node: M32C Options1094484
-Node: M32R/D Options1095762
-Node: M680x0 Options1099307
-Node: MCore Options1113462
-Node: MicroBlaze Options1114971
-Node: MIPS Options1118038
-Node: MMIX Options1155460
-Node: MN10300 Options1157937
-Node: Moxie Options1160480
-Node: MSP430 Options1160967
-Node: NDS32 Options1168728
-Node: Nios II Options1170898
-Node: Nvidia PTX Options1184114
-Node: OpenRISC Options1187648
-Node: PDP-11 Options1190402
-Node: PowerPC Options1191650
-Node: PRU Options1191868
-Node: RISC-V Options1194669
-Node: RL78 Options1217434
-Node: RS/6000 and PowerPC Options1221209
-Node: RX Options1262717
-Node: S/390 and zSeries Options1271319
-Node: SH Options1282116
-Node: Solaris 2 Options1297268
-Node: SPARC Options1298506
-Node: System V Options1314158
-Node: V850 Options1314983
-Node: VAX Options1321671
-Node: Visium Options1322363
-Node: VMS Options1324671
-Node: VxWorks Options1325487
-Node: x86 Options1326908
-Node: x86 Windows Options1406192
-Node: Xstormy16 Options1410148
-Node: Xtensa Options1410442
-Node: zSeries Options1417285
-Node: Spec Files1417481
-Node: Environment Variables1443560
-Node: Precompiled Headers1452993
-Node: C++ Modules1459202
-Ref: C++ Modules-Footnote-11464865
-Node: C++ Module Mapper1465118
-Node: C++ Module Preprocessing1470271
-Node: C++ Compiled Module Interface1472100
-Ref: C++ Compiled Module Interface-Footnote-11475484
-Ref: C++ Compiled Module Interface-Footnote-21475573
-Node: C Implementation1475629
-Node: Translation implementation1477320
-Node: Environment implementation1477911
-Node: Identifiers implementation1478465
-Node: Characters implementation1479551
-Node: Integers implementation1483201
-Node: Floating point implementation1485250
-Node: Arrays and pointers implementation1488350
-Ref: Arrays and pointers implementation-Footnote-11489810
-Node: Hints implementation1489936
-Node: Structures unions enumerations and bit-fields implementation1491431
-Node: Qualifiers implementation1493655
-Node: Declarators implementation1495716
-Node: Statements implementation1496057
-Node: Preprocessing directives implementation1496383
-Node: Library functions implementation1498704
-Node: Architecture implementation1499353
-Node: Locale-specific behavior implementation1500998
-Node: C++ Implementation1501303
-Node: Conditionally-supported behavior1502587
-Node: Exception handling1503204
-Node: C Extensions1503612
-Node: Statement Exprs1508967
-Node: Local Labels1514339
-Node: Labels as Values1517312
-Ref: Labels as Values-Footnote-11519950
-Node: Nested Functions1520135
-Node: Nonlocal Gotos1524089
-Node: Constructing Calls1526355
-Node: Typeof1531067
-Node: Conditionals1535332
-Node: __int1281536221
-Node: Long Long1536746
-Node: Complex1538237
-Node: Floating Types1542982
-Node: Half-Precision1546478
-Node: Decimal Float1549946
-Node: Hex Floats1551800
-Node: Fixed-Point1552874
-Node: Named Address Spaces1556132
-Ref: AVR Named Address Spaces1556818
-Node: Zero Length1564210
-Node: Empty Structures1570063
-Node: Variable Length1570469
-Node: Variadic Macros1573187
-Node: Escaped Newlines1575565
-Node: Subscripting1576426
-Node: Pointer Arith1577151
-Node: Variadic Pointer Args1577728
-Node: Pointers to Arrays1578453
-Node: Initializers1579206
-Node: Compound Literals1579707
-Node: Designated Inits1583274
-Node: Case Ranges1587198
-Node: Cast to Union1587879
-Node: Mixed Labels and Declarations1589613
-Node: Function Attributes1590250
-Node: Common Function Attributes1594658
-Ref: Common Function Attributes-Footnote-11677095
-Node: AArch64 Function Attributes1677412
-Node: AMD GCN Function Attributes1683606
-Node: ARC Function Attributes1686659
-Node: ARM Function Attributes1689596
-Node: AVR Function Attributes1694735
-Node: Blackfin Function Attributes1699168
-Node: BPF Function Attributes1701665
-Node: C-SKY Function Attributes1702789
-Node: Epiphany Function Attributes1704085
-Node: H8/300 Function Attributes1706840
-Node: IA-64 Function Attributes1708038
-Node: M32C Function Attributes1709080
-Node: M32R/D Function Attributes1711418
-Node: m68k Function Attributes1712892
-Node: MCORE Function Attributes1713836
-Node: MicroBlaze Function Attributes1714654
-Node: Microsoft Windows Function Attributes1716163
-Node: MIPS Function Attributes1720732
-Node: MSP430 Function Attributes1727132
-Node: NDS32 Function Attributes1731211
-Node: Nios II Function Attributes1733635
-Node: Nvidia PTX Function Attributes1734932
-Node: PowerPC Function Attributes1735547
-Node: RISC-V Function Attributes1742321
-Node: RL78 Function Attributes1745662
-Node: RX Function Attributes1746901
-Node: S/390 Function Attributes1749448
-Node: SH Function Attributes1751276
-Node: Symbian OS Function Attributes1754704
-Node: V850 Function Attributes1755040
-Node: Visium Function Attributes1755585
-Node: x86 Function Attributes1756113
-Node: Xstormy16 Function Attributes1782627
-Node: Variable Attributes1783134
-Node: Common Variable Attributes1784859
-Node: ARC Variable Attributes1808666
-Node: AVR Variable Attributes1809048
-Node: Blackfin Variable Attributes1814589
-Node: H8/300 Variable Attributes1815447
-Node: IA-64 Variable Attributes1816520
-Node: LoongArch Variable Attributes1817274
-Node: M32R/D Variable Attributes1817950
-Node: Microsoft Windows Variable Attributes1818751
-Node: MSP430 Variable Attributes1821207
-Node: Nvidia PTX Variable Attributes1822421
-Node: PowerPC Variable Attributes1823038
-Node: RL78 Variable Attributes1823595
-Node: V850 Variable Attributes1824014
-Node: x86 Variable Attributes1824647
-Node: Xstormy16 Variable Attributes1825703
-Node: Type Attributes1826273
-Node: Common Type Attributes1828123
-Node: ARC Type Attributes1865411
-Node: ARM Type Attributes1865883
-Node: BPF Type Attributes1866665
-Node: PowerPC Type Attributes1867186
-Node: x86 Type Attributes1868175
-Node: Label Attributes1869167
-Node: Enumerator Attributes1871194
-Node: Statement Attributes1872726
-Node: Attribute Syntax1875026
-Node: Function Prototypes1887324
-Node: C++ Comments1889104
-Node: Dollar Signs1889623
-Node: Character Escapes1890088
-Node: Alignment1890372
-Node: Inline1892025
-Node: Const and Volatile Functions1896861
-Node: Volatiles1898067
-Node: Using Assembly Language with C1900988
-Node: Basic Asm1902225
-Node: Extended Asm1907848
-Ref: Volatile1911962
-Ref: AssemblerTemplate1916075
-Ref: OutputOperands1920315
-Ref: FlagOutputOperands1927395
-Ref: InputOperands1930500
-Ref: Clobbers and Scratch Registers1934885
-Ref: GotoLabels1943526
-Ref: GenericOperandmodifiers1947149
-Ref: aarch64Operandmodifiers1948107
-Ref: x86Operandmodifiers1949172
-Ref: x86floatingpointasmoperands1953990
-Ref: msp430Operandmodifiers1957321
-Ref: loongarchOperandmodifiers1958979
-Ref: riscvOperandmodifiers1960767
-Node: Constraints1961177
-Node: Simple Constraints1962283
-Node: Multi-Alternative1969597
-Node: Modifiers1971272
-Node: Machine Constraints1974071
-Node: Asm Labels2028423
-Node: Explicit Register Variables2030039
-Ref: Explicit Reg Vars2030253
-Node: Global Register Variables2030862
-Ref: Global Reg Vars2031070
-Node: Local Register Variables2035852
-Ref: Local Reg Vars2036072
-Node: Size of an asm2039700
-Node: Alternate Keywords2041178
-Node: Incomplete Enums2042924
-Node: Function Names2043681
-Node: Return Address2045585
-Node: Stack Scrubbing2051428
-Node: Vector Extensions2053718
-Node: Offsetof2065042
-Node: __sync Builtins2065875
-Node: __atomic Builtins2072830
-Node: Integer Overflow Builtins2086343
-Node: x86 specific memory model extensions for transactional memory2095290
-Node: Object Size Checking2096556
-Node: Other Builtins2104065
-Node: Target Builtins2167043
-Node: AArch64 Built-in Functions2168926
-Node: Alpha Built-in Functions2169622
-Node: Altera Nios II Built-in Functions2172716
-Node: ARC Built-in Functions2177155
-Node: ARC SIMD Built-in Functions2182721
-Node: ARM iWMMXt Built-in Functions2193063
-Node: ARM C Language Extensions (ACLE)2200199
-Node: ARM Floating Point Status and Control Intrinsics2201476
-Node: ARM ARMv8-M Security Extensions2201963
-Node: AVR Built-in Functions2203255
-Node: Blackfin Built-in Functions2207292
-Node: BPF Built-in Functions2207912
-Node: FR-V Built-in Functions2214324
-Node: Argument Types2215193
-Node: Directly-mapped Integer Functions2217024
-Node: Directly-mapped Media Functions2218184
-Node: Raw read/write Functions2226466
-Node: Other Built-in Functions2227374
-Node: LoongArch Base Built-in Functions2228560
-Node: LoongArch SX Vector Intrinsics2235308
-Node: LoongArch ASX Vector Intrinsics2274114
-Node: MIPS DSP Built-in Functions2315330
-Node: MIPS Paired-Single Support2328093
-Node: MIPS Loongson Built-in Functions2329592
-Node: Paired-Single Arithmetic2336114
-Node: Paired-Single Built-in Functions2337137
-Node: MIPS-3D Built-in Functions2339804
-Node: MIPS SIMD Architecture (MSA) Support2345198
-Node: MIPS SIMD Architecture Built-in Functions2348038
-Node: Other MIPS Built-in Functions2374892
-Node: MSP430 Built-in Functions2375901
-Node: NDS32 Built-in Functions2377302
-Node: Nvidia PTX Built-in Functions2378597
-Node: Basic PowerPC Built-in Functions2379191
-Node: Basic PowerPC Built-in Functions Available on all Configurations2380051
-Node: Basic PowerPC Built-in Functions Available on ISA 2.052389048
-Node: Basic PowerPC Built-in Functions Available on ISA 2.062395024
-Node: Basic PowerPC Built-in Functions Available on ISA 2.072397104
-Node: Basic PowerPC Built-in Functions Available on ISA 3.02397939
-Node: Basic PowerPC Built-in Functions Available on ISA 3.12405214
-Node: PowerPC AltiVec/VSX Built-in Functions2409131
-Node: PowerPC AltiVec Built-in Functions on ISA 2.052417200
-Node: PowerPC AltiVec Built-in Functions Available on ISA 2.062442600
-Node: PowerPC AltiVec Built-in Functions Available on ISA 2.072449666
-Node: PowerPC AltiVec Built-in Functions Available on ISA 3.02459800
-Node: PowerPC AltiVec Built-in Functions Available on ISA 3.12476530
-Node: PowerPC Hardware Transactional Memory Built-in Functions2509814
-Node: PowerPC Atomic Memory Operation Functions2518364
-Node: PowerPC Matrix-Multiply Assist Built-in Functions2520927
-Node: PRU Built-in Functions2527052
-Node: RISC-V Built-in Functions2528332
-Node: RISC-V Vector Intrinsics2529002
-Node: CORE-V Built-in Functions2529501
-Node: RX Built-in Functions2568304
-Node: S/390 System z Built-in Functions2572306
-Node: SH Built-in Functions2577575
-Node: SPARC VIS Built-in Functions2579303
-Node: TI C6X Built-in Functions2587834
-Node: x86 Built-in Functions2588881
-Node: x86 transactional memory intrinsics2655651
-Node: x86 control-flow protection intrinsics2658977
-Node: Target Format Checks2660748
-Node: Solaris Format Checks2661180
-Node: Darwin Format Checks2661606
-Node: Pragmas2662569
-Node: AArch64 Pragmas2663494
-Node: ARM Pragmas2663951
-Node: M32C Pragmas2664578
-Node: PRU Pragmas2665650
-Node: RS/6000 and PowerPC Pragmas2666229
-Node: S/390 Pragmas2666969
-Node: Darwin Pragmas2667535
-Node: Solaris Pragmas2668587
-Node: Symbol-Renaming Pragmas2669751
-Node: Structure-Layout Pragmas2671386
-Node: Weak Pragmas2673666
-Node: Diagnostic Pragmas2674401
-Node: Visibility Pragmas2679153
-Node: Push/Pop Macro Pragmas2679838
-Node: Function Specific Option Pragmas2680811
-Node: Loop-Specific Pragmas2682777
-Node: Unnamed Fields2684878
-Node: Thread-Local2687075
-Node: C99 Thread-Local Edits2689181
-Node: C++98 Thread-Local Edits2691179
-Node: Binary constants2694624
-Node: C++ Extensions2695295
-Node: C++ Volatiles2696925
-Node: Restricted Pointers2699273
-Node: Vague Linkage2700864
-Node: C++ Interface2704487
-Ref: C++ Interface-Footnote-12708284
-Node: Template Instantiation2708422
-Node: Bound member functions2714510
-Node: C++ Attributes2716042
-Node: Function Multiversioning2722283
-Node: Type Traits2724091
-Node: C++ Concepts2731813
-Node: Deprecated Features2733355
-Node: Backwards Compatibility2735180
-Node: Objective-C2736252
-Node: GNU Objective-C runtime API2736859
-Node: Modern GNU Objective-C runtime API2737866
-Node: Traditional GNU Objective-C runtime API2740302
-Node: Executing code before main2741029
-Node: What you can and what you cannot do in +load2743773
-Node: Type encoding2746143
-Node: Legacy type encoding2751509
-Node: @encode2752599
-Node: Method signatures2753144
-Node: Garbage Collection2755136
-Node: Constant string objects2757826
-Node: compatibility_alias2760335
-Node: Exceptions2761060
-Node: Synchronization2763770
-Node: Fast enumeration2764954
-Node: Using fast enumeration2765266
-Node: c99-like fast enumeration syntax2766477
-Node: Fast enumeration details2767180
-Node: Fast enumeration protocol2769520
-Node: Messaging with the GNU Objective-C runtime2772672
-Node: Dynamically registering methods2774044
-Node: Forwarding hook2775735
-Node: Compatibility2778775
-Node: Gcov2785331
-Node: Gcov Intro2785999
-Node: Invoking Gcov2788717
-Node: Gcov and Optimization2813514
-Node: Gcov Data Files2817267
-Node: Cross-profiling2818676
-Node: Freestanding Environments2820564
-Node: Gcov-tool2835427
-Node: Gcov-tool Intro2835852
-Node: Invoking Gcov-tool2838206
-Node: Gcov-dump2841619
-Node: Gcov-dump Intro2841942
-Node: Invoking Gcov-dump2842209
-Node: lto-dump2842942
-Node: lto-dump Intro2843241
-Node: Invoking lto-dump2843491
-Node: Trouble2844587
-Node: Actual Bugs2846004
-Node: Interoperation2846451
-Node: Incompatibilities2853342
-Node: Fixed Headers2861494
-Node: Standard Libraries2863152
-Node: Disappointments2864524
-Node: C++ Misunderstandings2868883
-Node: Static Definitions2869694
-Node: Name lookup2870747
-Ref: Name lookup-Footnote-12875528
-Node: Temporaries2875717
-Node: Copy Assignment2877693
-Node: Non-bugs2879528
-Node: Warnings and Errors2890034
-Node: Bugs2891796
-Node: Bug Criteria2892263
-Node: Bug Reporting2894473
-Node: Service2894691
-Node: Contributing2895512
-Node: Funding2896258
-Node: GNU Project2898748
-Node: Copying2899396
-Node: GNU Free Documentation License2936910
-Node: Contributors2962033
-Node: Indices3003200
-Node: Option Index3003446
-Node: Concept and Symbol Index3321913
+Node: Overall Options88138
+Node: Invoking G++116316
+Node: C Dialect Options117839
+Node: C++ Dialect Options143481
+Node: Objective-C and Objective-C++ Dialect Options213363
+Node: Diagnostic Message Formatting Options225248
+Node: Warning Options258906
+Ref: Wtrigraphs378790
+Node: Static Analyzer Options429470
+Node: Debugging Options472940
+Node: Optimize Options493054
+Ref: Type-punning567694
+Node: Instrumentation Options695499
+Node: Preprocessor Options756657
+Ref: dashMF761504
+Ref: fdollars-in-identifiers766166
+Node: Assembler Options779445
+Node: Link Options780136
+Ref: Link Options-Footnote-1797168
+Node: Directory Options797682
+Node: Code Gen Options806085
+Node: Developer Options835820
+Node: Submodel Options879333
+Node: AArch64 Options881082
+Ref: aarch64-feature-modifiers898572
+Node: Adapteva Epiphany Options904968
+Node: AMD GCN Options910920
+Node: ARC Options913217
+Node: ARM Options934202
+Node: AVR Options979305
+Ref: avr2980203
+Ref: avr25980470
+Ref: avr3981050
+Ref: avr31981178
+Ref: avr35981295
+Ref: avr4981590
+Ref: avr5982062
+Ref: avr51983919
+Ref: avr6984220
+Ref: avrxmega2984424
+Ref: avrxmega3985038
+Ref: avrxmega4986472
+Ref: avrxmega5986875
+Ref: avrxmega6987063
+Ref: avrxmega7987535
+Ref: avrtiny987725
+Ref: avr1987995
+Ref: eind994462
+Ref: ramp999233
+Ref: avr-macros1000740
+Node: Blackfin Options1009597
+Node: C6X Options1017489
+Node: CRIS Options1019032
+Node: C-SKY Options1022219
+Node: Darwin Options1027946
+Node: DEC Alpha Options1036097
+Node: eBPF Options1047713
+Node: FR30 Options1051295
+Node: FT32 Options1051855
+Node: FRV Options1052801
+Node: GNU/Linux Options1059565
+Node: H8/300 Options1060946
+Node: HPPA Options1062398
+Node: IA-64 Options1073043
+Node: LM32 Options1081171
+Node: LoongArch Options1081699
+Node: M32C Options1094619
+Node: M32R/D Options1095897
+Node: M680x0 Options1099442
+Node: MCore Options1113597
+Node: MicroBlaze Options1115106
+Node: MIPS Options1118173
+Node: MMIX Options1155595
+Node: MN10300 Options1158072
+Node: Moxie Options1160615
+Node: MSP430 Options1161102
+Node: NDS32 Options1168863
+Node: Nios II Options1171033
+Node: Nvidia PTX Options1184249
+Node: OpenRISC Options1187783
+Node: PDP-11 Options1190537
+Node: PowerPC Options1191785
+Node: PRU Options1192003
+Node: RISC-V Options1194804
+Node: RL78 Options1217694
+Node: RS/6000 and PowerPC Options1221469
+Node: RX Options1262977
+Node: S/390 and zSeries Options1271579
+Node: SH Options1282376
+Node: Solaris 2 Options1297528
+Node: SPARC Options1298766
+Node: System V Options1314418
+Node: V850 Options1315243
+Node: VAX Options1321931
+Node: Visium Options1322623
+Node: VMS Options1324931
+Node: VxWorks Options1325747
+Node: x86 Options1327168
+Node: x86 Windows Options1406452
+Node: Cygwin and MinGW Options1406666
+Node: Xstormy16 Options1410645
+Node: Xtensa Options1410944
+Node: zSeries Options1417787
+Node: Spec Files1417983
+Node: Environment Variables1444062
+Node: Precompiled Headers1453495
+Node: C++ Modules1459704
+Ref: C++ Modules-Footnote-11465367
+Node: C++ Module Mapper1465620
+Node: C++ Module Preprocessing1470773
+Node: C++ Compiled Module Interface1472602
+Ref: C++ Compiled Module Interface-Footnote-11475986
+Ref: C++ Compiled Module Interface-Footnote-21476075
+Node: C Implementation1476131
+Node: Translation implementation1477822
+Node: Environment implementation1478413
+Node: Identifiers implementation1478967
+Node: Characters implementation1480053
+Node: Integers implementation1483703
+Node: Floating point implementation1485752
+Node: Arrays and pointers implementation1488852
+Ref: Arrays and pointers implementation-Footnote-11490312
+Node: Hints implementation1490438
+Node: Structures unions enumerations and bit-fields implementation1491933
+Node: Qualifiers implementation1494157
+Node: Declarators implementation1496218
+Node: Statements implementation1496559
+Node: Preprocessing directives implementation1496885
+Node: Library functions implementation1499206
+Node: Architecture implementation1499855
+Node: Locale-specific behavior implementation1501500
+Node: C++ Implementation1501805
+Node: Conditionally-supported behavior1503089
+Node: Exception handling1503706
+Node: C Extensions1504114
+Node: Statement Exprs1509636
+Node: Local Labels1515008
+Node: Labels as Values1517981
+Ref: Labels as Values-Footnote-11520619
+Node: Nested Functions1520804
+Node: Nonlocal Gotos1524758
+Node: Constructing Calls1527024
+Node: Typeof1531736
+Node: Conditionals1536001
+Node: __int1281536890
+Node: Long Long1537415
+Node: Complex1538906
+Node: Floating Types1543651
+Node: Half-Precision1547147
+Node: Decimal Float1550615
+Node: Hex Floats1552469
+Node: Fixed-Point1553543
+Node: Named Address Spaces1556801
+Ref: AVR Named Address Spaces1557487
+Node: Zero Length1564879
+Node: Empty Structures1570732
+Node: Flexible Array Members in Unions1571155
+Node: Flexible Array Members alone in Structures1571607
+Node: Variable Length1572022
+Node: Variadic Macros1574766
+Node: Escaped Newlines1577144
+Node: Subscripting1578005
+Node: Pointer Arith1578730
+Node: Variadic Pointer Args1579307
+Node: Pointers to Arrays1580032
+Node: Initializers1580785
+Node: Compound Literals1581286
+Node: Designated Inits1584853
+Node: Case Ranges1588777
+Node: Cast to Union1589458
+Node: Mixed Labels and Declarations1591192
+Node: Function Attributes1591829
+Node: Common Function Attributes1596237
+Ref: Common Function Attributes-Footnote-11678674
+Node: AArch64 Function Attributes1678991
+Node: AMD GCN Function Attributes1685185
+Node: ARC Function Attributes1688238
+Node: ARM Function Attributes1691175
+Node: AVR Function Attributes1696314
+Node: Blackfin Function Attributes1700747
+Node: BPF Function Attributes1703244
+Node: C-SKY Function Attributes1704368
+Node: Epiphany Function Attributes1705664
+Node: H8/300 Function Attributes1708419
+Node: IA-64 Function Attributes1709617
+Node: M32C Function Attributes1710659
+Node: M32R/D Function Attributes1712997
+Node: m68k Function Attributes1714471
+Node: MCORE Function Attributes1715415
+Node: MicroBlaze Function Attributes1716233
+Node: Microsoft Windows Function Attributes1717742
+Node: MIPS Function Attributes1722311
+Node: MSP430 Function Attributes1728711
+Node: NDS32 Function Attributes1732790
+Node: Nios II Function Attributes1735214
+Node: Nvidia PTX Function Attributes1736511
+Node: PowerPC Function Attributes1737126
+Node: RISC-V Function Attributes1743900
+Node: RL78 Function Attributes1747241
+Node: RX Function Attributes1748480
+Node: S/390 Function Attributes1751027
+Node: SH Function Attributes1752855
+Node: Symbian OS Function Attributes1756283
+Node: V850 Function Attributes1756619
+Node: Visium Function Attributes1757164
+Node: x86 Function Attributes1757692
+Node: Xstormy16 Function Attributes1784206
+Node: Variable Attributes1784713
+Node: Common Variable Attributes1786438
+Node: ARC Variable Attributes1810245
+Node: AVR Variable Attributes1810627
+Node: Blackfin Variable Attributes1816168
+Node: H8/300 Variable Attributes1817026
+Node: IA-64 Variable Attributes1818099
+Node: LoongArch Variable Attributes1818853
+Node: M32R/D Variable Attributes1819529
+Node: Microsoft Windows Variable Attributes1820330
+Node: MSP430 Variable Attributes1822786
+Node: Nvidia PTX Variable Attributes1824000
+Node: PowerPC Variable Attributes1824617
+Node: RL78 Variable Attributes1825174
+Node: V850 Variable Attributes1825593
+Node: x86 Variable Attributes1826226
+Node: Xstormy16 Variable Attributes1827282
+Node: Type Attributes1827852
+Node: Common Type Attributes1829702
+Node: ARC Type Attributes1866990
+Node: ARM Type Attributes1867462
+Node: BPF Type Attributes1868244
+Node: PowerPC Type Attributes1868765
+Node: x86 Type Attributes1869754
+Node: Label Attributes1870746
+Node: Enumerator Attributes1872773
+Node: Statement Attributes1874305
+Node: Attribute Syntax1876605
+Node: Function Prototypes1888903
+Node: C++ Comments1890683
+Node: Dollar Signs1891202
+Node: Character Escapes1891667
+Node: Alignment1891951
+Node: Inline1893604
+Node: Const and Volatile Functions1898440
+Node: Volatiles1899646
+Node: Using Assembly Language with C1902567
+Node: Basic Asm1903804
+Node: Extended Asm1909427
+Ref: Volatile1913541
+Ref: AssemblerTemplate1917654
+Ref: OutputOperands1921894
+Ref: FlagOutputOperands1928974
+Ref: InputOperands1932079
+Ref: Clobbers and Scratch Registers1936464
+Ref: GotoLabels1945105
+Ref: GenericOperandmodifiers1948728
+Ref: aarch64Operandmodifiers1949686
+Ref: x86Operandmodifiers1950751
+Ref: x86floatingpointasmoperands1955569
+Ref: msp430Operandmodifiers1958900
+Ref: loongarchOperandmodifiers1960558
+Ref: riscvOperandmodifiers1962346
+Node: Constraints1962756
+Node: Simple Constraints1963862
+Node: Multi-Alternative1971176
+Node: Modifiers1972851
+Node: Machine Constraints1975650
+Node: Asm Labels2030002
+Node: Explicit Register Variables2031618
+Ref: Explicit Reg Vars2031832
+Node: Global Register Variables2032441
+Ref: Global Reg Vars2032649
+Node: Local Register Variables2037431
+Ref: Local Reg Vars2037651
+Node: Size of an asm2041279
+Node: Alternate Keywords2042757
+Node: Incomplete Enums2044503
+Node: Function Names2045260
+Node: Return Address2047164
+Node: Stack Scrubbing2053007
+Node: Vector Extensions2055297
+Node: Offsetof2066621
+Node: __sync Builtins2067454
+Node: __atomic Builtins2074409
+Node: Integer Overflow Builtins2087922
+Node: x86 specific memory model extensions for transactional memory2096869
+Node: Object Size Checking2098135
+Node: Other Builtins2105644
+Node: Target Builtins2168622
+Node: AArch64 Built-in Functions2170505
+Node: Alpha Built-in Functions2171201
+Node: Altera Nios II Built-in Functions2174295
+Node: ARC Built-in Functions2178734
+Node: ARC SIMD Built-in Functions2184300
+Node: ARM iWMMXt Built-in Functions2194642
+Node: ARM C Language Extensions (ACLE)2201778
+Node: ARM Floating Point Status and Control Intrinsics2203055
+Node: ARM ARMv8-M Security Extensions2203542
+Node: AVR Built-in Functions2204834
+Node: Blackfin Built-in Functions2208871
+Node: BPF Built-in Functions2209491
+Node: FR-V Built-in Functions2215903
+Node: Argument Types2216772
+Node: Directly-mapped Integer Functions2218603
+Node: Directly-mapped Media Functions2219763
+Node: Raw read/write Functions2228045
+Node: Other Built-in Functions2228953
+Node: LoongArch Base Built-in Functions2230139
+Node: LoongArch SX Vector Intrinsics2236887
+Node: LoongArch ASX Vector Intrinsics2275693
+Node: MIPS DSP Built-in Functions2316909
+Node: MIPS Paired-Single Support2329672
+Node: MIPS Loongson Built-in Functions2331171
+Node: Paired-Single Arithmetic2337693
+Node: Paired-Single Built-in Functions2338716
+Node: MIPS-3D Built-in Functions2341383
+Node: MIPS SIMD Architecture (MSA) Support2346777
+Node: MIPS SIMD Architecture Built-in Functions2349617
+Node: Other MIPS Built-in Functions2376471
+Node: MSP430 Built-in Functions2377480
+Node: NDS32 Built-in Functions2378881
+Node: Nvidia PTX Built-in Functions2380176
+Node: Basic PowerPC Built-in Functions2380770
+Node: Basic PowerPC Built-in Functions Available on all Configurations2381630
+Node: Basic PowerPC Built-in Functions Available on ISA 2.052390627
+Node: Basic PowerPC Built-in Functions Available on ISA 2.062396603
+Node: Basic PowerPC Built-in Functions Available on ISA 2.072398683
+Node: Basic PowerPC Built-in Functions Available on ISA 3.02399518
+Node: Basic PowerPC Built-in Functions Available on ISA 3.12406793
+Node: PowerPC AltiVec/VSX Built-in Functions2410710
+Node: PowerPC AltiVec Built-in Functions on ISA 2.052418779
+Node: PowerPC AltiVec Built-in Functions Available on ISA 2.062444179
+Node: PowerPC AltiVec Built-in Functions Available on ISA 2.072451245
+Node: PowerPC AltiVec Built-in Functions Available on ISA 3.02461379
+Node: PowerPC AltiVec Built-in Functions Available on ISA 3.12478109
+Node: PowerPC Hardware Transactional Memory Built-in Functions2511393
+Node: PowerPC Atomic Memory Operation Functions2519943
+Node: PowerPC Matrix-Multiply Assist Built-in Functions2522506
+Node: PRU Built-in Functions2528631
+Node: RISC-V Built-in Functions2529911
+Node: RISC-V Vector Intrinsics2530581
+Node: CORE-V Built-in Functions2531080
+Node: RX Built-in Functions2569883
+Node: S/390 System z Built-in Functions2573885
+Node: SH Built-in Functions2579154
+Node: SPARC VIS Built-in Functions2580882
+Node: TI C6X Built-in Functions2589413
+Node: x86 Built-in Functions2590460
+Node: x86 transactional memory intrinsics2657230
+Node: x86 control-flow protection intrinsics2660556
+Node: Target Format Checks2662327
+Node: Solaris Format Checks2662759
+Node: Darwin Format Checks2663185
+Node: Pragmas2664148
+Node: AArch64 Pragmas2665073
+Node: ARM Pragmas2665530
+Node: M32C Pragmas2666157
+Node: PRU Pragmas2667229
+Node: RS/6000 and PowerPC Pragmas2667808
+Node: S/390 Pragmas2668548
+Node: Darwin Pragmas2669114
+Node: Solaris Pragmas2670166
+Node: Symbol-Renaming Pragmas2671330
+Node: Structure-Layout Pragmas2672965
+Node: Weak Pragmas2675245
+Node: Diagnostic Pragmas2675980
+Node: Visibility Pragmas2680732
+Node: Push/Pop Macro Pragmas2681417
+Node: Function Specific Option Pragmas2682390
+Node: Loop-Specific Pragmas2684356
+Node: Unnamed Fields2686457
+Node: Thread-Local2688654
+Node: C99 Thread-Local Edits2690760
+Node: C++98 Thread-Local Edits2692758
+Node: Binary constants2696203
+Node: C++ Extensions2696874
+Node: C++ Volatiles2698504
+Node: Restricted Pointers2700852
+Node: Vague Linkage2702443
+Node: C++ Interface2706066
+Ref: C++ Interface-Footnote-12709863
+Node: Template Instantiation2710001
+Node: Bound member functions2716089
+Node: C++ Attributes2717621
+Node: Function Multiversioning2723862
+Node: Type Traits2725670
+Node: C++ Concepts2733392
+Node: Deprecated Features2734934
+Node: Backwards Compatibility2736759
+Node: Objective-C2737831
+Node: GNU Objective-C runtime API2738438
+Node: Modern GNU Objective-C runtime API2739445
+Node: Traditional GNU Objective-C runtime API2741881
+Node: Executing code before main2742608
+Node: What you can and what you cannot do in +load2745352
+Node: Type encoding2747722
+Node: Legacy type encoding2753088
+Node: @encode2754178
+Node: Method signatures2754723
+Node: Garbage Collection2756715
+Node: Constant string objects2759405
+Node: compatibility_alias2761914
+Node: Exceptions2762639
+Node: Synchronization2765349
+Node: Fast enumeration2766533
+Node: Using fast enumeration2766845
+Node: c99-like fast enumeration syntax2768056
+Node: Fast enumeration details2768759
+Node: Fast enumeration protocol2771099
+Node: Messaging with the GNU Objective-C runtime2774251
+Node: Dynamically registering methods2775623
+Node: Forwarding hook2777314
+Node: Compatibility2780354
+Node: Gcov2786910
+Node: Gcov Intro2787578
+Node: Invoking Gcov2790296
+Node: Gcov and Optimization2815093
+Node: Gcov Data Files2818846
+Node: Cross-profiling2820255
+Node: Freestanding Environments2822143
+Node: Gcov-tool2837006
+Node: Gcov-tool Intro2837431
+Node: Invoking Gcov-tool2839785
+Node: Gcov-dump2843198
+Node: Gcov-dump Intro2843521
+Node: Invoking Gcov-dump2843788
+Node: lto-dump2844521
+Node: lto-dump Intro2844820
+Node: Invoking lto-dump2845070
+Node: Trouble2846166
+Node: Actual Bugs2847583
+Node: Interoperation2848030
+Node: Incompatibilities2854921
+Node: Fixed Headers2863073
+Node: Standard Libraries2864731
+Node: Disappointments2866103
+Node: C++ Misunderstandings2870462
+Node: Static Definitions2871273
+Node: Name lookup2872326
+Ref: Name lookup-Footnote-12877107
+Node: Temporaries2877296
+Node: Copy Assignment2879272
+Node: Non-bugs2881107
+Node: Warnings and Errors2891613
+Node: Bugs2893375
+Node: Bug Criteria2893842
+Node: Bug Reporting2896052
+Node: Service2896270
+Node: Contributing2897091
+Node: Funding2897837
+Node: GNU Project2900327
+Node: Copying2900975
+Node: GNU Free Documentation License2938489
+Node: Contributors2963612
+Node: Indices3004779
+Node: Option Index3005025
+Node: Concept and Symbol Index3323630
 
 End Tag Table
 

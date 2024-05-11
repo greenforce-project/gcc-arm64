@@ -368,8 +368,7 @@ extern GTY(()) tree cp_global_trees[CPTI_MAX];
 #define throw_fn			cp_global_trees[CPTI_THROW_FN]
 #define rethrow_fn			cp_global_trees[CPTI_RETHROW_FN]
 
-/* The type of the function-pointer argument to "__cxa_atexit" (or
-   "std::atexit", if "__cxa_atexit" is not being used).  */
+/* The type of the function-pointer argument to "std::atexit".  */
 #define atexit_fn_ptr_type_node         cp_global_trees[CPTI_ATEXIT_FN_PTR_TYPE]
 
 /* A pointer to `std::atexit'.  */
@@ -384,7 +383,8 @@ extern GTY(()) tree cp_global_trees[CPTI_MAX];
 /* The declaration of the dynamic_cast runtime.  */
 #define dynamic_cast_node		cp_global_trees[CPTI_DCAST]
 
-/* The type of a destructor.  */
+/* The type of a destructor, passed to __cxa_atexit, __cxa_thread_atexit
+   or __cxa_throw.  */
 #define cleanup_type			cp_global_trees[CPTI_CLEANUP_TYPE]
 
 /* The type of the vtt parameter passed to subobject constructors and
@@ -2616,7 +2616,7 @@ struct GTY(()) lang_type {
 
 /* True iff NODE is the CLASSTYPE_AS_BASE version of some type.  */
 #define IS_FAKE_BASE_TYPE(NODE)					\
-  (TREE_CODE (NODE) == RECORD_TYPE				\
+  (RECORD_OR_UNION_TYPE_P (NODE)				\
    && TYPE_CONTEXT (NODE) && CLASS_TYPE_P (TYPE_CONTEXT (NODE))	\
    && CLASSTYPE_AS_BASE (TYPE_CONTEXT (NODE)) == (NODE))
 
@@ -7067,6 +7067,7 @@ extern tree check_default_argument		(tree, tree, tsubst_flags_t);
 extern int wrapup_namespace_globals		();
 extern tree create_implicit_typedef		(tree, tree);
 extern int local_variable_p			(const_tree);
+extern tree get_cxa_atexit_fn_ptr_type		();
 extern tree register_dtor_fn			(tree);
 extern tmpl_spec_kind current_tmpl_spec_kind	(int);
 extern tree cxx_builtin_function		(tree decl);
@@ -7420,6 +7421,7 @@ extern void set_instantiating_module (tree);
 extern void set_defining_module (tree);
 extern void maybe_key_decl (tree ctx, tree decl);
 extern void propagate_defining_module (tree decl, tree orig);
+extern void remove_defining_module (tree decl);
 
 extern void mangle_module (int m, bool include_partition);
 extern void mangle_module_fini ();

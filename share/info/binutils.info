@@ -1786,7 +1786,7 @@ the '--reverse-bytes' option.)
      locations before the debugger is run everything should work
      correctly.
 
-'--keep-section-symbils'
+'--keep-section-symbols'
      When stripping a file, perhaps with '--strip-debug' or
      '--strip-unneeded', retain any symbols specifying section names,
      which would otherwise get stripped.
