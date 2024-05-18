@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-05-09" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-05-16" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -332,6 +332,7 @@ in the following sections.
 \&\fB\-fdiagnostics\-format=\fR[\fBtext\fR|\fBsarif-stderr\fR|\fBsarif-file\fR|\fBjson\fR|\fBjson-stderr\fR|\fBjson-file\fR]
 \&\fB\-fno\-diagnostics\-json\-formatting
 \&\-fno\-diagnostics\-show\-option  \-fno\-diagnostics\-show\-caret
+\&\-fno\-diagnostics\-show\-event\-links
 \&\-fno\-diagnostics\-show\-labels  \-fno\-diagnostics\-show\-line\-numbers
 \&\-fno\-diagnostics\-show\-cwe
 \&\-fno\-diagnostics\-show\-rule
@@ -4653,7 +4654,34 @@ Do not warn when deleting a pointer to incomplete type, which may cause
 undefined behavior at runtime.  This warning is enabled by default.
 .IP "\fB\-Wextra\-semi\fR (\*(C+, Objective\-\*(C+ only)" 4
 .IX Item "-Wextra-semi (, Objective- only)"
-Warn about redundant semicolons after in-class function definitions.
+Warn about redundant semicolons.  There are various contexts in which an extra
+semicolon can occur.  One is a semicolon after in-class function definitions,
+which is valid in all \*(C+ dialects (and is never a pedwarn):
+.Sp
+.Vb 3
+\&        struct S {
+\&          void foo () {};
+\&        };
+.Ve
+.Sp
+Another is an extra semicolon at namespace scope, which has been allowed
+since \*(C+11 (therefore is a pedwarn in \*(C+98):
+.Sp
+.Vb 3
+\&        struct S {
+\&        };
+\&        ;
+.Ve
+.Sp
+And yet another is an extra semicolon in class definitions, which has been
+allowed since \*(C+11 (therefore is a pedwarn in \*(C+98):
+.Sp
+.Vb 4
+\&        struct S {
+\&          int a;
+\&          ;
+\&        };
+.Ve
 .IP "\fB\-Wno\-global\-module\fR (\*(C+ and Objective\-\*(C+ only)" 4
 .IX Item "-Wno-global-module ( and Objective- only)"
 Disable the diagnostic for when the global module fragment of a module
@@ -4991,7 +5019,8 @@ options:
 \&\-fdiagnostics\-color=never
 \&\-fdiagnostics\-urls=never
 \&\-fdiagnostics\-path\-format=separate\-events
-\&\-fdiagnostics\-text\-art\-charset=none\fR
+\&\-fdiagnostics\-text\-art\-charset=none
+\&\-fno\-diagnostics\-show\-event\-links\fR
 In the future, if \s-1GCC\s0 changes the default appearance of its diagnostics, the
 corresponding option to disable the new behavior will be added to this list.
 .IP "\fB\-fdiagnostics\-show\-location=once\fR" 4
@@ -5217,6 +5246,29 @@ as the types of expressions:
 .Sp
 This option suppresses the printing of these labels (in the example above,
 the vertical bars and the \*(L"char *\*(R" and \*(L"long int\*(R" text).
+.IP "\fB\-fno\-diagnostics\-show\-event\-links\fR" 4
+.IX Item "-fno-diagnostics-show-event-links"
+By default, when printing execution paths (via
+\&\fB\-fdiagnostics\-path\-format=inline\-events\fR), \s-1GCC\s0 will print lines
+connecting related events, such as the line connecting events 1 and 2 in:
+.Sp
+.Vb 10
+\&            3 |   if (p)
+\&              |       ^
+\&              |       |
+\&              |       (1) following \`false\*(Aq branch (when \`p\*(Aq is NULL)... \->\-+
+\&              |                                                             |
+\&              |                                                             |
+\&              |+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+\&            4 ||    return 0;
+\&            5 ||  return *p;
+\&              ||         ~
+\&              ||         |
+\&              |+\-\-\-\-\-\-\-\->(2) ...to here
+\&              |          (3) dereference of NULL \`p\*(Aq
+.Ve
+.Sp
+This option suppresses the printing of such connector lines.
 .IP "\fB\-fno\-diagnostics\-show\-cwe\fR" 4
 .IX Item "-fno-diagnostics-show-cwe"
 Diagnostic messages can optionally have an associated
@@ -5355,22 +5407,20 @@ For example, the same events as above might be printed as:
 .Sp
 .Vb 10
 \&          \*(Aqtest\*(Aq: events 1\-3
-\&            |
-\&            |   25 |   list = PyList_New(0);
-\&            |      |          ^~~~~~~~~~~~~
-\&            |      |          |
-\&            |      |          (1) when \*(AqPyList_New\*(Aq fails, returning NULL
-\&            |   26 |
-\&            |   27 |   for (i = 0; i < count; i++) {
-\&            |      |   ~~~
-\&            |      |   |
-\&            |      |   (2) when \*(Aqi < count\*(Aq
-\&            |   28 |     item = PyLong_FromLong(random());
-\&            |   29 |     PyList_Append(list, item);
-\&            |      |     ~~~~~~~~~~~~~~~~~~~~~~~~~
-\&            |      |     |
-\&            |      |     (3) when calling \*(AqPyList_Append\*(Aq, passing NULL from (1) as argument 1
-\&            |
+\&           25 |   list = PyList_New(0);
+\&              |          ^~~~~~~~~~~~~
+\&              |          |
+\&              |          (1) when \*(AqPyList_New\*(Aq fails, returning NULL
+\&           26 |
+\&           27 |   for (i = 0; i < count; i++) {
+\&              |   ~~~
+\&              |   |
+\&              |   (2) when \*(Aqi < count\*(Aq
+\&           28 |     item = PyLong_FromLong(random());
+\&           29 |     PyList_Append(list, item);
+\&              |     ~~~~~~~~~~~~~~~~~~~~~~~~~
+\&              |     |
+\&              |     (3) when calling \*(AqPyList_Append\*(Aq, passing NULL from (1) as argument 1
 .Ve
 .Sp
 Interprocedural control flow is shown by grouping the events by stack frame,
