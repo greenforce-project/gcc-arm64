@@ -8717,22 +8717,6 @@
 #define HAVE_aarch64_get_halfv8bf (TARGET_FLOAT)
 #define HAVE_aarch64_get_halfv4sf (TARGET_FLOAT)
 #define HAVE_aarch64_get_halfv2df (TARGET_FLOAT)
-#define HAVE_aarch64_get_lowv16qi (TARGET_FLOAT)
-#define HAVE_aarch64_get_lowv8hi (TARGET_FLOAT)
-#define HAVE_aarch64_get_lowv4si (TARGET_FLOAT)
-#define HAVE_aarch64_get_lowv2di (TARGET_FLOAT)
-#define HAVE_aarch64_get_lowv8hf (TARGET_FLOAT)
-#define HAVE_aarch64_get_lowv8bf (TARGET_FLOAT)
-#define HAVE_aarch64_get_lowv4sf (TARGET_FLOAT)
-#define HAVE_aarch64_get_lowv2df (TARGET_FLOAT)
-#define HAVE_aarch64_get_highv16qi (TARGET_FLOAT)
-#define HAVE_aarch64_get_highv8hi (TARGET_FLOAT)
-#define HAVE_aarch64_get_highv4si (TARGET_FLOAT)
-#define HAVE_aarch64_get_highv2di (TARGET_FLOAT)
-#define HAVE_aarch64_get_highv8hf (TARGET_FLOAT)
-#define HAVE_aarch64_get_highv8bf (TARGET_FLOAT)
-#define HAVE_aarch64_get_highv4sf (TARGET_FLOAT)
-#define HAVE_aarch64_get_highv2df (TARGET_FLOAT)
 #define HAVE_ctzv2si2 (TARGET_SIMD)
 #define HAVE_ctzv4si2 (TARGET_SIMD)
 #define HAVE_xorsignv4hf3 ((TARGET_SIMD) && (TARGET_SIMD_F16INST))
@@ -10049,8 +10033,6 @@
 #define HAVE_aarch64_xtnv8hi (TARGET_SIMD)
 #define HAVE_aarch64_xtnv4si (TARGET_SIMD)
 #define HAVE_aarch64_xtnv2di (TARGET_SIMD)
-#define HAVE_aarch64_vget_lo_halfv8bf (TARGET_BF16_SIMD)
-#define HAVE_aarch64_vget_hi_halfv8bf (TARGET_BF16_SIMD)
 #define HAVE_atomic_compare_and_swapqi 1
 #define HAVE_atomic_compare_and_swaphi 1
 #define HAVE_atomic_compare_and_swapsi 1
@@ -22450,22 +22432,6 @@ extern rtx        gen_aarch64_get_halfv8hf                             (rtx, rtx
 extern rtx        gen_aarch64_get_halfv8bf                             (rtx, rtx, rtx);
 extern rtx        gen_aarch64_get_halfv4sf                             (rtx, rtx, rtx);
 extern rtx        gen_aarch64_get_halfv2df                             (rtx, rtx, rtx);
-extern rtx        gen_aarch64_get_lowv16qi                             (rtx, rtx);
-extern rtx        gen_aarch64_get_lowv8hi                              (rtx, rtx);
-extern rtx        gen_aarch64_get_lowv4si                              (rtx, rtx);
-extern rtx        gen_aarch64_get_lowv2di                              (rtx, rtx);
-extern rtx        gen_aarch64_get_lowv8hf                              (rtx, rtx);
-extern rtx        gen_aarch64_get_lowv8bf                              (rtx, rtx);
-extern rtx        gen_aarch64_get_lowv4sf                              (rtx, rtx);
-extern rtx        gen_aarch64_get_lowv2df                              (rtx, rtx);
-extern rtx        gen_aarch64_get_highv16qi                            (rtx, rtx);
-extern rtx        gen_aarch64_get_highv8hi                             (rtx, rtx);
-extern rtx        gen_aarch64_get_highv4si                             (rtx, rtx);
-extern rtx        gen_aarch64_get_highv2di                             (rtx, rtx);
-extern rtx        gen_aarch64_get_highv8hf                             (rtx, rtx);
-extern rtx        gen_aarch64_get_highv8bf                             (rtx, rtx);
-extern rtx        gen_aarch64_get_highv4sf                             (rtx, rtx);
-extern rtx        gen_aarch64_get_highv2df                             (rtx, rtx);
 extern rtx        gen_ctzv2si2                                         (rtx, rtx);
 extern rtx        gen_ctzv4si2                                         (rtx, rtx);
 extern rtx        gen_xorsignv4hf3                                     (rtx, rtx, rtx);
@@ -23818,8 +23784,6 @@ extern rtx        gen_aarch64_uxtlv2di                                 (rtx, rtx
 extern rtx        gen_aarch64_xtnv8hi                                  (rtx, rtx);
 extern rtx        gen_aarch64_xtnv4si                                  (rtx, rtx);
 extern rtx        gen_aarch64_xtnv2di                                  (rtx, rtx);
-extern rtx        gen_aarch64_vget_lo_halfv8bf                         (rtx, rtx);
-extern rtx        gen_aarch64_vget_hi_halfv8bf                         (rtx, rtx);
 extern rtx        gen_atomic_compare_and_swapqi                        (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_atomic_compare_and_swaphi                        (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_atomic_compare_and_swapsi                        (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);

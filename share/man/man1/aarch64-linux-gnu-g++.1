@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-05-16" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-05-25" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -1252,6 +1252,7 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\fB\-mplt  \-mno\-plt
 \&\-mabi=\fR\fIABI-string\fR
 \&\fB\-mfdiv  \-mno\-fdiv
+\&\-mfence\-tso  \-mno\-fence\-tso
 \&\-mdiv  \-mno\-div
 \&\-misa\-spec=\fR\fIISA-spec-string\fR
 \&\fB\-march=\fR\fIISA-string\fR
@@ -1466,17 +1467,17 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mmove\-max=\fR\fIbits\fR \fB\-mstore\-max=\fR\fIbits\fR
 \&\fB\-mnoreturn\-no\-callee\-saved\-registers
 \&\-mmmx  \-msse  \-msse2  \-msse3  \-mssse3  \-msse4.1  \-msse4.2  \-msse4  \-mavx
-\&\-mavx2  \-mavx512f  \-mavx512pf  \-mavx512er  \-mavx512cd  \-mavx512vl
+\&\-mavx2  \-mavx512f  \-mavx512cd  \-mavx512vl
 \&\-mavx512bw  \-mavx512dq  \-mavx512ifma  \-mavx512vbmi  \-msha  \-maes
 \&\-mpclmul  \-mfsgsbase  \-mrdrnd  \-mf16c  \-mfma  \-mpconfig  \-mwbnoinvd
-\&\-mptwrite  \-mprefetchwt1  \-mclflushopt  \-mclwb  \-mxsavec  \-mxsaves
+\&\-mptwrite  \-mclflushopt  \-mclwb  \-mxsavec  \-mxsaves
 \&\-msse4a  \-m3dnow  \-m3dnowa  \-mpopcnt  \-mabm  \-mbmi  \-mtbm  \-mfma4  \-mxop
 \&\-madx  \-mlzcnt  \-mbmi2  \-mfxsr  \-mxsave  \-mxsaveopt  \-mrtm  \-mhle  \-mlwp
 \&\-mmwaitx  \-mclzero  \-mpku  \-mthreads  \-mgfni  \-mvaes  \-mwaitpkg
 \&\-mshstk \-mmanual\-endbr \-mcet\-switch \-mforce\-indirect\-call
 \&\-mavx512vbmi2 \-mavx512bf16 \-menqcmd
 \&\-mvpclmulqdq  \-mavx512bitalg  \-mmovdiri  \-mmovdir64b  \-mavx512vpopcntdq
-\&\-mavx5124fmaps  \-mavx512vnni  \-mavx5124vnniw  \-mprfchw  \-mrdpid
+\&\-mavx512vnni  \-mprfchw  \-mrdpid
 \&\-mrdseed  \-msgx \-mavx512vp2intersect \-mserialize \-mtsxldtrk
 \&\-mamx\-tile  \-mamx\-int8  \-mamx\-bf16 \-muintr \-mhreset \-mavxvnni
 \&\-mavx512fp16 \-mavxifma \-mavxvnniint8 \-mavxneconvert \-mcmpccxadd \-mamx\-fp16
@@ -20631,6 +20632,7 @@ performance of the code.  Permissible values for this option are:
 \&\fBcortex\-a65\fR, \fBcortex\-a65ae\fR, \fBcortex\-a34\fR,
 \&\fBcortex\-a78\fR, \fBcortex\-a78ae\fR, \fBcortex\-a78c\fR,
 \&\fBares\fR, \fBexynos\-m1\fR, \fBemag\fR, \fBfalkor\fR,
+\&\fBoryon\-1\fR,
 \&\fBneoverse\-512tvb\fR, \fBneoverse\-e1\fR, \fBneoverse\-n1\fR,
 \&\fBneoverse\-n2\fR, \fBneoverse\-v1\fR, \fBneoverse\-v2\fR, \fBqdf24xx\fR,
 \&\fBsaphira\fR, \fBphecda\fR, \fBxgene1\fR, \fBvulcan\fR,
@@ -29518,6 +29520,15 @@ present, and are subject to change.
 Do or don't use hardware floating-point divide and square root instructions.
 This requires the F or D extensions for floating-point registers.  The default
 is to use them if the specified architecture has these instructions.
+.IP "\fB\-mfence\-tso\fR" 4
+.IX Item "-mfence-tso"
+.PD 0
+.IP "\fB\-mno\-fence\-tso\fR" 4
+.IX Item "-mno-fence-tso"
+.PD
+Do or don't use the \fBfence.tso\fR instruction, which is unimplemented on
+some processors (including those from T\-Head).  If the \fBfence.tso\fR
+instruction is not availiable then a stronger fence will be used instead.
 .IP "\fB\-mdiv\fR" 4
 .IX Item "-mdiv"
 .PD 0
@@ -33514,19 +33525,6 @@ MOVDIRI, MOVDIR64B, CLDEMOTE, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C, FMA,
 LZCNT, PCONFIG, PKU, VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL,\s0 AVX-VNNI,
 \&\s-1ENQCMD, UINTR, AVXIFMA, AVXVNNIINT8, AVXNECONVERT, CMPCCXADD, AVXVNNIINT16,
 SHA512, SM3, SM4, USER_MSR\s0 and \s-1PREFETCHI\s0 instruction set support.
-.IP "\fBknl\fR" 4
-.IX Item "knl"
-Intel Knight's Landing \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3,
-SSSE3, SSE4.1, SSE4.2, POPCNT, CX16, SAHF, FXSR, AVX, XSAVE, PCLMUL, FSGSBASE,
-RDRND, F16C, AVX2, BMI, BMI2, LZCNT, FMA, MOVBE, HLE, RDSEED, ADCX, PREFETCHW,
-AVX512PF, AVX512ER, AVX512F, AVX512CD\s0 and \s-1PREFETCHWT1\s0 instruction set support.
-.IP "\fBknm\fR" 4
-.IX Item "knm"
-Intel Knights Mill \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3,
-SSSE3, SSE4.1, SSE4.2, POPCNT, CX16, SAHF, FXSR, AVX, XSAVE, PCLMUL, FSGSBASE,
-RDRND, F16C, AVX2, BMI, BMI2, LZCNT, FMA, MOVBE, HLE, RDSEED, ADCX, PREFETCHW,
-AVX512PF, AVX512ER, AVX512F, AVX512CD\s0 and \s-1PREFETCHWT1, AVX5124VNNIW,
-AVX5124FMAPS\s0 and \s-1AVX512VPOPCNTDQ\s0 instruction set support.
 .IP "\fBskylake\-avx512\fR" 4
 .IX Item "skylake-avx512"
 Intel Skylake Server \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3,
@@ -34293,10 +34291,6 @@ preferred alignment to \fB\-mpreferred\-stack\-boundary=2\fR.
 .IX Item "-mavx2"
 .IP "\fB\-mavx512f\fR" 4
 .IX Item "-mavx512f"
-.IP "\fB\-mavx512pf\fR" 4
-.IX Item "-mavx512pf"
-.IP "\fB\-mavx512er\fR" 4
-.IX Item "-mavx512er"
 .IP "\fB\-mavx512cd\fR" 4
 .IX Item "-mavx512cd"
 .IP "\fB\-mavx512vl\fR" 4
@@ -34339,8 +34333,6 @@ preferred alignment to \fB\-mpreferred\-stack\-boundary=2\fR.
 .IX Item "-mprfchw"
 .IP "\fB\-mrdpid\fR" 4
 .IX Item "-mrdpid"
-.IP "\fB\-mprefetchwt1\fR" 4
-.IX Item "-mprefetchwt1"
 .IP "\fB\-mrdseed\fR" 4
 .IX Item "-mrdseed"
 .IP "\fB\-msgx\fR" 4
@@ -34417,14 +34409,10 @@ preferred alignment to \fB\-mpreferred\-stack\-boundary=2\fR.
 .IX Item "-mavx512vpopcntdq"
 .IP "\fB\-mavx512vp2intersect\fR" 4
 .IX Item "-mavx512vp2intersect"
-.IP "\fB\-mavx5124fmaps\fR" 4
-.IX Item "-mavx5124fmaps"
 .IP "\fB\-mavx512vnni\fR" 4
 .IX Item "-mavx512vnni"
 .IP "\fB\-mavxvnni\fR" 4
 .IX Item "-mavxvnni"
-.IP "\fB\-mavx5124vnniw\fR" 4
-.IX Item "-mavx5124vnniw"
 .IP "\fB\-mcldemote\fR" 4
 .IX Item "-mcldemote"
 .IP "\fB\-mserialize\fR" 4
@@ -34477,18 +34465,17 @@ preferred alignment to \fB\-mpreferred\-stack\-boundary=2\fR.
 .IX Item "-mavx10.1-512"
 .PD
 These switches enable the use of instructions in the \s-1MMX, SSE,
-AVX512ER, AVX512CD, AVX512VL, AVX512BW, AVX512DQ, AVX512IFMA, AVX512VBMI, SHA,
-AES, PCLMUL, CLFLUSHOPT, CLWB, FSGSBASE, PTWRITE, RDRND, F16C, FMA, PCONFIG,
-WBNOINVD, FMA4, PREFETCHW, RDPID, PREFETCHWT1, RDSEED, SGX, XOP, LWP,\s0
-3DNow!, enhanced 3DNow!, \s-1POPCNT, ABM, ADX, BMI, BMI2, LZCNT, FXSR, XSAVE,
-XSAVEOPT, XSAVEC, XSAVES, RTM, HLE, TBM, MWAITX, CLZERO, PKU, AVX512VBMI2,
-GFNI, VAES, WAITPKG, VPCLMULQDQ, AVX512BITALG, MOVDIRI, MOVDIR64B, AVX512BF16,
-ENQCMD, AVX512VPOPCNTDQ, AVX5124FMAPS, AVX512VNNI, AVX5124VNNIW, SERIALIZE,
-UINTR, HRESET, AMXTILE, AMXINT8, AMXBF16, KL, WIDEKL, AVXVNNI, AVX512\-FP16,
-AVXIFMA, AVXVNNIINT8, AVXNECONVERT, CMPCCXADD, AMX\-FP16, PREFETCHI, RAOINT,\s0
-AMX-COMPLEX, \s-1AVXVNNIINT16, SM3, SHA512, SM4, APX_F, USER_MSR, AVX10.1\s0 or
-\&\s-1CLDEMOTE\s0 extended instruction sets.  Each has a corresponding \fB\-mno\-\fR
-option to disable use of these instructions.
+AVX512CD, AVX512VL, AVX512BW, AVX512DQ, AVX512IFMA, AVX512VBMI, SHA, AES,
+PCLMUL, CLFLUSHOPT, CLWB, FSGSBASE, PTWRITE, RDRND, F16C, FMA, PCONFIG,
+WBNOINVD, FMA4, PREFETCHW, RDPID, RDSEED, SGX, XOP, LWP,\s0 3DNow!,
+enhanced 3DNow!, \s-1POPCNT, ABM, ADX, BMI, BMI2, LZCNT, FXSR, XSAVE, XSAVEOPT,
+XSAVEC, XSAVES, RTM, HLE, TBM, MWAITX, CLZERO, PKU, AVX512VBMI2, GFNI, VAES,
+WAITPKG, VPCLMULQDQ, AVX512BITALG, MOVDIRI, MOVDIR64B, AVX512BF16, ENQCMD,
+AVX512VPOPCNTDQ, AVX512VNNI, SERIALIZE, UINTR, HRESET, AMXTILE, AMXINT8,
+AMXBF16, KL, WIDEKL, AVXVNNI, AVX512\-FP16, AVXIFMA, AVXVNNIINT8, AVXNECONVERT,
+CMPCCXADD, AMX\-FP16, PREFETCHI, RAOINT,\s0 AMX-COMPLEX, \s-1AVXVNNIINT16, SM3, SHA512,
+SM4, APX_F, USER_MSR, AVX10.1\s0 or \s-1CLDEMOTE\s0 extended instruction sets.  Each has
+a corresponding \fB\-mno\-\fR option to disable use of these instructions.
 .Sp
 These extensions are also available as built-in functions: see
 \&\fBx86 Built-in Functions\fR, for details of the functions enabled and

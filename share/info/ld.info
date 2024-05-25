@@ -839,7 +839,7 @@ GNU linker:
      will be used.
 
      There are other ways of specifying linker scripts.  See *Note
-     --default-script::, *Note --section-ordering-file:: and *Note
+     --default-script::, *Note --section-ordering-file::, and *Note
      unrecognised-input-files::.
 
 '-dT SCRIPTFILE'
@@ -1977,7 +1977,7 @@ GNU linker:
      to satisfy already included shared libraries.  It does _not_ apply
      to libraries that are included via the '-l' command line option.
      Searches for '-l' libraries are only conducted in directories
-     specified by the '-L' option (*Note -L::).
+     specified by the '-L' option (*note -L::).
 
        1. Any directories specified by '-rpath-link' options.
        2. Any directories specified by '-rpath' options.  The difference
@@ -9771,93 +9771,93 @@ Node: Invocation2712
 Node: Options3120
 Ref: unrecognised-input-files4941
 Ref: -L23461
-Ref: --default-script38413
-Ref: --section-ordering-file94248
-Node: Environment146439
-Node: Scripts148200
-Node: Basic Script Concepts149924
-Node: Script Format152632
-Node: Simple Example153495
-Node: Simple Commands156589
-Node: Entry Point157094
-Node: File Commands158130
-Node: Format Commands162439
-Node: REGION_ALIAS164395
-Node: Miscellaneous Commands169222
-Node: Assignments175349
-Node: Simple Assignments175860
-Node: HIDDEN177591
-Node: PROVIDE178218
-Node: PROVIDE_HIDDEN179744
-Node: Source Code Reference179988
-Node: SECTIONS183905
-Node: Output Section Description185793
-Node: Output Section Name187034
-Node: Output Section Address187911
-Node: Input Section190144
-Node: Input Section Basics190945
-Node: Input Section Wildcards195963
-Node: Input Section Common201944
-Node: Input Section Keep203426
-Node: Input Section Example203916
-Node: Output Section Data205327
-Node: Output Section Keywords210471
-Node: Output Section Discarding214038
-Node: Output Section Attributes215928
-Node: Output Section Type217047
-Node: Output Section LMA219350
-Node: Forced Output Alignment222421
-Node: Forced Input Alignment222850
-Node: Output Section Constraint223238
-Node: Output Section Region223666
-Node: Output Section Phdr224099
-Node: Output Section Fill224763
-Node: Overlay Description226126
-Node: MEMORY230571
-Node: PHDRS235177
-Node: VERSION240503
-Node: Expressions248594
-Node: Constants249607
-Node: Symbolic Constants250481
-Node: Symbols251032
-Node: Orphan Sections251779
-Node: Location Counter253364
-Node: Operators257798
-Node: Evaluation258828
-Node: Expression Section260192
-Node: Builtin Functions264162
-Node: Implicit Linker Scripts272941
-Node: Plugins273716
-Node: libdep Plugin274272
-Node: Special Sections276069
-Node: Machine Dependent278183
-Node: H8/300279280
-Node: M68HC11/68HC12281353
-Node: ARM282800
-Node: HPPA ELF32294910
-Node: M68K296533
-Node: MIPS297442
-Node: MMIX298558
-Node: MSP430299723
-Node: NDS32301636
-Node: Nios II302600
-Node: PowerPC ELF32303916
-Node: PowerPC64 ELF64306747
-Node: S/390 ELF316505
-Node: SPU ELF316852
-Node: TI COFF319480
-Node: WIN32320006
-Node: Xtensa341225
-Node: BFD344668
-Node: BFD outline346126
-Node: BFD information loss347414
-Node: Canonical format349940
-Node: Reporting Bugs354268
-Node: Bug Criteria354962
-Node: Bug Reporting355661
-Node: MRI362696
-Node: GNU Free Documentation License367167
-Node: LD Index392304
+Ref: --default-script38414
+Ref: --section-ordering-file94249
+Node: Environment146440
+Node: Scripts148201
+Node: Basic Script Concepts149925
+Node: Script Format152633
+Node: Simple Example153496
+Node: Simple Commands156590
+Node: Entry Point157095
+Node: File Commands158131
+Node: Format Commands162440
+Node: REGION_ALIAS164396
+Node: Miscellaneous Commands169223
+Node: Assignments175350
+Node: Simple Assignments175861
+Node: HIDDEN177592
+Node: PROVIDE178219
+Node: PROVIDE_HIDDEN179745
+Node: Source Code Reference179989
+Node: SECTIONS183906
+Node: Output Section Description185794
+Node: Output Section Name187035
+Node: Output Section Address187912
+Node: Input Section190145
+Node: Input Section Basics190946
+Node: Input Section Wildcards195964
+Node: Input Section Common201945
+Node: Input Section Keep203427
+Node: Input Section Example203917
+Node: Output Section Data205328
+Node: Output Section Keywords210472
+Node: Output Section Discarding214039
+Node: Output Section Attributes215929
+Node: Output Section Type217048
+Node: Output Section LMA219351
+Node: Forced Output Alignment222422
+Node: Forced Input Alignment222851
+Node: Output Section Constraint223239
+Node: Output Section Region223667
+Node: Output Section Phdr224100
+Node: Output Section Fill224764
+Node: Overlay Description226127
+Node: MEMORY230572
+Node: PHDRS235178
+Node: VERSION240504
+Node: Expressions248595
+Node: Constants249608
+Node: Symbolic Constants250482
+Node: Symbols251033
+Node: Orphan Sections251780
+Node: Location Counter253365
+Node: Operators257799
+Node: Evaluation258829
+Node: Expression Section260193
+Node: Builtin Functions264163
+Node: Implicit Linker Scripts272942
+Node: Plugins273717
+Node: libdep Plugin274273
+Node: Special Sections276070
+Node: Machine Dependent278184
+Node: H8/300279281
+Node: M68HC11/68HC12281354
+Node: ARM282801
+Node: HPPA ELF32294911
+Node: M68K296534
+Node: MIPS297443
+Node: MMIX298559
+Node: MSP430299724
+Node: NDS32301637
+Node: Nios II302601
+Node: PowerPC ELF32303917
+Node: PowerPC64 ELF64306748
+Node: S/390 ELF316506
+Node: SPU ELF316853
+Node: TI COFF319481
+Node: WIN32320007
+Node: Xtensa341226
+Node: BFD344669
+Node: BFD outline346127
+Node: BFD information loss347415
+Node: Canonical format349941
+Node: Reporting Bugs354269
+Node: Bug Criteria354963
+Node: Bug Reporting355662
+Node: MRI362697
+Node: GNU Free Documentation License367168
+Node: LD Index392305
 
 End Tag Table
 
