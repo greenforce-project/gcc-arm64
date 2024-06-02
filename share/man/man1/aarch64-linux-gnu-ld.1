@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "LD 1"
-.TH LD 1 "2024-05-25" "binutils-2.42.50" "GNU Development Tools"
+.TH LD 1 "2024-06-02" "binutils-2.42.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -2506,7 +2506,10 @@ Same as \fB\-\-section\-start\fR, with \f(CW\*(C`.bss\*(C'\fR, \f(CW\*(C`.data\*
 .IP "\fB\-Ttext\-segment=\fR\fIorg\fR" 4
 .IX Item "-Ttext-segment=org"
 When creating an \s-1ELF\s0 executable, it will set the address of the first
-byte of the text segment.
+byte of the text segment.  Note that when \fB\-pie\fR is used with
+\&\fB\-Ttext\-segment=\fR\fIorg\fR, the output executable is marked
+\&\s-1ET_EXEC\s0 so that the address of the first byte of the text segment will
+be guaranteed to be \fIorg\fR at run time.
 .IP "\fB\-Trodata\-segment=\fR\fIorg\fR" 4
 .IX Item "-Trodata-segment=org"
 When creating an \s-1ELF\s0 executable or shared object for a target where

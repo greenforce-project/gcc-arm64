@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-05-25" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-06-02" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -1437,7 +1437,7 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mbig\-switch\fR
 .Sp
 \&\fI\s-1VAX\s0 Options\fR
-\&\fB\-mg  \-mgnu  \-munix  \-mlra\fR
+\&\fB\-munix  \-mgnu  \-md  \-md\-float  \-mg  \-mg\-float  \-mlra\fR
 .Sp
 \&\fIVisium Options\fR
 \&\fB\-mdebug  \-msim  \-mfpu  \-mno\-fpu  \-mhard\-float  \-msoft\-float
@@ -2336,9 +2336,12 @@ with a backslash.  The \fIfile\fR may itself contain additional
 \&\*(C+ source files conventionally use one of the suffixes \fB.C\fR,
 \&\fB.cc\fR, \fB.cpp\fR, \fB.CPP\fR, \fB.c++\fR, \fB.cp\fR, or
 \&\fB.cxx\fR; \*(C+ header files often use \fB.hh\fR, \fB.hpp\fR,
-\&\fB.H\fR, or (for shared template code) \fB.tcc\fR; and
-preprocessed \*(C+ files use the suffix \fB.ii\fR.  \s-1GCC\s0 recognizes
-files with these names and compiles them as \*(C+ programs even if you
+\&\fB.H\fR, or (for shared template code) \fB.tcc\fR;
+preprocessed \*(C+ files use the suffix \fB.ii\fR; and \*(C+20 module interface
+units sometimes use \fB.ixx\fR, \fB.cppm\fR, \fB.cxxm\fR, \fB.c++m\fR,
+or \fB.ccm\fR.
+.PP
+\&\s-1GCC\s0 recognizes files with these names and compiles them as \*(C+ programs even if you
 call the compiler the same way as for compiling C programs (usually
 with the name \fBgcc\fR).
 .PP
@@ -33191,9 +33194,22 @@ ranges.
 .IX Item "-mgnu"
 Do output those jump instructions, on the assumption that the
 \&\s-1GNU\s0 assembler is being used.
+.IP "\fB\-md\fR" 4
+.IX Item "-md"
+.PD 0
+.IP "\fB\-md\-float\fR" 4
+.IX Item "-md-float"
+.PD
+Use the D_floating data format for double-precision floating-point numbers
+instead of G_floating.
 .IP "\fB\-mg\fR" 4
 .IX Item "-mg"
-Output code for G\-format floating-point numbers instead of D\-format.
+.PD 0
+.IP "\fB\-mg\-float\fR" 4
+.IX Item "-mg-float"
+.PD
+Use the G_floating data format for double-precision floating-point numbers
+instead of D_floating.
 .IP "\fB\-mlra\fR" 4
 .IX Item "-mlra"
 .PD 0

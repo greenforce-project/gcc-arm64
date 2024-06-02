@@ -37,6 +37,7 @@ SECTIONS
       *(.rela.plt)
       *(.rela.iplt)
     }
+  .relr.dyn : { *(.relr.dyn) }
   . = ALIGN(CONSTANT (MAXPAGESIZE));
   .init           :
   {

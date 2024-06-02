@@ -38,6 +38,7 @@ SECTIONS
     {
       *(.rela.plt)
     }
+  .relr.dyn : { *(.relr.dyn) }
   .init         0 :
   {
     KEEP (*(SORT_NONE(.init)))
