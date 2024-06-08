@@ -30,6 +30,9 @@ extern enum arches get_attr_arch (rtx_insn *);
 #define HAVE_ATTR_is_call 1
 extern enum attr_is_call get_attr_is_call (rtx_insn *);
 
+#define HAVE_ATTR_pred_clobber 1
+extern enum attr_pred_clobber get_attr_pred_clobber (rtx_insn *);
+
 #define HAVE_ATTR_fp 1
 extern enum attr_fp get_attr_fp (rtx_insn *);
 

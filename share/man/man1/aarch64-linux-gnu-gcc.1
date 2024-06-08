@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-06-02" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-06-08" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -519,6 +519,7 @@ in the following sections.
 \&\-Wno\-analyzer\-tainted\-size
 \&\-Wanalyzer\-symbol\-too\-complex
 \&\-Wanalyzer\-too\-complex
+\&\-Wno\-analyzer\-undefined\-behavior\-ptrdiff
 \&\-Wno\-analyzer\-undefined\-behavior\-strtok
 \&\-Wno\-analyzer\-unsafe\-call\-within\-signal\-handler
 \&\-Wno\-analyzer\-use\-after\-free
@@ -10071,6 +10072,7 @@ Enabling this option effectively enables the following warnings:
 \&\-Wanalyzer\-tainted\-divisor
 \&\-Wanalyzer\-tainted\-offset
 \&\-Wanalyzer\-tainted\-size
+\&\-Wanalyzer\-undefined\-behavior\-ptrdiff
 \&\-Wanalyzer\-undefined\-behavior\-strtok
 \&\-Wanalyzer\-unsafe\-call\-within\-signal\-handler
 \&\-Wanalyzer\-use\-after\-free
@@ -10652,6 +10654,18 @@ an operation such as \f(CW\*(C`memset\*(C'\fR without being sanitized, so that a
 attacker could inject an out-of-bounds access.
 .Sp
 See  \s-1CWE\-129:\s0 Improper Validation of Array Index (\f(CW\*(C`https://cwe.mitre.org/data/definitions/129.html\*(C'\fR).
+.IP "\fB\-Wno\-analyzer\-undefined\-behavior\-ptrdiff\fR" 4
+.IX Item "-Wno-analyzer-undefined-behavior-ptrdiff"
+This warning requires \fB\-fanalyzer\fR, which enables it; use
+\&\fB\-Wno\-analyzer\-undefined\-behavior\-ptrdiff\fR to disable it.
+.Sp
+This diagnostic warns for paths through the code in which a pointer
+subtraction occurs where the pointers refer to different chunks of
+memory.  Such code relies on undefined behavior, as pointer subtraction
+is only defined for cases where both pointers point to within (or just
+after) the same array.
+.Sp
+See  \s-1CWE\-469:\s0 Use of Pointer Subtraction to Determine Size (\f(CW\*(C`https://cwe.mitre.org/data/definitions/469.html\*(C'\fR).
 .IP "\fB\-Wno\-analyzer\-undefined\-behavior\-strtok\fR" 4
 .IX Item "-Wno-analyzer-undefined-behavior-strtok"
 This warning requires \fB\-fanalyzer\fR, which enables it; use
@@ -30219,6 +30233,24 @@ integer load/stores only.
 Do not or do generate unaligned memory accesses.  The default is set depending
 on whether the processor we are optimizing for supports fast unaligned access
 or not.
+.IP "\fB\-mscalar\-strict\-align\fR" 4
+.IX Item "-mscalar-strict-align"
+.PD 0
+.IP "\fB\-mno\-scalar\-strict\-align\fR" 4
+.IX Item "-mno-scalar-strict-align"
+.PD
+Do not or do generate unaligned memory accesses.  The default is set depending
+on whether the processor we are optimizing for supports fast unaligned access
+or not.  This is an alias for \fB\-mstrict\-align\fR.
+.IP "\fB\-mvector\-strict\-align\fR" 4
+.IX Item "-mvector-strict-align"
+.PD 0
+.IP "\fB\-mno\-vector\-strict\-align\fR" 4
+.IX Item "-mno-vector-strict-align"
+.PD
+Do not or do generate unaligned vector memory accesses.  The default is set
+to off unless the processor we are optimizing for explicitly supports
+element-misaligned vector memory access.
 .IP "\fB\-mcmodel=medlow\fR" 4
 .IX Item "-mcmodel=medlow"
 Generate code for the medium-low code model. The program and its statically
@@ -33879,8 +33911,10 @@ instruction set support.
 .IP "\fBlujiazui\fR" 4
 .IX Item "lujiazui"
 \&\s-1ZHAOXIN\s0 lujiazui \s-1CPU\s0 with x86\-64, \s-1MOVBE, MMX, SSE, SSE2, SSE3, SSSE3, SSE4.1,
-SSE4.2, AVX, POPCNT, AES, PCLMUL, RDRND, XSAVE, XSAVEOPT, FSGSBASE, CX16,
-ABM, BMI, BMI2, F16C, FXSR, RDSEED\s0 instruction set support.
+SSE4.2, POPCNT, AES, PCLMUL, RDRND, XSAVE, XSAVEOPT, FSGSBASE, CX16,
+ABM, BMI, BMI2, FXSR, RDSEED\s0 instruction set support.  While the CPUs
+do support \s-1AVX\s0 and F16C, these aren't enabled by \f(CW\*(C`\-march=lujiazui\*(C'\fR
+for performance reasons.
 .IP "\fByongfeng\fR" 4
 .IX Item "yongfeng"
 \&\s-1ZHAOXIN\s0 yongfeng \s-1CPU\s0 with x86\-64, \s-1MOVBE, MMX, SSE, SSE2, SSE3, SSSE3, SSE4.1,

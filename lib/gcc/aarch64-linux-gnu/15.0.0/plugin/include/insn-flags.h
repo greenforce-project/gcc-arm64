@@ -1792,8 +1792,8 @@
 #define HAVE_ucvtfv2di3 (TARGET_SIMD)
 #define HAVE_aarch64_simd_vec_unpacks_hi_v8hf (TARGET_SIMD)
 #define HAVE_aarch64_simd_vec_unpacks_hi_v4sf (TARGET_SIMD)
-#define HAVE_aarch64_float_extend_lo_v2df (TARGET_SIMD)
-#define HAVE_aarch64_float_extend_lo_v4sf (TARGET_SIMD)
+#define HAVE_extendv2sfv2df2 (TARGET_SIMD)
+#define HAVE_extendv4hfv4sf2 (TARGET_SIMD)
 #define HAVE_aarch64_float_trunc_rodd_df (TARGET_SIMD)
 #define HAVE_aarch64_float_trunc_rodd_lo_v2sf (TARGET_SIMD)
 #define HAVE_aarch64_float_trunc_rodd_hi_v4sf_le (TARGET_SIMD && !BYTES_BIG_ENDIAN)
@@ -13585,8 +13585,8 @@ extern rtx        gen_scvtfv2di3                                       (rtx, rtx
 extern rtx        gen_ucvtfv2di3                                       (rtx, rtx, rtx);
 extern rtx        gen_aarch64_simd_vec_unpacks_hi_v8hf                 (rtx, rtx, rtx);
 extern rtx        gen_aarch64_simd_vec_unpacks_hi_v4sf                 (rtx, rtx, rtx);
-extern rtx        gen_aarch64_float_extend_lo_v2df                     (rtx, rtx);
-extern rtx        gen_aarch64_float_extend_lo_v4sf                     (rtx, rtx);
+extern rtx        gen_extendv2sfv2df2                                  (rtx, rtx);
+extern rtx        gen_extendv4hfv4sf2                                  (rtx, rtx);
 extern rtx        gen_aarch64_float_trunc_rodd_df                      (rtx, rtx);
 extern rtx        gen_aarch64_float_trunc_rodd_lo_v2sf                 (rtx, rtx);
 extern rtx        gen_aarch64_float_trunc_rodd_hi_v4sf_le              (rtx, rtx, rtx);

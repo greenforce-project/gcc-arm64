@@ -11,6 +11,7 @@ enum attr_widen_mul64 {WIDEN_MUL64_NO, WIDEN_MUL64_YES};
 enum attr_is_neon_type {IS_NEON_TYPE_YES, IS_NEON_TYPE_NO};
 enum attr_is_mve_type {IS_MVE_TYPE_YES, IS_MVE_TYPE_NO};
 enum attr_is_call {IS_CALL_NO, IS_CALL_YES};
+enum attr_pred_clobber {PRED_CLOBBER_ANY, PRED_CLOBBER_NO, PRED_CLOBBER_YES};
 enum attr_fp {FP_NO, FP_YES};
 enum attr_arch_enabled {ARCH_ENABLED_NO, ARCH_ENABLED_YES};
 enum attr_enabled {ENABLED_NO, ENABLED_YES};
