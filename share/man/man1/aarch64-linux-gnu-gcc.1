@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-06-08" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-06-15" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -364,7 +364,7 @@ in the following sections.
 \&\fB\-Wbool\-compare  \-Wbool\-operation
 \&\-Wno\-builtin\-declaration\-mismatch
 \&\-Wno\-builtin\-macro\-redefined  \-Wc90\-c99\-compat  \-Wc99\-c11\-compat
-\&\-Wc11\-c23\-compat
+\&\-Wc11\-c23\-compat  \-Wc23\-c2y\-compat
 \&\-Wc++\-compat  \-Wc++11\-compat  \-Wc++14\-compat  \-Wc++17\-compat
 \&\-Wc++20\-compat
 \&\-Wno\-c++11\-extensions  \-Wno\-c++14\-extensions \-Wno\-c++17\-extensions
@@ -2492,6 +2492,10 @@ applied with \fB\-std=c11\fR) and a new value of
 \&\s-1ISO C23,\s0 the 2023 revision of the \s-1ISO C\s0 standard (expected to be
 published in 2024).  The support for this version is experimental and
 incomplete.  The name \fBc2x\fR is deprecated.
+.IP "\fBc2y\fR" 4
+.IX Item "c2y"
+The next version of the \s-1ISO C\s0 standard, still under development.  The
+support for this version is experimental and incomplete.
 .IP "\fBgnu90\fR" 4
 .IX Item "gnu90"
 .PD 0
@@ -2527,6 +2531,10 @@ The name \fBgnu1x\fR is deprecated.
 .IP "\fBgnu2x\fR" 4
 .IX Item "gnu2x"
 .PD
+\&\s-1GNU\s0 dialect of \s-1ISO C23.\s0  The support for this version is experimental
+and incomplete.  The name \fBgnu2x\fR is deprecated.
+.IP "\fBgnu2y\fR" 4
+.IX Item "gnu2y"
 The next version of the \s-1ISO C\s0 standard, still under development, plus
 \&\s-1GNU\s0 extensions.  The support for this version is experimental and
 incomplete.  The name \fBgnu2x\fR is deprecated.
@@ -8856,6 +8864,20 @@ standards mode.  Warnings are disabled in the expression that follows
 deprecated.
 .Sp
 When not compiling in C23 mode, these warnings are upgraded to errors
+by \fB\-pedantic\-errors\fR.
+.IP "\fB\-Wc23\-c2y\-compat\fR (C and Objective-C only)" 4
+.IX Item "-Wc23-c2y-compat (C and Objective-C only)"
+.PD 0
+.IP "\fB\-Wc23\-c2y\-compat\fR (C and Objective-C only)" 4
+.IX Item "-Wc23-c2y-compat (C and Objective-C only)"
+.PD
+Warn about features not present in \s-1ISO C23,\s0 but present in \s-1ISO C2Y.\s0
+For instance, warn about \f(CW\*(C`_Generic\*(C'\fR selecting with a type name
+instead of an expression.  This option is independent of the standards
+mode.  Warnings are disabled in the expression that follows
+\&\f(CW\*(C`_\|_extension_\|_\*(C'\fR.
+.Sp
+When not compiling in C2Y mode, these warnings are upgraded to errors
 by \fB\-pedantic\-errors\fR.
 .IP "\fB\-Wc++\-compat\fR (C and Objective-C only)" 4
 .IX Item "-Wc++-compat (C and Objective-C only)"
@@ -33503,18 +33525,18 @@ SSE4.1, SSE4.2, POPCNT, CX16, SAHF, FXSR, AVX, XSAVE, PCLMUL, FSGSBASE, RDRND\s0
 and F16C instruction set support.
 .IP "\fBhaswell\fR" 4
 .IX Item "haswell"
-Intel Haswell \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3, SSSE3,
+Intel Haswell \s-1CPU\s0 with 64\-bit extensions, \s-1MMX, SSE, SSE2, SSE3, SSSE3,
 SSE4.1, SSE4.2, POPCNT, CX16, SAHF, FXSR, AVX, XSAVE, PCLMUL, FSGSBASE, RDRND,
 F16C, AVX2, BMI, BMI2, LZCNT, FMA, MOVBE\s0 and \s-1HLE\s0 instruction set support.
 .IP "\fBbroadwell\fR" 4
 .IX Item "broadwell"
-Intel Broadwell \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3, SSSE3,
+Intel Broadwell \s-1CPU\s0 with 64\-bit extensions, \s-1MMX, SSE, SSE2, SSE3, SSSE3,
 SSE4.1, SSE4.2, POPCNT, CX16, SAHF, FXSR, AVX, XSAVE, PCLMUL, FSGSBASE, RDRND,
 F16C, AVX2, BMI, BMI2, LZCNT, FMA, MOVBE, HLE, RDSEED, ADCX\s0 and \s-1PREFETCHW\s0
 instruction set support.
 .IP "\fBskylake\fR" 4
 .IX Item "skylake"
-Intel Skylake \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3, SSSE3,
+Intel Skylake \s-1CPU\s0 with 64\-bit extensions, \s-1MMX, SSE, SSE2, SSE3, SSSE3,
 SSE4.1, SSE4.2, POPCNT, CX16, SAHF, FXSR, AVX, XSAVE, PCLMUL, FSGSBASE, RDRND,
 F16C, AVX2, BMI, BMI2, LZCNT, FMA, MOVBE, HLE, RDSEED, ADCX, PREFETCHW, AES,
 CLFLUSHOPT, XSAVEC, XSAVES\s0 and \s-1SGX\s0 instruction set support.
@@ -33575,14 +33597,14 @@ LZCNT, PCONFIG, PKU, VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL,\s0 AVX-VNN
 SHA512, SM3, SM4, USER_MSR\s0 and \s-1PREFETCHI\s0 instruction set support.
 .IP "\fBskylake\-avx512\fR" 4
 .IX Item "skylake-avx512"
-Intel Skylake Server \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3,
+Intel Skylake Server \s-1CPU\s0 with 64\-bit extensions, \s-1MMX, SSE, SSE2, SSE3,
 SSSE3, SSE4.1, SSE4.2, POPCNT, CX16, SAHF, FXSR, AVX, XSAVE, PCLMUL, FSGSBASE,
 RDRND, F16C, AVX2, BMI, BMI2, LZCNT, FMA, MOVBE, HLE, RDSEED, ADCX, PREFETCHW,
 AES, CLFLUSHOPT, XSAVEC, XSAVES, SGX, AVX512F, CLWB, AVX512VL, AVX512BW,
 AVX512DQ\s0 and \s-1AVX512CD\s0 instruction set support.
 .IP "\fBcannonlake\fR" 4
 .IX Item "cannonlake"
-Intel Cannonlake Server \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2,
+Intel Cannonlake Server \s-1CPU\s0 with 64\-bit extensions, \s-1MMX, SSE, SSE2,
 SSE3, SSSE3, SSE4.1, SSE4.2, POPCNT, CX16, SAHF, FXSR, AVX, XSAVE, PCLMUL,
 FSGSBASE, RDRND, F16C, AVX2, BMI, BMI2, LZCNT, FMA, MOVBE, HLE, RDSEED, ADCX,
 PREFETCHW, AES, CLFLUSHOPT, XSAVEC, XSAVES, SGX, AVX512F, AVX512VL, AVX512BW,
@@ -33590,7 +33612,7 @@ AVX512DQ, AVX512CD, PKU, AVX512VBMI, AVX512IFMA\s0 and \s-1SHA\s0 instruction se
 support.
 .IP "\fBicelake-client\fR" 4
 .IX Item "icelake-client"
-Intel Icelake Client \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3,
+Intel Icelake Client \s-1CPU\s0 with 64\-bit extensions, \s-1MMX, SSE, SSE2, SSE3,
 SSSE3, SSE4.1, SSE4.2, POPCNT, CX16, SAHF, FXSR, AVX, XSAVE, PCLMUL, FSGSBASE,
 RDRND, F16C, AVX2, BMI, BMI2, LZCNT, FMA, MOVBE, HLE, RDSEED, ADCX, PREFETCHW,
 AES, CLFLUSHOPT, XSAVEC, XSAVES, SGX, AVX512F, AVX512VL, AVX512BW, AVX512DQ,
@@ -33598,7 +33620,7 @@ AVX512CD, PKU, AVX512VBMI, AVX512IFMA, SHA, AVX512VNNI, GFNI, VAES, AVX512VBMI2
 , VPCLMULQDQ, AVX512BITALG, RDPID\s0 and \s-1AVX512VPOPCNTDQ\s0 instruction set support.
 .IP "\fBicelake-server\fR" 4
 .IX Item "icelake-server"
-Intel Icelake Server \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3,
+Intel Icelake Server \s-1CPU\s0 with 64\-bit extensions, \s-1MMX, SSE, SSE2, SSE3,
 SSSE3, SSE4.1, SSE4.2, POPCNT, CX16, SAHF, FXSR, AVX, XSAVE, PCLMUL, FSGSBASE,
 RDRND, F16C, AVX2, BMI, BMI2, LZCNT, FMA, MOVBE, HLE, RDSEED, ADCX, PREFETCHW,
 AES, CLFLUSHOPT, XSAVEC, XSAVES, SGX, AVX512F, AVX512VL, AVX512BW, AVX512DQ,
@@ -33607,21 +33629,21 @@ AVX512CD, PKU, AVX512VBMI, AVX512IFMA, SHA, AVX512VNNI, GFNI, VAES, AVX512VBMI2
 instruction set support.
 .IP "\fBcascadelake\fR" 4
 .IX Item "cascadelake"
-Intel Cascadelake \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3, SSSE3,
+Intel Cascadelake \s-1CPU\s0 with 64\-bit extensions, \s-1MMX, SSE, SSE2, SSE3, SSSE3,
 SSE4.1, SSE4.2, POPCNT, CX16, SAHF, FXSR, AVX, XSAVE, PCLMUL, FSGSBASE, RDRND,
 F16C, AVX2, BMI, BMI2, LZCNT, FMA, MOVBE, HLE, RDSEED, ADCX, PREFETCHW, AES,
 CLFLUSHOPT, XSAVEC, XSAVES, SGX, AVX512F, CLWB, AVX512VL, AVX512BW, AVX512DQ,
 AVX512CD\s0 and \s-1AVX512VNNI\s0 instruction set support.
 .IP "\fBcooperlake\fR" 4
 .IX Item "cooperlake"
-Intel cooperlake \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3, SSSE3,
+Intel cooperlake \s-1CPU\s0 with 64\-bit extensions, \s-1MMX, SSE, SSE2, SSE3, SSSE3,
 SSE4.1, SSE4.2, POPCNT, CX16, SAHF, FXSR, AVX, XSAVE, PCLMUL, FSGSBASE, RDRND,
 F16C, AVX2, BMI, BMI2, LZCNT, FMA, MOVBE, HLE, RDSEED, ADCX, PREFETCHW, AES,
 CLFLUSHOPT, XSAVEC, XSAVES, SGX, AVX512F, CLWB, AVX512VL, AVX512BW, AVX512DQ,
 AVX512CD, AVX512VNNI\s0 and \s-1AVX512BF16\s0 instruction set support.
 .IP "\fBtigerlake\fR" 4
 .IX Item "tigerlake"
-Intel Tigerlake \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3, SSSE3,
+Intel Tigerlake \s-1CPU\s0 with 64\-bit extensions, \s-1MMX, SSE, SSE2, SSE3, SSSE3,
 SSE4.1, SSE4.2, POPCNT, CX16, SAHF, FXSR, AVX, XSAVE, PCLMUL, FSGSBASE, RDRND,
 F16C, AVX2, BMI, BMI2, LZCNT, FMA, MOVBE, HLE, RDSEED, ADCX, PREFETCHW, AES,
 CLFLUSHOPT, XSAVEC, XSAVES, SGX, AVX512F, AVX512VL, AVX512BW, AVX512DQ, AVX512CD
@@ -33630,7 +33652,7 @@ VPCLMULQDQ, AVX512BITALG, RDPID, AVX512VPOPCNTDQ, MOVDIRI, MOVDIR64B, CLWB,
 AVX512VP2INTERSECT\s0 and \s-1KEYLOCKER\s0 instruction set support.
 .IP "\fBsapphirerapids\fR" 4
 .IX Item "sapphirerapids"
-Intel sapphirerapids \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3,
+Intel sapphirerapids \s-1CPU\s0 with 64\-bit extensions, \s-1MMX, SSE, SSE2, SSE3,
 SSSE3, SSE4.1, SSE4.2, POPCNT, CX16, SAHF, FXSR, AVX, XSAVE, PCLMUL, FSGSBASE,
 RDRND, F16C, AVX2, BMI, BMI2, LZCNT, FMA, MOVBE, HLE, RDSEED, ADCX, PREFETCHW,
 AES, CLFLUSHOPT, XSAVEC, XSAVES, SGX, AVX512F, AVX512VL, AVX512BW, AVX512DQ,
@@ -33649,7 +33671,7 @@ VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL\s0 and AVX-VNNI instruction set
 support.
 .IP "\fBrocketlake\fR" 4
 .IX Item "rocketlake"
-Intel Rocketlake \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3, SSSE3
+Intel Rocketlake \s-1CPU\s0 with 64\-bit extensions, \s-1MMX, SSE, SSE2, SSE3, SSSE3
 , SSE4.1, SSE4.2, POPCNT, CX16, SAHF, FXSR, AVX, XSAVE, PCLMUL, FSGSBASE, RDRND,
 F16C, AVX2, BMI, BMI2, LZCNT, FMA, MOVBE, HLE, RDSEED, ADCX, PREFETCHW, AES,
 CLFLUSHOPT, XSAVEC, XSAVES, AVX512F, AVX512VL, AVX512BW, AVX512DQ, AVX512CD
@@ -33657,7 +33679,7 @@ PKU, AVX512VBMI, AVX512IFMA, SHA, AVX512VNNI, GFNI, VAES, AVX512VBMI2,
 VPCLMULQDQ, AVX512BITALG, RDPID\s0 and \s-1AVX512VPOPCNTDQ\s0 instruction set support.
 .IP "\fBgraniterapids\fR" 4
 .IX Item "graniterapids"
-Intel graniterapids \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3,
+Intel graniterapids \s-1CPU\s0 with 64\-bit extensions, \s-1MMX, SSE, SSE2, SSE3,
 SSSE3, SSE4.1, SSE4.2, POPCNT, CX16, SAHF, FXSR, AVX, XSAVE, PCLMUL, FSGSBASE,
 RDRND, F16C, AVX2, BMI, BMI2, LZCNT, FMA, MOVBE, HLE, RDSEED, ADCX, PREFETCHW,
 AES, CLFLUSHOPT, XSAVEC, XSAVES, SGX, AVX512F, AVX512VL, AVX512BW, AVX512DQ,
@@ -33668,7 +33690,7 @@ UINTR, AMX\-BF16,\s0 AMX-TILE, \s-1AMX\-INT8,\s0 AVX-VNNI, \s-1AVX512\-FP16, AVX
 and \s-1PREFETCHI\s0 instruction set support.
 .IP "\fBgraniterapids-d\fR" 4
 .IX Item "graniterapids-d"
-Intel graniterapids D \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3,
+Intel graniterapids D \s-1CPU\s0 with 64\-bit extensions, \s-1MMX, SSE, SSE2, SSE3,
 SSSE3, SSE4.1, SSE4.2, POPCNT, CX16, SAHF, FXSR, AVX, XSAVE, PCLMUL, FSGSBASE,
 RDRND, F16C, AVX2, BMI, BMI2, LZCNT, FMA, MOVBE, HLE, RDSEED, ADCX, PREFETCHW,
 AES, CLFLUSHOPT, XSAVEC, XSAVES, SGX, AVX512F, AVX512VL, AVX512BW, AVX512DQ,

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "LD 1"
-.TH LD 1 "2024-06-08" "binutils-2.42.50" "GNU Development Tools"
+.TH LD 1 "2024-06-15" "binutils-2.42.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -968,6 +968,24 @@ programs.  You may use this option more than once.
 For compatibility with other \s-1ELF\s0 linkers, if the \fB\-R\fR option is
 followed by a directory name, rather than a file name, it is treated as
 the \fB\-rpath\fR option.
+.IP "\fB\-\-rosegment\fR" 4
+.IX Item "--rosegment"
+.PD 0
+.IP "\fB\-\-no\-rosegment\fR" 4
+.IX Item "--no-rosegment"
+.PD
+Attempt to ensure that only a single read-only, non-code segment is
+created.  Only useful when used in conjunction with the \fB\-z
+separate-code\fR option.  The resulting binaries should be smaller than
+if \fB\-z separate-code\fR is used on its own.  Without this option,
+or if \fB\-\-no\-rosegment\fR is specified, the \fB\-z separate-code\fR
+option will create two read-only segments, one before the code segment
+and one after it.
+.Sp
+The name of the options are misleading, but they have been chosen in
+order for the linker to be compatible with the \s-1LLD\s0 and \s-1GOLD\s0 linkers.
+.Sp
+Thse options are only supported by \s-1ELF\s0 targets.
 .IP "\fB\-s\fR" 4
 .IX Item "-s"
 .PD 0
@@ -1566,6 +1584,26 @@ Specify the x86\-64 \s-1ISA\s0 level needed in .note.gnu.property section.
 \&\fBx86\-64\-v2\fR generates \f(CW\*(C`GNU_PROPERTY_X86_ISA_1_V2\*(C'\fR.
 \&\fBx86\-64\-v3\fR generates \f(CW\*(C`GNU_PROPERTY_X86_ISA_1_V3\*(C'\fR.
 \&\fBx86\-64\-v4\fR generates \f(CW\*(C`GNU_PROPERTY_X86_ISA_1_V4\*(C'\fR.
+Supported for Linux/i386 and Linux/x86_64.
+.IP "\fBisa\-level\-report=none\fR" 4
+.IX Item "isa-level-report=none"
+.PD 0
+.IP "\fBisa\-level\-report=all\fR" 4
+.IX Item "isa-level-report=all"
+.IP "\fBisa\-level\-report=needed\fR" 4
+.IX Item "isa-level-report=needed"
+.IP "\fBisa\-level\-report=used\fR" 4
+.IX Item "isa-level-report=used"
+.PD
+Specify how to report x86\-64 \s-1ISA\s0 levels in input relocatable files.
+\&\fBisa\-level\-report=none\fR, which is the default, will make the
+linker not report x86\-64 \s-1ISA\s0 levels in input files.
+\&\fBisa\-level\-report=all\fR will make the linker report needed and
+used x86\-64 \s-1ISA\s0 levels in input files.
+\&\fBisa\-level\-report=needed\fR will make the linker report needed
+x86\-64 \s-1ISA\s0 levels in input files.
+\&\fBisa\-level\-report=used\fR will make the linker report used
+x86\-64 \s-1ISA\s0 levels in input files.
 Supported for Linux/i386 and Linux/x86_64.
 .RE
 .RS 4

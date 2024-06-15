@@ -113,13 +113,11 @@ Tools/packages necessary for building GCC
 
 ISO C++11 compiler
      Necessary to bootstrap GCC. GCC 4.8.3 or newer has sufficient
-     support for used C++11 features, with earlier GCC versions you
-     might run into implementation bugs.
+     support for used C++11 features.
 
      Versions of GCC prior to 11 also allow bootstrapping with an ISO
-     C++98 compiler, versions of GCC prior to 4.8 also allow
-     bootstrapping with a ISO C89 compiler, and versions of GCC prior to
-     3.4 also allow bootstrapping with a traditional (K&R) C compiler.
+     C++98 compiler, and versions of GCC prior to 4.8 also allow
+     bootstrapping with an ISO C89 compiler.
 
      To build all languages in a cross-compiler or other configuration
      where 3-stage bootstrap is not performed, you need to start with an
@@ -3347,7 +3345,6 @@ Options: (gcc)AVR Options, for the list of supported MCU types.
 tools can also be obtained from:
 
    * http://www.nongnu.org/avr/
-   * http://www.amelek.gda.pl/avr/
 
    The following error:
      Error: register required
@@ -3560,11 +3557,8 @@ not supported, so '--enable-threads=dce' does not work.
 *-*-linux-gnu
 =============
 
-The '.init_array' and '.fini_array' sections are enabled unconditionally
-which requires at least glibc 2.1 and binutils 2.12.
-
-   Versions of libstdc++-v3 starting with 3.2.1 require bug fixes
-present in glibc 2.2.5 and later.  More information is available in the
+Versions of libstdc++-v3 starting with 3.2.1 require bug fixes present
+in glibc 2.2.5 and later.  More information is available in the
 libstdc++-v3 documentation.
 
 i?86-*-linux*
@@ -4240,14 +4234,12 @@ both 64-bit x86-64 and 32-bit x86 code (via the '-m32' switch).
 x86_64-*-solaris2*
 ==================
 
-GCC also supports the x86-64 architecture implemented by the AMD64
-processor ('amd64-*-*' is an alias for 'x86_64-*-*').  Unlike other
-systems, without special options a bi-arch compiler is built which
-generates 32-bit code by default, but can generate 64-bit x86-64 code
-with the '-m64' switch.  Since GCC 4.7, there is also a configuration
-that defaults to 64-bit code, but can generate 32-bit code with '-m32'.
-To configure and build this way, you have to provide all support
-libraries like 'libgmp' as 64-bit code, configure with
+Unlike other systems, without special options a bi-arch compiler is
+built which generates 32-bit code by default, but can generate 64-bit
+x86-64 code with the '-m64' switch.  Since GCC 4.7, there is also a
+configuration that defaults to 64-bit code, but can generate 32-bit code
+with '-m32'.  To configure and build this way, you have to provide all
+support libraries like 'libgmp' as 64-bit code, configure with
 '--target=x86_64-pc-solaris2.11' and 'CC=gcc -m64'.
 
 xtensa*-*-elf
@@ -4319,8 +4311,7 @@ Other Windows Platforms
 
 GCC no longer supports Windows NT on the Alpha or PowerPC.
 
-   GCC no longer supports the Windows POSIX subsystem.  However, it does
-support the Interix subsystem.  See above.
+   GCC no longer supports the Windows POSIX subsystem.
 
    Old target names including *-*-winnt and *-*-windowsnt are no longer
 used.
@@ -4922,101 +4913,101 @@ Tag Table:
 Node: Top1696
 Node: Installing GCC2201
 Node: Prerequisites3659
-Ref: GNAT-prerequisite5850
-Ref: GDC-prerequisite7247
-Ref: GM2-prerequisite8430
-Node: Downloading the source18794
-Node: Configuration20513
-Ref: with-gnu-as39780
-Ref: with-as40631
-Ref: with-gnu-ld41996
-Ref: WithAixSoname71835
-Ref: AixLdCommand72496
-Ref: with-included-gettext88380
-Node: Building116735
-Node: Testing132946
-Node: Final install140477
-Node: Binaries143655
-Node: Specific144640
-Ref: aarch64-x-x145174
-Ref: amd64-x-solaris2147194
-Ref: amdgcn-x-amdhsa147276
-Ref: arc-x-elf32148338
-Ref: arc-linux-uclibc148514
-Ref: arm-x-eabi148655
-Ref: avr148908
-Ref: bfin149489
-Ref: cris149752
-Ref: dos150078
-Ref: epiphany-x-elf150403
-Ref: x-x-freebsd150508
-Ref: ft32-x-elf151236
-Ref: h8300-hms151334
-Ref: hppa-hp-hpux151686
-Ref: hppa-hp-hpux11153200
-Ref: x-x-linux-gnu158306
-Ref: ix86-x-linux158629
-Ref: ix86-x-solaris2158942
-Ref: ia64-x-linux159181
-Ref: ia64-x-hpux159428
-Ref: x-ibm-aix159646
-Ref: TransferAixShobj163308
-Ref: iq2000-x-elf167118
-Ref: lm32-x-elf167258
-Ref: lm32-x-uclinux167362
-Ref: loongarch167490
-Ref: m32c-x-elf168127
-Ref: m32r-x-elf168229
-Ref: m68k-x-x168331
-Ref: m68k-x-uclinux169369
-Ref: microblaze-x-elf169614
-Ref: mips-x-x169733
-Ref: moxie-x-elf171643
-Ref: msp430-x-elf171690
-Ref: nds32le-x-elf172247
-Ref: nds32be-x-elf172319
-Ref: nvptx-x-none172388
-Ref: or1k-x-elf173251
-Ref: or1k-x-linux173382
-Ref: powerpc-x-x173463
-Ref: powerpc-x-darwin173654
-Ref: powerpc-x-elf174149
-Ref: powerpc-x-linux-gnu174234
-Ref: powerpc-x-netbsd174329
-Ref: powerpc-x-eabisim174417
-Ref: powerpc-x-eabi174543
-Ref: powerpcle-x-elf174619
-Ref: powerpcle-x-eabisim174711
-Ref: powerpcle-x-eabi174844
-Ref: rl78-x-elf174927
-Ref: riscv32-x-elf175033
-Ref: riscv32-x-linux175222
-Ref: riscv64-x-elf175379
-Ref: riscv64-x-linux175568
-Ref: rx-x-elf175725
-Ref: s390-x-linux175771
-Ref: s390x-x-linux175843
-Ref: s390x-ibm-tpf175930
-Ref: x-x-solaris2176061
-Ref: sparc-x-x179373
-Ref: sparc-sun-solaris2179875
-Ref: sparc-x-linux180774
-Ref: sparc64-x-solaris2180805
-Ref: sparcv9-x-solaris2180892
-Ref: c6x-x-x181613
-Ref: visium-x-elf181705
-Ref: x-x-vxworks181813
-Ref: x86-64-x-x183336
-Ref: x86-64-x-solaris2183664
-Ref: xtensa-x-elf184290
-Ref: xtensa-x-linux184961
-Ref: windows185302
-Ref: x-x-cygwin186949
-Ref: x-x-mingw32187502
-Ref: older187884
-Ref: elf190001
-Node: GNU Free Documentation License190255
-Node: Concept Index215393
+Ref: GNAT-prerequisite5684
+Ref: GDC-prerequisite7081
+Ref: GM2-prerequisite8264
+Node: Downloading the source18628
+Node: Configuration20347
+Ref: with-gnu-as39614
+Ref: with-as40465
+Ref: with-gnu-ld41830
+Ref: WithAixSoname71669
+Ref: AixLdCommand72330
+Ref: with-included-gettext88214
+Node: Building116569
+Node: Testing132780
+Node: Final install140311
+Node: Binaries143489
+Node: Specific144474
+Ref: aarch64-x-x145008
+Ref: amd64-x-solaris2147028
+Ref: amdgcn-x-amdhsa147110
+Ref: arc-x-elf32148172
+Ref: arc-linux-uclibc148348
+Ref: arm-x-eabi148489
+Ref: avr148742
+Ref: bfin149288
+Ref: cris149551
+Ref: dos149877
+Ref: epiphany-x-elf150202
+Ref: x-x-freebsd150307
+Ref: ft32-x-elf151035
+Ref: h8300-hms151133
+Ref: hppa-hp-hpux151485
+Ref: hppa-hp-hpux11152999
+Ref: x-x-linux-gnu158105
+Ref: ix86-x-linux158298
+Ref: ix86-x-solaris2158611
+Ref: ia64-x-linux158850
+Ref: ia64-x-hpux159097
+Ref: x-ibm-aix159315
+Ref: TransferAixShobj162977
+Ref: iq2000-x-elf166787
+Ref: lm32-x-elf166927
+Ref: lm32-x-uclinux167031
+Ref: loongarch167159
+Ref: m32c-x-elf167796
+Ref: m32r-x-elf167898
+Ref: m68k-x-x168000
+Ref: m68k-x-uclinux169038
+Ref: microblaze-x-elf169283
+Ref: mips-x-x169402
+Ref: moxie-x-elf171312
+Ref: msp430-x-elf171359
+Ref: nds32le-x-elf171916
+Ref: nds32be-x-elf171988
+Ref: nvptx-x-none172057
+Ref: or1k-x-elf172920
+Ref: or1k-x-linux173051
+Ref: powerpc-x-x173132
+Ref: powerpc-x-darwin173323
+Ref: powerpc-x-elf173818
+Ref: powerpc-x-linux-gnu173903
+Ref: powerpc-x-netbsd173998
+Ref: powerpc-x-eabisim174086
+Ref: powerpc-x-eabi174212
+Ref: powerpcle-x-elf174288
+Ref: powerpcle-x-eabisim174380
+Ref: powerpcle-x-eabi174513
+Ref: rl78-x-elf174596
+Ref: riscv32-x-elf174702
+Ref: riscv32-x-linux174891
+Ref: riscv64-x-elf175048
+Ref: riscv64-x-linux175237
+Ref: rx-x-elf175394
+Ref: s390-x-linux175440
+Ref: s390x-x-linux175512
+Ref: s390x-ibm-tpf175599
+Ref: x-x-solaris2175730
+Ref: sparc-x-x179042
+Ref: sparc-sun-solaris2179544
+Ref: sparc-x-linux180443
+Ref: sparc64-x-solaris2180474
+Ref: sparcv9-x-solaris2180561
+Ref: c6x-x-x181282
+Ref: visium-x-elf181374
+Ref: x-x-vxworks181482
+Ref: x86-64-x-x183005
+Ref: x86-64-x-solaris2183333
+Ref: xtensa-x-elf183838
+Ref: xtensa-x-linux184509
+Ref: windows184850
+Ref: x-x-cygwin186436
+Ref: x-x-mingw32186989
+Ref: older187371
+Ref: elf189488
+Node: GNU Free Documentation License189742
+Node: Concept Index214880
 
 End Tag Table
 
