@@ -11,6 +11,7 @@ SEARCH_DIR("=/__w/gcc_build/gcc_build/gcc-arm64gnu/aarch64-linux-gnu/lib64"); SE
 SECTIONS
 {
   . = SEGMENT_START("text-segment", 0) + SIZEOF_HEADERS;
+  . = ALIGN(CONSTANT (MAXPAGESIZE));
   .init           :
   {
     KEEP (*(SORT_NONE(.init)))
@@ -34,6 +35,7 @@ SECTIONS
   PROVIDE (__etext = .);
   PROVIDE (_etext = .);
   PROVIDE (etext = .);
+  . = ALIGN(CONSTANT (MAXPAGESIZE));
   /* Adjust the address for the rodata segment.  We want to adjust up to
      the same address within the page on the next page up.  */
   . = SEGMENT_START("rodata-segment", ALIGN(CONSTANT (MAXPAGESIZE)) + (. & (CONSTANT (MAXPAGESIZE) - 1)));

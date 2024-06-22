@@ -630,6 +630,12 @@
 #endif
 
 
+/* Define if the assembler understands -march=rv*_zaamo_zalrsc. */
+#ifndef USED_FOR_TARGET
+/* #undef HAVE_AS_MARCH_ZAAMO_ZALRSC */
+#endif
+
+
 /* Define if the assembler understands -march=rv*_zifencei. */
 #ifndef USED_FOR_TARGET
 /* #undef HAVE_AS_MARCH_ZIFENCEI */
