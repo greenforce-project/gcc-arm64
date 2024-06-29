@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "LD 1"
-.TH LD 1 "2024-06-22" "binutils-2.42.50" "GNU Development Tools"
+.TH LD 1 "2024-06-29" "binutils-2.42.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -856,6 +856,28 @@ shared libraries.  Use \fB\-Bdynamic\fR for this.
 Use \fIoutput\fR as the name for the program produced by \fBld\fR; if this
 option is not specified, the name \fIa.out\fR is used by default.  The
 script command \f(CW\*(C`OUTPUT\*(C'\fR can also specify the output file name.
+.Sp
+Note \- the linker will delete the output file before it starts to
+write to it.  It will do this even if it turns out that the link
+cannot be completed due to errors.
+.Sp
+Note \- the linker will check to make sure that the output file name
+does not match the name of any of the input files, but that is all.
+In particular it will not complain if the output file might overwrite
+a source file or some other important file.  Therefore in build
+systems it is recommended to use the \fB\-o\fR option as the last
+option on the linker command line.  For example consider:
+.Sp
+.Vb 2
+\&          ld \-o $(EXE) $(OBJS)
+\&          ld $(OBJS) \-o $(EXE)
+.Ve
+.Sp
+If the \fB\s-1EXE\s0\fR variable is not defined for some reason, the first
+version of the linker command could end up deleting one of the object
+files (the first one in the \fB\s-1OBJS\s0\fR list) whereas the second
+version of the linker command will generate an error message and not
+delete anything.
 .IP "\fB\-\-dependency\-file=\fR\fIdepfile\fR" 4
 .IX Item "--dependency-file=depfile"
 Write a \fIdependency file\fR to \fIdepfile\fR.  This file contains a rule

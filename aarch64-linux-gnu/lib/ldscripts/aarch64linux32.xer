@@ -68,6 +68,7 @@ SECTIONS
       *(.rela.iplt)
       PROVIDE_HIDDEN (__rela_iplt_end = .);
     }
+  .relr.dyn : { *(.relr.dyn) }
   .rodata         : { *(.rodata .rodata.* .gnu.linkonce.r.*) }
   .rodata1        : { *(.rodata1) }
   .eh_frame_hdr   : { *(.eh_frame_hdr) *(.eh_frame_entry .eh_frame_entry.*) }

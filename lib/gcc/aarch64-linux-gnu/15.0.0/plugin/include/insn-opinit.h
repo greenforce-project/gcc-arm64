@@ -20,6 +20,8 @@ enum optab_tag {
   fractuns_optab,
   satfract_optab,
   satfractuns_optab,
+  ustrunc_optab,
+  sstrunc_optab,
   sfixtrunc_optab,
   ufixtrunc_optab,
   smul_widen_optab,
@@ -274,6 +276,8 @@ enum optab_tag {
   hypot_optab,
   ilogb_optab,
   isinf_optab,
+  isfinite_optab,
+  isnormal_optab,
   issignaling_optab,
   ldexp_optab,
   log10_optab,
@@ -451,15 +455,15 @@ enum optab_tag {
   len_store_optab,
   select_vl_optab,
   FIRST_CONV_OPTAB = sext_optab,
-  LAST_CONVLIB_OPTAB = satfractuns_optab,
+  LAST_CONVLIB_OPTAB = sstrunc_optab,
   LAST_CONV_OPTAB = while_ult_optab,
   FIRST_NORM_OPTAB = add_optab,
   LAST_NORMLIB_OPTAB = sync_lock_test_and_set_optab,
   LAST_NORM_OPTAB = select_vl_optab
 };
 
-#define NUM_OPTABS          446
-#define NUM_CONVLIB_OPTABS  15
+#define NUM_OPTABS          450
+#define NUM_CONVLIB_OPTABS  17
 #define NUM_NORMLIB_OPTABS  80
 #define NUM_OPTAB_PATTERNS  2593
 typedef enum optab_tag optab;

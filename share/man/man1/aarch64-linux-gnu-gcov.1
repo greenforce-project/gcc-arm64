@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCOV 1"
-.TH GCOV 1 "2024-06-22" "gcc-15.0.0" "GNU"
+.TH GCOV 1 "2024-06-29" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -996,6 +996,78 @@ indicating the number of times the call returned divided by the number
 of times the call was executed will be printed.  This will usually be
 100%, but may be less for functions that call \f(CW\*(C`exit\*(C'\fR or \f(CW\*(C`longjmp\*(C'\fR,
 and thus may not return every time they are called.
+.PP
+When you use the \fB\-g\fR option, your output looks like this:
+.PP
+.Vb 10
+\&        $ gcov \-t \-m \-g tmp
+\&                \-:    0:Source:tmp.cpp
+\&                \-:    0:Graph:tmp.gcno
+\&                \-:    0:Data:tmp.gcda
+\&                \-:    0:Runs:1
+\&                \-:    1:#include <stdio.h>
+\&                \-:    2:
+\&                \-:    3:int
+\&                1:    4:main (void)
+\&                \-:    5:{
+\&                \-:    6:  int i, total;
+\&                1:    7:  total = 0;
+\&                \-:    8:
+\&               11:    9:  for (i = 0; i < 10; i++)
+\&        condition outcomes covered 2/2
+\&               10:   10:    total += i;
+\&                \-:   11:
+\&               1*:   12:  int v = total > 100 ? 1 : 2;
+\&        condition outcomes covered 1/2
+\&        condition  0 not covered (true)
+\&                \-:   13:
+\&               1*:   14:  if (total != 45 && v == 1)
+\&        condition outcomes covered 1/4
+\&        condition  0 not covered (true)
+\&        condition  1 not covered (true false)
+\&            #####:   15:    printf ("Failure\en");
+\&                \-:   16:  else
+\&                1:   17:    printf ("Success\en");
+\&                1:   18:  return 0;
+\&                \-:   19:}
+.Ve
+.PP
+For every condition the number of taken and total outcomes are
+printed, and if there are uncovered outcomes a line will be printed
+for each condition showing the uncovered outcome in parentheses.
+Conditions are identified by their index \*(-- index 0 is the left-most
+condition.  In \f(CW\*(C`a || (b && c)\*(C'\fR, \fIa\fR is condition 0, \fIb\fR
+condition 1, and \fIc\fR condition 2.
+.PP
+An outcome is considered covered if it has an independent effect on
+the decision, also known as masking \s-1MC/DC\s0 (Modified Condition/Decision
+Coverage).  In this example the decision evaluates to true and \fIa\fR
+is evaluated, but not covered.  This is because \fIa\fR cannot affect
+the decision independently \*(-- both \fIa\fR and \fIb\fR must change
+value for the decision to change.
+.PP
+.Vb 10
+\&        $ gcov \-t \-m \-g tmp
+\&                \-:    0:Source:tmp.c
+\&                \-:    0:Graph:tmp.gcno
+\&                \-:    0:Data:tmp.gcda
+\&                \-:    0:Runs:1
+\&                \-:    1:#include <stdio.h>
+\&                \-:    2:
+\&                1:    3:int main()
+\&                \-:    4:{
+\&                1:    5:  int a = 1;
+\&                1:    6:  int b = 0;
+\&                \-:    7:
+\&                1:    8:  if (a && b)
+\&        condition outcomes covered 1/4
+\&        condition  0 not covered (true false)
+\&        condition  1 not covered (true)
+\&            #####:    9:    printf ("Success!\en");
+\&                \-:   10:  else
+\&                1:   11:    printf ("Failure!\en");
+\&                \-:   12:}
+.Ve
 .PP
 The execution counts are cumulative.  If the example program were
 executed again without removing the \fI.gcda\fR file, the count for the

@@ -326,7 +326,7 @@ to specify variations on an operation's behavior:
      immediately follow this option character, must use the same syntax
      as the linker command line, and must be specified within a single
      argument.  I.e., if multiple items are needed, they must be quoted
-     to form a single command line argument.  For example 'L
+     to form a single command line argument.  For example 'l
      "-L/usr/local/lib -lmydep1 -lmydep2"'
 
 'N'

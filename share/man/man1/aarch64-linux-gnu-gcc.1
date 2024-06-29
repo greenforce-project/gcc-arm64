@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-06-22" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-06-29" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -595,7 +595,7 @@ in the following sections.
 \&\-fipa\-bit\-cp  \-fipa\-vrp  \-fipa\-pta  \-fipa\-profile  \-fipa\-pure\-const
 \&\-fipa\-reference  \-fipa\-reference\-addressable
 \&\-fipa\-stack\-alignment  \-fipa\-icf  \-fira\-algorithm=\fR\fIalgorithm\fR
-\&\fB\-flive\-patching=\fR\fIlevel\fR
+\&\fB\-flate\-combine\-instructions  \-flive\-patching=\fR\fIlevel\fR
 \&\fB\-fira\-region=\fR\fIregion\fR  \fB\-fira\-hoist\-pressure
 \&\-fira\-loop\-pressure  \-fno\-ira\-share\-save\-slots
 \&\-fno\-ira\-share\-spill\-slots
@@ -12787,6 +12787,14 @@ works on different levels and thus the optimizations are not same \- there are
 equivalences that are found only by \s-1GCC\s0 and equivalences found only by Gold.
 .Sp
 This flag is enabled by default at \fB\-O2\fR and \fB\-Os\fR.
+.IP "\fB\-flate\-combine\-instructions\fR" 4
+.IX Item "-flate-combine-instructions"
+Enable two instruction combination passes that run relatively late in the
+compilation process.  One of the passes runs before register allocation and
+the other after register allocation.  The main aim of the passes is to
+substitute definitions into all uses.
+.Sp
+Most targets enable this flag by default at \fB\-O2\fR and \fB\-Os\fR.
 .IP "\fB\-flive\-patching=\fR\fIlevel\fR" 4
 .IX Item "-flive-patching=level"
 Control \s-1GCC\s0's optimizations to produce output suitable for live-patching.
@@ -15876,6 +15884,9 @@ this parameter.  The default value of this parameter is 50.
 .IP "\fBvect-induction-float\fR" 4
 .IX Item "vect-induction-float"
 Enable loop vectorization of floating point inductions.
+.IP "\fBvrp-block-limit\fR" 4
+.IX Item "vrp-block-limit"
+Maximum number of basic blocks before \s-1VRP\s0 switches to a lower memory algorithm.
 .IP "\fBvrp-sparse-threshold\fR" 4
 .IX Item "vrp-sparse-threshold"
 Maximum number of basic blocks before \s-1VRP\s0 uses a sparse bitmap cache.
@@ -20673,8 +20684,8 @@ performance of the code.  Permissible values for this option are:
 \&\fBares\fR, \fBexynos\-m1\fR, \fBemag\fR, \fBfalkor\fR,
 \&\fBoryon\-1\fR,
 \&\fBneoverse\-512tvb\fR, \fBneoverse\-e1\fR, \fBneoverse\-n1\fR,
-\&\fBneoverse\-n2\fR, \fBneoverse\-v1\fR, \fBneoverse\-v2\fR, \fBqdf24xx\fR,
-\&\fBsaphira\fR, \fBphecda\fR, \fBxgene1\fR, \fBvulcan\fR,
+\&\fBneoverse\-n2\fR, \fBneoverse\-v1\fR, \fBneoverse\-v2\fR, \fBgrace\fR,
+\&\fBqdf24xx\fR, \fBsaphira\fR, \fBphecda\fR, \fBxgene1\fR, \fBvulcan\fR,
 \&\fBocteontx\fR, \fBocteontx81\fR,  \fBocteontx83\fR,
 \&\fBocteontx2\fR, \fBocteontx2t98\fR, \fBocteontx2t96\fR
 \&\fBocteontx2t93\fR, \fBocteontx2f95\fR, \fBocteontx2f95n\fR,
@@ -35383,13 +35394,14 @@ enabled by default on those targets.
 .IP "\fB\-mcrtdll=\fR\fIlibrary\fR" 4
 .IX Item "-mcrtdll=library"
 Preprocess, compile or link with specified C RunTime \s-1DLL\s0 \fIlibrary\fR.
-This option adjust predefined macros \f(CW\*(C`_\|_CRTDLL_\|_\*(C'\fR, \f(CW\*(C`_\|_MSVCRT_\|_\*(C'\fR
-and \f(CW\*(C`_\|_MSVCRT_VERSION_\|_\*(C'\fR for specified \s-1CRT\s0 \fIlibrary\fR, choose
-start file for \s-1CRT\s0 \fIlibrary\fR and link with \s-1CRT\s0 \fIlibrary\fR.
+This option adjust predefined macros \f(CW\*(C`_\|_CRTDLL_\|_\*(C'\fR, \f(CW\*(C`_\|_MSVCRT_\|_\*(C'\fR,
+\&\f(CW\*(C`_UCRT\*(C'\fR and \f(CW\*(C`_\|_MSVCRT_VERSION_\|_\*(C'\fR for specified \s-1CRT\s0 \fIlibrary\fR,
+choose start file for \s-1CRT\s0 \fIlibrary\fR and link with \s-1CRT\s0 \fIlibrary\fR.
 Recognized \s-1CRT\s0 library names for proprocessor are:
-\&\f(CW\*(C`crtdll\*(C'\fR, \f(CW\*(C`msvcrt10\*(C'\fR, \f(CW\*(C`msvcrt20\*(C'\fR, \f(CW\*(C`msvcrt40\*(C'\fR,
-\&\f(CW\*(C`msvcrt\-os\*(C'\fR, \f(CW\*(C`msvcr70\*(C'\fR, \f(CW\*(C`msvcr80\*(C'\fR, \f(CW\*(C`msvcr90\*(C'\fR,
-\&\f(CW\*(C`msvcr100\*(C'\fR, \f(CW\*(C`msvcr110\*(C'\fR, \f(CW\*(C`msvcr120\*(C'\fR and \f(CW\*(C`ucrt\*(C'\fR.
+\&\f(CW\*(C`crtdll*\*(C'\fR, \f(CW\*(C`msvcrt10*\*(C'\fR, \f(CW\*(C`msvcrt20*\*(C'\fR, \f(CW\*(C`msvcrt40*\*(C'\fR,
+\&\f(CW\*(C`msvcr40*\*(C'\fR, \f(CW\*(C`msvcrtd*\*(C'\fR, \f(CW\*(C`msvcrt\-os*\*(C'\fR,
+\&\f(CW\*(C`msvcr70*\*(C'\fR, \f(CW\*(C`msvcr71*\*(C'\fR, \f(CW\*(C`msvcr80*\*(C'\fR, \f(CW\*(C`msvcr90*\*(C'\fR,
+\&\f(CW\*(C`msvcr100*\*(C'\fR, \f(CW\*(C`msvcr110*\*(C'\fR, \f(CW\*(C`msvcr120*\*(C'\fR and \f(CW\*(C`ucrt*\*(C'\fR.
 If this options is not specified then the default MinGW import library
 \&\f(CW\*(C`msvcrt\*(C'\fR is used for linking and no other adjustment for
 preprocessor is done. MinGW import library \f(CW\*(C`msvcrt\*(C'\fR is just a

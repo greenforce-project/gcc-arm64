@@ -43,6 +43,7 @@ SECTIONS
       *(.rela.iplt)
       PROVIDE_HIDDEN (__rela_iplt_end = .);
     }
+  .relr.dyn : { *(.relr.dyn) }
   .init           :
   {
     KEEP (*(SORT_NONE(.init)))
