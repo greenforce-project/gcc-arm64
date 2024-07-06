@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-06-29" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-07-06" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -543,7 +543,8 @@ in the following sections.
 .IX Item "Debugging Options"
 \&\fB\-g  \-g\fR\fIlevel\fR  \fB\-gdwarf  \-gdwarf\-\fR\fIversion\fR
 \&\fB\-gbtf \-gctf  \-gctf\fR\fIlevel\fR
-\&\fB\-ggdb  \-grecord\-gcc\-switches  \-gno\-record\-gcc\-switches
+\&\fB\-gprune\-btf \-gno\-prune\-btf
+\&\-ggdb  \-grecord\-gcc\-switches  \-gno\-record\-gcc\-switches
 \&\-gstrict\-dwarf  \-gno\-strict\-dwarf
 \&\-gas\-loc\-support  \-gno\-as\-loc\-support
 \&\-gas\-locview\-support  \-gno\-as\-locview\-support
@@ -11291,6 +11292,29 @@ Request \s-1BTF\s0 debug information.  \s-1BTF\s0 is the default debugging forma
 eBPF target.  On other targets, like x86, \s-1BTF\s0 debug information can be
 generated along with \s-1DWARF\s0 debug information when both of the debug formats are
 enabled explicitly via their respective command line options.
+.IP "\fB\-gprune\-btf\fR" 4
+.IX Item "-gprune-btf"
+.PD 0
+.IP "\fB\-gno\-prune\-btf\fR" 4
+.IX Item "-gno-prune-btf"
+.PD
+Prune \s-1BTF\s0 information before emission.  When pruning, only type
+information for types used by global variables and file-scope functions
+will be emitted.  If compiling for the \s-1BPF\s0 target with \s-1BPF\s0 CO-RE
+enabled, type information will also be emitted for types used in \s-1BPF\s0
+CO-RE relocations.  In addition, struct and union types which are only
+referred to via pointers from members of other struct or union types
+shall be pruned and replaced with \s-1BTF_KIND_FWD,\s0 as though those types
+were only present in the input as forward declarations.
+.Sp
+This option substantially reduces the size of produced \s-1BTF\s0 information,
+but at significant loss in the amount of detailed type information.
+It is primarily useful when compiling for the \s-1BPF\s0 target, to minimize
+the size of the resulting object, and to eliminate \s-1BTF\s0 information
+which is not immediately relevant to the \s-1BPF\s0 program loading process.
+.Sp
+This option is enabled by default for the \s-1BPF\s0 target when generating
+\&\s-1BTF\s0 information.
 .IP "\fB\-gctf\fR" 4
 .IX Item "-gctf"
 .PD 0
@@ -30140,6 +30164,10 @@ When \fB\-march=\fR is not specified, use the setting from \fB\-mcpu\fR.
 If both \fB\-march\fR and \fB\-mcpu=\fR are not specified, the default for
 this argument is system dependent, users who want a specific architecture
 extensions should specify one explicitly.
+.Sp
+When the RISC-V specifications define an extension as depending on other
+extensions, \s-1GCC\s0 will implicitly add the dependent extensions to the enabled
+extension set if they weren't added explicitly.
 .RE
 .IP "\fB\-mcpu=\fR\fIprocessor-string\fR" 4
 .IX Item "-mcpu=processor-string"
