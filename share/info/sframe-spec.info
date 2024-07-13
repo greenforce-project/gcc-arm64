@@ -35,6 +35,11 @@ fast and low-overhead mechanism to generate stack traces.
 
 * Introduction::
 * SFrame Section::
+* ABI/arch-specific Definition::
+
+Appendices
+* Generating Stack Traces using SFrame::
+
 * Index::
 
 
@@ -110,7 +115,7 @@ format since Version 1 was published.
    SFrame version 1 is now obsolete and should not be used.
 
 
-File: sframe-spec.info,  Node: SFrame Section,  Next: Index,  Prev: Introduction,  Up: Top
+File: sframe-spec.info,  Node: SFrame Section,  Next: ABI/arch-specific Definition,  Prev: Introduction,  Up: Top
 
 2 SFrame Section
 ****************
@@ -352,7 +357,8 @@ ABI/arch Identifier                Value   Description
                                            
 
    The presence of an explicit identification of ABI/arch in SFrame may
-allow stack trace generators to make certain ABI-specific decisions.
+allow stack trace generators to make certain ABI/arch-specific
+decisions.
 
 
 File: sframe-spec.info,  Node: SFrame Function Descriptor Entries,  Next: SFrame Frame Row Entries,  Prev: SFrame Header,  Up: SFrame Section
@@ -542,33 +548,38 @@ File: sframe-spec.info,  Node: SFrame Frame Row Entries,  Prev: SFrame Function 
 ==============
 
 The SFrame frame row entry sub-section contains the core of the stack
-trace information.
+trace information.  An SFrame frame row entry (FRE) is a self-sufficient
+record containing SFrame stack trace information for a range of
+contiguous (instruction) addresses, starting at the specified offset
+from the start of the function.
 
-   An SFrame frame row entry is a self-sufficient record containing
-SFrame stack trace information for a range of contiguous addresses,
-starting at the specified offset from the start of the function.  Each
-SFrame frame row entry is followed by S*N bytes, where:
+   Each SFrame FRE encodes the stack offsets to recover the CFA, FP and
+RA (where applicable) for the respective instruction addresses.  To
+encode this information, each SFrame FRE is followed by S*N bytes,
+where:
 
-   - 'S' is the size of the stack frame offset for the FRE, and
-   - 'N' is the number of stack frame offsets in the FRE
+   - 'S' is the size of a stack offset for the FRE, and
+   - 'N' is the number of stack offsets in the FRE
 
-   The stack offsets, following the FRE, are interpreted in order as
-follows:
+   The entities 'S', 'N' are encoded in the SFrame FRE info word, via
+the 'fre_offset_size' and the 'fre_offset_count' respectively.  More
+information about the precise encoding and range of values for 'S' and
+'N' is provided later in the *Note The SFrame FRE Info Word::.
 
-   - The first offset is always used to locate the CFA, by interpreting
-     it as: CFA = 'BASE_REG' + offset1.
-   - If RA is being tracked, the second offset is always used to locate
-     the RA, by interpreting it as: RA = CFA + offset2.  If RA is _not_
-     being tracked _and_ FP is being tracked, the second offset will be
-     used to locate the FP, by interpreting it as: FP = CFA + offset2.
-   - If both RA and FP are being tracked, the third offset will be used
-     to locate the FP, by interpreting it as FP = CFA + offset3.
+   It is important to underline here that although the canonical
+interpretation of these bytes is as stack offsets (to recover CFA, FP
+and RA), these bytes _may_ be used by future ABIs/architectures to
+convey other information on a per SFrame FRE basis.
 
-   The entities 'S', 'N' and 'BASE_REG' are identified using the SFrame
-FRE info word, a.k.a.  the 'sframe_fre_info' *Note The SFrame FRE Info
-Word::.
+   In summary, SFrame file format, by design, supports a variable number
+of stack offsets at the tail end of each SFrame FRE. To keep the SFrame
+file format specification flexible yet extensible, the interpretation of
+the stack offsets is ABI/arch-specific.  The precise interpretation of
+the FRE stack offsets in the currently supported ABIs/architectures is
+covered in the ABI/arch-specific definition of the SFrame file format,
+*Note ABI/arch-specific Definition::.
 
-   Following are the definitions of the allowed SFrame FRE:
+   Next, the definitions of the three SFrame FRE types are as follows:
 
      typedef struct sframe_frame_row_entry_addr1
      {
@@ -599,7 +610,7 @@ which the SFrame FRE applies.  The value encoded in the
 'sfre_start_address' field is the offset in bytes of the start address
 of the SFrame FRE, from the start address of the function.
 
-   Further FRE types may be added in future.
+   Further SFrame FRE types may be added in future.
 
 * Menu:
 
@@ -626,8 +637,9 @@ Bit offset   Name                    Description
                                      SFRAME_FRE_OFFSET_2B, and
                                      SFRAME_FRE_OFFSET_4B.
                                      
-1-4          'fre_offset_count'      A value of upto 3 is allowed to track all
-                                     three of CFA, FP and RA.
+1-4          'fre_offset_count'      A max value of 15 is allowed.  Typically, a
+                                     value of upto 3 is sufficient for most ABIs
+                                     to track all three of CFA, FP and RA.
                                      
 0            'fre_cfa_base_reg_id'   Distinguish between SP or FP based CFA
                                      recovery.
@@ -647,7 +659,169 @@ Name                   Value     Description
                                  
 
 
-File: sframe-spec.info,  Node: Index,  Prev: SFrame Section,  Up: Top
+File: sframe-spec.info,  Node: ABI/arch-specific Definition,  Next: Generating Stack Traces using SFrame,  Prev: SFrame Section,  Up: Top
+
+3 ABI/arch-specific Definition
+******************************
+
+This section covers the ABI/arch-specific definition of the SFrame file
+format.
+
+   Currently, the only part of the SFrame file format definition that is
+ABI/arch-specific is the interpretation of the variable number of bytes
+at the tail end of each SFrame FRE. Currently, these bytes are only used
+for representing stack offsets (for all the currently supported ABIs).
+It is recommended to peruse this section along with *Note SFrame Frame
+Row Entries:: for clarity of context.
+
+   Future ABIs must specify the algorithm for identifying the
+appropriate SFrame FRE stack offsets in this chapter.  This should
+inevitably include the blueprint for interpreting the variable number of
+bytes at the tail end of the SFrame FRE for the specific ABI/arch.  Any
+further provisions, e.g., using the auxiliary SFrame header, etc., if
+used, must also be outlined here.
+
+* Menu:
+
+* AMD64::
+* AArch64::
+
+
+File: sframe-spec.info,  Node: AMD64,  Next: AArch64,  Up: ABI/arch-specific Definition
+
+3.1 AMD64
+=========
+
+Irrespective of the ABI, the first stack offset is always used to locate
+the CFA, by interpreting it as: CFA = 'BASE_REG' + offset1.  The
+identification of the 'BASE_REG' is done by using the
+'fre_cfa_base_reg_id' field in the SFrame FRE info word.
+
+   In AMD64, the return address (RA) is always saved on stack when a
+function call is executed.  Further, AMD64 ABI mandates that the RA be
+saved at a 'fixed offset' from the CFA when entering a new function.
+This means that the RA does not need to be tracked per SFrame FRE. The
+fixed offset is encoded in the SFrame file format in the field
+'sfh_cfa_fixed_ra_offset' in the SFrame header.  *Note SFrame Header::.
+
+   Hence, the second stack offset (in the SFrame FRE), when present,
+will be used to locate the FP, by interpreting it as: FP = CFA +
+offset2.
+
+   Hence, in summary:
+
+Offset ID   Interpretation in AMD64
+-----------------------------------------------
+1           CFA = 'BASE_REG' + offset1
+2           FP = CFA + offset2
+
+
+File: sframe-spec.info,  Node: AArch64,  Prev: AMD64,  Up: ABI/arch-specific Definition
+
+3.2 AArch64
+===========
+
+Irrespective of the ABI, the first stack offset is always used to locate
+the CFA, by interpreting it as: CFA = 'BASE_REG' + offset1.  The
+identification of the 'BASE_REG' is done by using the
+'fre_cfa_base_reg_id' field in the SFrame FRE info word.
+
+   In AARCH64, the AAPCS64 standard specifies that the Frame Record
+saves both FP and LR (a.k.a the RA). However, the standard does not
+mandate the precise location in the function where the frame record is
+created, if at all.  Hence the need to track RA in the SFrame stack
+trace format.  As RA is being tracked in this ABI, the second stack
+offset is always used to locate the RA, by interpreting it as: RA = CFA
++ offset2.  The third stack offset will be used to locate the FP, by
+interpreting it as: FP = CFA + offset3.
+
+   Given the nature of things, the number of stack offsets seen on
+AARCH64 per SFrame FRE is either 1 or 3.
+
+   Hence, in summary:
+
+Offset ID   Interpretation in AArch64
+---------------------------------------------
+1           CFA = 'BASE_REG' + offset1
+2           RA = CFA + offset2
+3           FP = CFA + offset3
+
+
+File: sframe-spec.info,  Node: Generating Stack Traces using SFrame,  Next: Index,  Prev: ABI/arch-specific Definition,  Up: Top
+
+Appendix A Generating Stack Traces using SFrame
+***********************************************
+
+Using some C-like pseudocode, this section highlights how SFrame
+provides a simple, fast and low-overhead mechanism to generate stack
+traces.  Needless to say that for generating accurate and useful stack
+traces, several other aspects will need attention: finding and decoding
+bits of SFrame section(s) in the program binary, symbolization of
+addresses, to name a few.
+
+   In the current context, a 'frame' is the abstract construct that
+encapsulates the following information:
+   - program counter (PC),
+   - stack pointer (SP), and
+   - frame pointer (FP)
+
+   With that said, establishing the first 'frame' should be trivial:
+
+         // frame 0
+         frame->pc = current_IP;
+         frame->sp = get_reg_value (REG_SP);
+         frame->fp = get_reg_value (REG_FP);
+
+   where 'REG_SP' and 'REG_FP' are are ABI-designated stack pointer and
+frame pointer registers respectively.
+
+   Next, given frame N, generating stack trace needs us to get frame
+N+1.  This can be done as follows:
+
+          // Get the PC, SP, and FP for frame N.
+          pc = frame->pc;
+          sp = frame->sp;
+          fp = frame->fp;
+          // Populate frame N+1.
+          int err = get_next_frame (&next_frame, pc, sp, fp);
+
+   where given the values of the program counter, stack pointer and
+frame pointer from frame N, 'get_next_frame' populates the provided
+'next_frame' object and returns the error code, if any.  In the
+following pseudocode for 'get_next_frame', the 'sframe_*' functions
+fetch information from the SFrame section.
+
+         fre = sframe_find_fre (pc);
+         if (fre)
+             // Whether the base register for CFA tracking is REG_FP.
+             base_reg_val = sframe_fre_base_reg_fp_p (fre) ? fp : sp;
+             // Get the CFA stack offset from the FRE.
+             cfa_offset = sframe_fre_get_cfa_offset (fre);
+             // Get the fixed RA offset or FRE stack offset as applicable.
+             ra_offset = sframe_fre_get_ra_offset (fre);
+             // Get the fixed FP offset or FRE stack offset as applicable.
+             fp_offset = sframe_fre_get_fp_offset (fre);
+
+             cfa = base_reg_val + cfa_offset;
+             next_frame->sp = cfa;
+
+             ra_stack_loc = cfa + ra_offset;
+             // Get the address stored in the stack location.
+             next_frame->pc = read_value (ra_stack_loc);
+
+             if (fp_offset is VALID)
+                 fp_stack_loc = cfa + fp_offset;
+                 // Get the value stored in the stack location.
+                 next_frame->fp = read_value (fp_stack_loc);
+             else
+                 // Continue to use the value of fp as it has not
+                 // been clobbered by the current frame yet.
+                 next_frame->fp = fp;
+         else
+             ret = ERR_NO_SFRAME_FRE;
+
+
+File: sframe-spec.info,  Node: Index,  Prev: Generating Stack Traces using SFrame,  Up: Top
 
 Index
 *****
@@ -655,6 +829,8 @@ Index
  [index ]
 * Menu:
 
+* ABI/arch-specific Definition:          ABI/arch-specific Definition.
+                                                               (line  6)
 * Changes from Version 1 to Version 2:   Changes from Version 1 to Version 2.
                                                                (line  6)
 * endianness:                            SFrame Magic Number and Endianness.
@@ -664,6 +840,8 @@ Index
 * Provisions for future ABIs:            SFrame Header.        (line 59)
 * Provisions for future ABIs <1>:        SFrame Function Descriptor Entries.
                                                                (line 41)
+* Provisions for future ABIs <2>:        SFrame Frame Row Entries.
+                                                               (line 25)
 * SFrame ABI/arch Identifier:            SFrame ABI/arch Identifier.
                                                                (line  6)
 * SFrame FDE:                            SFrame Function Descriptor Entries.
@@ -686,11 +864,11 @@ Index
 * SFRAME_FDE_TYPE_PCINC:                 The SFrame FDE Types. (line  6)
 * SFRAME_FDE_TYPE_PCMASK:                The SFrame FDE Types. (line  6)
 * SFRAME_FRE_OFFSET_1B:                  The SFrame FRE Info Word.
-                                                               (line 30)
+                                                               (line 31)
 * SFRAME_FRE_OFFSET_2B:                  The SFrame FRE Info Word.
-                                                               (line 34)
+                                                               (line 35)
 * SFRAME_FRE_OFFSET_4B:                  The SFrame FRE Info Word.
-                                                               (line 37)
+                                                               (line 38)
 * SFRAME_FRE_TYPE_ADDR1:                 The SFrame FRE Types. (line 17)
 * SFRAME_FRE_TYPE_ADDR2:                 The SFrame FRE Types. (line 21)
 * SFRAME_FRE_TYPE_ADDR4:                 The SFrame FRE Types. (line 24)
@@ -701,29 +879,33 @@ Index
 * The SFrame FDE Info Word:              SFrame Function Descriptor Entries.
                                                                (line 85)
 * The SFrame FRE Info Word:              SFrame Frame Row Entries.
-                                                               (line 69)
+                                                               (line 74)
 
 
 
 Tag Table:
 Node: Top564
-Node: Introduction1145
-Node: Overview1331
-Node: Changes from Version 1 to Version 22897
-Node: SFrame Section3868
-Node: SFrame Preamble4344
-Node: SFrame Magic Number and Endianness5911
-Node: SFrame Version6443
-Node: SFrame Flags7020
-Node: SFrame Header8035
-Node: SFrame ABI/arch Identifier13461
-Node: SFrame Function Descriptor Entries14484
-Node: The SFrame FDE Info Word18928
-Node: The SFrame FDE Types20142
-Node: The SFrame FRE Types21964
-Node: SFrame Frame Row Entries23452
-Node: The SFrame FRE Info Word26099
-Node: Index28081
+Node: Introduction1232
+Node: Overview1418
+Node: Changes from Version 1 to Version 22984
+Node: SFrame Section3955
+Node: SFrame Preamble4454
+Node: SFrame Magic Number and Endianness6021
+Node: SFrame Version6553
+Node: SFrame Flags7130
+Node: SFrame Header8145
+Node: SFrame ABI/arch Identifier13571
+Node: SFrame Function Descriptor Entries14599
+Node: The SFrame FDE Info Word19043
+Node: The SFrame FDE Types20257
+Node: The SFrame FRE Types22079
+Node: SFrame Frame Row Entries23567
+Node: The SFrame FRE Info Word26619
+Node: ABI/arch-specific Definition28697
+Node: AMD6429792
+Node: AArch6430892
+Node: Generating Stack Traces using SFrame32101
+Node: Index35122
 
 End Tag Table
 

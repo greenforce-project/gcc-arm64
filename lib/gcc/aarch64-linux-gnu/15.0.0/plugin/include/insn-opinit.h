@@ -454,15 +454,17 @@ enum optab_tag {
   len_load_optab,
   len_store_optab,
   select_vl_optab,
+  andc_optab,
+  iorc_optab,
   FIRST_CONV_OPTAB = sext_optab,
   LAST_CONVLIB_OPTAB = sstrunc_optab,
   LAST_CONV_OPTAB = while_ult_optab,
   FIRST_NORM_OPTAB = add_optab,
   LAST_NORMLIB_OPTAB = sync_lock_test_and_set_optab,
-  LAST_NORM_OPTAB = select_vl_optab
+  LAST_NORM_OPTAB = iorc_optab
 };
 
-#define NUM_OPTABS          450
+#define NUM_OPTABS          452
 #define NUM_CONVLIB_OPTABS  17
 #define NUM_NORMLIB_OPTABS  80
 #define NUM_OPTAB_PATTERNS  2598

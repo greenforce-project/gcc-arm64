@@ -889,21 +889,12 @@ class ovl_iterator {
     return (TREE_CODE (ovl) == USING_DECL
 	    || (TREE_CODE (ovl) == OVERLOAD && OVL_USING_P (ovl)));
   }
-  /* Whether this using is in the module purview.  */
-  bool purview_p () const
-  {
-    return OVL_PURVIEW_P (get_using ());
-  }
-  /* Whether this using is being exported.  */
-  bool exporting_p () const
-  {
-    return OVL_EXPORT_P (get_using ());
-  }
-  
   bool hidden_p () const
   {
     return TREE_CODE (ovl) == OVERLOAD && OVL_HIDDEN_P (ovl);
   }
+  bool purview_p () const;
+  bool exporting_p () const;
 
  public:
   tree remove_node (tree head)
@@ -7490,7 +7481,6 @@ extern tree canonical_type_parameter		(tree);
 extern void push_access_scope			(tree);
 extern void pop_access_scope			(tree);
 extern bool check_template_shadow		(tree);
-extern bool check_auto_in_tmpl_args             (tree, tree);
 extern tree get_innermost_template_args		(tree, int);
 extern void maybe_begin_member_template_processing (tree);
 extern void maybe_end_member_template_processing (void);
@@ -8592,7 +8582,6 @@ extern hashval_t hash_placeholder_constraint	(tree);
 extern bool deduce_constrained_parameter        (tree, tree&, tree&);
 extern tree resolve_constraint_check            (tree);
 extern tree check_function_concept              (tree);
-extern tree finish_template_introduction        (tree, tree, location_t loc);
 extern bool valid_requirements_p                (tree);
 extern tree finish_concept_name                 (tree);
 extern tree finish_shorthand_constraint         (tree, tree);

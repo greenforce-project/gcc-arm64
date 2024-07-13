@@ -494,6 +494,7 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS (pass_inc_dec, 1);
       NEXT_PASS (pass_initialize_regs, 1);
       NEXT_PASS (pass_ud_rtl_dce, 1);
+      NEXT_PASS (pass_ext_dce, 1);
       NEXT_PASS (pass_combine, 1);
       NEXT_PASS (pass_late_combine, 1);
       NEXT_PASS (pass_if_after_combine, 1);

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCOV 1"
-.TH GCOV 1 "2024-07-06" "gcc-15.0.0" "GNU"
+.TH GCOV 1 "2024-07-13" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -149,11 +149,14 @@ gcov [\fB\-v\fR|\fB\-\-version\fR] [\fB\-h\fR|\fB\-\-help\fR]
      [\fB\-g\fR|\fB\-\-conditions\fR]
      [\fB\-d\fR|\fB\-\-display\-progress\fR]
      [\fB\-f\fR|\fB\-\-function\-summaries\fR]
+     [\fB\-\-include\fR \fIregex\fR]
+     [\fB\-\-exclude\fR \fIregex\fR]
      [\fB\-j\fR|\fB\-\-json\-format\fR]
      [\fB\-H\fR|\fB\-\-human\-readable\fR]
      [\fB\-k\fR|\fB\-\-use\-colors\fR]
      [\fB\-l\fR|\fB\-\-long\-file\-names\fR]
      [\fB\-m\fR|\fB\-\-demangled\-names\fR]
+     [\fB\-M\fR|\fB\-\-filter\-on\-demangled\fR]
      [\fB\-n\fR|\fB\-\-no\-output\fR]
      [\fB\-o\fR|\fB\-\-object\-directory\fR \fIdirectory|file\fR]
      [\fB\-p\fR|\fB\-\-preserve\-paths\fR]
@@ -273,6 +276,24 @@ Display the progress on the standard output.
 .IX Item "--function-summaries"
 .PD
 Output summaries for each function in addition to the file level summary.
+.IP "\fB\-\-include\fR \fIregex\fR" 4
+.IX Item "--include regex"
+Include functions matching \fIregex\fR.  This option makes
+\&\fBgcov\fR only report on functions that match the extended
+regular expression \fIregex\fR.  This flag can be combined with
+\&\fB\-\-exclude\fR.  If a function matches both includes and excludes,
+the last include/exclude applies.  By default \fBgcov\fR reports
+on all functions, but if a \fB\-\-include\fR is used then only
+functions matching the include will be reported.
+.IP "\fB\-\-exclude\fR \fIregex\fR" 4
+.IX Item "--exclude regex"
+Exclude functions matching \fIregex\fR.  This option makes
+\&\fBgcov\fR not report on functions that match the extended regular
+expression \fIregex\fR.  This flag can be combined with
+\&\fB\-\-include\fR.  If a function matches both includes and excludes,
+the last include/exclude applies.  By default \fBgcov\fR reports
+on all functions, and if \fB\-\-exclude\fR is used then functions
+matching it will be omitted.
 .IP "\fB\-h\fR" 4
 .IX Item "-h"
 .PD 0
@@ -525,6 +546,15 @@ and included file names will be complete path names.
 .PD
 Display demangled function names in output. The default is to show
 mangled function names.
+.IP "\fB\-M\fR" 4
+.IX Item "-M"
+.PD 0
+.IP "\fB\-\-filter\-on\-demangled\fR" 4
+.IX Item "--filter-on-demangled"
+.PD
+Make \fB\-\-include\fR and \fB\-\-exclude\fR match demangled names.
+This does only affects the matching and does not imply
+\&\fB\-\-demangled\-names\fR, but it can safely be combined with it.
 .IP "\fB\-n\fR" 4
 .IX Item "-n"
 .PD 0
@@ -1084,6 +1114,92 @@ profiling code first attempts to read in an existing \fI.gcda\fR file; if
 the file doesn't match the executable (differing number of basic block
 counts) it will ignore the contents of the file.  It then adds in the
 new execution counts and finally writes the data to the file.
+.PP
+You can report on a subset of functions by using \fB\-\-include\fR
+and \fB\-\-exclude\fR.  This is very useful when combined with
+\&\fB\-\-stdout\fR trying to understand behavior and coverage for a
+particular function by running a test, looking at \fBgcov\fR
+output, testing another input, and running \fBgcov\fR again.
+.PP
+.Vb 10
+\&        $ gcov \-m \-\-stdout \-\-include inc tmp
+\&                \-:    0:Source:tmp.cpp
+\&                \-:    0:Graph:tmp.gcno
+\&                \-:    0:Data:tmp.gcda
+\&                \-:    0:Runs:1
+\&               2*:    8:  void inc () { b++; }
+\&        \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+\&        Foo<char>::inc():
+\&            #####:    8:  void inc () { b++; }
+\&        \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+\&        Foo<int>::inc():
+\&                2:    8:  void inc () { b++; }
+\&        \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+.Ve
+.PP
+\&\fBgcov\fR will match on mangled names by default, which you can
+control with the \fB\-M\fR flag.  Note that matching and reporting
+are independent, so you can match on mangled names while printing
+demangled names, and vice versa.  To report on the \f(CW\*(C`int\*(C'\fR
+instantiation of \f(CW\*(C`Foo\*(C'\fR matching on mangled and demangled names:
+.PP
+.Vb 7
+\&        $ gcov \-t \-m \-M tmp \-\-include \*(AqFoo<int>\*(Aq
+\&                \-:    0:Source:tmp.cpp
+\&                \-:    0:Graph:tmp.gcno
+\&                \-:    0:Data:tmp.gcda
+\&                \-:    0:Runs:1
+\&                1:    7:  Foo(): b (1000) {}
+\&                2:    8:  void inc () { b++; }
+\&
+\&
+\&        
+\&        $ gcov \-t \-m tmp \-\-include \*(AqFooIi\*(Aq
+\&                \-:    0:Source:tmp.cpp
+\&                \-:    0:Graph:tmp.gcno
+\&                \-:    0:Data:tmp.gcda
+\&                \-:    0:Runs:1
+\&                1:    7:  Foo(): b (1000) {}
+\&                2:    8:  void inc () { b++; }
+.Ve
+.PP
+The arguments to \fB\-\-include\fR and \fB\-\-exclude\fR are
+extended regular expressions (like \fBgrep \-E\fR), so the pattern
+\&\f(CW\*(C`in.?\*(C'\fR matches both \f(CW\*(C`inc\*(C'\fR and \f(CW\*(C`main\*(C'\fR.  If used with
+\&\fB\-M\fR then all \f(CW\*(C`int\*(C'\fR instantiations of \f(CW\*(C`Foo\*(C'\fR would
+match too.  \fB\-\-include\fR and \fB\-\-exclude\fR can be used
+multiple times, and if a name matches multiple filters it is the last
+one to match which takes preference.  For example, to match
+\&\f(CW\*(C`main\*(C'\fR and the \f(CW\*(C`int\*(C'\fR instatiation of \f(CW\*(C`inc\*(C'\fR, while
+omitting the \f(CW\*(C`Foo\*(C'\fR constructor:
+.PP
+.Vb 10
+\&        $ gcov \-t \-m \-M \-\-include in \-\-exclude Foo \-\-include \*(Aq<int>::inc\*(Aq tmp
+\&                \-:    0:Source:tmp.cpp
+\&                \-:    0:Graph:tmp.gcno
+\&                \-:    0:Data:tmp.gcda
+\&                \-:    0:Runs:1
+\&                2:    8:  void inc () { b++; }
+\&                1:   18:main (void)
+\&                \-:   19:{
+\&                \-:   20:  int i, total;
+\&                1:   21:  Foo<int> counter;
+\&                \-:   22:
+\&                1:   23:  counter.inc();
+\&                1:   24:  counter.inc();
+\&                1:   25:  total = 0;
+\&                \-:   26:
+\&               11:   27:  for (i = 0; i < 10; i++)
+\&               10:   28:    total += i;
+\&                \-:   29:
+\&               1*:   30:  int v = total > 100 ? 1 : 2;
+\&                \-:   31:
+\&                1:   32:  if (total != 45)
+\&            #####:   33:    printf ("Failure\en");
+\&                \-:   34:  else
+\&                1:   35:    printf ("Success\en");
+\&                1:   36:  return 0;
+.Ve
 .SS "Using \fBgcov\fP with \s-1GCC\s0 Optimization"
 .IX Subsection "Using gcov with GCC Optimization"
 If you plan to use \fBgcov\fR to help optimize your code, you must
