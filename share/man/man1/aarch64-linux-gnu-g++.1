@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-07-13" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-07-20" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -335,7 +335,8 @@ in the following sections.
 \&\-fno\-diagnostics\-show\-event\-links
 \&\-fno\-diagnostics\-show\-labels  \-fno\-diagnostics\-show\-line\-numbers
 \&\-fno\-diagnostics\-show\-cwe
-\&\-fno\-diagnostics\-show\-rule
+\&\-fno\-diagnostics\-show\-rules
+\&\-fno\-diagnostics\-show\-highlight\-colors
 \&\-fdiagnostics\-minimum\-margin\-width=\fR\fIwidth\fR
 \&\fB\-fdiagnostics\-parseable\-fixits  \-fdiagnostics\-generate\-patch
 \&\-fdiagnostics\-show\-template\-tree  \-fno\-elide\-type
@@ -438,7 +439,9 @@ in the following sections.
 \&\-Wsystem\-headers  \-Wtautological\-compare  \-Wtrampolines  \-Wtrigraphs
 \&\-Wtrivial\-auto\-var\-init  \-Wno\-tsan  \-Wtype\-limits  \-Wundef
 \&\-Wuninitialized  \-Wunknown\-pragmas
-\&\-Wunsuffixed\-float\-constants  \-Wunused
+\&\-Wunsuffixed\-float\-constants
+\&\-Wunterminated\-string\-initialization
+\&\-Wunused
 \&\-Wunused\-but\-set\-parameter  \-Wunused\-but\-set\-variable
 \&\-Wunused\-const\-variable  \-Wunused\-const\-variable=\fR\fIn\fR
 \&\fB\-Wunused\-function  \-Wunused\-label  \-Wunused\-local\-typedefs
@@ -5089,11 +5092,12 @@ for 88\-color and 256\-color modes background colors.
 .Sp
 The default \fB\s-1GCC_COLORS\s0\fR is
 .Sp
-.Vb 4
+.Vb 5
 \&        error=01;31:warning=01;35:note=01;36:range1=32:range2=34:locus=01:\e
 \&        quote=01:path=01;36:fixit\-insert=32:fixit\-delete=31:\e
 \&        diff\-filename=01:diff\-hunk=32:diff\-delete=31:diff\-insert=32:\e
-\&        type\-diff=01;32:fnname=01;32:targs=35:valid=01;31:invalid=01;32
+\&        type\-diff=01;32:fnname=01;32:targs=35:valid=01;31:invalid=01;32\e
+\&        highlight\-a=01;32:highlight\-b=01;34
 .Ve
 .Sp
 where \fB01;31\fR is bold red, \fB01;35\fR is bold magenta,
@@ -5184,6 +5188,17 @@ arguments in the \*(C+ frontend.
 .el .IP "\f(CWinvalid=\fR" 4
 .IX Item "invalid="
 \&\s-1SGR\s0 substring for highlighting invalid elements within text art diagrams.
+.ie n .IP """highlight\-a=""" 4
+.el .IP "\f(CWhighlight\-a=\fR" 4
+.IX Item "highlight-a="
+.PD 0
+.ie n .IP """highlight\-b=""" 4
+.el .IP "\f(CWhighlight\-b=\fR" 4
+.IX Item "highlight-b="
+.PD
+\&\s-1SGR\s0 substrings for contrasting two different things within diagnostics,
+such as a pair of mismatching types.
+See \fB\-fdiagnostics\-show\-highlight\-colors\fR.
 .RE
 .RS 4
 .RE
@@ -5294,6 +5309,41 @@ as from a coding standard, or a specification.
 \&\s-1GCC\s0 itself does not do this for any of its diagnostics, but plugins may do so.
 By default, if this information is present, it will be printed with
 the diagnostic.  This option suppresses the printing of this metadata.
+.IP "\fB\-fno\-diagnostics\-show\-highlight\-colors\fR" 4
+.IX Item "-fno-diagnostics-show-highlight-colors"
+\&\s-1GCC\s0 can use color for emphasis and contrast when printing diagnostic
+messages and quoting the user's source.
+.Sp
+For example, in
+.Sp
+.Vb 7
+\&        demo.c: In function \`test_bad_format_string_args\*(Aq:
+\&        ../../src/demo.c:25:18: warning: format \`%i\*(Aq expects argument of type \`int\*(Aq, but argument 2 has type \`const char *\*(Aq [\-Wformat=]
+\&           25 |   printf("hello %i", msg);
+\&              |                 ~^   ~~~
+\&              |                  |   |
+\&              |                  int const char *
+\&              |                 %s
+.Ve
+.RS 4
+.IP "*" 4
+the \f(CW%i\fR and \f(CW\*(C`int\*(C'\fR in the message and the \f(CW\*(C`int\*(C'\fR in the
+quoted source are colored using \f(CW\*(C`highlight\-a\*(C'\fR (bold green by default),
+and
+.IP "*" 4
+the \f(CW\*(C`const char *\*(C'\fR in the message and in the quoted source are both
+colored using \f(CW\*(C`highlight\-b\*(C'\fR (bold blue by default).
+.RE
+.RS 4
+.Sp
+The intent is to draw the reader's eyes to the relationships between the
+various aspects of the diagnostic message and the source, using color
+to group related elements and distinguish between mismatching ones.
+.Sp
+This additional colorization is enabled by default if color printing
+is enabled (as per \fB\-fdiagnostics\-color=\fR), but it can be separately
+disabled via \fB\-fno\-diagnostics\-show\-highlight\-colors\fR.
+.RE
 .IP "\fB\-fno\-diagnostics\-show\-line\-numbers\fR" 4
 .IX Item "-fno-diagnostics-show-line-numbers"
 By default, when printing source code (via \fB\-fdiagnostics\-show\-caret\fR),
@@ -6178,6 +6228,7 @@ name is still supported, but the newer name is more descriptive.)
 \&\fB\-Wstring\-compare
 \&\-Wtype\-limits
 \&\-Wuninitialized
+\&\-Wunterminated\-string\-initialization
 \&\-Wunused\-parameter\fR (only with\fB \fR\fB\-Wunused\fR\fB \fRor\fB \fR\fB\-Wall\fR)
 \&\fB\-Wunused\-but\-set\-parameter\fR (only with\fB \fR\fB\-Wunused\fR\fB \fRor\fB \fR\fB\-Wall\fR)
 .Sp
@@ -8169,6 +8220,19 @@ give a larger number of false positives and is deactivated by default.
 .RE
 .RS 4
 .RE
+.IP "\fB\-Wunterminated\-string\-initialization\fR (C and Objective-C only)" 4
+.IX Item "-Wunterminated-string-initialization (C and Objective-C only)"
+Warn about character arrays
+initialized as unterminated character sequences
+with a string literal.
+For example:
+.Sp
+.Vb 1
+\&        char arr[3] = "foo";
+.Ve
+.Sp
+This warning is enabled by \fB\-Wextra\fR and \fB\-Wc++\-compat\fR.
+In \*(C+, such initializations are an error.
 .IP "\fB\-Warray\-compare\fR" 4
 .IX Item "-Warray-compare"
 Warn about equality and relational comparisons between two operands of array
@@ -20679,7 +20743,10 @@ and the features that they enable by default:
 The value \fBnative\fR is available on native AArch64 GNU/Linux and
 causes the compiler to pick the architecture of the host system.  This
 option has no effect if the compiler is unable to recognize the
-architecture of the host system,
+architecture of the host system.  When \fB\-march=native\fR is given and
+no other \fB\-mcpu\fR or \fB\-mtune\fR is given then \s-1GCC\s0 will pick
+the host \s-1CPU\s0 as the \s-1CPU\s0 to tune for as well as select the architecture features
+from.  That is, \fB\-march=native\fR is treated as \fB\-mcpu=native\fR.
 .Sp
 The permissible values for \fIfeature\fR are listed in the sub-section
 on \fBaarch64\-feature\-modifiers,,\fR\fB\-march\fR \fBand\fR \fB\-mcpu\fR

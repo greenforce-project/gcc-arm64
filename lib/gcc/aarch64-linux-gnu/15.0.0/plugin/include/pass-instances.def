@@ -19,14 +19,11 @@ You should have received a copy of the GNU General Public License
 along with GCC; see the file COPYING3.  If not see
 <http://www.gnu.org/licenses/>.  */
 
-/*
- Macros that should be defined when using this file:
-   INSERT_PASSES_AFTER (PASS)
-   PUSH_INSERT_PASSES_WITHIN (PASS)
-   POP_INSERT_PASSES ()
-   NEXT_PASS (PASS, 1)
-   TERMINATE_PASS_LIST (PASS)
- */
+/* Note that this file is processed by a simple parser:
+   'gen-pass-instances.awk', so carefully verify the generated
+   'pass-instances.def' if you deviate from the syntax otherwise used in
+   here.  */
+
 
  /* All passes needed to lower the function into shape optimizers can
     operate on.  These passes are always run first on the function, but
@@ -446,6 +443,7 @@ along with GCC; see the file COPYING3.  If not see
   NEXT_PASS (pass_tsan_O0, 1);
   NEXT_PASS (pass_sanopt, 1);
   NEXT_PASS (pass_cleanup_eh, 2);
+  NEXT_PASS (pass_musttail, 1);
   NEXT_PASS (pass_lower_resx, 1);
   NEXT_PASS (pass_nrv, 1);
   NEXT_PASS (pass_gimple_isel, 1);
