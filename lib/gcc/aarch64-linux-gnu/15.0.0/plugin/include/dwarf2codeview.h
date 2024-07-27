@@ -55,6 +55,8 @@ along with GCC; see the file COPYING3.  If not see
 /* LF_POINTER attributes.  */
 #define CV_PTR_NEAR32		0x0a
 #define CV_PTR_64		0x0c
+#define CV_PTR_MODE_LVREF	0x20
+#define CV_PTR_MODE_RVREF	0x80
 
 /* LF_MODIFIER values.  */
 #define MOD_const		0x1

@@ -1,4 +1,4 @@
-/* Copyright (C) 1992-2022 Free Software Foundation, Inc.
+/* Copyright (C) 1992-2024 Free Software Foundation, Inc.
    Copyright The GNU Toolchain Authors.
    This file is part of the GNU C Library.
 
@@ -27,8 +27,8 @@
 /* The GNU libc does not support any K&R compilers or the traditional mode
    of ISO C compilers anymore.  Check for some of the combinations not
    supported anymore.  */
-#if defined __GNUC__ && !defined __STDC__
-# error "You need a ISO C conforming compiler to use the glibc headers"
+#if defined __GNUC__ && !defined __STDC__ && !defined __cplusplus
+# error "You need a ISO C or C++ conforming compiler to use the glibc headers"
 #endif
 
 /* Some user header file might have defined this before.  */
@@ -81,7 +81,7 @@
 #  define __NTH(fct)	__attribute__ ((__nothrow__ __LEAF)) fct
 #  define __NTHNL(fct)  __attribute__ ((__nothrow__)) fct
 # else
-#  if defined __cplusplus && (__GNUC_PREREQ (2,8) || __clang_major >= 4)
+#  if defined __cplusplus && (__GNUC_PREREQ (2,8) || __clang_major__ >= 4)
 #   if __cplusplus >= 201103L
 #    define __THROW	noexcept (true)
 #   else
@@ -98,6 +98,12 @@
 #  endif
 # endif
 
+# if __GNUC_PREREQ (4, 3) || __glibc_has_attribute (__cold__)
+#  define __COLD	__attribute__ ((__cold__))
+# else
+#  define __COLD
+# endif
+
 #else	/* Not GCC or clang.  */
 
 # if (defined __cplusplus						\
@@ -110,6 +116,7 @@
 # define __THROW
 # define __THROWNL
 # define __NTH(fct)	fct
+# define __COLD
 
 #endif	/* GCC || clang.  */
 
@@ -152,6 +159,7 @@
 # define __glibc_objsize(__o) __bos (__o)
 #endif
 
+#if __USE_FORTIFY_LEVEL > 0
 /* Compile time conditions to choose between the regular, _chk and _chk_warn
    variants.  These conditions should get evaluated to constant and optimized
    away.  */
@@ -162,13 +170,13 @@
    || (__builtin_constant_p (__l) && (__l) > 0))
 
 /* Length is known to be safe at compile time if the __L * __S <= __OBJSZ
-   condition can be folded to a constant and if it is true.  The -1 check is
-   redundant because since it implies that __glibc_safe_len_cond is true.  */
+   condition can be folded to a constant and if it is true, or unknown (-1) */
 #define __glibc_safe_or_unknown_len(__l, __s, __osz) \
-  (__glibc_unsigned_or_positive (__l)					      \
-   && __builtin_constant_p (__glibc_safe_len_cond ((__SIZE_TYPE__) (__l),     \
-						   __s, __osz))		      \
-   && __glibc_safe_len_cond ((__SIZE_TYPE__) (__l), __s, __osz))
+  ((__builtin_constant_p (__osz) && (__osz) == (__SIZE_TYPE__) -1)	      \
+   || (__glibc_unsigned_or_positive (__l)				      \
+       && __builtin_constant_p (__glibc_safe_len_cond ((__SIZE_TYPE__) (__l), \
+						       (__s), (__osz)))	      \
+       && __glibc_safe_len_cond ((__SIZE_TYPE__) (__l), (__s), (__osz))))
 
 /* Conversely, we know at compile time that the length is unsafe if the
    __L * __S <= __OBJSZ condition can be folded to a constant and if it is
@@ -187,7 +195,7 @@
    ? __ ## f ## _alias (__VA_ARGS__)					      \
    : (__glibc_unsafe_len (__l, __s, __osz)				      \
       ? __ ## f ## _chk_warn (__VA_ARGS__, __osz)			      \
-      : __ ## f ## _chk (__VA_ARGS__, __osz)))			      \
+      : __ ## f ## _chk (__VA_ARGS__, __osz)))
 
 /* Fortify function f, where object size argument passed to f is the number of
    elements and not total size.  */
@@ -197,7 +205,8 @@
    ? __ ## f ## _alias (__VA_ARGS__)					      \
    : (__glibc_unsafe_len (__l, __s, __osz)				      \
       ? __ ## f ## _chk_warn (__VA_ARGS__, (__osz) / (__s))		      \
-      : __ ## f ## _chk (__VA_ARGS__, (__osz) / (__s))))		      \
+      : __ ## f ## _chk (__VA_ARGS__, (__osz) / (__s))))
+#endif
 
 #if __GNUC_PREREQ (4,3)
 # define __warnattr(msg) __attribute__((__warning__ (msg)))
@@ -258,6 +267,14 @@
 # endif
 # define __ASMNAME(cname)  __ASMNAME2 (__USER_LABEL_PREFIX__, cname)
 # define __ASMNAME2(prefix, cname) __STRING (prefix) cname
+
+#ifndef __REDIRECT_FORTIFY
+#define __REDIRECT_FORTIFY __REDIRECT
+#endif
+
+#ifndef __REDIRECT_FORTIFY_NTH
+#define __REDIRECT_FORTIFY_NTH __REDIRECT_NTH
+#endif
 
 /*
 #elif __SOME_OTHER_COMPILER__
@@ -567,6 +584,8 @@
 #  define __LDBL_REDIR(name, proto) ... unused__ldbl_redir
 #  define __LDBL_REDIR_DECL(name) \
   extern __typeof (name) name __asm (__ASMNAME ("__" #name "ieee128"));
+#  define __REDIRECT_LDBL(name, proto, alias) \
+  name proto __asm (__ASMNAME ("__" #alias "ieee128"))
 
 /* Alias name defined automatically, with leading underscores.  */
 #  define __LDBL_REDIR2_DECL(name) \
@@ -584,7 +603,6 @@
   __LDBL_REDIR1_NTH (name, proto, __##alias##ieee128)
 
 /* Unused.  */
-#  define __REDIRECT_LDBL(name, proto, alias) ... unused__redirect_ldbl
 #  define __LDBL_REDIR_NTH(name, proto) ... unused__ldbl_redir_nth
 
 # else

@@ -18,18 +18,6 @@ struct gcc_options
 {
 #endif
 #ifdef GENERATOR_FILE
-extern aarch64_feature_flags aarch64_asm_isa_flags;
-#else
-  aarch64_feature_flags x_aarch64_asm_isa_flags;
-#define aarch64_asm_isa_flags global_options.x_aarch64_asm_isa_flags
-#endif
-#ifdef GENERATOR_FILE
-extern aarch64_feature_flags aarch64_isa_flags;
-#else
-  aarch64_feature_flags x_aarch64_isa_flags;
-#define aarch64_isa_flags global_options.x_aarch64_isa_flags
-#endif
-#ifdef GENERATOR_FILE
 extern enum aarch64_arch selected_arch;
 #else
   enum aarch64_arch x_selected_arch;
@@ -52,6 +40,30 @@ extern long aarch64_stack_protector_guard_offset;
 #else
   long x_aarch64_stack_protector_guard_offset;
 #define aarch64_stack_protector_guard_offset global_options.x_aarch64_stack_protector_guard_offset
+#endif
+#ifdef GENERATOR_FILE
+extern uint64_t aarch64_asm_isa_flags_0;
+#else
+  uint64_t x_aarch64_asm_isa_flags_0;
+#define aarch64_asm_isa_flags_0 global_options.x_aarch64_asm_isa_flags_0
+#endif
+#ifdef GENERATOR_FILE
+extern uint64_t aarch64_asm_isa_flags_1;
+#else
+  uint64_t x_aarch64_asm_isa_flags_1;
+#define aarch64_asm_isa_flags_1 global_options.x_aarch64_asm_isa_flags_1
+#endif
+#ifdef GENERATOR_FILE
+extern uint64_t aarch64_isa_flags_0;
+#else
+  uint64_t x_aarch64_isa_flags_0;
+#define aarch64_isa_flags_0 global_options.x_aarch64_isa_flags_0
+#endif
+#ifdef GENERATOR_FILE
+extern uint64_t aarch64_isa_flags_1;
+#else
+  uint64_t x_aarch64_isa_flags_1;
+#define aarch64_isa_flags_1 global_options.x_aarch64_isa_flags_1
 #endif
 #ifdef GENERATOR_FILE
 extern unsigned aarch_enable_bti;
@@ -9030,6 +9042,7 @@ struct GTY(()) cl_optimization
   enum stack_reuse_level x_flag_stack_reuse;
   enum auto_init_type x_flag_auto_var_init;
   enum vect_cost_model x_flag_vect_cost_model;
+  enum aarch64_early_ra_scope x_aarch64_early_ra;
   unsigned char x_optimize;
   unsigned char x_optimize_size;
   unsigned char x_optimize_debug;
@@ -9278,20 +9291,21 @@ struct GTY(()) cl_optimization
   signed char x_flag_mlow_precision_div;
   signed char x_flag_mrecip_low_precision_sqrt;
   signed char x_flag_mlow_precision_sqrt;
-  /* 520 members */
+  /* 521 members */
   unsigned HOST_WIDE_INT explicit_mask[9];
 };
 
 /* Structure to save/restore selected target specific options.  */
 struct GTY(()) cl_target_option
 {
-  aarch64_feature_flags x_aarch64_asm_isa_flags;
-  aarch64_feature_flags x_aarch64_isa_flags;
   long x_aarch64_stack_protector_guard_offset;
+  uint64_t x_aarch64_asm_isa_flags_0;
+  uint64_t x_aarch64_asm_isa_flags_1;
+  uint64_t x_aarch64_isa_flags_0;
+  uint64_t x_aarch64_isa_flags_1;
   unsigned x_aarch_enable_bti;
   const char *x_aarch64_branch_protection_string;
   enum aarch64_code_model x_aarch64_cmodel_var;
-  enum aarch64_early_ra_scope x_aarch64_early_ra;
   /* - */ int x_target_flags;
   const char *x_aarch64_override_tune_string;
   enum aarch_function_type x_aarch_ra_sign_scope;
@@ -9305,7 +9319,7 @@ struct GTY(()) cl_target_option
   signed char x_flag_omit_leaf_frame_pointer;
   signed char x_aarch64_flag_outline_atomics;
   signed char x_pcrelative_literal_loads;
-  /* 19 members */
+  /* 20 members */
   unsigned HOST_WIDE_INT explicit_mask[1];
   /* - */ int explicit_mask_target_flags;
 };

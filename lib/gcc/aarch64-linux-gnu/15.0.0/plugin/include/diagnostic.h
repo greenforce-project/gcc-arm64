@@ -21,6 +21,7 @@ along with GCC; see the file COPYING3.  If not see
 #ifndef GCC_DIAGNOSTIC_H
 #define GCC_DIAGNOSTIC_H
 
+#include "unique-argv.h"
 #include "rich-location.h"
 #include "pretty-print.h"
 #include "diagnostic-core.h"
@@ -390,6 +391,12 @@ public:
   void urls_init (int value);
 
   void finish ();
+
+  void set_original_argv (unique_argv original_argv);
+  const char * const *get_original_argv ()
+  {
+    return const_cast<const char * const *> (m_original_argv);
+  }
 
   void set_set_locations_callback (set_locations_callback_t cb)
   {
@@ -813,6 +820,9 @@ private:
     text_art::theme *m_theme;
 
   } m_diagrams;
+
+  /* Owned by the context.  */
+  char **m_original_argv;
 };
 
 inline void
@@ -1091,33 +1101,30 @@ extern char *file_name_as_prefix (diagnostic_context *, const char *);
 
 extern char *build_message_string (const char *, ...) ATTRIBUTE_PRINTF_1;
 
-extern void diagnostic_output_format_init (diagnostic_context *,
+extern void diagnostic_output_format_init (diagnostic_context &,
 					   const char *main_input_filename_,
 					   const char *base_file_name,
 					   enum diagnostics_output_format,
 					   bool json_formatting);
-extern void diagnostic_output_format_init_json_stderr (diagnostic_context *context,
+extern void diagnostic_output_format_init_json_stderr (diagnostic_context &context,
 						       bool formatted);
-extern void diagnostic_output_format_init_json_file (diagnostic_context *context,
+extern void diagnostic_output_format_init_json_file (diagnostic_context &context,
 						     bool formatted,
 						     const char *base_file_name);
-extern void diagnostic_output_format_init_sarif_stderr (diagnostic_context *context,
+extern void diagnostic_output_format_init_sarif_stderr (diagnostic_context &context,
 							const char *main_input_filename_,
 							bool formatted);
-extern void diagnostic_output_format_init_sarif_file (diagnostic_context *context,
+extern void diagnostic_output_format_init_sarif_file (diagnostic_context &context,
 						      const char *main_input_filename_,
 						      bool formatted,
 						      const char *base_file_name);
-extern void diagnostic_output_format_init_sarif_stream (diagnostic_context *context,
+extern void diagnostic_output_format_init_sarif_stream (diagnostic_context &context,
 							const char *main_input_filename_,
 							bool formatted,
 							FILE *stream);
 
 /* Compute the number of digits in the decimal representation of an integer.  */
 extern int num_digits (int);
-
-extern json::value *json_from_expanded_location (diagnostic_context *context,
-						 location_t loc);
 
 inline bool
 warning_enabled_at (location_t loc, int opt)

@@ -4,7 +4,6 @@
 
 #ifndef __ASSEMBLY__
 #include <linux/types.h>
-#include <linux/time.h>
 
 
 /* Avoid too many header ordering problems.  */
@@ -100,7 +99,7 @@ struct sigaction {
 typedef struct sigaltstack {
 	void *ss_sp;
 	int ss_flags;
-	size_t ss_size;
+	__kernel_size_t ss_size;
 } stack_t;
 
 #endif /* __ASSEMBLY__ */

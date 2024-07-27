@@ -454,20 +454,20 @@ enum optab_tag {
   len_load_optab,
   len_store_optab,
   select_vl_optab,
-  andc_optab,
-  iorc_optab,
+  andn_optab,
+  iorn_optab,
   FIRST_CONV_OPTAB = sext_optab,
   LAST_CONVLIB_OPTAB = sstrunc_optab,
   LAST_CONV_OPTAB = while_ult_optab,
   FIRST_NORM_OPTAB = add_optab,
   LAST_NORMLIB_OPTAB = sync_lock_test_and_set_optab,
-  LAST_NORM_OPTAB = iorc_optab
+  LAST_NORM_OPTAB = iorn_optab
 };
 
 #define NUM_OPTABS          452
 #define NUM_CONVLIB_OPTABS  17
 #define NUM_NORMLIB_OPTABS  80
-#define NUM_OPTAB_PATTERNS  2598
+#define NUM_OPTAB_PATTERNS  2966
 typedef enum optab_tag optab;
 typedef enum optab_tag convert_optab;
 typedef enum optab_tag direct_optab;
@@ -1755,24 +1755,6 @@ inline rtx
 gen_aarch64_sve (rtx_code arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2)
 {
   rtx res = maybe_gen_aarch64_sve (arg0, arg1, x0, x1, x2);
-  gcc_assert (res);
-  return res;
-}
-
-extern insn_code maybe_code_for_aarch64_bic (machine_mode);
-inline insn_code
-code_for_aarch64_bic (machine_mode arg0)
-{
-  insn_code code = maybe_code_for_aarch64_bic (arg0);
-  gcc_assert (code != CODE_FOR_nothing);
-  return code;
-}
-
-extern rtx maybe_gen_aarch64_bic (machine_mode, rtx, rtx, rtx);
-inline rtx
-gen_aarch64_bic (machine_mode arg0, rtx x0, rtx x1, rtx x2)
-{
-  rtx res = maybe_gen_aarch64_bic (arg0, x0, x1, x2);
   gcc_assert (res);
   return res;
 }

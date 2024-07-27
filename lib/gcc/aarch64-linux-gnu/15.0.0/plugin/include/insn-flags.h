@@ -168,6 +168,10 @@
 #define HAVE_xor_rotldi3 1
 #define HAVE_one_cmplsi2 1
 #define HAVE_one_cmpldi2 1
+#define HAVE_andnsi3 1
+#define HAVE_iornsi3 1
+#define HAVE_andndi3 1
+#define HAVE_iorndi3 1
 #define HAVE_and_one_cmpl_ashlsi3 1
 #define HAVE_ior_one_cmpl_ashlsi3 1
 #define HAVE_xor_one_cmpl_ashlsi3 1
@@ -231,13 +235,13 @@
 #define HAVE_aarch64_rev16di2_alt1 (aarch_rev16_shleft_mask_imm_p (operands[3], DImode) \
    && aarch_rev16_shright_mask_imm_p (operands[2], DImode))
 #define HAVE_aarch64_rev16si2_alt3 1
-#define HAVE_btrunchf2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_ceilhf2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_floorhf2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_roundevenhf2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_nearbyinthf2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_rinthf2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_roundhf2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
+#define HAVE_btrunchf2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_ceilhf2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_floorhf2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_roundevenhf2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_nearbyinthf2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_rinthf2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_roundhf2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
 #define HAVE_btruncsf2 (TARGET_FLOAT)
 #define HAVE_ceilsf2 (TARGET_FLOAT)
 #define HAVE_floorsf2 (TARGET_FLOAT)
@@ -252,26 +256,26 @@
 #define HAVE_nearbyintdf2 (TARGET_FLOAT)
 #define HAVE_rintdf2 (TARGET_FLOAT)
 #define HAVE_rounddf2 (TARGET_FLOAT)
-#define HAVE_lbtrunchfsi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_lceilhfsi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_lfloorhfsi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_lroundhfsi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_lfrintnhfsi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_lbtruncuhfsi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_lceiluhfsi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_lflooruhfsi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_lrounduhfsi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_lfrintnuhfsi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_lbtrunchfdi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_lceilhfdi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_lfloorhfdi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_lroundhfdi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_lfrintnhfdi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_lbtruncuhfdi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_lceiluhfdi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_lflooruhfdi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_lrounduhfdi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_lfrintnuhfdi2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
+#define HAVE_lbtrunchfsi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_lceilhfsi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_lfloorhfsi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_lroundhfsi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_lfrintnhfsi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_lbtruncuhfsi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_lceiluhfsi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_lflooruhfsi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_lrounduhfsi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_lfrintnuhfsi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_lbtrunchfdi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_lceilhfdi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_lfloorhfdi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_lroundhfdi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_lfrintnhfdi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_lbtruncuhfdi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_lceiluhfdi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_lflooruhfdi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_lrounduhfdi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_lfrintnuhfdi2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
 #define HAVE_lbtruncsfsi2 (TARGET_FLOAT)
 #define HAVE_lceilsfsi2 (TARGET_FLOAT)
 #define HAVE_lfloorsfsi2 (TARGET_FLOAT)
@@ -362,29 +366,29 @@
 #define HAVE_fcvtzuhf3 (TARGET_SIMD)
 #define HAVE_scvtfhi3 (TARGET_SIMD)
 #define HAVE_ucvtfhi3 (TARGET_SIMD)
-#define HAVE_addhf3 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
+#define HAVE_addhf3 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
 #define HAVE_addsf3 (TARGET_FLOAT)
 #define HAVE_adddf3 (TARGET_FLOAT)
-#define HAVE_subhf3 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
+#define HAVE_subhf3 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
 #define HAVE_subsf3 (TARGET_FLOAT)
 #define HAVE_subdf3 (TARGET_FLOAT)
-#define HAVE_mulhf3 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
+#define HAVE_mulhf3 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
 #define HAVE_mulsf3 (TARGET_FLOAT)
 #define HAVE_muldf3 (TARGET_FLOAT)
-#define HAVE_neghf2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
+#define HAVE_neghf2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
 #define HAVE_negsf2 (TARGET_FLOAT)
 #define HAVE_negdf2 (TARGET_FLOAT)
-#define HAVE_abshf2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
+#define HAVE_abshf2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
 #define HAVE_abssf2 (TARGET_FLOAT)
 #define HAVE_absdf2 (TARGET_FLOAT)
 #define HAVE_smaxsf3 (TARGET_FLOAT)
 #define HAVE_smaxdf3 (TARGET_FLOAT)
 #define HAVE_sminsf3 (TARGET_FLOAT)
 #define HAVE_smindf3 (TARGET_FLOAT)
-#define HAVE_fmax_nanhf3 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_fmin_nanhf3 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_fmaxhf3 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
-#define HAVE_fminhf3 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
+#define HAVE_fmax_nanhf3 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_fmin_nanhf3 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_fmaxhf3 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
+#define HAVE_fminhf3 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
 #define HAVE_fmax_nansf3 (TARGET_FLOAT)
 #define HAVE_fmin_nansf3 (TARGET_FLOAT)
 #define HAVE_fmaxsf3 (TARGET_FLOAT)
@@ -617,32 +621,32 @@
 #define HAVE_aarch64_simd_mov_from_v8hfhigh (TARGET_FLOAT)
 #define HAVE_aarch64_simd_mov_from_v8bfhigh (TARGET_FLOAT)
 #define HAVE_aarch64_simd_mov_from_v4sfhigh (TARGET_FLOAT)
-#define HAVE_ornv8qi3 (TARGET_SIMD)
-#define HAVE_ornv8qi3_vec_concatz_le ((!BYTES_BIG_ENDIAN) && (TARGET_SIMD))
-#define HAVE_ornv8qi3_vec_concatz_be ((BYTES_BIG_ENDIAN) && (TARGET_SIMD))
-#define HAVE_ornv16qi3 (TARGET_SIMD)
-#define HAVE_ornv4hi3 (TARGET_SIMD)
-#define HAVE_ornv4hi3_vec_concatz_le ((!BYTES_BIG_ENDIAN) && (TARGET_SIMD))
-#define HAVE_ornv4hi3_vec_concatz_be ((BYTES_BIG_ENDIAN) && (TARGET_SIMD))
-#define HAVE_ornv8hi3 (TARGET_SIMD)
-#define HAVE_ornv2si3 (TARGET_SIMD)
-#define HAVE_ornv2si3_vec_concatz_le ((!BYTES_BIG_ENDIAN) && (TARGET_SIMD))
-#define HAVE_ornv2si3_vec_concatz_be ((BYTES_BIG_ENDIAN) && (TARGET_SIMD))
-#define HAVE_ornv4si3 (TARGET_SIMD)
-#define HAVE_ornv2di3 (TARGET_SIMD)
-#define HAVE_bicv8qi3 (TARGET_SIMD)
-#define HAVE_bicv8qi3_vec_concatz_le ((!BYTES_BIG_ENDIAN) && (TARGET_SIMD))
-#define HAVE_bicv8qi3_vec_concatz_be ((BYTES_BIG_ENDIAN) && (TARGET_SIMD))
-#define HAVE_bicv16qi3 (TARGET_SIMD)
-#define HAVE_bicv4hi3 (TARGET_SIMD)
-#define HAVE_bicv4hi3_vec_concatz_le ((!BYTES_BIG_ENDIAN) && (TARGET_SIMD))
-#define HAVE_bicv4hi3_vec_concatz_be ((BYTES_BIG_ENDIAN) && (TARGET_SIMD))
-#define HAVE_bicv8hi3 (TARGET_SIMD)
-#define HAVE_bicv2si3 (TARGET_SIMD)
-#define HAVE_bicv2si3_vec_concatz_le ((!BYTES_BIG_ENDIAN) && (TARGET_SIMD))
-#define HAVE_bicv2si3_vec_concatz_be ((BYTES_BIG_ENDIAN) && (TARGET_SIMD))
-#define HAVE_bicv4si3 (TARGET_SIMD)
-#define HAVE_bicv2di3 (TARGET_SIMD)
+#define HAVE_iornv8qi3 (TARGET_SIMD)
+#define HAVE_iornv8qi3_vec_concatz_le ((!BYTES_BIG_ENDIAN) && (TARGET_SIMD))
+#define HAVE_iornv8qi3_vec_concatz_be ((BYTES_BIG_ENDIAN) && (TARGET_SIMD))
+#define HAVE_iornv16qi3 (TARGET_SIMD)
+#define HAVE_iornv4hi3 (TARGET_SIMD)
+#define HAVE_iornv4hi3_vec_concatz_le ((!BYTES_BIG_ENDIAN) && (TARGET_SIMD))
+#define HAVE_iornv4hi3_vec_concatz_be ((BYTES_BIG_ENDIAN) && (TARGET_SIMD))
+#define HAVE_iornv8hi3 (TARGET_SIMD)
+#define HAVE_iornv2si3 (TARGET_SIMD)
+#define HAVE_iornv2si3_vec_concatz_le ((!BYTES_BIG_ENDIAN) && (TARGET_SIMD))
+#define HAVE_iornv2si3_vec_concatz_be ((BYTES_BIG_ENDIAN) && (TARGET_SIMD))
+#define HAVE_iornv4si3 (TARGET_SIMD)
+#define HAVE_iornv2di3 (TARGET_SIMD)
+#define HAVE_andnv8qi3 (TARGET_SIMD)
+#define HAVE_andnv8qi3_vec_concatz_le ((!BYTES_BIG_ENDIAN) && (TARGET_SIMD))
+#define HAVE_andnv8qi3_vec_concatz_be ((BYTES_BIG_ENDIAN) && (TARGET_SIMD))
+#define HAVE_andnv16qi3 (TARGET_SIMD)
+#define HAVE_andnv4hi3 (TARGET_SIMD)
+#define HAVE_andnv4hi3_vec_concatz_le ((!BYTES_BIG_ENDIAN) && (TARGET_SIMD))
+#define HAVE_andnv4hi3_vec_concatz_be ((BYTES_BIG_ENDIAN) && (TARGET_SIMD))
+#define HAVE_andnv8hi3 (TARGET_SIMD)
+#define HAVE_andnv2si3 (TARGET_SIMD)
+#define HAVE_andnv2si3_vec_concatz_le ((!BYTES_BIG_ENDIAN) && (TARGET_SIMD))
+#define HAVE_andnv2si3_vec_concatz_be ((BYTES_BIG_ENDIAN) && (TARGET_SIMD))
+#define HAVE_andnv4si3 (TARGET_SIMD)
+#define HAVE_andnv2di3 (TARGET_SIMD)
 #define HAVE_addv8qi3 (TARGET_SIMD)
 #define HAVE_addv8qi3_vec_concatz_le ((!BYTES_BIG_ENDIAN) && (TARGET_SIMD))
 #define HAVE_addv8qi3_vec_concatz_be ((BYTES_BIG_ENDIAN) && (TARGET_SIMD))
@@ -2860,6 +2864,10 @@
    && aarch64_const_vec_rnd_cst_p (operands[3], operands[2]))
 #define HAVE_aarch64_sqsshrn2_nv8hi_insn_le (TARGET_SIMD && !BYTES_BIG_ENDIAN \
    && AARCH64_VALID_SHRN_OP (SS_TRUNCATE, ASHIFTRT))
+#define HAVE_aarch64_squshrn2_nv8hi_insn_le (TARGET_SIMD && !BYTES_BIG_ENDIAN \
+   && AARCH64_VALID_SHRN_OP (SS_TRUNCATE, LSHIFTRT))
+#define HAVE_aarch64_uqsshrn2_nv8hi_insn_le (TARGET_SIMD && !BYTES_BIG_ENDIAN \
+   && AARCH64_VALID_SHRN_OP (US_TRUNCATE, ASHIFTRT))
 #define HAVE_aarch64_uqushrn2_nv8hi_insn_le (TARGET_SIMD && !BYTES_BIG_ENDIAN \
    && AARCH64_VALID_SHRN_OP (US_TRUNCATE, LSHIFTRT))
 #define HAVE_aarch64_sshrn2_nv8hi_insn_le (TARGET_SIMD && !BYTES_BIG_ENDIAN \
@@ -2868,6 +2876,10 @@
    && AARCH64_VALID_SHRN_OP (TRUNCATE, LSHIFTRT))
 #define HAVE_aarch64_sqsshrn2_nv4si_insn_le (TARGET_SIMD && !BYTES_BIG_ENDIAN \
    && AARCH64_VALID_SHRN_OP (SS_TRUNCATE, ASHIFTRT))
+#define HAVE_aarch64_squshrn2_nv4si_insn_le (TARGET_SIMD && !BYTES_BIG_ENDIAN \
+   && AARCH64_VALID_SHRN_OP (SS_TRUNCATE, LSHIFTRT))
+#define HAVE_aarch64_uqsshrn2_nv4si_insn_le (TARGET_SIMD && !BYTES_BIG_ENDIAN \
+   && AARCH64_VALID_SHRN_OP (US_TRUNCATE, ASHIFTRT))
 #define HAVE_aarch64_uqushrn2_nv4si_insn_le (TARGET_SIMD && !BYTES_BIG_ENDIAN \
    && AARCH64_VALID_SHRN_OP (US_TRUNCATE, LSHIFTRT))
 #define HAVE_aarch64_sshrn2_nv4si_insn_le (TARGET_SIMD && !BYTES_BIG_ENDIAN \
@@ -2876,6 +2888,10 @@
    && AARCH64_VALID_SHRN_OP (TRUNCATE, LSHIFTRT))
 #define HAVE_aarch64_sqsshrn2_nv2di_insn_le (TARGET_SIMD && !BYTES_BIG_ENDIAN \
    && AARCH64_VALID_SHRN_OP (SS_TRUNCATE, ASHIFTRT))
+#define HAVE_aarch64_squshrn2_nv2di_insn_le (TARGET_SIMD && !BYTES_BIG_ENDIAN \
+   && AARCH64_VALID_SHRN_OP (SS_TRUNCATE, LSHIFTRT))
+#define HAVE_aarch64_uqsshrn2_nv2di_insn_le (TARGET_SIMD && !BYTES_BIG_ENDIAN \
+   && AARCH64_VALID_SHRN_OP (US_TRUNCATE, ASHIFTRT))
 #define HAVE_aarch64_uqushrn2_nv2di_insn_le (TARGET_SIMD && !BYTES_BIG_ENDIAN \
    && AARCH64_VALID_SHRN_OP (US_TRUNCATE, LSHIFTRT))
 #define HAVE_aarch64_sshrn2_nv2di_insn_le (TARGET_SIMD && !BYTES_BIG_ENDIAN \
@@ -2884,6 +2900,10 @@
    && AARCH64_VALID_SHRN_OP (TRUNCATE, LSHIFTRT))
 #define HAVE_aarch64_sqsshrn2_nv8hi_insn_be (TARGET_SIMD && BYTES_BIG_ENDIAN \
    && AARCH64_VALID_SHRN_OP (SS_TRUNCATE, ASHIFTRT))
+#define HAVE_aarch64_squshrn2_nv8hi_insn_be (TARGET_SIMD && BYTES_BIG_ENDIAN \
+   && AARCH64_VALID_SHRN_OP (SS_TRUNCATE, LSHIFTRT))
+#define HAVE_aarch64_uqsshrn2_nv8hi_insn_be (TARGET_SIMD && BYTES_BIG_ENDIAN \
+   && AARCH64_VALID_SHRN_OP (US_TRUNCATE, ASHIFTRT))
 #define HAVE_aarch64_uqushrn2_nv8hi_insn_be (TARGET_SIMD && BYTES_BIG_ENDIAN \
    && AARCH64_VALID_SHRN_OP (US_TRUNCATE, LSHIFTRT))
 #define HAVE_aarch64_sshrn2_nv8hi_insn_be (TARGET_SIMD && BYTES_BIG_ENDIAN \
@@ -2892,6 +2912,10 @@
    && AARCH64_VALID_SHRN_OP (TRUNCATE, LSHIFTRT))
 #define HAVE_aarch64_sqsshrn2_nv4si_insn_be (TARGET_SIMD && BYTES_BIG_ENDIAN \
    && AARCH64_VALID_SHRN_OP (SS_TRUNCATE, ASHIFTRT))
+#define HAVE_aarch64_squshrn2_nv4si_insn_be (TARGET_SIMD && BYTES_BIG_ENDIAN \
+   && AARCH64_VALID_SHRN_OP (SS_TRUNCATE, LSHIFTRT))
+#define HAVE_aarch64_uqsshrn2_nv4si_insn_be (TARGET_SIMD && BYTES_BIG_ENDIAN \
+   && AARCH64_VALID_SHRN_OP (US_TRUNCATE, ASHIFTRT))
 #define HAVE_aarch64_uqushrn2_nv4si_insn_be (TARGET_SIMD && BYTES_BIG_ENDIAN \
    && AARCH64_VALID_SHRN_OP (US_TRUNCATE, LSHIFTRT))
 #define HAVE_aarch64_sshrn2_nv4si_insn_be (TARGET_SIMD && BYTES_BIG_ENDIAN \
@@ -2900,6 +2924,10 @@
    && AARCH64_VALID_SHRN_OP (TRUNCATE, LSHIFTRT))
 #define HAVE_aarch64_sqsshrn2_nv2di_insn_be (TARGET_SIMD && BYTES_BIG_ENDIAN \
    && AARCH64_VALID_SHRN_OP (SS_TRUNCATE, ASHIFTRT))
+#define HAVE_aarch64_squshrn2_nv2di_insn_be (TARGET_SIMD && BYTES_BIG_ENDIAN \
+   && AARCH64_VALID_SHRN_OP (SS_TRUNCATE, LSHIFTRT))
+#define HAVE_aarch64_uqsshrn2_nv2di_insn_be (TARGET_SIMD && BYTES_BIG_ENDIAN \
+   && AARCH64_VALID_SHRN_OP (US_TRUNCATE, ASHIFTRT))
 #define HAVE_aarch64_uqushrn2_nv2di_insn_be (TARGET_SIMD && BYTES_BIG_ENDIAN \
    && AARCH64_VALID_SHRN_OP (US_TRUNCATE, LSHIFTRT))
 #define HAVE_aarch64_sshrn2_nv2di_insn_be (TARGET_SIMD && BYTES_BIG_ENDIAN \
@@ -3942,7 +3970,7 @@
 #define HAVE_aarch64_frecpehf ((TARGET_SIMD) && (TARGET_SIMD_F16INST))
 #define HAVE_aarch64_frecpesf (TARGET_SIMD)
 #define HAVE_aarch64_frecpedf (TARGET_SIMD)
-#define HAVE_aarch64_frecpxhf ((TARGET_SIMD) && (AARCH64_ISA_F16))
+#define HAVE_aarch64_frecpxhf ((TARGET_SIMD) && (TARGET_FP_F16INST))
 #define HAVE_aarch64_frecpxsf (TARGET_SIMD)
 #define HAVE_aarch64_frecpxdf (TARGET_SIMD)
 #define HAVE_aarch64_frecpsv4hf ((TARGET_SIMD) && (TARGET_SIMD_F16INST))
@@ -4386,34 +4414,138 @@
 #define HAVE_aarch64_load_extendvnx8hivnx8qi (TARGET_SVE && (~0x81 & 0x81) == 0)
 #define HAVE_aarch64_load_x_zero_extendvnx8hivnx8qi (TARGET_SVE && (~0x81 & 0x81) == 0)
 #define HAVE_aarch64_load_zero_extendvnx8hivnx8qi (TARGET_SVE && (~0x81 & 0x81) == 0)
+#define HAVE_aarch64_load_x_extendvnx8hivnx4qi (TARGET_SVE && (~0x81 & 0x41) == 0)
+#define HAVE_aarch64_load_extendvnx8hivnx4qi (TARGET_SVE && (~0x81 & 0x41) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx8hivnx4qi (TARGET_SVE && (~0x81 & 0x41) == 0)
+#define HAVE_aarch64_load_zero_extendvnx8hivnx4qi (TARGET_SVE && (~0x81 & 0x41) == 0)
+#define HAVE_aarch64_load_x_extendvnx8hivnx2qi (TARGET_SVE && (~0x81 & 0x21) == 0)
+#define HAVE_aarch64_load_extendvnx8hivnx2qi (TARGET_SVE && (~0x81 & 0x21) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx8hivnx2qi (TARGET_SVE && (~0x81 & 0x21) == 0)
+#define HAVE_aarch64_load_zero_extendvnx8hivnx2qi (TARGET_SVE && (~0x81 & 0x21) == 0)
+#define HAVE_aarch64_load_x_extendvnx8hivnx4hi (TARGET_SVE && (~0x81 & 0x42) == 0)
+#define HAVE_aarch64_load_extendvnx8hivnx4hi (TARGET_SVE && (~0x81 & 0x42) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx8hivnx4hi (TARGET_SVE && (~0x81 & 0x42) == 0)
+#define HAVE_aarch64_load_zero_extendvnx8hivnx4hi (TARGET_SVE && (~0x81 & 0x42) == 0)
+#define HAVE_aarch64_load_x_extendvnx8hivnx2hi (TARGET_SVE && (~0x81 & 0x22) == 0)
+#define HAVE_aarch64_load_extendvnx8hivnx2hi (TARGET_SVE && (~0x81 & 0x22) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx8hivnx2hi (TARGET_SVE && (~0x81 & 0x22) == 0)
+#define HAVE_aarch64_load_zero_extendvnx8hivnx2hi (TARGET_SVE && (~0x81 & 0x22) == 0)
+#define HAVE_aarch64_load_x_extendvnx8hivnx2si (TARGET_SVE && (~0x81 & 0x24) == 0)
+#define HAVE_aarch64_load_extendvnx8hivnx2si (TARGET_SVE && (~0x81 & 0x24) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx8hivnx2si (TARGET_SVE && (~0x81 & 0x24) == 0)
+#define HAVE_aarch64_load_zero_extendvnx8hivnx2si (TARGET_SVE && (~0x81 & 0x24) == 0)
+#define HAVE_aarch64_load_x_extendvnx4hivnx8qi (TARGET_SVE && (~0x41 & 0x81) == 0)
+#define HAVE_aarch64_load_extendvnx4hivnx8qi (TARGET_SVE && (~0x41 & 0x81) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx4hivnx8qi (TARGET_SVE && (~0x41 & 0x81) == 0)
+#define HAVE_aarch64_load_zero_extendvnx4hivnx8qi (TARGET_SVE && (~0x41 & 0x81) == 0)
 #define HAVE_aarch64_load_x_extendvnx4hivnx4qi (TARGET_SVE && (~0x41 & 0x41) == 0)
 #define HAVE_aarch64_load_extendvnx4hivnx4qi (TARGET_SVE && (~0x41 & 0x41) == 0)
 #define HAVE_aarch64_load_x_zero_extendvnx4hivnx4qi (TARGET_SVE && (~0x41 & 0x41) == 0)
 #define HAVE_aarch64_load_zero_extendvnx4hivnx4qi (TARGET_SVE && (~0x41 & 0x41) == 0)
+#define HAVE_aarch64_load_x_extendvnx4hivnx2qi (TARGET_SVE && (~0x41 & 0x21) == 0)
+#define HAVE_aarch64_load_extendvnx4hivnx2qi (TARGET_SVE && (~0x41 & 0x21) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx4hivnx2qi (TARGET_SVE && (~0x41 & 0x21) == 0)
+#define HAVE_aarch64_load_zero_extendvnx4hivnx2qi (TARGET_SVE && (~0x41 & 0x21) == 0)
+#define HAVE_aarch64_load_x_extendvnx4hivnx4hi (TARGET_SVE && (~0x41 & 0x42) == 0)
+#define HAVE_aarch64_load_extendvnx4hivnx4hi (TARGET_SVE && (~0x41 & 0x42) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx4hivnx4hi (TARGET_SVE && (~0x41 & 0x42) == 0)
+#define HAVE_aarch64_load_zero_extendvnx4hivnx4hi (TARGET_SVE && (~0x41 & 0x42) == 0)
+#define HAVE_aarch64_load_x_extendvnx4hivnx2hi (TARGET_SVE && (~0x41 & 0x22) == 0)
+#define HAVE_aarch64_load_extendvnx4hivnx2hi (TARGET_SVE && (~0x41 & 0x22) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx4hivnx2hi (TARGET_SVE && (~0x41 & 0x22) == 0)
+#define HAVE_aarch64_load_zero_extendvnx4hivnx2hi (TARGET_SVE && (~0x41 & 0x22) == 0)
+#define HAVE_aarch64_load_x_extendvnx4hivnx2si (TARGET_SVE && (~0x41 & 0x24) == 0)
+#define HAVE_aarch64_load_extendvnx4hivnx2si (TARGET_SVE && (~0x41 & 0x24) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx4hivnx2si (TARGET_SVE && (~0x41 & 0x24) == 0)
+#define HAVE_aarch64_load_zero_extendvnx4hivnx2si (TARGET_SVE && (~0x41 & 0x24) == 0)
+#define HAVE_aarch64_load_x_extendvnx2hivnx8qi (TARGET_SVE && (~0x21 & 0x81) == 0)
+#define HAVE_aarch64_load_extendvnx2hivnx8qi (TARGET_SVE && (~0x21 & 0x81) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx2hivnx8qi (TARGET_SVE && (~0x21 & 0x81) == 0)
+#define HAVE_aarch64_load_zero_extendvnx2hivnx8qi (TARGET_SVE && (~0x21 & 0x81) == 0)
+#define HAVE_aarch64_load_x_extendvnx2hivnx4qi (TARGET_SVE && (~0x21 & 0x41) == 0)
+#define HAVE_aarch64_load_extendvnx2hivnx4qi (TARGET_SVE && (~0x21 & 0x41) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx2hivnx4qi (TARGET_SVE && (~0x21 & 0x41) == 0)
+#define HAVE_aarch64_load_zero_extendvnx2hivnx4qi (TARGET_SVE && (~0x21 & 0x41) == 0)
 #define HAVE_aarch64_load_x_extendvnx2hivnx2qi (TARGET_SVE && (~0x21 & 0x21) == 0)
 #define HAVE_aarch64_load_extendvnx2hivnx2qi (TARGET_SVE && (~0x21 & 0x21) == 0)
 #define HAVE_aarch64_load_x_zero_extendvnx2hivnx2qi (TARGET_SVE && (~0x21 & 0x21) == 0)
 #define HAVE_aarch64_load_zero_extendvnx2hivnx2qi (TARGET_SVE && (~0x21 & 0x21) == 0)
+#define HAVE_aarch64_load_x_extendvnx2hivnx4hi (TARGET_SVE && (~0x21 & 0x42) == 0)
+#define HAVE_aarch64_load_extendvnx2hivnx4hi (TARGET_SVE && (~0x21 & 0x42) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx2hivnx4hi (TARGET_SVE && (~0x21 & 0x42) == 0)
+#define HAVE_aarch64_load_zero_extendvnx2hivnx4hi (TARGET_SVE && (~0x21 & 0x42) == 0)
+#define HAVE_aarch64_load_x_extendvnx2hivnx2hi (TARGET_SVE && (~0x21 & 0x22) == 0)
+#define HAVE_aarch64_load_extendvnx2hivnx2hi (TARGET_SVE && (~0x21 & 0x22) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx2hivnx2hi (TARGET_SVE && (~0x21 & 0x22) == 0)
+#define HAVE_aarch64_load_zero_extendvnx2hivnx2hi (TARGET_SVE && (~0x21 & 0x22) == 0)
+#define HAVE_aarch64_load_x_extendvnx2hivnx2si (TARGET_SVE && (~0x21 & 0x24) == 0)
+#define HAVE_aarch64_load_extendvnx2hivnx2si (TARGET_SVE && (~0x21 & 0x24) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx2hivnx2si (TARGET_SVE && (~0x21 & 0x24) == 0)
+#define HAVE_aarch64_load_zero_extendvnx2hivnx2si (TARGET_SVE && (~0x21 & 0x24) == 0)
+#define HAVE_aarch64_load_x_extendvnx4sivnx8qi (TARGET_SVE && (~0x43 & 0x81) == 0)
+#define HAVE_aarch64_load_extendvnx4sivnx8qi (TARGET_SVE && (~0x43 & 0x81) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx4sivnx8qi (TARGET_SVE && (~0x43 & 0x81) == 0)
+#define HAVE_aarch64_load_zero_extendvnx4sivnx8qi (TARGET_SVE && (~0x43 & 0x81) == 0)
 #define HAVE_aarch64_load_x_extendvnx4sivnx4qi (TARGET_SVE && (~0x43 & 0x41) == 0)
 #define HAVE_aarch64_load_extendvnx4sivnx4qi (TARGET_SVE && (~0x43 & 0x41) == 0)
 #define HAVE_aarch64_load_x_zero_extendvnx4sivnx4qi (TARGET_SVE && (~0x43 & 0x41) == 0)
 #define HAVE_aarch64_load_zero_extendvnx4sivnx4qi (TARGET_SVE && (~0x43 & 0x41) == 0)
+#define HAVE_aarch64_load_x_extendvnx4sivnx2qi (TARGET_SVE && (~0x43 & 0x21) == 0)
+#define HAVE_aarch64_load_extendvnx4sivnx2qi (TARGET_SVE && (~0x43 & 0x21) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx4sivnx2qi (TARGET_SVE && (~0x43 & 0x21) == 0)
+#define HAVE_aarch64_load_zero_extendvnx4sivnx2qi (TARGET_SVE && (~0x43 & 0x21) == 0)
 #define HAVE_aarch64_load_x_extendvnx4sivnx4hi (TARGET_SVE && (~0x43 & 0x42) == 0)
 #define HAVE_aarch64_load_extendvnx4sivnx4hi (TARGET_SVE && (~0x43 & 0x42) == 0)
 #define HAVE_aarch64_load_x_zero_extendvnx4sivnx4hi (TARGET_SVE && (~0x43 & 0x42) == 0)
 #define HAVE_aarch64_load_zero_extendvnx4sivnx4hi (TARGET_SVE && (~0x43 & 0x42) == 0)
+#define HAVE_aarch64_load_x_extendvnx4sivnx2hi (TARGET_SVE && (~0x43 & 0x22) == 0)
+#define HAVE_aarch64_load_extendvnx4sivnx2hi (TARGET_SVE && (~0x43 & 0x22) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx4sivnx2hi (TARGET_SVE && (~0x43 & 0x22) == 0)
+#define HAVE_aarch64_load_zero_extendvnx4sivnx2hi (TARGET_SVE && (~0x43 & 0x22) == 0)
+#define HAVE_aarch64_load_x_extendvnx4sivnx2si (TARGET_SVE && (~0x43 & 0x24) == 0)
+#define HAVE_aarch64_load_extendvnx4sivnx2si (TARGET_SVE && (~0x43 & 0x24) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx4sivnx2si (TARGET_SVE && (~0x43 & 0x24) == 0)
+#define HAVE_aarch64_load_zero_extendvnx4sivnx2si (TARGET_SVE && (~0x43 & 0x24) == 0)
+#define HAVE_aarch64_load_x_extendvnx2sivnx8qi (TARGET_SVE && (~0x23 & 0x81) == 0)
+#define HAVE_aarch64_load_extendvnx2sivnx8qi (TARGET_SVE && (~0x23 & 0x81) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx2sivnx8qi (TARGET_SVE && (~0x23 & 0x81) == 0)
+#define HAVE_aarch64_load_zero_extendvnx2sivnx8qi (TARGET_SVE && (~0x23 & 0x81) == 0)
+#define HAVE_aarch64_load_x_extendvnx2sivnx4qi (TARGET_SVE && (~0x23 & 0x41) == 0)
+#define HAVE_aarch64_load_extendvnx2sivnx4qi (TARGET_SVE && (~0x23 & 0x41) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx2sivnx4qi (TARGET_SVE && (~0x23 & 0x41) == 0)
+#define HAVE_aarch64_load_zero_extendvnx2sivnx4qi (TARGET_SVE && (~0x23 & 0x41) == 0)
 #define HAVE_aarch64_load_x_extendvnx2sivnx2qi (TARGET_SVE && (~0x23 & 0x21) == 0)
 #define HAVE_aarch64_load_extendvnx2sivnx2qi (TARGET_SVE && (~0x23 & 0x21) == 0)
 #define HAVE_aarch64_load_x_zero_extendvnx2sivnx2qi (TARGET_SVE && (~0x23 & 0x21) == 0)
 #define HAVE_aarch64_load_zero_extendvnx2sivnx2qi (TARGET_SVE && (~0x23 & 0x21) == 0)
+#define HAVE_aarch64_load_x_extendvnx2sivnx4hi (TARGET_SVE && (~0x23 & 0x42) == 0)
+#define HAVE_aarch64_load_extendvnx2sivnx4hi (TARGET_SVE && (~0x23 & 0x42) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx2sivnx4hi (TARGET_SVE && (~0x23 & 0x42) == 0)
+#define HAVE_aarch64_load_zero_extendvnx2sivnx4hi (TARGET_SVE && (~0x23 & 0x42) == 0)
 #define HAVE_aarch64_load_x_extendvnx2sivnx2hi (TARGET_SVE && (~0x23 & 0x22) == 0)
 #define HAVE_aarch64_load_extendvnx2sivnx2hi (TARGET_SVE && (~0x23 & 0x22) == 0)
 #define HAVE_aarch64_load_x_zero_extendvnx2sivnx2hi (TARGET_SVE && (~0x23 & 0x22) == 0)
 #define HAVE_aarch64_load_zero_extendvnx2sivnx2hi (TARGET_SVE && (~0x23 & 0x22) == 0)
+#define HAVE_aarch64_load_x_extendvnx2sivnx2si (TARGET_SVE && (~0x23 & 0x24) == 0)
+#define HAVE_aarch64_load_extendvnx2sivnx2si (TARGET_SVE && (~0x23 & 0x24) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx2sivnx2si (TARGET_SVE && (~0x23 & 0x24) == 0)
+#define HAVE_aarch64_load_zero_extendvnx2sivnx2si (TARGET_SVE && (~0x23 & 0x24) == 0)
+#define HAVE_aarch64_load_x_extendvnx2divnx8qi (TARGET_SVE && (~0x27 & 0x81) == 0)
+#define HAVE_aarch64_load_extendvnx2divnx8qi (TARGET_SVE && (~0x27 & 0x81) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx2divnx8qi (TARGET_SVE && (~0x27 & 0x81) == 0)
+#define HAVE_aarch64_load_zero_extendvnx2divnx8qi (TARGET_SVE && (~0x27 & 0x81) == 0)
+#define HAVE_aarch64_load_x_extendvnx2divnx4qi (TARGET_SVE && (~0x27 & 0x41) == 0)
+#define HAVE_aarch64_load_extendvnx2divnx4qi (TARGET_SVE && (~0x27 & 0x41) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx2divnx4qi (TARGET_SVE && (~0x27 & 0x41) == 0)
+#define HAVE_aarch64_load_zero_extendvnx2divnx4qi (TARGET_SVE && (~0x27 & 0x41) == 0)
 #define HAVE_aarch64_load_x_extendvnx2divnx2qi (TARGET_SVE && (~0x27 & 0x21) == 0)
 #define HAVE_aarch64_load_extendvnx2divnx2qi (TARGET_SVE && (~0x27 & 0x21) == 0)
 #define HAVE_aarch64_load_x_zero_extendvnx2divnx2qi (TARGET_SVE && (~0x27 & 0x21) == 0)
 #define HAVE_aarch64_load_zero_extendvnx2divnx2qi (TARGET_SVE && (~0x27 & 0x21) == 0)
+#define HAVE_aarch64_load_x_extendvnx2divnx4hi (TARGET_SVE && (~0x27 & 0x42) == 0)
+#define HAVE_aarch64_load_extendvnx2divnx4hi (TARGET_SVE && (~0x27 & 0x42) == 0)
+#define HAVE_aarch64_load_x_zero_extendvnx2divnx4hi (TARGET_SVE && (~0x27 & 0x42) == 0)
+#define HAVE_aarch64_load_zero_extendvnx2divnx4hi (TARGET_SVE && (~0x27 & 0x42) == 0)
 #define HAVE_aarch64_load_x_extendvnx2divnx2hi (TARGET_SVE && (~0x27 & 0x22) == 0)
 #define HAVE_aarch64_load_extendvnx2divnx2hi (TARGET_SVE && (~0x27 & 0x22) == 0)
 #define HAVE_aarch64_load_x_zero_extendvnx2divnx2hi (TARGET_SVE && (~0x27 & 0x22) == 0)
@@ -4450,6 +4582,78 @@
 #define HAVE_aarch64_ldnf1_zero_extendvnx8hivnx8qi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x81 & 0x81) == 0)
+#define HAVE_aarch64_ldff1_extendvnx8hivnx4qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x41) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx8hivnx4qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x41) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx8hivnx4qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x41) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx8hivnx4qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x41) == 0)
+#define HAVE_aarch64_ldff1_extendvnx8hivnx2qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x21) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx8hivnx2qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x21) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx8hivnx2qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x21) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx8hivnx2qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x21) == 0)
+#define HAVE_aarch64_ldff1_extendvnx8hivnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x42) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx8hivnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x42) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx8hivnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x42) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx8hivnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x42) == 0)
+#define HAVE_aarch64_ldff1_extendvnx8hivnx2hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x22) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx8hivnx2hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x22) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx8hivnx2hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x22) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx8hivnx2hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x22) == 0)
+#define HAVE_aarch64_ldff1_extendvnx8hivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x24) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx8hivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x24) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx8hivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x24) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx8hivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x81 & 0x24) == 0)
+#define HAVE_aarch64_ldff1_extendvnx4hivnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x81) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx4hivnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x81) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx4hivnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x81) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx4hivnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x81) == 0)
 #define HAVE_aarch64_ldff1_extendvnx4hivnx4qi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x41 & 0x41) == 0)
@@ -4462,6 +4666,78 @@
 #define HAVE_aarch64_ldnf1_zero_extendvnx4hivnx4qi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x41 & 0x41) == 0)
+#define HAVE_aarch64_ldff1_extendvnx4hivnx2qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x21) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx4hivnx2qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x21) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx4hivnx2qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x21) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx4hivnx2qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x21) == 0)
+#define HAVE_aarch64_ldff1_extendvnx4hivnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x42) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx4hivnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x42) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx4hivnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x42) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx4hivnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x42) == 0)
+#define HAVE_aarch64_ldff1_extendvnx4hivnx2hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x22) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx4hivnx2hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x22) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx4hivnx2hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x22) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx4hivnx2hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x22) == 0)
+#define HAVE_aarch64_ldff1_extendvnx4hivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x24) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx4hivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x24) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx4hivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x24) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx4hivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x24) == 0)
+#define HAVE_aarch64_ldff1_extendvnx2hivnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x81) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx2hivnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x81) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx2hivnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x81) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx2hivnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x81) == 0)
+#define HAVE_aarch64_ldff1_extendvnx2hivnx4qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x41) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx2hivnx4qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x41) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx2hivnx4qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x41) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx2hivnx4qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x41) == 0)
 #define HAVE_aarch64_ldff1_extendvnx2hivnx2qi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x21 & 0x21) == 0)
@@ -4474,6 +4750,54 @@
 #define HAVE_aarch64_ldnf1_zero_extendvnx2hivnx2qi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x21 & 0x21) == 0)
+#define HAVE_aarch64_ldff1_extendvnx2hivnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x42) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx2hivnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x42) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx2hivnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x42) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx2hivnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x42) == 0)
+#define HAVE_aarch64_ldff1_extendvnx2hivnx2hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x22) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx2hivnx2hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x22) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx2hivnx2hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x22) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx2hivnx2hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x22) == 0)
+#define HAVE_aarch64_ldff1_extendvnx2hivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x24) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx2hivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x24) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx2hivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x24) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx2hivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x24) == 0)
+#define HAVE_aarch64_ldff1_extendvnx4sivnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x81) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx4sivnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x81) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx4sivnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x81) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx4sivnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x81) == 0)
 #define HAVE_aarch64_ldff1_extendvnx4sivnx4qi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x43 & 0x41) == 0)
@@ -4486,6 +4810,18 @@
 #define HAVE_aarch64_ldnf1_zero_extendvnx4sivnx4qi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x43 & 0x41) == 0)
+#define HAVE_aarch64_ldff1_extendvnx4sivnx2qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x21) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx4sivnx2qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x21) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx4sivnx2qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x21) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx4sivnx2qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x21) == 0)
 #define HAVE_aarch64_ldff1_extendvnx4sivnx4hi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x43 & 0x42) == 0)
@@ -4498,6 +4834,54 @@
 #define HAVE_aarch64_ldnf1_zero_extendvnx4sivnx4hi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x43 & 0x42) == 0)
+#define HAVE_aarch64_ldff1_extendvnx4sivnx2hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x22) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx4sivnx2hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x22) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx4sivnx2hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x22) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx4sivnx2hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x22) == 0)
+#define HAVE_aarch64_ldff1_extendvnx4sivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x24) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx4sivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x24) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx4sivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x24) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx4sivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x24) == 0)
+#define HAVE_aarch64_ldff1_extendvnx2sivnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x23 & 0x81) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx2sivnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x23 & 0x81) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx2sivnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x23 & 0x81) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx2sivnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x23 & 0x81) == 0)
+#define HAVE_aarch64_ldff1_extendvnx2sivnx4qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x23 & 0x41) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx2sivnx4qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x23 & 0x41) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx2sivnx4qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x23 & 0x41) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx2sivnx4qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x23 & 0x41) == 0)
 #define HAVE_aarch64_ldff1_extendvnx2sivnx2qi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x23 & 0x21) == 0)
@@ -4510,6 +4894,18 @@
 #define HAVE_aarch64_ldnf1_zero_extendvnx2sivnx2qi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x23 & 0x21) == 0)
+#define HAVE_aarch64_ldff1_extendvnx2sivnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x23 & 0x42) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx2sivnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x23 & 0x42) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx2sivnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x23 & 0x42) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx2sivnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x23 & 0x42) == 0)
 #define HAVE_aarch64_ldff1_extendvnx2sivnx2hi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x23 & 0x22) == 0)
@@ -4522,6 +4918,42 @@
 #define HAVE_aarch64_ldnf1_zero_extendvnx2sivnx2hi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x23 & 0x22) == 0)
+#define HAVE_aarch64_ldff1_extendvnx2sivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x23 & 0x24) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx2sivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x23 & 0x24) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx2sivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x23 & 0x24) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx2sivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x23 & 0x24) == 0)
+#define HAVE_aarch64_ldff1_extendvnx2divnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x81) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx2divnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x81) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx2divnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x81) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx2divnx8qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x81) == 0)
+#define HAVE_aarch64_ldff1_extendvnx2divnx4qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x41) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx2divnx4qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x41) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx2divnx4qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x41) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx2divnx4qi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x41) == 0)
 #define HAVE_aarch64_ldff1_extendvnx2divnx2qi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x27 & 0x21) == 0)
@@ -4534,6 +4966,18 @@
 #define HAVE_aarch64_ldnf1_zero_extendvnx2divnx2qi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x27 & 0x21) == 0)
+#define HAVE_aarch64_ldff1_extendvnx2divnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x42) == 0)
+#define HAVE_aarch64_ldnf1_extendvnx2divnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x42) == 0)
+#define HAVE_aarch64_ldff1_zero_extendvnx2divnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x42) == 0)
+#define HAVE_aarch64_ldnf1_zero_extendvnx2divnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x42) == 0)
 #define HAVE_aarch64_ldff1_extendvnx2divnx2hi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x27 & 0x22) == 0)
@@ -4592,6 +5036,12 @@
 #define HAVE_aarch64_gather_load_zero_extendvnx4sivnx4qi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x43 & 0x41) == 0)
+#define HAVE_aarch64_gather_load_extendvnx4hivnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x42) == 0)
+#define HAVE_aarch64_gather_load_zero_extendvnx4hivnx4hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x41 & 0x42) == 0)
 #define HAVE_aarch64_gather_load_extendvnx4sivnx4hi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x43 & 0x42) == 0)
@@ -4616,6 +5066,12 @@
 #define HAVE_aarch64_gather_load_zero_extendvnx2divnx2qi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x27 & 0x21) == 0)
+#define HAVE_aarch64_gather_load_extendvnx2hivnx2hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x22) == 0)
+#define HAVE_aarch64_gather_load_zero_extendvnx2hivnx2hi (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x22) == 0)
 #define HAVE_aarch64_gather_load_extendvnx2sivnx2hi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x23 & 0x22) == 0)
@@ -4628,6 +5084,18 @@
 #define HAVE_aarch64_gather_load_zero_extendvnx2divnx2hi (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x27 & 0x22) == 0)
+#define HAVE_aarch64_gather_load_extendvnx2hivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x24) == 0)
+#define HAVE_aarch64_gather_load_zero_extendvnx2hivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x21 & 0x24) == 0)
+#define HAVE_aarch64_gather_load_extendvnx2sivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x23 & 0x24) == 0)
+#define HAVE_aarch64_gather_load_zero_extendvnx2sivnx2si (TARGET_SVE \
+   && TARGET_NON_STREAMING \
+   && (~0x23 & 0x24) == 0)
 #define HAVE_aarch64_gather_load_extendvnx2divnx2si (TARGET_SVE \
    && TARGET_NON_STREAMING \
    && (~0x27 & 0x24) == 0)
@@ -4935,67 +5403,193 @@
 #define HAVE_aarch64_pred_rbitvnx2di (TARGET_SVE)
 #define HAVE_aarch64_pred_qabsvnx2di ((TARGET_SVE) && (TARGET_SVE2))
 #define HAVE_aarch64_pred_qnegvnx2di ((TARGET_SVE) && (TARGET_SVE2))
+#define HAVE_aarch64_pred_revbvnx16qi (TARGET_SVE && 8 >= 16)
+#define HAVE_aarch64_pred_revhvnx16qi (TARGET_SVE && 8 >= 32)
+#define HAVE_aarch64_pred_revwvnx16qi (TARGET_SVE && 8 >= 64)
 #define HAVE_aarch64_pred_revbvnx8hi (TARGET_SVE && 16 >= 16)
+#define HAVE_aarch64_pred_revhvnx8hi (TARGET_SVE && 16 >= 32)
+#define HAVE_aarch64_pred_revwvnx8hi (TARGET_SVE && 16 >= 64)
 #define HAVE_aarch64_pred_revbvnx4si (TARGET_SVE && 32 >= 16)
 #define HAVE_aarch64_pred_revhvnx4si (TARGET_SVE && 32 >= 32)
+#define HAVE_aarch64_pred_revwvnx4si (TARGET_SVE && 32 >= 64)
 #define HAVE_aarch64_pred_revbvnx2di (TARGET_SVE && 64 >= 16)
 #define HAVE_aarch64_pred_revhvnx2di (TARGET_SVE && 64 >= 32)
 #define HAVE_aarch64_pred_revwvnx2di (TARGET_SVE && 64 >= 64)
 #define HAVE_aarch64_sve_revbhw_vnx16qivnx8bi (TARGET_SVE && 16 > 8)
+#define HAVE_aarch64_sve_revbhw_vnx8qivnx8bi (TARGET_SVE && 16 > 16)
+#define HAVE_aarch64_sve_revbhw_vnx4qivnx8bi (TARGET_SVE && 16 > 32)
+#define HAVE_aarch64_sve_revbhw_vnx2qivnx8bi (TARGET_SVE && 16 > 64)
+#define HAVE_aarch64_sve_revbhw_vnx8hivnx8bi (TARGET_SVE && 16 > 16)
+#define HAVE_aarch64_sve_revbhw_vnx4hivnx8bi (TARGET_SVE && 16 > 32)
+#define HAVE_aarch64_sve_revbhw_vnx2hivnx8bi (TARGET_SVE && 16 > 64)
+#define HAVE_aarch64_sve_revbhw_vnx8hfvnx8bi (TARGET_SVE && 16 > 16)
+#define HAVE_aarch64_sve_revbhw_vnx4hfvnx8bi (TARGET_SVE && 16 > 32)
+#define HAVE_aarch64_sve_revbhw_vnx2hfvnx8bi (TARGET_SVE && 16 > 64)
+#define HAVE_aarch64_sve_revbhw_vnx8bfvnx8bi (TARGET_SVE && 16 > 16)
+#define HAVE_aarch64_sve_revbhw_vnx4bfvnx8bi (TARGET_SVE && 16 > 32)
+#define HAVE_aarch64_sve_revbhw_vnx2bfvnx8bi (TARGET_SVE && 16 > 64)
+#define HAVE_aarch64_sve_revbhw_vnx4sivnx8bi (TARGET_SVE && 16 > 32)
+#define HAVE_aarch64_sve_revbhw_vnx2sivnx8bi (TARGET_SVE && 16 > 64)
+#define HAVE_aarch64_sve_revbhw_vnx4sfvnx8bi (TARGET_SVE && 16 > 32)
+#define HAVE_aarch64_sve_revbhw_vnx2sfvnx8bi (TARGET_SVE && 16 > 64)
+#define HAVE_aarch64_sve_revbhw_vnx2divnx8bi (TARGET_SVE && 16 > 64)
+#define HAVE_aarch64_sve_revbhw_vnx2dfvnx8bi (TARGET_SVE && 16 > 64)
 #define HAVE_aarch64_sve_revbhw_vnx16qivnx4bi (TARGET_SVE && 32 > 8)
 #define HAVE_aarch64_sve_revbhw_vnx8qivnx4bi (TARGET_SVE && 32 > 16)
+#define HAVE_aarch64_sve_revbhw_vnx4qivnx4bi (TARGET_SVE && 32 > 32)
+#define HAVE_aarch64_sve_revbhw_vnx2qivnx4bi (TARGET_SVE && 32 > 64)
 #define HAVE_aarch64_sve_revbhw_vnx8hivnx4bi (TARGET_SVE && 32 > 16)
+#define HAVE_aarch64_sve_revbhw_vnx4hivnx4bi (TARGET_SVE && 32 > 32)
+#define HAVE_aarch64_sve_revbhw_vnx2hivnx4bi (TARGET_SVE && 32 > 64)
 #define HAVE_aarch64_sve_revbhw_vnx8hfvnx4bi (TARGET_SVE && 32 > 16)
+#define HAVE_aarch64_sve_revbhw_vnx4hfvnx4bi (TARGET_SVE && 32 > 32)
+#define HAVE_aarch64_sve_revbhw_vnx2hfvnx4bi (TARGET_SVE && 32 > 64)
 #define HAVE_aarch64_sve_revbhw_vnx8bfvnx4bi (TARGET_SVE && 32 > 16)
+#define HAVE_aarch64_sve_revbhw_vnx4bfvnx4bi (TARGET_SVE && 32 > 32)
+#define HAVE_aarch64_sve_revbhw_vnx2bfvnx4bi (TARGET_SVE && 32 > 64)
+#define HAVE_aarch64_sve_revbhw_vnx4sivnx4bi (TARGET_SVE && 32 > 32)
+#define HAVE_aarch64_sve_revbhw_vnx2sivnx4bi (TARGET_SVE && 32 > 64)
+#define HAVE_aarch64_sve_revbhw_vnx4sfvnx4bi (TARGET_SVE && 32 > 32)
+#define HAVE_aarch64_sve_revbhw_vnx2sfvnx4bi (TARGET_SVE && 32 > 64)
+#define HAVE_aarch64_sve_revbhw_vnx2divnx4bi (TARGET_SVE && 32 > 64)
+#define HAVE_aarch64_sve_revbhw_vnx2dfvnx4bi (TARGET_SVE && 32 > 64)
 #define HAVE_aarch64_sve_revbhw_vnx16qivnx2bi (TARGET_SVE && 64 > 8)
 #define HAVE_aarch64_sve_revbhw_vnx8qivnx2bi (TARGET_SVE && 64 > 16)
 #define HAVE_aarch64_sve_revbhw_vnx4qivnx2bi (TARGET_SVE && 64 > 32)
+#define HAVE_aarch64_sve_revbhw_vnx2qivnx2bi (TARGET_SVE && 64 > 64)
 #define HAVE_aarch64_sve_revbhw_vnx8hivnx2bi (TARGET_SVE && 64 > 16)
 #define HAVE_aarch64_sve_revbhw_vnx4hivnx2bi (TARGET_SVE && 64 > 32)
+#define HAVE_aarch64_sve_revbhw_vnx2hivnx2bi (TARGET_SVE && 64 > 64)
 #define HAVE_aarch64_sve_revbhw_vnx8hfvnx2bi (TARGET_SVE && 64 > 16)
 #define HAVE_aarch64_sve_revbhw_vnx4hfvnx2bi (TARGET_SVE && 64 > 32)
+#define HAVE_aarch64_sve_revbhw_vnx2hfvnx2bi (TARGET_SVE && 64 > 64)
 #define HAVE_aarch64_sve_revbhw_vnx8bfvnx2bi (TARGET_SVE && 64 > 16)
 #define HAVE_aarch64_sve_revbhw_vnx4bfvnx2bi (TARGET_SVE && 64 > 32)
+#define HAVE_aarch64_sve_revbhw_vnx2bfvnx2bi (TARGET_SVE && 64 > 64)
 #define HAVE_aarch64_sve_revbhw_vnx4sivnx2bi (TARGET_SVE && 64 > 32)
+#define HAVE_aarch64_sve_revbhw_vnx2sivnx2bi (TARGET_SVE && 64 > 64)
 #define HAVE_aarch64_sve_revbhw_vnx4sfvnx2bi (TARGET_SVE && 64 > 32)
+#define HAVE_aarch64_sve_revbhw_vnx2sfvnx2bi (TARGET_SVE && 64 > 64)
+#define HAVE_aarch64_sve_revbhw_vnx2divnx2bi (TARGET_SVE && 64 > 64)
+#define HAVE_aarch64_sve_revbhw_vnx2dfvnx2bi (TARGET_SVE && 64 > 64)
+#define HAVE_cond_revbvnx16qi (TARGET_SVE && 8 >= 16)
+#define HAVE_cond_revhvnx16qi (TARGET_SVE && 8 >= 32)
+#define HAVE_cond_revwvnx16qi (TARGET_SVE && 8 >= 64)
 #define HAVE_cond_revbvnx8hi (TARGET_SVE && 16 >= 16)
+#define HAVE_cond_revhvnx8hi (TARGET_SVE && 16 >= 32)
+#define HAVE_cond_revwvnx8hi (TARGET_SVE && 16 >= 64)
 #define HAVE_cond_revbvnx4si (TARGET_SVE && 32 >= 16)
 #define HAVE_cond_revhvnx4si (TARGET_SVE && 32 >= 32)
+#define HAVE_cond_revwvnx4si (TARGET_SVE && 32 >= 64)
 #define HAVE_cond_revbvnx2di (TARGET_SVE && 64 >= 16)
 #define HAVE_cond_revhvnx2di (TARGET_SVE && 64 >= 32)
 #define HAVE_cond_revwvnx2di (TARGET_SVE && 64 >= 64)
 #define HAVE_aarch64_pred_sxtvnx8hivnx8qi (TARGET_SVE \
    && (~0x81 & 0x81) == 0)
+#define HAVE_aarch64_pred_sxtvnx8hivnx4qi (TARGET_SVE \
+   && (~0x81 & 0x41) == 0)
+#define HAVE_aarch64_pred_sxtvnx8hivnx2qi (TARGET_SVE \
+   && (~0x81 & 0x21) == 0)
+#define HAVE_aarch64_pred_sxtvnx8hivnx4hi (TARGET_SVE \
+   && (~0x81 & 0x42) == 0)
+#define HAVE_aarch64_pred_sxtvnx8hivnx2hi (TARGET_SVE \
+   && (~0x81 & 0x22) == 0)
+#define HAVE_aarch64_pred_sxtvnx8hivnx2si (TARGET_SVE \
+   && (~0x81 & 0x24) == 0)
+#define HAVE_aarch64_pred_sxtvnx4sivnx8qi (TARGET_SVE \
+   && (~0x43 & 0x81) == 0)
 #define HAVE_aarch64_pred_sxtvnx4sivnx4qi (TARGET_SVE \
    && (~0x43 & 0x41) == 0)
+#define HAVE_aarch64_pred_sxtvnx4sivnx2qi (TARGET_SVE \
+   && (~0x43 & 0x21) == 0)
 #define HAVE_aarch64_pred_sxtvnx4sivnx4hi (TARGET_SVE \
    && (~0x43 & 0x42) == 0)
+#define HAVE_aarch64_pred_sxtvnx4sivnx2hi (TARGET_SVE \
+   && (~0x43 & 0x22) == 0)
+#define HAVE_aarch64_pred_sxtvnx4sivnx2si (TARGET_SVE \
+   && (~0x43 & 0x24) == 0)
+#define HAVE_aarch64_pred_sxtvnx2divnx8qi (TARGET_SVE \
+   && (~0x27 & 0x81) == 0)
+#define HAVE_aarch64_pred_sxtvnx2divnx4qi (TARGET_SVE \
+   && (~0x27 & 0x41) == 0)
 #define HAVE_aarch64_pred_sxtvnx2divnx2qi (TARGET_SVE \
    && (~0x27 & 0x21) == 0)
+#define HAVE_aarch64_pred_sxtvnx2divnx4hi (TARGET_SVE \
+   && (~0x27 & 0x42) == 0)
 #define HAVE_aarch64_pred_sxtvnx2divnx2hi (TARGET_SVE \
    && (~0x27 & 0x22) == 0)
 #define HAVE_aarch64_pred_sxtvnx2divnx2si (TARGET_SVE \
    && (~0x27 & 0x24) == 0)
 #define HAVE_aarch64_cond_sxtvnx8hivnx8qi (TARGET_SVE \
    && (~0x81 & 0x81) == 0)
+#define HAVE_aarch64_cond_sxtvnx8hivnx4qi (TARGET_SVE \
+   && (~0x81 & 0x41) == 0)
+#define HAVE_aarch64_cond_sxtvnx8hivnx2qi (TARGET_SVE \
+   && (~0x81 & 0x21) == 0)
+#define HAVE_aarch64_cond_sxtvnx8hivnx4hi (TARGET_SVE \
+   && (~0x81 & 0x42) == 0)
+#define HAVE_aarch64_cond_sxtvnx8hivnx2hi (TARGET_SVE \
+   && (~0x81 & 0x22) == 0)
+#define HAVE_aarch64_cond_sxtvnx8hivnx2si (TARGET_SVE \
+   && (~0x81 & 0x24) == 0)
+#define HAVE_aarch64_cond_sxtvnx4sivnx8qi (TARGET_SVE \
+   && (~0x43 & 0x81) == 0)
 #define HAVE_aarch64_cond_sxtvnx4sivnx4qi (TARGET_SVE \
    && (~0x43 & 0x41) == 0)
+#define HAVE_aarch64_cond_sxtvnx4sivnx2qi (TARGET_SVE \
+   && (~0x43 & 0x21) == 0)
 #define HAVE_aarch64_cond_sxtvnx4sivnx4hi (TARGET_SVE \
    && (~0x43 & 0x42) == 0)
+#define HAVE_aarch64_cond_sxtvnx4sivnx2hi (TARGET_SVE \
+   && (~0x43 & 0x22) == 0)
+#define HAVE_aarch64_cond_sxtvnx4sivnx2si (TARGET_SVE \
+   && (~0x43 & 0x24) == 0)
+#define HAVE_aarch64_cond_sxtvnx2divnx8qi (TARGET_SVE \
+   && (~0x27 & 0x81) == 0)
+#define HAVE_aarch64_cond_sxtvnx2divnx4qi (TARGET_SVE \
+   && (~0x27 & 0x41) == 0)
 #define HAVE_aarch64_cond_sxtvnx2divnx2qi (TARGET_SVE \
    && (~0x27 & 0x21) == 0)
+#define HAVE_aarch64_cond_sxtvnx2divnx4hi (TARGET_SVE \
+   && (~0x27 & 0x42) == 0)
 #define HAVE_aarch64_cond_sxtvnx2divnx2hi (TARGET_SVE \
    && (~0x27 & 0x22) == 0)
 #define HAVE_aarch64_cond_sxtvnx2divnx2si (TARGET_SVE \
    && (~0x27 & 0x24) == 0)
 #define HAVE_truncvnx8hivnx8qi2 (TARGET_SVE && (~0x81 & 0x81) == 0)
+#define HAVE_truncvnx8hivnx4qi2 (TARGET_SVE && (~0x81 & 0x41) == 0)
+#define HAVE_truncvnx8hivnx2qi2 (TARGET_SVE && (~0x81 & 0x21) == 0)
+#define HAVE_truncvnx8hivnx4hi2 (TARGET_SVE && (~0x81 & 0x42) == 0)
+#define HAVE_truncvnx8hivnx2hi2 (TARGET_SVE && (~0x81 & 0x22) == 0)
+#define HAVE_truncvnx8hivnx2si2 (TARGET_SVE && (~0x81 & 0x24) == 0)
+#define HAVE_truncvnx4hivnx8qi2 (TARGET_SVE && (~0x41 & 0x81) == 0)
 #define HAVE_truncvnx4hivnx4qi2 (TARGET_SVE && (~0x41 & 0x41) == 0)
+#define HAVE_truncvnx4hivnx2qi2 (TARGET_SVE && (~0x41 & 0x21) == 0)
+#define HAVE_truncvnx4hivnx4hi2 (TARGET_SVE && (~0x41 & 0x42) == 0)
+#define HAVE_truncvnx4hivnx2hi2 (TARGET_SVE && (~0x41 & 0x22) == 0)
+#define HAVE_truncvnx4hivnx2si2 (TARGET_SVE && (~0x41 & 0x24) == 0)
+#define HAVE_truncvnx2hivnx8qi2 (TARGET_SVE && (~0x21 & 0x81) == 0)
+#define HAVE_truncvnx2hivnx4qi2 (TARGET_SVE && (~0x21 & 0x41) == 0)
 #define HAVE_truncvnx2hivnx2qi2 (TARGET_SVE && (~0x21 & 0x21) == 0)
+#define HAVE_truncvnx2hivnx4hi2 (TARGET_SVE && (~0x21 & 0x42) == 0)
+#define HAVE_truncvnx2hivnx2hi2 (TARGET_SVE && (~0x21 & 0x22) == 0)
+#define HAVE_truncvnx2hivnx2si2 (TARGET_SVE && (~0x21 & 0x24) == 0)
+#define HAVE_truncvnx4sivnx8qi2 (TARGET_SVE && (~0x43 & 0x81) == 0)
 #define HAVE_truncvnx4sivnx4qi2 (TARGET_SVE && (~0x43 & 0x41) == 0)
+#define HAVE_truncvnx4sivnx2qi2 (TARGET_SVE && (~0x43 & 0x21) == 0)
 #define HAVE_truncvnx4sivnx4hi2 (TARGET_SVE && (~0x43 & 0x42) == 0)
+#define HAVE_truncvnx4sivnx2hi2 (TARGET_SVE && (~0x43 & 0x22) == 0)
+#define HAVE_truncvnx4sivnx2si2 (TARGET_SVE && (~0x43 & 0x24) == 0)
+#define HAVE_truncvnx2sivnx8qi2 (TARGET_SVE && (~0x23 & 0x81) == 0)
+#define HAVE_truncvnx2sivnx4qi2 (TARGET_SVE && (~0x23 & 0x41) == 0)
 #define HAVE_truncvnx2sivnx2qi2 (TARGET_SVE && (~0x23 & 0x21) == 0)
+#define HAVE_truncvnx2sivnx4hi2 (TARGET_SVE && (~0x23 & 0x42) == 0)
 #define HAVE_truncvnx2sivnx2hi2 (TARGET_SVE && (~0x23 & 0x22) == 0)
+#define HAVE_truncvnx2sivnx2si2 (TARGET_SVE && (~0x23 & 0x24) == 0)
+#define HAVE_truncvnx2divnx8qi2 (TARGET_SVE && (~0x27 & 0x81) == 0)
+#define HAVE_truncvnx2divnx4qi2 (TARGET_SVE && (~0x27 & 0x41) == 0)
 #define HAVE_truncvnx2divnx2qi2 (TARGET_SVE && (~0x27 & 0x21) == 0)
+#define HAVE_truncvnx2divnx4hi2 (TARGET_SVE && (~0x27 & 0x42) == 0)
 #define HAVE_truncvnx2divnx2hi2 (TARGET_SVE && (~0x27 & 0x22) == 0)
 #define HAVE_truncvnx2divnx2si2 (TARGET_SVE && (~0x27 & 0x24) == 0)
 #define HAVE_aarch64_sve_fexpavnx8hf ((TARGET_SVE) && (TARGET_NON_STREAMING))
@@ -5366,6 +5960,16 @@
    && (32 == 8 * 4 \
        || (TARGET_STREAMING_SME2 \
 	   && 32 == 32 \
+	   && 8 == 16)))
+#define HAVE_aarch64_sdot_prod_lanevnx2divnx16qi (TARGET_SVE \
+   && (64 == 8 * 4 \
+       || (TARGET_STREAMING_SME2 \
+	   && 64 == 32 \
+	   && 8 == 16)))
+#define HAVE_aarch64_udot_prod_lanevnx2divnx16qi (TARGET_SVE \
+   && (64 == 8 * 4 \
+       || (TARGET_STREAMING_SME2 \
+	   && 64 == 32 \
 	   && 8 == 16)))
 #define HAVE_aarch64_sdot_prod_lanevnx4sivnx8hi (TARGET_SVE \
    && (32 == 16 * 4 \
@@ -5823,6 +6427,7 @@
 #define HAVE_aarch64_pred_reduc_uadd_vnx8hi (TARGET_SVE && 64 >= 16)
 #define HAVE_aarch64_pred_reduc_sadd_vnx4si (TARGET_SVE && 32 >= 32)
 #define HAVE_aarch64_pred_reduc_uadd_vnx4si (TARGET_SVE && 64 >= 32)
+#define HAVE_aarch64_pred_reduc_sadd_vnx2di (TARGET_SVE && 32 >= 64)
 #define HAVE_aarch64_pred_reduc_uadd_vnx2di (TARGET_SVE && 64 >= 64)
 #define HAVE_aarch64_pred_reduc_and_vnx16qi (TARGET_SVE)
 #define HAVE_aarch64_pred_reduc_ior_vnx16qi (TARGET_SVE)
@@ -6236,10 +6841,16 @@
 #define HAVE_aarch64_sve_uunpklo_vnx4si (TARGET_SVE)
 #define HAVE_aarch64_sve_fix_trunc_nontruncvnx8hfvnx8hi (TARGET_SVE && 16 >= 16)
 #define HAVE_aarch64_sve_fixuns_trunc_nontruncvnx8hfvnx8hi (TARGET_SVE && 16 >= 16)
+#define HAVE_aarch64_sve_fix_trunc_nontruncvnx4sfvnx8hi (TARGET_SVE && 16 >= 32)
+#define HAVE_aarch64_sve_fixuns_trunc_nontruncvnx4sfvnx8hi (TARGET_SVE && 16 >= 32)
+#define HAVE_aarch64_sve_fix_trunc_nontruncvnx2dfvnx8hi (TARGET_SVE && 16 >= 64)
+#define HAVE_aarch64_sve_fixuns_trunc_nontruncvnx2dfvnx8hi (TARGET_SVE && 16 >= 64)
 #define HAVE_aarch64_sve_fix_trunc_nontruncvnx8hfvnx4si (TARGET_SVE && 32 >= 16)
 #define HAVE_aarch64_sve_fixuns_trunc_nontruncvnx8hfvnx4si (TARGET_SVE && 32 >= 16)
 #define HAVE_aarch64_sve_fix_trunc_nontruncvnx4sfvnx4si (TARGET_SVE && 32 >= 32)
 #define HAVE_aarch64_sve_fixuns_trunc_nontruncvnx4sfvnx4si (TARGET_SVE && 32 >= 32)
+#define HAVE_aarch64_sve_fix_trunc_nontruncvnx2dfvnx4si (TARGET_SVE && 32 >= 64)
+#define HAVE_aarch64_sve_fixuns_trunc_nontruncvnx2dfvnx4si (TARGET_SVE && 32 >= 64)
 #define HAVE_aarch64_sve_fix_trunc_nontruncvnx8hfvnx2di (TARGET_SVE && 64 >= 16)
 #define HAVE_aarch64_sve_fixuns_trunc_nontruncvnx8hfvnx2di (TARGET_SVE && 64 >= 16)
 #define HAVE_aarch64_sve_fix_trunc_nontruncvnx4sfvnx2di (TARGET_SVE && 64 >= 32)
@@ -6250,10 +6861,16 @@
 #define HAVE_aarch64_sve_fixuns_trunc_truncvnx2dfvnx4si (TARGET_SVE)
 #define HAVE_aarch64_sve_float_nonextendvnx8hivnx8hf (TARGET_SVE && 16 >= 16)
 #define HAVE_aarch64_sve_floatuns_nonextendvnx8hivnx8hf (TARGET_SVE && 16 >= 16)
+#define HAVE_aarch64_sve_float_nonextendvnx8hivnx4sf (TARGET_SVE && 16 >= 32)
+#define HAVE_aarch64_sve_floatuns_nonextendvnx8hivnx4sf (TARGET_SVE && 16 >= 32)
+#define HAVE_aarch64_sve_float_nonextendvnx8hivnx2df (TARGET_SVE && 16 >= 64)
+#define HAVE_aarch64_sve_floatuns_nonextendvnx8hivnx2df (TARGET_SVE && 16 >= 64)
 #define HAVE_aarch64_sve_float_nonextendvnx4sivnx8hf (TARGET_SVE && 32 >= 16)
 #define HAVE_aarch64_sve_floatuns_nonextendvnx4sivnx8hf (TARGET_SVE && 32 >= 16)
 #define HAVE_aarch64_sve_float_nonextendvnx4sivnx4sf (TARGET_SVE && 32 >= 32)
 #define HAVE_aarch64_sve_floatuns_nonextendvnx4sivnx4sf (TARGET_SVE && 32 >= 32)
+#define HAVE_aarch64_sve_float_nonextendvnx4sivnx2df (TARGET_SVE && 32 >= 64)
+#define HAVE_aarch64_sve_floatuns_nonextendvnx4sivnx2df (TARGET_SVE && 32 >= 64)
 #define HAVE_aarch64_sve_float_nonextendvnx2divnx8hf (TARGET_SVE && 64 >= 16)
 #define HAVE_aarch64_sve_floatuns_nonextendvnx2divnx8hf (TARGET_SVE && 64 >= 16)
 #define HAVE_aarch64_sve_float_nonextendvnx2divnx4sf (TARGET_SVE && 64 >= 32)
@@ -6264,11 +6881,13 @@
 #define HAVE_aarch64_sve_floatuns_extendvnx4sivnx2df (TARGET_SVE)
 #define HAVE_aarch64_sve_fcvt_truncvnx4sfvnx8hf (TARGET_SVE && 32 > 16)
 #define HAVE_aarch64_sve_fcvt_truncvnx2dfvnx8hf (TARGET_SVE && 64 > 16)
+#define HAVE_aarch64_sve_fcvt_truncvnx4sfvnx4sf (TARGET_SVE && 32 > 32)
 #define HAVE_aarch64_sve_fcvt_truncvnx2dfvnx4sf (TARGET_SVE && 64 > 32)
 #define HAVE_aarch64_sve_fcvt_truncvnx4sfvnx8bf (TARGET_SVE_BF16)
 #define HAVE_aarch64_sve_cvtntvnx8bf (TARGET_SVE_BF16)
 #define HAVE_aarch64_sve_fcvt_nontruncvnx8hfvnx4sf (TARGET_SVE && 32 > 16)
 #define HAVE_aarch64_sve_fcvt_nontruncvnx8hfvnx2df (TARGET_SVE && 64 > 16)
+#define HAVE_aarch64_sve_fcvt_nontruncvnx4sfvnx4sf (TARGET_SVE && 32 > 32)
 #define HAVE_aarch64_sve_fcvt_nontruncvnx4sfvnx2df (TARGET_SVE && 64 > 32)
 #define HAVE_vec_pack_trunc_vnx8bi (TARGET_SVE)
 #define HAVE_vec_pack_trunc_vnx4bi (TARGET_SVE)
@@ -6286,8 +6905,11 @@
 #define HAVE_aarch64_brkpb (TARGET_SVE)
 #define HAVE_aarch64_sve_pfirstvnx16bi (TARGET_SVE && 8 >= 8)
 #define HAVE_aarch64_sve_pnextvnx16bi (TARGET_SVE && 64 >= 8)
+#define HAVE_aarch64_sve_pfirstvnx8bi (TARGET_SVE && 8 >= 16)
 #define HAVE_aarch64_sve_pnextvnx8bi (TARGET_SVE && 64 >= 16)
+#define HAVE_aarch64_sve_pfirstvnx4bi (TARGET_SVE && 8 >= 32)
 #define HAVE_aarch64_sve_pnextvnx4bi (TARGET_SVE && 64 >= 32)
+#define HAVE_aarch64_sve_pfirstvnx2bi (TARGET_SVE && 8 >= 64)
 #define HAVE_aarch64_sve_pnextvnx2bi (TARGET_SVE && 64 >= 64)
 #define HAVE_aarch64_sve_cnt_pat (TARGET_SVE)
 #define HAVE_aarch64_sve_incdi_pat (TARGET_SVE)
@@ -6464,24 +7086,66 @@
 #define HAVE_aarch64_gather_ldntvnx2di (TARGET_SVE2 && TARGET_NON_STREAMING)
 #define HAVE_aarch64_gather_ldntvnx4sf (TARGET_SVE2 && TARGET_NON_STREAMING)
 #define HAVE_aarch64_gather_ldntvnx2df (TARGET_SVE2 && TARGET_NON_STREAMING)
+#define HAVE_aarch64_gather_ldnt_extendvnx4sivnx8qi (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x81) == 0)
+#define HAVE_aarch64_gather_ldnt_zero_extendvnx4sivnx8qi (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x81) == 0)
 #define HAVE_aarch64_gather_ldnt_extendvnx4sivnx4qi (TARGET_SVE2 \
    && TARGET_NON_STREAMING \
    && (~0x43 & 0x41) == 0)
 #define HAVE_aarch64_gather_ldnt_zero_extendvnx4sivnx4qi (TARGET_SVE2 \
    && TARGET_NON_STREAMING \
    && (~0x43 & 0x41) == 0)
+#define HAVE_aarch64_gather_ldnt_extendvnx4sivnx2qi (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x21) == 0)
+#define HAVE_aarch64_gather_ldnt_zero_extendvnx4sivnx2qi (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x21) == 0)
 #define HAVE_aarch64_gather_ldnt_extendvnx4sivnx4hi (TARGET_SVE2 \
    && TARGET_NON_STREAMING \
    && (~0x43 & 0x42) == 0)
 #define HAVE_aarch64_gather_ldnt_zero_extendvnx4sivnx4hi (TARGET_SVE2 \
    && TARGET_NON_STREAMING \
    && (~0x43 & 0x42) == 0)
+#define HAVE_aarch64_gather_ldnt_extendvnx4sivnx2hi (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x22) == 0)
+#define HAVE_aarch64_gather_ldnt_zero_extendvnx4sivnx2hi (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x22) == 0)
+#define HAVE_aarch64_gather_ldnt_extendvnx4sivnx2si (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x24) == 0)
+#define HAVE_aarch64_gather_ldnt_zero_extendvnx4sivnx2si (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x24) == 0)
+#define HAVE_aarch64_gather_ldnt_extendvnx2divnx8qi (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x81) == 0)
+#define HAVE_aarch64_gather_ldnt_zero_extendvnx2divnx8qi (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x81) == 0)
+#define HAVE_aarch64_gather_ldnt_extendvnx2divnx4qi (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x41) == 0)
+#define HAVE_aarch64_gather_ldnt_zero_extendvnx2divnx4qi (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x41) == 0)
 #define HAVE_aarch64_gather_ldnt_extendvnx2divnx2qi (TARGET_SVE2 \
    && TARGET_NON_STREAMING \
    && (~0x27 & 0x21) == 0)
 #define HAVE_aarch64_gather_ldnt_zero_extendvnx2divnx2qi (TARGET_SVE2 \
    && TARGET_NON_STREAMING \
    && (~0x27 & 0x21) == 0)
+#define HAVE_aarch64_gather_ldnt_extendvnx2divnx4hi (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x42) == 0)
+#define HAVE_aarch64_gather_ldnt_zero_extendvnx2divnx4hi (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x42) == 0)
 #define HAVE_aarch64_gather_ldnt_extendvnx2divnx2hi (TARGET_SVE2 \
    && TARGET_NON_STREAMING \
    && (~0x27 & 0x22) == 0)
@@ -6658,15 +7322,36 @@
 #define HAVE_aarch64_scatter_stntvnx2di (TARGET_SVE && TARGET_NON_STREAMING)
 #define HAVE_aarch64_scatter_stntvnx4sf (TARGET_SVE && TARGET_NON_STREAMING)
 #define HAVE_aarch64_scatter_stntvnx2df (TARGET_SVE && TARGET_NON_STREAMING)
+#define HAVE_aarch64_scatter_stnt_vnx4sivnx8qi (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x81) == 0)
 #define HAVE_aarch64_scatter_stnt_vnx4sivnx4qi (TARGET_SVE2 \
    && TARGET_NON_STREAMING \
    && (~0x43 & 0x41) == 0)
+#define HAVE_aarch64_scatter_stnt_vnx4sivnx2qi (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x21) == 0)
 #define HAVE_aarch64_scatter_stnt_vnx4sivnx4hi (TARGET_SVE2 \
    && TARGET_NON_STREAMING \
    && (~0x43 & 0x42) == 0)
+#define HAVE_aarch64_scatter_stnt_vnx4sivnx2hi (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x22) == 0)
+#define HAVE_aarch64_scatter_stnt_vnx4sivnx2si (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x43 & 0x24) == 0)
+#define HAVE_aarch64_scatter_stnt_vnx2divnx8qi (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x81) == 0)
+#define HAVE_aarch64_scatter_stnt_vnx2divnx4qi (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x41) == 0)
 #define HAVE_aarch64_scatter_stnt_vnx2divnx2qi (TARGET_SVE2 \
    && TARGET_NON_STREAMING \
    && (~0x27 & 0x21) == 0)
+#define HAVE_aarch64_scatter_stnt_vnx2divnx4hi (TARGET_SVE2 \
+   && TARGET_NON_STREAMING \
+   && (~0x27 & 0x42) == 0)
 #define HAVE_aarch64_scatter_stnt_vnx2divnx2hi (TARGET_SVE2 \
    && TARGET_NON_STREAMING \
    && (~0x27 & 0x22) == 0)
@@ -7961,24 +8646,54 @@
 #define HAVE_aarch64_sme_udotvnx4sivnx16hi (TARGET_STREAMING_SME2 \
    && (32 == 32 || 16 == 16) \
    && (16 == 8 || true))
+#define HAVE_aarch64_sme_usdotvnx4sivnx16hi (TARGET_STREAMING_SME2 \
+   && (32 == 32 || 16 == 16) \
+   && (16 == 8 || false))
 #define HAVE_aarch64_sme_sdotvnx4sivnx32hi (TARGET_STREAMING_SME2 \
    && (32 == 32 || 16 == 16) \
    && (16 == 8 || true))
 #define HAVE_aarch64_sme_udotvnx4sivnx32hi (TARGET_STREAMING_SME2 \
    && (32 == 32 || 16 == 16) \
    && (16 == 8 || true))
+#define HAVE_aarch64_sme_usdotvnx4sivnx32hi (TARGET_STREAMING_SME2 \
+   && (32 == 32 || 16 == 16) \
+   && (16 == 8 || false))
+#define HAVE_aarch64_sme_sdotvnx2divnx32qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_udotvnx2divnx32qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_usdotvnx2divnx32qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || false)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_sdotvnx2divnx64qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_udotvnx2divnx64qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_usdotvnx2divnx64qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || false)) && (TARGET_SME_I16I64))
 #define HAVE_aarch64_sme_sdotvnx2divnx16hi ((TARGET_STREAMING_SME2 \
    && (64 == 32 || 16 == 16) \
    && (16 == 8 || true)) && (TARGET_SME_I16I64))
 #define HAVE_aarch64_sme_udotvnx2divnx16hi ((TARGET_STREAMING_SME2 \
    && (64 == 32 || 16 == 16) \
    && (16 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_usdotvnx2divnx16hi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 16 == 16) \
+   && (16 == 8 || false)) && (TARGET_SME_I16I64))
 #define HAVE_aarch64_sme_sdotvnx2divnx32hi ((TARGET_STREAMING_SME2 \
    && (64 == 32 || 16 == 16) \
    && (16 == 8 || true)) && (TARGET_SME_I16I64))
 #define HAVE_aarch64_sme_udotvnx2divnx32hi ((TARGET_STREAMING_SME2 \
    && (64 == 32 || 16 == 16) \
    && (16 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_usdotvnx2divnx32hi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 16 == 16) \
+   && (16 == 8 || false)) && (TARGET_SME_I16I64))
 #define HAVE_aarch64_sme_single_sdotvnx4sivnx32qi (TARGET_STREAMING_SME2 \
    && (32 == 32 || 8 == 16) \
    && (8 == 8 || true))
@@ -8003,24 +8718,54 @@
 #define HAVE_aarch64_sme_single_udotvnx4sivnx16hi (TARGET_STREAMING_SME2 \
    && (32 == 32 || 16 == 16) \
    && (16 == 8 || true))
+#define HAVE_aarch64_sme_single_usdotvnx4sivnx16hi (TARGET_STREAMING_SME2 \
+   && (32 == 32 || 16 == 16) \
+   && (16 == 8 || false))
 #define HAVE_aarch64_sme_single_sdotvnx4sivnx32hi (TARGET_STREAMING_SME2 \
    && (32 == 32 || 16 == 16) \
    && (16 == 8 || true))
 #define HAVE_aarch64_sme_single_udotvnx4sivnx32hi (TARGET_STREAMING_SME2 \
    && (32 == 32 || 16 == 16) \
    && (16 == 8 || true))
+#define HAVE_aarch64_sme_single_usdotvnx4sivnx32hi (TARGET_STREAMING_SME2 \
+   && (32 == 32 || 16 == 16) \
+   && (16 == 8 || false))
+#define HAVE_aarch64_sme_single_sdotvnx2divnx32qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_single_udotvnx2divnx32qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_single_usdotvnx2divnx32qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || false)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_single_sdotvnx2divnx64qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_single_udotvnx2divnx64qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_single_usdotvnx2divnx64qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || false)) && (TARGET_SME_I16I64))
 #define HAVE_aarch64_sme_single_sdotvnx2divnx16hi ((TARGET_STREAMING_SME2 \
    && (64 == 32 || 16 == 16) \
    && (16 == 8 || true)) && (TARGET_SME_I16I64))
 #define HAVE_aarch64_sme_single_udotvnx2divnx16hi ((TARGET_STREAMING_SME2 \
    && (64 == 32 || 16 == 16) \
    && (16 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_single_usdotvnx2divnx16hi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 16 == 16) \
+   && (16 == 8 || false)) && (TARGET_SME_I16I64))
 #define HAVE_aarch64_sme_single_sdotvnx2divnx32hi ((TARGET_STREAMING_SME2 \
    && (64 == 32 || 16 == 16) \
    && (16 == 8 || true)) && (TARGET_SME_I16I64))
 #define HAVE_aarch64_sme_single_udotvnx2divnx32hi ((TARGET_STREAMING_SME2 \
    && (64 == 32 || 16 == 16) \
    && (16 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_single_usdotvnx2divnx32hi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 16 == 16) \
+   && (16 == 8 || false)) && (TARGET_SME_I16I64))
 #define HAVE_aarch64_sme_single_sudotvnx4sivnx32qi (TARGET_STREAMING_SME2)
 #define HAVE_aarch64_sme_single_sudotvnx4sivnx64qi (TARGET_STREAMING_SME2)
 #define HAVE_aarch64_sme_lane_sdotvnx4sivnx32qi (TARGET_STREAMING_SME2 \
@@ -8083,6 +8828,18 @@
 #define HAVE_aarch64_sme_lane_uvdotvnx4sivnx16hi (TARGET_STREAMING_SME2 \
    && (32 == 32 || 16 == 16) \
    && (16 == 8 || true))
+#define HAVE_aarch64_sme_lane_sudotvnx4sivnx16hi (TARGET_STREAMING_SME2 \
+   && (32 == 32 || 16 == 16) \
+   && (16 == 8 || false))
+#define HAVE_aarch64_sme_lane_suvdotvnx4sivnx16hi (TARGET_STREAMING_SME2 \
+   && (32 == 32 || 16 == 16) \
+   && (16 == 8 || false))
+#define HAVE_aarch64_sme_lane_usdotvnx4sivnx16hi (TARGET_STREAMING_SME2 \
+   && (32 == 32 || 16 == 16) \
+   && (16 == 8 || false))
+#define HAVE_aarch64_sme_lane_usvdotvnx4sivnx16hi (TARGET_STREAMING_SME2 \
+   && (32 == 32 || 16 == 16) \
+   && (16 == 8 || false))
 #define HAVE_aarch64_sme_lane_sdotvnx4sivnx32hi (TARGET_STREAMING_SME2 \
    && (32 == 32 || 16 == 16) \
    && (16 == 8 || true))
@@ -8095,6 +8852,66 @@
 #define HAVE_aarch64_sme_lane_uvdotvnx4sivnx32hi (TARGET_STREAMING_SME2 \
    && (32 == 32 || 16 == 16) \
    && (16 == 8 || true))
+#define HAVE_aarch64_sme_lane_sudotvnx4sivnx32hi (TARGET_STREAMING_SME2 \
+   && (32 == 32 || 16 == 16) \
+   && (16 == 8 || false))
+#define HAVE_aarch64_sme_lane_suvdotvnx4sivnx32hi (TARGET_STREAMING_SME2 \
+   && (32 == 32 || 16 == 16) \
+   && (16 == 8 || false))
+#define HAVE_aarch64_sme_lane_usdotvnx4sivnx32hi (TARGET_STREAMING_SME2 \
+   && (32 == 32 || 16 == 16) \
+   && (16 == 8 || false))
+#define HAVE_aarch64_sme_lane_usvdotvnx4sivnx32hi (TARGET_STREAMING_SME2 \
+   && (32 == 32 || 16 == 16) \
+   && (16 == 8 || false))
+#define HAVE_aarch64_sme_lane_sdotvnx2divnx32qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_svdotvnx2divnx32qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_udotvnx2divnx32qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_uvdotvnx2divnx32qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_sudotvnx2divnx32qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || false)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_suvdotvnx2divnx32qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || false)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_usdotvnx2divnx32qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || false)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_usvdotvnx2divnx32qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || false)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_sdotvnx2divnx64qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_svdotvnx2divnx64qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_udotvnx2divnx64qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_uvdotvnx2divnx64qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_sudotvnx2divnx64qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || false)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_suvdotvnx2divnx64qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || false)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_usdotvnx2divnx64qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || false)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_usvdotvnx2divnx64qi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 8 == 16) \
+   && (8 == 8 || false)) && (TARGET_SME_I16I64))
 #define HAVE_aarch64_sme_lane_sdotvnx2divnx16hi ((TARGET_STREAMING_SME2 \
    && (64 == 32 || 16 == 16) \
    && (16 == 8 || true)) && (TARGET_SME_I16I64))
@@ -8107,6 +8924,18 @@
 #define HAVE_aarch64_sme_lane_uvdotvnx2divnx16hi ((TARGET_STREAMING_SME2 \
    && (64 == 32 || 16 == 16) \
    && (16 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_sudotvnx2divnx16hi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 16 == 16) \
+   && (16 == 8 || false)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_suvdotvnx2divnx16hi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 16 == 16) \
+   && (16 == 8 || false)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_usdotvnx2divnx16hi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 16 == 16) \
+   && (16 == 8 || false)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_usvdotvnx2divnx16hi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 16 == 16) \
+   && (16 == 8 || false)) && (TARGET_SME_I16I64))
 #define HAVE_aarch64_sme_lane_sdotvnx2divnx32hi ((TARGET_STREAMING_SME2 \
    && (64 == 32 || 16 == 16) \
    && (16 == 8 || true)) && (TARGET_SME_I16I64))
@@ -8119,6 +8948,18 @@
 #define HAVE_aarch64_sme_lane_uvdotvnx2divnx32hi ((TARGET_STREAMING_SME2 \
    && (64 == 32 || 16 == 16) \
    && (16 == 8 || true)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_sudotvnx2divnx32hi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 16 == 16) \
+   && (16 == 8 || false)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_suvdotvnx2divnx32hi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 16 == 16) \
+   && (16 == 8 || false)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_usdotvnx2divnx32hi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 16 == 16) \
+   && (16 == 8 || false)) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_lane_usvdotvnx2divnx32hi ((TARGET_STREAMING_SME2 \
+   && (64 == 32 || 16 == 16) \
+   && (16 == 8 || false)) && (TARGET_SME_I16I64))
 #define HAVE_aarch64_sme_smlavnx4sivnx16qi (TARGET_STREAMING_SME2)
 #define HAVE_aarch64_sme_smlsvnx4sivnx16qi (TARGET_STREAMING_SME2)
 #define HAVE_aarch64_sme_umlavnx4sivnx16qi (TARGET_STREAMING_SME2)
@@ -8259,18 +9100,42 @@
 #define HAVE_aarch64_sme_fmlsvnx4sivnx8sf (TARGET_SME2 \
    && TARGET_STREAMING_SME \
    && 32 == 32)
+#define HAVE_aarch64_sme_fmlavnx4sivnx4df ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 32 == 64) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_fmlsvnx4sivnx4df ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 32 == 64) && (TARGET_SME_F64F64))
 #define HAVE_aarch64_sme_fmlavnx4sivnx16sf (TARGET_SME2 \
    && TARGET_STREAMING_SME \
    && 32 == 32)
 #define HAVE_aarch64_sme_fmlsvnx4sivnx16sf (TARGET_SME2 \
    && TARGET_STREAMING_SME \
    && 32 == 32)
+#define HAVE_aarch64_sme_fmlavnx4sivnx8df ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 32 == 64) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_fmlsvnx4sivnx8df ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 32 == 64) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_fmlavnx2divnx8sf ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 64 == 32) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_fmlsvnx2divnx8sf ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 64 == 32) && (TARGET_SME_F64F64))
 #define HAVE_aarch64_sme_fmlavnx2divnx4df ((TARGET_SME2 \
    && TARGET_STREAMING_SME \
    && 64 == 64) && (TARGET_SME_F64F64))
 #define HAVE_aarch64_sme_fmlsvnx2divnx4df ((TARGET_SME2 \
    && TARGET_STREAMING_SME \
    && 64 == 64) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_fmlavnx2divnx16sf ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 64 == 32) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_fmlsvnx2divnx16sf ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 64 == 32) && (TARGET_SME_F64F64))
 #define HAVE_aarch64_sme_fmlavnx2divnx8df ((TARGET_SME2 \
    && TARGET_STREAMING_SME \
    && 64 == 64) && (TARGET_SME_F64F64))
@@ -8283,18 +9148,42 @@
 #define HAVE_aarch64_sme_single_fmlsvnx4sivnx8sf (TARGET_SME2 \
    && TARGET_STREAMING_SME \
    && 32 == 32)
+#define HAVE_aarch64_sme_single_fmlavnx4sivnx4df ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 32 == 64) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_single_fmlsvnx4sivnx4df ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 32 == 64) && (TARGET_SME_F64F64))
 #define HAVE_aarch64_sme_single_fmlavnx4sivnx16sf (TARGET_SME2 \
    && TARGET_STREAMING_SME \
    && 32 == 32)
 #define HAVE_aarch64_sme_single_fmlsvnx4sivnx16sf (TARGET_SME2 \
    && TARGET_STREAMING_SME \
    && 32 == 32)
+#define HAVE_aarch64_sme_single_fmlavnx4sivnx8df ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 32 == 64) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_single_fmlsvnx4sivnx8df ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 32 == 64) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_single_fmlavnx2divnx8sf ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 64 == 32) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_single_fmlsvnx2divnx8sf ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 64 == 32) && (TARGET_SME_F64F64))
 #define HAVE_aarch64_sme_single_fmlavnx2divnx4df ((TARGET_SME2 \
    && TARGET_STREAMING_SME \
    && 64 == 64) && (TARGET_SME_F64F64))
 #define HAVE_aarch64_sme_single_fmlsvnx2divnx4df ((TARGET_SME2 \
    && TARGET_STREAMING_SME \
    && 64 == 64) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_single_fmlavnx2divnx16sf ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 64 == 32) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_single_fmlsvnx2divnx16sf ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 64 == 32) && (TARGET_SME_F64F64))
 #define HAVE_aarch64_sme_single_fmlavnx2divnx8df ((TARGET_SME2 \
    && TARGET_STREAMING_SME \
    && 64 == 64) && (TARGET_SME_F64F64))
@@ -8307,18 +9196,42 @@
 #define HAVE_aarch64_sme_lane_fmlsvnx4sivnx8sf (TARGET_SME2 \
    && TARGET_STREAMING_SME \
    && 32 == 32)
+#define HAVE_aarch64_sme_lane_fmlavnx4sivnx4df ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 32 == 64) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_lane_fmlsvnx4sivnx4df ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 32 == 64) && (TARGET_SME_F64F64))
 #define HAVE_aarch64_sme_lane_fmlavnx4sivnx16sf (TARGET_SME2 \
    && TARGET_STREAMING_SME \
    && 32 == 32)
 #define HAVE_aarch64_sme_lane_fmlsvnx4sivnx16sf (TARGET_SME2 \
    && TARGET_STREAMING_SME \
    && 32 == 32)
+#define HAVE_aarch64_sme_lane_fmlavnx4sivnx8df ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 32 == 64) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_lane_fmlsvnx4sivnx8df ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 32 == 64) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_lane_fmlavnx2divnx8sf ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 64 == 32) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_lane_fmlsvnx2divnx8sf ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 64 == 32) && (TARGET_SME_F64F64))
 #define HAVE_aarch64_sme_lane_fmlavnx2divnx4df ((TARGET_SME2 \
    && TARGET_STREAMING_SME \
    && 64 == 64) && (TARGET_SME_F64F64))
 #define HAVE_aarch64_sme_lane_fmlsvnx2divnx4df ((TARGET_SME2 \
    && TARGET_STREAMING_SME \
    && 64 == 64) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_lane_fmlavnx2divnx16sf ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 64 == 32) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_lane_fmlsvnx2divnx16sf ((TARGET_SME2 \
+   && TARGET_STREAMING_SME \
+   && 64 == 32) && (TARGET_SME_F64F64))
 #define HAVE_aarch64_sme_lane_fmlavnx2divnx8df ((TARGET_SME2 \
    && TARGET_STREAMING_SME \
    && 64 == 64) && (TARGET_SME_F64F64))
@@ -8361,14 +9274,30 @@
    && (32 == 32) == (16 <= 32))
 #define HAVE_aarch64_sme_fmopsvnx4sivnx8bf (TARGET_STREAMING_SME \
    && (32 == 32) == (16 <= 32))
+#define HAVE_aarch64_sme_fmopavnx2divnx8bf ((TARGET_STREAMING_SME \
+   && (64 == 32) == (16 <= 32)) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_fmopsvnx2divnx8bf ((TARGET_STREAMING_SME \
+   && (64 == 32) == (16 <= 32)) && (TARGET_SME_F64F64))
 #define HAVE_aarch64_sme_fmopavnx4sivnx8hf (TARGET_STREAMING_SME \
    && (32 == 32) == (16 <= 32))
 #define HAVE_aarch64_sme_fmopsvnx4sivnx8hf (TARGET_STREAMING_SME \
    && (32 == 32) == (16 <= 32))
+#define HAVE_aarch64_sme_fmopavnx2divnx8hf ((TARGET_STREAMING_SME \
+   && (64 == 32) == (16 <= 32)) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_fmopsvnx2divnx8hf ((TARGET_STREAMING_SME \
+   && (64 == 32) == (16 <= 32)) && (TARGET_SME_F64F64))
 #define HAVE_aarch64_sme_fmopavnx4sivnx4sf (TARGET_STREAMING_SME \
    && (32 == 32) == (32 <= 32))
 #define HAVE_aarch64_sme_fmopsvnx4sivnx4sf (TARGET_STREAMING_SME \
    && (32 == 32) == (32 <= 32))
+#define HAVE_aarch64_sme_fmopavnx2divnx4sf ((TARGET_STREAMING_SME \
+   && (64 == 32) == (32 <= 32)) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_fmopsvnx2divnx4sf ((TARGET_STREAMING_SME \
+   && (64 == 32) == (32 <= 32)) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_fmopavnx4sivnx2df ((TARGET_STREAMING_SME \
+   && (32 == 32) == (64 <= 32)) && (TARGET_SME_F64F64))
+#define HAVE_aarch64_sme_fmopsvnx4sivnx2df ((TARGET_STREAMING_SME \
+   && (32 == 32) == (64 <= 32)) && (TARGET_SME_F64F64))
 #define HAVE_aarch64_sme_fmopavnx2divnx2df ((TARGET_STREAMING_SME \
    && (64 == 32) == (64 <= 32)) && (TARGET_SME_F64F64))
 #define HAVE_aarch64_sme_fmopsvnx2divnx2df ((TARGET_STREAMING_SME \
@@ -8411,6 +9340,8 @@
    && !(4 == 4 && 2 == 4 && 32 == 8))
 #define HAVE_aarch64_sme_lut2vnx64qi (TARGET_STREAMING_SME2 \
    && !(2 == 4 && 4 == 4 && 8 == 8))
+#define HAVE_aarch64_sme_lut4vnx64qi (TARGET_STREAMING_SME2 \
+   && !(4 == 4 && 4 == 4 && 8 == 8))
 #define HAVE_aarch64_sme_lut2vnx32hi (TARGET_STREAMING_SME2 \
    && !(2 == 4 && 4 == 4 && 16 == 8))
 #define HAVE_aarch64_sme_lut4vnx32hi (TARGET_STREAMING_SME2 \
@@ -8566,10 +9497,10 @@
 #define HAVE_insvdi 1
 #define HAVE_aarch64_rev16si 1
 #define HAVE_aarch64_rev16di 1
-#define HAVE_fmahf4 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
+#define HAVE_fmahf4 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
 #define HAVE_fmasf4 (TARGET_FLOAT)
 #define HAVE_fmadf4 (TARGET_FLOAT)
-#define HAVE_fnmahf4 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
+#define HAVE_fnmahf4 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
 #define HAVE_fnmasf4 (TARGET_FLOAT)
 #define HAVE_fnmadf4 (TARGET_FLOAT)
 #define HAVE_fmssf4 (TARGET_FLOAT)
@@ -8580,10 +9511,10 @@
 #define HAVE_floatunssihf2 (TARGET_FLOAT)
 #define HAVE_floatdihf2 (TARGET_FP_F16INST || TARGET_SIMD)
 #define HAVE_floatunsdihf2 (TARGET_FP_F16INST || TARGET_SIMD)
-#define HAVE_divhf3 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
+#define HAVE_divhf3 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
 #define HAVE_divsf3 (TARGET_FLOAT)
 #define HAVE_divdf3 (TARGET_FLOAT)
-#define HAVE_sqrthf2 ((TARGET_FLOAT) && (AARCH64_ISA_F16))
+#define HAVE_sqrthf2 ((TARGET_FLOAT) && (TARGET_FP_F16INST))
 #define HAVE_sqrtsf2 (TARGET_FLOAT)
 #define HAVE_sqrtdf2 (TARGET_FLOAT)
 #define HAVE_smaxsi3 1
@@ -9447,14 +10378,20 @@
 #define HAVE_aarch64_sqrshrun_nv4si (TARGET_SIMD)
 #define HAVE_aarch64_sqrshrun_nv2di (TARGET_SIMD)
 #define HAVE_aarch64_sqsshrn2_nv8hi (TARGET_SIMD && AARCH64_VALID_SHRN_OP (SS_TRUNCATE, ASHIFTRT))
+#define HAVE_aarch64_squshrn2_nv8hi (TARGET_SIMD && AARCH64_VALID_SHRN_OP (SS_TRUNCATE, LSHIFTRT))
+#define HAVE_aarch64_uqsshrn2_nv8hi (TARGET_SIMD && AARCH64_VALID_SHRN_OP (US_TRUNCATE, ASHIFTRT))
 #define HAVE_aarch64_uqushrn2_nv8hi (TARGET_SIMD && AARCH64_VALID_SHRN_OP (US_TRUNCATE, LSHIFTRT))
 #define HAVE_aarch64_sshrn2_nv8hi (TARGET_SIMD && AARCH64_VALID_SHRN_OP (TRUNCATE, ASHIFTRT))
 #define HAVE_aarch64_ushrn2_nv8hi (TARGET_SIMD && AARCH64_VALID_SHRN_OP (TRUNCATE, LSHIFTRT))
 #define HAVE_aarch64_sqsshrn2_nv4si (TARGET_SIMD && AARCH64_VALID_SHRN_OP (SS_TRUNCATE, ASHIFTRT))
+#define HAVE_aarch64_squshrn2_nv4si (TARGET_SIMD && AARCH64_VALID_SHRN_OP (SS_TRUNCATE, LSHIFTRT))
+#define HAVE_aarch64_uqsshrn2_nv4si (TARGET_SIMD && AARCH64_VALID_SHRN_OP (US_TRUNCATE, ASHIFTRT))
 #define HAVE_aarch64_uqushrn2_nv4si (TARGET_SIMD && AARCH64_VALID_SHRN_OP (US_TRUNCATE, LSHIFTRT))
 #define HAVE_aarch64_sshrn2_nv4si (TARGET_SIMD && AARCH64_VALID_SHRN_OP (TRUNCATE, ASHIFTRT))
 #define HAVE_aarch64_ushrn2_nv4si (TARGET_SIMD && AARCH64_VALID_SHRN_OP (TRUNCATE, LSHIFTRT))
 #define HAVE_aarch64_sqsshrn2_nv2di (TARGET_SIMD && AARCH64_VALID_SHRN_OP (SS_TRUNCATE, ASHIFTRT))
+#define HAVE_aarch64_squshrn2_nv2di (TARGET_SIMD && AARCH64_VALID_SHRN_OP (SS_TRUNCATE, LSHIFTRT))
+#define HAVE_aarch64_uqsshrn2_nv2di (TARGET_SIMD && AARCH64_VALID_SHRN_OP (US_TRUNCATE, ASHIFTRT))
 #define HAVE_aarch64_uqushrn2_nv2di (TARGET_SIMD && AARCH64_VALID_SHRN_OP (US_TRUNCATE, LSHIFTRT))
 #define HAVE_aarch64_sshrn2_nv2di (TARGET_SIMD && AARCH64_VALID_SHRN_OP (TRUNCATE, ASHIFTRT))
 #define HAVE_aarch64_ushrn2_nv2di (TARGET_SIMD && AARCH64_VALID_SHRN_OP (TRUNCATE, LSHIFTRT))
@@ -10520,20 +11457,72 @@
 #define HAVE_cond_qnegvnx2di ((TARGET_SVE) && (TARGET_SVE2))
 #define HAVE_extendvnx8qivnx8hi2 (TARGET_SVE && (~0x81 & 0x81) == 0)
 #define HAVE_zero_extendvnx8qivnx8hi2 (TARGET_SVE && (~0x81 & 0x81) == 0)
+#define HAVE_extendvnx4qivnx8hi2 (TARGET_SVE && (~0x81 & 0x41) == 0)
+#define HAVE_zero_extendvnx4qivnx8hi2 (TARGET_SVE && (~0x81 & 0x41) == 0)
+#define HAVE_extendvnx2qivnx8hi2 (TARGET_SVE && (~0x81 & 0x21) == 0)
+#define HAVE_zero_extendvnx2qivnx8hi2 (TARGET_SVE && (~0x81 & 0x21) == 0)
+#define HAVE_extendvnx4hivnx8hi2 (TARGET_SVE && (~0x81 & 0x42) == 0)
+#define HAVE_zero_extendvnx4hivnx8hi2 (TARGET_SVE && (~0x81 & 0x42) == 0)
+#define HAVE_extendvnx2hivnx8hi2 (TARGET_SVE && (~0x81 & 0x22) == 0)
+#define HAVE_zero_extendvnx2hivnx8hi2 (TARGET_SVE && (~0x81 & 0x22) == 0)
+#define HAVE_extendvnx2sivnx8hi2 (TARGET_SVE && (~0x81 & 0x24) == 0)
+#define HAVE_zero_extendvnx2sivnx8hi2 (TARGET_SVE && (~0x81 & 0x24) == 0)
+#define HAVE_extendvnx8qivnx4hi2 (TARGET_SVE && (~0x41 & 0x81) == 0)
+#define HAVE_zero_extendvnx8qivnx4hi2 (TARGET_SVE && (~0x41 & 0x81) == 0)
 #define HAVE_extendvnx4qivnx4hi2 (TARGET_SVE && (~0x41 & 0x41) == 0)
 #define HAVE_zero_extendvnx4qivnx4hi2 (TARGET_SVE && (~0x41 & 0x41) == 0)
+#define HAVE_extendvnx2qivnx4hi2 (TARGET_SVE && (~0x41 & 0x21) == 0)
+#define HAVE_zero_extendvnx2qivnx4hi2 (TARGET_SVE && (~0x41 & 0x21) == 0)
+#define HAVE_extendvnx4hivnx4hi2 (TARGET_SVE && (~0x41 & 0x42) == 0)
+#define HAVE_zero_extendvnx4hivnx4hi2 (TARGET_SVE && (~0x41 & 0x42) == 0)
+#define HAVE_extendvnx2hivnx4hi2 (TARGET_SVE && (~0x41 & 0x22) == 0)
+#define HAVE_zero_extendvnx2hivnx4hi2 (TARGET_SVE && (~0x41 & 0x22) == 0)
+#define HAVE_extendvnx2sivnx4hi2 (TARGET_SVE && (~0x41 & 0x24) == 0)
+#define HAVE_zero_extendvnx2sivnx4hi2 (TARGET_SVE && (~0x41 & 0x24) == 0)
+#define HAVE_extendvnx8qivnx2hi2 (TARGET_SVE && (~0x21 & 0x81) == 0)
+#define HAVE_zero_extendvnx8qivnx2hi2 (TARGET_SVE && (~0x21 & 0x81) == 0)
+#define HAVE_extendvnx4qivnx2hi2 (TARGET_SVE && (~0x21 & 0x41) == 0)
+#define HAVE_zero_extendvnx4qivnx2hi2 (TARGET_SVE && (~0x21 & 0x41) == 0)
 #define HAVE_extendvnx2qivnx2hi2 (TARGET_SVE && (~0x21 & 0x21) == 0)
 #define HAVE_zero_extendvnx2qivnx2hi2 (TARGET_SVE && (~0x21 & 0x21) == 0)
+#define HAVE_extendvnx4hivnx2hi2 (TARGET_SVE && (~0x21 & 0x42) == 0)
+#define HAVE_zero_extendvnx4hivnx2hi2 (TARGET_SVE && (~0x21 & 0x42) == 0)
+#define HAVE_extendvnx2hivnx2hi2 (TARGET_SVE && (~0x21 & 0x22) == 0)
+#define HAVE_zero_extendvnx2hivnx2hi2 (TARGET_SVE && (~0x21 & 0x22) == 0)
+#define HAVE_extendvnx2sivnx2hi2 (TARGET_SVE && (~0x21 & 0x24) == 0)
+#define HAVE_zero_extendvnx2sivnx2hi2 (TARGET_SVE && (~0x21 & 0x24) == 0)
+#define HAVE_extendvnx8qivnx4si2 (TARGET_SVE && (~0x43 & 0x81) == 0)
+#define HAVE_zero_extendvnx8qivnx4si2 (TARGET_SVE && (~0x43 & 0x81) == 0)
 #define HAVE_extendvnx4qivnx4si2 (TARGET_SVE && (~0x43 & 0x41) == 0)
 #define HAVE_zero_extendvnx4qivnx4si2 (TARGET_SVE && (~0x43 & 0x41) == 0)
+#define HAVE_extendvnx2qivnx4si2 (TARGET_SVE && (~0x43 & 0x21) == 0)
+#define HAVE_zero_extendvnx2qivnx4si2 (TARGET_SVE && (~0x43 & 0x21) == 0)
 #define HAVE_extendvnx4hivnx4si2 (TARGET_SVE && (~0x43 & 0x42) == 0)
 #define HAVE_zero_extendvnx4hivnx4si2 (TARGET_SVE && (~0x43 & 0x42) == 0)
+#define HAVE_extendvnx2hivnx4si2 (TARGET_SVE && (~0x43 & 0x22) == 0)
+#define HAVE_zero_extendvnx2hivnx4si2 (TARGET_SVE && (~0x43 & 0x22) == 0)
+#define HAVE_extendvnx2sivnx4si2 (TARGET_SVE && (~0x43 & 0x24) == 0)
+#define HAVE_zero_extendvnx2sivnx4si2 (TARGET_SVE && (~0x43 & 0x24) == 0)
+#define HAVE_extendvnx8qivnx2si2 (TARGET_SVE && (~0x23 & 0x81) == 0)
+#define HAVE_zero_extendvnx8qivnx2si2 (TARGET_SVE && (~0x23 & 0x81) == 0)
+#define HAVE_extendvnx4qivnx2si2 (TARGET_SVE && (~0x23 & 0x41) == 0)
+#define HAVE_zero_extendvnx4qivnx2si2 (TARGET_SVE && (~0x23 & 0x41) == 0)
 #define HAVE_extendvnx2qivnx2si2 (TARGET_SVE && (~0x23 & 0x21) == 0)
 #define HAVE_zero_extendvnx2qivnx2si2 (TARGET_SVE && (~0x23 & 0x21) == 0)
+#define HAVE_extendvnx4hivnx2si2 (TARGET_SVE && (~0x23 & 0x42) == 0)
+#define HAVE_zero_extendvnx4hivnx2si2 (TARGET_SVE && (~0x23 & 0x42) == 0)
 #define HAVE_extendvnx2hivnx2si2 (TARGET_SVE && (~0x23 & 0x22) == 0)
 #define HAVE_zero_extendvnx2hivnx2si2 (TARGET_SVE && (~0x23 & 0x22) == 0)
+#define HAVE_extendvnx2sivnx2si2 (TARGET_SVE && (~0x23 & 0x24) == 0)
+#define HAVE_zero_extendvnx2sivnx2si2 (TARGET_SVE && (~0x23 & 0x24) == 0)
+#define HAVE_extendvnx8qivnx2di2 (TARGET_SVE && (~0x27 & 0x81) == 0)
+#define HAVE_zero_extendvnx8qivnx2di2 (TARGET_SVE && (~0x27 & 0x81) == 0)
+#define HAVE_extendvnx4qivnx2di2 (TARGET_SVE && (~0x27 & 0x41) == 0)
+#define HAVE_zero_extendvnx4qivnx2di2 (TARGET_SVE && (~0x27 & 0x41) == 0)
 #define HAVE_extendvnx2qivnx2di2 (TARGET_SVE && (~0x27 & 0x21) == 0)
 #define HAVE_zero_extendvnx2qivnx2di2 (TARGET_SVE && (~0x27 & 0x21) == 0)
+#define HAVE_extendvnx4hivnx2di2 (TARGET_SVE && (~0x27 & 0x42) == 0)
+#define HAVE_zero_extendvnx4hivnx2di2 (TARGET_SVE && (~0x27 & 0x42) == 0)
 #define HAVE_extendvnx2hivnx2di2 (TARGET_SVE && (~0x27 & 0x22) == 0)
 #define HAVE_zero_extendvnx2hivnx2di2 (TARGET_SVE && (~0x27 & 0x22) == 0)
 #define HAVE_extendvnx2sivnx2di2 (TARGET_SVE && (~0x27 & 0x24) == 0)
@@ -10913,16 +11902,16 @@
 #define HAVE_cond_udivvnx4si (TARGET_SVE)
 #define HAVE_cond_divvnx2di (TARGET_SVE)
 #define HAVE_cond_udivvnx2di (TARGET_SVE)
-#define HAVE_aarch64_bicvnx16qi (TARGET_SVE)
-#define HAVE_aarch64_bicvnx8qi (TARGET_SVE)
-#define HAVE_aarch64_bicvnx4qi (TARGET_SVE)
-#define HAVE_aarch64_bicvnx2qi (TARGET_SVE)
-#define HAVE_aarch64_bicvnx8hi (TARGET_SVE)
-#define HAVE_aarch64_bicvnx4hi (TARGET_SVE)
-#define HAVE_aarch64_bicvnx2hi (TARGET_SVE)
-#define HAVE_aarch64_bicvnx4si (TARGET_SVE)
-#define HAVE_aarch64_bicvnx2si (TARGET_SVE)
-#define HAVE_aarch64_bicvnx2di (TARGET_SVE)
+#define HAVE_andnvnx16qi3 (TARGET_SVE)
+#define HAVE_andnvnx8qi3 (TARGET_SVE)
+#define HAVE_andnvnx4qi3 (TARGET_SVE)
+#define HAVE_andnvnx2qi3 (TARGET_SVE)
+#define HAVE_andnvnx8hi3 (TARGET_SVE)
+#define HAVE_andnvnx4hi3 (TARGET_SVE)
+#define HAVE_andnvnx2hi3 (TARGET_SVE)
+#define HAVE_andnvnx4si3 (TARGET_SVE)
+#define HAVE_andnvnx2si3 (TARGET_SVE)
+#define HAVE_andnvnx2di3 (TARGET_SVE)
 #define HAVE_cond_bicvnx16qi (TARGET_SVE)
 #define HAVE_cond_bicvnx8hi (TARGET_SVE)
 #define HAVE_cond_bicvnx4si (TARGET_SVE)
@@ -11274,120 +12263,382 @@
 #define HAVE_vcond_mask_vnx2divnx2bi (TARGET_SVE)
 #define HAVE_vcond_mask_vnx2dfvnx2bi (TARGET_SVE)
 #define HAVE_vcondvnx16qivnx16qi (TARGET_SVE && 8 == 8)
+#define HAVE_vcondvnx8qivnx16qi (TARGET_SVE && 16 == 8)
+#define HAVE_vcondvnx4qivnx16qi (TARGET_SVE && 32 == 8)
+#define HAVE_vcondvnx2qivnx16qi (TARGET_SVE && 64 == 8)
+#define HAVE_vcondvnx8hivnx16qi (TARGET_SVE && 16 == 8)
+#define HAVE_vcondvnx4hivnx16qi (TARGET_SVE && 32 == 8)
+#define HAVE_vcondvnx2hivnx16qi (TARGET_SVE && 64 == 8)
+#define HAVE_vcondvnx8hfvnx16qi (TARGET_SVE && 16 == 8)
+#define HAVE_vcondvnx4hfvnx16qi (TARGET_SVE && 32 == 8)
+#define HAVE_vcondvnx2hfvnx16qi (TARGET_SVE && 64 == 8)
+#define HAVE_vcondvnx8bfvnx16qi (TARGET_SVE && 16 == 8)
+#define HAVE_vcondvnx4bfvnx16qi (TARGET_SVE && 32 == 8)
+#define HAVE_vcondvnx2bfvnx16qi (TARGET_SVE && 64 == 8)
+#define HAVE_vcondvnx4sivnx16qi (TARGET_SVE && 32 == 8)
+#define HAVE_vcondvnx2sivnx16qi (TARGET_SVE && 64 == 8)
+#define HAVE_vcondvnx4sfvnx16qi (TARGET_SVE && 32 == 8)
+#define HAVE_vcondvnx2sfvnx16qi (TARGET_SVE && 64 == 8)
+#define HAVE_vcondvnx2divnx16qi (TARGET_SVE && 64 == 8)
+#define HAVE_vcondvnx2dfvnx16qi (TARGET_SVE && 64 == 8)
+#define HAVE_vcondvnx16qivnx8qi (TARGET_SVE && 8 == 16)
 #define HAVE_vcondvnx8qivnx8qi (TARGET_SVE && 16 == 16)
+#define HAVE_vcondvnx4qivnx8qi (TARGET_SVE && 32 == 16)
+#define HAVE_vcondvnx2qivnx8qi (TARGET_SVE && 64 == 16)
 #define HAVE_vcondvnx8hivnx8qi (TARGET_SVE && 16 == 16)
+#define HAVE_vcondvnx4hivnx8qi (TARGET_SVE && 32 == 16)
+#define HAVE_vcondvnx2hivnx8qi (TARGET_SVE && 64 == 16)
 #define HAVE_vcondvnx8hfvnx8qi (TARGET_SVE && 16 == 16)
+#define HAVE_vcondvnx4hfvnx8qi (TARGET_SVE && 32 == 16)
+#define HAVE_vcondvnx2hfvnx8qi (TARGET_SVE && 64 == 16)
 #define HAVE_vcondvnx8bfvnx8qi (TARGET_SVE && 16 == 16)
+#define HAVE_vcondvnx4bfvnx8qi (TARGET_SVE && 32 == 16)
+#define HAVE_vcondvnx2bfvnx8qi (TARGET_SVE && 64 == 16)
+#define HAVE_vcondvnx4sivnx8qi (TARGET_SVE && 32 == 16)
+#define HAVE_vcondvnx2sivnx8qi (TARGET_SVE && 64 == 16)
+#define HAVE_vcondvnx4sfvnx8qi (TARGET_SVE && 32 == 16)
+#define HAVE_vcondvnx2sfvnx8qi (TARGET_SVE && 64 == 16)
+#define HAVE_vcondvnx2divnx8qi (TARGET_SVE && 64 == 16)
+#define HAVE_vcondvnx2dfvnx8qi (TARGET_SVE && 64 == 16)
+#define HAVE_vcondvnx16qivnx4qi (TARGET_SVE && 8 == 32)
+#define HAVE_vcondvnx8qivnx4qi (TARGET_SVE && 16 == 32)
 #define HAVE_vcondvnx4qivnx4qi (TARGET_SVE && 32 == 32)
+#define HAVE_vcondvnx2qivnx4qi (TARGET_SVE && 64 == 32)
+#define HAVE_vcondvnx8hivnx4qi (TARGET_SVE && 16 == 32)
 #define HAVE_vcondvnx4hivnx4qi (TARGET_SVE && 32 == 32)
+#define HAVE_vcondvnx2hivnx4qi (TARGET_SVE && 64 == 32)
+#define HAVE_vcondvnx8hfvnx4qi (TARGET_SVE && 16 == 32)
 #define HAVE_vcondvnx4hfvnx4qi (TARGET_SVE && 32 == 32)
+#define HAVE_vcondvnx2hfvnx4qi (TARGET_SVE && 64 == 32)
+#define HAVE_vcondvnx8bfvnx4qi (TARGET_SVE && 16 == 32)
 #define HAVE_vcondvnx4bfvnx4qi (TARGET_SVE && 32 == 32)
+#define HAVE_vcondvnx2bfvnx4qi (TARGET_SVE && 64 == 32)
 #define HAVE_vcondvnx4sivnx4qi (TARGET_SVE && 32 == 32)
+#define HAVE_vcondvnx2sivnx4qi (TARGET_SVE && 64 == 32)
 #define HAVE_vcondvnx4sfvnx4qi (TARGET_SVE && 32 == 32)
+#define HAVE_vcondvnx2sfvnx4qi (TARGET_SVE && 64 == 32)
+#define HAVE_vcondvnx2divnx4qi (TARGET_SVE && 64 == 32)
+#define HAVE_vcondvnx2dfvnx4qi (TARGET_SVE && 64 == 32)
+#define HAVE_vcondvnx16qivnx2qi (TARGET_SVE && 8 == 64)
+#define HAVE_vcondvnx8qivnx2qi (TARGET_SVE && 16 == 64)
+#define HAVE_vcondvnx4qivnx2qi (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2qivnx2qi (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx8hivnx2qi (TARGET_SVE && 16 == 64)
+#define HAVE_vcondvnx4hivnx2qi (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2hivnx2qi (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx8hfvnx2qi (TARGET_SVE && 16 == 64)
+#define HAVE_vcondvnx4hfvnx2qi (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2hfvnx2qi (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx8bfvnx2qi (TARGET_SVE && 16 == 64)
+#define HAVE_vcondvnx4bfvnx2qi (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2bfvnx2qi (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx4sivnx2qi (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2sivnx2qi (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx4sfvnx2qi (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2sfvnx2qi (TARGET_SVE && 64 == 64)
 #define HAVE_vcondvnx2divnx2qi (TARGET_SVE && 64 == 64)
 #define HAVE_vcondvnx2dfvnx2qi (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx16qivnx8hi (TARGET_SVE && 8 == 16)
 #define HAVE_vcondvnx8qivnx8hi (TARGET_SVE && 16 == 16)
+#define HAVE_vcondvnx4qivnx8hi (TARGET_SVE && 32 == 16)
+#define HAVE_vcondvnx2qivnx8hi (TARGET_SVE && 64 == 16)
 #define HAVE_vcondvnx8hivnx8hi (TARGET_SVE && 16 == 16)
+#define HAVE_vcondvnx4hivnx8hi (TARGET_SVE && 32 == 16)
+#define HAVE_vcondvnx2hivnx8hi (TARGET_SVE && 64 == 16)
 #define HAVE_vcondvnx8hfvnx8hi (TARGET_SVE && 16 == 16)
+#define HAVE_vcondvnx4hfvnx8hi (TARGET_SVE && 32 == 16)
+#define HAVE_vcondvnx2hfvnx8hi (TARGET_SVE && 64 == 16)
 #define HAVE_vcondvnx8bfvnx8hi (TARGET_SVE && 16 == 16)
+#define HAVE_vcondvnx4bfvnx8hi (TARGET_SVE && 32 == 16)
+#define HAVE_vcondvnx2bfvnx8hi (TARGET_SVE && 64 == 16)
+#define HAVE_vcondvnx4sivnx8hi (TARGET_SVE && 32 == 16)
+#define HAVE_vcondvnx2sivnx8hi (TARGET_SVE && 64 == 16)
+#define HAVE_vcondvnx4sfvnx8hi (TARGET_SVE && 32 == 16)
+#define HAVE_vcondvnx2sfvnx8hi (TARGET_SVE && 64 == 16)
+#define HAVE_vcondvnx2divnx8hi (TARGET_SVE && 64 == 16)
+#define HAVE_vcondvnx2dfvnx8hi (TARGET_SVE && 64 == 16)
+#define HAVE_vcondvnx16qivnx4hi (TARGET_SVE && 8 == 32)
+#define HAVE_vcondvnx8qivnx4hi (TARGET_SVE && 16 == 32)
 #define HAVE_vcondvnx4qivnx4hi (TARGET_SVE && 32 == 32)
+#define HAVE_vcondvnx2qivnx4hi (TARGET_SVE && 64 == 32)
+#define HAVE_vcondvnx8hivnx4hi (TARGET_SVE && 16 == 32)
 #define HAVE_vcondvnx4hivnx4hi (TARGET_SVE && 32 == 32)
+#define HAVE_vcondvnx2hivnx4hi (TARGET_SVE && 64 == 32)
+#define HAVE_vcondvnx8hfvnx4hi (TARGET_SVE && 16 == 32)
 #define HAVE_vcondvnx4hfvnx4hi (TARGET_SVE && 32 == 32)
+#define HAVE_vcondvnx2hfvnx4hi (TARGET_SVE && 64 == 32)
+#define HAVE_vcondvnx8bfvnx4hi (TARGET_SVE && 16 == 32)
 #define HAVE_vcondvnx4bfvnx4hi (TARGET_SVE && 32 == 32)
+#define HAVE_vcondvnx2bfvnx4hi (TARGET_SVE && 64 == 32)
 #define HAVE_vcondvnx4sivnx4hi (TARGET_SVE && 32 == 32)
+#define HAVE_vcondvnx2sivnx4hi (TARGET_SVE && 64 == 32)
 #define HAVE_vcondvnx4sfvnx4hi (TARGET_SVE && 32 == 32)
+#define HAVE_vcondvnx2sfvnx4hi (TARGET_SVE && 64 == 32)
+#define HAVE_vcondvnx2divnx4hi (TARGET_SVE && 64 == 32)
+#define HAVE_vcondvnx2dfvnx4hi (TARGET_SVE && 64 == 32)
+#define HAVE_vcondvnx16qivnx2hi (TARGET_SVE && 8 == 64)
+#define HAVE_vcondvnx8qivnx2hi (TARGET_SVE && 16 == 64)
+#define HAVE_vcondvnx4qivnx2hi (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2qivnx2hi (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx8hivnx2hi (TARGET_SVE && 16 == 64)
+#define HAVE_vcondvnx4hivnx2hi (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2hivnx2hi (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx8hfvnx2hi (TARGET_SVE && 16 == 64)
+#define HAVE_vcondvnx4hfvnx2hi (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2hfvnx2hi (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx8bfvnx2hi (TARGET_SVE && 16 == 64)
+#define HAVE_vcondvnx4bfvnx2hi (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2bfvnx2hi (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx4sivnx2hi (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2sivnx2hi (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx4sfvnx2hi (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2sfvnx2hi (TARGET_SVE && 64 == 64)
 #define HAVE_vcondvnx2divnx2hi (TARGET_SVE && 64 == 64)
 #define HAVE_vcondvnx2dfvnx2hi (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx16qivnx4si (TARGET_SVE && 8 == 32)
+#define HAVE_vcondvnx8qivnx4si (TARGET_SVE && 16 == 32)
 #define HAVE_vcondvnx4qivnx4si (TARGET_SVE && 32 == 32)
+#define HAVE_vcondvnx2qivnx4si (TARGET_SVE && 64 == 32)
+#define HAVE_vcondvnx8hivnx4si (TARGET_SVE && 16 == 32)
 #define HAVE_vcondvnx4hivnx4si (TARGET_SVE && 32 == 32)
+#define HAVE_vcondvnx2hivnx4si (TARGET_SVE && 64 == 32)
+#define HAVE_vcondvnx8hfvnx4si (TARGET_SVE && 16 == 32)
 #define HAVE_vcondvnx4hfvnx4si (TARGET_SVE && 32 == 32)
+#define HAVE_vcondvnx2hfvnx4si (TARGET_SVE && 64 == 32)
+#define HAVE_vcondvnx8bfvnx4si (TARGET_SVE && 16 == 32)
 #define HAVE_vcondvnx4bfvnx4si (TARGET_SVE && 32 == 32)
+#define HAVE_vcondvnx2bfvnx4si (TARGET_SVE && 64 == 32)
 #define HAVE_vcondvnx4sivnx4si (TARGET_SVE && 32 == 32)
+#define HAVE_vcondvnx2sivnx4si (TARGET_SVE && 64 == 32)
 #define HAVE_vcondvnx4sfvnx4si (TARGET_SVE && 32 == 32)
+#define HAVE_vcondvnx2sfvnx4si (TARGET_SVE && 64 == 32)
+#define HAVE_vcondvnx2divnx4si (TARGET_SVE && 64 == 32)
+#define HAVE_vcondvnx2dfvnx4si (TARGET_SVE && 64 == 32)
+#define HAVE_vcondvnx16qivnx2si (TARGET_SVE && 8 == 64)
+#define HAVE_vcondvnx8qivnx2si (TARGET_SVE && 16 == 64)
+#define HAVE_vcondvnx4qivnx2si (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2qivnx2si (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx8hivnx2si (TARGET_SVE && 16 == 64)
+#define HAVE_vcondvnx4hivnx2si (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2hivnx2si (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx8hfvnx2si (TARGET_SVE && 16 == 64)
+#define HAVE_vcondvnx4hfvnx2si (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2hfvnx2si (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx8bfvnx2si (TARGET_SVE && 16 == 64)
+#define HAVE_vcondvnx4bfvnx2si (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2bfvnx2si (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx4sivnx2si (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2sivnx2si (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx4sfvnx2si (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2sfvnx2si (TARGET_SVE && 64 == 64)
 #define HAVE_vcondvnx2divnx2si (TARGET_SVE && 64 == 64)
 #define HAVE_vcondvnx2dfvnx2si (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx16qivnx2di (TARGET_SVE && 8 == 64)
+#define HAVE_vcondvnx8qivnx2di (TARGET_SVE && 16 == 64)
+#define HAVE_vcondvnx4qivnx2di (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2qivnx2di (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx8hivnx2di (TARGET_SVE && 16 == 64)
+#define HAVE_vcondvnx4hivnx2di (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2hivnx2di (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx8hfvnx2di (TARGET_SVE && 16 == 64)
+#define HAVE_vcondvnx4hfvnx2di (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2hfvnx2di (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx8bfvnx2di (TARGET_SVE && 16 == 64)
+#define HAVE_vcondvnx4bfvnx2di (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2bfvnx2di (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx4sivnx2di (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2sivnx2di (TARGET_SVE && 64 == 64)
+#define HAVE_vcondvnx4sfvnx2di (TARGET_SVE && 32 == 64)
 #define HAVE_vcondvnx2sfvnx2di (TARGET_SVE && 64 == 64)
 #define HAVE_vcondvnx2divnx2di (TARGET_SVE && 64 == 64)
 #define HAVE_vcondvnx2dfvnx2di (TARGET_SVE && 64 == 64)
 #define HAVE_vconduvnx16qivnx16qi (TARGET_SVE && 8 == 8)
+#define HAVE_vconduvnx8qivnx16qi (TARGET_SVE && 16 == 8)
+#define HAVE_vconduvnx4qivnx16qi (TARGET_SVE && 32 == 8)
+#define HAVE_vconduvnx2qivnx16qi (TARGET_SVE && 64 == 8)
+#define HAVE_vconduvnx8hivnx16qi (TARGET_SVE && 16 == 8)
+#define HAVE_vconduvnx4hivnx16qi (TARGET_SVE && 32 == 8)
+#define HAVE_vconduvnx2hivnx16qi (TARGET_SVE && 64 == 8)
+#define HAVE_vconduvnx8hfvnx16qi (TARGET_SVE && 16 == 8)
+#define HAVE_vconduvnx4hfvnx16qi (TARGET_SVE && 32 == 8)
+#define HAVE_vconduvnx2hfvnx16qi (TARGET_SVE && 64 == 8)
+#define HAVE_vconduvnx8bfvnx16qi (TARGET_SVE && 16 == 8)
+#define HAVE_vconduvnx4bfvnx16qi (TARGET_SVE && 32 == 8)
+#define HAVE_vconduvnx2bfvnx16qi (TARGET_SVE && 64 == 8)
+#define HAVE_vconduvnx4sivnx16qi (TARGET_SVE && 32 == 8)
+#define HAVE_vconduvnx2sivnx16qi (TARGET_SVE && 64 == 8)
+#define HAVE_vconduvnx4sfvnx16qi (TARGET_SVE && 32 == 8)
+#define HAVE_vconduvnx2sfvnx16qi (TARGET_SVE && 64 == 8)
+#define HAVE_vconduvnx2divnx16qi (TARGET_SVE && 64 == 8)
+#define HAVE_vconduvnx2dfvnx16qi (TARGET_SVE && 64 == 8)
+#define HAVE_vconduvnx16qivnx8qi (TARGET_SVE && 8 == 16)
 #define HAVE_vconduvnx8qivnx8qi (TARGET_SVE && 16 == 16)
+#define HAVE_vconduvnx4qivnx8qi (TARGET_SVE && 32 == 16)
+#define HAVE_vconduvnx2qivnx8qi (TARGET_SVE && 64 == 16)
 #define HAVE_vconduvnx8hivnx8qi (TARGET_SVE && 16 == 16)
+#define HAVE_vconduvnx4hivnx8qi (TARGET_SVE && 32 == 16)
+#define HAVE_vconduvnx2hivnx8qi (TARGET_SVE && 64 == 16)
 #define HAVE_vconduvnx8hfvnx8qi (TARGET_SVE && 16 == 16)
+#define HAVE_vconduvnx4hfvnx8qi (TARGET_SVE && 32 == 16)
+#define HAVE_vconduvnx2hfvnx8qi (TARGET_SVE && 64 == 16)
 #define HAVE_vconduvnx8bfvnx8qi (TARGET_SVE && 16 == 16)
+#define HAVE_vconduvnx4bfvnx8qi (TARGET_SVE && 32 == 16)
+#define HAVE_vconduvnx2bfvnx8qi (TARGET_SVE && 64 == 16)
+#define HAVE_vconduvnx4sivnx8qi (TARGET_SVE && 32 == 16)
+#define HAVE_vconduvnx2sivnx8qi (TARGET_SVE && 64 == 16)
+#define HAVE_vconduvnx4sfvnx8qi (TARGET_SVE && 32 == 16)
+#define HAVE_vconduvnx2sfvnx8qi (TARGET_SVE && 64 == 16)
+#define HAVE_vconduvnx2divnx8qi (TARGET_SVE && 64 == 16)
+#define HAVE_vconduvnx2dfvnx8qi (TARGET_SVE && 64 == 16)
+#define HAVE_vconduvnx16qivnx4qi (TARGET_SVE && 8 == 32)
+#define HAVE_vconduvnx8qivnx4qi (TARGET_SVE && 16 == 32)
 #define HAVE_vconduvnx4qivnx4qi (TARGET_SVE && 32 == 32)
+#define HAVE_vconduvnx2qivnx4qi (TARGET_SVE && 64 == 32)
+#define HAVE_vconduvnx8hivnx4qi (TARGET_SVE && 16 == 32)
 #define HAVE_vconduvnx4hivnx4qi (TARGET_SVE && 32 == 32)
+#define HAVE_vconduvnx2hivnx4qi (TARGET_SVE && 64 == 32)
+#define HAVE_vconduvnx8hfvnx4qi (TARGET_SVE && 16 == 32)
 #define HAVE_vconduvnx4hfvnx4qi (TARGET_SVE && 32 == 32)
+#define HAVE_vconduvnx2hfvnx4qi (TARGET_SVE && 64 == 32)
+#define HAVE_vconduvnx8bfvnx4qi (TARGET_SVE && 16 == 32)
 #define HAVE_vconduvnx4bfvnx4qi (TARGET_SVE && 32 == 32)
+#define HAVE_vconduvnx2bfvnx4qi (TARGET_SVE && 64 == 32)
 #define HAVE_vconduvnx4sivnx4qi (TARGET_SVE && 32 == 32)
+#define HAVE_vconduvnx2sivnx4qi (TARGET_SVE && 64 == 32)
 #define HAVE_vconduvnx4sfvnx4qi (TARGET_SVE && 32 == 32)
+#define HAVE_vconduvnx2sfvnx4qi (TARGET_SVE && 64 == 32)
+#define HAVE_vconduvnx2divnx4qi (TARGET_SVE && 64 == 32)
+#define HAVE_vconduvnx2dfvnx4qi (TARGET_SVE && 64 == 32)
+#define HAVE_vconduvnx16qivnx2qi (TARGET_SVE && 8 == 64)
+#define HAVE_vconduvnx8qivnx2qi (TARGET_SVE && 16 == 64)
+#define HAVE_vconduvnx4qivnx2qi (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2qivnx2qi (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx8hivnx2qi (TARGET_SVE && 16 == 64)
+#define HAVE_vconduvnx4hivnx2qi (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2hivnx2qi (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx8hfvnx2qi (TARGET_SVE && 16 == 64)
+#define HAVE_vconduvnx4hfvnx2qi (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2hfvnx2qi (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx8bfvnx2qi (TARGET_SVE && 16 == 64)
+#define HAVE_vconduvnx4bfvnx2qi (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2bfvnx2qi (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx4sivnx2qi (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2sivnx2qi (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx4sfvnx2qi (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2sfvnx2qi (TARGET_SVE && 64 == 64)
 #define HAVE_vconduvnx2divnx2qi (TARGET_SVE && 64 == 64)
 #define HAVE_vconduvnx2dfvnx2qi (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx16qivnx8hi (TARGET_SVE && 8 == 16)
 #define HAVE_vconduvnx8qivnx8hi (TARGET_SVE && 16 == 16)
+#define HAVE_vconduvnx4qivnx8hi (TARGET_SVE && 32 == 16)
+#define HAVE_vconduvnx2qivnx8hi (TARGET_SVE && 64 == 16)
 #define HAVE_vconduvnx8hivnx8hi (TARGET_SVE && 16 == 16)
+#define HAVE_vconduvnx4hivnx8hi (TARGET_SVE && 32 == 16)
+#define HAVE_vconduvnx2hivnx8hi (TARGET_SVE && 64 == 16)
 #define HAVE_vconduvnx8hfvnx8hi (TARGET_SVE && 16 == 16)
+#define HAVE_vconduvnx4hfvnx8hi (TARGET_SVE && 32 == 16)
+#define HAVE_vconduvnx2hfvnx8hi (TARGET_SVE && 64 == 16)
 #define HAVE_vconduvnx8bfvnx8hi (TARGET_SVE && 16 == 16)
+#define HAVE_vconduvnx4bfvnx8hi (TARGET_SVE && 32 == 16)
+#define HAVE_vconduvnx2bfvnx8hi (TARGET_SVE && 64 == 16)
+#define HAVE_vconduvnx4sivnx8hi (TARGET_SVE && 32 == 16)
+#define HAVE_vconduvnx2sivnx8hi (TARGET_SVE && 64 == 16)
+#define HAVE_vconduvnx4sfvnx8hi (TARGET_SVE && 32 == 16)
+#define HAVE_vconduvnx2sfvnx8hi (TARGET_SVE && 64 == 16)
+#define HAVE_vconduvnx2divnx8hi (TARGET_SVE && 64 == 16)
+#define HAVE_vconduvnx2dfvnx8hi (TARGET_SVE && 64 == 16)
+#define HAVE_vconduvnx16qivnx4hi (TARGET_SVE && 8 == 32)
+#define HAVE_vconduvnx8qivnx4hi (TARGET_SVE && 16 == 32)
 #define HAVE_vconduvnx4qivnx4hi (TARGET_SVE && 32 == 32)
+#define HAVE_vconduvnx2qivnx4hi (TARGET_SVE && 64 == 32)
+#define HAVE_vconduvnx8hivnx4hi (TARGET_SVE && 16 == 32)
 #define HAVE_vconduvnx4hivnx4hi (TARGET_SVE && 32 == 32)
+#define HAVE_vconduvnx2hivnx4hi (TARGET_SVE && 64 == 32)
+#define HAVE_vconduvnx8hfvnx4hi (TARGET_SVE && 16 == 32)
 #define HAVE_vconduvnx4hfvnx4hi (TARGET_SVE && 32 == 32)
+#define HAVE_vconduvnx2hfvnx4hi (TARGET_SVE && 64 == 32)
+#define HAVE_vconduvnx8bfvnx4hi (TARGET_SVE && 16 == 32)
 #define HAVE_vconduvnx4bfvnx4hi (TARGET_SVE && 32 == 32)
+#define HAVE_vconduvnx2bfvnx4hi (TARGET_SVE && 64 == 32)
 #define HAVE_vconduvnx4sivnx4hi (TARGET_SVE && 32 == 32)
+#define HAVE_vconduvnx2sivnx4hi (TARGET_SVE && 64 == 32)
 #define HAVE_vconduvnx4sfvnx4hi (TARGET_SVE && 32 == 32)
+#define HAVE_vconduvnx2sfvnx4hi (TARGET_SVE && 64 == 32)
+#define HAVE_vconduvnx2divnx4hi (TARGET_SVE && 64 == 32)
+#define HAVE_vconduvnx2dfvnx4hi (TARGET_SVE && 64 == 32)
+#define HAVE_vconduvnx16qivnx2hi (TARGET_SVE && 8 == 64)
+#define HAVE_vconduvnx8qivnx2hi (TARGET_SVE && 16 == 64)
+#define HAVE_vconduvnx4qivnx2hi (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2qivnx2hi (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx8hivnx2hi (TARGET_SVE && 16 == 64)
+#define HAVE_vconduvnx4hivnx2hi (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2hivnx2hi (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx8hfvnx2hi (TARGET_SVE && 16 == 64)
+#define HAVE_vconduvnx4hfvnx2hi (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2hfvnx2hi (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx8bfvnx2hi (TARGET_SVE && 16 == 64)
+#define HAVE_vconduvnx4bfvnx2hi (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2bfvnx2hi (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx4sivnx2hi (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2sivnx2hi (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx4sfvnx2hi (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2sfvnx2hi (TARGET_SVE && 64 == 64)
 #define HAVE_vconduvnx2divnx2hi (TARGET_SVE && 64 == 64)
 #define HAVE_vconduvnx2dfvnx2hi (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx16qivnx4si (TARGET_SVE && 8 == 32)
+#define HAVE_vconduvnx8qivnx4si (TARGET_SVE && 16 == 32)
 #define HAVE_vconduvnx4qivnx4si (TARGET_SVE && 32 == 32)
+#define HAVE_vconduvnx2qivnx4si (TARGET_SVE && 64 == 32)
+#define HAVE_vconduvnx8hivnx4si (TARGET_SVE && 16 == 32)
 #define HAVE_vconduvnx4hivnx4si (TARGET_SVE && 32 == 32)
+#define HAVE_vconduvnx2hivnx4si (TARGET_SVE && 64 == 32)
+#define HAVE_vconduvnx8hfvnx4si (TARGET_SVE && 16 == 32)
 #define HAVE_vconduvnx4hfvnx4si (TARGET_SVE && 32 == 32)
+#define HAVE_vconduvnx2hfvnx4si (TARGET_SVE && 64 == 32)
+#define HAVE_vconduvnx8bfvnx4si (TARGET_SVE && 16 == 32)
 #define HAVE_vconduvnx4bfvnx4si (TARGET_SVE && 32 == 32)
+#define HAVE_vconduvnx2bfvnx4si (TARGET_SVE && 64 == 32)
 #define HAVE_vconduvnx4sivnx4si (TARGET_SVE && 32 == 32)
+#define HAVE_vconduvnx2sivnx4si (TARGET_SVE && 64 == 32)
 #define HAVE_vconduvnx4sfvnx4si (TARGET_SVE && 32 == 32)
+#define HAVE_vconduvnx2sfvnx4si (TARGET_SVE && 64 == 32)
+#define HAVE_vconduvnx2divnx4si (TARGET_SVE && 64 == 32)
+#define HAVE_vconduvnx2dfvnx4si (TARGET_SVE && 64 == 32)
+#define HAVE_vconduvnx16qivnx2si (TARGET_SVE && 8 == 64)
+#define HAVE_vconduvnx8qivnx2si (TARGET_SVE && 16 == 64)
+#define HAVE_vconduvnx4qivnx2si (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2qivnx2si (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx8hivnx2si (TARGET_SVE && 16 == 64)
+#define HAVE_vconduvnx4hivnx2si (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2hivnx2si (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx8hfvnx2si (TARGET_SVE && 16 == 64)
+#define HAVE_vconduvnx4hfvnx2si (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2hfvnx2si (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx8bfvnx2si (TARGET_SVE && 16 == 64)
+#define HAVE_vconduvnx4bfvnx2si (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2bfvnx2si (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx4sivnx2si (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2sivnx2si (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx4sfvnx2si (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2sfvnx2si (TARGET_SVE && 64 == 64)
 #define HAVE_vconduvnx2divnx2si (TARGET_SVE && 64 == 64)
 #define HAVE_vconduvnx2dfvnx2si (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx16qivnx2di (TARGET_SVE && 8 == 64)
+#define HAVE_vconduvnx8qivnx2di (TARGET_SVE && 16 == 64)
+#define HAVE_vconduvnx4qivnx2di (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2qivnx2di (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx8hivnx2di (TARGET_SVE && 16 == 64)
+#define HAVE_vconduvnx4hivnx2di (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2hivnx2di (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx8hfvnx2di (TARGET_SVE && 16 == 64)
+#define HAVE_vconduvnx4hfvnx2di (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2hfvnx2di (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx8bfvnx2di (TARGET_SVE && 16 == 64)
+#define HAVE_vconduvnx4bfvnx2di (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2bfvnx2di (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx4sivnx2di (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2sivnx2di (TARGET_SVE && 64 == 64)
+#define HAVE_vconduvnx4sfvnx2di (TARGET_SVE && 32 == 64)
 #define HAVE_vconduvnx2sfvnx2di (TARGET_SVE && 64 == 64)
 #define HAVE_vconduvnx2divnx2di (TARGET_SVE && 64 == 64)
 #define HAVE_vconduvnx2dfvnx2di (TARGET_SVE && 64 == 64)
@@ -11521,10 +12772,16 @@
 #define HAVE_fixuns_truncvnx2dfvnx2di2 (TARGET_SVE)
 #define HAVE_cond_fix_trunc_nontruncvnx8hfvnx8hi (TARGET_SVE && 16 >= 16)
 #define HAVE_cond_fixuns_trunc_nontruncvnx8hfvnx8hi (TARGET_SVE && 16 >= 16)
+#define HAVE_cond_fix_trunc_nontruncvnx4sfvnx8hi (TARGET_SVE && 16 >= 32)
+#define HAVE_cond_fixuns_trunc_nontruncvnx4sfvnx8hi (TARGET_SVE && 16 >= 32)
+#define HAVE_cond_fix_trunc_nontruncvnx2dfvnx8hi (TARGET_SVE && 16 >= 64)
+#define HAVE_cond_fixuns_trunc_nontruncvnx2dfvnx8hi (TARGET_SVE && 16 >= 64)
 #define HAVE_cond_fix_trunc_nontruncvnx8hfvnx4si (TARGET_SVE && 32 >= 16)
 #define HAVE_cond_fixuns_trunc_nontruncvnx8hfvnx4si (TARGET_SVE && 32 >= 16)
 #define HAVE_cond_fix_trunc_nontruncvnx4sfvnx4si (TARGET_SVE && 32 >= 32)
 #define HAVE_cond_fixuns_trunc_nontruncvnx4sfvnx4si (TARGET_SVE && 32 >= 32)
+#define HAVE_cond_fix_trunc_nontruncvnx2dfvnx4si (TARGET_SVE && 32 >= 64)
+#define HAVE_cond_fixuns_trunc_nontruncvnx2dfvnx4si (TARGET_SVE && 32 >= 64)
 #define HAVE_cond_fix_trunc_nontruncvnx8hfvnx2di (TARGET_SVE && 64 >= 16)
 #define HAVE_cond_fixuns_trunc_nontruncvnx8hfvnx2di (TARGET_SVE && 64 >= 16)
 #define HAVE_cond_fix_trunc_nontruncvnx4sfvnx2di (TARGET_SVE && 64 >= 32)
@@ -11543,10 +12800,16 @@
 #define HAVE_floatunsvnx2divnx2df2 (TARGET_SVE)
 #define HAVE_cond_float_nonextendvnx8hivnx8hf (TARGET_SVE && 16 >= 16)
 #define HAVE_cond_floatuns_nonextendvnx8hivnx8hf (TARGET_SVE && 16 >= 16)
+#define HAVE_cond_float_nonextendvnx8hivnx4sf (TARGET_SVE && 16 >= 32)
+#define HAVE_cond_floatuns_nonextendvnx8hivnx4sf (TARGET_SVE && 16 >= 32)
+#define HAVE_cond_float_nonextendvnx8hivnx2df (TARGET_SVE && 16 >= 64)
+#define HAVE_cond_floatuns_nonextendvnx8hivnx2df (TARGET_SVE && 16 >= 64)
 #define HAVE_cond_float_nonextendvnx4sivnx8hf (TARGET_SVE && 32 >= 16)
 #define HAVE_cond_floatuns_nonextendvnx4sivnx8hf (TARGET_SVE && 32 >= 16)
 #define HAVE_cond_float_nonextendvnx4sivnx4sf (TARGET_SVE && 32 >= 32)
 #define HAVE_cond_floatuns_nonextendvnx4sivnx4sf (TARGET_SVE && 32 >= 32)
+#define HAVE_cond_float_nonextendvnx4sivnx2df (TARGET_SVE && 32 >= 64)
+#define HAVE_cond_floatuns_nonextendvnx4sivnx2df (TARGET_SVE && 32 >= 64)
 #define HAVE_cond_float_nonextendvnx2divnx8hf (TARGET_SVE && 64 >= 16)
 #define HAVE_cond_floatuns_nonextendvnx2divnx8hf (TARGET_SVE && 64 >= 16)
 #define HAVE_cond_float_nonextendvnx2divnx4sf (TARGET_SVE && 64 >= 32)
@@ -11563,6 +12826,7 @@
 #define HAVE_vec_pack_trunc_vnx2df (TARGET_SVE)
 #define HAVE_cond_fcvt_truncvnx4sfvnx8hf (TARGET_SVE && 32 > 16)
 #define HAVE_cond_fcvt_truncvnx2dfvnx8hf (TARGET_SVE && 64 > 16)
+#define HAVE_cond_fcvt_truncvnx4sfvnx4sf (TARGET_SVE && 32 > 32)
 #define HAVE_cond_fcvt_truncvnx2dfvnx4sf (TARGET_SVE && 64 > 32)
 #define HAVE_cond_fcvt_truncvnx4sfvnx8bf (TARGET_SVE_BF16)
 #define HAVE_vec_unpacks_lo_vnx8hf (TARGET_SVE)
@@ -11571,6 +12835,7 @@
 #define HAVE_vec_unpacks_hi_vnx4sf (TARGET_SVE)
 #define HAVE_cond_fcvt_nontruncvnx8hfvnx4sf (TARGET_SVE && 32 > 16)
 #define HAVE_cond_fcvt_nontruncvnx8hfvnx2df (TARGET_SVE && 64 > 16)
+#define HAVE_cond_fcvt_nontruncvnx4sfvnx4sf (TARGET_SVE && 32 > 32)
 #define HAVE_cond_fcvt_nontruncvnx4sfvnx2df (TARGET_SVE && 64 > 32)
 #define HAVE_vec_unpacks_hi_vnx16bi (TARGET_SVE)
 #define HAVE_vec_unpacku_hi_vnx16bi (TARGET_SVE)
@@ -12034,6 +13299,10 @@ extern rtx        gen_ior_rotldi3                                      (rtx, rtx
 extern rtx        gen_xor_rotldi3                                      (rtx, rtx, rtx, rtx);
 extern rtx        gen_one_cmplsi2                                      (rtx, rtx);
 extern rtx        gen_one_cmpldi2                                      (rtx, rtx);
+extern rtx        gen_andnsi3                                          (rtx, rtx, rtx);
+extern rtx        gen_iornsi3                                          (rtx, rtx, rtx);
+extern rtx        gen_andndi3                                          (rtx, rtx, rtx);
+extern rtx        gen_iorndi3                                          (rtx, rtx, rtx);
 extern rtx        gen_and_one_cmpl_ashlsi3                             (rtx, rtx, rtx, rtx);
 extern rtx        gen_ior_one_cmpl_ashlsi3                             (rtx, rtx, rtx, rtx);
 extern rtx        gen_xor_one_cmpl_ashlsi3                             (rtx, rtx, rtx, rtx);
@@ -12447,32 +13716,32 @@ extern rtx        gen_aarch64_simd_mov_from_v4sihigh                   (rtx, rtx
 extern rtx        gen_aarch64_simd_mov_from_v8hfhigh                   (rtx, rtx, rtx);
 extern rtx        gen_aarch64_simd_mov_from_v8bfhigh                   (rtx, rtx, rtx);
 extern rtx        gen_aarch64_simd_mov_from_v4sfhigh                   (rtx, rtx, rtx);
-extern rtx        gen_ornv8qi3                                         (rtx, rtx, rtx);
-extern rtx        gen_ornv8qi3_vec_concatz_le                          (rtx, rtx, rtx, rtx);
-extern rtx        gen_ornv8qi3_vec_concatz_be                          (rtx, rtx, rtx, rtx);
-extern rtx        gen_ornv16qi3                                        (rtx, rtx, rtx);
-extern rtx        gen_ornv4hi3                                         (rtx, rtx, rtx);
-extern rtx        gen_ornv4hi3_vec_concatz_le                          (rtx, rtx, rtx, rtx);
-extern rtx        gen_ornv4hi3_vec_concatz_be                          (rtx, rtx, rtx, rtx);
-extern rtx        gen_ornv8hi3                                         (rtx, rtx, rtx);
-extern rtx        gen_ornv2si3                                         (rtx, rtx, rtx);
-extern rtx        gen_ornv2si3_vec_concatz_le                          (rtx, rtx, rtx, rtx);
-extern rtx        gen_ornv2si3_vec_concatz_be                          (rtx, rtx, rtx, rtx);
-extern rtx        gen_ornv4si3                                         (rtx, rtx, rtx);
-extern rtx        gen_ornv2di3                                         (rtx, rtx, rtx);
-extern rtx        gen_bicv8qi3                                         (rtx, rtx, rtx);
-extern rtx        gen_bicv8qi3_vec_concatz_le                          (rtx, rtx, rtx, rtx);
-extern rtx        gen_bicv8qi3_vec_concatz_be                          (rtx, rtx, rtx, rtx);
-extern rtx        gen_bicv16qi3                                        (rtx, rtx, rtx);
-extern rtx        gen_bicv4hi3                                         (rtx, rtx, rtx);
-extern rtx        gen_bicv4hi3_vec_concatz_le                          (rtx, rtx, rtx, rtx);
-extern rtx        gen_bicv4hi3_vec_concatz_be                          (rtx, rtx, rtx, rtx);
-extern rtx        gen_bicv8hi3                                         (rtx, rtx, rtx);
-extern rtx        gen_bicv2si3                                         (rtx, rtx, rtx);
-extern rtx        gen_bicv2si3_vec_concatz_le                          (rtx, rtx, rtx, rtx);
-extern rtx        gen_bicv2si3_vec_concatz_be                          (rtx, rtx, rtx, rtx);
-extern rtx        gen_bicv4si3                                         (rtx, rtx, rtx);
-extern rtx        gen_bicv2di3                                         (rtx, rtx, rtx);
+extern rtx        gen_iornv8qi3                                        (rtx, rtx, rtx);
+extern rtx        gen_iornv8qi3_vec_concatz_le                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_iornv8qi3_vec_concatz_be                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_iornv16qi3                                       (rtx, rtx, rtx);
+extern rtx        gen_iornv4hi3                                        (rtx, rtx, rtx);
+extern rtx        gen_iornv4hi3_vec_concatz_le                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_iornv4hi3_vec_concatz_be                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_iornv8hi3                                        (rtx, rtx, rtx);
+extern rtx        gen_iornv2si3                                        (rtx, rtx, rtx);
+extern rtx        gen_iornv2si3_vec_concatz_le                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_iornv2si3_vec_concatz_be                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_iornv4si3                                        (rtx, rtx, rtx);
+extern rtx        gen_iornv2di3                                        (rtx, rtx, rtx);
+extern rtx        gen_andnv8qi3                                        (rtx, rtx, rtx);
+extern rtx        gen_andnv8qi3_vec_concatz_le                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_andnv8qi3_vec_concatz_be                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_andnv16qi3                                       (rtx, rtx, rtx);
+extern rtx        gen_andnv4hi3                                        (rtx, rtx, rtx);
+extern rtx        gen_andnv4hi3_vec_concatz_le                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_andnv4hi3_vec_concatz_be                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_andnv8hi3                                        (rtx, rtx, rtx);
+extern rtx        gen_andnv2si3                                        (rtx, rtx, rtx);
+extern rtx        gen_andnv2si3_vec_concatz_le                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_andnv2si3_vec_concatz_be                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_andnv4si3                                        (rtx, rtx, rtx);
+extern rtx        gen_andnv2di3                                        (rtx, rtx, rtx);
 extern rtx        gen_addv8qi3                                         (rtx, rtx, rtx);
 extern rtx        gen_addv8qi3_vec_concatz_le                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_addv8qi3_vec_concatz_be                          (rtx, rtx, rtx, rtx);
@@ -14628,98 +15897,38 @@ extern rtx        gen_aarch64_sqrshrun_nhi_insn                        (rtx, rtx
 extern rtx        gen_aarch64_sqrshrun_nsi_insn                        (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sqrshrun_ndi_insn                        (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sqsshrn2_nv8hi_insn_le                   (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_squshrn2_nv8hi_insn_le                   (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_squshrn2_nv8hi_insn_le(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_uqsshrn2_nv8hi_insn_le                   (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_uqsshrn2_nv8hi_insn_le(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_squshrn2_nv8hi_insn_le                   (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_uqsshrn2_nv8hi_insn_le                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_uqushrn2_nv8hi_insn_le                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sshrn2_nv8hi_insn_le                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ushrn2_nv8hi_insn_le                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sqsshrn2_nv4si_insn_le                   (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_squshrn2_nv4si_insn_le                   (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_squshrn2_nv4si_insn_le(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_uqsshrn2_nv4si_insn_le                   (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_uqsshrn2_nv4si_insn_le(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_squshrn2_nv4si_insn_le                   (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_uqsshrn2_nv4si_insn_le                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_uqushrn2_nv4si_insn_le                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sshrn2_nv4si_insn_le                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ushrn2_nv4si_insn_le                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sqsshrn2_nv2di_insn_le                   (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_squshrn2_nv2di_insn_le                   (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_squshrn2_nv2di_insn_le(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_uqsshrn2_nv2di_insn_le                   (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_uqsshrn2_nv2di_insn_le(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_squshrn2_nv2di_insn_le                   (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_uqsshrn2_nv2di_insn_le                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_uqushrn2_nv2di_insn_le                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sshrn2_nv2di_insn_le                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ushrn2_nv2di_insn_le                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sqsshrn2_nv8hi_insn_be                   (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_squshrn2_nv8hi_insn_be                   (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_squshrn2_nv8hi_insn_be(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_uqsshrn2_nv8hi_insn_be                   (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_uqsshrn2_nv8hi_insn_be(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_squshrn2_nv8hi_insn_be                   (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_uqsshrn2_nv8hi_insn_be                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_uqushrn2_nv8hi_insn_be                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sshrn2_nv8hi_insn_be                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ushrn2_nv8hi_insn_be                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sqsshrn2_nv4si_insn_be                   (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_squshrn2_nv4si_insn_be                   (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_squshrn2_nv4si_insn_be(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_uqsshrn2_nv4si_insn_be                   (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_uqsshrn2_nv4si_insn_be(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_squshrn2_nv4si_insn_be                   (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_uqsshrn2_nv4si_insn_be                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_uqushrn2_nv4si_insn_be                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sshrn2_nv4si_insn_be                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ushrn2_nv4si_insn_be                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sqsshrn2_nv2di_insn_be                   (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_squshrn2_nv2di_insn_be                   (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_squshrn2_nv2di_insn_be(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_uqsshrn2_nv2di_insn_be                   (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_uqsshrn2_nv2di_insn_be(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_squshrn2_nv2di_insn_be                   (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_uqsshrn2_nv2di_insn_be                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_uqushrn2_nv2di_insn_be                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sshrn2_nv2di_insn_be                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ushrn2_nv2di_insn_be                     (rtx, rtx, rtx, rtx);
@@ -16093,658 +17302,138 @@ extern rtx        gen_aarch64_load_x_extendvnx8hivnx8qi                (rtx, rtx
 extern rtx        gen_aarch64_load_extendvnx8hivnx8qi                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_x_zero_extendvnx8hivnx8qi           (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_zero_extendvnx8hivnx8qi             (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_load_x_extendvnx8hivnx4qi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx8hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx8hivnx4qi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx8hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx8hivnx4qi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx8hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx8hivnx4qi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx8hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_extendvnx8hivnx2qi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx8hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx8hivnx2qi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx8hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx8hivnx2qi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx8hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx8hivnx2qi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx8hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_extendvnx8hivnx4hi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx8hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx8hivnx4hi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx8hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx8hivnx4hi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx8hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx8hivnx4hi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx8hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_extendvnx8hivnx2hi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx8hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx8hivnx2hi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx8hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx8hivnx2hi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx8hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx8hivnx2hi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx8hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_extendvnx8hivnx2si                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx8hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx8hivnx2si                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx8hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx8hivnx2si           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx8hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx8hivnx2si             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx8hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_extendvnx4hivnx8qi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx4hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx4hivnx8qi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx4hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx4hivnx8qi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx4hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx4hivnx8qi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx4hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_load_x_extendvnx8hivnx4qi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx8hivnx4qi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx8hivnx4qi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx8hivnx4qi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_extendvnx8hivnx2qi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx8hivnx2qi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx8hivnx2qi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx8hivnx2qi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_extendvnx8hivnx4hi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx8hivnx4hi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx8hivnx4hi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx8hivnx4hi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_extendvnx8hivnx2hi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx8hivnx2hi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx8hivnx2hi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx8hivnx2hi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_extendvnx8hivnx2si                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx8hivnx2si                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx8hivnx2si           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx8hivnx2si             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_extendvnx4hivnx8qi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx4hivnx8qi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx4hivnx8qi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx4hivnx8qi             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_x_extendvnx4hivnx4qi                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_extendvnx4hivnx4qi                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_x_zero_extendvnx4hivnx4qi           (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_zero_extendvnx4hivnx4qi             (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_load_x_extendvnx4hivnx2qi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx4hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx4hivnx2qi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx4hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx4hivnx2qi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx4hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx4hivnx2qi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx4hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_extendvnx4hivnx4hi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx4hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx4hivnx4hi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx4hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx4hivnx4hi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx4hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx4hivnx4hi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx4hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_extendvnx4hivnx2hi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx4hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx4hivnx2hi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx4hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx4hivnx2hi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx4hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx4hivnx2hi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx4hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_extendvnx4hivnx2si                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx4hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx4hivnx2si                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx4hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx4hivnx2si           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx4hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx4hivnx2si             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx4hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_extendvnx2hivnx8qi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx2hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx2hivnx8qi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx2hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx2hivnx8qi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx2hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx2hivnx8qi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx2hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_extendvnx2hivnx4qi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx2hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx2hivnx4qi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx2hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx2hivnx4qi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx2hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx2hivnx4qi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx2hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_load_x_extendvnx4hivnx2qi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx4hivnx2qi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx4hivnx2qi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx4hivnx2qi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_extendvnx4hivnx4hi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx4hivnx4hi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx4hivnx4hi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx4hivnx4hi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_extendvnx4hivnx2hi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx4hivnx2hi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx4hivnx2hi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx4hivnx2hi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_extendvnx4hivnx2si                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx4hivnx2si                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx4hivnx2si           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx4hivnx2si             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_extendvnx2hivnx8qi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx2hivnx8qi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx2hivnx8qi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx2hivnx8qi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_extendvnx2hivnx4qi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx2hivnx4qi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx2hivnx4qi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx2hivnx4qi             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_x_extendvnx2hivnx2qi                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_extendvnx2hivnx2qi                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_x_zero_extendvnx2hivnx2qi           (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_zero_extendvnx2hivnx2qi             (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_load_x_extendvnx2hivnx4hi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx2hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx2hivnx4hi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx2hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx2hivnx4hi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx2hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx2hivnx4hi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx2hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_extendvnx2hivnx2hi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx2hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx2hivnx2hi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx2hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx2hivnx2hi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx2hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx2hivnx2hi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx2hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_extendvnx2hivnx2si                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx2hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx2hivnx2si                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx2hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx2hivnx2si           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx2hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx2hivnx2si             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx2hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_extendvnx4sivnx8qi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx4sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx4sivnx8qi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx4sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx4sivnx8qi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx4sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx4sivnx8qi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx4sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_load_x_extendvnx2hivnx4hi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx2hivnx4hi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx2hivnx4hi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx2hivnx4hi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_extendvnx2hivnx2hi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx2hivnx2hi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx2hivnx2hi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx2hivnx2hi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_extendvnx2hivnx2si                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx2hivnx2si                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx2hivnx2si           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx2hivnx2si             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_extendvnx4sivnx8qi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx4sivnx8qi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx4sivnx8qi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx4sivnx8qi             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_x_extendvnx4sivnx4qi                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_extendvnx4sivnx4qi                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_x_zero_extendvnx4sivnx4qi           (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_zero_extendvnx4sivnx4qi             (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_load_x_extendvnx4sivnx2qi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx4sivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx4sivnx2qi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx4sivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx4sivnx2qi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx4sivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx4sivnx2qi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx4sivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_load_x_extendvnx4sivnx2qi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx4sivnx2qi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx4sivnx2qi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx4sivnx2qi             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_x_extendvnx4sivnx4hi                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_extendvnx4sivnx4hi                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_x_zero_extendvnx4sivnx4hi           (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_zero_extendvnx4sivnx4hi             (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_load_x_extendvnx4sivnx2hi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx4sivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx4sivnx2hi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx4sivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx4sivnx2hi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx4sivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx4sivnx2hi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx4sivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_extendvnx4sivnx2si                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx4sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx4sivnx2si                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx4sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx4sivnx2si           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx4sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx4sivnx2si             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx4sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_extendvnx2sivnx8qi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx2sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx2sivnx8qi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx2sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx2sivnx8qi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx2sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx2sivnx8qi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx2sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_extendvnx2sivnx4qi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx2sivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx2sivnx4qi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx2sivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx2sivnx4qi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx2sivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx2sivnx4qi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx2sivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_load_x_extendvnx4sivnx2hi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx4sivnx2hi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx4sivnx2hi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx4sivnx2hi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_extendvnx4sivnx2si                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx4sivnx2si                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx4sivnx2si           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx4sivnx2si             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_extendvnx2sivnx8qi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx2sivnx8qi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx2sivnx8qi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx2sivnx8qi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_extendvnx2sivnx4qi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx2sivnx4qi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx2sivnx4qi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx2sivnx4qi             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_x_extendvnx2sivnx2qi                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_extendvnx2sivnx2qi                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_x_zero_extendvnx2sivnx2qi           (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_zero_extendvnx2sivnx2qi             (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_load_x_extendvnx2sivnx4hi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx2sivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx2sivnx4hi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx2sivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx2sivnx4hi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx2sivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx2sivnx4hi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx2sivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_load_x_extendvnx2sivnx4hi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx2sivnx4hi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx2sivnx4hi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx2sivnx4hi             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_x_extendvnx2sivnx2hi                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_extendvnx2sivnx2hi                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_x_zero_extendvnx2sivnx2hi           (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_zero_extendvnx2sivnx2hi             (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_load_x_extendvnx2sivnx2si                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx2sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx2sivnx2si                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx2sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx2sivnx2si           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx2sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx2sivnx2si             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx2sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_extendvnx2divnx8qi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx2divnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx2divnx8qi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx2divnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx2divnx8qi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx2divnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx2divnx8qi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx2divnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_extendvnx2divnx4qi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx2divnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx2divnx4qi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx2divnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx2divnx4qi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx2divnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx2divnx4qi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx2divnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_load_x_extendvnx2sivnx2si                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx2sivnx2si                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx2sivnx2si           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx2sivnx2si             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_extendvnx2divnx8qi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx2divnx8qi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx2divnx8qi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx2divnx8qi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_extendvnx2divnx4qi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx2divnx4qi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx2divnx4qi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx2divnx4qi             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_x_extendvnx2divnx2qi                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_extendvnx2divnx2qi                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_x_zero_extendvnx2divnx2qi           (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_zero_extendvnx2divnx2qi             (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_load_x_extendvnx2divnx4hi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_extendvnx2divnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_extendvnx2divnx4hi                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_extendvnx2divnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_x_zero_extendvnx2divnx4hi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_x_zero_extendvnx2divnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_load_zero_extendvnx2divnx4hi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_load_zero_extendvnx2divnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_load_x_extendvnx2divnx4hi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_extendvnx2divnx4hi                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_x_zero_extendvnx2divnx4hi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_load_zero_extendvnx2divnx4hi             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_x_extendvnx2divnx2hi                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_extendvnx2divnx2hi                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_load_x_zero_extendvnx2divnx2hi           (rtx, rtx, rtx, rtx);
@@ -16773,658 +17462,138 @@ extern rtx        gen_aarch64_ldff1_extendvnx8hivnx8qi                 (rtx, rtx
 extern rtx        gen_aarch64_ldnf1_extendvnx8hivnx8qi                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldff1_zero_extendvnx8hivnx8qi            (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldnf1_zero_extendvnx8hivnx8qi            (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_ldff1_extendvnx8hivnx4qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx8hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx8hivnx4qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx8hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx8hivnx4qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx8hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx8hivnx4qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx8hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_extendvnx8hivnx2qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx8hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx8hivnx2qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx8hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx8hivnx2qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx8hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx8hivnx2qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx8hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_extendvnx8hivnx4hi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx8hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx8hivnx4hi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx8hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx8hivnx4hi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx8hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx8hivnx4hi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx8hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_extendvnx8hivnx2hi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx8hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx8hivnx2hi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx8hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx8hivnx2hi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx8hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx8hivnx2hi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx8hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_extendvnx8hivnx2si                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx8hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx8hivnx2si                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx8hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx8hivnx2si            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx8hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx8hivnx2si            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx8hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_extendvnx4hivnx8qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx4hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx4hivnx8qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx4hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx4hivnx8qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx4hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx4hivnx8qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx4hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_ldff1_extendvnx8hivnx4qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx8hivnx4qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx8hivnx4qi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx8hivnx4qi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_extendvnx8hivnx2qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx8hivnx2qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx8hivnx2qi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx8hivnx2qi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_extendvnx8hivnx4hi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx8hivnx4hi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx8hivnx4hi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx8hivnx4hi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_extendvnx8hivnx2hi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx8hivnx2hi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx8hivnx2hi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx8hivnx2hi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_extendvnx8hivnx2si                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx8hivnx2si                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx8hivnx2si            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx8hivnx2si            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_extendvnx4hivnx8qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx4hivnx8qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx4hivnx8qi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx4hivnx8qi            (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldff1_extendvnx4hivnx4qi                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldnf1_extendvnx4hivnx4qi                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldff1_zero_extendvnx4hivnx4qi            (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldnf1_zero_extendvnx4hivnx4qi            (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_ldff1_extendvnx4hivnx2qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx4hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx4hivnx2qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx4hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx4hivnx2qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx4hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx4hivnx2qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx4hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_extendvnx4hivnx4hi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx4hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx4hivnx4hi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx4hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx4hivnx4hi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx4hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx4hivnx4hi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx4hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_extendvnx4hivnx2hi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx4hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx4hivnx2hi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx4hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx4hivnx2hi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx4hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx4hivnx2hi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx4hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_extendvnx4hivnx2si                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx4hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx4hivnx2si                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx4hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx4hivnx2si            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx4hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx4hivnx2si            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx4hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_extendvnx2hivnx8qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx2hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx2hivnx8qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx2hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx2hivnx8qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx2hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx2hivnx8qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx2hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_extendvnx2hivnx4qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx2hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx2hivnx4qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx2hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx2hivnx4qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx2hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx2hivnx4qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx2hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_ldff1_extendvnx4hivnx2qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx4hivnx2qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx4hivnx2qi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx4hivnx2qi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_extendvnx4hivnx4hi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx4hivnx4hi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx4hivnx4hi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx4hivnx4hi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_extendvnx4hivnx2hi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx4hivnx2hi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx4hivnx2hi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx4hivnx2hi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_extendvnx4hivnx2si                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx4hivnx2si                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx4hivnx2si            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx4hivnx2si            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_extendvnx2hivnx8qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx2hivnx8qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx2hivnx8qi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx2hivnx8qi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_extendvnx2hivnx4qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx2hivnx4qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx2hivnx4qi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx2hivnx4qi            (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldff1_extendvnx2hivnx2qi                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldnf1_extendvnx2hivnx2qi                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldff1_zero_extendvnx2hivnx2qi            (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldnf1_zero_extendvnx2hivnx2qi            (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_ldff1_extendvnx2hivnx4hi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx2hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx2hivnx4hi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx2hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx2hivnx4hi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx2hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx2hivnx4hi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx2hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_extendvnx2hivnx2hi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx2hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx2hivnx2hi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx2hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx2hivnx2hi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx2hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx2hivnx2hi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx2hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_extendvnx2hivnx2si                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx2hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx2hivnx2si                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx2hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx2hivnx2si            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx2hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx2hivnx2si            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx2hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_extendvnx4sivnx8qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx4sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx4sivnx8qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx4sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx4sivnx8qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx4sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx4sivnx8qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx4sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_ldff1_extendvnx2hivnx4hi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx2hivnx4hi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx2hivnx4hi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx2hivnx4hi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_extendvnx2hivnx2hi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx2hivnx2hi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx2hivnx2hi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx2hivnx2hi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_extendvnx2hivnx2si                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx2hivnx2si                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx2hivnx2si            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx2hivnx2si            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_extendvnx4sivnx8qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx4sivnx8qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx4sivnx8qi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx4sivnx8qi            (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldff1_extendvnx4sivnx4qi                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldnf1_extendvnx4sivnx4qi                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldff1_zero_extendvnx4sivnx4qi            (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldnf1_zero_extendvnx4sivnx4qi            (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_ldff1_extendvnx4sivnx2qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx4sivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx4sivnx2qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx4sivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx4sivnx2qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx4sivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx4sivnx2qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx4sivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_ldff1_extendvnx4sivnx2qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx4sivnx2qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx4sivnx2qi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx4sivnx2qi            (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldff1_extendvnx4sivnx4hi                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldnf1_extendvnx4sivnx4hi                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldff1_zero_extendvnx4sivnx4hi            (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldnf1_zero_extendvnx4sivnx4hi            (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_ldff1_extendvnx4sivnx2hi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx4sivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx4sivnx2hi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx4sivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx4sivnx2hi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx4sivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx4sivnx2hi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx4sivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_extendvnx4sivnx2si                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx4sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx4sivnx2si                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx4sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx4sivnx2si            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx4sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx4sivnx2si            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx4sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_extendvnx2sivnx8qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx2sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx2sivnx8qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx2sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx2sivnx8qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx2sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx2sivnx8qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx2sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_extendvnx2sivnx4qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx2sivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx2sivnx4qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx2sivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx2sivnx4qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx2sivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx2sivnx4qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx2sivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_ldff1_extendvnx4sivnx2hi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx4sivnx2hi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx4sivnx2hi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx4sivnx2hi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_extendvnx4sivnx2si                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx4sivnx2si                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx4sivnx2si            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx4sivnx2si            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_extendvnx2sivnx8qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx2sivnx8qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx2sivnx8qi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx2sivnx8qi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_extendvnx2sivnx4qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx2sivnx4qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx2sivnx4qi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx2sivnx4qi            (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldff1_extendvnx2sivnx2qi                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldnf1_extendvnx2sivnx2qi                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldff1_zero_extendvnx2sivnx2qi            (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldnf1_zero_extendvnx2sivnx2qi            (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_ldff1_extendvnx2sivnx4hi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx2sivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx2sivnx4hi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx2sivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx2sivnx4hi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx2sivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx2sivnx4hi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx2sivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_ldff1_extendvnx2sivnx4hi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx2sivnx4hi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx2sivnx4hi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx2sivnx4hi            (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldff1_extendvnx2sivnx2hi                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldnf1_extendvnx2sivnx2hi                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldff1_zero_extendvnx2sivnx2hi            (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldnf1_zero_extendvnx2sivnx2hi            (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_ldff1_extendvnx2sivnx2si                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx2sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx2sivnx2si                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx2sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx2sivnx2si            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx2sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx2sivnx2si            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx2sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_extendvnx2divnx8qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx2divnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx2divnx8qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx2divnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx2divnx8qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx2divnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx2divnx8qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx2divnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_extendvnx2divnx4qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx2divnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx2divnx4qi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx2divnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx2divnx4qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx2divnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx2divnx4qi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx2divnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_ldff1_extendvnx2sivnx2si                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx2sivnx2si                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx2sivnx2si            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx2sivnx2si            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_extendvnx2divnx8qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx2divnx8qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx2divnx8qi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx2divnx8qi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_extendvnx2divnx4qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx2divnx4qi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx2divnx4qi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx2divnx4qi            (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldff1_extendvnx2divnx2qi                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldnf1_extendvnx2divnx2qi                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldff1_zero_extendvnx2divnx2qi            (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldnf1_zero_extendvnx2divnx2qi            (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_ldff1_extendvnx2divnx4hi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_extendvnx2divnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_extendvnx2divnx4hi                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_extendvnx2divnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldff1_zero_extendvnx2divnx4hi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldff1_zero_extendvnx2divnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_ldnf1_zero_extendvnx2divnx4hi            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_ldnf1_zero_extendvnx2divnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_ldff1_extendvnx2divnx4hi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_extendvnx2divnx4hi                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldff1_zero_extendvnx2divnx4hi            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_ldnf1_zero_extendvnx2divnx4hi            (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldff1_extendvnx2divnx2hi                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldnf1_extendvnx2divnx2hi                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldff1_zero_extendvnx2divnx2hi            (rtx, rtx, rtx, rtx);
@@ -17459,18 +17628,8 @@ extern rtx        gen_aarch64_gather_load_extendvnx4hivnx4qi           (rtx, rtx
 extern rtx        gen_aarch64_gather_load_zero_extendvnx4hivnx4qi      (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_load_extendvnx4sivnx4qi           (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_load_zero_extendvnx4sivnx4qi      (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_gather_load_extendvnx4hivnx4hi           (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_load_extendvnx4hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f), rtx ARG_UNUSED (g))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_gather_load_zero_extendvnx4hivnx4hi      (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_load_zero_extendvnx4hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f), rtx ARG_UNUSED (g))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_gather_load_extendvnx4hivnx4hi           (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_gather_load_zero_extendvnx4hivnx4hi      (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_load_extendvnx4sivnx4hi           (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_load_zero_extendvnx4sivnx4hi      (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_load_extendvnx2hivnx2qi           (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
@@ -17479,46 +17638,16 @@ extern rtx        gen_aarch64_gather_load_extendvnx2sivnx2qi           (rtx, rtx
 extern rtx        gen_aarch64_gather_load_zero_extendvnx2sivnx2qi      (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_load_extendvnx2divnx2qi           (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_load_zero_extendvnx2divnx2qi      (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_gather_load_extendvnx2hivnx2hi           (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_load_extendvnx2hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f), rtx ARG_UNUSED (g))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_gather_load_zero_extendvnx2hivnx2hi      (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_load_zero_extendvnx2hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f), rtx ARG_UNUSED (g))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_gather_load_extendvnx2hivnx2hi           (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_gather_load_zero_extendvnx2hivnx2hi      (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_load_extendvnx2sivnx2hi           (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_load_zero_extendvnx2sivnx2hi      (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_load_extendvnx2divnx2hi           (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_load_zero_extendvnx2divnx2hi      (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_gather_load_extendvnx2hivnx2si           (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_load_extendvnx2hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f), rtx ARG_UNUSED (g))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_gather_load_zero_extendvnx2hivnx2si      (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_load_zero_extendvnx2hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f), rtx ARG_UNUSED (g))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_gather_load_extendvnx2sivnx2si           (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_load_extendvnx2sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f), rtx ARG_UNUSED (g))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_gather_load_zero_extendvnx2sivnx2si      (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_load_zero_extendvnx2sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f), rtx ARG_UNUSED (g))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_gather_load_extendvnx2hivnx2si           (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_gather_load_zero_extendvnx2hivnx2si      (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_gather_load_extendvnx2sivnx2si           (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_gather_load_zero_extendvnx2sivnx2si      (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_load_extendvnx2divnx2si           (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_load_zero_extendvnx2divnx2si      (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ldff1_gathervnx4si                       (rtx, rtx, rtx, rtx, rtx, rtx);
@@ -17798,667 +17927,157 @@ extern rtx        gen_aarch64_pred_popcountvnx2di                      (rtx, rtx
 extern rtx        gen_aarch64_pred_rbitvnx2di                          (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_qabsvnx2di                          (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_qnegvnx2di                          (rtx, rtx, rtx);
-static inline rtx gen_aarch64_pred_revbvnx16qi                         (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_pred_revbvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_pred_revhvnx16qi                         (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_pred_revhvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_pred_revwvnx16qi                         (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_pred_revwvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_pred_revbvnx16qi                         (rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_revhvnx16qi                         (rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_revwvnx16qi                         (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_revbvnx8hi                          (rtx, rtx, rtx);
-static inline rtx gen_aarch64_pred_revhvnx8hi                          (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_pred_revhvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_pred_revwvnx8hi                          (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_pred_revwvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_pred_revhvnx8hi                          (rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_revwvnx8hi                          (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_revbvnx4si                          (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_revhvnx4si                          (rtx, rtx, rtx);
-static inline rtx gen_aarch64_pred_revwvnx4si                          (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_pred_revwvnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_pred_revwvnx4si                          (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_revbvnx2di                          (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_revhvnx2di                          (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_revwvnx2di                          (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_revbhw_vnx16qivnx8bi                 (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_revbhw_vnx8qivnx8bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx8qivnx8bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx4qivnx8bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx4qivnx8bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx2qivnx8bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2qivnx8bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx8hivnx8bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx8hivnx8bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx4hivnx8bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx4hivnx8bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx2hivnx8bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2hivnx8bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx8hfvnx8bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx8hfvnx8bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx4hfvnx8bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx4hfvnx8bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx2hfvnx8bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2hfvnx8bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx8bfvnx8bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx8bfvnx8bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx4bfvnx8bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx4bfvnx8bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx2bfvnx8bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2bfvnx8bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx4sivnx8bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx4sivnx8bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx2sivnx8bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2sivnx8bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx4sfvnx8bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx4sfvnx8bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx2sfvnx8bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2sfvnx8bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx2divnx8bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2divnx8bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx2dfvnx8bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2dfvnx8bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_revbhw_vnx8qivnx8bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx4qivnx8bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx2qivnx8bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx8hivnx8bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx4hivnx8bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx2hivnx8bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx8hfvnx8bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx4hfvnx8bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx2hfvnx8bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx8bfvnx8bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx4bfvnx8bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx2bfvnx8bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx4sivnx8bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx2sivnx8bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx4sfvnx8bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx2sfvnx8bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx2divnx8bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx2dfvnx8bi                  (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_revbhw_vnx16qivnx4bi                 (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_revbhw_vnx8qivnx4bi                  (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_revbhw_vnx4qivnx4bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx4qivnx4bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx2qivnx4bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2qivnx4bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_revbhw_vnx4qivnx4bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx2qivnx4bi                  (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_revbhw_vnx8hivnx4bi                  (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_revbhw_vnx4hivnx4bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx4hivnx4bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx2hivnx4bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2hivnx4bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_revbhw_vnx4hivnx4bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx2hivnx4bi                  (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_revbhw_vnx8hfvnx4bi                  (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_revbhw_vnx4hfvnx4bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx4hfvnx4bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx2hfvnx4bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2hfvnx4bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_revbhw_vnx4hfvnx4bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx2hfvnx4bi                  (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_revbhw_vnx8bfvnx4bi                  (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_revbhw_vnx4bfvnx4bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx4bfvnx4bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx2bfvnx4bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2bfvnx4bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx4sivnx4bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx4sivnx4bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx2sivnx4bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2sivnx4bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx4sfvnx4bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx4sfvnx4bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx2sfvnx4bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2sfvnx4bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx2divnx4bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2divnx4bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx2dfvnx4bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2dfvnx4bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_revbhw_vnx4bfvnx4bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx2bfvnx4bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx4sivnx4bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx2sivnx4bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx4sfvnx4bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx2sfvnx4bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx2divnx4bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx2dfvnx4bi                  (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_revbhw_vnx16qivnx2bi                 (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_revbhw_vnx8qivnx2bi                  (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_revbhw_vnx4qivnx2bi                  (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_revbhw_vnx2qivnx2bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2qivnx2bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_revbhw_vnx2qivnx2bi                  (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_revbhw_vnx8hivnx2bi                  (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_revbhw_vnx4hivnx2bi                  (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_revbhw_vnx2hivnx2bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2hivnx2bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_revbhw_vnx2hivnx2bi                  (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_revbhw_vnx8hfvnx2bi                  (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_revbhw_vnx4hfvnx2bi                  (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_revbhw_vnx2hfvnx2bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2hfvnx2bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_revbhw_vnx2hfvnx2bi                  (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_revbhw_vnx8bfvnx2bi                  (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_revbhw_vnx4bfvnx2bi                  (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_revbhw_vnx2bfvnx2bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2bfvnx2bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_revbhw_vnx2bfvnx2bi                  (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_revbhw_vnx4sivnx2bi                  (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_revbhw_vnx2sivnx2bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2sivnx2bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_revbhw_vnx2sivnx2bi                  (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_revbhw_vnx4sfvnx2bi                  (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_revbhw_vnx2sfvnx2bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2sfvnx2bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx2divnx2bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2divnx2bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_revbhw_vnx2dfvnx2bi                  (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_revbhw_vnx2dfvnx2bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_cond_revbvnx16qi                                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_revbvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_cond_revhvnx16qi                                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_revhvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_cond_revwvnx16qi                                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_revwvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_revbhw_vnx2sfvnx2bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx2divnx2bi                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_revbhw_vnx2dfvnx2bi                  (rtx, rtx, rtx);
+extern rtx        gen_cond_revbvnx16qi                                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_cond_revhvnx16qi                                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_cond_revwvnx16qi                                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_revbvnx8hi                                  (rtx, rtx, rtx, rtx);
-static inline rtx gen_cond_revhvnx8hi                                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_revhvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_cond_revwvnx8hi                                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_revwvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_cond_revhvnx8hi                                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_cond_revwvnx8hi                                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_revbvnx4si                                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_revhvnx4si                                  (rtx, rtx, rtx, rtx);
-static inline rtx gen_cond_revwvnx4si                                  (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_revwvnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_cond_revwvnx4si                                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_revbvnx2di                                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_revhvnx2di                                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_revwvnx2di                                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_sxtvnx8hivnx8qi                     (rtx, rtx, rtx);
-static inline rtx gen_aarch64_pred_sxtvnx8hivnx4qi                     (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_pred_sxtvnx8hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_pred_sxtvnx8hivnx2qi                     (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_pred_sxtvnx8hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_pred_sxtvnx8hivnx4hi                     (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_pred_sxtvnx8hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_pred_sxtvnx8hivnx2hi                     (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_pred_sxtvnx8hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_pred_sxtvnx8hivnx2si                     (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_pred_sxtvnx8hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_pred_sxtvnx4sivnx8qi                     (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_pred_sxtvnx4sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_pred_sxtvnx8hivnx4qi                     (rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_sxtvnx8hivnx2qi                     (rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_sxtvnx8hivnx4hi                     (rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_sxtvnx8hivnx2hi                     (rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_sxtvnx8hivnx2si                     (rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_sxtvnx4sivnx8qi                     (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_sxtvnx4sivnx4qi                     (rtx, rtx, rtx);
-static inline rtx gen_aarch64_pred_sxtvnx4sivnx2qi                     (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_pred_sxtvnx4sivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_pred_sxtvnx4sivnx2qi                     (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_sxtvnx4sivnx4hi                     (rtx, rtx, rtx);
-static inline rtx gen_aarch64_pred_sxtvnx4sivnx2hi                     (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_pred_sxtvnx4sivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_pred_sxtvnx4sivnx2si                     (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_pred_sxtvnx4sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_pred_sxtvnx2divnx8qi                     (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_pred_sxtvnx2divnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_pred_sxtvnx2divnx4qi                     (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_pred_sxtvnx2divnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_pred_sxtvnx4sivnx2hi                     (rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_sxtvnx4sivnx2si                     (rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_sxtvnx2divnx8qi                     (rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_sxtvnx2divnx4qi                     (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_sxtvnx2divnx2qi                     (rtx, rtx, rtx);
-static inline rtx gen_aarch64_pred_sxtvnx2divnx4hi                     (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_pred_sxtvnx2divnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_pred_sxtvnx2divnx4hi                     (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_sxtvnx2divnx2hi                     (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_sxtvnx2divnx2si                     (rtx, rtx, rtx);
 extern rtx        gen_aarch64_cond_sxtvnx8hivnx8qi                     (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_cond_sxtvnx8hivnx4qi                     (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_cond_sxtvnx8hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_cond_sxtvnx8hivnx2qi                     (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_cond_sxtvnx8hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_cond_sxtvnx8hivnx4hi                     (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_cond_sxtvnx8hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_cond_sxtvnx8hivnx2hi                     (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_cond_sxtvnx8hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_cond_sxtvnx8hivnx2si                     (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_cond_sxtvnx8hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_cond_sxtvnx4sivnx8qi                     (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_cond_sxtvnx4sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_cond_sxtvnx8hivnx4qi                     (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_cond_sxtvnx8hivnx2qi                     (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_cond_sxtvnx8hivnx4hi                     (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_cond_sxtvnx8hivnx2hi                     (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_cond_sxtvnx8hivnx2si                     (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_cond_sxtvnx4sivnx8qi                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_cond_sxtvnx4sivnx4qi                     (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_cond_sxtvnx4sivnx2qi                     (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_cond_sxtvnx4sivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_cond_sxtvnx4sivnx2qi                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_cond_sxtvnx4sivnx4hi                     (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_cond_sxtvnx4sivnx2hi                     (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_cond_sxtvnx4sivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_cond_sxtvnx4sivnx2si                     (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_cond_sxtvnx4sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_cond_sxtvnx2divnx8qi                     (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_cond_sxtvnx2divnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_cond_sxtvnx2divnx4qi                     (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_cond_sxtvnx2divnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_cond_sxtvnx4sivnx2hi                     (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_cond_sxtvnx4sivnx2si                     (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_cond_sxtvnx2divnx8qi                     (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_cond_sxtvnx2divnx4qi                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_cond_sxtvnx2divnx2qi                     (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_cond_sxtvnx2divnx4hi                     (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_cond_sxtvnx2divnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_cond_sxtvnx2divnx4hi                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_cond_sxtvnx2divnx2hi                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_cond_sxtvnx2divnx2si                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_truncvnx8hivnx8qi2                               (rtx, rtx);
-static inline rtx gen_truncvnx8hivnx4qi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx8hivnx4qi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_truncvnx8hivnx2qi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx8hivnx2qi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_truncvnx8hivnx4hi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx8hivnx4hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_truncvnx8hivnx2hi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx8hivnx2hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_truncvnx8hivnx2si2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx8hivnx2si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_truncvnx4hivnx8qi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx4hivnx8qi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
+extern rtx        gen_truncvnx8hivnx4qi2                               (rtx, rtx);
+extern rtx        gen_truncvnx8hivnx2qi2                               (rtx, rtx);
+extern rtx        gen_truncvnx8hivnx4hi2                               (rtx, rtx);
+extern rtx        gen_truncvnx8hivnx2hi2                               (rtx, rtx);
+extern rtx        gen_truncvnx8hivnx2si2                               (rtx, rtx);
+extern rtx        gen_truncvnx4hivnx8qi2                               (rtx, rtx);
 extern rtx        gen_truncvnx4hivnx4qi2                               (rtx, rtx);
-static inline rtx gen_truncvnx4hivnx2qi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx4hivnx2qi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_truncvnx4hivnx4hi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx4hivnx4hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_truncvnx4hivnx2hi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx4hivnx2hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_truncvnx4hivnx2si2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx4hivnx2si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_truncvnx2hivnx8qi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx2hivnx8qi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_truncvnx2hivnx4qi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx2hivnx4qi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
+extern rtx        gen_truncvnx4hivnx2qi2                               (rtx, rtx);
+extern rtx        gen_truncvnx4hivnx4hi2                               (rtx, rtx);
+extern rtx        gen_truncvnx4hivnx2hi2                               (rtx, rtx);
+extern rtx        gen_truncvnx4hivnx2si2                               (rtx, rtx);
+extern rtx        gen_truncvnx2hivnx8qi2                               (rtx, rtx);
+extern rtx        gen_truncvnx2hivnx4qi2                               (rtx, rtx);
 extern rtx        gen_truncvnx2hivnx2qi2                               (rtx, rtx);
-static inline rtx gen_truncvnx2hivnx4hi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx2hivnx4hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_truncvnx2hivnx2hi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx2hivnx2hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_truncvnx2hivnx2si2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx2hivnx2si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_truncvnx4sivnx8qi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx4sivnx8qi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
+extern rtx        gen_truncvnx2hivnx4hi2                               (rtx, rtx);
+extern rtx        gen_truncvnx2hivnx2hi2                               (rtx, rtx);
+extern rtx        gen_truncvnx2hivnx2si2                               (rtx, rtx);
+extern rtx        gen_truncvnx4sivnx8qi2                               (rtx, rtx);
 extern rtx        gen_truncvnx4sivnx4qi2                               (rtx, rtx);
-static inline rtx gen_truncvnx4sivnx2qi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx4sivnx2qi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
+extern rtx        gen_truncvnx4sivnx2qi2                               (rtx, rtx);
 extern rtx        gen_truncvnx4sivnx4hi2                               (rtx, rtx);
-static inline rtx gen_truncvnx4sivnx2hi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx4sivnx2hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_truncvnx4sivnx2si2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx4sivnx2si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_truncvnx2sivnx8qi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx2sivnx8qi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_truncvnx2sivnx4qi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx2sivnx4qi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
+extern rtx        gen_truncvnx4sivnx2hi2                               (rtx, rtx);
+extern rtx        gen_truncvnx4sivnx2si2                               (rtx, rtx);
+extern rtx        gen_truncvnx2sivnx8qi2                               (rtx, rtx);
+extern rtx        gen_truncvnx2sivnx4qi2                               (rtx, rtx);
 extern rtx        gen_truncvnx2sivnx2qi2                               (rtx, rtx);
-static inline rtx gen_truncvnx2sivnx4hi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx2sivnx4hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
+extern rtx        gen_truncvnx2sivnx4hi2                               (rtx, rtx);
 extern rtx        gen_truncvnx2sivnx2hi2                               (rtx, rtx);
-static inline rtx gen_truncvnx2sivnx2si2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx2sivnx2si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_truncvnx2divnx8qi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx2divnx8qi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_truncvnx2divnx4qi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx2divnx4qi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
+extern rtx        gen_truncvnx2sivnx2si2                               (rtx, rtx);
+extern rtx        gen_truncvnx2divnx8qi2                               (rtx, rtx);
+extern rtx        gen_truncvnx2divnx4qi2                               (rtx, rtx);
 extern rtx        gen_truncvnx2divnx2qi2                               (rtx, rtx);
-static inline rtx gen_truncvnx2divnx4hi2                               (rtx, rtx);
-static inline rtx
-gen_truncvnx2divnx4hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
+extern rtx        gen_truncvnx2divnx4hi2                               (rtx, rtx);
 extern rtx        gen_truncvnx2divnx2hi2                               (rtx, rtx);
 extern rtx        gen_truncvnx2divnx2si2                               (rtx, rtx);
 extern rtx        gen_aarch64_sve_fexpavnx8hf                          (rtx, rtx);
@@ -18822,18 +18441,8 @@ extern rtx        gen_sdot_prodvnx8hi                                  (rtx, rtx
 extern rtx        gen_udot_prodvnx8hi                                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sdot_prod_lanevnx4sivnx16qi              (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_udot_prod_lanevnx4sivnx16qi              (rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sdot_prod_lanevnx2divnx16qi              (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sdot_prod_lanevnx2divnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_udot_prod_lanevnx2divnx16qi              (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_udot_prod_lanevnx2divnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sdot_prod_lanevnx2divnx16qi              (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_udot_prod_lanevnx2divnx16qi              (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sdot_prod_lanevnx4sivnx8hi               (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_udot_prod_lanevnx4sivnx8hi               (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sdot_prod_lanevnx2divnx8hi               (rtx, rtx, rtx, rtx, rtx);
@@ -19274,12 +18883,7 @@ extern rtx        gen_aarch64_pred_reduc_sadd_vnx8hi                   (rtx, rtx
 extern rtx        gen_aarch64_pred_reduc_uadd_vnx8hi                   (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_reduc_sadd_vnx4si                   (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_reduc_uadd_vnx4si                   (rtx, rtx, rtx);
-static inline rtx gen_aarch64_pred_reduc_sadd_vnx2di                   (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_pred_reduc_sadd_vnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_pred_reduc_sadd_vnx2di                   (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_reduc_uadd_vnx2di                   (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_reduc_and_vnx16qi                   (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_reduc_ior_vnx16qi                   (rtx, rtx, rtx);
@@ -19623,46 +19227,16 @@ extern rtx        gen_aarch64_sve_sunpklo_vnx4si                       (rtx, rtx
 extern rtx        gen_aarch64_sve_uunpklo_vnx4si                       (rtx, rtx);
 extern rtx        gen_aarch64_sve_fix_trunc_nontruncvnx8hfvnx8hi       (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_fixuns_trunc_nontruncvnx8hfvnx8hi    (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_fix_trunc_nontruncvnx4sfvnx8hi       (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_fix_trunc_nontruncvnx4sfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_fixuns_trunc_nontruncvnx4sfvnx8hi    (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_fixuns_trunc_nontruncvnx4sfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_fix_trunc_nontruncvnx2dfvnx8hi       (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_fix_trunc_nontruncvnx2dfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_fixuns_trunc_nontruncvnx2dfvnx8hi    (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_fixuns_trunc_nontruncvnx2dfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_fix_trunc_nontruncvnx4sfvnx8hi       (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_fixuns_trunc_nontruncvnx4sfvnx8hi    (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_fix_trunc_nontruncvnx2dfvnx8hi       (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_fixuns_trunc_nontruncvnx2dfvnx8hi    (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_fix_trunc_nontruncvnx8hfvnx4si       (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_fixuns_trunc_nontruncvnx8hfvnx4si    (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_fix_trunc_nontruncvnx4sfvnx4si       (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_fixuns_trunc_nontruncvnx4sfvnx4si    (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_fix_trunc_nontruncvnx2dfvnx4si       (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_fix_trunc_nontruncvnx2dfvnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_fixuns_trunc_nontruncvnx2dfvnx4si    (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_fixuns_trunc_nontruncvnx2dfvnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_fix_trunc_nontruncvnx2dfvnx4si       (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_fixuns_trunc_nontruncvnx2dfvnx4si    (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_fix_trunc_nontruncvnx8hfvnx2di       (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_fixuns_trunc_nontruncvnx8hfvnx2di    (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_fix_trunc_nontruncvnx4sfvnx2di       (rtx, rtx, rtx, rtx);
@@ -19673,46 +19247,16 @@ extern rtx        gen_aarch64_sve_fix_trunc_truncvnx2dfvnx4si          (rtx, rtx
 extern rtx        gen_aarch64_sve_fixuns_trunc_truncvnx2dfvnx4si       (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_float_nonextendvnx8hivnx8hf          (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_floatuns_nonextendvnx8hivnx8hf       (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_float_nonextendvnx8hivnx4sf          (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_float_nonextendvnx8hivnx4sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_floatuns_nonextendvnx8hivnx4sf       (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_floatuns_nonextendvnx8hivnx4sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_float_nonextendvnx8hivnx2df          (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_float_nonextendvnx8hivnx2df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_floatuns_nonextendvnx8hivnx2df       (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_floatuns_nonextendvnx8hivnx2df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_float_nonextendvnx8hivnx4sf          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_floatuns_nonextendvnx8hivnx4sf       (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_float_nonextendvnx8hivnx2df          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_floatuns_nonextendvnx8hivnx2df       (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_float_nonextendvnx4sivnx8hf          (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_floatuns_nonextendvnx4sivnx8hf       (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_float_nonextendvnx4sivnx4sf          (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_floatuns_nonextendvnx4sivnx4sf       (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_float_nonextendvnx4sivnx2df          (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_float_nonextendvnx4sivnx2df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sve_floatuns_nonextendvnx4sivnx2df       (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_floatuns_nonextendvnx4sivnx2df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_float_nonextendvnx4sivnx2df          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_floatuns_nonextendvnx4sivnx2df       (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_float_nonextendvnx2divnx8hf          (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_floatuns_nonextendvnx2divnx8hf       (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_float_nonextendvnx2divnx4sf          (rtx, rtx, rtx, rtx);
@@ -19723,23 +19267,13 @@ extern rtx        gen_aarch64_sve_float_extendvnx4sivnx2df             (rtx, rtx
 extern rtx        gen_aarch64_sve_floatuns_extendvnx4sivnx2df          (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_fcvt_truncvnx4sfvnx8hf               (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_fcvt_truncvnx2dfvnx8hf               (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_fcvt_truncvnx4sfvnx4sf               (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_fcvt_truncvnx4sfvnx4sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_fcvt_truncvnx4sfvnx4sf               (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_fcvt_truncvnx2dfvnx4sf               (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_fcvt_truncvnx4sfvnx8bf               (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_cvtntvnx8bf                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_fcvt_nontruncvnx8hfvnx4sf            (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_fcvt_nontruncvnx8hfvnx2df            (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_fcvt_nontruncvnx4sfvnx4sf            (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_fcvt_nontruncvnx4sfvnx4sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_fcvt_nontruncvnx4sfvnx4sf            (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_fcvt_nontruncvnx4sfvnx2df            (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_pack_trunc_vnx8bi                            (rtx, rtx, rtx);
 extern rtx        gen_vec_pack_trunc_vnx4bi                            (rtx, rtx, rtx);
@@ -19757,26 +19291,11 @@ extern rtx        gen_aarch64_brkpa                                    (rtx, rtx
 extern rtx        gen_aarch64_brkpb                                    (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_pfirstvnx16bi                        (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_pnextvnx16bi                         (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_pfirstvnx8bi                         (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_pfirstvnx8bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_pfirstvnx8bi                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_pnextvnx8bi                          (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_pfirstvnx4bi                         (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_pfirstvnx4bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_pfirstvnx4bi                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_pnextvnx4bi                          (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sve_pfirstvnx2bi                         (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sve_pfirstvnx2bi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sve_pfirstvnx2bi                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_pnextvnx2bi                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_cnt_pat                              (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_incdi_pat                            (rtx, rtx, rtx, rtx, rtx);
@@ -19889,96 +19408,26 @@ extern rtx        gen_aarch64_gather_ldntvnx4si                        (rtx, rtx
 extern rtx        gen_aarch64_gather_ldntvnx2di                        (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_ldntvnx4sf                        (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_ldntvnx2df                        (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_gather_ldnt_extendvnx4sivnx8qi           (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_ldnt_extendvnx4sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_gather_ldnt_zero_extendvnx4sivnx8qi      (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_ldnt_zero_extendvnx4sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_gather_ldnt_extendvnx4sivnx8qi           (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_gather_ldnt_zero_extendvnx4sivnx8qi      (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_ldnt_extendvnx4sivnx4qi           (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_ldnt_zero_extendvnx4sivnx4qi      (rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_gather_ldnt_extendvnx4sivnx2qi           (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_ldnt_extendvnx4sivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_gather_ldnt_zero_extendvnx4sivnx2qi      (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_ldnt_zero_extendvnx4sivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_gather_ldnt_extendvnx4sivnx2qi           (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_gather_ldnt_zero_extendvnx4sivnx2qi      (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_ldnt_extendvnx4sivnx4hi           (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_ldnt_zero_extendvnx4sivnx4hi      (rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_gather_ldnt_extendvnx4sivnx2hi           (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_ldnt_extendvnx4sivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_gather_ldnt_zero_extendvnx4sivnx2hi      (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_ldnt_zero_extendvnx4sivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_gather_ldnt_extendvnx4sivnx2si           (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_ldnt_extendvnx4sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_gather_ldnt_zero_extendvnx4sivnx2si      (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_ldnt_zero_extendvnx4sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_gather_ldnt_extendvnx2divnx8qi           (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_ldnt_extendvnx2divnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_gather_ldnt_zero_extendvnx2divnx8qi      (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_ldnt_zero_extendvnx2divnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_gather_ldnt_extendvnx2divnx4qi           (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_ldnt_extendvnx2divnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_gather_ldnt_zero_extendvnx2divnx4qi      (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_ldnt_zero_extendvnx2divnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_gather_ldnt_extendvnx4sivnx2hi           (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_gather_ldnt_zero_extendvnx4sivnx2hi      (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_gather_ldnt_extendvnx4sivnx2si           (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_gather_ldnt_zero_extendvnx4sivnx2si      (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_gather_ldnt_extendvnx2divnx8qi           (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_gather_ldnt_zero_extendvnx2divnx8qi      (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_gather_ldnt_extendvnx2divnx4qi           (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_gather_ldnt_zero_extendvnx2divnx4qi      (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_ldnt_extendvnx2divnx2qi           (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_ldnt_zero_extendvnx2divnx2qi      (rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_gather_ldnt_extendvnx2divnx4hi           (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_ldnt_extendvnx2divnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_gather_ldnt_zero_extendvnx2divnx4hi      (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_gather_ldnt_zero_extendvnx2divnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_gather_ldnt_extendvnx2divnx4hi           (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_gather_ldnt_zero_extendvnx2divnx4hi      (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_ldnt_extendvnx2divnx2hi           (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_ldnt_zero_extendvnx2divnx2hi      (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_gather_ldnt_extendvnx2divnx2si           (rtx, rtx, rtx, rtx, rtx);
@@ -20083,51 +19532,16 @@ extern rtx        gen_aarch64_scatter_stntvnx4si                       (rtx, rtx
 extern rtx        gen_aarch64_scatter_stntvnx2di                       (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_scatter_stntvnx4sf                       (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_scatter_stntvnx2df                       (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_scatter_stnt_vnx4sivnx8qi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_scatter_stnt_vnx4sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_scatter_stnt_vnx4sivnx8qi                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_scatter_stnt_vnx4sivnx4qi                (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_scatter_stnt_vnx4sivnx2qi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_scatter_stnt_vnx4sivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_scatter_stnt_vnx4sivnx2qi                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_scatter_stnt_vnx4sivnx4hi                (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_scatter_stnt_vnx4sivnx2hi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_scatter_stnt_vnx4sivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_scatter_stnt_vnx4sivnx2si                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_scatter_stnt_vnx4sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_scatter_stnt_vnx2divnx8qi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_scatter_stnt_vnx2divnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_scatter_stnt_vnx2divnx4qi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_scatter_stnt_vnx2divnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_scatter_stnt_vnx4sivnx2hi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_scatter_stnt_vnx4sivnx2si                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_scatter_stnt_vnx2divnx8qi                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_scatter_stnt_vnx2divnx4qi                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_scatter_stnt_vnx2divnx2qi                (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_scatter_stnt_vnx2divnx4hi                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_scatter_stnt_vnx2divnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_scatter_stnt_vnx2divnx4hi                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_scatter_stnt_vnx2divnx2hi                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_scatter_stnt_vnx2divnx2si                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_ptrue_c8                             (rtx);
@@ -21378,72 +20792,22 @@ extern rtx        gen_aarch64_sme_udotvnx4sivnx64qi                    (rtx, rtx
 extern rtx        gen_aarch64_sme_usdotvnx4sivnx64qi                   (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_sdotvnx4sivnx16hi                    (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_udotvnx4sivnx16hi                    (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_usdotvnx4sivnx16hi                   (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_usdotvnx4sivnx16hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_usdotvnx4sivnx16hi                   (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_sdotvnx4sivnx32hi                    (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_udotvnx4sivnx32hi                    (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_usdotvnx4sivnx32hi                   (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_usdotvnx4sivnx32hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_sdotvnx2divnx32qi                    (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_sdotvnx2divnx32qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_udotvnx2divnx32qi                    (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_udotvnx2divnx32qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_usdotvnx2divnx32qi                   (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_usdotvnx2divnx32qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_sdotvnx2divnx64qi                    (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_sdotvnx2divnx64qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_udotvnx2divnx64qi                    (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_udotvnx2divnx64qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_usdotvnx2divnx64qi                   (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_usdotvnx2divnx64qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_usdotvnx4sivnx32hi                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_sdotvnx2divnx32qi                    (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_udotvnx2divnx32qi                    (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_usdotvnx2divnx32qi                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_sdotvnx2divnx64qi                    (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_udotvnx2divnx64qi                    (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_usdotvnx2divnx64qi                   (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_sdotvnx2divnx16hi                    (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_udotvnx2divnx16hi                    (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_usdotvnx2divnx16hi                   (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_usdotvnx2divnx16hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_usdotvnx2divnx16hi                   (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_sdotvnx2divnx32hi                    (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_udotvnx2divnx32hi                    (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_usdotvnx2divnx32hi                   (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_usdotvnx2divnx32hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_usdotvnx2divnx32hi                   (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_sdotvnx4sivnx32qi             (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_udotvnx4sivnx32qi             (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_usdotvnx4sivnx32qi            (rtx, rtx, rtx);
@@ -21452,72 +20816,22 @@ extern rtx        gen_aarch64_sme_single_udotvnx4sivnx64qi             (rtx, rtx
 extern rtx        gen_aarch64_sme_single_usdotvnx4sivnx64qi            (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_sdotvnx4sivnx16hi             (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_udotvnx4sivnx16hi             (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_single_usdotvnx4sivnx16hi            (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_single_usdotvnx4sivnx16hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_single_usdotvnx4sivnx16hi            (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_sdotvnx4sivnx32hi             (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_udotvnx4sivnx32hi             (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_single_usdotvnx4sivnx32hi            (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_single_usdotvnx4sivnx32hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_single_sdotvnx2divnx32qi             (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_single_sdotvnx2divnx32qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_single_udotvnx2divnx32qi             (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_single_udotvnx2divnx32qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_single_usdotvnx2divnx32qi            (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_single_usdotvnx2divnx32qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_single_sdotvnx2divnx64qi             (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_single_sdotvnx2divnx64qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_single_udotvnx2divnx64qi             (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_single_udotvnx2divnx64qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_single_usdotvnx2divnx64qi            (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_single_usdotvnx2divnx64qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_single_usdotvnx4sivnx32hi            (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_single_sdotvnx2divnx32qi             (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_single_udotvnx2divnx32qi             (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_single_usdotvnx2divnx32qi            (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_single_sdotvnx2divnx64qi             (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_single_udotvnx2divnx64qi             (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_single_usdotvnx2divnx64qi            (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_sdotvnx2divnx16hi             (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_udotvnx2divnx16hi             (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_single_usdotvnx2divnx16hi            (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_single_usdotvnx2divnx16hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_single_usdotvnx2divnx16hi            (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_sdotvnx2divnx32hi             (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_udotvnx2divnx32hi             (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_single_usdotvnx2divnx32hi            (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_single_usdotvnx2divnx32hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_single_usdotvnx2divnx32hi            (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_sudotvnx4sivnx32qi            (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_sudotvnx4sivnx64qi            (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_sdotvnx4sivnx32qi               (rtx, rtx, rtx, rtx);
@@ -21540,210 +20854,50 @@ extern rtx        gen_aarch64_sme_lane_sdotvnx4sivnx16hi               (rtx, rtx
 extern rtx        gen_aarch64_sme_lane_svdotvnx4sivnx16hi              (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_udotvnx4sivnx16hi               (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_uvdotvnx4sivnx16hi              (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_lane_sudotvnx4sivnx16hi              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_sudotvnx4sivnx16hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_suvdotvnx4sivnx16hi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_suvdotvnx4sivnx16hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_usdotvnx4sivnx16hi              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_usdotvnx4sivnx16hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_usvdotvnx4sivnx16hi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_usvdotvnx4sivnx16hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_lane_sudotvnx4sivnx16hi              (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_suvdotvnx4sivnx16hi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_usdotvnx4sivnx16hi              (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_usvdotvnx4sivnx16hi             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_sdotvnx4sivnx32hi               (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_svdotvnx4sivnx32hi              (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_udotvnx4sivnx32hi               (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_uvdotvnx4sivnx32hi              (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_lane_sudotvnx4sivnx32hi              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_sudotvnx4sivnx32hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_suvdotvnx4sivnx32hi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_suvdotvnx4sivnx32hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_usdotvnx4sivnx32hi              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_usdotvnx4sivnx32hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_usvdotvnx4sivnx32hi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_usvdotvnx4sivnx32hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_sdotvnx2divnx32qi               (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_sdotvnx2divnx32qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_svdotvnx2divnx32qi              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_svdotvnx2divnx32qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_udotvnx2divnx32qi               (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_udotvnx2divnx32qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_uvdotvnx2divnx32qi              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_uvdotvnx2divnx32qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_sudotvnx2divnx32qi              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_sudotvnx2divnx32qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_suvdotvnx2divnx32qi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_suvdotvnx2divnx32qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_usdotvnx2divnx32qi              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_usdotvnx2divnx32qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_usvdotvnx2divnx32qi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_usvdotvnx2divnx32qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_sdotvnx2divnx64qi               (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_sdotvnx2divnx64qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_svdotvnx2divnx64qi              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_svdotvnx2divnx64qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_udotvnx2divnx64qi               (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_udotvnx2divnx64qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_uvdotvnx2divnx64qi              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_uvdotvnx2divnx64qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_sudotvnx2divnx64qi              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_sudotvnx2divnx64qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_suvdotvnx2divnx64qi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_suvdotvnx2divnx64qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_usdotvnx2divnx64qi              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_usdotvnx2divnx64qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_usvdotvnx2divnx64qi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_usvdotvnx2divnx64qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_lane_sudotvnx4sivnx32hi              (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_suvdotvnx4sivnx32hi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_usdotvnx4sivnx32hi              (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_usvdotvnx4sivnx32hi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_sdotvnx2divnx32qi               (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_svdotvnx2divnx32qi              (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_udotvnx2divnx32qi               (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_uvdotvnx2divnx32qi              (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_sudotvnx2divnx32qi              (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_suvdotvnx2divnx32qi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_usdotvnx2divnx32qi              (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_usvdotvnx2divnx32qi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_sdotvnx2divnx64qi               (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_svdotvnx2divnx64qi              (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_udotvnx2divnx64qi               (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_uvdotvnx2divnx64qi              (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_sudotvnx2divnx64qi              (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_suvdotvnx2divnx64qi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_usdotvnx2divnx64qi              (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_usvdotvnx2divnx64qi             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_sdotvnx2divnx16hi               (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_svdotvnx2divnx16hi              (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_udotvnx2divnx16hi               (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_uvdotvnx2divnx16hi              (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_lane_sudotvnx2divnx16hi              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_sudotvnx2divnx16hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_suvdotvnx2divnx16hi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_suvdotvnx2divnx16hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_usdotvnx2divnx16hi              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_usdotvnx2divnx16hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_usvdotvnx2divnx16hi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_usvdotvnx2divnx16hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_lane_sudotvnx2divnx16hi              (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_suvdotvnx2divnx16hi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_usdotvnx2divnx16hi              (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_usvdotvnx2divnx16hi             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_sdotvnx2divnx32hi               (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_svdotvnx2divnx32hi              (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_udotvnx2divnx32hi               (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_uvdotvnx2divnx32hi              (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_lane_sudotvnx2divnx32hi              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_sudotvnx2divnx32hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_suvdotvnx2divnx32hi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_suvdotvnx2divnx32hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_usdotvnx2divnx32hi              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_usdotvnx2divnx32hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_usvdotvnx2divnx32hi             (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_usvdotvnx2divnx32hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_lane_sudotvnx2divnx32hi              (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_suvdotvnx2divnx32hi             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_usdotvnx2divnx32hi              (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_usvdotvnx2divnx32hi             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_smlavnx4sivnx16qi                    (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_smlsvnx4sivnx16qi                    (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_umlavnx4sivnx16qi                    (rtx, rtx, rtx);
@@ -21880,170 +21034,50 @@ extern rtx        gen_aarch64_sme_lane_fdotvnx4sivnx32hf               (rtx, rtx
 extern rtx        gen_aarch64_sme_lane_fvdotvnx4sivnx32hf              (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_fmlavnx4sivnx8sf                     (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_fmlsvnx4sivnx8sf                     (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_fmlavnx4sivnx4df                     (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_fmlavnx4sivnx4df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_fmlsvnx4sivnx4df                     (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_fmlsvnx4sivnx4df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_fmlavnx4sivnx4df                     (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_fmlsvnx4sivnx4df                     (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_fmlavnx4sivnx16sf                    (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_fmlsvnx4sivnx16sf                    (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_fmlavnx4sivnx8df                     (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_fmlavnx4sivnx8df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_fmlsvnx4sivnx8df                     (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_fmlsvnx4sivnx8df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_fmlavnx2divnx8sf                     (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_fmlavnx2divnx8sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_fmlsvnx2divnx8sf                     (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_fmlsvnx2divnx8sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_fmlavnx4sivnx8df                     (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_fmlsvnx4sivnx8df                     (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_fmlavnx2divnx8sf                     (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_fmlsvnx2divnx8sf                     (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_fmlavnx2divnx4df                     (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_fmlsvnx2divnx4df                     (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_fmlavnx2divnx16sf                    (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_fmlavnx2divnx16sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_fmlsvnx2divnx16sf                    (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_fmlsvnx2divnx16sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_fmlavnx2divnx16sf                    (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_fmlsvnx2divnx16sf                    (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_fmlavnx2divnx8df                     (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_fmlsvnx2divnx8df                     (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_fmlavnx4sivnx8sf              (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_fmlsvnx4sivnx8sf              (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_single_fmlavnx4sivnx4df              (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_single_fmlavnx4sivnx4df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_single_fmlsvnx4sivnx4df              (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_single_fmlsvnx4sivnx4df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_single_fmlavnx4sivnx4df              (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_single_fmlsvnx4sivnx4df              (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_fmlavnx4sivnx16sf             (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_fmlsvnx4sivnx16sf             (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_single_fmlavnx4sivnx8df              (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_single_fmlavnx4sivnx8df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_single_fmlsvnx4sivnx8df              (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_single_fmlsvnx4sivnx8df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_single_fmlavnx2divnx8sf              (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_single_fmlavnx2divnx8sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_single_fmlsvnx2divnx8sf              (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_single_fmlsvnx2divnx8sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_single_fmlavnx4sivnx8df              (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_single_fmlsvnx4sivnx8df              (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_single_fmlavnx2divnx8sf              (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_single_fmlsvnx2divnx8sf              (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_fmlavnx2divnx4df              (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_fmlsvnx2divnx4df              (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_single_fmlavnx2divnx16sf             (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_single_fmlavnx2divnx16sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_single_fmlsvnx2divnx16sf             (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_single_fmlsvnx2divnx16sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_single_fmlavnx2divnx16sf             (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_single_fmlsvnx2divnx16sf             (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_fmlavnx2divnx8df              (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_fmlsvnx2divnx8df              (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_fmlavnx4sivnx8sf                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_fmlsvnx4sivnx8sf                (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_lane_fmlavnx4sivnx4df                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_fmlavnx4sivnx4df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_fmlsvnx4sivnx4df                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_fmlsvnx4sivnx4df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_lane_fmlavnx4sivnx4df                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_fmlsvnx4sivnx4df                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_fmlavnx4sivnx16sf               (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_fmlsvnx4sivnx16sf               (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_lane_fmlavnx4sivnx8df                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_fmlavnx4sivnx8df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_fmlsvnx4sivnx8df                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_fmlsvnx4sivnx8df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_fmlavnx2divnx8sf                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_fmlavnx2divnx8sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_fmlsvnx2divnx8sf                (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_fmlsvnx2divnx8sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_lane_fmlavnx4sivnx8df                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_fmlsvnx4sivnx8df                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_fmlavnx2divnx8sf                (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_fmlsvnx2divnx8sf                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_fmlavnx2divnx4df                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_fmlsvnx2divnx4df                (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_lane_fmlavnx2divnx16sf               (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_fmlavnx2divnx16sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_lane_fmlsvnx2divnx16sf               (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lane_fmlsvnx2divnx16sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_lane_fmlavnx2divnx16sf               (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lane_fmlsvnx2divnx16sf               (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_fmlavnx2divnx8df                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lane_fmlsvnx2divnx8df                (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_fmlavnx4sivnx8bf                     (rtx, rtx, rtx);
@@ -22080,58 +21114,18 @@ extern rtx        gen_aarch64_sme_lane_fmlavnx4sivnx32hf               (rtx, rtx
 extern rtx        gen_aarch64_sme_lane_fmlsvnx4sivnx32hf               (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_fmopavnx4sivnx8bf                    (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_fmopsvnx4sivnx8bf                    (rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_fmopavnx2divnx8bf                    (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_fmopavnx2divnx8bf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_fmopsvnx2divnx8bf                    (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_fmopsvnx2divnx8bf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_fmopavnx2divnx8bf                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_fmopsvnx2divnx8bf                    (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_fmopavnx4sivnx8hf                    (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_fmopsvnx4sivnx8hf                    (rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_fmopavnx2divnx8hf                    (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_fmopavnx2divnx8hf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_fmopsvnx2divnx8hf                    (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_fmopsvnx2divnx8hf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_fmopavnx2divnx8hf                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_fmopsvnx2divnx8hf                    (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_fmopavnx4sivnx4sf                    (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_fmopsvnx4sivnx4sf                    (rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_fmopavnx2divnx4sf                    (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_fmopavnx2divnx4sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_fmopsvnx2divnx4sf                    (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_fmopsvnx2divnx4sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_fmopavnx4sivnx2df                    (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_fmopavnx4sivnx2df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_sme_fmopsvnx4sivnx2df                    (rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_fmopsvnx4sivnx2df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_fmopavnx2divnx4sf                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_fmopsvnx2divnx4sf                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_fmopavnx4sivnx2df                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_fmopsvnx4sivnx2df                    (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_fmopavnx2divnx2df                    (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_fmopsvnx2divnx2df                    (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lut2vnx16qi                          (rtx, rtx, rtx);
@@ -22159,12 +21153,7 @@ extern rtx        gen_aarch64_sme_lut4vnx16hf                          (rtx, rtx
 extern rtx        gen_aarch64_sme_lut2vnx8sf                           (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lut4vnx8sf                           (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lut2vnx64qi                          (rtx, rtx, rtx);
-static inline rtx gen_aarch64_sme_lut4vnx64qi                          (rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_sme_lut4vnx64qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_sme_lut4vnx64qi                          (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lut2vnx32hi                          (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lut4vnx32hi                          (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lut2vnx16si                          (rtx, rtx, rtx);
@@ -23183,50 +22172,20 @@ extern rtx        gen_aarch64_sqrshrun_nv8hi                           (rtx, rtx
 extern rtx        gen_aarch64_sqrshrun_nv4si                           (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sqrshrun_nv2di                           (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sqsshrn2_nv8hi                           (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_squshrn2_nv8hi                           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_squshrn2_nv8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_uqsshrn2_nv8hi                           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_uqsshrn2_nv8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_squshrn2_nv8hi                           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_uqsshrn2_nv8hi                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_uqushrn2_nv8hi                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sshrn2_nv8hi                             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ushrn2_nv8hi                             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sqsshrn2_nv4si                           (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_squshrn2_nv4si                           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_squshrn2_nv4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_uqsshrn2_nv4si                           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_uqsshrn2_nv4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_squshrn2_nv4si                           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_uqsshrn2_nv4si                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_uqushrn2_nv4si                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sshrn2_nv4si                             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ushrn2_nv4si                             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sqsshrn2_nv2di                           (rtx, rtx, rtx, rtx);
-static inline rtx gen_aarch64_squshrn2_nv2di                           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_squshrn2_nv2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_aarch64_uqsshrn2_nv2di                           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_aarch64_uqsshrn2_nv2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_aarch64_squshrn2_nv2di                           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_uqsshrn2_nv2di                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_uqushrn2_nv2di                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sshrn2_nv2di                             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_ushrn2_nv2di                             (rtx, rtx, rtx, rtx);
@@ -24292,332 +23251,72 @@ extern rtx        gen_cond_qabsvnx2di                                  (rtx, rtx
 extern rtx        gen_cond_qnegvnx2di                                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_extendvnx8qivnx8hi2                              (rtx, rtx);
 extern rtx        gen_zero_extendvnx8qivnx8hi2                         (rtx, rtx);
-static inline rtx gen_extendvnx4qivnx8hi2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx4qivnx8hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx4qivnx8hi2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx4qivnx8hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_extendvnx2qivnx8hi2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx2qivnx8hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx2qivnx8hi2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx2qivnx8hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_extendvnx4hivnx8hi2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx4hivnx8hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx4hivnx8hi2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx4hivnx8hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_extendvnx2hivnx8hi2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx2hivnx8hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx2hivnx8hi2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx2hivnx8hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_extendvnx2sivnx8hi2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx2sivnx8hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx2sivnx8hi2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx2sivnx8hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_extendvnx8qivnx4hi2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx8qivnx4hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx8qivnx4hi2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx8qivnx4hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
+extern rtx        gen_extendvnx4qivnx8hi2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx4qivnx8hi2                         (rtx, rtx);
+extern rtx        gen_extendvnx2qivnx8hi2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx2qivnx8hi2                         (rtx, rtx);
+extern rtx        gen_extendvnx4hivnx8hi2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx4hivnx8hi2                         (rtx, rtx);
+extern rtx        gen_extendvnx2hivnx8hi2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx2hivnx8hi2                         (rtx, rtx);
+extern rtx        gen_extendvnx2sivnx8hi2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx2sivnx8hi2                         (rtx, rtx);
+extern rtx        gen_extendvnx8qivnx4hi2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx8qivnx4hi2                         (rtx, rtx);
 extern rtx        gen_extendvnx4qivnx4hi2                              (rtx, rtx);
 extern rtx        gen_zero_extendvnx4qivnx4hi2                         (rtx, rtx);
-static inline rtx gen_extendvnx2qivnx4hi2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx2qivnx4hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx2qivnx4hi2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx2qivnx4hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_extendvnx4hivnx4hi2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx4hivnx4hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx4hivnx4hi2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx4hivnx4hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_extendvnx2hivnx4hi2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx2hivnx4hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx2hivnx4hi2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx2hivnx4hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_extendvnx2sivnx4hi2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx2sivnx4hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx2sivnx4hi2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx2sivnx4hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_extendvnx8qivnx2hi2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx8qivnx2hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx8qivnx2hi2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx8qivnx2hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_extendvnx4qivnx2hi2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx4qivnx2hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx4qivnx2hi2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx4qivnx2hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
+extern rtx        gen_extendvnx2qivnx4hi2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx2qivnx4hi2                         (rtx, rtx);
+extern rtx        gen_extendvnx4hivnx4hi2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx4hivnx4hi2                         (rtx, rtx);
+extern rtx        gen_extendvnx2hivnx4hi2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx2hivnx4hi2                         (rtx, rtx);
+extern rtx        gen_extendvnx2sivnx4hi2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx2sivnx4hi2                         (rtx, rtx);
+extern rtx        gen_extendvnx8qivnx2hi2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx8qivnx2hi2                         (rtx, rtx);
+extern rtx        gen_extendvnx4qivnx2hi2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx4qivnx2hi2                         (rtx, rtx);
 extern rtx        gen_extendvnx2qivnx2hi2                              (rtx, rtx);
 extern rtx        gen_zero_extendvnx2qivnx2hi2                         (rtx, rtx);
-static inline rtx gen_extendvnx4hivnx2hi2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx4hivnx2hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx4hivnx2hi2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx4hivnx2hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_extendvnx2hivnx2hi2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx2hivnx2hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx2hivnx2hi2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx2hivnx2hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_extendvnx2sivnx2hi2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx2sivnx2hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx2sivnx2hi2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx2sivnx2hi2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_extendvnx8qivnx4si2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx8qivnx4si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx8qivnx4si2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx8qivnx4si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
+extern rtx        gen_extendvnx4hivnx2hi2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx4hivnx2hi2                         (rtx, rtx);
+extern rtx        gen_extendvnx2hivnx2hi2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx2hivnx2hi2                         (rtx, rtx);
+extern rtx        gen_extendvnx2sivnx2hi2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx2sivnx2hi2                         (rtx, rtx);
+extern rtx        gen_extendvnx8qivnx4si2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx8qivnx4si2                         (rtx, rtx);
 extern rtx        gen_extendvnx4qivnx4si2                              (rtx, rtx);
 extern rtx        gen_zero_extendvnx4qivnx4si2                         (rtx, rtx);
-static inline rtx gen_extendvnx2qivnx4si2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx2qivnx4si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx2qivnx4si2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx2qivnx4si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
+extern rtx        gen_extendvnx2qivnx4si2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx2qivnx4si2                         (rtx, rtx);
 extern rtx        gen_extendvnx4hivnx4si2                              (rtx, rtx);
 extern rtx        gen_zero_extendvnx4hivnx4si2                         (rtx, rtx);
-static inline rtx gen_extendvnx2hivnx4si2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx2hivnx4si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx2hivnx4si2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx2hivnx4si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_extendvnx2sivnx4si2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx2sivnx4si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx2sivnx4si2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx2sivnx4si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_extendvnx8qivnx2si2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx8qivnx2si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx8qivnx2si2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx8qivnx2si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_extendvnx4qivnx2si2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx4qivnx2si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx4qivnx2si2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx4qivnx2si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
+extern rtx        gen_extendvnx2hivnx4si2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx2hivnx4si2                         (rtx, rtx);
+extern rtx        gen_extendvnx2sivnx4si2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx2sivnx4si2                         (rtx, rtx);
+extern rtx        gen_extendvnx8qivnx2si2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx8qivnx2si2                         (rtx, rtx);
+extern rtx        gen_extendvnx4qivnx2si2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx4qivnx2si2                         (rtx, rtx);
 extern rtx        gen_extendvnx2qivnx2si2                              (rtx, rtx);
 extern rtx        gen_zero_extendvnx2qivnx2si2                         (rtx, rtx);
-static inline rtx gen_extendvnx4hivnx2si2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx4hivnx2si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx4hivnx2si2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx4hivnx2si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
+extern rtx        gen_extendvnx4hivnx2si2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx4hivnx2si2                         (rtx, rtx);
 extern rtx        gen_extendvnx2hivnx2si2                              (rtx, rtx);
 extern rtx        gen_zero_extendvnx2hivnx2si2                         (rtx, rtx);
-static inline rtx gen_extendvnx2sivnx2si2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx2sivnx2si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx2sivnx2si2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx2sivnx2si2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_extendvnx8qivnx2di2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx8qivnx2di2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx8qivnx2di2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx8qivnx2di2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_extendvnx4qivnx2di2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx4qivnx2di2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx4qivnx2di2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx4qivnx2di2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
+extern rtx        gen_extendvnx2sivnx2si2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx2sivnx2si2                         (rtx, rtx);
+extern rtx        gen_extendvnx8qivnx2di2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx8qivnx2di2                         (rtx, rtx);
+extern rtx        gen_extendvnx4qivnx2di2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx4qivnx2di2                         (rtx, rtx);
 extern rtx        gen_extendvnx2qivnx2di2                              (rtx, rtx);
 extern rtx        gen_zero_extendvnx2qivnx2di2                         (rtx, rtx);
-static inline rtx gen_extendvnx4hivnx2di2                              (rtx, rtx);
-static inline rtx
-gen_extendvnx4hivnx2di2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
-static inline rtx gen_zero_extendvnx4hivnx2di2                         (rtx, rtx);
-static inline rtx
-gen_zero_extendvnx4hivnx2di2(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b))
-{
-  return 0;
-}
+extern rtx        gen_extendvnx4hivnx2di2                              (rtx, rtx);
+extern rtx        gen_zero_extendvnx4hivnx2di2                         (rtx, rtx);
 extern rtx        gen_extendvnx2hivnx2di2                              (rtx, rtx);
 extern rtx        gen_zero_extendvnx2hivnx2di2                         (rtx, rtx);
 extern rtx        gen_extendvnx2sivnx2di2                              (rtx, rtx);
@@ -24997,16 +23696,16 @@ extern rtx        gen_cond_divvnx4si                                   (rtx, rtx
 extern rtx        gen_cond_udivvnx4si                                  (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_divvnx2di                                   (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_udivvnx2di                                  (rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_bicvnx16qi                               (rtx, rtx, rtx);
-extern rtx        gen_aarch64_bicvnx8qi                                (rtx, rtx, rtx);
-extern rtx        gen_aarch64_bicvnx4qi                                (rtx, rtx, rtx);
-extern rtx        gen_aarch64_bicvnx2qi                                (rtx, rtx, rtx);
-extern rtx        gen_aarch64_bicvnx8hi                                (rtx, rtx, rtx);
-extern rtx        gen_aarch64_bicvnx4hi                                (rtx, rtx, rtx);
-extern rtx        gen_aarch64_bicvnx2hi                                (rtx, rtx, rtx);
-extern rtx        gen_aarch64_bicvnx4si                                (rtx, rtx, rtx);
-extern rtx        gen_aarch64_bicvnx2si                                (rtx, rtx, rtx);
-extern rtx        gen_aarch64_bicvnx2di                                (rtx, rtx, rtx);
+extern rtx        gen_andnvnx16qi3                                     (rtx, rtx, rtx);
+extern rtx        gen_andnvnx8qi3                                      (rtx, rtx, rtx);
+extern rtx        gen_andnvnx4qi3                                      (rtx, rtx, rtx);
+extern rtx        gen_andnvnx2qi3                                      (rtx, rtx, rtx);
+extern rtx        gen_andnvnx8hi3                                      (rtx, rtx, rtx);
+extern rtx        gen_andnvnx4hi3                                      (rtx, rtx, rtx);
+extern rtx        gen_andnvnx2hi3                                      (rtx, rtx, rtx);
+extern rtx        gen_andnvnx4si3                                      (rtx, rtx, rtx);
+extern rtx        gen_andnvnx2si3                                      (rtx, rtx, rtx);
+extern rtx        gen_andnvnx2di3                                      (rtx, rtx, rtx);
 extern rtx        gen_cond_bicvnx16qi                                  (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_bicvnx8hi                                   (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_bicvnx4si                                   (rtx, rtx, rtx, rtx, rtx);
@@ -25358,1692 +24057,382 @@ extern rtx        gen_vcond_mask_vnx2sfvnx2bi                          (rtx, rtx
 extern rtx        gen_vcond_mask_vnx2divnx2bi                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_vcond_mask_vnx2dfvnx2bi                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx16qivnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx8qivnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8qivnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4qivnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4qivnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2qivnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2qivnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx8hivnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8hivnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4hivnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4hivnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2hivnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2hivnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx8hfvnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8hfvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4hfvnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4hfvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2hfvnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2hfvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx8bfvnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8bfvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4bfvnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4bfvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2bfvnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2bfvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4sivnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4sivnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2sivnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2sivnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4sfvnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4sfvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2sfvnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2sfvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2divnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2divnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2dfvnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2dfvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx16qivnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx16qivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx8qivnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4qivnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2qivnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx8hivnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4hivnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2hivnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx8hfvnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4hfvnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2hfvnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx8bfvnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4bfvnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2bfvnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4sivnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2sivnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4sfvnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2sfvnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2divnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2dfvnx16qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx16qivnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx8qivnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx4qivnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4qivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2qivnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2qivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx4qivnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2qivnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx8hivnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx4hivnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2hivnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx4hivnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2hivnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx8hfvnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx4hfvnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4hfvnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2hfvnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2hfvnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx4hfvnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2hfvnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx8bfvnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx4bfvnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4bfvnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2bfvnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2bfvnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4sivnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2sivnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4sfvnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4sfvnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2sfvnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2sfvnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2divnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2divnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2dfvnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2dfvnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx16qivnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx16qivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx8qivnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8qivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx4bfvnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2bfvnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4sivnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2sivnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4sfvnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2sfvnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2divnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2dfvnx8qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx16qivnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx8qivnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx4qivnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx2qivnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2qivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx8hivnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx2qivnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx8hivnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx4hivnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx2hivnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx8hfvnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8hfvnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx2hivnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx8hfvnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx4hfvnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx2hfvnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2hfvnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx8bfvnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8bfvnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx2hfvnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx8bfvnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx4bfvnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx2bfvnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2bfvnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx2bfvnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx4sivnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx2sivnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2sivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx2sivnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx4sfvnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx2sfvnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2sfvnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2divnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2divnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2dfvnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2dfvnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx16qivnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx16qivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx8qivnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8qivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4qivnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4qivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx2sfvnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2divnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2dfvnx4qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx16qivnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx8qivnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4qivnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2qivnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx8hivnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4hivnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx8hivnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4hivnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2hivnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx8hfvnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8hfvnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4hfvnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4hfvnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx8hfvnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4hfvnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2hfvnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx8bfvnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8bfvnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4bfvnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4bfvnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx8bfvnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4bfvnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2bfvnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx4sivnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4sivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx4sivnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2sivnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx4sfvnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4sfvnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx4sfvnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2sfvnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2divnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2dfvnx2qi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx16qivnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx16qivnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx16qivnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx8qivnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx4qivnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4qivnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2qivnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2qivnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx4qivnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2qivnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx8hivnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx4hivnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4hivnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2hivnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2hivnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx4hivnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2hivnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx8hfvnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx4hfvnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4hfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2hfvnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2hfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx4hfvnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2hfvnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx8bfvnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx4bfvnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4bfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2bfvnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2bfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4sivnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4sivnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2sivnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2sivnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4sfvnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4sfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2sfvnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2sfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2divnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2divnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2dfvnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2dfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx16qivnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx16qivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx8qivnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8qivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx4bfvnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2bfvnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4sivnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2sivnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4sfvnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2sfvnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2divnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2dfvnx8hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx16qivnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx8qivnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx4qivnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx2qivnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2qivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx8hivnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx2qivnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx8hivnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx4hivnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx2hivnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx8hfvnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8hfvnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx2hivnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx8hfvnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx4hfvnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx2hfvnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2hfvnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx8bfvnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8bfvnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx2hfvnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx8bfvnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx4bfvnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx2bfvnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2bfvnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx2bfvnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx4sivnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx2sivnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2sivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx2sivnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx4sfvnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx2sfvnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2sfvnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2divnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2divnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2dfvnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2dfvnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx16qivnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx16qivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx8qivnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8qivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4qivnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4qivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx2sfvnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2divnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2dfvnx4hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx16qivnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx8qivnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4qivnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2qivnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx8hivnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4hivnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx8hivnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4hivnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2hivnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx8hfvnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8hfvnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4hfvnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4hfvnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx8hfvnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4hfvnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2hfvnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx8bfvnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8bfvnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4bfvnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4bfvnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx8bfvnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4bfvnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2bfvnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx4sivnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4sivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx4sivnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2sivnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx4sfvnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4sfvnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx4sfvnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2sfvnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2divnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2dfvnx2hi                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx16qivnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx16qivnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx8qivnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8qivnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx16qivnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx8qivnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx4qivnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx2qivnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2qivnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx8hivnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8hivnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx2qivnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx8hivnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx4hivnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx2hivnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2hivnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx8hfvnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8hfvnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx2hivnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx8hfvnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx4hfvnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx2hfvnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2hfvnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx8bfvnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8bfvnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx2hfvnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx8bfvnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx4bfvnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx2bfvnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2bfvnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx2bfvnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx4sivnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx2sivnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2sivnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx2sivnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx4sfvnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx2sfvnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2sfvnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2divnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2divnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx2dfvnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx2dfvnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx16qivnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx16qivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx8qivnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8qivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4qivnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4qivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx2sfvnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2divnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx2dfvnx4si                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx16qivnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx8qivnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4qivnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2qivnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx8hivnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4hivnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx8hivnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4hivnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2hivnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx8hfvnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8hfvnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4hfvnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4hfvnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx8hfvnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4hfvnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2hfvnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx8bfvnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8bfvnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4bfvnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4bfvnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx8bfvnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4bfvnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2bfvnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx4sivnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx4sivnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2sivnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx4sfvnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4sfvnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx4sfvnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2sfvnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2divnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2dfvnx2si                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx16qivnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx16qivnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx8qivnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8qivnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4qivnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4qivnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx16qivnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx8qivnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4qivnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2qivnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx8hivnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8hivnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4hivnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4hivnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx8hivnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4hivnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2hivnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx8hfvnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8hfvnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4hfvnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4hfvnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx8hfvnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4hfvnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2hfvnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx8bfvnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx8bfvnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vcondvnx4bfvnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4bfvnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx8bfvnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondvnx4bfvnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2bfvnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx4sivnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4sivnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx4sivnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2sivnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vcondvnx4sfvnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vcondvnx4sfvnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vcondvnx4sfvnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2sfvnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2divnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondvnx2dfvnx2di                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx16qivnx16qi                             (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx8qivnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8qivnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4qivnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4qivnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2qivnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2qivnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx8hivnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8hivnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4hivnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4hivnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2hivnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2hivnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx8hfvnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8hfvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4hfvnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4hfvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2hfvnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2hfvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx8bfvnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8bfvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4bfvnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4bfvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2bfvnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2bfvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4sivnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4sivnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2sivnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2sivnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4sfvnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4sfvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2sfvnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2sfvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2divnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2divnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2dfvnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2dfvnx16qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx16qivnx8qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx16qivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx8qivnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4qivnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2qivnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx8hivnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4hivnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2hivnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx8hfvnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4hfvnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2hfvnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx8bfvnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4bfvnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2bfvnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4sivnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2sivnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4sfvnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2sfvnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2divnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2dfvnx16qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx16qivnx8qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx8qivnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx4qivnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4qivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2qivnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2qivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx4qivnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2qivnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx8hivnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx4hivnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2hivnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2hivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx4hivnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2hivnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx8hfvnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx4hfvnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4hfvnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2hfvnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2hfvnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx4hfvnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2hfvnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx8bfvnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx4bfvnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4bfvnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2bfvnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2bfvnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4sivnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2sivnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2sivnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4sfvnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4sfvnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2sfvnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2sfvnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2divnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2divnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2dfvnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2dfvnx8qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx16qivnx4qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx16qivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx8qivnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8qivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx4bfvnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2bfvnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4sivnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2sivnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4sfvnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2sfvnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2divnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2dfvnx8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx16qivnx4qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx8qivnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx4qivnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx2qivnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2qivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx8hivnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx2qivnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx8hivnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx4hivnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx2hivnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2hivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx8hfvnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8hfvnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx2hivnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx8hfvnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx4hfvnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx2hfvnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2hfvnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx8bfvnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8bfvnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx2hfvnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx8bfvnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx4bfvnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx2bfvnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2bfvnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx2bfvnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx4sivnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx2sivnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2sivnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx2sivnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx4sfvnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx2sfvnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2sfvnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2divnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2divnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2dfvnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2dfvnx4qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx16qivnx2qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx16qivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx8qivnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8qivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4qivnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4qivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx2sfvnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2divnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2dfvnx4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx16qivnx2qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx8qivnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4qivnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2qivnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx8hivnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4hivnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4hivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx8hivnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4hivnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2hivnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx8hfvnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8hfvnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4hfvnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4hfvnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx8hfvnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4hfvnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2hfvnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx8bfvnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8bfvnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4bfvnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4bfvnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx8bfvnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4bfvnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2bfvnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx4sivnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4sivnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx4sivnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2sivnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx4sfvnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4sfvnx2qi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx4sfvnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2sfvnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2divnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2dfvnx2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx16qivnx8hi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx16qivnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx16qivnx8hi                              (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx8qivnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx4qivnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4qivnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2qivnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2qivnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx4qivnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2qivnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx8hivnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx4hivnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4hivnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2hivnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2hivnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx4hivnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2hivnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx8hfvnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx4hfvnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4hfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2hfvnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2hfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx4hfvnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2hfvnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx8bfvnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx4bfvnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4bfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2bfvnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2bfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4sivnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4sivnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2sivnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2sivnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4sfvnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4sfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2sfvnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2sfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2divnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2divnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2dfvnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2dfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx16qivnx4hi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx16qivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx8qivnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8qivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx4bfvnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2bfvnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4sivnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2sivnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4sfvnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2sfvnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2divnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2dfvnx8hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx16qivnx4hi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx8qivnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx4qivnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx2qivnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2qivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx8hivnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx2qivnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx8hivnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx4hivnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx2hivnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2hivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx8hfvnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8hfvnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx2hivnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx8hfvnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx4hfvnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx2hfvnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2hfvnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx8bfvnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8bfvnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx2hfvnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx8bfvnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx4bfvnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx2bfvnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2bfvnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx2bfvnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx4sivnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx2sivnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2sivnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx2sivnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx4sfvnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx2sfvnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2sfvnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2divnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2divnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2dfvnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2dfvnx4hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx16qivnx2hi                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx16qivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx8qivnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8qivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4qivnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4qivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx2sfvnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2divnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2dfvnx4hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx16qivnx2hi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx8qivnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4qivnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2qivnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx8hivnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4hivnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4hivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx8hivnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4hivnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2hivnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx8hfvnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8hfvnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4hfvnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4hfvnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx8hfvnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4hfvnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2hfvnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx8bfvnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8bfvnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4bfvnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4bfvnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx8bfvnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4bfvnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2bfvnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx4sivnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4sivnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx4sivnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2sivnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx4sfvnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4sfvnx2hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx4sfvnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2sfvnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2divnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2dfvnx2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx16qivnx4si                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx16qivnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx8qivnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8qivnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx16qivnx4si                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx8qivnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx4qivnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx2qivnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2qivnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx8hivnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8hivnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx2qivnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx8hivnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx4hivnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx2hivnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2hivnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx8hfvnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8hfvnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx2hivnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx8hfvnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx4hfvnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx2hfvnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2hfvnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx8bfvnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8bfvnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx2hfvnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx8bfvnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx4bfvnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx2bfvnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2bfvnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx2bfvnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx4sivnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx2sivnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2sivnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx2sivnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx4sfvnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx2sfvnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2sfvnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2divnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2divnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx2dfvnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx2dfvnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx16qivnx2si                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx16qivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx8qivnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8qivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4qivnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4qivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx2sfvnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2divnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx2dfvnx4si                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx16qivnx2si                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx8qivnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4qivnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2qivnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx8hivnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4hivnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4hivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx8hivnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4hivnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2hivnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx8hfvnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8hfvnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4hfvnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4hfvnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx8hfvnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4hfvnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2hfvnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx8bfvnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8bfvnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4bfvnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4bfvnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx8bfvnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4bfvnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2bfvnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx4sivnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4sivnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx4sivnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2sivnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx4sfvnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4sfvnx2si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx4sfvnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2sfvnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2divnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2dfvnx2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx16qivnx2di                              (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx16qivnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx8qivnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8qivnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4qivnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4qivnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx16qivnx2di                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx8qivnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4qivnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2qivnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx8hivnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8hivnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4hivnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4hivnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx8hivnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4hivnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2hivnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx8hfvnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8hfvnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4hfvnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4hfvnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx8hfvnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4hfvnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2hfvnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx8bfvnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx8bfvnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
-static inline rtx gen_vconduvnx4bfvnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4bfvnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx8bfvnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduvnx4bfvnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2bfvnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx4sivnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4sivnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx4sivnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2sivnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx gen_vconduvnx4sfvnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
-static inline rtx
-gen_vconduvnx4sfvnx2di(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d), rtx ARG_UNUSED (e), rtx ARG_UNUSED (f))
-{
-  return 0;
-}
+extern rtx        gen_vconduvnx4sfvnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2sfvnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2divnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduvnx2dfvnx2di                               (rtx, rtx, rtx, rtx, rtx, rtx);
@@ -27177,46 +24566,16 @@ extern rtx        gen_fix_truncvnx2dfvnx2di2                           (rtx, rtx
 extern rtx        gen_fixuns_truncvnx2dfvnx2di2                        (rtx, rtx);
 extern rtx        gen_cond_fix_trunc_nontruncvnx8hfvnx8hi              (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_fixuns_trunc_nontruncvnx8hfvnx8hi           (rtx, rtx, rtx, rtx);
-static inline rtx gen_cond_fix_trunc_nontruncvnx4sfvnx8hi              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_fix_trunc_nontruncvnx4sfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_cond_fixuns_trunc_nontruncvnx4sfvnx8hi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_fixuns_trunc_nontruncvnx4sfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_cond_fix_trunc_nontruncvnx2dfvnx8hi              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_fix_trunc_nontruncvnx2dfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_cond_fixuns_trunc_nontruncvnx2dfvnx8hi           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_fixuns_trunc_nontruncvnx2dfvnx8hi(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_cond_fix_trunc_nontruncvnx4sfvnx8hi              (rtx, rtx, rtx, rtx);
+extern rtx        gen_cond_fixuns_trunc_nontruncvnx4sfvnx8hi           (rtx, rtx, rtx, rtx);
+extern rtx        gen_cond_fix_trunc_nontruncvnx2dfvnx8hi              (rtx, rtx, rtx, rtx);
+extern rtx        gen_cond_fixuns_trunc_nontruncvnx2dfvnx8hi           (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_fix_trunc_nontruncvnx8hfvnx4si              (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_fixuns_trunc_nontruncvnx8hfvnx4si           (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_fix_trunc_nontruncvnx4sfvnx4si              (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_fixuns_trunc_nontruncvnx4sfvnx4si           (rtx, rtx, rtx, rtx);
-static inline rtx gen_cond_fix_trunc_nontruncvnx2dfvnx4si              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_fix_trunc_nontruncvnx2dfvnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_cond_fixuns_trunc_nontruncvnx2dfvnx4si           (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_fixuns_trunc_nontruncvnx2dfvnx4si(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_cond_fix_trunc_nontruncvnx2dfvnx4si              (rtx, rtx, rtx, rtx);
+extern rtx        gen_cond_fixuns_trunc_nontruncvnx2dfvnx4si           (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_fix_trunc_nontruncvnx8hfvnx2di              (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_fixuns_trunc_nontruncvnx8hfvnx2di           (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_fix_trunc_nontruncvnx4sfvnx2di              (rtx, rtx, rtx, rtx);
@@ -27235,46 +24594,16 @@ extern rtx        gen_floatvnx2divnx2df2                               (rtx, rtx
 extern rtx        gen_floatunsvnx2divnx2df2                            (rtx, rtx);
 extern rtx        gen_cond_float_nonextendvnx8hivnx8hf                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_floatuns_nonextendvnx8hivnx8hf              (rtx, rtx, rtx, rtx);
-static inline rtx gen_cond_float_nonextendvnx8hivnx4sf                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_float_nonextendvnx8hivnx4sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_cond_floatuns_nonextendvnx8hivnx4sf              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_floatuns_nonextendvnx8hivnx4sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_cond_float_nonextendvnx8hivnx2df                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_float_nonextendvnx8hivnx2df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_cond_floatuns_nonextendvnx8hivnx2df              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_floatuns_nonextendvnx8hivnx2df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_cond_float_nonextendvnx8hivnx4sf                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_cond_floatuns_nonextendvnx8hivnx4sf              (rtx, rtx, rtx, rtx);
+extern rtx        gen_cond_float_nonextendvnx8hivnx2df                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_cond_floatuns_nonextendvnx8hivnx2df              (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_float_nonextendvnx4sivnx8hf                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_floatuns_nonextendvnx4sivnx8hf              (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_float_nonextendvnx4sivnx4sf                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_floatuns_nonextendvnx4sivnx4sf              (rtx, rtx, rtx, rtx);
-static inline rtx gen_cond_float_nonextendvnx4sivnx2df                 (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_float_nonextendvnx4sivnx2df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
-static inline rtx gen_cond_floatuns_nonextendvnx4sivnx2df              (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_floatuns_nonextendvnx4sivnx2df(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_cond_float_nonextendvnx4sivnx2df                 (rtx, rtx, rtx, rtx);
+extern rtx        gen_cond_floatuns_nonextendvnx4sivnx2df              (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_float_nonextendvnx2divnx8hf                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_floatuns_nonextendvnx2divnx8hf              (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_float_nonextendvnx2divnx4sf                 (rtx, rtx, rtx, rtx);
@@ -27291,12 +24620,7 @@ extern rtx        gen_vec_pack_trunc_vnx4sf                            (rtx, rtx
 extern rtx        gen_vec_pack_trunc_vnx2df                            (rtx, rtx, rtx);
 extern rtx        gen_cond_fcvt_truncvnx4sfvnx8hf                      (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_fcvt_truncvnx2dfvnx8hf                      (rtx, rtx, rtx, rtx);
-static inline rtx gen_cond_fcvt_truncvnx4sfvnx4sf                      (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_fcvt_truncvnx4sfvnx4sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_cond_fcvt_truncvnx4sfvnx4sf                      (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_fcvt_truncvnx2dfvnx4sf                      (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_fcvt_truncvnx4sfvnx8bf                      (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_unpacks_lo_vnx8hf                            (rtx, rtx);
@@ -27305,12 +24629,7 @@ extern rtx        gen_vec_unpacks_lo_vnx4sf                            (rtx, rtx
 extern rtx        gen_vec_unpacks_hi_vnx4sf                            (rtx, rtx);
 extern rtx        gen_cond_fcvt_nontruncvnx8hfvnx4sf                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_fcvt_nontruncvnx8hfvnx2df                   (rtx, rtx, rtx, rtx);
-static inline rtx gen_cond_fcvt_nontruncvnx4sfvnx4sf                   (rtx, rtx, rtx, rtx);
-static inline rtx
-gen_cond_fcvt_nontruncvnx4sfvnx4sf(rtx ARG_UNUSED (a), rtx ARG_UNUSED (b), rtx ARG_UNUSED (c), rtx ARG_UNUSED (d))
-{
-  return 0;
-}
+extern rtx        gen_cond_fcvt_nontruncvnx4sfvnx4sf                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_fcvt_nontruncvnx4sfvnx2df                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_unpacks_hi_vnx16bi                           (rtx, rtx);
 extern rtx        gen_vec_unpacku_hi_vnx16bi                           (rtx, rtx);
