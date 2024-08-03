@@ -1,11 +1,11 @@
 /* Generated at libc build time from syscall list.  */
-/* The system call list corresponds to kernel 6.7.  */
+/* The system call list corresponds to kernel 5.16.  */
 
 #ifndef _SYSCALL_H
 # error "Never use <bits/syscall.h> directly; include <sys/syscall.h> instead."
 #endif
 
-#define __GLIBC_LINUX_VERSION_CODE 395008
+#define __GLIBC_LINUX_VERSION_CODE 331776
 
 #ifdef __NR_FAST_atomic_update
 # define SYS_FAST_atomic_update __NR_FAST_atomic_update
@@ -141,10 +141,6 @@
 
 #ifdef __NR_cacheflush
 # define SYS_cacheflush __NR_cacheflush
-#endif
-
-#ifdef __NR_cachestat
-# define SYS_cachestat __NR_cachestat
 #endif
 
 #ifdef __NR_capget
@@ -379,10 +375,6 @@
 # define SYS_fchmodat __NR_fchmodat
 #endif
 
-#ifdef __NR_fchmodat2
-# define SYS_fchmodat2 __NR_fchmodat2
-#endif
-
 #ifdef __NR_fchown
 # define SYS_fchown __NR_fchown
 #endif
@@ -499,24 +491,12 @@
 # define SYS_futex __NR_futex
 #endif
 
-#ifdef __NR_futex_requeue
-# define SYS_futex_requeue __NR_futex_requeue
-#endif
-
 #ifdef __NR_futex_time64
 # define SYS_futex_time64 __NR_futex_time64
 #endif
 
-#ifdef __NR_futex_wait
-# define SYS_futex_wait __NR_futex_wait
-#endif
-
 #ifdef __NR_futex_waitv
 # define SYS_futex_waitv __NR_futex_waitv
-#endif
-
-#ifdef __NR_futex_wake
-# define SYS_futex_wake __NR_futex_wake
 #endif
 
 #ifdef __NR_futimesat
@@ -909,10 +889,6 @@
 
 #ifdef __NR_madvise
 # define SYS_madvise __NR_madvise
-#endif
-
-#ifdef __NR_map_shadow_stack
-# define SYS_map_shadow_stack __NR_map_shadow_stack
 #endif
 
 #ifdef __NR_mbind
@@ -1843,10 +1819,6 @@
 # define SYS_riscv_flush_icache __NR_riscv_flush_icache
 #endif
 
-#ifdef __NR_riscv_hwprobe
-# define SYS_riscv_hwprobe __NR_riscv_hwprobe
-#endif
-
 #ifdef __NR_rmdir
 # define SYS_rmdir __NR_rmdir
 #endif
@@ -2033,10 +2005,6 @@
 
 #ifdef __NR_set_mempolicy
 # define SYS_set_mempolicy __NR_set_mempolicy
-#endif
-
-#ifdef __NR_set_mempolicy_home_node
-# define SYS_set_mempolicy_home_node __NR_set_mempolicy_home_node
 #endif
 
 #ifdef __NR_set_robust_list

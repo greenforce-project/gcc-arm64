@@ -61,8 +61,6 @@ enum nfqnl_attr_type {
 	NFQA_SECCTX,			/* security context string */
 	NFQA_VLAN,			/* nested attribute: packet vlan info */
 	NFQA_L2HDR,			/* full L2 header */
-	NFQA_PRIORITY,			/* skb->priority */
-	NFQA_CGROUP_CLASSID,		/* __u32 cgroup classid */
 
 	__NFQA_MAX
 };

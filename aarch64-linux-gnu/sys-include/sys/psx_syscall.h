@@ -26,6 +26,14 @@ extern "C" {
 #include <pthread.h>
 
 /*
+ * This function is actually provided by the linker trick:
+ *
+ *   gcc ... -lpsx -lpthread -Wl,-wrap,pthread_create
+ */
+int __real_pthread_create(pthread_t *thread, const pthread_attr_t *attr,
+			  void *(*start_routine) (void *), void *arg);
+
+/*
  * psx_syscall performs the specified syscall on all psx registered
  * threads. The mechanism by which this occurs is much less efficient
  * than a standard system call on Linux, so it should only be used
@@ -43,9 +51,7 @@ extern "C" {
  * and psx_syscall6().
  */
 #define psx_syscall(syscall_nr, ...) \
-    __psx_syscall(syscall_nr, __VA_ARGS__, (long int) 6, (long int) 5, \
-		  (long int) 4, (long int) 3, (long int) 2, \
-		  (long int) 1, (long int) 0)
+    __psx_syscall(syscall_nr, __VA_ARGS__, 6, 5, 4, 3, 2, 1, 0)
 long int __psx_syscall(long int syscall_nr, ...);
 long int psx_syscall3(long int syscall_nr,
 		      long int arg1, long int arg2, long int arg3);
@@ -54,39 +60,35 @@ long int psx_syscall6(long int syscall_nr,
 		      long int arg4, long int arg5, long int arg6);
 
 /*
+ * psx_pthread_create() wraps the -lpthread pthread_create() function
+ * call and registers the generated thread with the psx_syscall
+ * infrastructure.
+ *
+ * Note, to transparently redirect all the pthread_create() calls in
+ * your binary to psx_pthread_create(), link with:
+ *
+ *   gcc ... -lpsx -lpthread -Wl,-wrap,pthread_create
+ *
+ * [That is, libpsx contains an internal definition for the
+ * __wrap_pthread_create function to invoke psx_pthread_create
+ * functionality instead.]
+ */
+int psx_pthread_create(pthread_t *thread, const pthread_attr_t *attr,
+		       void *(*start_routine) (void *), void *arg);
+
+/*
  * This function should be used by systems to obtain pointers to the
  * two syscall functions provided by the PSX library. A linkage trick
  * is to define this function as weak in a library that can optionally
  * use libpsx and then, should the caller link -lpsx, that library can
  * implicitly use these POSIX semantics syscalls. See libcap for an
- * example of this usage.
+ * example of this useage.
  */
 void psx_load_syscalls(long int (**syscall_fn)(long int,
 					       long int, long int, long int),
 		       long int (**syscall6_fn)(long int,
 						long int, long int, long int,
 						long int, long int, long int));
-
-/*
- * psx_sensitivity_t holds the level of paranoia for non-POSIX syscall
- * behavior. The default is PSX_IGNORE: which is best effort - no
- * enforcement; PSX_WARNING will dump to stderr a warning when a
- * syscall's results differ; PSX_ERROR will dump info as per
- * PSX_WARNING and generate a SIGSYS. The current mode can be set with
- * psx_set_sensitivity().
- */
-typedef enum {
-    PSX_IGNORE = 0,
-    PSX_WARNING = 1,
-    PSX_ERROR = 2,
-} psx_sensitivity_t;
-
-/*
- * psx_set_sensitivity sets the current sensitivity of the PSX
- * mechanism.  The function returns 0 on success and -1 if the
- * requested level is invalid.
- */
-int psx_set_sensitivity(psx_sensitivity_t level);
 
 #ifdef __cplusplus
 }

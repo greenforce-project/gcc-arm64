@@ -4,7 +4,7 @@
 ;;; Don't parse this file wihout knowing GCC gengtype internals.
 ;;; This file should be parsed by the same gengtype which wrote it.
 
-(!version  "15.0.0 20240727 (Gf Cross v15)")
+(!version  "15.0.0 20240803 (Gf Cross v15)")
 (!srcdir  "/__w/gcc_build/gcc_build/gcc/gcc")
 (!languages 12 ada c cp d fortran go jit lto m2 objc objcp rust)
 (!fileslist 253 0
@@ -9159,7 +9159,7 @@
                             (!fields 2 
                              (!pair  "unsigned"
                               (!type undefined 451 nil  gc_unused "unsigned"
-                               (!srcfileloc  "config/aarch64/aarch64.h" 906)
+                               (!srcfileloc  "config/aarch64/aarch64.h" 915)
                               )
                               (!srcfileloc  "function.h" 275)
                               nil )
@@ -9239,191 +9239,191 @@
                            (!type struct 458 
                             (!type already_seen 457)
                             gc_maybe_pointed_to "machine_function"
-                            (!srcfileloc  "config/aarch64/aarch64.h" 1062)
+                            (!srcfileloc  "config/aarch64/aarch64.h" 1071)
                             (!fields 12 
                              (!pair  "frame"
                               (!type struct 459 nil  gc_used "aarch64_frame"
-                               (!srcfileloc  "config/aarch64/aarch64.h" 1014)
+                               (!srcfileloc  "config/aarch64/aarch64.h" 1023)
                                (!fields 25 
                                 (!pair  "reg_offset"
                                  (!type array 460 nil  gc_used "LAST_SAVED_REGNUM + 1" 
                                   (!type already_seen 2)
                                  )
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 901)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 910)
                                  nil )
                                 (!pair  "saved_gprs"
                                  (!type pointer 461 nil  gc_used
                                   (!type user_struct 462 
                                    (!type already_seen 461)
                                    gc_pointed_to "vec<unsigned,va_gc_atomic>"
-                                   (!srcfileloc  "config/aarch64/aarch64.h" 906)
+                                   (!srcfileloc  "config/aarch64/aarch64.h" 915)
                                    (!fields 2 
                                     (!pair  "va_gc_atomic"
                                      (!type undefined 463 nil  gc_unused "va_gc_atomic"
-                                      (!srcfileloc  "config/aarch64/aarch64.h" 906)
+                                      (!srcfileloc  "config/aarch64/aarch64.h" 915)
                                      )
-                                     (!srcfileloc  "config/aarch64/aarch64.h" 906)
+                                     (!srcfileloc  "config/aarch64/aarch64.h" 915)
                                      nil )
                                     (!pair  "unsigned"
                                      (!type already_seen 451)
-                                     (!srcfileloc  "config/aarch64/aarch64.h" 906)
+                                     (!srcfileloc  "config/aarch64/aarch64.h" 915)
                                      nil )
                                    )
                                   )
                                  )
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 906)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 915)
                                  nil )
                                 (!pair  "saved_fprs"
                                  (!type already_seen 461)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 907)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 916)
                                  nil )
                                 (!pair  "saved_prs"
                                  (!type already_seen 461)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 908)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 917)
                                  nil )
                                 (!pair  "old_svcr_offset"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 915)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 924)
                                  nil )
                                 (!pair  "saved_varargs_size"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 921)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 930)
                                  nil )
                                 (!pair  "bytes_below_saved_regs"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 926)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 935)
                                  nil )
                                 (!pair  "bytes_below_hard_fp"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 931)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 940)
                                  nil )
                                 (!pair  "bytes_above_locals"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 936)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 945)
                                  nil )
                                 (!pair  "bytes_above_hard_fp"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 941)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 950)
                                  nil )
                                 (!pair  "frame_size"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 946)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 955)
                                  nil )
                                 (!pair  "initial_adjust"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 949)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 958)
                                  nil )
                                 (!pair  "callee_adjust"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 953)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 962)
                                  nil )
                                 (!pair  "sve_callee_adjust"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 957)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 966)
                                  nil )
                                 (!pair  "final_adjust"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 960)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 969)
                                  nil )
                                 (!pair  "emit_frame_chain"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 963)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 972)
                                  nil )
                                 (!pair  "wb_push_candidate1"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 992)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 1001)
                                  nil )
                                 (!pair  "wb_push_candidate2"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 993)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 1002)
                                  nil )
                                 (!pair  "wb_pop_candidate1"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 994)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 1003)
                                  nil )
                                 (!pair  "wb_pop_candidate2"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 995)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 1004)
                                  nil )
                                 (!pair  "spare_pred_reg"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 1000)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 1009)
                                  nil )
                                 (!pair  "sve_save_and_probe"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 1004)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 1013)
                                  nil )
                                 (!pair  "hard_fp_save_and_probe"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 1008)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 1017)
                                  nil )
                                 (!pair  "laid_out"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 1010)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 1019)
                                  nil )
                                 (!pair  "is_scs_enabled"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "config/aarch64/aarch64.h" 1013)
+                                 (!srcfileloc  "config/aarch64/aarch64.h" 1022)
                                  nil )
                                )
                                nil 4095 nil nil )
-                              (!srcfileloc  "config/aarch64/aarch64.h" 1022)
+                              (!srcfileloc  "config/aarch64/aarch64.h" 1031)
                               nil )
                              (!pair  "reg_is_wrapped_separately"
                               (!type array 464 nil  gc_used "LAST_SAVED_REGNUM + 1" 
                                (!type already_seen 2)
                               )
-                              (!srcfileloc  "config/aarch64/aarch64.h" 1024)
+                              (!srcfileloc  "config/aarch64/aarch64.h" 1033)
                               nil )
                              (!pair  "call_via"
                               (!type array 465 nil  gc_used "SP_REGNUM" 
                                (!type already_seen 123)
                               )
-                              (!srcfileloc  "config/aarch64/aarch64.h" 1026)
+                              (!srcfileloc  "config/aarch64/aarch64.h" 1035)
                               nil )
                              (!pair  "tpidr2_block"
                               (!type already_seen 123)
-                              (!srcfileloc  "config/aarch64/aarch64.h" 1030)
+                              (!srcfileloc  "config/aarch64/aarch64.h" 1039)
                               nil )
                              (!pair  "za_save_buffer"
                               (!type already_seen 123)
-                              (!srcfileloc  "config/aarch64/aarch64.h" 1034)
+                              (!srcfileloc  "config/aarch64/aarch64.h" 1043)
                               nil )
                              (!pair  "zt0_save_buffer"
                               (!type already_seen 123)
-                              (!srcfileloc  "config/aarch64/aarch64.h" 1037)
+                              (!srcfileloc  "config/aarch64/aarch64.h" 1046)
                               nil )
                              (!pair  "label_is_assembled"
                               (!type already_seen 2)
-                              (!srcfileloc  "config/aarch64/aarch64.h" 1039)
+                              (!srcfileloc  "config/aarch64/aarch64.h" 1048)
                               nil )
                              (!pair  "call_switches_pstate_sm"
                               (!type already_seen 2)
-                              (!srcfileloc  "config/aarch64/aarch64.h" 1044)
+                              (!srcfileloc  "config/aarch64/aarch64.h" 1053)
                               nil )
                              (!pair  "next_asm_update_za_id"
                               (!type already_seen 2)
-                              (!srcfileloc  "config/aarch64/aarch64.h" 1048)
+                              (!srcfileloc  "config/aarch64/aarch64.h" 1057)
                               nil )
                              (!pair  "vector_load_decls"
                               (!type pointer 466 nil  gc_used
                                (!type user_struct 467 
                                 (!type already_seen 466)
                                 gc_pointed_to "hash_set<tree>"
-                                (!srcfileloc  "config/aarch64/aarch64.h" 1052)
+                                (!srcfileloc  "config/aarch64/aarch64.h" 1061)
                                 (!fields 1 
                                  (!pair  "tree"
                                   (!type already_seen 23)
-                                  (!srcfileloc  "config/aarch64/aarch64.h" 1052)
+                                  (!srcfileloc  "config/aarch64/aarch64.h" 1061)
                                   nil )
                                 )
                                )
                               )
-                              (!srcfileloc  "config/aarch64/aarch64.h" 1052)
+                              (!srcfileloc  "config/aarch64/aarch64.h" 1061)
                               nil )
                              (!pair  "advsimd_zero_insn"
                               (!type already_seen 325)
-                              (!srcfileloc  "config/aarch64/aarch64.h" 1058)
+                              (!srcfileloc  "config/aarch64/aarch64.h" 1067)
                               nil )
                              (!pair  "seh"
                               (!type pointer 468 nil  gc_unused
@@ -9433,7 +9433,7 @@
                                 (!fields 0 )
                                 nil 0 nil nil )
                               )
-                              (!srcfileloc  "config/aarch64/aarch64.h" 1061)
+                              (!srcfileloc  "config/aarch64/aarch64.h" 1070)
                               (!options 
                                (!option skip string  "")
                               )
@@ -19198,7 +19198,7 @@
  
  (!type already_seen 458)
  
- (!type struct 925 nil  gc_unused "anonymous:/__w/gcc_build/gcc_build/gcc/gcc/config/aarch64/aarch64.h:1105"nil 
+ (!type struct 925 nil  gc_unused "anonymous:/__w/gcc_build/gcc_build/gcc/gcc/config/aarch64/aarch64.h:1114"nil 
   (!fields 0 )
   nil 0 nil nil )
  
@@ -27407,7 +27407,7 @@
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 1774 nil  gc_unused "anonymous:/__w/gcc_build/gcc_build/gcc/gcc/config/aarch64/aarch64.cc:466"nil 
+ (!type struct 1774 nil  gc_unused "anonymous:/__w/gcc_build/gcc_build/gcc/gcc/config/aarch64/aarch64.cc:470"nil 
   (!fields 0 )
   nil 0 nil nil )
  
@@ -27435,7 +27435,7 @@
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 1781 nil  gc_unused "anonymous:/__w/gcc_build/gcc_build/gcc/gcc/config/aarch64/aarch64.cc:19725"nil 
+ (!type struct 1781 nil  gc_unused "anonymous:/__w/gcc_build/gcc_build/gcc/gcc/config/aarch64/aarch64.cc:19737"nil 
   (!fields 0 )
   nil 0 nil nil )
  
@@ -31558,8 +31558,8 @@
   nil 0 nil nil )
  
  (!type struct 2260 nil  gc_pointed_to "coroutine_info"
-  (!srcfileloc  "cp/coroutines.cc" 100)
-  (!fields 12 
+  (!srcfileloc  "cp/coroutines.cc" 102)
+  (!fields 14 
    (!pair  "function_decl"
     (!type already_seen 23)
     (!srcfileloc  "cp/coroutines.cc" 84)
@@ -31576,37 +31576,45 @@
     (!type already_seen 23)
     (!srcfileloc  "cp/coroutines.cc" 87)
     nil )
-   (!pair  "handle_type"
+   (!pair  "traits_type"
     (!type already_seen 23)
     (!srcfileloc  "cp/coroutines.cc" 88)
     nil )
-   (!pair  "self_h_proxy"
+   (!pair  "handle_type"
     (!type already_seen 23)
     (!srcfileloc  "cp/coroutines.cc" 89)
     nil )
-   (!pair  "promise_proxy"
+   (!pair  "self_h_proxy"
     (!type already_seen 23)
-    (!srcfileloc  "cp/coroutines.cc" 92)
+    (!srcfileloc  "cp/coroutines.cc" 90)
     nil )
-   (!pair  "return_void"
+   (!pair  "promise_proxy"
     (!type already_seen 23)
     (!srcfileloc  "cp/coroutines.cc" 93)
     nil )
+   (!pair  "from_address"
+    (!type already_seen 23)
+    (!srcfileloc  "cp/coroutines.cc" 94)
+    nil )
+   (!pair  "return_void"
+    (!type already_seen 23)
+    (!srcfileloc  "cp/coroutines.cc" 95)
+    nil )
    (!pair  "first_coro_keyword"
     (!type already_seen 2)
-    (!srcfileloc  "cp/coroutines.cc" 94)
+    (!srcfileloc  "cp/coroutines.cc" 96)
     nil )
    (!pair  "coro_ret_type_error_emitted"
     (!type already_seen 2)
-    (!srcfileloc  "cp/coroutines.cc" 97)
+    (!srcfileloc  "cp/coroutines.cc" 99)
     nil )
    (!pair  "coro_promise_error_emitted"
     (!type already_seen 2)
-    (!srcfileloc  "cp/coroutines.cc" 98)
+    (!srcfileloc  "cp/coroutines.cc" 100)
     nil )
    (!pair  "coro_co_return_error_emitted"
     (!type already_seen 2)
-    (!srcfileloc  "cp/coroutines.cc" 99)
+    (!srcfileloc  "cp/coroutines.cc" 101)
     nil )
   )
   (!options 
@@ -31615,7 +31623,7 @@
   1028 nil nil )
  
  (!type struct 2261 nil  gc_used "coroutine_info_hasher"
-  (!srcfileloc  "cp/coroutines.cc" 114)
+  (!srcfileloc  "cp/coroutines.cc" 116)
   (!fields 0 )
   nil 1028 nil nil )
  
@@ -31624,11 +31632,11 @@
    (!type already_seen 2262)
   )
   gc_pointed_to "hash_table<coroutine_info_hasher>"
-  (!srcfileloc  "cp/coroutines.cc" 114)
+  (!srcfileloc  "cp/coroutines.cc" 116)
   (!fields 1 
    (!pair  "coroutine_info_hasher"
     (!type already_seen 2261)
-    (!srcfileloc  "cp/coroutines.cc" 114)
+    (!srcfileloc  "cp/coroutines.cc" 116)
     nil )
   )
  )
@@ -31698,7 +31706,7 @@
   nil 0 nil nil )
  
  (!type lang_struct 2280 nil  gc_pointed_to "source_location_table_entry"
-  (!srcfileloc  "cp/cp-gimplify.cc" 3785)
+  (!srcfileloc  "cp/cp-gimplify.cc" 3789)
   (!fields 0 )
   (!options 
    (!option for_user string  "")
@@ -31729,19 +31737,19 @@
     nil )
    
    (!type struct 2282 nil  gc_pointed_to "source_location_table_entry"
-    (!srcfileloc  "cp/cp-gimplify.cc" 3785)
+    (!srcfileloc  "cp/cp-gimplify.cc" 3789)
     (!fields 3 
      (!pair  "loc"
       (!type already_seen 2)
-      (!srcfileloc  "cp/cp-gimplify.cc" 3782)
+      (!srcfileloc  "cp/cp-gimplify.cc" 3786)
       nil )
      (!pair  "uid"
       (!type already_seen 2)
-      (!srcfileloc  "cp/cp-gimplify.cc" 3783)
+      (!srcfileloc  "cp/cp-gimplify.cc" 3787)
       nil )
      (!pair  "var"
       (!type already_seen 23)
-      (!srcfileloc  "cp/cp-gimplify.cc" 3784)
+      (!srcfileloc  "cp/cp-gimplify.cc" 3788)
       nil )
     )
     (!options 
@@ -31754,7 +31762,7 @@
  )
  
  (!type struct 2283 nil  gc_used "source_location_table_entry_hash"
-  (!srcfileloc  "cp/cp-gimplify.cc" 3861)
+  (!srcfileloc  "cp/cp-gimplify.cc" 3865)
   (!fields 0 )
   nil 1028 nil nil )
  
@@ -31763,11 +31771,11 @@
    (!type already_seen 2284)
   )
   gc_pointed_to "hash_table<source_location_table_entry_hash>"
-  (!srcfileloc  "cp/cp-gimplify.cc" 3861)
+  (!srcfileloc  "cp/cp-gimplify.cc" 3865)
   (!fields 1 
    (!pair  "source_location_table_entry_hash"
     (!type already_seen 2283)
-    (!srcfileloc  "cp/cp-gimplify.cc" 3861)
+    (!srcfileloc  "cp/cp-gimplify.cc" 3865)
     nil )
   )
  )
@@ -32603,7 +32611,7 @@
   nil 0 nil nil )
  
  (!type undefined 2401 nil  gc_unused "class_to_loc_map_t::iterator"
-  (!srcfileloc  "cp/parser.cc" 35529)
+  (!srcfileloc  "cp/parser.cc" 35552)
  )
  
  (!type struct 2402 nil  gc_unused "sit_data"nil 
@@ -32724,15 +32732,15 @@
    (!type already_seen 2421)
   )
   gc_pointed_to "hash_map<tree,tree_pair_p>"
-  (!srcfileloc  "cp/pt.cc" 30694)
+  (!srcfileloc  "cp/pt.cc" 30689)
   (!fields 2 
    (!pair  "tree_pair_p"
     (!type already_seen 590)
-    (!srcfileloc  "cp/pt.cc" 30694)
+    (!srcfileloc  "cp/pt.cc" 30689)
     nil )
    (!pair  "tree"
     (!type already_seen 23)
-    (!srcfileloc  "cp/pt.cc" 30694)
+    (!srcfileloc  "cp/pt.cc" 30689)
     nil )
   )
  )
@@ -33022,7 +33030,7 @@
   nil 0 nil nil )
  
  (!type struct 2470 nil  gc_used "module_hasher"
-  (!srcfileloc  "fortran/trans-decl.cc" 5322)
+  (!srcfileloc  "fortran/trans-decl.cc" 5351)
   (!fields 0 )
   nil 16 nil nil )
  
@@ -33031,11 +33039,11 @@
    (!type already_seen 2471)
   )
   gc_pointed_to "hash_table<module_hasher>"
-  (!srcfileloc  "fortran/trans-decl.cc" 5322)
+  (!srcfileloc  "fortran/trans-decl.cc" 5351)
   (!fields 1 
    (!pair  "module_hasher"
     (!type already_seen 2470)
-    (!srcfileloc  "fortran/trans-decl.cc" 5322)
+    (!srcfileloc  "fortran/trans-decl.cc" 5351)
     nil )
   )
  )
@@ -34492,11 +34500,11 @@
   nil )
  (!pair  "module_hasher"
   (!type already_seen 2470)
-  (!srcfileloc  "fortran/trans-decl.cc" 5322)
+  (!srcfileloc  "fortran/trans-decl.cc" 5351)
   nil )
  (!pair  "hash_table<module_hasher>"
   (!type already_seen 2471)
-  (!srcfileloc  "fortran/trans-decl.cc" 5322)
+  (!srcfileloc  "fortran/trans-decl.cc" 5351)
   nil )
  (!pair  "tree_frame_info"
   (!type already_seen 713)
@@ -34596,7 +34604,7 @@
   nil )
  (!pair  "hash_map<tree,tree_pair_p>"
   (!type already_seen 2421)
-  (!srcfileloc  "cp/pt.cc" 30694)
+  (!srcfileloc  "cp/pt.cc" 30689)
   nil )
  (!pair  "pending_template"
   (!type already_seen 2403)
@@ -34636,11 +34644,11 @@
   nil )
  (!pair  "iter_t"
   (!type already_seen 2401)
-  (!srcfileloc  "cp/parser.cc" 35529)
+  (!srcfileloc  "cp/parser.cc" 35552)
   nil )
  (!pair  "class_to_loc_map_t::iterator"
   (!type already_seen 2401)
-  (!srcfileloc  "cp/parser.cc" 35529)
+  (!srcfileloc  "cp/parser.cc" 35552)
   nil )
  (!pair  "cp_parser_expression_stack"
   (!type array 2578 nil  gc_unused "NUM_PREC_VALUES" 
@@ -34924,19 +34932,19 @@
   nil )
  (!pair  "source_location_table_entry_hash"
   (!type already_seen 2283)
-  (!srcfileloc  "cp/cp-gimplify.cc" 3861)
+  (!srcfileloc  "cp/cp-gimplify.cc" 3865)
   nil )
  (!pair  "hash_table<source_location_table_entry_hash>"
   (!type already_seen 2284)
-  (!srcfileloc  "cp/cp-gimplify.cc" 3861)
+  (!srcfileloc  "cp/cp-gimplify.cc" 3865)
   nil )
  (!pair  "coroutine_info_hasher"
   (!type already_seen 2261)
-  (!srcfileloc  "cp/coroutines.cc" 114)
+  (!srcfileloc  "cp/coroutines.cc" 116)
   nil )
  (!pair  "hash_table<coroutine_info_hasher>"
   (!type already_seen 2262)
-  (!srcfileloc  "cp/coroutines.cc" 114)
+  (!srcfileloc  "cp/coroutines.cc" 116)
   nil )
  (!pair  "sat_hasher"
   (!type already_seen 2256)
@@ -35826,19 +35834,19 @@
   nil )
  (!pair  "aarch64_fmv_feature_datum"
   (!type already_seen 1781)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 19729)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 19741)
   nil )
  (!pair  "aarch64_fmv_feature_mask"
   (!type already_seen 2)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 19722)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 19734)
   nil )
  (!pair  "aarch64_cc"
   (!type already_seen 2)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 910)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 914)
   nil )
  (!pair  "sysreg_t"
   (!type already_seen 1774)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 475)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 479)
   nil )
  (!pair  "omp_declare_variant_alt_hasher"
   (!type already_seen 1758)
@@ -37826,27 +37834,27 @@
   nil )
  (!pair  "machine_function"
   (!type already_seen 458)
-  (!srcfileloc  "config/aarch64/aarch64.h" 1062)
+  (!srcfileloc  "config/aarch64/aarch64.h" 1071)
   nil )
  (!pair  "rtx_insn"
   (!type already_seen 326)
-  (!srcfileloc  "config/aarch64/aarch64.h" 1058)
+  (!srcfileloc  "config/aarch64/aarch64.h" 1067)
   nil )
  (!pair  "hash_set<tree>"
   (!type already_seen 467)
-  (!srcfileloc  "config/aarch64/aarch64.h" 1052)
+  (!srcfileloc  "config/aarch64/aarch64.h" 1061)
   nil )
  (!pair  "va_gc_atomic"
   (!type already_seen 463)
-  (!srcfileloc  "config/aarch64/aarch64.h" 906)
+  (!srcfileloc  "config/aarch64/aarch64.h" 915)
   nil )
  (!pair  "unsigned"
   (!type already_seen 451)
-  (!srcfileloc  "config/aarch64/aarch64.h" 906)
+  (!srcfileloc  "config/aarch64/aarch64.h" 915)
   nil )
  (!pair  "vec<unsigned,va_gc_atomic>"
   (!type already_seen 462)
-  (!srcfileloc  "config/aarch64/aarch64.h" 906)
+  (!srcfileloc  "config/aarch64/aarch64.h" 915)
   nil )
  (!pair  "aarch64_feature_flags"
   (!type already_seen 922)
@@ -38341,7 +38349,7 @@
   nil )
  (!pair  "rust_gc_root"
   (!type already_seen 23)
-  (!srcfileloc  "rust/rust-lang.cc" 367)
+  (!srcfileloc  "rust/rust-lang.cc" 358)
   nil )
  (!pair  "objc_eh_personality_decl"
   (!type already_seen 23)
@@ -39614,27 +39622,27 @@
   nil )
  (!pair  "module_htab"
   (!type already_seen 2472)
-  (!srcfileloc  "fortran/trans-decl.cc" 5322)
+  (!srcfileloc  "fortran/trans-decl.cc" 5351)
   nil )
  (!pair  "saved_local_decls"
   (!type already_seen 23)
-  (!srcfileloc  "fortran/trans-decl.cc" 70)
+  (!srcfileloc  "fortran/trans-decl.cc" 72)
   nil )
  (!pair  "saved_parent_function_decls"
   (!type already_seen 23)
-  (!srcfileloc  "fortran/trans-decl.cc" 66)
+  (!srcfileloc  "fortran/trans-decl.cc" 68)
   nil )
  (!pair  "saved_function_decls"
   (!type already_seen 23)
-  (!srcfileloc  "fortran/trans-decl.cc" 65)
+  (!srcfileloc  "fortran/trans-decl.cc" 67)
   nil )
  (!pair  "parent_fake_result_decl"
   (!type already_seen 23)
-  (!srcfileloc  "fortran/trans-decl.cc" 60)
+  (!srcfileloc  "fortran/trans-decl.cc" 62)
   nil )
  (!pair  "current_fake_result_decl"
   (!type already_seen 23)
-  (!srcfileloc  "fortran/trans-decl.cc" 59)
+  (!srcfileloc  "fortran/trans-decl.cc" 61)
   nil )
  (!pair  "global_binding_level"
   (!type already_seen 486)
@@ -39777,7 +39785,7 @@
   nil )
  (!pair  "dguide_cache"
   (!type already_seen 2422)
-  (!srcfileloc  "cp/pt.cc" 30694)
+  (!srcfileloc  "cp/pt.cc" 30689)
   (!options 
    (!option deletable string  "")
   )
@@ -39873,11 +39881,11 @@
   nil )
  (!pair  "generic_parm_count"
   (!type already_seen 2)
-  (!srcfileloc  "cp/parser.cc" 51807)
+  (!srcfileloc  "cp/parser.cc" 51830)
   nil )
  (!pair  "cp_parser_decl_specs_attrs"
   (!type already_seen 85)
-  (!srcfileloc  "cp/parser.cc" 20129)
+  (!srcfileloc  "cp/parser.cc" 20137)
   nil )
  (!pair  "cp_parser_context_free_list"
   (!type already_seen 2208)
@@ -40047,11 +40055,11 @@
   nil )
  (!pair  "start_cleanup_cnt"
   (!type already_seen 2)
-  (!srcfileloc  "cp/decl.cc" 9925)
+  (!srcfileloc  "cp/decl.cc" 9935)
   nil )
  (!pair  "decomp_type_table"
   (!type already_seen 1022)
-  (!srcfileloc  "cp/decl.cc" 9314)
+  (!srcfileloc  "cp/decl.cc" 9324)
   (!options 
    (!option cache string  "")
   )
@@ -40084,17 +40092,17 @@
   nil )
  (!pair  "source_location_id"
   (!type already_seen 2)
-  (!srcfileloc  "cp/cp-gimplify.cc" 3863)
+  (!srcfileloc  "cp/cp-gimplify.cc" 3867)
   nil )
  (!pair  "source_location_table"
   (!type already_seen 2285)
-  (!srcfileloc  "cp/cp-gimplify.cc" 3862)
+  (!srcfileloc  "cp/cp-gimplify.cc" 3866)
   nil )
  (!pair  "fold_caches"
   (!type array 2612 nil  gc_used "2" 
    (!type already_seen 422)
   )
-  (!srcfileloc  "cp/cp-gimplify.cc" 2899)
+  (!srcfileloc  "cp/cp-gimplify.cc" 2903)
   (!options 
    (!option deletable string  "")
   )
@@ -40105,7 +40113,11 @@
   nil )
  (!pair  "to_ramp"
   (!type already_seen 422)
-  (!srcfileloc  "cp/coroutines.cc" 560)
+  (!srcfileloc  "cp/coroutines.cc" 685)
+  nil )
+ (!pair  "void_coro_handle_address"
+  (!type already_seen 23)
+  (!srcfileloc  "cp/coroutines.cc" 273)
   nil )
  (!pair  "void_coro_handle_type"
   (!type already_seen 23)
@@ -40121,111 +40133,107 @@
   nil )
  (!pair  "coro_frame_i_a_r_c_id"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 227)
+  (!srcfileloc  "cp/coroutines.cc" 228)
   nil )
  (!pair  "coro_actor_continue_id"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 226)
+  (!srcfileloc  "cp/coroutines.cc" 227)
   nil )
  (!pair  "coro_self_handle_id"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 225)
+  (!srcfileloc  "cp/coroutines.cc" 226)
   nil )
  (!pair  "coro_resume_index_id"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 224)
+  (!srcfileloc  "cp/coroutines.cc" 225)
   nil )
  (!pair  "coro_frame_needs_free_id"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 223)
+  (!srcfileloc  "cp/coroutines.cc" 224)
   nil )
  (!pair  "coro_promise_id"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 222)
+  (!srcfileloc  "cp/coroutines.cc" 223)
   nil )
  (!pair  "coro_destroy_fn_id"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 221)
+  (!srcfileloc  "cp/coroutines.cc" 222)
   nil )
  (!pair  "coro_resume_fn_id"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 220)
+  (!srcfileloc  "cp/coroutines.cc" 221)
   nil )
  (!pair  "coro_await_resume_identifier"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 216)
+  (!srcfileloc  "cp/coroutines.cc" 217)
   nil )
  (!pair  "coro_await_suspend_identifier"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 215)
+  (!srcfileloc  "cp/coroutines.cc" 216)
   nil )
  (!pair  "coro_await_ready_identifier"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 214)
+  (!srcfileloc  "cp/coroutines.cc" 215)
   nil )
  (!pair  "coro_unhandled_exception_identifier"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 210)
+  (!srcfileloc  "cp/coroutines.cc" 211)
   nil )
  (!pair  "coro_gro_on_allocation_fail_identifier"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 209)
+  (!srcfileloc  "cp/coroutines.cc" 210)
   nil )
  (!pair  "coro_get_return_object_identifier"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 208)
+  (!srcfileloc  "cp/coroutines.cc" 209)
   nil )
  (!pair  "coro_from_address_identifier"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 207)
+  (!srcfileloc  "cp/coroutines.cc" 208)
   nil )
  (!pair  "coro_address_identifier"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 206)
-  nil )
- (!pair  "coro_resume_identifier"
-  (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 205)
+  (!srcfileloc  "cp/coroutines.cc" 207)
   nil )
  (!pair  "coro_yield_value_identifier"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 204)
+  (!srcfileloc  "cp/coroutines.cc" 206)
   nil )
  (!pair  "coro_return_value_identifier"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 203)
+  (!srcfileloc  "cp/coroutines.cc" 205)
   nil )
  (!pair  "coro_return_void_identifier"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 202)
+  (!srcfileloc  "cp/coroutines.cc" 204)
   nil )
  (!pair  "coro_final_suspend_identifier"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 201)
+  (!srcfileloc  "cp/coroutines.cc" 203)
   nil )
  (!pair  "coro_initial_suspend_identifier"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 200)
+  (!srcfileloc  "cp/coroutines.cc" 202)
   nil )
  (!pair  "coro_await_transform_identifier"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 199)
+  (!srcfileloc  "cp/coroutines.cc" 201)
   nil )
  (!pair  "coro_promise_type_identifier"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 195)
+  (!srcfileloc  "cp/coroutines.cc" 197)
   nil )
  (!pair  "coro_handle_identifier"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 194)
+  (!srcfileloc  "cp/coroutines.cc" 196)
   nil )
  (!pair  "coro_traits_identifier"
   (!type already_seen 23)
-  (!srcfileloc  "cp/coroutines.cc" 193)
+  (!srcfileloc  "cp/coroutines.cc" 195)
   nil )
  (!pair  "coroutine_info_table"
   (!type already_seen 2263)
-  (!srcfileloc  "cp/coroutines.cc" 114)
+  (!srcfileloc  "cp/coroutines.cc" 116)
   nil )
  (!pair  "decl_satisfied_cache"
   (!type already_seen 422)
@@ -40286,7 +40294,7 @@
   nil )
  (!pair  "cv_cache"
   (!type already_seen 422)
-  (!srcfileloc  "cp/constexpr.cc" 9125)
+  (!srcfileloc  "cp/constexpr.cc" 9128)
   (!options 
    (!option deletable string  "")
   )
@@ -40498,7 +40506,7 @@
   nil )
  (!pair  "ext_block"
   (!type already_seen 23)
-  (!srcfileloc  "c/c-decl.cc" 13496)
+  (!srcfileloc  "c/c-decl.cc" 13507)
   nil )
  (!pair  "last_structptr_types"
   (!type array 2621 nil  gc_used "builtin_structptr_type_count" 
@@ -40948,25 +40956,25 @@
   nil )
  (!pair  "aarch64_sls_shared_thunks_needed"
   (!type already_seen 2)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 29059)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 29091)
   nil )
  (!pair  "aarch64_sls_shared_thunks"
   (!type array 2646 nil  gc_used "30" 
    (!type already_seen 23)
   )
-  (!srcfileloc  "config/aarch64/aarch64.cc" 29058)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 29090)
   nil )
  (!pair  "va_list_type"
   (!type already_seen 23)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 21101)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 21113)
   nil )
  (!pair  "aarch64_previous_fndecl"
   (!type already_seen 23)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 19048)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 19060)
   nil )
  (!pair  "tls_get_addr_libfunc"
   (!type already_seen 123)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 2799)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 2807)
   nil )
  (!pair  "stack_chk_fail_decl"
   (!type already_seen 23)
@@ -42158,15 +42166,15 @@
   nil )
  (!pair  "aarch64_bf16_ptr_type_node"
   (!type already_seen 23)
-  (!srcfileloc  "config/aarch64/aarch64.h" 1448)
+  (!srcfileloc  "config/aarch64/aarch64.h" 1457)
   nil )
  (!pair  "aarch64_fp16_ptr_type_node"
   (!type already_seen 23)
-  (!srcfileloc  "config/aarch64/aarch64.h" 1444)
+  (!srcfileloc  "config/aarch64/aarch64.h" 1453)
   nil )
  (!pair  "aarch64_fp16_type_node"
   (!type already_seen 23)
-  (!srcfileloc  "config/aarch64/aarch64.h" 1443)
+  (!srcfileloc  "config/aarch64/aarch64.h" 1452)
   nil )
  (!pair  "saved_line_table"
   (!type already_seen 767)

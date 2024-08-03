@@ -1,5 +1,5 @@
 /* Declarations for math functions.
-   Copyright (C) 1991-2024 Free Software Foundation, Inc.
+   Copyright (C) 1991-2022 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
@@ -1015,8 +1015,7 @@ enum
 
 /* Return nonzero value if X is positive or negative infinity.  */
 # if __HAVE_DISTINCT_FLOAT128 && !__GNUC_PREREQ (7,0) \
-     && !defined __SUPPORT_SNAN__ && !defined __cplusplus \
-     && !defined __clang__
+     && !defined __SUPPORT_SNAN__ && !defined __cplusplus
    /* Since __builtin_isinf_sign is broken for float128 before GCC 7.0,
       use the helper function, __isinff128, with older compilers.  This is
       only provided for C mode, because in C++ mode, GCC has no support
@@ -1302,7 +1301,7 @@ iszero (__T __val)
    these operations.  Generic support in GCC for these as builtins went
    in 2.97, but not all cpus added their patterns until 3.1.  Therefore
    we enable the builtins from 3.1 onwards and use a generic implementation
-   otherwise.  */
+   othwerwise.  */
 #  define isgreater(x, y)	__builtin_isgreater(x, y)
 #  define isgreaterequal(x, y)	__builtin_isgreaterequal(x, y)
 #  define isless(x, y)		__builtin_isless(x, y)
@@ -1392,62 +1391,14 @@ template<> struct __iseqsig_type<long double>
   }
 };
 
-#  if __HAVE_FLOAT32 && __GNUC_PREREQ (13, 0)
-template<> struct __iseqsig_type<_Float32>
-{
-  static int __call (_Float32 __x, _Float32 __y) throw ()
-  {
-    return __iseqsigf (__x, __y);
-  }
-};
-#  endif
-
-#  if __HAVE_FLOAT64 && __GNUC_PREREQ (13, 0)
-template<> struct __iseqsig_type<_Float64>
-{
-  static int __call (_Float64 __x, _Float64 __y) throw ()
-  {
-    return __iseqsig (__x, __y);
-  }
-};
-#  endif
-
-#  if __HAVE_FLOAT128_UNLIKE_LDBL || (__HAVE_FLOAT128 && __GNUC_PREREQ (13, 0))
+#  if __HAVE_FLOAT128_UNLIKE_LDBL
   /* When using an IEEE 128-bit long double, _Float128 is defined as long double
      in C++.  */
 template<> struct __iseqsig_type<_Float128>
 {
   static int __call (_Float128 __x, _Float128 __y) throw ()
   {
-#   if __HAVE_FLOAT128_UNLIKE_LDBL
     return __iseqsigf128 (__x, __y);
-#   else
-    return __iseqsigl (__x, __y);
-#   endif
-  }
-};
-#  endif
-
-#  if __HAVE_FLOAT32X && __GNUC_PREREQ (13, 0)
-template<> struct __iseqsig_type<_Float32x>
-{
-  static int __call (_Float32x __x, _Float32x __y) throw ()
-  {
-    return __iseqsig (__x, __y);
-  }
-};
-#  endif
-
-#  if __HAVE_FLOAT64X && __GNUC_PREREQ (13, 0)
-template<> struct __iseqsig_type<_Float64x>
-{
-  static int __call (_Float64x __x, _Float64x __y) throw ()
-  {
-#   if __HAVE_FLOAT64X_LONG_DOUBLE
-    return __iseqsigl (__x, __y);
-#   else
-    return __iseqsigf128 (__x, __y);
-#   endif
   }
 };
 #  endif

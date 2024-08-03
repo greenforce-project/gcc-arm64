@@ -157,10 +157,8 @@ static __inline__ __u32 ethtool_cmd_speed(const struct ethtool_cmd *ep)
  *	in its bus driver structure (e.g. pci_driver::name).  Must
  *	not be an empty string.
  * @version: Driver version string; may be an empty string
- * @fw_version: Firmware version string; driver defined; may be an
- *	empty string
- * @erom_version: Expansion ROM version string; driver defined; may be
- *	an empty string
+ * @fw_version: Firmware version string; may be an empty string
+ * @erom_version: Expansion ROM version string; may be an empty string
  * @bus_info: Device bus address.  This should match the dev_name()
  *	string for the underlying bus device, if there is one.  May be
  *	an empty string.
@@ -179,6 +177,10 @@ static __inline__ __u32 ethtool_cmd_speed(const struct ethtool_cmd *ep)
  *
  * Users can use the %ETHTOOL_GSSET_INFO command to get the number of
  * strings in any string set (from Linux 2.6.34).
+ *
+ * Drivers should set at most @driver, @version, @fw_version and
+ * @bus_info in their get_drvinfo() implementation.  The ethtool
+ * core fills in the other fields using other driver operations.
  */
 struct ethtool_drvinfo {
 	__u32	cmd;
@@ -227,7 +229,6 @@ enum tunable_id {
 	ETHTOOL_RX_COPYBREAK,
 	ETHTOOL_TX_COPYBREAK,
 	ETHTOOL_PFC_PREVENTION_TOUT, /* timeout in msecs */
-	ETHTOOL_TX_COPYBREAK_BUF_SIZE,
 	/*
 	 * Add your fresh new tunable attribute above and remember to update
 	 * tunable_strings[] in net/ethtool/common.c
@@ -253,7 +254,7 @@ struct ethtool_tunable {
 	__u32	id;
 	__u32	type_id;
 	__u32	len;
-	void	*data[];
+	void	*data[0];
 };
 
 #define DOWNSHIFT_DEV_DEFAULT_COUNT	0xff
@@ -318,7 +319,7 @@ struct ethtool_regs {
 	__u32	cmd;
 	__u32	version;
 	__u32	len;
-	__u8	data[];
+	__u8	data[0];
 };
 
 /**
@@ -344,7 +345,7 @@ struct ethtool_eeprom {
 	__u32	magic;
 	__u32	offset;
 	__u32	len;
-	__u8	data[];
+	__u8	data[0];
 };
 
 /**
@@ -600,7 +601,6 @@ enum ethtool_link_ext_state {
 	ETHTOOL_LINK_EXT_STATE_CALIBRATION_FAILURE,
 	ETHTOOL_LINK_EXT_STATE_POWER_BUDGET_EXCEEDED,
 	ETHTOOL_LINK_EXT_STATE_OVERHEAT,
-	ETHTOOL_LINK_EXT_STATE_MODULE,
 };
 
 /* More information in addition to ETHTOOL_LINK_EXT_STATE_AUTONEG. */
@@ -645,11 +645,6 @@ enum ethtool_link_ext_substate_bad_signal_integrity {
 enum ethtool_link_ext_substate_cable_issue {
 	ETHTOOL_LINK_EXT_SUBSTATE_CI_UNSUPPORTED_CABLE = 1,
 	ETHTOOL_LINK_EXT_SUBSTATE_CI_CABLE_TEST_FAILURE,
-};
-
-/* More information in addition to ETHTOOL_LINK_EXT_STATE_MODULE. */
-enum ethtool_link_ext_substate_module {
-	ETHTOOL_LINK_EXT_SUBSTATE_MODULE_CMIS_NOT_READY = 1,
 };
 
 #define ETH_GSTRING_LEN		32
@@ -710,117 +705,6 @@ enum ethtool_stringset {
 };
 
 /**
- * enum ethtool_mac_stats_src - source of ethtool MAC statistics
- * @ETHTOOL_MAC_STATS_SRC_AGGREGATE:
- *	if device supports a MAC merge layer, this retrieves the aggregate
- *	statistics of the eMAC and pMAC. Otherwise, it retrieves just the
- *	statistics of the single (express) MAC.
- * @ETHTOOL_MAC_STATS_SRC_EMAC:
- *	if device supports a MM layer, this retrieves the eMAC statistics.
- *	Otherwise, it retrieves the statistics of the single (express) MAC.
- * @ETHTOOL_MAC_STATS_SRC_PMAC:
- *	if device supports a MM layer, this retrieves the pMAC statistics.
- */
-enum ethtool_mac_stats_src {
-	ETHTOOL_MAC_STATS_SRC_AGGREGATE,
-	ETHTOOL_MAC_STATS_SRC_EMAC,
-	ETHTOOL_MAC_STATS_SRC_PMAC,
-};
-
-/**
- * enum ethtool_module_power_mode_policy - plug-in module power mode policy
- * @ETHTOOL_MODULE_POWER_MODE_POLICY_HIGH: Module is always in high power mode.
- * @ETHTOOL_MODULE_POWER_MODE_POLICY_AUTO: Module is transitioned by the host
- *	to high power mode when the first port using it is put administratively
- *	up and to low power mode when the last port using it is put
- *	administratively down.
- */
-enum ethtool_module_power_mode_policy {
-	ETHTOOL_MODULE_POWER_MODE_POLICY_HIGH = 1,
-	ETHTOOL_MODULE_POWER_MODE_POLICY_AUTO,
-};
-
-/**
- * enum ethtool_module_power_mode - plug-in module power mode
- * @ETHTOOL_MODULE_POWER_MODE_LOW: Module is in low power mode.
- * @ETHTOOL_MODULE_POWER_MODE_HIGH: Module is in high power mode.
- */
-enum ethtool_module_power_mode {
-	ETHTOOL_MODULE_POWER_MODE_LOW = 1,
-	ETHTOOL_MODULE_POWER_MODE_HIGH,
-};
-
-/**
- * enum ethtool_podl_pse_admin_state - operational state of the PoDL PSE
- *	functions. IEEE 802.3-2018 30.15.1.1.2 aPoDLPSEAdminState
- * @ETHTOOL_PODL_PSE_ADMIN_STATE_UNKNOWN: state of PoDL PSE functions are
- * 	unknown
- * @ETHTOOL_PODL_PSE_ADMIN_STATE_DISABLED: PoDL PSE functions are disabled
- * @ETHTOOL_PODL_PSE_ADMIN_STATE_ENABLED: PoDL PSE functions are enabled
- */
-enum ethtool_podl_pse_admin_state {
-	ETHTOOL_PODL_PSE_ADMIN_STATE_UNKNOWN = 1,
-	ETHTOOL_PODL_PSE_ADMIN_STATE_DISABLED,
-	ETHTOOL_PODL_PSE_ADMIN_STATE_ENABLED,
-};
-
-/**
- * enum ethtool_podl_pse_pw_d_status - power detection status of the PoDL PSE.
- *	IEEE 802.3-2018 30.15.1.1.3 aPoDLPSEPowerDetectionStatus:
- * @ETHTOOL_PODL_PSE_PW_D_STATUS_UNKNOWN: PoDL PSE
- * @ETHTOOL_PODL_PSE_PW_D_STATUS_DISABLED: "The enumeration “disabled” is
- *	asserted true when the PoDL PSE state diagram variable mr_pse_enable is
- *	false"
- * @ETHTOOL_PODL_PSE_PW_D_STATUS_SEARCHING: "The enumeration “searching” is
- *	asserted true when either of the PSE state diagram variables
- *	pi_detecting or pi_classifying is true."
- * @ETHTOOL_PODL_PSE_PW_D_STATUS_DELIVERING: "The enumeration “deliveringPower”
- *	is asserted true when the PoDL PSE state diagram variable pi_powered is
- *	true."
- * @ETHTOOL_PODL_PSE_PW_D_STATUS_SLEEP: "The enumeration “sleep” is asserted
- *	true when the PoDL PSE state diagram variable pi_sleeping is true."
- * @ETHTOOL_PODL_PSE_PW_D_STATUS_IDLE: "The enumeration “idle” is asserted true
- *	when the logical combination of the PoDL PSE state diagram variables
- *	pi_prebiased*!pi_sleeping is true."
- * @ETHTOOL_PODL_PSE_PW_D_STATUS_ERROR: "The enumeration “error” is asserted
- *	true when the PoDL PSE state diagram variable overload_held is true."
- */
-enum ethtool_podl_pse_pw_d_status {
-	ETHTOOL_PODL_PSE_PW_D_STATUS_UNKNOWN = 1,
-	ETHTOOL_PODL_PSE_PW_D_STATUS_DISABLED,
-	ETHTOOL_PODL_PSE_PW_D_STATUS_SEARCHING,
-	ETHTOOL_PODL_PSE_PW_D_STATUS_DELIVERING,
-	ETHTOOL_PODL_PSE_PW_D_STATUS_SLEEP,
-	ETHTOOL_PODL_PSE_PW_D_STATUS_IDLE,
-	ETHTOOL_PODL_PSE_PW_D_STATUS_ERROR,
-};
-
-/**
- * enum ethtool_mm_verify_status - status of MAC Merge Verify function
- * @ETHTOOL_MM_VERIFY_STATUS_UNKNOWN:
- *	verification status is unknown
- * @ETHTOOL_MM_VERIFY_STATUS_INITIAL:
- *	the 802.3 Verify State diagram is in the state INIT_VERIFICATION
- * @ETHTOOL_MM_VERIFY_STATUS_VERIFYING:
- *	the Verify State diagram is in the state VERIFICATION_IDLE,
- *	SEND_VERIFY or WAIT_FOR_RESPONSE
- * @ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED:
- *	indicates that the Verify State diagram is in the state VERIFIED
- * @ETHTOOL_MM_VERIFY_STATUS_FAILED:
- *	the Verify State diagram is in the state VERIFY_FAIL
- * @ETHTOOL_MM_VERIFY_STATUS_DISABLED:
- *	verification of preemption operation is disabled
- */
-enum ethtool_mm_verify_status {
-	ETHTOOL_MM_VERIFY_STATUS_UNKNOWN,
-	ETHTOOL_MM_VERIFY_STATUS_INITIAL,
-	ETHTOOL_MM_VERIFY_STATUS_VERIFYING,
-	ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED,
-	ETHTOOL_MM_VERIFY_STATUS_FAILED,
-	ETHTOOL_MM_VERIFY_STATUS_DISABLED,
-};
-
-/**
  * struct ethtool_gstrings - string set for data tagging
  * @cmd: Command number = %ETHTOOL_GSTRINGS
  * @string_set: String set ID; one of &enum ethtool_stringset
@@ -836,7 +720,7 @@ struct ethtool_gstrings {
 	__u32	cmd;
 	__u32	string_set;
 	__u32	len;
-	__u8	data[];
+	__u8	data[0];
 };
 
 /**
@@ -861,7 +745,7 @@ struct ethtool_sset_info {
 	__u32	cmd;
 	__u32	reserved;
 	__u64	sset_mask;
-	__u32	data[];
+	__u32	data[0];
 };
 
 /**
@@ -901,7 +785,7 @@ struct ethtool_test {
 	__u32	flags;
 	__u32	reserved;
 	__u32	len;
-	__u64	data[];
+	__u64	data[0];
 };
 
 /**
@@ -918,7 +802,7 @@ struct ethtool_test {
 struct ethtool_stats {
 	__u32	cmd;
 	__u32	n_stats;
-	__u64	data[];
+	__u64	data[0];
 };
 
 /**
@@ -935,7 +819,7 @@ struct ethtool_stats {
 struct ethtool_perm_addr {
 	__u32	cmd;
 	__u32	size;
-	__u8	data[];
+	__u8	data[0];
 };
 
 /* boolean flags controlling per-interface behavior characteristics.
@@ -1224,7 +1108,7 @@ struct ethtool_rxnfc {
 		__u32			rule_cnt;
 		__u32			rss_context;
 	};
-	__u32				rule_locs[];
+	__u32				rule_locs[0];
 };
 
 
@@ -1244,7 +1128,7 @@ struct ethtool_rxnfc {
 struct ethtool_rxfh_indir {
 	__u32	cmd;
 	__u32	size;
-	__u32	ring_index[];
+	__u32	ring_index[0];
 };
 
 /**
@@ -1264,8 +1148,6 @@ struct ethtool_rxfh_indir {
  *	hardware hash key.
  * @hfunc: Defines the current RSS hash function used by HW (or to be set to).
  *	Valid values are one of the %ETH_RSS_HASH_*.
- * @input_xfrm: Defines how the input data is transformed. Valid values are one
- *	of %RXH_XFRM_*.
  * @rsvd8: Reserved for future use; see the note on reserved space.
  * @rsvd32: Reserved for future use; see the note on reserved space.
  * @rss_config: RX ring/queue index for each hash value i.e., indirection table
@@ -1285,10 +1167,9 @@ struct ethtool_rxfh {
 	__u32   indir_size;
 	__u32   key_size;
 	__u8	hfunc;
-	__u8	input_xfrm;
-	__u8	rsvd8[2];
+	__u8	rsvd8[3];
 	__u32	rsvd32;
-	__u32   rss_config[];
+	__u32   rss_config[0];
 };
 #define ETH_RXFH_CONTEXT_ALLOC		0xffffffff
 #define ETH_RXFH_INDIR_NO_CHANGE	0xffffffff
@@ -1373,7 +1254,7 @@ struct ethtool_dump {
 	__u32	version;
 	__u32	flag;
 	__u32	len;
-	__u8	data[];
+	__u8	data[0];
 };
 
 #define ETH_FW_DUMP_DISABLE 0
@@ -1405,7 +1286,7 @@ struct ethtool_get_features_block {
 struct ethtool_gfeatures {
 	__u32	cmd;
 	__u32	size;
-	struct ethtool_get_features_block features[];
+	struct ethtool_get_features_block features[0];
 };
 
 /**
@@ -1427,7 +1308,7 @@ struct ethtool_set_features_block {
 struct ethtool_sfeatures {
 	__u32	cmd;
 	__u32	size;
-	struct ethtool_set_features_block features[];
+	struct ethtool_set_features_block features[0];
 };
 
 /**
@@ -1778,17 +1659,6 @@ enum ethtool_link_mode_bit_indices {
 	ETHTOOL_LINK_MODE_400000baseCR4_Full_BIT	 = 89,
 	ETHTOOL_LINK_MODE_100baseFX_Half_BIT		 = 90,
 	ETHTOOL_LINK_MODE_100baseFX_Full_BIT		 = 91,
-	ETHTOOL_LINK_MODE_10baseT1L_Full_BIT		 = 92,
-	ETHTOOL_LINK_MODE_800000baseCR8_Full_BIT	 = 93,
-	ETHTOOL_LINK_MODE_800000baseKR8_Full_BIT	 = 94,
-	ETHTOOL_LINK_MODE_800000baseDR8_Full_BIT	 = 95,
-	ETHTOOL_LINK_MODE_800000baseDR8_2_Full_BIT	 = 96,
-	ETHTOOL_LINK_MODE_800000baseSR8_Full_BIT	 = 97,
-	ETHTOOL_LINK_MODE_800000baseVR8_Full_BIT	 = 98,
-	ETHTOOL_LINK_MODE_10baseT1S_Full_BIT		 = 99,
-	ETHTOOL_LINK_MODE_10baseT1S_Half_BIT		 = 100,
-	ETHTOOL_LINK_MODE_10baseT1S_P2MP_Half_BIT	 = 101,
-
 	/* must be last entry */
 	__ETHTOOL_LINK_MODE_MASK_NBITS
 };
@@ -1900,7 +1770,6 @@ enum ethtool_link_mode_bit_indices {
 #define SPEED_100000		100000
 #define SPEED_200000		200000
 #define SPEED_400000		400000
-#define SPEED_800000		800000
 
 #define SPEED_UNKNOWN		-1
 
@@ -1937,20 +1806,6 @@ static __inline__ int ethtool_validate_duplex(__u8 duplex)
 #define MASTER_SLAVE_STATE_MASTER		2
 #define MASTER_SLAVE_STATE_SLAVE		3
 #define MASTER_SLAVE_STATE_ERR			4
-
-/* These are used to throttle the rate of data on the phy interface when the
- * native speed of the interface is higher than the link speed. These should
- * not be used for phy interfaces which natively support multiple speeds (e.g.
- * MII or SGMII).
- */
-/* No rate matching performed. */
-#define RATE_MATCH_NONE		0
-/* The phy sends pause frames to throttle the MAC. */
-#define RATE_MATCH_PAUSE	1
-/* The phy asserts CRS to prevent the MAC from transmitting. */
-#define RATE_MATCH_CRS		2
-/* The MAC is programmed with a sufficiently-large IPG. */
-#define RATE_MATCH_OPEN_LOOP	3
 
 /* Which connector port. */
 #define PORT_TP			0x00
@@ -1992,15 +1847,6 @@ static __inline__ int ethtool_validate_duplex(__u8 duplex)
 #define WAKE_FILTER		(1 << 7)
 
 #define WOL_MODE_COUNT		8
-
-/* RSS hash function data
- * XOR the corresponding source and destination fields of each specified
- * protocol. Both copies of the XOR'ed fields are fed into the RSS and RXHASH
- * calculation. Note that this XORing reduces the input set entropy and could
- * be exploited to reduce the RSS queue spread.
- */
-#define	RXH_XFRM_SYM_XOR	(1 << 0)
-#define	RXH_XFRM_NO_CHANGE	0xff
 
 /* L2-L4 network traffic flow types */
 #define	TCP_V4_FLOW	0x01	/* hash or spec (tcp_ip4_spec) */
@@ -2138,12 +1984,24 @@ enum ethtool_reset_flags {
  *	refused. For drivers: ignore this field (use kernel's
  *	__ETHTOOL_LINK_MODE_MASK_NBITS instead), any change to it will
  *	be overwritten by kernel.
+ * @supported: Bitmap with each bit meaning given by
+ *	%ethtool_link_mode_bit_indices for the link modes, physical
+ *	connectors and other link features for which the interface
+ *	supports autonegotiation or auto-detection.  Read-only.
+ * @advertising: Bitmap with each bit meaning given by
+ *	%ethtool_link_mode_bit_indices for the link modes, physical
+ *	connectors and other link features that are advertised through
+ *	autonegotiation or enabled for auto-detection.
+ * @lp_advertising: Bitmap with each bit meaning given by
+ *	%ethtool_link_mode_bit_indices for the link modes, and other
+ *	link features that the link partner advertised through
+ *	autonegotiation; 0 if unknown or not applicable.  Read-only.
  * @transceiver: Used to distinguish different possible PHY types,
  *	reported consistently by PHYLIB.  Read-only.
  * @master_slave_cfg: Master/slave port mode.
  * @master_slave_state: Master/slave port state.
- * @rate_matching: Rate adaptation performed by the PHY
  * @reserved: Reserved for future use; see the note on reserved space.
+ * @reserved1: Reserved for future use; see the note on reserved space.
  * @link_mode_masks: Variable length bitmaps.
  *
  * If autonegotiation is disabled, the speed and @duplex represent the
@@ -2179,21 +2037,6 @@ enum ethtool_reset_flags {
  * %set_link_ksettings() should validate all fields other than @cmd
  * and @link_mode_masks_nwords that are not described as read-only or
  * deprecated, and must ignore all fields described as read-only.
- *
- * @link_mode_masks is divided into three bitfields, each of length
- * @link_mode_masks_nwords:
- * - supported: Bitmap with each bit meaning given by
- *	%ethtool_link_mode_bit_indices for the link modes, physical
- *	connectors and other link features for which the interface
- *	supports autonegotiation or auto-detection.  Read-only.
- * - advertising: Bitmap with each bit meaning given by
- *	%ethtool_link_mode_bit_indices for the link modes, physical
- *	connectors and other link features that are advertised through
- *	autonegotiation or enabled for auto-detection.
- * - lp_advertising: Bitmap with each bit meaning given by
- *	%ethtool_link_mode_bit_indices for the link modes, and other
- *	link features that the link partner advertised through
- *	autonegotiation; 0 if unknown or not applicable.  Read-only.
  */
 struct ethtool_link_settings {
 	__u32	cmd;
@@ -2209,9 +2052,9 @@ struct ethtool_link_settings {
 	__u8	transceiver;
 	__u8	master_slave_cfg;
 	__u8	master_slave_state;
-	__u8	rate_matching;
+	__u8	reserved1[1];
 	__u32	reserved[7];
-	__u32	link_mode_masks[];
+	__u32	link_mode_masks[0];
 	/* layout of link_mode_masks fields:
 	 * __u32 map_supported[link_mode_masks_nwords];
 	 * __u32 map_advertising[link_mode_masks_nwords];

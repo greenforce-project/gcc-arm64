@@ -1012,7 +1012,10 @@ inline bool
 diagnostic_report_diagnostic (diagnostic_context *context,
 			      diagnostic_info *diagnostic)
 {
-  return context->report_diagnostic (diagnostic);
+  context->begin_group ();
+  bool warned = context->report_diagnostic (diagnostic);
+  context->end_group ();
+  return warned;
 }
 
 #ifdef ATTRIBUTE_GCC_DIAG
@@ -1112,13 +1115,16 @@ extern void diagnostic_output_format_init_json_file (diagnostic_context &context
 						     bool formatted,
 						     const char *base_file_name);
 extern void diagnostic_output_format_init_sarif_stderr (diagnostic_context &context,
+							const line_maps *line_maps,
 							const char *main_input_filename_,
 							bool formatted);
 extern void diagnostic_output_format_init_sarif_file (diagnostic_context &context,
+						      const line_maps *line_maps,
 						      const char *main_input_filename_,
 						      bool formatted,
 						      const char *base_file_name);
 extern void diagnostic_output_format_init_sarif_stream (diagnostic_context &context,
+							const line_maps *line_maps,
 							const char *main_input_filename_,
 							bool formatted,
 							FILE *stream);

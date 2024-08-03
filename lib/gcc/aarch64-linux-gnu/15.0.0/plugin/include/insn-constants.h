@@ -17,15 +17,15 @@
 #define P2_REGNUM 70
 #define V28_REGNUM 60
 #define V11_REGNUM 43
-#define ZA_FREE_REGNUM 90
+#define ZA_FREE_REGNUM 91
 #define R16_REGNUM 16
 #define SP_REGNUM 31
 #define V0_REGNUM 32
 #define P12_REGNUM 80
 #define SVE_KNOWN_PTRUE 1
 #define AP_REGNUM 65
-#define FFR_REGNUM 84
-#define TPIDR2_BLOCK_REGNUM 87
+#define FFR_REGNUM 85
+#define TPIDR2_BLOCK_REGNUM 88
 #define R3_REGNUM 3
 #define V9_REGNUM 41
 #define R27_REGNUM 27
@@ -38,8 +38,9 @@
 #define V17_REGNUM 49
 #define FP_REGNUM 29
 #define R24_REGNUM 24
+#define FPM_REGNUM 84
 #define SVE_RELAXED_GP 0
-#define TPIDR2_SETUP_REGNUM 89
+#define TPIDR2_SETUP_REGNUM 90
 #define R9_REGNUM 9
 #define SFP_REGNUM 64
 #define V5_REGNUM 37
@@ -52,7 +53,7 @@
 #define V13_REGNUM 45
 #define V2_REGNUM 34
 #define R20_REGNUM 20
-#define SME_STATE_REGNUM 88
+#define SME_STATE_REGNUM 89
 #define P14_REGNUM 82
 #define R13_REGNUM 13
 #define VG_REGNUM 67
@@ -62,8 +63,8 @@
 #define V10_REGNUM 42
 #define SVE_STRICT_GP 1
 #define FIRST_FAKE_REGNUM LOWERING_REGNUM
-#define ZA_REGNUM 92
-#define ZT0_REGNUM 93
+#define ZA_REGNUM 93
+#define ZT0_REGNUM 94
 #define P6_REGNUM 74
 #define R29_REGNUM 29
 #define V19_REGNUM 51
@@ -83,7 +84,7 @@
 #define IP1_REGNUM 17
 #define R23_REGNUM 23
 #define LAST_SAVED_REGNUM 83
-#define ZA_SAVED_REGNUM 91
+#define ZA_SAVED_REGNUM 92
 #define R8_REGNUM 8
 #define CC_REGNUM 66
 #define EP1_REGNUM 13
@@ -91,7 +92,7 @@
 #define V20_REGNUM 52
 #define R15_REGNUM 15
 #define PROBE_STACK_FIRST_REGNUM 10
-#define LOWERING_REGNUM 86
+#define LOWERING_REGNUM 87
 #define EP0_REGNUM 12
 #define P3_REGNUM 71
 #define PROBE_STACK_SECOND_REGNUM 11
@@ -107,7 +108,7 @@
 #define P0_REGNUM 68
 #define R28_REGNUM 28
 #define V26_REGNUM 58
-#define FFRT_REGNUM 85
+#define FFRT_REGNUM 86
 #define LR_REGNUM 30
 #define V18_REGNUM 50
 #define R1_REGNUM 1

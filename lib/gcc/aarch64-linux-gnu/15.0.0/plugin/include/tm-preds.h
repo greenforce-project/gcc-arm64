@@ -275,6 +275,7 @@ enum constraint_num
   CONSTRAINT_Up2,
   CONSTRAINT_Upl,
   CONSTRAINT_Uph,
+  CONSTRAINT_Umv,
   CONSTRAINT_I,
   CONSTRAINT_J,
   CONSTRAINT_K,
@@ -419,7 +420,7 @@ constraint_satisfied_p (rtx x, enum constraint_num c)
 static inline bool
 insn_extra_register_constraint (enum constraint_num c)
 {
-  return c >= CONSTRAINT_r && c <= CONSTRAINT_Uph;
+  return c >= CONSTRAINT_r && c <= CONSTRAINT_Umv;
 }
 
 static inline bool

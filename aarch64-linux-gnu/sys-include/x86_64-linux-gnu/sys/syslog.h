@@ -62,7 +62,7 @@
 #define	LOG_PRI(p)	((p) & LOG_PRIMASK)
 #define	LOG_MAKEPRI(fac, pri)	((fac) | (pri))
 
-#if defined SYSLOG_NAMES && defined __USE_MISC
+#ifdef SYSLOG_NAMES
 #define	INTERNAL_NOPRI	0x10	/* the "no priority" priority */
 				/* mark "facility" */
 #define	INTERNAL_MARK	LOG_MAKEPRI(LOG_NFACILITIES << 3, 0)
@@ -118,7 +118,7 @@ CODE prioritynames[] =
 				/* facility of pri */
 #define	LOG_FAC(p)	(((p) & LOG_FACMASK) >> 3)
 
-#if defined SYSLOG_NAMES && defined __USE_MISC
+#ifdef SYSLOG_NAMES
 CODE facilitynames[] =
   {
     { "auth", LOG_AUTH },
@@ -205,11 +205,11 @@ extern void vsyslog (int __pri, const char *__fmt, __gnuc_va_list __ap)
 /* Define some macros helping to catch buffer overflows.  */
 #if __USE_FORTIFY_LEVEL > 0 && defined __fortify_function
 # include <bits/syslog.h>
-#else
-# include <bits/floatn.h>
-# if defined __LDBL_COMPAT || __LDOUBLE_REDIRECTS_TO_FLOAT128_ABI == 1
-#  include <bits/syslog-ldbl.h>
-# endif
+#endif
+
+#include <bits/floatn.h>
+#if defined __LDBL_COMPAT || __LDOUBLE_REDIRECTS_TO_FLOAT128_ABI == 1
+# include <bits/syslog-ldbl.h>
 #endif
 
 __END_DECLS

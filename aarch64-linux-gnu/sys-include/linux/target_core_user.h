@@ -119,7 +119,7 @@ struct tcmu_cmd_entry {
 			__u64 cdb_off;
 			__u64 __pad1;
 			__u64 __pad2;
-			__DECLARE_FLEX_ARRAY(struct iovec, iov);
+			struct iovec iov[0];
 		} req;
 		struct {
 			__u8 scsi_status;
@@ -152,7 +152,7 @@ struct tcmu_tmr_entry {
 	__u32 cmd_cnt;
 	__u64 __pad3;
 	__u64 __pad4;
-	__u16 cmd_ids[];
+	__u16 cmd_ids[0];
 } __attribute__((packed));
 
 #define TCMU_OP_ALIGN_SIZE sizeof(__u64)
