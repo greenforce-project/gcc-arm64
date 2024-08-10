@@ -1602,6 +1602,7 @@
 #define HAVE_negv2sf2_vec_concatz_be ((BYTES_BIG_ENDIAN) && (TARGET_SIMD))
 #define HAVE_negv4sf2 (TARGET_SIMD)
 #define HAVE_negv2df2 (TARGET_SIMD)
+#define HAVE_aarch64_fnegv2di2 (TARGET_SIMD)
 #define HAVE_absv4hf2 ((TARGET_SIMD) && (TARGET_SIMD_F16INST))
 #define HAVE_absv4hf2_vec_concatz_le ((!BYTES_BIG_ENDIAN) && ((TARGET_SIMD) && (TARGET_SIMD_F16INST)))
 #define HAVE_absv4hf2_vec_concatz_be ((BYTES_BIG_ENDIAN) && ((TARGET_SIMD) && (TARGET_SIMD_F16INST)))
@@ -14744,6 +14745,7 @@ extern rtx        gen_negv2sf2_vec_concatz_le                          (rtx, rtx
 extern rtx        gen_negv2sf2_vec_concatz_be                          (rtx, rtx, rtx);
 extern rtx        gen_negv4sf2                                         (rtx, rtx);
 extern rtx        gen_negv2df2                                         (rtx, rtx);
+extern rtx        gen_aarch64_fnegv2di2                                (rtx, rtx);
 extern rtx        gen_absv4hf2                                         (rtx, rtx);
 extern rtx        gen_absv4hf2_vec_concatz_le                          (rtx, rtx, rtx);
 extern rtx        gen_absv4hf2_vec_concatz_be                          (rtx, rtx, rtx);

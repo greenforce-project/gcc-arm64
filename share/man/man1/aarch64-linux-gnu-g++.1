@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-08-03" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-08-10" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -298,7 +298,8 @@ in the following sections.
 \&\-Wno\-non\-template\-friend  \-Wold\-style\-cast
 \&\-Woverloaded\-virtual  \-Wno\-pmf\-conversions \-Wself\-move \-Wsign\-promo
 \&\-Wsized\-deallocation  \-Wsuggest\-final\-methods
-\&\-Wsuggest\-final\-types  \-Wsuggest\-override  \-Wno\-template\-id\-cdtor
+\&\-Wsuggest\-final\-types  \-Wsuggest\-override  \-Wno\-template\-body
+\&\-Wno\-template\-id\-cdtor
 \&\-Wno\-terminate  \-Wno\-vexing\-parse  \-Wvirtual\-inheritance
 \&\-Wno\-virtual\-move\-assign  \-Wvolatile  \-Wzero\-as\-null\-pointer\-constant\fR
 .IP "\fIObjective-C and Objective\-\*(C+ Language Options\fR" 4
@@ -4517,6 +4518,12 @@ Warn when a namespace definition is opened.  Some coding rules disallow
 namespaces, and this may be used to enforce that rule.  The warning is
 inactive inside a system header file, such as the \s-1STL,\s0 so one can still
 use the \s-1STL.\s0  One may also use using directives and qualified names.
+.IP "\fB\-Wno\-template\-body\fR (\*(C+ and Objective\-\*(C+ only)" 4
+.IX Item "-Wno-template-body ( and Objective- only)"
+Disable diagnosing errors when parsing a template, and instead issue an
+error only upon instantiation of the template.  This flag can also be
+used to downgrade such errors into warnings with \fBWno\-error=\fR or
+\&\fB\-fpermissive\fR.
 .IP "\fB\-Wno\-template\-id\-cdtor\fR (\*(C+ and Objective\-\*(C+ only)" 4
 .IX Item "-Wno-template-id-cdtor ( and Objective- only)"
 Disable the warning about the use of simple-template-id as the declarator-id
@@ -6096,7 +6103,8 @@ that have their own flag:
 \&\fB\-Wincompatible\-pointer\-types\fR (C and Objective-C only)
 \&\fB\-Wint\-conversion\fR (C and Objective-C only)
 \&\fB\-Wnarrowing\fR (\*(C+ and Objective\-\*(C+ only)
-\&\fB\-Wreturn\-mismatch\fR (C and Objective-C only)\fB \fR
+\&\fB\-Wreturn\-mismatch\fR (C and Objective-C only)
+\&\fB\-Wtemplate\-body\fR (\*(C+ and Objective\-\*(C+ only)\fB \fR
 .Sp
 The \fB\-fpermissive\fR option is the default for historic C language
 modes (\fB\-std=c89\fR, \fB\-std=gnu89\fR, \fB\-std=c90\fR,
