@@ -1255,56 +1255,57 @@ enum cp_identifier_kind {
 #define IDENTIFIER_VIRTUAL_P(NODE) \
   TREE_LANG_FLAG_5 (IDENTIFIER_NODE_CHECK (NODE))
 
+/* Return the cp_identifier_kind of the given IDENTIFIER node ID.  */
+
+ATTRIBUTE_PURE inline cp_identifier_kind
+get_identifier_kind (tree id)
+{
+  unsigned bit0 = IDENTIFIER_KIND_BIT_0 (id);
+  unsigned bit1 = IDENTIFIER_KIND_BIT_1 (id);
+  unsigned bit2 = IDENTIFIER_KIND_BIT_2 (id);
+  return cp_identifier_kind ((bit2 << 2) | (bit1 << 1) | bit0);
+}
+
 /* True if this identifier is a reserved word.  C_RID_CODE (node) is
    then the RID_* value of the keyword.  Value 1.  */
 #define IDENTIFIER_KEYWORD_P(NODE)		\
-  ((!IDENTIFIER_KIND_BIT_2 (NODE))		\
-   & (!IDENTIFIER_KIND_BIT_1 (NODE))		\
-   & IDENTIFIER_KIND_BIT_0 (NODE))
+  (get_identifier_kind (NODE) == cik_keyword)
 
 /* True if this identifier is the name of a constructor or
    destructor.  Value 2 or 3.  */
 #define IDENTIFIER_CDTOR_P(NODE)		\
-  ((!IDENTIFIER_KIND_BIT_2 (NODE))		\
-   & IDENTIFIER_KIND_BIT_1 (NODE))
+  (IDENTIFIER_CTOR_P (NODE) || IDENTIFIER_DTOR_P (NODE))
 
 /* True if this identifier is the name of a constructor.  Value 2.  */
 #define IDENTIFIER_CTOR_P(NODE)			\
-  (IDENTIFIER_CDTOR_P(NODE)			\
-    & (!IDENTIFIER_KIND_BIT_0 (NODE)))
+  (get_identifier_kind (NODE) == cik_ctor)
 
 /* True if this identifier is the name of a destructor.  Value 3.  */
 #define IDENTIFIER_DTOR_P(NODE)			\
-  (IDENTIFIER_CDTOR_P(NODE)			\
-    & IDENTIFIER_KIND_BIT_0 (NODE))
+  (get_identifier_kind (NODE) == cik_dtor)
 
 /* True if this identifier is for any operator name (including
    conversions).  Value 4, 5, or 6.  */
 #define IDENTIFIER_ANY_OP_P(NODE)		\
-  (IDENTIFIER_KIND_BIT_2 (NODE) && !IDENTIFIER_TRAIT_P (NODE))
+  (IDENTIFIER_OVL_OP_P (NODE) || IDENTIFIER_CONV_OP_P (NODE))
 
 /* True if this identifier is for an overloaded operator. Values 4, 5.  */
 #define IDENTIFIER_OVL_OP_P(NODE)		\
-  (IDENTIFIER_ANY_OP_P (NODE)			\
-   & (!IDENTIFIER_KIND_BIT_1 (NODE)))
+  (get_identifier_kind (NODE) == cik_simple_op  \
+   || get_identifier_kind (NODE) == cik_assign_op)
 
 /* True if this identifier is for any assignment. Values 5.  */
 #define IDENTIFIER_ASSIGN_OP_P(NODE)		\
-  (IDENTIFIER_OVL_OP_P (NODE)			\
-   & IDENTIFIER_KIND_BIT_0 (NODE))
+  (get_identifier_kind (NODE) == cik_assign_op)
 
 /* True if this identifier is the name of a type-conversion
    operator.  Value 6.  */
 #define IDENTIFIER_CONV_OP_P(NODE)		\
-  (IDENTIFIER_ANY_OP_P (NODE)			\
-   & IDENTIFIER_KIND_BIT_1 (NODE)		\
-   & (!IDENTIFIER_KIND_BIT_0 (NODE)))
+  (get_identifier_kind (NODE) == cik_conv_op)
 
 /* True if this identifier is the name of a built-in trait.  */
 #define IDENTIFIER_TRAIT_P(NODE)		\
-  (IDENTIFIER_KIND_BIT_0 (NODE)			\
-   & IDENTIFIER_KIND_BIT_1 (NODE)		\
-   & IDENTIFIER_KIND_BIT_2 (NODE))
+  (get_identifier_kind (NODE) == cik_trait)
 
 /* True if this identifier is a new or delete operator.  */
 #define IDENTIFIER_NEWDEL_OP_P(NODE)		\
@@ -2971,9 +2972,10 @@ struct GTY(()) lang_decl_fn {
      this pointer and result pointer adjusting thunks are
      chained here.  This pointer thunks to return pointer thunks
      will be chained on the return pointer thunk.
-     For a DECL_CONSTUCTOR_P FUNCTION_DECL, this is the base from
-     whence we inherit.  Otherwise, it is the class in which a
-     (namespace-scope) friend is defined (if any).   */
+     For a DECL_CONSTRUCTOR_P or deduction_guide_p FUNCTION_DECL,
+     this is the base from whence we inherit.
+     Otherwise, it is the class in which a (namespace-scope) friend
+     is defined (if any).  */
   tree context;
 
   union lang_decl_u5
@@ -7661,6 +7663,7 @@ extern bool deduction_guide_p			(const_tree);
 extern bool copy_guide_p			(const_tree);
 extern bool template_guide_p			(const_tree);
 extern bool builtin_guide_p			(const_tree);
+extern bool inherited_guide_p			(const_tree);
 extern void store_explicit_specifier		(tree, tree);
 extern tree lookup_explicit_specifier		(tree);
 extern tree lookup_imported_hidden_friend	(tree);

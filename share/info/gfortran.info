@@ -16982,17 +16982,17 @@ _Arguments_:
                         same each time 'RANDOM_INIT' is called from the
                         same image.  The term "same image" means a
                         single instance of program execution.  The
-                        sequence of random numbers is different for
-                        repeated execution of the program.  If it is
-                        '.false.', the seed is set to a
-                        processor-dependent value.
+                        sequence of random numbers is the same for
+                        repeated execution of the program with the same
+                        execution environment.  If it is '.false.', the
+                        seed is set to a processor-dependent value.
      IMAGE_DISTINCT     Shall be a scalar with a 'LOGICAL' type, and it
                         is 'INTENT(IN)'.  If it is '.true.', the seed is
                         set to a processor-dependent value that is
-                        distinct from th seed set by a call to
+                        distinct from the seed set by a call to
                         'RANDOM_INIT' in another image.  If it is
-                        '.false.', the seed is set to a value that does
-                        depend which image called 'RANDOM_INIT'.
+                        '.false.', the seed is set to a value that is
+                        the same on every image calling 'RANDOM_INIT'.
 
 _Example_:
           program test_random_seed
@@ -23543,81 +23543,81 @@ Node: RADIX608057
 Node: RAN608868
 Node: RAND609329
 Node: RANDOM_INIT610667
-Node: RANDOM_NUMBER612743
-Node: RANDOM_SEED614000
-Node: RANGE616475
-Node: RANK617160
-Node: REAL617941
-Node: RENAME620020
-Node: REPEAT621042
-Node: RESHAPE621770
-Node: RRSPACING623237
-Node: RSHIFT623930
-Node: SAME_TYPE_AS625118
-Node: SCALE625950
-Node: SCAN626731
-Node: SECNDS628294
-Node: SECOND629386
-Node: SELECTED_CHAR_KIND630262
-Node: SELECTED_INT_KIND631857
-Node: SELECTED_LOGICAL_KIND633037
-Node: SELECTED_REAL_KIND634137
-Node: SET_EXPONENT636827
-Node: SHAPE637814
-Node: SHIFTA639243
-Node: SHIFTL640239
-Node: SHIFTR641104
-Node: SIGN641970
-Node: SIGNAL643261
-Node: SIN645221
-Node: SIND646401
-Node: SINH647606
-Node: SIZE648559
-Node: SIZEOF649883
-Node: SLEEP651543
-Node: SPACING652104
-Node: SPREAD653118
-Node: SQRT654269
-Node: SRAND655502
-Node: STAT656746
-Node: STORAGE_SIZE659928
-Node: SUM660812
-Node: SYMLNK662304
-Node: SYSTEM663444
-Node: SYSTEM_CLOCK664699
-Node: TAN667552
-Node: TAND668626
-Node: TANH669609
-Node: THIS_IMAGE670772
-Node: TIME673077
-Node: TIME8674268
-Node: TINY675487
-Node: TRAILZ676088
-Node: TRANSFER676921
-Node: TRANSPOSE678957
-Node: TRIM679647
-Node: TTYNAM680510
-Node: UBOUND681426
-Node: UCOBOUND682821
-Node: UMASK683963
-Node: UNLINK684645
-Node: UNPACK685630
-Node: VERIFY686930
-Node: XOR688664
-Node: Intrinsic Modules690479
-Node: ISO_FORTRAN_ENV690766
-Node: ISO_C_BINDING695167
-Node: IEEE modules699112
-Node: OpenMP Modules OMP_LIB and OMP_LIB_KINDS700253
-Node: OpenACC Module OPENACC704469
-Node: Contributing705395
-Node: Contributors706225
-Node: Projects707879
-Node: Copying709057
-Node: GNU Free Documentation License746608
-Node: Funding771737
-Node: Option Index774263
-Node: Keyword Index793675
+Node: RANDOM_NUMBER612783
+Node: RANDOM_SEED614040
+Node: RANGE616515
+Node: RANK617200
+Node: REAL617981
+Node: RENAME620060
+Node: REPEAT621082
+Node: RESHAPE621810
+Node: RRSPACING623277
+Node: RSHIFT623970
+Node: SAME_TYPE_AS625158
+Node: SCALE625990
+Node: SCAN626771
+Node: SECNDS628334
+Node: SECOND629426
+Node: SELECTED_CHAR_KIND630302
+Node: SELECTED_INT_KIND631897
+Node: SELECTED_LOGICAL_KIND633077
+Node: SELECTED_REAL_KIND634177
+Node: SET_EXPONENT636867
+Node: SHAPE637854
+Node: SHIFTA639283
+Node: SHIFTL640279
+Node: SHIFTR641144
+Node: SIGN642010
+Node: SIGNAL643301
+Node: SIN645261
+Node: SIND646441
+Node: SINH647646
+Node: SIZE648599
+Node: SIZEOF649923
+Node: SLEEP651583
+Node: SPACING652144
+Node: SPREAD653158
+Node: SQRT654309
+Node: SRAND655542
+Node: STAT656786
+Node: STORAGE_SIZE659968
+Node: SUM660852
+Node: SYMLNK662344
+Node: SYSTEM663484
+Node: SYSTEM_CLOCK664739
+Node: TAN667592
+Node: TAND668666
+Node: TANH669649
+Node: THIS_IMAGE670812
+Node: TIME673117
+Node: TIME8674308
+Node: TINY675527
+Node: TRAILZ676128
+Node: TRANSFER676961
+Node: TRANSPOSE678997
+Node: TRIM679687
+Node: TTYNAM680550
+Node: UBOUND681466
+Node: UCOBOUND682861
+Node: UMASK684003
+Node: UNLINK684685
+Node: UNPACK685670
+Node: VERIFY686970
+Node: XOR688704
+Node: Intrinsic Modules690519
+Node: ISO_FORTRAN_ENV690806
+Node: ISO_C_BINDING695207
+Node: IEEE modules699152
+Node: OpenMP Modules OMP_LIB and OMP_LIB_KINDS700293
+Node: OpenACC Module OPENACC704509
+Node: Contributing705435
+Node: Contributors706265
+Node: Projects707919
+Node: Copying709097
+Node: GNU Free Documentation License746648
+Node: Funding771777
+Node: Option Index774303
+Node: Keyword Index793715
 
 End Tag Table
 

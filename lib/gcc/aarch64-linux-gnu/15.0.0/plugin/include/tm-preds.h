@@ -370,6 +370,7 @@ enum constraint_num
   CONSTRAINT_vsS,
   CONSTRAINT_vsl,
   CONSTRAINT_vsm,
+  CONSTRAINT_vs1,
   CONSTRAINT_vsA,
   CONSTRAINT_vsB,
   CONSTRAINT_vsM,

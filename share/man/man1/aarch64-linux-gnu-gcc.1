@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-08-10" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-08-17" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -1488,7 +1488,8 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mamx\-tile  \-mamx\-int8  \-mamx\-bf16 \-muintr \-mhreset \-mavxvnni
 \&\-mavx512fp16 \-mavxifma \-mavxvnniint8 \-mavxneconvert \-mcmpccxadd \-mamx\-fp16
 \&\-mprefetchi \-mraoint \-mamx\-complex \-mavxvnniint16 \-msm3 \-msha512 \-msm4 \-mapxf
-\&\-musermsr \-mavx10.1 \-mavx10.1\-256 \-mavx10.1\-512 \-mevex512
+\&\-musermsr \-mavx10.1 \-mavx10.1\-256 \-mavx10.1\-512 \-mevex512 \-mavx10.2 \-mavx10.2\-256
+\&\-mavx10.2\-512
 \&\-mcldemote  \-mms\-bitfields  \-mno\-align\-stringops  \-minline\-all\-stringops
 \&\-minline\-stringops\-dynamically  \-mstringop\-strategy=\fR\fIalg\fR
 \&\fB\-mkl \-mwidekl
@@ -34671,6 +34672,12 @@ preferred alignment to \fB\-mpreferred\-stack\-boundary=2\fR.
 .IX Item "-mavx10.1-256"
 .IP "\fB\-mavx10.1\-512\fR" 4
 .IX Item "-mavx10.1-512"
+.IP "\fB\-mavx10.2\fR" 4
+.IX Item "-mavx10.2"
+.IP "\fB\-mavx10.2\-256\fR" 4
+.IX Item "-mavx10.2-256"
+.IP "\fB\-mavx10.2\-512\fR" 4
+.IX Item "-mavx10.2-512"
 .PD
 These switches enable the use of instructions in the \s-1MMX, SSE,
 AVX512CD, AVX512VL, AVX512BW, AVX512DQ, AVX512IFMA, AVX512VBMI, SHA, AES,
@@ -34682,8 +34689,9 @@ WAITPKG, VPCLMULQDQ, AVX512BITALG, MOVDIRI, MOVDIR64B, AVX512BF16, ENQCMD,
 AVX512VPOPCNTDQ, AVX512VNNI, SERIALIZE, UINTR, HRESET, AMXTILE, AMXINT8,
 AMXBF16, KL, WIDEKL, AVXVNNI, AVX512\-FP16, AVXIFMA, AVXVNNIINT8, AVXNECONVERT,
 CMPCCXADD, AMX\-FP16, PREFETCHI, RAOINT,\s0 AMX-COMPLEX, \s-1AVXVNNIINT16, SM3, SHA512,
-SM4, APX_F, USER_MSR, AVX10.1\s0 or \s-1CLDEMOTE\s0 extended instruction sets.  Each has
-a corresponding \fB\-mno\-\fR option to disable use of these instructions.
+SM4, APX_F, USER_MSR, AVX10.1, AVX10.2\s0 or \s-1CLDEMOTE\s0 extended instruction sets.
+Each has a corresponding \fB\-mno\-\fR option to disable use of these
+instructions.
 .Sp
 These extensions are also available as built-in functions: see
 \&\fBx86 Built-in Functions\fR, for details of the functions enabled and
