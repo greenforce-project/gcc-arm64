@@ -354,9 +354,9 @@ extern int no_sysroot_suffix;
 #define no_sysroot_suffix global_options.x_no_sysroot_suffix
 #endif
 #ifdef GENERATOR_FILE
-extern int aarch64_autovec_preference;
+extern enum aarch64_autovec_preference_enum aarch64_autovec_preference;
 #else
-  int x_aarch64_autovec_preference;
+  enum aarch64_autovec_preference_enum x_aarch64_autovec_preference;
 #define aarch64_autovec_preference global_options.x_aarch64_autovec_preference
 #endif
 #ifdef GENERATOR_FILE

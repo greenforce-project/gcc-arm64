@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-08-17" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-08-24" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -16205,29 +16205,26 @@ The precision of division is propotional to this param when division
 approximation is enabled.  The default value is 2.
 .IP "\fBaarch64\-autovec\-preference\fR" 4
 .IX Item "aarch64-autovec-preference"
-Force an \s-1ISA\s0 selection strategy for auto-vectorization.  Accepts values from
-0 to 4, inclusive.
+Force an \s-1ISA\s0 selection strategy for auto-vectorization.
 .RS 4
-.IP "\fB0\fR" 4
-.IX Item "0"
+.IP "\fBdefault\fR" 4
+.IX Item "default"
 Use the default heuristics.
-.IP "\fB1\fR" 4
-.IX Item "1"
+.IP "\fBasimd-only\fR" 4
+.IX Item "asimd-only"
 Use only Advanced \s-1SIMD\s0 for auto-vectorization.
-.IP "\fB2\fR" 4
-.IX Item "2"
+.IP "\fBsve-only\fR" 4
+.IX Item "sve-only"
 Use only \s-1SVE\s0 for auto-vectorization.
-.IP "\fB3\fR" 4
-.IX Item "3"
+.IP "\fBprefer-asimd\fR" 4
+.IX Item "prefer-asimd"
 Use both Advanced \s-1SIMD\s0 and \s-1SVE.\s0  Prefer Advanced \s-1SIMD\s0 when the costs are
 deemed equal.
-.IP "\fB4\fR" 4
-.IX Item "4"
+.IP "\fBprefer-sve\fR" 4
+.IX Item "prefer-sve"
 Use both Advanced \s-1SIMD\s0 and \s-1SVE.\s0  Prefer \s-1SVE\s0 when the costs are deemed equal.
 .RE
 .RS 4
-.Sp
-The default value is 0.
 .RE
 .IP "\fBaarch64\-ldp\-policy\fR" 4
 .IX Item "aarch64-ldp-policy"

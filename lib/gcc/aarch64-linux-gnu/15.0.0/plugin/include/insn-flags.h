@@ -9545,6 +9545,7 @@
 #define HAVE_popcounthi2 (TARGET_CSSC ? GET_MODE_BITSIZE (HImode) >= 32 : TARGET_SIMD)
 #define HAVE_popcountsi2 (TARGET_CSSC ? GET_MODE_BITSIZE (SImode) >= 32 : TARGET_SIMD)
 #define HAVE_popcountdi2 (TARGET_CSSC ? GET_MODE_BITSIZE (DImode) >= 32 : TARGET_SIMD)
+#define HAVE_popcountti2 (TARGET_SIMD && !TARGET_CSSC)
 #define HAVE_ashlsi3 1
 #define HAVE_ashrsi3 1
 #define HAVE_lshrsi3 1
@@ -21413,6 +21414,7 @@ extern rtx        gen_popcountqi2                                      (rtx, rtx
 extern rtx        gen_popcounthi2                                      (rtx, rtx);
 extern rtx        gen_popcountsi2                                      (rtx, rtx);
 extern rtx        gen_popcountdi2                                      (rtx, rtx);
+extern rtx        gen_popcountti2                                      (rtx, rtx);
 extern rtx        gen_ashlsi3                                          (rtx, rtx, rtx);
 extern rtx        gen_ashrsi3                                          (rtx, rtx, rtx);
 extern rtx        gen_lshrsi3                                          (rtx, rtx, rtx);
