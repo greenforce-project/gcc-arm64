@@ -70623,6 +70623,8 @@ in alphabetical order.
    * Philip Martin for lots of libstdc++ string and vector iterator
      fixes and improvements, and string clean up and testsuites.
 
+   * Dhruv Matani for work on libstdc++ allocators.
+
    * Michael Matz for his work on dominance tree discovery, the x86-64
      port, link-time optimization framework and general optimization
      improvements.
@@ -80003,9 +80005,9 @@ Node: GNU Project2925836
 Node: Copying2926484
 Node: GNU Free Documentation License2963998
 Node: Contributors2989121
-Node: Indices3030288
-Node: Option Index3030534
-Node: Concept and Symbol Index3351550
+Node: Indices3030341
+Node: Option Index3030587
+Node: Concept and Symbol Index3351603
 
 End Tag Table
 

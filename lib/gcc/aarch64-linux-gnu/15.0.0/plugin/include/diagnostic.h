@@ -196,56 +196,8 @@ class diagnostic_client_data_hooks;
 class logical_location;
 class diagnostic_diagram;
 class diagnostic_source_effect_info;
-
-/* Abstract base class for a particular output format for diagnostics;
-   each value of -fdiagnostics-output-format= will have its own
-   implementation.  */
-
-class diagnostic_output_format
-{
-public:
-  virtual ~diagnostic_output_format () {}
-
-  virtual void on_begin_group () = 0;
-  virtual void on_end_group () = 0;
-  virtual void on_begin_diagnostic (const diagnostic_info &) = 0;
-  virtual void on_end_diagnostic (const diagnostic_info &,
-				  diagnostic_t orig_diag_kind) = 0;
-  virtual void on_diagram (const diagnostic_diagram &diagram) = 0;
-  virtual bool machine_readable_stderr_p () const = 0;
-
-protected:
-  diagnostic_output_format (diagnostic_context &context)
-  : m_context (context)
-  {}
-
-  diagnostic_context &m_context;
-};
-
-/* Subclass of diagnostic_output_format for classic text-based output
-   to stderr.
-
-   Uses diagnostic_context.m_text_callbacks to provide client-specific
-   textual output (e.g. include paths, macro expansions, etc).  */
-
-class diagnostic_text_output_format : public diagnostic_output_format
-{
-public:
-  diagnostic_text_output_format (diagnostic_context &context)
-  : diagnostic_output_format (context)
-  {}
-  ~diagnostic_text_output_format ();
-  void on_begin_group () override {}
-  void on_end_group () override {}
-  void on_begin_diagnostic (const diagnostic_info &) override;
-  void on_end_diagnostic (const diagnostic_info &,
-			  diagnostic_t orig_diag_kind) override;
-  void on_diagram (const diagnostic_diagram &diagram) override;
-  bool machine_readable_stderr_p () const final override
-  {
-    return false;
-  }
-};
+class diagnostic_output_format;
+  class diagnostic_text_output_format;
 
 /* A stack of sets of classifications: each entry in the stack is
    a mapping from option index to diagnostic severity that can be changed
@@ -381,6 +333,8 @@ public:
   diagnostic_start_span (diagnostic_context *context);
   friend diagnostic_finalizer_fn &
   diagnostic_finalizer (diagnostic_context *context);
+
+  friend class diagnostic_text_output_format;
 
   typedef void (*ice_handler_callback_t) (diagnostic_context *);
   typedef void (*set_locations_callback_t) (diagnostic_context *,
@@ -522,6 +476,7 @@ public:
   {
     return m_client_data_hooks;
   }
+  urlifier *get_urlifier () const { return m_urlifier; }
   text_art::theme *get_diagram_theme () const { return m_diagrams.m_theme; }
 
   int converted_column (expanded_location s) const;
@@ -585,11 +540,6 @@ public:
 
 private:
   bool includes_seen_p (const line_map_ordinary *map);
-
-  void print_any_cwe (const diagnostic_info &diagnostic);
-  void print_any_rules (const diagnostic_info &diagnostic);
-  void print_option_information (const diagnostic_info &diagnostic,
-				 diagnostic_t orig_diag_kind);
 
   void show_any_path (const diagnostic_info &diagnostic);
 
@@ -1109,31 +1059,6 @@ extern const char *diagnostic_get_color_for_kind (diagnostic_t kind);
 extern char *file_name_as_prefix (diagnostic_context *, const char *);
 
 extern char *build_message_string (const char *, ...) ATTRIBUTE_PRINTF_1;
-
-extern void diagnostic_output_format_init (diagnostic_context &,
-					   const char *main_input_filename_,
-					   const char *base_file_name,
-					   enum diagnostics_output_format,
-					   bool json_formatting);
-extern void diagnostic_output_format_init_json_stderr (diagnostic_context &context,
-						       bool formatted);
-extern void diagnostic_output_format_init_json_file (diagnostic_context &context,
-						     bool formatted,
-						     const char *base_file_name);
-extern void diagnostic_output_format_init_sarif_stderr (diagnostic_context &context,
-							const line_maps *line_maps,
-							const char *main_input_filename_,
-							bool formatted);
-extern void diagnostic_output_format_init_sarif_file (diagnostic_context &context,
-						      const line_maps *line_maps,
-						      const char *main_input_filename_,
-						      bool formatted,
-						      const char *base_file_name);
-extern void diagnostic_output_format_init_sarif_stream (diagnostic_context &context,
-							const line_maps *line_maps,
-							const char *main_input_filename_,
-							bool formatted,
-							FILE *stream);
 
 /* Compute the number of digits in the decimal representation of an integer.  */
 extern int num_digits (int);

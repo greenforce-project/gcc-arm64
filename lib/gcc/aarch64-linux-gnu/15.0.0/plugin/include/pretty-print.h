@@ -69,57 +69,14 @@ enum diagnostic_prefixing_rule_t
   DIAGNOSTICS_SHOW_PREFIX_EVERY_LINE = 0x2
 };
 
-class quoting_info;
+class chunk_info;
 class output_buffer;
+class pp_token_list;
 class urlifier;
 
 namespace pp_markup {
   class context;
 } // namespace pp_markup
-
-/* The chunk_info data structure forms a stack of the results from the
-   first phase of formatting (pp_format) which have not yet been
-   output (pp_output_formatted_text).  A stack is necessary because
-   the diagnostic starter may decide to generate its own output by way
-   of the formatter.  */
-class chunk_info
-{
-  friend class pretty_printer;
-  friend class pp_markup::context;
-
-public:
-  const char * const *get_args () const { return m_args; }
-  quoting_info *get_quoting_info () const { return m_quotes; }
-
-  void append_formatted_chunk (const char *content);
-
-  void pop_from_output_buffer (output_buffer &buf);
-
-private:
-  void on_begin_quote (const output_buffer &buf,
-		       unsigned chunk_idx,
-		       const urlifier *urlifier);
-
-  void on_end_quote (pretty_printer *pp,
-		     output_buffer &buf,
-		     unsigned chunk_idx,
-		     const urlifier *urlifier);
-
-  /* Pointer to previous chunk on the stack.  */
-  chunk_info *m_prev;
-
-  /* Array of chunks to output.  Each chunk is a NUL-terminated string.
-     In the first phase of formatting, even-numbered chunks are
-     to be output verbatim, odd-numbered chunks are format specifiers.
-     The second phase replaces all odd-numbered chunks with formatted
-     text, and the third phase simply emits all the chunks in sequence
-     with appropriate line-wrapping.  */
-  const char *m_args[PP_NL_ARGMAX * 2];
-
-  /* If non-null, information on quoted text runs within the chunks
-     for use by a urlifier.  */
-  quoting_info *m_quotes;
-};
 
 /* The output buffer datatype.  This is best seen as an abstract datatype
    whose fields should not be accessed directly by clients.  */
@@ -220,7 +177,7 @@ struct pp_wrapping_mode_t
    A client-supplied formatter returns true if everything goes well,
    otherwise it returns false.  */
 typedef bool (*printer_fn) (pretty_printer *, text_info *, const char *,
-			    int, bool, bool, bool, bool *, const char **);
+			    int, bool, bool, bool, bool *, pp_token_list &);
 
 /* Base class for an optional client-supplied object for doing additional
    processing between stages 2 and 3 of formatted printing.  */
@@ -230,6 +187,18 @@ class format_postprocessor
   virtual ~format_postprocessor () {}
   virtual format_postprocessor *clone() const = 0;
   virtual void handle (pretty_printer *) = 0;
+};
+
+/* Abstract base class for writing formatted tokens to the pretty_printer's
+   text buffer, allowing for output formats and dumpfiles to override
+   how different kinds of tokens are handled.  */
+
+class token_printer
+{
+public:
+  virtual ~token_printer () {}
+  virtual void print_tokens (pretty_printer *pp,
+			     const pp_token_list &tokens) = 0;
 };
 
 inline bool & pp_needs_newline (pretty_printer *pp);
@@ -279,6 +248,9 @@ public:
   friend format_postprocessor *& pp_format_postprocessor (pretty_printer *pp);
   friend bool & pp_show_highlight_colors (pretty_printer *pp);
 
+  friend void pp_output_formatted_text (pretty_printer *,
+					const urlifier *);
+
   /* Default construct a pretty printer with specified
      maximum line length cut off limit.  */
   explicit pretty_printer (int = 0);
@@ -293,12 +265,16 @@ public:
     m_buffer->stream = outfile;
   }
 
+  void set_token_printer (token_printer* tp)
+  {
+    m_token_printer = tp; // borrowed
+  }
+
   void set_prefix (char *prefix);
 
   void emit_prefix ();
 
-  void format (text_info *text,
-	       const urlifier *urlifier);
+  void format (text_info *text);
 
   void maybe_space ();
 
@@ -357,8 +333,9 @@ private:
      If the BUFFER needs additional characters from the format string, it
      should advance the TEXT->format_spec as it goes.  When FORMAT_DECODER
      returns, TEXT->format_spec should point to the last character processed.
-     The QUOTE and BUFFER_PTR are passed in, to allow for deferring-handling
-     of format codes (e.g. %H and %I in the C++ frontend).  */
+     The QUOTE and FORMATTED_TOKEN_LIST are passed in, to allow for
+     deferring-handling of format codes (e.g. %H and %I in
+     the C++ frontend).  */
   printer_fn m_format_decoder;
 
   /* If non-NULL, this is called by pp_format once after all format codes
@@ -366,6 +343,12 @@ private:
      This is used by the C++ frontend for handling the %H and %I
      format codes (which interract with each other).  */
   format_postprocessor *m_format_postprocessor;
+
+  /* This is used by pp_output_formatted_text after it has converted all
+     formatted chunks into a single list of tokens.
+     Can be nullptr.
+     Borrowed from the output format or from dump_pretty_printer.  */
+  token_printer *m_token_printer;
 
   /* Nonzero if current PREFIX was emitted at least once.  */
   bool m_emitted_prefix;
@@ -586,10 +569,9 @@ extern void pp_verbatim (pretty_printer *, const char *, ...)
      ATTRIBUTE_GCC_PPDIAG(2,3);
 extern void pp_flush (pretty_printer *);
 extern void pp_really_flush (pretty_printer *);
-inline void pp_format (pretty_printer *pp, text_info *text,
-		       const urlifier *urlifier = nullptr)
+inline void pp_format (pretty_printer *pp, text_info *text)
 {
-  pp->format (text, urlifier);
+  pp->format (text);
 }
 extern void pp_output_formatted_text (pretty_printer *,
 				      const urlifier * = nullptr);
