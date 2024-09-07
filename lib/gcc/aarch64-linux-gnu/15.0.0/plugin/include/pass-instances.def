@@ -53,7 +53,7 @@ along with GCC; see the file COPYING3.  If not see
   NEXT_PASS (pass_ipa_function_and_variable_visibility, 1);
   NEXT_PASS (pass_ipa_strub_mode, 1);
   NEXT_PASS (pass_build_ssa_passes, 1);
-  PUSH_INSERT_PASSES_WITHIN (pass_build_ssa_passes)
+  PUSH_INSERT_PASSES_WITHIN (pass_build_ssa_passes, 1)
       NEXT_PASS (pass_fixup_cfg, 1);
       NEXT_PASS (pass_build_ssa, 1);
       NEXT_PASS_WITH_ARG (pass_walloca, 1, /*strict_mode_p=*/true);
@@ -67,14 +67,14 @@ along with GCC; see the file COPYING3.  If not see
   POP_INSERT_PASSES ()
 
   NEXT_PASS (pass_local_optimization_passes, 1);
-  PUSH_INSERT_PASSES_WITHIN (pass_local_optimization_passes)
+  PUSH_INSERT_PASSES_WITHIN (pass_local_optimization_passes, 1)
       NEXT_PASS (pass_fixup_cfg, 2);
       NEXT_PASS (pass_rebuild_cgraph_edges, 2);
       NEXT_PASS (pass_local_fn_summary, 1);
       NEXT_PASS (pass_early_inline, 1);
       NEXT_PASS (pass_warn_recursion, 1);
       NEXT_PASS (pass_all_early_optimizations, 1);
-      PUSH_INSERT_PASSES_WITHIN (pass_all_early_optimizations)
+      PUSH_INSERT_PASSES_WITHIN (pass_all_early_optimizations, 1)
 	  NEXT_PASS (pass_remove_cgraph_callee_edges, 1);
 	  NEXT_PASS (pass_early_object_sizes, 1);
 	  /* Don't record nonzero bits before IPA to avoid
@@ -118,14 +118,14 @@ along with GCC; see the file COPYING3.  If not see
   NEXT_PASS (pass_ipa_remove_symbols, 1);
   NEXT_PASS (pass_ipa_strub, 1);
   NEXT_PASS (pass_ipa_oacc, 1);
-  PUSH_INSERT_PASSES_WITHIN (pass_ipa_oacc)
+  PUSH_INSERT_PASSES_WITHIN (pass_ipa_oacc, 1)
       NEXT_PASS (pass_ipa_pta, 1);
       /* Pass group that runs when the function is an offloaded function
 	 containing oacc kernels loops.	 */
       NEXT_PASS (pass_ipa_oacc_kernels, 1);
-      PUSH_INSERT_PASSES_WITHIN (pass_ipa_oacc_kernels)
+      PUSH_INSERT_PASSES_WITHIN (pass_ipa_oacc_kernels, 1)
 	  NEXT_PASS (pass_oacc_kernels, 1);
-	  PUSH_INSERT_PASSES_WITHIN (pass_oacc_kernels)
+	  PUSH_INSERT_PASSES_WITHIN (pass_oacc_kernels, 1)
 	      NEXT_PASS (pass_ch, 1);
 	      NEXT_PASS_WITH_ARG (pass_fre, 2, true /* may_iterate */);
 	      /* We use pass_lim to rewrite in-memory iteration and reduction
@@ -143,7 +143,7 @@ along with GCC; see the file COPYING3.  If not see
   NEXT_PASS (pass_target_clone, 1);
   NEXT_PASS (pass_ipa_auto_profile, 1);
   NEXT_PASS (pass_ipa_tree_profile, 1);
-  PUSH_INSERT_PASSES_WITHIN (pass_ipa_tree_profile)
+  PUSH_INSERT_PASSES_WITHIN (pass_ipa_tree_profile, 1)
       NEXT_PASS (pass_feedback_split_functions, 1);
   POP_INSERT_PASSES ()
   NEXT_PASS_WITH_ARG (pass_ipa_free_fn_summary, 1, true /* small_p */);
@@ -159,9 +159,9 @@ along with GCC; see the file COPYING3.  If not see
   NEXT_PASS (pass_ipa_profile, 1);
   NEXT_PASS (pass_ipa_icf, 1);
   NEXT_PASS (pass_ipa_devirt, 1);
+  NEXT_PASS (pass_ipa_cdtor_merge, 1);
   NEXT_PASS (pass_ipa_cp, 1);
   NEXT_PASS (pass_ipa_sra, 1);
-  NEXT_PASS (pass_ipa_cdtor_merge, 1);
   NEXT_PASS (pass_ipa_fn_summary, 1);
   NEXT_PASS (pass_ipa_inline, 1);
   NEXT_PASS (pass_ipa_pure_const, 1);
@@ -197,7 +197,7 @@ along with GCC; see the file COPYING3.  If not see
   NEXT_PASS (pass_adjust_alignment, 1);
   NEXT_PASS (pass_harden_control_flow_redundancy, 1);
   NEXT_PASS (pass_all_optimizations, 1);
-  PUSH_INSERT_PASSES_WITHIN (pass_all_optimizations)
+  PUSH_INSERT_PASSES_WITHIN (pass_all_optimizations, 1)
       NEXT_PASS (pass_remove_cgraph_callee_edges, 2);
       /* Initial scalar cleanups before alias computation.
 	 They ensure memory accesses are not indirect wherever possible.  */
@@ -282,7 +282,7 @@ along with GCC; see the file COPYING3.  If not see
 	 of pass_tree_loop.  */
       NEXT_PASS (pass_fix_loops, 1);
       NEXT_PASS (pass_tree_loop, 1);
-      PUSH_INSERT_PASSES_WITHIN (pass_tree_loop)
+      PUSH_INSERT_PASSES_WITHIN (pass_tree_loop, 1)
           /* Before loop_init we rewrite no longer addressed locals into SSA
 	     form if possible.  */
 	  NEXT_PASS (pass_tree_loop_init, 1);
@@ -299,7 +299,7 @@ along with GCC; see the file COPYING3.  If not see
 	  NEXT_PASS (pass_linterchange, 1);
 	  NEXT_PASS (pass_copy_prop, 3);
 	  NEXT_PASS (pass_graphite, 1);
-	  PUSH_INSERT_PASSES_WITHIN (pass_graphite)
+	  PUSH_INSERT_PASSES_WITHIN (pass_graphite, 1)
 	      NEXT_PASS (pass_graphite_transforms, 1);
 	      NEXT_PASS (pass_lim, 3);
 	      NEXT_PASS (pass_copy_prop, 4);
@@ -312,13 +312,13 @@ along with GCC; see the file COPYING3.  If not see
 	  /* pass_vectorize must immediately follow pass_if_conversion.
 	     Please do not add any other passes in between.  */
 	  NEXT_PASS (pass_vectorize, 1);
-	  PUSH_INSERT_PASSES_WITHIN (pass_vectorize)
+	  PUSH_INSERT_PASSES_WITHIN (pass_vectorize, 1)
 	      NEXT_PASS (pass_dce, 6);
 	  POP_INSERT_PASSES ()
 	  NEXT_PASS (pass_predcom, 1);
 	  NEXT_PASS (pass_complete_unroll, 1);
 	  NEXT_PASS (pass_pre_slp_scalar_cleanup, 1);
-	  PUSH_INSERT_PASSES_WITHIN (pass_pre_slp_scalar_cleanup)
+	  PUSH_INSERT_PASSES_WITHIN (pass_pre_slp_scalar_cleanup, 1)
 	      NEXT_PASS_WITH_ARG (pass_fre, 4, false /* may_iterate */);
 	      NEXT_PASS (pass_dse, 4);
 	  POP_INSERT_PASSES ()
@@ -333,7 +333,7 @@ along with GCC; see the file COPYING3.  If not see
       /* Pass group that runs when pass_tree_loop is disabled or there
          are no loops in the function.  */
       NEXT_PASS (pass_tree_no_loop, 1);
-      PUSH_INSERT_PASSES_WITHIN (pass_tree_no_loop)
+      PUSH_INSERT_PASSES_WITHIN (pass_tree_no_loop, 1)
 	  NEXT_PASS (pass_slp_vectorize, 2);
       POP_INSERT_PASSES ()
       NEXT_PASS (pass_simduid_cleanup, 1);
@@ -384,7 +384,7 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS (pass_uncprop, 1);
   POP_INSERT_PASSES ()
   NEXT_PASS (pass_all_optimizations_g, 1);
-  PUSH_INSERT_PASSES_WITHIN (pass_all_optimizations_g)
+  PUSH_INSERT_PASSES_WITHIN (pass_all_optimizations_g, 1)
       /* The idea is that with -Og we do not perform any IPA optimization
 	 so post-IPA work should be restricted to semantically required
 	 passes and all optimization work is done early.  */
@@ -426,7 +426,7 @@ along with GCC; see the file COPYING3.  If not see
   POP_INSERT_PASSES ()
   NEXT_PASS (pass_assumptions, 1);
   NEXT_PASS (pass_tm_init, 1);
-  PUSH_INSERT_PASSES_WITHIN (pass_tm_init)
+  PUSH_INSERT_PASSES_WITHIN (pass_tm_init, 1)
       NEXT_PASS (pass_tm_mark, 1);
       NEXT_PASS (pass_tm_memopt, 1);
       NEXT_PASS (pass_tm_edges, 1);
@@ -456,7 +456,7 @@ along with GCC; see the file COPYING3.  If not see
   NEXT_PASS (pass_expand, 1);
 
   NEXT_PASS (pass_rest_of_compilation, 1);
-  PUSH_INSERT_PASSES_WITHIN (pass_rest_of_compilation)
+  PUSH_INSERT_PASSES_WITHIN (pass_rest_of_compilation, 1)
       NEXT_PASS (pass_instantiate_virtual_regs, 1);
       NEXT_PASS (pass_into_cfg_layout_mode, 1);
       NEXT_PASS (pass_jump, 1);
@@ -476,7 +476,7 @@ along with GCC; see the file COPYING3.  If not see
 	 sooner, but we want the profile feedback to work more
 	 efficiently.  */
       NEXT_PASS (pass_loop2, 1);
-      PUSH_INSERT_PASSES_WITHIN (pass_loop2)
+      PUSH_INSERT_PASSES_WITHIN (pass_loop2, 1)
 	  NEXT_PASS (pass_rtl_loop_init, 1);
 	  NEXT_PASS (pass_rtl_move_loop_invariants, 1);
 	  NEXT_PASS (pass_rtl_unroll_loops, 1);
@@ -514,8 +514,11 @@ NEXT_PASS (pass_ldp_fusion, 1);
       NEXT_PASS (pass_early_remat, 1);
       NEXT_PASS (pass_ira, 1);
       NEXT_PASS (pass_reload, 1);
+      /* In the following, some passes are tied to 'pass_postreload' and others
+	 to 'pass_late_compilation'.  The difference is that the latter also
+	 run for 'targetm.no_register_allocation' targets.  */
       NEXT_PASS (pass_postreload, 1);
-      PUSH_INSERT_PASSES_WITHIN (pass_postreload)
+      PUSH_INSERT_PASSES_WITHIN (pass_postreload, 1)
 	  NEXT_PASS (pass_postreload_cse, 1);
 	  NEXT_PASS (pass_late_combine, 2);
 	  NEXT_PASS (pass_gcse2, 1);
@@ -542,7 +545,7 @@ NEXT_PASS (pass_track_speculation, 1);
 	  NEXT_PASS (pass_split_before_sched2, 1);
 	  NEXT_PASS (pass_sched2, 1);
 	  NEXT_PASS (pass_stack_regs, 1);
-	  PUSH_INSERT_PASSES_WITHIN (pass_stack_regs)
+	  PUSH_INSERT_PASSES_WITHIN (pass_stack_regs, 1)
 	      NEXT_PASS (pass_split_before_regstack, 1);
 	      NEXT_PASS (pass_stack_regs_run, 1);
 	  POP_INSERT_PASSES ()
@@ -553,7 +556,7 @@ NEXT_PASS (pass_late_track_speculation, 1);
       /* No target-independent code motion is allowed beyond this point,
          excepting the legacy delayed-branch pass.  */
       NEXT_PASS (pass_late_compilation, 1);
-      PUSH_INSERT_PASSES_WITHIN (pass_late_compilation)
+      PUSH_INSERT_PASSES_WITHIN (pass_late_compilation, 1)
 	  NEXT_PASS (pass_zero_call_used_regs, 1);
 	  NEXT_PASS (pass_compute_alignments, 1);
 	  NEXT_PASS (pass_variable_tracking, 1);

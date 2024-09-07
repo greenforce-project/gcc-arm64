@@ -1079,13 +1079,13 @@ option.
 
      'amdgcn*-*-*'
           LIST is a comma separated list of ISA names (allowed values:
-          'fiji', 'gfx900', 'gfx906', 'gfx908', 'gfx90a', 'gfx90c',
-          'gfx1030', 'gfx1036', 'gfx1100', 'gfx1103').  It ought not
-          include the name of the default ISA, specified via
-          '--with-arch'.  If LIST is empty, then there will be no
-          multilibs and only the default run-time library will be built.
-          If LIST is 'default' or '--with-multilib-list=' is not
-          specified, then the default set of libraries is selected.
+          'gfx900', 'gfx906', 'gfx908', 'gfx90a', 'gfx90c', 'gfx1030',
+          'gfx1036', 'gfx1100', 'gfx1103').  It ought not include the
+          name of the default ISA, specified via '--with-arch'.  If LIST
+          is empty, then there will be no multilibs and only the default
+          run-time library will be built.  If LIST is 'default' or
+          '--with-multilib-list=' is not specified, then the default set
+          of libraries is selected.
 
      'arm*-*-*'
           LIST is a comma separated list of 'aprofile' and 'rmprofile'
@@ -3315,11 +3315,6 @@ console output for GFX10 and GFX11 devices).
 and use 'libexec/gcc/amdhsa-amdhsa/VERSION/gcn-run' to launch them on
 the GPU.
 
-   To enable support for GCN3 Fiji devices (gfx803), GCC has to be
-configured with '--with-arch=fiji' or '--with-multilib-list=fiji,...'.
-Note that support for Fiji devices has been removed in ROCm 4.0 and
-support in LLVM was deprecated and has been removed in LLVM 18.
-
 arc-*-elf32
 ===========
 
@@ -3345,9 +3340,9 @@ the GNAT 4.6, 4.9 or 5 release branches are known to succeed.
 avr
 ===
 
-ATMEL AVR-family micro controllers.  These are used in embedded
-applications.  There are no standard Unix configurations.  *Note AVR
-Options: (gcc)AVR Options, for the list of supported MCU types.
+AVR 8-bit microcontrollers.  These are used in embedded applications.
+There are no standard Unix configurations.  *Note AVR Options: (gcc)AVR
+Options, for the list of supported MCU types.
 
    Use 'configure --target=avr --enable-languages="c"' to configure GCC.
 
@@ -4927,93 +4922,93 @@ Node: Configuration20698
 Ref: with-gnu-as39965
 Ref: with-as40816
 Ref: with-gnu-ld42181
-Ref: WithAixSoname72024
-Ref: AixLdCommand72685
-Ref: with-included-gettext88569
-Node: Building116924
-Node: Testing133135
-Node: Final install140666
-Node: Binaries143844
-Node: Specific144829
-Ref: aarch64-x-x145363
-Ref: amd64-x-solaris2147383
-Ref: amdgcn-x-amdhsa147465
-Ref: arc-x-elf32148540
-Ref: arc-linux-uclibc148716
-Ref: arm-x-eabi148857
-Ref: avr149110
-Ref: bfin149656
-Ref: cris149919
-Ref: dos150245
-Ref: epiphany-x-elf150570
-Ref: x-x-freebsd150675
-Ref: ft32-x-elf151403
-Ref: h8300-hms151501
-Ref: hppa-hp-hpux151853
-Ref: hppa-hp-hpux11153367
-Ref: x-x-linux-gnu158473
-Ref: ix86-x-linux158666
-Ref: ix86-x-solaris2158979
-Ref: ia64-x-linux159218
-Ref: ia64-x-hpux159465
-Ref: x-ibm-aix159683
-Ref: TransferAixShobj163345
-Ref: iq2000-x-elf167155
-Ref: lm32-x-elf167295
-Ref: lm32-x-uclinux167399
-Ref: loongarch167527
-Ref: m32c-x-elf168164
-Ref: m32r-x-elf168266
-Ref: m68k-x-x168368
-Ref: m68k-x-uclinux169406
-Ref: microblaze-x-elf169651
-Ref: mips-x-x169770
-Ref: moxie-x-elf171680
-Ref: msp430-x-elf171727
-Ref: nds32le-x-elf172284
-Ref: nds32be-x-elf172356
-Ref: nvptx-x-none172425
-Ref: or1k-x-elf173288
-Ref: or1k-x-linux173419
-Ref: powerpc-x-x173500
-Ref: powerpc-x-darwin173691
-Ref: powerpc-x-elf174186
-Ref: powerpc-x-linux-gnu174271
-Ref: powerpc-x-netbsd174366
-Ref: powerpc-x-eabisim174454
-Ref: powerpc-x-eabi174580
-Ref: powerpcle-x-elf174656
-Ref: powerpcle-x-eabisim174748
-Ref: powerpcle-x-eabi174881
-Ref: rl78-x-elf174964
-Ref: riscv32-x-elf175070
-Ref: riscv32-x-linux175259
-Ref: riscv64-x-elf175416
-Ref: riscv64-x-linux175605
-Ref: rx-x-elf175762
-Ref: s390-x-linux175808
-Ref: s390x-x-linux175880
-Ref: s390x-ibm-tpf175967
-Ref: x-x-solaris2176098
-Ref: sparc-x-x179410
-Ref: sparc-sun-solaris2179912
-Ref: sparc-x-linux180811
-Ref: sparc64-x-solaris2180842
-Ref: sparcv9-x-solaris2180929
-Ref: c6x-x-x181650
-Ref: visium-x-elf181742
-Ref: x-x-vxworks181850
-Ref: x86-64-x-x183373
-Ref: x86-64-x-solaris2183701
-Ref: xtensa-x-elf184206
-Ref: xtensa-x-linux184877
-Ref: windows185218
-Ref: x-x-cygwin186804
-Ref: x-x-mingw32187357
-Ref: older187739
-Ref: elf189702
-Node: GNU Free Documentation License189956
-Node: Concept Index215094
+Ref: WithAixSoname72017
+Ref: AixLdCommand72678
+Ref: with-included-gettext88562
+Node: Building116917
+Node: Testing133128
+Node: Final install140659
+Node: Binaries143837
+Node: Specific144822
+Ref: aarch64-x-x145356
+Ref: amd64-x-solaris2147376
+Ref: amdgcn-x-amdhsa147458
+Ref: arc-x-elf32148262
+Ref: arc-linux-uclibc148438
+Ref: arm-x-eabi148579
+Ref: avr148832
+Ref: bfin149369
+Ref: cris149632
+Ref: dos149958
+Ref: epiphany-x-elf150283
+Ref: x-x-freebsd150388
+Ref: ft32-x-elf151116
+Ref: h8300-hms151214
+Ref: hppa-hp-hpux151566
+Ref: hppa-hp-hpux11153080
+Ref: x-x-linux-gnu158186
+Ref: ix86-x-linux158379
+Ref: ix86-x-solaris2158692
+Ref: ia64-x-linux158931
+Ref: ia64-x-hpux159178
+Ref: x-ibm-aix159396
+Ref: TransferAixShobj163058
+Ref: iq2000-x-elf166868
+Ref: lm32-x-elf167008
+Ref: lm32-x-uclinux167112
+Ref: loongarch167240
+Ref: m32c-x-elf167877
+Ref: m32r-x-elf167979
+Ref: m68k-x-x168081
+Ref: m68k-x-uclinux169119
+Ref: microblaze-x-elf169364
+Ref: mips-x-x169483
+Ref: moxie-x-elf171393
+Ref: msp430-x-elf171440
+Ref: nds32le-x-elf171997
+Ref: nds32be-x-elf172069
+Ref: nvptx-x-none172138
+Ref: or1k-x-elf173001
+Ref: or1k-x-linux173132
+Ref: powerpc-x-x173213
+Ref: powerpc-x-darwin173404
+Ref: powerpc-x-elf173899
+Ref: powerpc-x-linux-gnu173984
+Ref: powerpc-x-netbsd174079
+Ref: powerpc-x-eabisim174167
+Ref: powerpc-x-eabi174293
+Ref: powerpcle-x-elf174369
+Ref: powerpcle-x-eabisim174461
+Ref: powerpcle-x-eabi174594
+Ref: rl78-x-elf174677
+Ref: riscv32-x-elf174783
+Ref: riscv32-x-linux174972
+Ref: riscv64-x-elf175129
+Ref: riscv64-x-linux175318
+Ref: rx-x-elf175475
+Ref: s390-x-linux175521
+Ref: s390x-x-linux175593
+Ref: s390x-ibm-tpf175680
+Ref: x-x-solaris2175811
+Ref: sparc-x-x179123
+Ref: sparc-sun-solaris2179625
+Ref: sparc-x-linux180524
+Ref: sparc64-x-solaris2180555
+Ref: sparcv9-x-solaris2180642
+Ref: c6x-x-x181363
+Ref: visium-x-elf181455
+Ref: x-x-vxworks181563
+Ref: x86-64-x-x183086
+Ref: x86-64-x-solaris2183414
+Ref: xtensa-x-elf183919
+Ref: xtensa-x-linux184590
+Ref: windows184931
+Ref: x-x-cygwin186517
+Ref: x-x-mingw32187070
+Ref: older187452
+Ref: elf189415
+Node: GNU Free Documentation License189669
+Node: Concept Index214807
 
 End Tag Table
 

@@ -38,7 +38,7 @@ Free Documentation License."
 
 * Introduction::                      About this manual.
 * Overview::                          A brief overview of gprofng.
-* A Mini Tutorial::                   A short tutorial covering the key features.
+* A Mini Tutorial::                   A short tutorial with the key features.
 * The gprofng Tools::                 An overview of the tools supported.
 * Performance Data Collection::       Record the performance information.
 * View the Performance Information::  Different ways to view the data.
@@ -55,14 +55,14 @@ Introduction
 Overview
 
 * Main Features::                     A high level overview.
-* Sampling versus Tracing::           The pros and cons of sampling versus tracing.
+* Sampling versus Tracing::           The pros and cons of both approaches.
 * Steps Needed to Create a Profile::  How to create a profile.
 
 A Mini Tutorial
 
-* Getting Started::                 The basics of profiling with gprofng().
-* Support for Multithreading::      Commands specific to multithreaded applications.
-* View Multiple Experiments::       Analyze multiple experiments simultaneously.
+* Getting Started::                 The basics of profiling with gprofng.
+* Support for Multithreading::      Commands for multithreaded applications.
+* View Multiple Experiments::       Analyze multiple experiments.
 * Profile Hardware Event Counters:: How to use hardware event counters.
 * Java Profiling::                  How to profile a Java application.
 
@@ -435,8 +435,6 @@ times:
 
      $ gprofng display text -functions test.1.er
 
-     $ gprofng display text -functions test.1.er
-     
      Functions sorted by metric: Exclusive Total CPU Time
      
      Excl. Total   Incl. Total    Name
@@ -458,8 +456,8 @@ times:
      0.      0.    0.020   0.21   malloc
      0.      0.    8.926  95.30   start_thread
 
-   As easy and simple as these steps are, we do have a first profile of
-our program!
+As easy and simple as these steps are, we do have a first profile of our
+program!
 
    There are five columns.  The first four contain the "Total CPU Time",
 which is the sum of the user and system time.  *Note Inclusive and
@@ -482,8 +480,8 @@ All other percentages in the same column are relative to this number.
 
    With 8.926 seconds, function 'mxv_core' takes 95.30% of the total
 time and is by far the most time consuming function.  The exclusive and
-inclusive metrics are identical, which means that is a leaf function not
-calling any other functions.
+inclusive metrics are identical, which means that it is a leaf function
+not calling any other functions.
 
    The next function in the list is 'init_data'.  Although with 4.49%,
 the CPU time spent in this part is modest, this is an interesting entry
@@ -499,7 +497,7 @@ certainly not familiar.  It is one of the internal functions used by
 time is high, the exclusive time is zero.  This means it doesn't
 contribute to the performance.
 
-   The question is how we know where this function originates from?
+   The question is how we know where this function originates from.
 There are several commands to dig deeper an get more details on a
 function.  *Note Information on Load Objects::.
 
@@ -1225,10 +1223,8 @@ off' option, this can be disabled.
    If an explicit value is set for the sampling, the number can be an
 integer or a floating-point number.  A suffix of 'u' for microseconds,
 or 'm' for milliseconds is supported.  If no suffix is used, the value
-is assumed to be in milliseconds.
-
-   For example, the following command sets the sampling rate to 5123.4
-microseconds:
+is assumed to be in milliseconds.  For example, the following command
+sets the sampling rate to 5123.4 microseconds:
 
      $ gprofng collect app -p 5123.4u ./mxv-pthreads -m 8000 -n 4000 -t 1
 
@@ -1310,26 +1306,26 @@ location is known it is also shown here.
      Functions sorted by metric: Exclusive Total CPU Time
      
      <Total>
-             Exclusive Total CPU Time: 9.703 (100.0%)
-             Inclusive Total CPU Time: 9.703 (100.0%)
-                                 Size:     0
-                           PC Address: 1:0x00000000
-                          Source File: (unknown)
-                          Object File: (unknown)
-                          Load Object: <Total>
-                         Mangled Name:
-                              Aliases:
+            Exclusive Total CPU Time: 9.703 (100.0%)
+            Inclusive Total CPU Time: 9.703 (100.0%)
+                                Size:     0
+                          PC Address: 1:0x00000000
+                         Source File: (unknown)
+                         Object File: (unknown)
+                         Load Object: <Total>
+                        Mangled Name:
+                             Aliases:
      
      mxv_core
-             Exclusive Total CPU Time: 9.226 ( 95.1%)
-             Inclusive Total CPU Time: 9.226 ( 95.1%)
-                                 Size:    80
-                           PC Address: 2:0x00001d56
-                          Source File: <apath>/src/mxv.c
-                          Object File: mxv.1.thr.er/archives/mxv-pthreads_ss_pf53V__5
-                          Load Object: <apath>/mxv-pthreads
-                         Mangled Name:
-                              Aliases:
+            Exclusive Total CPU Time: 9.226 ( 95.1%)
+            Inclusive Total CPU Time: 9.226 ( 95.1%)
+                                Size:    80
+                          PC Address: 2:0x00001d56
+                         Source File: <apath>/src/mxv.c
+                         Object File: mxv.1.thr.er/archives/mxv-pthreads_ss_pf53V__5
+                         Load Object: <apath>/mxv-pthreads
+                        Mangled Name:
+                             Aliases:
      
                ... etc ...
 
@@ -1376,7 +1372,7 @@ all that is needed to get a function overview:
 
      $ gprofng display text -limit 5 -functions mxv.2.thr.er
 
-   This produces the following familiar looking output:
+This produces the following familiar looking output:
 
      Print limit set to 5
      Functions sorted by metric: Exclusive Total CPU Time
@@ -1719,7 +1715,7 @@ If the data for multiple experiments is aggregrated, the 'gprofng
 display text' tool shows the combined results.  For example, below is
 the script to show the function view for the data aggregated over two
 experiments, drop the first experiment and then show the function view
-fo the second experiment only.  We will call it 'my-script-agg'.
+for the second experiment only.  We will call it 'my-script-agg'.
 
      # Define the metrics
      metrics e.%totalcpu
@@ -2659,7 +2655,7 @@ The 'gprofng.rc' file is used to define default settings for the
 'gprofng display text', 'gprofng archive', and 'gprofng display src'
 tools, but the user can override these defaults through local
 configuration settings when building and installing from the source
-code..
+code.
 
    There are three files that are checked when the tool starts up.  The
 first file has pre-defined settings and comes with the installation, but
@@ -2671,7 +2667,7 @@ above mentioned tools:
 
   1. The system-wide filename is called 'gprofng.rc' and is located in
      the '/etc' subdirectory in case an RPM was used for the
-     installation..
+     installation.
 
      If gprofng has been built from the source, this file is in
      subdirectory 'etc' in the top level installation directory.
@@ -2955,7 +2951,7 @@ Commands that List Experiment Details
 
      This commands is for Java applications only.  It shows any Garbage
      Collection (GC) events that have occurred while the application was
-     executing..
+     executing.
 
 'lwp_list'
 
@@ -3429,9 +3425,9 @@ allows for the simultaenous measurement of various events.
    A simple, yet powerful, example is to simultaneously count the number
 of CPU cycles and the number of instructions excuted.  These two numbers
 can then be used to compute the _IPC_ value.  IPC stands for
-"Instructions Per Clockcycle" and each processor has a maximum.  For
-example, if this maximum number is 2, it means the processor is capable
-of executing two instructions every clock cycle.
+"Instructions Per Clockcycle" and each processor has an architecturally
+defined maximum.  For example, if this maximum number is 2, it means the
+processor is capable of executing two instructions every clock cycle.
 
    Whether this is actually achieved, depends on several factors,
 including the instruction characteristics.  However, in case the IPC
@@ -3530,7 +3526,7 @@ other formats is in the 'gprofng/doc' subdirectory.
    For example, if you have set the build directory to be
 <MY-BUILD-DIR>, go to subdirectory <MY-BUILD-DIR>/GPROFNG/DOC.
 
-   This subdirectory has a single filed called 'Makefile' that can be
+   This subdirectory has a single file called 'Makefile' that can be
 used to build the documentation in various formats.  We recommend to use
 these commands.
 
@@ -3549,7 +3545,7 @@ under the main directory <MY-BUILD-DIR>.
      directory.
 
 'make install-pdf'
-     Creat and install the pdf file in the binutils documentation
+     Create and install the pdf file in the binutils documentation
      directory.
 
    For example, to install this document in the binutils documentation
@@ -3705,8 +3701,8 @@ ENVIRONMENT
           If this is the case, the user may set the 'GPROFNG_SYSCONFDIR'
           environment variable to point to this location.
 
-          Otherwise, the 'gp-display-text', 'gp-display-src', and
-          'gp-archive' tools cannot find this file.
+          Otherwise, the 'gprofng display text', 'gprofng display src',
+          and 'gprofng archive' tools cannot find this file.
 
 
 NOTES
@@ -3742,11 +3738,17 @@ NOTES
      but since these are subject to change, in particular the options,
      we recommend to use the driver.
 
+     The _gprofng GUI_ is an optional tool that provides a graphical
+     interface for 'gprofng'.  It is easy to use and supports many views
+     into the performance data.  For those interested in this GUI, we
+     recommend to search for 'gprofng-gui' how to obtain, install and
+     use it.
+
 
 SEE ALSO
 
-     gp-archive(1), gp-collect-app(1), gp-display-gui(1),
-     gp-display-html(1), gp-display-src(1), gp-display-text(1)
+     gp-archive(1), gprofng-collect-app(1), gprofng-display-html(1),
+     gprofng-display-src(1), gprofng-display-text(1)
 
      Each gprofng command also supports the '--help' option.  This lists
      the options and a short description for each option.
@@ -3985,8 +3987,8 @@ NOTES
 
 SEE ALSO
 
-     gprofng(1), gp-archive(1), gp-display-gui(1), gp-display-html(1),
-     gp-display-src(1), gp-display-text(1)
+     gprofng(1), gprofng-archive(1), gprofng-display-html(1),
+     gprofng-display-src(1), gprofng-display-text(1)
 
      The user guide for gprofng is maintained as a Texinfo manual.  If
      the 'info' and 'gprofng' programs are correctly installed, the
@@ -4238,8 +4240,8 @@ NOTES
 
 SEE ALSO
 
-     gprofng(1), gp-archive(1), gp-collect-app(1), gp-display-gui(1),
-     gp-display-html(1), gp-display-src(1)
+     gprofng(1), gprofng-archive(1), gprofng-collect-app(1),
+     gprofng-display-html(1), gprofng-display-src(1)
 
      The user guide for gprofng is maintained as a Texinfo manual.  If
      the 'info' and 'gprofng' programs are correctly installed, the
@@ -4398,8 +4400,8 @@ NOTES
 
 SEE ALSO
 
-     gprofng(1), gp-archive(1), gp-collect-app(1), gp-display-gui(1),
-     gp-display-src(1), gp-display-text(1)
+     gprofng(1), gprofng-archive(1), gprofng-collect-app(1),
+     gprofng-display-src(1), gprofng-display-text(1)
 
      The user guide for gprofng is maintained as a Texinfo manual.  If
      the 'info' and 'gprofng' programs are correctly installed, the
@@ -4512,12 +4514,12 @@ NOTES
 
 SEE ALSO
 
-     gprofng(1), gp-archive(1), gp-collect-app(1), gp-display-gui(1),
-     gp-display-html(1), gp-display-text(1)
+     gprofng(1), gprofng-archive(1), gprofng-collect-app(1),
+     gprofng-display-html(1), gprofng-display-text(1)
 
      The user guide for gprofng is maintained as a Texinfo manual.  If
-     the info and gprofng programs are correctly installed, the command
-     'info gprofng' should give access to this document.
+     the 'info' and 'gprofng' programs are correctly installed, the
+     command 'info gprofng' should give access to this document.
 
 
 COPYRIGHT
@@ -4752,12 +4754,12 @@ NOTES
 
 SEE ALSO
 
-     gprofng(1), gp-collect-app(1), gp-display-gui(1),
-     gp-display-html(1), gp-display-src(1), gp-display-text(1)
+     gprofng(1), gprofng-collect-app(1), gprofng-display-html(1),
+     gprofng-display-src(1), gprofng-display-text(1)
 
      The user guide for gprofng is maintained as a Texinfo manual.  If
-     the info and gprofng programs are correctly installed, the command
-     'info gprofng' should give access to this document.
+     the 'info' and 'gprofng' programs are correctly installed, the
+     command 'info gprofng' should give access to this document.
 
 
 COPYRIGHT
@@ -4861,7 +4863,7 @@ Index
 * Commands, header:                      More Information on the Experiment.
                                                               (line  10)
 * Commands, header <1>:                  Control the Sampling Frequency.
-                                                              (line  64)
+                                                              (line  62)
 * Commands, header <2>:                  Man page for gprofng display text.
                                                               (line 130)
 * Commands, limit:                       Control the Number of Lines in the Output.
@@ -5070,7 +5072,7 @@ Index
                                                               (line  81)
 * Miscellaneous, <apath>:                Information on Load Objects.
                                                               (line  16)
-* Miscellaneous, <Total>:                A First Profile.     (line  95)
+* Miscellaneous, <Total>:                A First Profile.     (line  93)
 * mxv-pthreads:                          The Example Program. (line  12)
 * Options, --debug:                      Man page for gprofng display html.
                                                               (line  41)
@@ -5208,7 +5210,7 @@ Index
 * Options, -header:                      More Information on the Experiment.
                                                               (line  10)
 * Options, -header <1>:                  Control the Sampling Frequency.
-                                                              (line  64)
+                                                              (line  62)
 * Options, -header <2>:                  Man page for gprofng collect app.
                                                               (line  75)
 * Options, -header <3>:                  Man page for gprofng display text.
@@ -5402,7 +5404,7 @@ Index
                                                               (line  67)
 * Thread affinity:                       Commands Specific to Multithreading.
                                                               (line 162)
-* Total CPU time:                        A First Profile.     (line  82)
+* Total CPU time:                        A First Profile.     (line  80)
 * Viewmode:                              The Viewmode.        (line   6)
 * Visibility field:                      Metric Definitions.  (line  13)
 
@@ -5410,71 +5412,71 @@ Index
 
 Tag Table:
 Node: Top754
-Node: Introduction4359
-Node: Overview5636
-Node: Main Features6277
-Node: Sampling versus Tracing8119
-Node: Steps Needed to Create a Profile10515
-Node: A Mini Tutorial12699
-Node: Getting Started13439
-Node: The Example Program15089
-Node: A First Profile16407
-Node: The Source Code View21790
-Node: The Disassembly View27609
-Node: Display and Define the Metrics33287
-Node: Customization of the Output35203
-Node: Name the Experiment Directory37339
-Node: Control the Number of Lines in the Output38464
-Node: Sorting the Performance Data39230
-Node: Scripting40190
-Node: A More Elaborate Example41123
-Node: The Call Tree44252
-Node: More Information on the Experiment48299
-Node: Control the Sampling Frequency51712
-Node: Information on Load Objects54337
-Node: Support for Multithreading58213
-Node: Creating a Multithreading Experiment58856
-Node: Commands Specific to Multithreading60206
-Node: View Multiple Experiments70315
-Node: Aggregation of Experiments71085
-Node: Comparison of Experiments73901
-Node: Profile Hardware Event Counters78375
-Node: Getting Information on the Counters Supported79080
-Node: Examples Using Hardware Event Counters86479
-Node: Java Profiling104184
-Node: The gprofng Tools106553
-Node: Tools Overview107040
-Node: The gprofng.rc file with default settings109111
-Node: Filters113043
-Node: Supported Environment Variables115695
-Node: Performance Data Collection116021
-Node: The gprofng collect app Tool116657
-Node: View the Performance Information117203
-Node: The gprofng display text Tool117606
-Node: The gprofng display text Commands118598
-Node: Commands that List Experiment Details119147
-Node: Commands that Affect Listings and Output122704
-Node: Predefined Filters124383
-Node: Commands to Set and Change Search Paths125268
-Node: Terminology127451
-Node: The Program Counter128489
-Node: Inclusive and Exclusive Metrics128981
-Node: Metric Definitions130434
-Node: The Viewmode132080
-Node: The Selection List133219
-Node: Load Objects and Functions135343
-Node: The Concept of a CPU in gprofng137357
-Node: Hardware Event Counters Explained138220
-Node: apath142012
-Node: Other Document Formats142547
-Node: The gprofng Man Pages145408
-Node: Man page for gprofng145874
-Node: Man page for gprofng collect app151544
-Node: Man page for gprofng display text160095
-Node: Man page for gprofng display html169487
-Node: Man page for gprofng display src175551
-Node: Man page for gprofng archive179454
-Node: Index189018
+Node: Introduction4322
+Node: Overview5599
+Node: Main Features6240
+Node: Sampling versus Tracing8082
+Node: Steps Needed to Create a Profile10478
+Node: A Mini Tutorial12662
+Node: Getting Started13402
+Node: The Example Program15052
+Node: A First Profile16370
+Node: The Source Code View21698
+Node: The Disassembly View27517
+Node: Display and Define the Metrics33195
+Node: Customization of the Output35111
+Node: Name the Experiment Directory37247
+Node: Control the Number of Lines in the Output38372
+Node: Sorting the Performance Data39138
+Node: Scripting40098
+Node: A More Elaborate Example41031
+Node: The Call Tree44160
+Node: More Information on the Experiment48207
+Node: Control the Sampling Frequency51620
+Node: Information on Load Objects54242
+Node: Support for Multithreading58100
+Node: Creating a Multithreading Experiment58743
+Node: Commands Specific to Multithreading60090
+Node: View Multiple Experiments70199
+Node: Aggregation of Experiments70969
+Node: Comparison of Experiments73786
+Node: Profile Hardware Event Counters78260
+Node: Getting Information on the Counters Supported78965
+Node: Examples Using Hardware Event Counters86364
+Node: Java Profiling104069
+Node: The gprofng Tools106438
+Node: Tools Overview106925
+Node: The gprofng.rc file with default settings108996
+Node: Filters112926
+Node: Supported Environment Variables115578
+Node: Performance Data Collection115904
+Node: The gprofng collect app Tool116540
+Node: View the Performance Information117086
+Node: The gprofng display text Tool117489
+Node: The gprofng display text Commands118481
+Node: Commands that List Experiment Details119030
+Node: Commands that Affect Listings and Output122586
+Node: Predefined Filters124265
+Node: Commands to Set and Change Search Paths125150
+Node: Terminology127333
+Node: The Program Counter128371
+Node: Inclusive and Exclusive Metrics128863
+Node: Metric Definitions130316
+Node: The Viewmode131962
+Node: The Selection List133101
+Node: Load Objects and Functions135225
+Node: The Concept of a CPU in gprofng137239
+Node: Hardware Event Counters Explained138102
+Node: apath141919
+Node: Other Document Formats142454
+Node: The gprofng Man Pages145315
+Node: Man page for gprofng145781
+Node: Man page for gprofng collect app151763
+Node: Man page for gprofng display text160315
+Node: Man page for gprofng display html169708
+Node: Man page for gprofng display src175773
+Node: Man page for gprofng archive179681
+Node: Index189250
 
 End Tag Table
 

@@ -132,8 +132,8 @@
 .rm #[ #] #H #V #F C
 .\" ========================================================================
 .\"
-.IX Title "GPROFNG.1 1"
-.TH GPROFNG.1 1 "2024-08-31" "binutils-2.43.50" "User Commands"
+.IX Title "GPROFNG 1"
+.TH GPROFNG 1 "2024-09-07" "binutils-2.43.50" "User Commands"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -224,8 +224,8 @@ to this configuration file to a non-default location.  If this is the case,
 the user may set the \f(CW\*(C`GPROFNG_SYSCONFDIR\*(C'\fR environment variable to point
 to this location.
 .Sp
-Otherwise, the \fBgp-display-text\fR, \fBgp-display-src\fR, and
-\&\fBgp-archive\fR tools cannot find this file.
+Otherwise, the \fBgprofng display text\fR, \fBgprofng display src\fR,
+and \fBgprofng archive\fR tools cannot find this file.
 .SH "NOTES"
 .IX Header "NOTES"
 The gprofng driver supports the following commands.
@@ -264,14 +264,18 @@ Include binaries and source code in an experiment directory.
 It is also possible to invoke the lower level commands directly, but since
 these are subject to change, in particular the options, we recommend to
 use the driver.
+.PP
+The \fIgprofng \s-1GUI\s0\fR is an optional tool that provides a graphical interface
+for \f(CW\*(C`gprofng\*(C'\fR.  It is easy to use and supports many views into the
+performance data.  For those interested in this \s-1GUI,\s0 we
+recommend to search for \f(CW\*(C`gprofng\-gui\*(C'\fR how to obtain, install and use it.
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
 \&\fBgp\-archive\fR\|(1),
-\&\fBgp\-collect\-app\fR\|(1),
-\&\fBgp\-display\-gui\fR\|(1),
-\&\fBgp\-display\-html\fR\|(1),
-\&\fBgp\-display\-src\fR\|(1),
-\&\fBgp\-display\-text\fR\|(1)
+\&\fBgprofng\-collect\-app\fR\|(1),
+\&\fBgprofng\-display\-html\fR\|(1),
+\&\fBgprofng\-display\-src\fR\|(1),
+\&\fBgprofng\-display\-text\fR\|(1)
 .PP
 Each gprofng command also supports the \fB\-\-help\fR option.  This lists the
 options and a short description for each option.

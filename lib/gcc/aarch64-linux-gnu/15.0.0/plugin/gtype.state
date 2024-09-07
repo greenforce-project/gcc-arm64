@@ -4,7 +4,7 @@
 ;;; Don't parse this file wihout knowing GCC gengtype internals.
 ;;; This file should be parsed by the same gengtype which wrote it.
 
-(!version  "15.0.0 20240831 (Gf Cross v15)")
+(!version  "15.0.0 20240907 (Gf Cross v15)")
 (!srcdir  "/__w/gcc_build/gcc_build/gcc/gcc")
 (!languages 12 ada c cp d fortran go jit lto m2 objc objcp rust)
 (!fileslist 253 0
@@ -262,7 +262,7 @@
  (!srcfile 2048  "rust/backend/rust-tree.h")
  (!srcfile 2048  "rust/backend/rust-tree.cc")
 )
-(!structures 1959
+(!structures 1960
  
  (!type struct 1 nil  gc_used "source_range"
   (!srcfileloc  "../libcpp/include/line-map.h" 763)
@@ -2307,11 +2307,11 @@
                           nil )
                          
                          (!type struct 111 nil  gc_pointed_to "lang_decl"
-                          (!srcfileloc  "m2/gm2-lang.cc" 83)
+                          (!srcfileloc  "m2/gm2-lang.cc" 82)
                           (!fields 1 
                            (!pair  "dummy"
                             (!type already_seen 8)
-                            (!srcfileloc  "m2/gm2-lang.cc" 82)
+                            (!srcfileloc  "m2/gm2-lang.cc" 81)
                             nil )
                           )
                           nil 256 
@@ -7815,7 +7815,7 @@
                               (!type struct 352 
                                (!type already_seen 350)
                                gc_pointed_to "lto_file_decl_data"
-                               (!srcfileloc  "lto-streamer.h" 605)
+                               (!srcfileloc  "lto-streamer.h" 608)
                                (!fields 19 
                                 (!pair  "current_decl_state"
                                  (!type pointer 353 nil  gc_used
@@ -7844,11 +7844,11 @@
                                    )
                                    4095 nil nil )
                                  )
-                                 (!srcfileloc  "lto-streamer.h" 555)
+                                 (!srcfileloc  "lto-streamer.h" 558)
                                  nil )
                                 (!pair  "global_decl_state"
                                  (!type already_seen 353)
-                                 (!srcfileloc  "lto-streamer.h" 559)
+                                 (!srcfileloc  "lto-streamer.h" 562)
                                  nil )
                                 (!pair  "symtab_node_encoder"
                                  (!type pointer 356 nil  gc_unused
@@ -7858,7 +7858,7 @@
                                    (!fields 0 )
                                    nil 0 nil nil )
                                  )
-                                 (!srcfileloc  "lto-streamer.h" 562)
+                                 (!srcfileloc  "lto-streamer.h" 565)
                                  (!options 
                                   (!option skip string  "")
                                  )
@@ -7868,23 +7868,23 @@
                                   (!type user_struct 359 
                                    (!type already_seen 358)
                                    gc_pointed_to "hash_table<decl_state_hasher>"
-                                   (!srcfileloc  "lto-streamer.h" 565)
+                                   (!srcfileloc  "lto-streamer.h" 568)
                                    (!fields 1 
                                     (!pair  "decl_state_hasher"
                                      (!type struct 360 nil  gc_used "decl_state_hasher"
-                                      (!srcfileloc  "lto-streamer.h" 565)
+                                      (!srcfileloc  "lto-streamer.h" 568)
                                       (!fields 0 )
                                       nil 4095 nil nil )
-                                     (!srcfileloc  "lto-streamer.h" 565)
+                                     (!srcfileloc  "lto-streamer.h" 568)
                                      nil )
                                    )
                                   )
                                  )
-                                 (!srcfileloc  "lto-streamer.h" 565)
+                                 (!srcfileloc  "lto-streamer.h" 568)
                                  nil )
                                 (!pair  "file_name"
                                  (!type already_seen 11)
-                                 (!srcfileloc  "lto-streamer.h" 568)
+                                 (!srcfileloc  "lto-streamer.h" 571)
                                  (!options 
                                   (!option skip string  "")
                                  )
@@ -7897,57 +7897,57 @@
                                    (!fields 0 )
                                    nil 0 nil nil )
                                  )
-                                 (!srcfileloc  "lto-streamer.h" 571)
+                                 (!srcfileloc  "lto-streamer.h" 574)
                                  (!options 
                                   (!option skip string  "")
                                  )
                                 )
                                 (!pair  "renaming_hash_table"
                                  (!type already_seen 361)
-                                 (!srcfileloc  "lto-streamer.h" 574)
+                                 (!srcfileloc  "lto-streamer.h" 577)
                                  (!options 
                                   (!option skip string  "")
                                  )
                                 )
                                 (!pair  "next"
                                  (!type already_seen 350)
-                                 (!srcfileloc  "lto-streamer.h" 577)
+                                 (!srcfileloc  "lto-streamer.h" 580)
                                  nil )
                                 (!pair  "order"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "lto-streamer.h" 580)
+                                 (!srcfileloc  "lto-streamer.h" 583)
                                  nil )
                                 (!pair  "id"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "lto-streamer.h" 583)
+                                 (!srcfileloc  "lto-streamer.h" 586)
                                  nil )
                                 (!pair  "respairs"
                                  (!type user_struct 363 nil  gc_unused "vec<res_pair>"
-                                  (!srcfileloc  "lto-streamer.h" 586)
+                                  (!srcfileloc  "lto-streamer.h" 589)
                                   (!fields 1 
                                    (!pair  "res_pair"
                                     (!type struct 364 nil  gc_unused "res_pair"
-                                     (!srcfileloc  "lto-streamer.h" 586)
+                                     (!srcfileloc  "lto-streamer.h" 589)
                                      (!fields 0 )
                                      nil 4095 nil nil )
-                                    (!srcfileloc  "lto-streamer.h" 586)
+                                    (!srcfileloc  "lto-streamer.h" 589)
                                     nil )
                                   )
                                  )
-                                 (!srcfileloc  "lto-streamer.h" 586)
+                                 (!srcfileloc  "lto-streamer.h" 589)
                                  (!options 
                                   (!option skip string  "")
                                  )
                                 )
                                 (!pair  "max_index"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "lto-streamer.h" 587)
+                                 (!srcfileloc  "lto-streamer.h" 590)
                                  nil )
                                 (!pair  "profile_info"
                                  (!type undefined 365 nil  gc_unused "gcov_summary"
-                                  (!srcfileloc  "lto-streamer.h" 589)
+                                  (!srcfileloc  "lto-streamer.h" 592)
                                  )
-                                 (!srcfileloc  "lto-streamer.h" 589)
+                                 (!srcfileloc  "lto-streamer.h" 592)
                                  (!options 
                                   (!option skip string  "")
                                  )
@@ -7957,48 +7957,48 @@
                                   (!type user_struct 367 
                                    (!type already_seen 366)
                                    gc_unused "hash_map<tree,ld_plugin_symbol_resolution>"
-                                   (!srcfileloc  "lto-streamer.h" 592)
+                                   (!srcfileloc  "lto-streamer.h" 595)
                                    (!fields 2 
                                     (!pair  "ld_plugin_symbol_resolution"
                                      (!type undefined 368 nil  gc_unused "ld_plugin_symbol_resolution"
-                                      (!srcfileloc  "lto-streamer.h" 592)
+                                      (!srcfileloc  "lto-streamer.h" 595)
                                      )
-                                     (!srcfileloc  "lto-streamer.h" 592)
+                                     (!srcfileloc  "lto-streamer.h" 595)
                                      nil )
                                     (!pair  "tree"
                                      (!type already_seen 23)
-                                     (!srcfileloc  "lto-streamer.h" 592)
+                                     (!srcfileloc  "lto-streamer.h" 595)
                                      nil )
                                    )
                                   )
                                  )
-                                 (!srcfileloc  "lto-streamer.h" 592)
+                                 (!srcfileloc  "lto-streamer.h" 595)
                                  (!options 
                                   (!option skip string  "")
                                  )
                                 )
                                 (!pair  "mode_table"
                                  (!type already_seen 11)
-                                 (!srcfileloc  "lto-streamer.h" 595)
+                                 (!srcfileloc  "lto-streamer.h" 598)
                                  nil )
                                 (!pair  "lto_section_header"
                                  (!type struct 369 nil  gc_used "lto_section"
-                                  (!srcfileloc  "lto-streamer.h" 598)
+                                  (!srcfileloc  "lto-streamer.h" 601)
                                   (!fields 0 )
                                   nil 4095 nil nil )
-                                 (!srcfileloc  "lto-streamer.h" 598)
+                                 (!srcfileloc  "lto-streamer.h" 601)
                                  nil )
                                 (!pair  "order_base"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "lto-streamer.h" 600)
+                                 (!srcfileloc  "lto-streamer.h" 603)
                                  nil )
                                 (!pair  "unit_base"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "lto-streamer.h" 602)
+                                 (!srcfileloc  "lto-streamer.h" 605)
                                  nil )
                                 (!pair  "mode_bits"
                                  (!type already_seen 2)
-                                 (!srcfileloc  "lto-streamer.h" 604)
+                                 (!srcfileloc  "lto-streamer.h" 607)
                                  nil )
                                )
                                nil 4095 nil nil )
@@ -9604,11 +9604,11 @@
                               nil )
                              
                              (!type struct 481 nil  gc_pointed_to "language_function"
-                              (!srcfileloc  "m2/gm2-lang.cc" 112)
+                              (!srcfileloc  "m2/gm2-lang.cc" 111)
                               (!fields 1 
                                (!pair  "stmt_tree"
                                 (!type already_seen 23)
-                                (!srcfileloc  "m2/gm2-lang.cc" 111)
+                                (!srcfileloc  "m2/gm2-lang.cc" 110)
                                 nil )
                               )
                               nil 256 
@@ -11884,11 +11884,11 @@
                           nil )
                          
                          (!type struct 574 nil  gc_pointed_to "lang_type"
-                          (!srcfileloc  "m2/gm2-lang.cc" 76)
+                          (!srcfileloc  "m2/gm2-lang.cc" 75)
                           (!fields 1 
                            (!pair  "dummy"
                             (!type already_seen 8)
-                            (!srcfileloc  "m2/gm2-lang.cc" 75)
+                            (!srcfileloc  "m2/gm2-lang.cc" 74)
                             nil )
                           )
                           nil 256 
@@ -15603,11 +15603,11 @@
                            nil )
                           
                           (!type struct 685 nil  gc_used "lang_identifier"
-                           (!srcfileloc  "m2/gm2-lang.cc" 91)
+                           (!srcfileloc  "m2/gm2-lang.cc" 90)
                            (!fields 1 
                             (!pair  "common"
                              (!type already_seen 50)
-                             (!srcfileloc  "m2/gm2-lang.cc" 90)
+                             (!srcfileloc  "m2/gm2-lang.cc" 89)
                              nil )
                            )
                            nil 256 
@@ -15978,11 +15978,11 @@
                      )
                      
                      (!type union 707 nil  gc_pointed_to "lang_tree_node"
-                      (!srcfileloc  "m2/gm2-lang.cc" 103)
+                      (!srcfileloc  "m2/gm2-lang.cc" 102)
                       (!fields 2 
                        (!pair  "generic"
                         (!type already_seen 22)
-                        (!srcfileloc  "m2/gm2-lang.cc" 101)
+                        (!srcfileloc  "m2/gm2-lang.cc" 100)
                         (!options 
                          (!option desc string  "tree_node_structure (&%h)")
                          (!option tag string  "0")
@@ -15990,7 +15990,7 @@
                        )
                        (!pair  "identifier"
                         (!type already_seen 680)
-                        (!srcfileloc  "m2/gm2-lang.cc" 102)
+                        (!srcfileloc  "m2/gm2-lang.cc" 101)
                         (!options 
                          (!option tag string  "1")
                         )
@@ -16697,27 +16697,27 @@
                        )
                        (!pair  "userdef_literal"
                         (!type struct 743 nil  gc_used "tree_userdef_literal"
-                         (!srcfileloc  "c-family/c-common.h" 1479)
+                         (!srcfileloc  "c-family/c-common.h" 1482)
                          (!fields 5 
                           (!pair  "base"
                            (!type already_seen 25)
-                           (!srcfileloc  "c-family/c-common.h" 1474)
+                           (!srcfileloc  "c-family/c-common.h" 1477)
                            nil )
                           (!pair  "suffix_id"
                            (!type already_seen 23)
-                           (!srcfileloc  "c-family/c-common.h" 1475)
+                           (!srcfileloc  "c-family/c-common.h" 1478)
                            nil )
                           (!pair  "value"
                            (!type already_seen 23)
-                           (!srcfileloc  "c-family/c-common.h" 1476)
+                           (!srcfileloc  "c-family/c-common.h" 1479)
                            nil )
                           (!pair  "num_string"
                            (!type already_seen 23)
-                           (!srcfileloc  "c-family/c-common.h" 1477)
+                           (!srcfileloc  "c-family/c-common.h" 1480)
                            nil )
                           (!pair  "overflow"
                            (!type already_seen 2)
-                           (!srcfileloc  "c-family/c-common.h" 1478)
+                           (!srcfileloc  "c-family/c-common.h" 1481)
                            nil )
                          )
                          nil 1542 nil nil )
@@ -24657,23 +24657,23 @@
   nil 0 nil nil )
  
  (!type struct 1454 nil  gc_pointed_to "inline_entry_data"
-  (!srcfileloc  "dwarf2out.cc" 24429)
+  (!srcfileloc  "dwarf2out.cc" 24430)
   (!fields 4 
    (!pair  "block"
     (!type already_seen 23)
-    (!srcfileloc  "dwarf2out.cc" 24421)
+    (!srcfileloc  "dwarf2out.cc" 24422)
     nil )
    (!pair  "label_pfx"
     (!type already_seen 11)
-    (!srcfileloc  "dwarf2out.cc" 24424)
+    (!srcfileloc  "dwarf2out.cc" 24425)
     nil )
    (!pair  "label_num"
     (!type already_seen 2)
-    (!srcfileloc  "dwarf2out.cc" 24425)
+    (!srcfileloc  "dwarf2out.cc" 24426)
     nil )
    (!pair  "view"
     (!type already_seen 2)
-    (!srcfileloc  "dwarf2out.cc" 24428)
+    (!srcfileloc  "dwarf2out.cc" 24429)
     nil )
   )
   (!options 
@@ -24682,7 +24682,7 @@
   4095 nil nil )
  
  (!type struct 1455 nil  gc_used "inline_entry_data_hasher"
-  (!srcfileloc  "dwarf2out.cc" 24455)
+  (!srcfileloc  "dwarf2out.cc" 24456)
   (!fields 0 )
   nil 4095 nil nil )
  
@@ -24691,26 +24691,26 @@
    (!type already_seen 1456)
   )
   gc_pointed_to "hash_table<inline_entry_data_hasher>"
-  (!srcfileloc  "dwarf2out.cc" 24455)
+  (!srcfileloc  "dwarf2out.cc" 24456)
   (!fields 1 
    (!pair  "inline_entry_data_hasher"
     (!type already_seen 1455)
-    (!srcfileloc  "dwarf2out.cc" 24455)
+    (!srcfileloc  "dwarf2out.cc" 24456)
     nil )
   )
  )
  
  (!type struct 1458 nil  gc_unused "macinfo_entry_hasher"
-  (!srcfileloc  "dwarf2out.cc" 29057)
+  (!srcfileloc  "dwarf2out.cc" 29058)
   (!fields 0 )
   nil 4095 nil nil )
  
  (!type user_struct 1459 nil  gc_unused "hash_table<macinfo_entry_hasher>"
-  (!srcfileloc  "dwarf2out.cc" 29057)
+  (!srcfileloc  "dwarf2out.cc" 29058)
   (!fields 1 
    (!pair  "macinfo_entry_hasher"
     (!type already_seen 1458)
-    (!srcfileloc  "dwarf2out.cc" 29057)
+    (!srcfileloc  "dwarf2out.cc" 29058)
     nil )
   )
  )
@@ -24720,16 +24720,16 @@
   nil 0 nil nil )
  
  (!type struct 1461 nil  gc_unused "loc_list_hasher"
-  (!srcfileloc  "dwarf2out.cc" 32133)
+  (!srcfileloc  "dwarf2out.cc" 32134)
   (!fields 0 )
   nil 4095 nil nil )
  
  (!type user_struct 1462 nil  gc_unused "hash_table<loc_list_hasher>"
-  (!srcfileloc  "dwarf2out.cc" 32133)
+  (!srcfileloc  "dwarf2out.cc" 32134)
   (!fields 1 
    (!pair  "loc_list_hasher"
     (!type already_seen 1461)
-    (!srcfileloc  "dwarf2out.cc" 32133)
+    (!srcfileloc  "dwarf2out.cc" 32134)
     nil )
   )
  )
@@ -27451,7 +27451,7 @@
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 1785 nil  gc_unused "anonymous:/__w/gcc_build/gcc_build/gcc/gcc/config/aarch64/aarch64.cc:19768"nil 
+ (!type struct 1785 nil  gc_unused "anonymous:/__w/gcc_build/gcc_build/gcc/gcc/config/aarch64/aarch64.cc:19764"nil 
   (!fields 0 )
   nil 0 nil nil )
  
@@ -29266,7 +29266,7 @@
   nil 0 nil nil )
  
  (!type undefined 2069 nil  gc_unused "wide_int_bitmask"
-  (!srcfileloc  "c-family/c-common.h" 1264)
+  (!srcfileloc  "c-family/c-common.h" 1267)
  )
  
  (!type struct 2070 nil  gc_unused "c_omp_address_inspector"nil 
@@ -29668,7 +29668,7 @@
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2118 nil  gc_unused "anonymous:/__w/gcc_build/gcc_build/gcc/gcc/c/c-parser.cc:9438"nil 
+ (!type struct 2118 nil  gc_unused "anonymous:/__w/gcc_build/gcc_build/gcc/gcc/c/c-parser.cc:9439"nil 
   (!fields 0 )
   nil 0 nil nil )
  
@@ -30511,7 +30511,7 @@
    (!type already_seen 2173)
   )
   gc_pointed_to "tinst_level"
-  (!srcfileloc  "cp/pt.cc" 9720)
+  (!srcfileloc  "cp/pt.cc" 9740)
   (!fields 8 
    (!pair  "next"
     (!type already_seen 2174)
@@ -30830,19 +30830,19 @@
   (!fields 4 
    (!pair  "decl"
     (!type already_seen 23)
-    (!srcfileloc  "cp/cp-tree.h" 8676)
+    (!srcfileloc  "cp/cp-tree.h" 8677)
     nil )
    (!pair  "body"
     (!type already_seen 23)
-    (!srcfileloc  "cp/cp-tree.h" 8677)
+    (!srcfileloc  "cp/cp-tree.h" 8678)
     nil )
    (!pair  "parms"
     (!type already_seen 23)
-    (!srcfileloc  "cp/cp-tree.h" 8678)
+    (!srcfileloc  "cp/cp-tree.h" 8679)
     nil )
    (!pair  "result"
     (!type already_seen 23)
-    (!srcfileloc  "cp/cp-tree.h" 8679)
+    (!srcfileloc  "cp/cp-tree.h" 8680)
     nil )
   )
   (!options 
@@ -31339,15 +31339,15 @@
    (!type already_seen 2235)
   )
   gc_pointed_to "hash_map<tree,int>"
-  (!srcfileloc  "cp/class.cc" 3642)
+  (!srcfileloc  "cp/class.cc" 3647)
   (!fields 2 
    (!pair  "int"
     (!type already_seen 402)
-    (!srcfileloc  "cp/class.cc" 3642)
+    (!srcfileloc  "cp/class.cc" 3647)
     nil )
    (!pair  "tree"
     (!type already_seen 23)
-    (!srcfileloc  "cp/class.cc" 3642)
+    (!srcfileloc  "cp/class.cc" 3647)
     nil )
   )
  )
@@ -31510,39 +31510,39 @@
  )
  
  (!type struct 2259 nil  gc_pointed_to "sat_entry"
-  (!srcfileloc  "cp/constraint.cc" 2010)
+  (!srcfileloc  "cp/constraint.cc" 2011)
   (!fields 8 
    (!pair  "atom"
     (!type already_seen 23)
-    (!srcfileloc  "cp/constraint.cc" 1980)
+    (!srcfileloc  "cp/constraint.cc" 1981)
     nil )
    (!pair  "args"
     (!type already_seen 23)
-    (!srcfileloc  "cp/constraint.cc" 1983)
+    (!srcfileloc  "cp/constraint.cc" 1984)
     nil )
    (!pair  "result"
     (!type already_seen 23)
-    (!srcfileloc  "cp/constraint.cc" 1990)
+    (!srcfileloc  "cp/constraint.cc" 1991)
     nil )
    (!pair  "location"
     (!type already_seen 2)
-    (!srcfileloc  "cp/constraint.cc" 1994)
+    (!srcfileloc  "cp/constraint.cc" 1995)
     nil )
    (!pair  "ftc_begin"
     (!type already_seen 2)
-    (!srcfileloc  "cp/constraint.cc" 1999)
+    (!srcfileloc  "cp/constraint.cc" 2000)
     nil )
    (!pair  "ftc_end"
     (!type already_seen 2)
-    (!srcfileloc  "cp/constraint.cc" 1999)
+    (!srcfileloc  "cp/constraint.cc" 2000)
     nil )
    (!pair  "diagnose_instability"
     (!type already_seen 2)
-    (!srcfileloc  "cp/constraint.cc" 2004)
+    (!srcfileloc  "cp/constraint.cc" 2005)
     nil )
    (!pair  "evaluating"
     (!type already_seen 2)
-    (!srcfileloc  "cp/constraint.cc" 2009)
+    (!srcfileloc  "cp/constraint.cc" 2010)
     nil )
   )
   (!options 
@@ -31551,7 +31551,7 @@
   1028 nil nil )
  
  (!type struct 2260 nil  gc_used "sat_hasher"
-  (!srcfileloc  "cp/constraint.cc" 2088)
+  (!srcfileloc  "cp/constraint.cc" 2089)
   (!fields 0 )
   nil 1028 nil nil )
  
@@ -31560,11 +31560,11 @@
    (!type already_seen 2261)
   )
   gc_pointed_to "hash_table<sat_hasher>"
-  (!srcfileloc  "cp/constraint.cc" 2088)
+  (!srcfileloc  "cp/constraint.cc" 2089)
   (!fields 1 
    (!pair  "sat_hasher"
     (!type already_seen 2260)
-    (!srcfileloc  "cp/constraint.cc" 2088)
+    (!srcfileloc  "cp/constraint.cc" 2089)
     nil )
   )
  )
@@ -31831,7 +31831,7 @@
   nil 0 nil nil )
  
  (!type struct 2292 nil  gc_used "typename_hasher"
-  (!srcfileloc  "cp/decl.cc" 4358)
+  (!srcfileloc  "cp/decl.cc" 4374)
   (!fields 0 )
   nil 1028 nil nil )
  
@@ -31840,11 +31840,11 @@
    (!type already_seen 2293)
   )
   gc_pointed_to "hash_table<typename_hasher>"
-  (!srcfileloc  "cp/decl.cc" 4358)
+  (!srcfileloc  "cp/decl.cc" 4374)
   (!fields 1 
    (!pair  "typename_hasher"
     (!type already_seen 2292)
-    (!srcfileloc  "cp/decl.cc" 4358)
+    (!srcfileloc  "cp/decl.cc" 4374)
     nil )
   )
  )
@@ -31857,39 +31857,43 @@
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2297 nil  gc_used "mangled_decl_hash"
+ (!type struct 2297 nil  gc_unused "decomp_cleanup"nil 
+  (!fields 0 )
+  nil 0 nil nil )
+ 
+ (!type struct 2298 nil  gc_used "mangled_decl_hash"
   (!srcfileloc  "cp/decl2.cc" 128)
   (!fields 0 )
   nil 1028 nil nil )
  
- (!type user_struct 2298 
-  (!type pointer 2299 nil  gc_used
-   (!type already_seen 2298)
+ (!type user_struct 2299 
+  (!type pointer 2300 nil  gc_used
+   (!type already_seen 2299)
   )
   gc_pointed_to "hash_table<mangled_decl_hash>"
   (!srcfileloc  "cp/decl2.cc" 128)
   (!fields 1 
    (!pair  "mangled_decl_hash"
-    (!type already_seen 2297)
+    (!type already_seen 2298)
     (!srcfileloc  "cp/decl2.cc" 128)
     nil )
   )
  )
  
- (!type struct 2300 nil  gc_used "priority_map_traits"
+ (!type struct 2301 nil  gc_used "priority_map_traits"
   (!srcfileloc  "cp/decl2.cc" 169)
   (!fields 0 )
   nil 1028 nil nil )
  
- (!type user_struct 2301 
-  (!type pointer 2302 nil  gc_used
-   (!type already_seen 2301)
+ (!type user_struct 2302 
+  (!type pointer 2303 nil  gc_used
+   (!type already_seen 2302)
   )
   gc_pointed_to "hash_map<unsigned,tree,priority_map_traits>"
   (!srcfileloc  "cp/decl2.cc" 169)
   (!fields 3 
    (!pair  "priority_map_traits"
-    (!type already_seen 2300)
+    (!type already_seen 2301)
     (!srcfileloc  "cp/decl2.cc" 169)
     nil )
    (!pair  "tree"
@@ -31903,150 +31907,150 @@
   )
  )
  
- (!type struct 2303 nil  gc_used "pending_noexcept"
-  (!srcfileloc  "cp/except.cc" 1115)
+ (!type struct 2304 nil  gc_used "pending_noexcept"
+  (!srcfileloc  "cp/except.cc" 1116)
   (!fields 2 
    (!pair  "fn"
     (!type already_seen 23)
-    (!srcfileloc  "cp/except.cc" 1112)
+    (!srcfileloc  "cp/except.cc" 1113)
     nil )
    (!pair  "loc"
     (!type already_seen 2)
-    (!srcfileloc  "cp/except.cc" 1113)
+    (!srcfileloc  "cp/except.cc" 1114)
     nil )
   )
   nil 1028 nil nil )
  
- (!type user_struct 2304 
-  (!type pointer 2305 nil  gc_used
-   (!type already_seen 2304)
+ (!type user_struct 2305 
+  (!type pointer 2306 nil  gc_used
+   (!type already_seen 2305)
   )
   gc_pointed_to "vec<pending_noexcept,va_gc>"
-  (!srcfileloc  "cp/except.cc" 1115)
+  (!srcfileloc  "cp/except.cc" 1116)
   (!fields 2 
    (!pair  "va_gc"
     (!type already_seen 79)
-    (!srcfileloc  "cp/except.cc" 1115)
+    (!srcfileloc  "cp/except.cc" 1116)
     nil )
    (!pair  "pending_noexcept"
-    (!type already_seen 2303)
-    (!srcfileloc  "cp/except.cc" 1115)
+    (!type already_seen 2304)
+    (!srcfileloc  "cp/except.cc" 1116)
     nil )
   )
  )
  
- (!type struct 2306 nil  gc_unused "find_uninit_data"nil 
+ (!type struct 2307 nil  gc_unused "find_uninit_data"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2307 nil  gc_used "lambda_sig_count"
-  (!srcfileloc  "cp/lambda.cc" 1496)
+ (!type struct 2308 nil  gc_used "lambda_sig_count"
+  (!srcfileloc  "cp/lambda.cc" 1499)
   (!fields 2 
    (!pair  "fn"
     (!type already_seen 23)
-    (!srcfileloc  "cp/lambda.cc" 1487)
+    (!srcfileloc  "cp/lambda.cc" 1490)
     nil )
    (!pair  "count"
     (!type already_seen 2)
-    (!srcfileloc  "cp/lambda.cc" 1488)
+    (!srcfileloc  "cp/lambda.cc" 1491)
     nil )
   )
   nil 1028 nil nil )
  
- (!type user_struct 2308 
-  (!type pointer 2309 nil  gc_used
-   (!type already_seen 2308)
+ (!type user_struct 2309 
+  (!type pointer 2310 nil  gc_used
+   (!type already_seen 2309)
   )
   gc_pointed_to "vec<lambda_sig_count,va_gc>"
-  (!srcfileloc  "cp/lambda.cc" 1496)
+  (!srcfileloc  "cp/lambda.cc" 1499)
   (!fields 2 
    (!pair  "va_gc"
     (!type already_seen 79)
-    (!srcfileloc  "cp/lambda.cc" 1496)
+    (!srcfileloc  "cp/lambda.cc" 1499)
     nil )
    (!pair  "lambda_sig_count"
-    (!type already_seen 2307)
-    (!srcfileloc  "cp/lambda.cc" 1496)
+    (!type already_seen 2308)
+    (!srcfileloc  "cp/lambda.cc" 1499)
     nil )
   )
  )
  
- (!type struct 2310 nil  gc_used "lambda_discriminator"
-  (!srcfileloc  "cp/lambda.cc" 1499)
+ (!type struct 2311 nil  gc_used "lambda_discriminator"
+  (!srcfileloc  "cp/lambda.cc" 1502)
   (!fields 4 
    (!pair  "scope"
     (!type already_seen 23)
-    (!srcfileloc  "cp/lambda.cc" 1492)
+    (!srcfileloc  "cp/lambda.cc" 1495)
     nil )
    (!pair  "nesting"
     (!type already_seen 2)
-    (!srcfileloc  "cp/lambda.cc" 1493)
+    (!srcfileloc  "cp/lambda.cc" 1496)
     nil )
    (!pair  "count"
     (!type already_seen 2)
-    (!srcfileloc  "cp/lambda.cc" 1495)
+    (!srcfileloc  "cp/lambda.cc" 1498)
     nil )
    (!pair  "discriminators"
-    (!type already_seen 2309)
-    (!srcfileloc  "cp/lambda.cc" 1496)
+    (!type already_seen 2310)
+    (!srcfileloc  "cp/lambda.cc" 1499)
     nil )
   )
   nil 1028 nil nil )
  
- (!type user_struct 2311 
-  (!type pointer 2312 nil  gc_used
-   (!type already_seen 2311)
+ (!type user_struct 2312 
+  (!type pointer 2313 nil  gc_used
+   (!type already_seen 2312)
   )
   gc_pointed_to "vec<lambda_discriminator,va_gc>"
-  (!srcfileloc  "cp/lambda.cc" 1501)
+  (!srcfileloc  "cp/lambda.cc" 1504)
   (!fields 2 
    (!pair  "va_gc"
     (!type already_seen 79)
-    (!srcfileloc  "cp/lambda.cc" 1501)
+    (!srcfileloc  "cp/lambda.cc" 1504)
     nil )
    (!pair  "lambda_discriminator"
-    (!type already_seen 2310)
-    (!srcfileloc  "cp/lambda.cc" 1501)
+    (!type already_seen 2311)
+    (!srcfileloc  "cp/lambda.cc" 1504)
     nil )
   )
  )
  
- (!type struct 2313 nil  gc_unused "impl_files"nil 
+ (!type struct 2314 nil  gc_unused "impl_files"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2314 nil  gc_unused "module_token_filter"nil 
+ (!type struct 2315 nil  gc_unused "module_token_filter"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2315 nil  gc_used "conv_type_hasher"
-  (!srcfileloc  "cp/lex.cc" 855)
+ (!type struct 2316 nil  gc_used "conv_type_hasher"
+  (!srcfileloc  "cp/lex.cc" 856)
   (!fields 0 )
   nil 1028 nil nil )
  
- (!type user_struct 2316 
-  (!type pointer 2317 nil  gc_used
-   (!type already_seen 2316)
+ (!type user_struct 2317 
+  (!type pointer 2318 nil  gc_used
+   (!type already_seen 2317)
   )
   gc_pointed_to "hash_table<conv_type_hasher>"
-  (!srcfileloc  "cp/lex.cc" 855)
+  (!srcfileloc  "cp/lex.cc" 856)
   (!fields 1 
    (!pair  "conv_type_hasher"
-    (!type already_seen 2315)
-    (!srcfileloc  "cp/lex.cc" 855)
+    (!type already_seen 2316)
+    (!srcfileloc  "cp/lex.cc" 856)
     nil )
   )
  )
  
- (!type struct 2318 nil  gc_unused "clause"nil 
+ (!type struct 2319 nil  gc_unused "clause"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2319 nil  gc_unused "formula"nil 
+ (!type struct 2320 nil  gc_unused "formula"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2320 nil  gc_pointed_to "subsumption_entry"
+ (!type struct 2321 nil  gc_pointed_to "subsumption_entry"
   (!srcfileloc  "cp/logic.cc" 724)
   (!fields 3 
    (!pair  "lhs"
@@ -32067,26 +32071,26 @@
   )
   1028 nil nil )
  
- (!type struct 2321 nil  gc_used "subsumption_hasher"
+ (!type struct 2322 nil  gc_used "subsumption_hasher"
   (!srcfileloc  "cp/logic.cc" 750)
   (!fields 0 )
   nil 1028 nil nil )
  
- (!type user_struct 2322 
-  (!type pointer 2323 nil  gc_used
-   (!type already_seen 2322)
+ (!type user_struct 2323 
+  (!type pointer 2324 nil  gc_used
+   (!type already_seen 2323)
   )
   gc_pointed_to "hash_table<subsumption_hasher>"
   (!srcfileloc  "cp/logic.cc" 750)
   (!fields 1 
    (!pair  "subsumption_hasher"
-    (!type already_seen 2321)
+    (!type already_seen 2322)
     (!srcfileloc  "cp/logic.cc" 750)
     nil )
   )
  )
  
- (!type struct 2324 nil  gc_used "globals"
+ (!type struct 2325 nil  gc_used "globals"
   (!srcfileloc  "cp/mangle.cc" 126)
   (!fields 6 
    (!pair  "substitutions"
@@ -32119,19 +32123,19 @@
   )
   nil 1028 nil nil )
  
- (!type struct 2325 nil  gc_unused "comp_cat_info_t"nil 
+ (!type struct 2326 nil  gc_unused "comp_cat_info_t"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2326 nil  gc_unused "comp_info"nil 
+ (!type struct 2327 nil  gc_unused "comp_info"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2327 nil  gc_unused "nodel_ptr_hash"nil 
+ (!type struct 2328 nil  gc_unused "nodel_ptr_hash"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type user_struct 2328 nil  gc_unused "simple_hashmap_traits<nodel_ptr_hash<void>,int>"
+ (!type user_struct 2329 nil  gc_unused "simple_hashmap_traits<nodel_ptr_hash<void>,int>"
   (!srcfileloc  "cp/module.cc" 339)
   (!fields 2 
    (!pair  "int"
@@ -32139,7 +32143,7 @@
     (!srcfileloc  "cp/module.cc" 339)
     nil )
    (!pair  "nodel_ptr_hash<void"
-    (!type user_struct 2329 nil  gc_unused "nodel_ptr_hash<void"
+    (!type user_struct 2330 nil  gc_unused "nodel_ptr_hash<void"
      (!srcfileloc  "cp/module.cc" 339)
      (!fields 1 
       (!pair  "void"
@@ -32153,25 +32157,25 @@
   )
  )
  
- (!type already_seen 2329)
+ (!type already_seen 2330)
  
- (!type user_struct 2330 nil  gc_unused "hash_map<void*,signed,ptr_int_traits>"
+ (!type user_struct 2331 nil  gc_unused "hash_map<void*,signed,ptr_int_traits>"
   (!srcfileloc  "cp/module.cc" 340)
   (!fields 3 
    (!pair  "ptr_int_traits"
-    (!type already_seen 2328)
+    (!type already_seen 2329)
     (!srcfileloc  "cp/module.cc" 340)
     nil )
    (!pair  "signed"
-    (!type undefined 2331 nil  gc_unused "signed"
+    (!type undefined 2332 nil  gc_unused "signed"
      (!srcfileloc  "cp/module.cc" 340)
     )
     (!srcfileloc  "cp/module.cc" 340)
     nil )
    (!pair  "void"
-    (!type pointer 2332 nil  gc_unused
-     (!type struct 2333 
-      (!type already_seen 2332)
+    (!type pointer 2333 nil  gc_unused
+     (!type struct 2334 
+      (!type already_seen 2333)
       gc_unused "void"nil 
       (!fields 0 )
       nil 0 nil nil )
@@ -32181,11 +32185,11 @@
   )
  )
  
- (!type already_seen 2333)
+ (!type already_seen 2334)
  
- (!type already_seen 2331)
+ (!type already_seen 2332)
  
- (!type struct 2334 nil  gc_unused "data"nil 
+ (!type struct 2335 nil  gc_unused "data"nil 
   (!fields 0 )
   nil 0 nil nil )
  
@@ -32193,44 +32197,44 @@
  
  (!type already_seen 2186)
  
- (!type struct 2335 nil  gc_unused "elf_out"nil 
+ (!type struct 2336 nil  gc_unused "elf_out"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2336 nil  gc_unused "bytes_out"nil 
+ (!type struct 2337 nil  gc_unused "bytes_out"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2337 nil  gc_unused "bytes_in::bits_in"nil 
+ (!type struct 2338 nil  gc_unused "bytes_in::bits_in"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2338 nil  gc_unused "bytes_out::bits_out"nil 
+ (!type struct 2339 nil  gc_unused "bytes_out::bits_out"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2339 nil  gc_unused "elf"nil 
+ (!type struct 2340 nil  gc_unused "elf"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2340 nil  gc_unused "stat"nil 
+ (!type struct 2341 nil  gc_unused "stat"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2341 nil  gc_unused "depset"nil 
+ (!type struct 2342 nil  gc_unused "depset"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2342 nil  gc_unused "pending_key"
+ (!type struct 2343 nil  gc_unused "pending_key"
   (!srcfileloc  "cp/module.cc" 2717)
   (!fields 0 )
   nil 1028 nil nil )
  
- (!type user_struct 2343 nil  gc_unused "hash_map<pending_key,auto_vec<unsigned>>"
+ (!type user_struct 2344 nil  gc_unused "hash_map<pending_key,auto_vec<unsigned>>"
   (!srcfileloc  "cp/module.cc" 2717)
   (!fields 2 
    (!pair  "auto_vec<unsigned"
-    (!type user_struct 2344 nil  gc_unused "auto_vec<unsigned"
+    (!type user_struct 2345 nil  gc_unused "auto_vec<unsigned"
      (!srcfileloc  "cp/module.cc" 2717)
      (!fields 1 
       (!pair  "unsigned"
@@ -32242,19 +32246,19 @@
     (!srcfileloc  "cp/module.cc" 2717)
     nil )
    (!pair  "pending_key"
-    (!type already_seen 2342)
+    (!type already_seen 2343)
     (!srcfileloc  "cp/module.cc" 2717)
     nil )
   )
  )
  
- (!type already_seen 2344)
+ (!type already_seen 2345)
  
- (!type user_struct 2345 nil  gc_unused "hash_map<tree,auto_vec<tree>>"
+ (!type user_struct 2346 nil  gc_unused "hash_map<tree,auto_vec<tree>>"
   (!srcfileloc  "cp/module.cc" 2730)
   (!fields 2 
    (!pair  "auto_vec<tree"
-    (!type user_struct 2346 nil  gc_unused "auto_vec<tree"
+    (!type user_struct 2347 nil  gc_unused "auto_vec<tree"
      (!srcfileloc  "cp/module.cc" 2730)
      (!fields 1 
       (!pair  "tree"
@@ -32272,13 +32276,13 @@
   )
  )
  
- (!type already_seen 2346)
+ (!type already_seen 2347)
  
- (!type struct 2347 nil  gc_unused "merge_key"nil 
+ (!type struct 2348 nil  gc_unused "merge_key"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type user_struct 2348 nil  gc_unused "hash_map<tree,uintptr_t,simple_hashmap_traits<nodel_ptr_hash<tree_node>,uintptr_t>>"
+ (!type user_struct 2349 nil  gc_unused "hash_map<tree,uintptr_t,simple_hashmap_traits<nodel_ptr_hash<tree_node>,uintptr_t>>"
   (!srcfileloc  "cp/module.cc" 2864)
   (!fields 4 
    (!pair  "uintptr_t"
@@ -32286,15 +32290,15 @@
     (!srcfileloc  "cp/module.cc" 2864)
     nil )
    (!pair  "simple_hashmap_traits<nodel_ptr_hash<tree_node"
-    (!type user_struct 2349 nil  gc_unused "simple_hashmap_traits<nodel_ptr_hash<tree_node"
+    (!type user_struct 2350 nil  gc_unused "simple_hashmap_traits<nodel_ptr_hash<tree_node"
      (!srcfileloc  "cp/module.cc" 2864)
      (!fields 1 
       (!pair  "nodel_ptr_hash<tree_node"
-       (!type user_struct 2350 nil  gc_unused "nodel_ptr_hash<tree_node"
+       (!type user_struct 2351 nil  gc_unused "nodel_ptr_hash<tree_node"
         (!srcfileloc  "cp/module.cc" 2864)
         (!fields 1 
          (!pair  "tree_node"
-          (!type undefined 2351 nil  gc_unused "tree_node"
+          (!type undefined 2352 nil  gc_unused "tree_node"
            (!srcfileloc  "cp/module.cc" 2864)
           )
           (!srcfileloc  "cp/module.cc" 2864)
@@ -32318,21 +32322,21 @@
   )
  )
  
- (!type already_seen 2349)
- 
  (!type already_seen 2350)
  
  (!type already_seen 2351)
  
- (!type struct 2352 nil  gc_unused "post_process_data"nil 
+ (!type already_seen 2352)
+ 
+ (!type struct 2353 nil  gc_unused "post_process_data"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2353 nil  gc_unused "trees_in"nil 
+ (!type struct 2354 nil  gc_unused "trees_in"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2354 nil  gc_unused "trees_out"nil 
+ (!type struct 2355 nil  gc_unused "trees_out"nil 
   (!fields 0 )
   nil 0 nil nil )
  
@@ -32340,23 +32344,23 @@
  
  (!type already_seen 2188)
  
- (!type struct 2355 nil  gc_unused "loc_spans"nil 
+ (!type struct 2356 nil  gc_unused "loc_spans"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2356 nil  gc_unused "ord_loc_info"nil 
+ (!type struct 2357 nil  gc_unused "ord_loc_info"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2357 nil  gc_unused "ord_loc_traits"nil 
+ (!type struct 2358 nil  gc_unused "ord_loc_traits"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2358 nil  gc_unused "macro_loc_info"nil 
+ (!type struct 2359 nil  gc_unused "macro_loc_info"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2359 nil  gc_unused "macro_loc_traits"nil 
+ (!type struct 2360 nil  gc_unused "macro_loc_traits"nil 
   (!fields 0 )
   nil 0 nil nil )
  
@@ -32366,13 +32370,13 @@
  
  (!type already_seen 2180)
  
- (!type struct 2360 nil  gc_unused "module_state_config"nil 
+ (!type struct 2361 nil  gc_unused "module_state_config"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type user_struct 2361 
-  (!type pointer 2362 nil  gc_unused
-   (!type already_seen 2361)
+ (!type user_struct 2362 
+  (!type pointer 2363 nil  gc_unused
+   (!type already_seen 2362)
   )
   gc_unused "vec<cpp_hashnode*>"
   (!srcfileloc  "cp/module.cc" 3779)
@@ -32384,14 +32388,14 @@
   )
  )
  
- (!type struct 2363 nil  gc_used "module_state_hash"
+ (!type struct 2364 nil  gc_used "module_state_hash"
   (!srcfileloc  "cp/module.cc" 3980)
   (!fields 0 )
   nil 1028 nil nil )
  
- (!type user_struct 2364 
-  (!type pointer 2365 nil  gc_used
-   (!type already_seen 2364)
+ (!type user_struct 2365 
+  (!type pointer 2366 nil  gc_used
+   (!type already_seen 2365)
   )
   gc_pointed_to "vec<module_state*,va_gc>"
   (!srcfileloc  "cp/module.cc" 3977)
@@ -32407,21 +32411,21 @@
   )
  )
  
- (!type user_struct 2366 
-  (!type pointer 2367 nil  gc_used
-   (!type already_seen 2366)
+ (!type user_struct 2367 
+  (!type pointer 2368 nil  gc_used
+   (!type already_seen 2367)
   )
   gc_pointed_to "hash_table<module_state_hash>"
   (!srcfileloc  "cp/module.cc" 3980)
   (!fields 1 
    (!pair  "module_state_hash"
-    (!type already_seen 2363)
+    (!type already_seen 2364)
     (!srcfileloc  "cp/module.cc" 3980)
     nil )
   )
  )
  
- (!type user_struct 2368 nil  gc_unused "hash_map<unsigned,unsigned,simple_hashmap_traits<int_hash<unsigned,0>,unsigned>>"
+ (!type user_struct 2369 nil  gc_unused "hash_map<unsigned,unsigned,simple_hashmap_traits<int_hash<unsigned,0>,unsigned>>"
   (!srcfileloc  "cp/module.cc" 3986)
   (!fields 5 
    (!pair  "unsigned"
@@ -32429,17 +32433,17 @@
     (!srcfileloc  "cp/module.cc" 3986)
     nil )
    (!pair  "0"
-    (!type undefined 2369 nil  gc_unused "0"
+    (!type undefined 2370 nil  gc_unused "0"
      (!srcfileloc  "cp/module.cc" 3986)
     )
     (!srcfileloc  "cp/module.cc" 3986)
     nil )
    (!pair  "simple_hashmap_traits<int_hash<unsigned"
-    (!type user_struct 2370 nil  gc_unused "simple_hashmap_traits<int_hash<unsigned"
+    (!type user_struct 2371 nil  gc_unused "simple_hashmap_traits<int_hash<unsigned"
      (!srcfileloc  "cp/module.cc" 3986)
      (!fields 1 
       (!pair  "int_hash<unsigned"
-       (!type user_struct 2371 nil  gc_unused "int_hash<unsigned"
+       (!type user_struct 2372 nil  gc_unused "int_hash<unsigned"
         (!srcfileloc  "cp/module.cc" 3986)
         (!fields 1 
          (!pair  "unsigned"
@@ -32465,168 +32469,168 @@
   )
  )
  
- (!type already_seen 2370)
- 
  (!type already_seen 2371)
  
- (!type already_seen 2369)
+ (!type already_seen 2372)
  
- (!type struct 2372 nil  gc_unused "dumper"nil 
+ (!type already_seen 2370)
+ 
+ (!type struct 2373 nil  gc_unused "dumper"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2373 nil  gc_used "note_def_cache_hasher"
+ (!type struct 2374 nil  gc_used "note_def_cache_hasher"
   (!srcfileloc  "cp/module.cc" 4644)
   (!fields 0 )
   nil 1028 nil nil )
  
- (!type user_struct 2374 
-  (!type pointer 2375 nil  gc_used
-   (!type already_seen 2374)
+ (!type user_struct 2375 
+  (!type pointer 2376 nil  gc_used
+   (!type already_seen 2375)
   )
   gc_pointed_to "hash_table<note_def_cache_hasher>"
   (!srcfileloc  "cp/module.cc" 4644)
   (!fields 1 
    (!pair  "note_def_cache_hasher"
-    (!type already_seen 2373)
+    (!type already_seen 2374)
     (!srcfileloc  "cp/module.cc" 4644)
     nil )
   )
  )
  
- (!type struct 2376 nil  gc_unused "add_binding_data"nil 
+ (!type struct 2377 nil  gc_unused "add_binding_data"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2377 nil  gc_unused "tm"nil 
+ (!type struct 2378 nil  gc_unused "tm"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2378 nil  gc_used "macro_export"
-  (!srcfileloc  "cp/module.cc" 17279)
+ (!type struct 2379 nil  gc_used "macro_export"
+  (!srcfileloc  "cp/module.cc" 17282)
   (!fields 2 
    (!pair  "def"
     (!type already_seen 19)
-    (!srcfileloc  "cp/module.cc" 17272)
+    (!srcfileloc  "cp/module.cc" 17275)
     nil )
    (!pair  "undef_loc"
     (!type already_seen 2)
-    (!srcfileloc  "cp/module.cc" 17273)
+    (!srcfileloc  "cp/module.cc" 17276)
     nil )
   )
   nil 1028 nil nil )
  
- (!type struct 2379 nil  gc_unused "macro_import"nil 
+ (!type struct 2380 nil  gc_unused "macro_import"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type user_struct 2380 
-  (!type pointer 2381 nil  gc_used
-   (!type already_seen 2380)
+ (!type user_struct 2381 
+  (!type pointer 2382 nil  gc_used
+   (!type already_seen 2381)
   )
   gc_pointed_to "vec<macro_export,va_gc>"
-  (!srcfileloc  "cp/module.cc" 17436)
+  (!srcfileloc  "cp/module.cc" 17439)
   (!fields 2 
    (!pair  "va_gc"
     (!type already_seen 79)
-    (!srcfileloc  "cp/module.cc" 17436)
+    (!srcfileloc  "cp/module.cc" 17439)
     nil )
    (!pair  "macro_export"
-    (!type already_seen 2378)
-    (!srcfileloc  "cp/module.cc" 17436)
+    (!type already_seen 2379)
+    (!srcfileloc  "cp/module.cc" 17439)
     nil )
   )
  )
  
- (!type struct 2382 nil  gc_unused "rlimit"nil 
+ (!type struct 2383 nil  gc_unused "rlimit"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2383 nil  gc_unused "module_processing_cookie"nil 
+ (!type struct 2384 nil  gc_unused "module_processing_cookie"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2384 nil  gc_unused "name_lookup"nil 
+ (!type struct 2385 nil  gc_unused "name_lookup"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2385 nil  gc_unused "namespace_limit_reached"nil 
+ (!type struct 2386 nil  gc_unused "namespace_limit_reached"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2386 nil  gc_unused "show_candidate_location"nil 
+ (!type struct 2387 nil  gc_unused "show_candidate_location"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2387 nil  gc_unused "suggest_alternatives"nil 
+ (!type struct 2388 nil  gc_unused "suggest_alternatives"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2388 nil  gc_unused "namespace_hints"nil 
+ (!type struct 2389 nil  gc_unused "namespace_hints"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2389 nil  gc_unused "missing_std_header"nil 
+ (!type struct 2390 nil  gc_unused "missing_std_header"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2390 nil  gc_unused "macro_use_before_def"nil 
+ (!type struct 2391 nil  gc_unused "macro_use_before_def"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2391 nil  gc_unused "local_state_t"nil 
+ (!type struct 2392 nil  gc_unused "local_state_t"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2392 nil  gc_unused "type_id_in_expr_sentinel"nil 
+ (!type struct 2393 nil  gc_unused "type_id_in_expr_sentinel"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2393 nil  gc_unused "saved_token_sentinel"nil 
+ (!type struct 2394 nil  gc_unused "saved_token_sentinel"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2394 nil  gc_unused "cp_parser_binary_operations_map_node"nil 
+ (!type struct 2395 nil  gc_unused "cp_parser_binary_operations_map_node"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2395 nil  gc_unused "cp_parser_expression_stack_entry"nil 
+ (!type struct 2396 nil  gc_unused "cp_parser_expression_stack_entry"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2396 nil  gc_unused "tentative_firewall"nil 
+ (!type struct 2397 nil  gc_unused "tentative_firewall"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2397 nil  gc_unused "cp_omp_attribute_data"nil 
+ (!type struct 2398 nil  gc_unused "cp_omp_attribute_data"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2398 nil  gc_unused "scope_sentinel"nil 
+ (!type struct 2399 nil  gc_unused "scope_sentinel"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2399 nil  gc_unused "class_decl_loc_t"nil 
+ (!type struct 2400 nil  gc_unused "class_decl_loc_t"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type undefined 2400 nil  gc_unused "class_to_loc_map_t::iterator"
-  (!srcfileloc  "cp/parser.cc" 35592)
+ (!type undefined 2401 nil  gc_unused "class_to_loc_map_t::iterator"
+  (!srcfileloc  "cp/parser.cc" 35627)
  )
  
- (!type struct 2401 nil  gc_unused "sit_data"nil 
+ (!type struct 2402 nil  gc_unused "sit_data"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2402 
-  (!type pointer 2403 nil  gc_used
-   (!type already_seen 2402)
+ (!type struct 2403 
+  (!type pointer 2404 nil  gc_used
+   (!type already_seen 2403)
   )
   gc_pointed_to "pending_template"
-  (!srcfileloc  "cp/pt.cc" 9729)
+  (!srcfileloc  "cp/pt.cc" 9749)
   (!fields 2 
    (!pair  "next"
-    (!type already_seen 2403)
+    (!type already_seen 2404)
     (!srcfileloc  "cp/pt.cc" 61)
     nil )
    (!pair  "tinst"
@@ -32639,113 +32643,113 @@
   )
   1028 nil nil )
  
- (!type struct 2404 nil  gc_used "spec_hasher"
+ (!type struct 2405 nil  gc_used "spec_hasher"
   (!srcfileloc  "cp/pt.cc" 118)
   (!fields 0 )
   nil 1028 nil nil )
  
- (!type user_struct 2405 
-  (!type pointer 2406 nil  gc_used
-   (!type already_seen 2405)
+ (!type user_struct 2406 
+  (!type pointer 2407 nil  gc_used
+   (!type already_seen 2406)
   )
   gc_pointed_to "hash_table<spec_hasher>"
   (!srcfileloc  "cp/pt.cc" 118)
   (!fields 1 
    (!pair  "spec_hasher"
-    (!type already_seen 2404)
+    (!type already_seen 2405)
     (!srcfileloc  "cp/pt.cc" 118)
     nil )
   )
  )
  
- (!type struct 2407 nil  gc_unused "find_parameter_pack_data"nil 
+ (!type struct 2408 nil  gc_unused "find_parameter_pack_data"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2408 nil  gc_used "ctp_hasher"
-  (!srcfileloc  "cp/pt.cc" 4521)
+ (!type struct 2409 nil  gc_used "ctp_hasher"
+  (!srcfileloc  "cp/pt.cc" 4526)
   (!fields 0 )
   nil 1028 nil nil )
  
- (!type user_struct 2409 
-  (!type pointer 2410 nil  gc_used
-   (!type already_seen 2409)
+ (!type user_struct 2410 
+  (!type pointer 2411 nil  gc_used
+   (!type already_seen 2410)
   )
   gc_pointed_to "hash_table<ctp_hasher>"
-  (!srcfileloc  "cp/pt.cc" 4521)
+  (!srcfileloc  "cp/pt.cc" 4526)
   (!fields 1 
    (!pair  "ctp_hasher"
-    (!type already_seen 2408)
-    (!srcfileloc  "cp/pt.cc" 4521)
+    (!type already_seen 2409)
+    (!srcfileloc  "cp/pt.cc" 4526)
     nil )
   )
  )
  
- (!type struct 2411 nil  gc_unused "template_parm_data"nil 
+ (!type struct 2412 nil  gc_unused "template_parm_data"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type user_struct 2412 
-  (!type pointer 2413 nil  gc_used
-   (!type already_seen 2412)
+ (!type user_struct 2413 
+  (!type pointer 2414 nil  gc_used
+   (!type already_seen 2413)
   )
   gc_pointed_to "hash_map<const_tree,tree>"
-  (!srcfileloc  "cp/pt.cc" 6546)
+  (!srcfileloc  "cp/pt.cc" 6560)
   (!fields 2 
    (!pair  "tree"
     (!type already_seen 23)
-    (!srcfileloc  "cp/pt.cc" 6546)
+    (!srcfileloc  "cp/pt.cc" 6560)
     nil )
    (!pair  "const_tree"
     (!type already_seen 23)
-    (!srcfileloc  "cp/pt.cc" 6546)
+    (!srcfileloc  "cp/pt.cc" 6560)
     nil )
   )
  )
  
- (!type struct 2414 nil  gc_unused "uses_all_template_parms_data"nil 
+ (!type struct 2415 nil  gc_unused "uses_all_template_parms_data"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2415 nil  gc_unused "freelist"nil 
+ (!type struct 2416 nil  gc_unused "freelist"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2416 nil  gc_unused "pair_fn_data"nil 
+ (!type struct 2417 nil  gc_unused "pair_fn_data"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2417 nil  gc_unused "find_template_parameter_info"nil 
+ (!type struct 2418 nil  gc_unused "find_template_parameter_info"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2418 nil  gc_unused "el_data"nil 
+ (!type struct 2419 nil  gc_unused "el_data"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2419 nil  gc_unused "auto_hash"nil 
+ (!type struct 2420 nil  gc_unused "auto_hash"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type user_struct 2420 
-  (!type pointer 2421 nil  gc_used
-   (!type already_seen 2420)
+ (!type user_struct 2421 
+  (!type pointer 2422 nil  gc_used
+   (!type already_seen 2421)
   )
   gc_pointed_to "hash_map<tree,tree_pair_p>"
-  (!srcfileloc  "cp/pt.cc" 30732)
+  (!srcfileloc  "cp/pt.cc" 30755)
   (!fields 2 
    (!pair  "tree_pair_p"
     (!type already_seen 590)
-    (!srcfileloc  "cp/pt.cc" 30732)
+    (!srcfileloc  "cp/pt.cc" 30755)
     nil )
    (!pair  "tree"
     (!type already_seen 23)
-    (!srcfileloc  "cp/pt.cc" 30732)
+    (!srcfileloc  "cp/pt.cc" 30755)
     nil )
   )
  )
  
- (!type struct 2422 nil  gc_used "tinfo_s"
+ (!type struct 2423 nil  gc_used "tinfo_s"
   (!srcfileloc  "cp/rtti.cc" 122)
   (!fields 3 
    (!pair  "type"
@@ -32763,9 +32767,9 @@
   )
   nil 1028 nil nil )
  
- (!type user_struct 2423 
-  (!type pointer 2424 nil  gc_used
-   (!type already_seen 2423)
+ (!type user_struct 2424 
+  (!type pointer 2425 nil  gc_used
+   (!type already_seen 2424)
   )
   gc_pointed_to "vec<tinfo_s,va_gc>"
   (!srcfileloc  "cp/rtti.cc" 122)
@@ -32775,13 +32779,13 @@
     (!srcfileloc  "cp/rtti.cc" 122)
     nil )
    (!pair  "tinfo_s"
-    (!type already_seen 2422)
+    (!type already_seen 2423)
     (!srcfileloc  "cp/rtti.cc" 122)
     nil )
   )
  )
  
- (!type struct 2425 nil  gc_used "deferred_access"
+ (!type struct 2426 nil  gc_used "deferred_access"
   (!srcfileloc  "cp/semantics.cc" 136)
   (!fields 2 
    (!pair  "deferred_access_checks"
@@ -32795,9 +32799,9 @@
   )
   nil 1028 nil nil )
  
- (!type user_struct 2426 
-  (!type pointer 2427 nil  gc_used
-   (!type already_seen 2426)
+ (!type user_struct 2427 
+  (!type pointer 2428 nil  gc_used
+   (!type already_seen 2427)
   )
   gc_pointed_to "vec<deferred_access,va_gc>"
   (!srcfileloc  "cp/semantics.cc" 136)
@@ -32807,21 +32811,21 @@
     (!srcfileloc  "cp/semantics.cc" 136)
     nil )
    (!pair  "deferred_access"
-    (!type already_seen 2425)
+    (!type already_seen 2426)
     (!srcfileloc  "cp/semantics.cc" 136)
     nil )
   )
  )
  
- (!type user_struct 2428 
-  (!type pointer 2429 nil  gc_used
-   (!type already_seen 2428)
+ (!type user_struct 2429 
+  (!type pointer 2430 nil  gc_used
+   (!type already_seen 2429)
   )
   gc_pointed_to "hash_map<tree,bool>"
   (!srcfileloc  "cp/semantics.cc" 874)
   (!fields 2 
    (!pair  "bool"
-    (!type undefined 2430 nil  gc_unused "bool"
+    (!type undefined 2431 nil  gc_unused "bool"
      (!srcfileloc  "cp/semantics.cc" 874)
     )
     (!srcfileloc  "cp/semantics.cc" 874)
@@ -32833,87 +32837,87 @@
   )
  )
  
- (!type already_seen 2430)
+ (!type already_seen 2431)
  
- (!type struct 2431 nil  gc_unused "cp_omp_address_inspector"nil 
+ (!type struct 2432 nil  gc_unused "cp_omp_address_inspector"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2432 nil  gc_unused "cp_check_omp_declare_reduction_data"nil 
+ (!type struct 2433 nil  gc_unused "cp_check_omp_declare_reduction_data"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2433 nil  gc_unused "omp_target_walk_data"nil 
+ (!type struct 2434 nil  gc_unused "omp_target_walk_data"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2434 nil  gc_unused "fofb_data"nil 
+ (!type struct 2435 nil  gc_unused "fofb_data"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2435 nil  gc_unused "cplus_array_info"nil 
+ (!type struct 2436 nil  gc_unused "cplus_array_info"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2436 nil  gc_used "cplus_array_hasher"
+ (!type struct 2437 nil  gc_used "cplus_array_hasher"
   (!srcfileloc  "cp/tree.cc" 1046)
   (!fields 0 )
   nil 1028 nil nil )
  
- (!type user_struct 2437 
-  (!type pointer 2438 nil  gc_used
-   (!type already_seen 2437)
+ (!type user_struct 2438 
+  (!type pointer 2439 nil  gc_used
+   (!type already_seen 2438)
   )
   gc_pointed_to "hash_table<cplus_array_hasher>"
   (!srcfileloc  "cp/tree.cc" 1046)
   (!fields 1 
    (!pair  "cplus_array_hasher"
-    (!type already_seen 2436)
+    (!type already_seen 2437)
     (!srcfileloc  "cp/tree.cc" 1046)
     nil )
   )
  )
  
- (!type struct 2439 nil  gc_unused "list_proxy"nil 
+ (!type struct 2440 nil  gc_unused "list_proxy"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2440 nil  gc_used "list_hasher"
+ (!type struct 2441 nil  gc_used "list_hasher"
   (!srcfileloc  "cp/tree.cc" 2165)
   (!fields 0 )
   nil 1028 nil nil )
  
- (!type user_struct 2441 
-  (!type pointer 2442 nil  gc_used
-   (!type already_seen 2441)
+ (!type user_struct 2442 
+  (!type pointer 2443 nil  gc_used
+   (!type already_seen 2442)
   )
   gc_pointed_to "hash_table<list_hasher>"
   (!srcfileloc  "cp/tree.cc" 2165)
   (!fields 1 
    (!pair  "list_hasher"
-    (!type already_seen 2440)
+    (!type already_seen 2441)
     (!srcfileloc  "cp/tree.cc" 2165)
     nil )
   )
  )
  
- (!type struct 2443 nil  gc_unused "bot_data"nil 
+ (!type struct 2444 nil  gc_unused "bot_data"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2444 nil  gc_unused "replace_placeholders_t"nil 
+ (!type struct 2445 nil  gc_unused "replace_placeholders_t"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2445 nil  gc_unused "work_node"nil 
+ (!type struct 2446 nil  gc_unused "work_node"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2446 nil  gc_unused "vtv_graph_node"nil 
+ (!type struct 2447 nil  gc_unused "vtv_graph_node"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2447 nil  gc_unused "Dsymbol"nil 
+ (!type struct 2448 nil  gc_unused "Dsymbol"nil 
   (!fields 0 )
   nil 0 nil nil )
  
@@ -32921,45 +32925,45 @@
  
  (!type already_seen 692)
  
- (!type struct 2448 nil  gc_unused "ClassDeclaration"nil 
+ (!type struct 2449 nil  gc_unused "ClassDeclaration"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2449 nil  gc_unused "EnumDeclaration"nil 
+ (!type struct 2450 nil  gc_unused "EnumDeclaration"nil 
   (!fields 0 )
   nil 0 nil nil )
  
  (!type already_seen 493)
  
- (!type struct 2450 nil  gc_unused "StructDeclaration"nil 
+ (!type struct 2451 nil  gc_unused "StructDeclaration"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2451 nil  gc_unused "TypeInfoDeclaration"nil 
+ (!type struct 2452 nil  gc_unused "TypeInfoDeclaration"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2452 nil  gc_unused "VarDeclaration"nil 
+ (!type struct 2453 nil  gc_unused "VarDeclaration"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2453 
-  (!type pointer 2454 nil  gc_unused
-   (!type already_seen 2453)
+ (!type struct 2454 
+  (!type pointer 2455 nil  gc_unused
+   (!type already_seen 2454)
   )
   gc_unused "Expression"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2455 nil  gc_unused "ClassReferenceExp"nil 
+ (!type struct 2456 nil  gc_unused "ClassReferenceExp"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2456 nil  gc_unused "IndexExp"nil 
+ (!type struct 2457 nil  gc_unused "IndexExp"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2457 nil  gc_unused "SliceExp"nil 
+ (!type struct 2458 nil  gc_unused "SliceExp"nil 
   (!fields 0 )
   nil 0 nil nil )
  
@@ -32969,31 +32973,31 @@
  
  (!type already_seen 585)
  
- (!type struct 2458 nil  gc_unused "TypeFunction"nil 
+ (!type struct 2459 nil  gc_unused "TypeFunction"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2459 nil  gc_unused "Parameter"nil 
+ (!type struct 2460 nil  gc_unused "Parameter"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2460 nil  gc_unused "BaseClass"nil 
+ (!type struct 2461 nil  gc_unused "BaseClass"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2461 nil  gc_unused "Scope"nil 
+ (!type struct 2462 nil  gc_unused "Scope"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2462 nil  gc_unused "Loc"nil 
+ (!type struct 2463 nil  gc_unused "Loc"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type user_struct 2463 nil  gc_unused "Array<Expression*>"
+ (!type user_struct 2464 nil  gc_unused "Array<Expression*>"
   (!srcfileloc  "d/d-tree.h" 46)
   (!fields 1 
    (!pair  "Expression"
-    (!type already_seen 2454)
+    (!type already_seen 2455)
     (!srcfileloc  "d/d-tree.h" 46)
     nil )
   )
@@ -33009,46 +33013,46 @@
  
  (!type already_seen 497)
  
- (!type struct 2464 nil  gc_unused "builtin_data"nil 
+ (!type struct 2465 nil  gc_unused "builtin_data"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2465 nil  gc_unused "d_option_data"nil 
+ (!type struct 2466 nil  gc_unused "d_option_data"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2466 nil  gc_unused "TypeInfoVisitor"nil 
+ (!type struct 2467 nil  gc_unused "TypeInfoVisitor"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2467 nil  gc_unused "TypeInfoDeclVisitor"nil 
+ (!type struct 2468 nil  gc_unused "TypeInfoDeclVisitor"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2468 nil  gc_unused "SpeculativeTypeVisitor"nil 
+ (!type struct 2469 nil  gc_unused "SpeculativeTypeVisitor"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2469 nil  gc_used "module_hasher"
+ (!type struct 2470 nil  gc_used "module_hasher"
   (!srcfileloc  "fortran/trans-decl.cc" 5360)
   (!fields 0 )
   nil 16 nil nil )
  
- (!type user_struct 2470 
-  (!type pointer 2471 nil  gc_used
-   (!type already_seen 2470)
+ (!type user_struct 2471 
+  (!type pointer 2472 nil  gc_used
+   (!type already_seen 2471)
   )
   gc_pointed_to "hash_table<module_hasher>"
   (!srcfileloc  "fortran/trans-decl.cc" 5360)
   (!fields 1 
    (!pair  "module_hasher"
-    (!type already_seen 2469)
+    (!type already_seen 2470)
     (!srcfileloc  "fortran/trans-decl.cc" 5360)
     nil )
   )
  )
  
- (!type struct 2472 nil  gc_pointed_to "module_htab_entry"
+ (!type struct 2473 nil  gc_pointed_to "module_htab_entry"
   (!srcfileloc  "fortran/trans.h" 722)
   (!fields 3 
    (!pair  "name"
@@ -33060,14 +33064,14 @@
     (!srcfileloc  "fortran/trans.h" 720)
     nil )
    (!pair  "decls"
-    (!type pointer 2473 nil  gc_used
-     (!type user_struct 2474 
-      (!type already_seen 2473)
+    (!type pointer 2474 nil  gc_used
+     (!type user_struct 2475 
+      (!type already_seen 2474)
       gc_pointed_to "hash_table<module_decl_hasher>"
       (!srcfileloc  "fortran/trans.h" 721)
       (!fields 1 
        (!pair  "module_decl_hasher"
-        (!type struct 2475 nil  gc_used "module_decl_hasher"
+        (!type struct 2476 nil  gc_used "module_decl_hasher"
          (!srcfileloc  "fortran/trans.h" 721)
          (!fields 0 )
          nil 16 nil nil )
@@ -33084,7 +33088,7 @@
   )
   16 nil nil )
  
- (!type struct 2476 nil  gc_used "gfc_intrinsic_map_t"
+ (!type struct 2477 nil  gc_used "gfc_intrinsic_map_t"
   (!srcfileloc  "fortran/trans-intrinsic.cc" 87)
   (!fields 19 
    (!pair  "id"
@@ -33166,7 +33170,7 @@
   )
   nil 16 nil nil )
  
- (!type struct 2477 nil  gc_used "gfc_st_parameter_field"
+ (!type struct 2478 nil  gc_used "gfc_st_parameter_field"
   (!srcfileloc  "fortran/trans-io.cc" 73)
   (!fields 6 
    (!pair  "name"
@@ -33196,7 +33200,7 @@
   )
   nil 16 nil nil )
  
- (!type struct 2478 nil  gc_used "gfc_st_parameter"
+ (!type struct 2479 nil  gc_used "gfc_st_parameter"
   (!srcfileloc  "fortran/trans-io.cc" 79)
   (!fields 2 
    (!pair  "name"
@@ -33210,59 +33214,59 @@
   )
   nil 16 nil nil )
  
- (!type struct 2479 nil  gc_unused "iter_info"nil 
+ (!type struct 2480 nil  gc_unused "iter_info"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2480 nil  gc_unused "forall_info"nil 
+ (!type struct 2481 nil  gc_unused "forall_info"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2481 nil  gc_unused "anonymous:/__w/gcc_build/gcc_build/gcc/gcc/fortran/trans.h:33"nil 
+ (!type struct 2482 nil  gc_unused "anonymous:/__w/gcc_build/gcc_build/gcc/gcc/fortran/trans.h:33"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2482 nil  gc_unused "gfc_se"nil 
+ (!type struct 2483 nil  gc_unused "gfc_se"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2483 nil  gc_unused "gfc_co_subroutines_args"nil 
+ (!type struct 2484 nil  gc_unused "gfc_co_subroutines_args"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2484 nil  gc_unused "gfc_array_info"nil 
+ (!type struct 2485 nil  gc_unused "gfc_array_info"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2485 nil  gc_unused "gfc_ss_info"nil 
+ (!type struct 2486 nil  gc_unused "gfc_ss_info"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2486 nil  gc_unused "gfc_ss"nil 
+ (!type struct 2487 nil  gc_unused "gfc_ss"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2487 nil  gc_unused "gfc_loopinfo"nil 
+ (!type struct 2488 nil  gc_unused "gfc_loopinfo"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2488 nil  gc_unused "anonymous:/__w/gcc_build/gcc_build/gcc/gcc/fortran/trans.h:413"nil 
+ (!type struct 2489 nil  gc_unused "anonymous:/__w/gcc_build/gcc_build/gcc/gcc/fortran/trans.h:413"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2489 nil  gc_unused "anonymous:/__w/gcc_build/gcc_build/gcc/gcc/fortran/trans.h:425"nil 
+ (!type struct 2490 nil  gc_unused "anonymous:/__w/gcc_build/gcc_build/gcc/gcc/fortran/trans.h:425"nil 
   (!fields 0 )
   nil 0 nil nil )
+ 
+ (!type already_seen 2476)
  
  (!type already_seen 2475)
  
- (!type already_seen 2474)
- 
- (!type struct 2490 nil  gc_unused "gimplify_omp_ctx"nil 
+ (!type struct 2491 nil  gc_unused "gimplify_omp_ctx"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2491 nil  gc_used "gfc_powdecl_list"
+ (!type struct 2492 nil  gc_used "gfc_powdecl_list"
   (!srcfileloc  "fortran/trans.h" 937)
   (!fields 3 
    (!pair  "integer"
@@ -33280,65 +33284,65 @@
   )
   nil 16 nil nil )
  
- (!type struct 2492 nil  gc_unused "gfc_interface_sym_mapping"nil 
+ (!type struct 2493 nil  gc_unused "gfc_interface_sym_mapping"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2493 nil  gc_unused "gfc_interface_mapping"nil 
+ (!type struct 2494 nil  gc_unused "gfc_interface_mapping"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2494 nil  gc_unused "go_create_gogo_args"nil 
+ (!type struct 2495 nil  gc_unused "go_create_gogo_args"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2495 nil  gc_unused "Linemap"nil 
+ (!type struct 2496 nil  gc_unused "Linemap"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2496 nil  gc_unused "Backend"nil 
+ (!type struct 2497 nil  gc_unused "Backend"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2497 nil  gc_unused "ggc_root_tab"nil 
+ (!type struct 2498 nil  gc_unused "ggc_root_tab"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2498 nil  gc_unused "lto_file"nil 
+ (!type struct 2499 nil  gc_unused "lto_file"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2499 nil  gc_unused "lto_section_list"nil 
+ (!type struct 2500 nil  gc_unused "lto_section_list"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2500 nil  gc_unused "lto_section_slot"nil 
+ (!type struct 2501 nil  gc_unused "lto_section_slot"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2501 nil  gc_unused "tree_scc"nil 
+ (!type struct 2502 nil  gc_unused "tree_scc"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2502 nil  gc_unused "tree_scc_hasher"nil 
+ (!type struct 2503 nil  gc_unused "tree_scc_hasher"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2503 nil  gc_unused "streamer_tree_cache_d"nil 
+ (!type struct 2504 nil  gc_unused "streamer_tree_cache_d"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type user_struct 2504 nil  gc_unused "int_hash<unsigned,0,UINT_MAX>"
+ (!type user_struct 2505 nil  gc_unused "int_hash<unsigned,0,UINT_MAX>"
   (!srcfileloc  "lto/lto-common.cc" 1808)
   (!fields 3 
    (!pair  "UINT_MAX"
-    (!type undefined 2505 nil  gc_unused "UINT_MAX"
+    (!type undefined 2506 nil  gc_unused "UINT_MAX"
      (!srcfileloc  "lto/lto-common.cc" 1808)
     )
     (!srcfileloc  "lto/lto-common.cc" 1808)
     nil )
    (!pair  "0"
-    (!type already_seen 2369)
+    (!type already_seen 2370)
     (!srcfileloc  "lto/lto-common.cc" 1808)
     nil )
    (!pair  "unsigned"
@@ -33348,31 +33352,31 @@
   )
  )
  
- (!type already_seen 2505)
+ (!type already_seen 2506)
  
- (!type struct 2506 nil  gc_unused "file_data_list"nil 
+ (!type struct 2507 nil  gc_unused "file_data_list"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2507 nil  gc_unused "symbol_entry"nil 
+ (!type struct 2508 nil  gc_unused "symbol_entry"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2508 nil  gc_unused "variable_entry"nil 
+ (!type struct 2509 nil  gc_unused "variable_entry"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2509 nil  gc_unused "function_entry"nil 
+ (!type struct 2510 nil  gc_unused "function_entry"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2510 nil  gc_unused "named_path_s"nil 
+ (!type struct 2511 nil  gc_unused "named_path_s"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2511 
-  (!type pointer 2512 nil  gc_used
-   (!type already_seen 2511)
+ (!type struct 2512 
+  (!type pointer 2513 nil  gc_used
+   (!type already_seen 2512)
   )
   gc_pointed_to "rtenode"
   (!srcfileloc  "m2/gm2-gcc/rtegraph.cc" 61)
@@ -33410,13 +33414,13 @@
     (!srcfileloc  "m2/gm2-gcc/rtegraph.cc" 46)
     nil )
    (!pair  "reachable_src"
-    (!type already_seen 2512)
+    (!type already_seen 2513)
     (!srcfileloc  "m2/gm2-gcc/rtegraph.cc" 47)
     nil )
    (!pair  "function_call"
-    (!type pointer 2513 nil  gc_used
-     (!type user_struct 2514 
-      (!type already_seen 2513)
+    (!type pointer 2514 nil  gc_used
+     (!type user_struct 2515 
+      (!type already_seen 2514)
       gc_pointed_to "vec<rtenode*,va_gc>"
       (!srcfileloc  "m2/gm2-gcc/rtegraph.cc" 49)
       (!fields 2 
@@ -33425,7 +33429,7 @@
         (!srcfileloc  "m2/gm2-gcc/rtegraph.cc" 49)
         nil )
        (!pair  "rtenode"
-        (!type already_seen 2512)
+        (!type already_seen 2513)
         (!srcfileloc  "m2/gm2-gcc/rtegraph.cc" 49)
         nil )
       )
@@ -33434,23 +33438,23 @@
     (!srcfileloc  "m2/gm2-gcc/rtegraph.cc" 49)
     nil )
    (!pair  "rts_call"
-    (!type already_seen 2513)
+    (!type already_seen 2514)
     (!srcfileloc  "m2/gm2-gcc/rtegraph.cc" 50)
     nil )
   )
   nil 256 nil nil )
  
- (!type already_seen 2514)
+ (!type already_seen 2515)
  
- (!type struct 2515 nil  gc_unused "builtin_function_entry"nil 
+ (!type struct 2516 nil  gc_unused "builtin_function_entry"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2516 nil  gc_unused "builtin_type_info"nil 
+ (!type struct 2517 nil  gc_unused "builtin_type_info"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2517 nil  gc_used "builtin_macro_definition"
+ (!type struct 2518 nil  gc_used "builtin_macro_definition"
   (!srcfileloc  "m2/gm2-gcc/m2builtins.cc" 429)
   (!fields 4 
    (!pair  "name"
@@ -33472,9 +33476,9 @@
   )
   nil 256 nil nil )
  
- (!type user_struct 2518 
-  (!type pointer 2519 nil  gc_used
-   (!type already_seen 2518)
+ (!type user_struct 2519 
+  (!type pointer 2520 nil  gc_used
+   (!type already_seen 2519)
   )
   gc_pointed_to "vec<builtin_macro_definition,va_gc>"
   (!srcfileloc  "m2/gm2-gcc/m2builtins.cc" 429)
@@ -33484,15 +33488,15 @@
     (!srcfileloc  "m2/gm2-gcc/m2builtins.cc" 429)
     nil )
    (!pair  "builtin_macro_definition"
-    (!type already_seen 2517)
+    (!type already_seen 2518)
     (!srcfileloc  "m2/gm2-gcc/m2builtins.cc" 429)
     nil )
   )
  )
  
- (!type struct 2520 
-  (!type pointer 2521 nil  gc_used
-   (!type already_seen 2520)
+ (!type struct 2521 
+  (!type pointer 2522 nil  gc_used
+   (!type already_seen 2521)
   )
   gc_pointed_to "struct_constructor"
   (!srcfileloc  "m2/gm2-gcc/m2type.cc" 61)
@@ -33523,15 +33527,15 @@
     (!srcfileloc  "m2/gm2-gcc/m2type.cc" 58)
     nil )
    (!pair  "level"
-    (!type already_seen 2521)
+    (!type already_seen 2522)
     (!srcfileloc  "m2/gm2-gcc/m2type.cc" 60)
     nil )
   )
   nil 256 nil nil )
  
- (!type struct 2522 
-  (!type pointer 2523 nil  gc_used
-   (!type already_seen 2522)
+ (!type struct 2523 
+  (!type pointer 2524 nil  gc_used
+   (!type already_seen 2523)
   )
   gc_pointed_to "array_desc"
   (!srcfileloc  "m2/gm2-gcc/m2type.cc" 71)
@@ -33549,15 +33553,15 @@
     (!srcfileloc  "m2/gm2-gcc/m2type.cc" 69)
     nil )
    (!pair  "next"
-    (!type already_seen 2523)
+    (!type already_seen 2524)
     (!srcfileloc  "m2/gm2-gcc/m2type.cc" 70)
     nil )
   )
   nil 256 nil nil )
  
- (!type struct 2524 
-  (!type pointer 2525 nil  gc_used
-   (!type already_seen 2524)
+ (!type struct 2525 
+  (!type pointer 2526 nil  gc_used
+   (!type already_seen 2525)
   )
   gc_pointed_to "objc_map_private"
   (!srcfileloc  "objc/objc-map.h" 79)
@@ -33599,26 +33603,26 @@
   )
   nil 1536 nil nil )
  
- (!type struct 2526 
-  (!type pointer 2527 
-   (!type pointer 2528 nil  gc_used
-    (!type already_seen 2527)
+ (!type struct 2527 
+  (!type pointer 2528 
+   (!type pointer 2529 nil  gc_used
+    (!type already_seen 2528)
    )
    gc_pointed_to
-   (!type already_seen 2526)
+   (!type already_seen 2527)
   )
   gc_pointed_to "hashed_entry"
   (!srcfileloc  "objc/objc-act.h" 289)
   (!fields 3 
    (!pair  "list"
-    (!type pointer 2529 nil  gc_used
-     (!type struct 2530 
-      (!type already_seen 2529)
+    (!type pointer 2530 nil  gc_used
+     (!type struct 2531 
+      (!type already_seen 2530)
       gc_pointed_to "hashed_attribute"
       (!srcfileloc  "objc/objc-act.h" 283)
       (!fields 2 
        (!pair  "next"
-        (!type already_seen 2529)
+        (!type already_seen 2530)
         (!srcfileloc  "objc/objc-act.h" 281)
         nil )
        (!pair  "value"
@@ -33631,7 +33635,7 @@
     (!srcfileloc  "objc/objc-act.h" 286)
     nil )
    (!pair  "next"
-    (!type already_seen 2527)
+    (!type already_seen 2528)
     (!srcfileloc  "objc/objc-act.h" 287)
     nil )
    (!pair  "key"
@@ -33641,17 +33645,17 @@
   )
   nil 1536 nil nil )
  
- (!type already_seen 2530)
+ (!type already_seen 2531)
  
- (!type struct 2531 
-  (!type pointer 2532 nil  gc_used
-   (!type already_seen 2531)
+ (!type struct 2532 
+  (!type pointer 2533 nil  gc_used
+   (!type already_seen 2532)
   )
   gc_pointed_to "imp_entry"
   (!srcfileloc  "objc/objc-act.h" 306)
   (!fields 6 
    (!pair  "next"
-    (!type already_seen 2532)
+    (!type already_seen 2533)
     (!srcfileloc  "objc/objc-act.h" 300)
     nil )
    (!pair  "imp_context"
@@ -33677,11 +33681,11 @@
   )
   nil 1536 nil nil )
  
- (!type struct 2533 nil  gc_unused "objc_try_context"nil 
+ (!type struct 2534 nil  gc_unused "objc_try_context"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2534 nil  gc_pointed_to "string_descriptor"
+ (!type struct 2535 nil  gc_pointed_to "string_descriptor"
   (!srcfileloc  "objc/objc-act.cc" 250)
   (!fields 2 
    (!pair  "literal"
@@ -33698,34 +33702,34 @@
   )
   1536 nil nil )
  
- (!type struct 2535 nil  gc_used "objc_string_hasher"
+ (!type struct 2536 nil  gc_used "objc_string_hasher"
   (!srcfileloc  "objc/objc-act.cc" 258)
   (!fields 0 )
   nil 1536 nil nil )
  
- (!type user_struct 2536 
-  (!type pointer 2537 nil  gc_used
-   (!type already_seen 2536)
+ (!type user_struct 2537 
+  (!type pointer 2538 nil  gc_used
+   (!type already_seen 2537)
   )
   gc_pointed_to "hash_table<objc_string_hasher>"
   (!srcfileloc  "objc/objc-act.cc" 258)
   (!fields 1 
    (!pair  "objc_string_hasher"
-    (!type already_seen 2535)
+    (!type already_seen 2536)
     (!srcfileloc  "objc/objc-act.cc" 258)
     nil )
   )
  )
  
- (!type struct 2538 nil  gc_unused "decl_name_hash"nil 
+ (!type struct 2539 nil  gc_unused "decl_name_hash"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2539 nil  gc_unused "objc_feature_info"nil 
+ (!type struct 2540 nil  gc_unused "objc_feature_info"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2540 nil  gc_used "ident_data_tuple"
+ (!type struct 2541 nil  gc_used "ident_data_tuple"
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1093)
   (!fields 2 
    (!pair  "ident"
@@ -33739,9 +33743,9 @@
   )
   nil 1536 nil nil )
  
- (!type user_struct 2541 
-  (!type pointer 2542 nil  gc_used
-   (!type already_seen 2541)
+ (!type user_struct 2542 
+  (!type pointer 2543 nil  gc_used
+   (!type already_seen 2542)
   )
   gc_pointed_to "vec<ident_data_tuple,va_gc>"
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1093)
@@ -33751,13 +33755,13 @@
     (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1093)
     nil )
    (!pair  "ident_data_tuple"
-    (!type already_seen 2540)
+    (!type already_seen 2541)
     (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1093)
     nil )
   )
  )
  
- (!type struct 2543 nil  gc_used "msgref_entry"
+ (!type struct 2544 nil  gc_used "msgref_entry"
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1260)
   (!fields 3 
    (!pair  "func"
@@ -33775,9 +33779,9 @@
   )
   nil 1536 nil nil )
  
- (!type user_struct 2544 
-  (!type pointer 2545 nil  gc_used
-   (!type already_seen 2544)
+ (!type user_struct 2545 
+  (!type pointer 2546 nil  gc_used
+   (!type already_seen 2545)
   )
   gc_pointed_to "vec<msgref_entry,va_gc>"
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1260)
@@ -33787,13 +33791,13 @@
     (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1260)
     nil )
    (!pair  "msgref_entry"
-    (!type already_seen 2543)
+    (!type already_seen 2544)
     (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1260)
     nil )
   )
  )
  
- (!type struct 2546 nil  gc_used "prot_list_entry"
+ (!type struct 2547 nil  gc_used "prot_list_entry"
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1314)
   (!fields 2 
    (!pair  "id"
@@ -33807,9 +33811,9 @@
   )
   nil 1536 nil nil )
  
- (!type user_struct 2547 
-  (!type pointer 2548 nil  gc_used
-   (!type already_seen 2547)
+ (!type user_struct 2548 
+  (!type pointer 2549 nil  gc_used
+   (!type already_seen 2548)
   )
   gc_pointed_to "vec<prot_list_entry,va_gc>"
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1314)
@@ -33819,13 +33823,13 @@
     (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1314)
     nil )
    (!pair  "prot_list_entry"
-    (!type already_seen 2546)
+    (!type already_seen 2547)
     (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1314)
     nil )
   )
  )
  
- (!type struct 2549 nil  gc_used "ivarref_entry"
+ (!type struct 2550 nil  gc_used "ivarref_entry"
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 3010)
   (!fields 2 
    (!pair  "decl"
@@ -33839,9 +33843,9 @@
   )
   nil 1536 nil nil )
  
- (!type user_struct 2550 
-  (!type pointer 2551 nil  gc_used
-   (!type already_seen 2550)
+ (!type user_struct 2551 
+  (!type pointer 2552 nil  gc_used
+   (!type already_seen 2551)
   )
   gc_pointed_to "vec<ivarref_entry,va_gc>"
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 3010)
@@ -33851,15 +33855,15 @@
     (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 3010)
     nil )
    (!pair  "ivarref_entry"
-    (!type already_seen 2549)
+    (!type already_seen 2550)
     (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 3010)
     nil )
   )
  )
  
- (!type struct 2552 
-  (!type pointer 2553 nil  gc_used
-   (!type already_seen 2552)
+ (!type struct 2553 
+  (!type pointer 2554 nil  gc_used
+   (!type already_seen 2553)
   )
   gc_pointed_to "rust_constexpr_fundef"
   (!srcfileloc  "rust/backend/rust-constexpr.cc" 138)
@@ -33886,11 +33890,11 @@
   )
   2048 nil nil )
  
- (!type struct 2554 nil  gc_pointed_to "rust_constexpr_call"
+ (!type struct 2555 nil  gc_pointed_to "rust_constexpr_call"
   (!srcfileloc  "rust/backend/rust-constexpr.cc" 151)
   (!fields 5 
    (!pair  "fundef"
-    (!type already_seen 2553)
+    (!type already_seen 2554)
     (!srcfileloc  "rust/backend/rust-constexpr.cc" 138)
     nil )
    (!pair  "bindings"
@@ -33915,39 +33919,39 @@
   )
   2048 nil nil )
  
- (!type struct 2555 nil  gc_used "rust_constexpr_call_hasher"
+ (!type struct 2556 nil  gc_used "rust_constexpr_call_hasher"
   (!srcfileloc  "rust/backend/rust-constexpr.cc" 348)
   (!fields 0 )
   nil 2048 nil nil )
  
- (!type struct 2556 nil  gc_used "rust_constexpr_fundef_hasher"
+ (!type struct 2557 nil  gc_used "rust_constexpr_fundef_hasher"
   (!srcfileloc  "rust/backend/rust-constexpr.cc" 215)
   (!fields 0 )
   nil 2048 nil nil )
  
- (!type user_struct 2557 
-  (!type pointer 2558 nil  gc_used
-   (!type already_seen 2557)
+ (!type user_struct 2558 
+  (!type pointer 2559 nil  gc_used
+   (!type already_seen 2558)
   )
   gc_pointed_to "hash_table<rust_constexpr_fundef_hasher>"
   (!srcfileloc  "rust/backend/rust-constexpr.cc" 215)
   (!fields 1 
    (!pair  "rust_constexpr_fundef_hasher"
-    (!type already_seen 2556)
+    (!type already_seen 2557)
     (!srcfileloc  "rust/backend/rust-constexpr.cc" 215)
     nil )
   )
  )
  
- (!type user_struct 2559 
-  (!type pointer 2560 nil  gc_used
-   (!type already_seen 2559)
+ (!type user_struct 2560 
+  (!type pointer 2561 nil  gc_used
+   (!type already_seen 2560)
   )
   gc_pointed_to "hash_table<rust_constexpr_call_hasher>"
   (!srcfileloc  "rust/backend/rust-constexpr.cc" 348)
   (!fields 1 
    (!pair  "rust_constexpr_call_hasher"
-    (!type already_seen 2555)
+    (!type already_seen 2556)
     (!srcfileloc  "rust/backend/rust-constexpr.cc" 348)
     nil )
   )
@@ -33963,7 +33967,7 @@
  
  (!type already_seen 2151)
  
- (!type struct 2561 nil  gc_used "rust_cp_class_binding"
+ (!type struct 2562 nil  gc_used "rust_cp_class_binding"
   (!srcfileloc  "rust/backend/rust-tree.h" 2173)
   (!fields 2 
    (!pair  "base"
@@ -33977,9 +33981,9 @@
   )
   nil 2048 nil nil )
  
- (!type user_struct 2562 
-  (!type pointer 2563 nil  gc_used
-   (!type already_seen 2562)
+ (!type user_struct 2563 
+  (!type pointer 2564 nil  gc_used
+   (!type already_seen 2563)
   )
   gc_pointed_to "vec<rust_cp_class_binding,va_gc>"
   (!srcfileloc  "rust/backend/rust-tree.h" 2173)
@@ -33989,15 +33993,15 @@
     (!srcfileloc  "rust/backend/rust-tree.h" 2173)
     nil )
    (!pair  "rust_cp_class_binding"
-    (!type already_seen 2561)
+    (!type already_seen 2562)
     (!srcfileloc  "rust/backend/rust-tree.h" 2173)
     nil )
   )
  )
  
- (!type struct 2564 
-  (!type pointer 2565 nil  gc_used
-   (!type already_seen 2564)
+ (!type struct 2565 
+  (!type pointer 2566 nil  gc_used
+   (!type already_seen 2565)
   )
   gc_pointed_to "rust_cp_binding_level"
   (!srcfileloc  "rust/backend/rust-tree.h" 2229)
@@ -34011,7 +34015,7 @@
     (!srcfileloc  "rust/backend/rust-tree.h" 2169)
     nil )
    (!pair  "class_shadowed"
-    (!type already_seen 2563)
+    (!type already_seen 2564)
     (!srcfileloc  "rust/backend/rust-tree.h" 2173)
     nil )
    (!pair  "type_shadowed"
@@ -34027,7 +34031,7 @@
     (!srcfileloc  "rust/backend/rust-tree.h" 2189)
     nil )
    (!pair  "level_chain"
-    (!type already_seen 2565)
+    (!type already_seen 2566)
     (!srcfileloc  "rust/backend/rust-tree.h" 2192)
     nil )
    (!pair  "statement_list"
@@ -34069,9 +34073,9 @@
   )
   nil 2048 nil nil )
  
- (!type struct 2566 
-  (!type pointer 2567 nil  gc_used
-   (!type already_seen 2566)
+ (!type struct 2567 
+  (!type pointer 2568 nil  gc_used
+   (!type already_seen 2567)
   )
   gc_pointed_to "rust_named_label_entry"
   (!srcfileloc  "rust/backend/rust-tree.h" 2269)
@@ -34085,11 +34089,11 @@
     (!srcfileloc  "rust/backend/rust-tree.h" 2241)
     nil )
    (!pair  "outer"
-    (!type already_seen 2567)
+    (!type already_seen 2568)
     (!srcfileloc  "rust/backend/rust-tree.h" 2243)
     nil )
    (!pair  "binding_level"
-    (!type already_seen 2565)
+    (!type already_seen 2566)
     (!srcfileloc  "rust/backend/rust-tree.h" 2248)
     nil )
    (!pair  "names_in_scope"
@@ -34144,58 +34148,58 @@
  
  (!type already_seen 571)
  
- (!type struct 2568 nil  gc_used "rust_conv_type_hasher"
+ (!type struct 2569 nil  gc_used "rust_conv_type_hasher"
   (!srcfileloc  "rust/backend/rust-tree.cc" 1352)
   (!fields 0 )
   nil 2048 nil nil )
  
- (!type user_struct 2569 
-  (!type pointer 2570 nil  gc_used
-   (!type already_seen 2569)
+ (!type user_struct 2570 
+  (!type pointer 2571 nil  gc_used
+   (!type already_seen 2570)
   )
   gc_pointed_to "hash_table<rust_conv_type_hasher>"
   (!srcfileloc  "rust/backend/rust-tree.cc" 1352)
   (!fields 1 
    (!pair  "rust_conv_type_hasher"
-    (!type already_seen 2568)
+    (!type already_seen 2569)
     (!srcfileloc  "rust/backend/rust-tree.cc" 1352)
     nil )
   )
  )
  
- (!type struct 2571 nil  gc_used "rust_cplus_array_hasher"
+ (!type struct 2572 nil  gc_used "rust_cplus_array_hasher"
   (!srcfileloc  "rust/backend/rust-tree.cc" 2338)
   (!fields 0 )
   nil 2048 nil nil )
  
- (!type user_struct 2572 
-  (!type pointer 2573 nil  gc_used
-   (!type already_seen 2572)
+ (!type user_struct 2573 
+  (!type pointer 2574 nil  gc_used
+   (!type already_seen 2573)
   )
   gc_pointed_to "hash_table<rust_cplus_array_hasher>"
   (!srcfileloc  "rust/backend/rust-tree.cc" 2338)
   (!fields 1 
    (!pair  "rust_cplus_array_hasher"
-    (!type already_seen 2571)
+    (!type already_seen 2572)
     (!srcfileloc  "rust/backend/rust-tree.cc" 2338)
     nil )
   )
  )
  
- (!type struct 2574 nil  gc_used "rust_source_location_table_entry_hash"
+ (!type struct 2575 nil  gc_used "rust_source_location_table_entry_hash"
   (!srcfileloc  "rust/backend/rust-tree.cc" 4371)
   (!fields 0 )
   nil 2048 nil nil )
  
- (!type user_struct 2575 
-  (!type pointer 2576 nil  gc_used
-   (!type already_seen 2575)
+ (!type user_struct 2576 
+  (!type pointer 2577 nil  gc_used
+   (!type already_seen 2576)
   )
   gc_pointed_to "hash_table<rust_source_location_table_entry_hash>"
   (!srcfileloc  "rust/backend/rust-tree.cc" 4371)
   (!fields 1 
    (!pair  "rust_source_location_table_entry_hash"
-    (!type already_seen 2574)
+    (!type already_seen 2575)
     (!srcfileloc  "rust/backend/rust-tree.cc" 4371)
     nil )
   )
@@ -34203,27 +34207,27 @@
 )
 (!typedefs 1017
  (!pair  "rust_source_location_table_entry_hash"
-  (!type already_seen 2574)
-  (!srcfileloc  "rust/backend/rust-tree.cc" 4371)
-  nil )
- (!pair  "hash_table<rust_source_location_table_entry_hash>"
   (!type already_seen 2575)
   (!srcfileloc  "rust/backend/rust-tree.cc" 4371)
   nil )
- (!pair  "rust_cplus_array_hasher"
-  (!type already_seen 2571)
-  (!srcfileloc  "rust/backend/rust-tree.cc" 2338)
+ (!pair  "hash_table<rust_source_location_table_entry_hash>"
+  (!type already_seen 2576)
+  (!srcfileloc  "rust/backend/rust-tree.cc" 4371)
   nil )
- (!pair  "hash_table<rust_cplus_array_hasher>"
+ (!pair  "rust_cplus_array_hasher"
   (!type already_seen 2572)
   (!srcfileloc  "rust/backend/rust-tree.cc" 2338)
   nil )
+ (!pair  "hash_table<rust_cplus_array_hasher>"
+  (!type already_seen 2573)
+  (!srcfileloc  "rust/backend/rust-tree.cc" 2338)
+  nil )
  (!pair  "rust_conv_type_hasher"
-  (!type already_seen 2568)
+  (!type already_seen 2569)
   (!srcfileloc  "rust/backend/rust-tree.cc" 1352)
   nil )
  (!pair  "hash_table<rust_conv_type_hasher>"
-  (!type already_seen 2569)
+  (!type already_seen 2570)
   (!srcfileloc  "rust/backend/rust-tree.cc" 1352)
   nil )
  (!pair  "vec<rust_tree_pair_s,va_gc>"
@@ -34255,19 +34259,19 @@
   (!srcfileloc  "rust/backend/rust-tree.h" 2320)
   nil )
  (!pair  "rust_named_label_entry"
-  (!type already_seen 2566)
+  (!type already_seen 2567)
   (!srcfileloc  "rust/backend/rust-tree.h" 2243)
   nil )
  (!pair  "rust_cp_binding_level"
-  (!type already_seen 2564)
+  (!type already_seen 2565)
   (!srcfileloc  "rust/backend/rust-tree.h" 2192)
   nil )
  (!pair  "rust_cp_class_binding"
-  (!type already_seen 2561)
+  (!type already_seen 2562)
   (!srcfileloc  "rust/backend/rust-tree.h" 2173)
   nil )
  (!pair  "vec<rust_cp_class_binding,va_gc>"
-  (!type already_seen 2562)
+  (!type already_seen 2563)
   (!srcfileloc  "rust/backend/rust-tree.h" 2173)
   nil )
  (!pair  "omp_declare_target_attr"
@@ -34287,71 +34291,71 @@
   (!srcfileloc  "rust/backend/rust-tree.h" 2084)
   nil )
  (!pair  "rust_constexpr_call_hasher"
-  (!type already_seen 2555)
+  (!type already_seen 2556)
   (!srcfileloc  "rust/backend/rust-constexpr.cc" 348)
   nil )
  (!pair  "hash_table<rust_constexpr_call_hasher>"
-  (!type already_seen 2559)
+  (!type already_seen 2560)
   (!srcfileloc  "rust/backend/rust-constexpr.cc" 348)
   nil )
  (!pair  "rust_constexpr_fundef_hasher"
-  (!type already_seen 2556)
-  (!srcfileloc  "rust/backend/rust-constexpr.cc" 215)
-  nil )
- (!pair  "hash_table<rust_constexpr_fundef_hasher>"
   (!type already_seen 2557)
   (!srcfileloc  "rust/backend/rust-constexpr.cc" 215)
   nil )
+ (!pair  "hash_table<rust_constexpr_fundef_hasher>"
+  (!type already_seen 2558)
+  (!srcfileloc  "rust/backend/rust-constexpr.cc" 215)
+  nil )
  (!pair  "rust_constexpr_fundef"
-  (!type already_seen 2552)
+  (!type already_seen 2553)
   (!srcfileloc  "rust/backend/rust-constexpr.cc" 138)
   nil )
  (!pair  "ivarref_entry"
-  (!type already_seen 2549)
-  (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 3010)
-  nil )
- (!pair  "vec<ivarref_entry,va_gc>"
   (!type already_seen 2550)
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 3010)
   nil )
- (!pair  "prot_list_entry"
-  (!type already_seen 2546)
-  (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1314)
+ (!pair  "vec<ivarref_entry,va_gc>"
+  (!type already_seen 2551)
+  (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 3010)
   nil )
- (!pair  "vec<prot_list_entry,va_gc>"
+ (!pair  "prot_list_entry"
   (!type already_seen 2547)
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1314)
   nil )
- (!pair  "msgref_entry"
-  (!type already_seen 2543)
-  (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1260)
+ (!pair  "vec<prot_list_entry,va_gc>"
+  (!type already_seen 2548)
+  (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1314)
   nil )
- (!pair  "vec<msgref_entry,va_gc>"
+ (!pair  "msgref_entry"
   (!type already_seen 2544)
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1260)
   nil )
- (!pair  "ident_data_tuple"
-  (!type already_seen 2540)
-  (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1093)
+ (!pair  "vec<msgref_entry,va_gc>"
+  (!type already_seen 2545)
+  (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1260)
   nil )
- (!pair  "vec<ident_data_tuple,va_gc>"
+ (!pair  "ident_data_tuple"
   (!type already_seen 2541)
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1093)
   nil )
- (!pair  "objc_string_hasher"
-  (!type already_seen 2535)
-  (!srcfileloc  "objc/objc-act.cc" 258)
+ (!pair  "vec<ident_data_tuple,va_gc>"
+  (!type already_seen 2542)
+  (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1093)
   nil )
- (!pair  "hash_table<objc_string_hasher>"
+ (!pair  "objc_string_hasher"
   (!type already_seen 2536)
   (!srcfileloc  "objc/objc-act.cc" 258)
   nil )
+ (!pair  "hash_table<objc_string_hasher>"
+  (!type already_seen 2537)
+  (!srcfileloc  "objc/objc-act.cc" 258)
+  nil )
  (!pair  "attr"
-  (!type already_seen 2529)
+  (!type already_seen 2530)
   (!srcfileloc  "objc/objc-act.h" 278)
   nil )
  (!pair  "hash"
-  (!type already_seen 2527)
+  (!type already_seen 2528)
   (!srcfileloc  "objc/objc-act.h" 277)
   nil )
  (!pair  "objc_map_iterator_t"
@@ -34359,7 +34363,7 @@
   (!srcfileloc  "objc/objc-map.h" 241)
   nil )
  (!pair  "objc_map_t"
-  (!type already_seen 2525)
+  (!type already_seen 2526)
   (!srcfileloc  "objc/objc-map.h" 90)
   nil )
  (!pair  "objc_map_private_hash_t"
@@ -34367,15 +34371,15 @@
   (!srcfileloc  "objc/objc-map.h" 40)
   nil )
  (!pair  "array_desc"
-  (!type already_seen 2522)
+  (!type already_seen 2523)
   (!srcfileloc  "m2/gm2-gcc/m2type.cc" 71)
   nil )
  (!pair  "builtin_macro_definition"
-  (!type already_seen 2517)
+  (!type already_seen 2518)
   (!srcfileloc  "m2/gm2-gcc/m2builtins.cc" 429)
   nil )
  (!pair  "vec<builtin_macro_definition,va_gc>"
-  (!type already_seen 2518)
+  (!type already_seen 2519)
   (!srcfileloc  "m2/gm2-gcc/m2builtins.cc" 429)
   nil )
  (!pair  "bf_category"
@@ -34391,31 +34395,31 @@
   (!srcfileloc  "m2/gm2-gcc/m2block.cc" 110)
   nil )
  (!pair  "rtevec"
-  (!type already_seen 2514)
+  (!type already_seen 2515)
   (!srcfileloc  "m2/gm2-gcc/rtegraph.cc" 64)
   nil )
  (!pair  "vec<rtenode*,va_gc>"
-  (!type already_seen 2514)
+  (!type already_seen 2515)
   (!srcfileloc  "m2/gm2-gcc/rtegraph.cc" 49)
   nil )
  (!pair  "rtenode"
-  (!type already_seen 2511)
+  (!type already_seen 2512)
   (!srcfileloc  "m2/gm2-gcc/rtegraph.cc" 47)
   nil )
  (!pair  "named_path"
-  (!type already_seen 2510)
-  (!srcfileloc  "m2/gm2-lang.cc" 55)
+  (!type already_seen 2511)
+  (!srcfileloc  "m2/gm2-lang.cc" 54)
   nil )
  (!pair  "code_id_hash"
-  (!type already_seen 2504)
-  (!srcfileloc  "lto/lto-common.cc" 1808)
-  nil )
- (!pair  "UINT_MAX"
   (!type already_seen 2505)
   (!srcfileloc  "lto/lto-common.cc" 1808)
   nil )
+ (!pair  "UINT_MAX"
+  (!type already_seen 2506)
+  (!srcfileloc  "lto/lto-common.cc" 1808)
+  nil )
  (!pair  "int_hash<unsigned,0,UINT_MAX>"
-  (!type already_seen 2504)
+  (!type already_seen 2505)
   (!srcfileloc  "lto/lto-common.cc" 1808)
   nil )
  (!pair  "go_char_p"
@@ -34423,87 +34427,87 @@
   (!srcfileloc  "go/go-lang.cc" 198)
   nil )
  (!pair  "gfc_interface_mapping"
-  (!type already_seen 2493)
+  (!type already_seen 2494)
   (!srcfileloc  "fortran/trans.h" 1188)
   nil )
  (!pair  "gfc_interface_sym_mapping"
-  (!type already_seen 2492)
+  (!type already_seen 2493)
   (!srcfileloc  "fortran/trans.h" 1173)
   nil )
  (!pair  "gfc_powdecl_list"
-  (!type already_seen 2491)
+  (!type already_seen 2492)
   (!srcfileloc  "fortran/trans.h" 938)
   nil )
  (!pair  "module_decl_hasher"
-  (!type already_seen 2475)
+  (!type already_seen 2476)
   (!srcfileloc  "fortran/trans.h" 721)
   nil )
  (!pair  "hash_table<module_decl_hasher>"
-  (!type already_seen 2474)
+  (!type already_seen 2475)
   (!srcfileloc  "fortran/trans.h" 721)
   nil )
  (!pair  "gfc_wrapped_block"
-  (!type already_seen 2489)
+  (!type already_seen 2490)
   (!srcfileloc  "fortran/trans.h" 430)
   nil )
  (!pair  "gfc_saved_var"
-  (!type already_seen 2488)
+  (!type already_seen 2489)
   (!srcfileloc  "fortran/trans.h" 417)
   nil )
  (!pair  "gfc_loopinfo"
-  (!type already_seen 2487)
+  (!type already_seen 2488)
   (!srcfileloc  "fortran/trans.h" 407)
   nil )
  (!pair  "gfc_ss"
-  (!type already_seen 2486)
+  (!type already_seen 2487)
   (!srcfileloc  "fortran/trans.h" 358)
   nil )
  (!pair  "gfc_ss_info"
-  (!type already_seen 2485)
+  (!type already_seen 2486)
   (!srcfileloc  "fortran/trans.h" 317)
   nil )
  (!pair  "gfc_array_info"
-  (!type already_seen 2484)
+  (!type already_seen 2485)
   (!srcfileloc  "fortran/trans.h" 217)
   nil )
  (!pair  "gfc_co_subroutines_args"
-  (!type already_seen 2483)
+  (!type already_seen 2484)
   (!srcfileloc  "fortran/trans.h" 128)
   nil )
  (!pair  "gfc_se"
-  (!type already_seen 2482)
+  (!type already_seen 2483)
   (!srcfileloc  "fortran/trans.h" 119)
   nil )
  (!pair  "stmtblock_t"
-  (!type already_seen 2481)
+  (!type already_seen 2482)
   (!srcfileloc  "fortran/trans.h" 37)
   nil )
  (!pair  "forall_info"
-  (!type already_seen 2480)
+  (!type already_seen 2481)
   (!srcfileloc  "fortran/trans-stmt.cc" 59)
   nil )
  (!pair  "iter_info"
-  (!type already_seen 2479)
+  (!type already_seen 2480)
   (!srcfileloc  "fortran/trans-stmt.cc" 47)
   nil )
  (!pair  "gfc_st_parameter"
-  (!type already_seen 2478)
+  (!type already_seen 2479)
   (!srcfileloc  "fortran/trans-io.cc" 80)
   nil )
  (!pair  "gfc_st_parameter_field"
-  (!type already_seen 2477)
+  (!type already_seen 2478)
   (!srcfileloc  "fortran/trans-io.cc" 74)
   nil )
  (!pair  "gfc_intrinsic_map_t"
-  (!type already_seen 2476)
+  (!type already_seen 2477)
   (!srcfileloc  "fortran/trans-intrinsic.cc" 88)
   nil )
  (!pair  "module_hasher"
-  (!type already_seen 2469)
+  (!type already_seen 2470)
   (!srcfileloc  "fortran/trans-decl.cc" 5360)
   nil )
  (!pair  "hash_table<module_hasher>"
-  (!type already_seen 2470)
+  (!type already_seen 2471)
   (!srcfileloc  "fortran/trans-decl.cc" 5360)
   nil )
  (!pair  "tree_frame_info"
@@ -34555,87 +34559,87 @@
   (!srcfileloc  "d/d-tree.h" 128)
   nil )
  (!pair  "Expressions"
-  (!type already_seen 2463)
+  (!type already_seen 2464)
   (!srcfileloc  "d/d-tree.h" 46)
   nil )
  (!pair  "Array<Expression*>"
-  (!type already_seen 2463)
+  (!type already_seen 2464)
   (!srcfileloc  "d/d-tree.h" 46)
   nil )
  (!pair  "list_hasher"
-  (!type already_seen 2440)
-  (!srcfileloc  "cp/tree.cc" 2165)
-  nil )
- (!pair  "hash_table<list_hasher>"
   (!type already_seen 2441)
   (!srcfileloc  "cp/tree.cc" 2165)
   nil )
- (!pair  "cplus_array_hasher"
-  (!type already_seen 2436)
-  (!srcfileloc  "cp/tree.cc" 1046)
+ (!pair  "hash_table<list_hasher>"
+  (!type already_seen 2442)
+  (!srcfileloc  "cp/tree.cc" 2165)
   nil )
- (!pair  "hash_table<cplus_array_hasher>"
+ (!pair  "cplus_array_hasher"
   (!type already_seen 2437)
   (!srcfileloc  "cp/tree.cc" 1046)
   nil )
+ (!pair  "hash_table<cplus_array_hasher>"
+  (!type already_seen 2438)
+  (!srcfileloc  "cp/tree.cc" 1046)
+  nil )
  (!pair  "bool"
-  (!type already_seen 2430)
+  (!type already_seen 2431)
   (!srcfileloc  "cp/semantics.cc" 874)
   nil )
  (!pair  "hash_map<tree,bool>"
-  (!type already_seen 2428)
+  (!type already_seen 2429)
   (!srcfileloc  "cp/semantics.cc" 874)
   nil )
  (!pair  "deferred_access"
-  (!type already_seen 2425)
-  (!srcfileloc  "cp/semantics.cc" 136)
-  nil )
- (!pair  "vec<deferred_access,va_gc>"
   (!type already_seen 2426)
   (!srcfileloc  "cp/semantics.cc" 136)
   nil )
- (!pair  "tinfo_s"
-  (!type already_seen 2422)
-  (!srcfileloc  "cp/rtti.cc" 122)
+ (!pair  "vec<deferred_access,va_gc>"
+  (!type already_seen 2427)
+  (!srcfileloc  "cp/semantics.cc" 136)
   nil )
- (!pair  "vec<tinfo_s,va_gc>"
+ (!pair  "tinfo_s"
   (!type already_seen 2423)
   (!srcfileloc  "cp/rtti.cc" 122)
   nil )
+ (!pair  "vec<tinfo_s,va_gc>"
+  (!type already_seen 2424)
+  (!srcfileloc  "cp/rtti.cc" 122)
+  nil )
  (!pair  "hash_map<tree,tree_pair_p>"
-  (!type already_seen 2420)
-  (!srcfileloc  "cp/pt.cc" 30732)
+  (!type already_seen 2421)
+  (!srcfileloc  "cp/pt.cc" 30755)
   nil )
  (!pair  "pending_template"
-  (!type already_seen 2402)
-  (!srcfileloc  "cp/pt.cc" 9729)
+  (!type already_seen 2403)
+  (!srcfileloc  "cp/pt.cc" 9749)
   nil )
  (!pair  "tinst_level"
   (!type already_seen 2173)
-  (!srcfileloc  "cp/pt.cc" 9720)
+  (!srcfileloc  "cp/pt.cc" 9740)
   nil )
  (!pair  "hash_map<const_tree,tree>"
-  (!type already_seen 2412)
-  (!srcfileloc  "cp/pt.cc" 6546)
+  (!type already_seen 2413)
+  (!srcfileloc  "cp/pt.cc" 6560)
   nil )
  (!pair  "ctp_hasher"
-  (!type already_seen 2408)
-  (!srcfileloc  "cp/pt.cc" 4521)
+  (!type already_seen 2409)
+  (!srcfileloc  "cp/pt.cc" 4526)
   nil )
  (!pair  "hash_table<ctp_hasher>"
-  (!type already_seen 2409)
-  (!srcfileloc  "cp/pt.cc" 4521)
+  (!type already_seen 2410)
+  (!srcfileloc  "cp/pt.cc" 4526)
   nil )
  (!pair  "spec_hash_table"
-  (!type already_seen 2405)
+  (!type already_seen 2406)
   (!srcfileloc  "cp/pt.cc" 118)
   nil )
  (!pair  "spec_hasher"
-  (!type already_seen 2404)
+  (!type already_seen 2405)
   (!srcfileloc  "cp/pt.cc" 118)
   nil )
  (!pair  "hash_table<spec_hasher>"
-  (!type already_seen 2405)
+  (!type already_seen 2406)
   (!srcfileloc  "cp/pt.cc" 118)
   nil )
  (!pair  "tree_fn_t"
@@ -34643,16 +34647,16 @@
   (!srcfileloc  "cp/pt.cc" 54)
   nil )
  (!pair  "iter_t"
-  (!type already_seen 2400)
-  (!srcfileloc  "cp/parser.cc" 35592)
+  (!type already_seen 2401)
+  (!srcfileloc  "cp/parser.cc" 35627)
   nil )
  (!pair  "class_to_loc_map_t::iterator"
-  (!type already_seen 2400)
-  (!srcfileloc  "cp/parser.cc" 35592)
+  (!type already_seen 2401)
+  (!srcfileloc  "cp/parser.cc" 35627)
   nil )
  (!pair  "cp_parser_expression_stack"
-  (!type array 2577 nil  gc_unused "NUM_PREC_VALUES" 
-   (!type already_seen 2395)
+  (!type array 2578 nil  gc_unused "NUM_PREC_VALUES" 
+   (!type already_seen 2396)
   )
   (!srcfileloc  "cp/parser.cc" 2176)
   nil )
@@ -34665,59 +34669,59 @@
   (!srcfileloc  "cp/parser.cc" 708)
   nil )
  (!pair  "vec<macro_export,va_gc>"
-  (!type already_seen 2380)
-  (!srcfileloc  "cp/module.cc" 17436)
+  (!type already_seen 2381)
+  (!srcfileloc  "cp/module.cc" 17439)
   nil )
  (!pair  "macro_export"
-  (!type already_seen 2378)
-  (!srcfileloc  "cp/module.cc" 17275)
+  (!type already_seen 2379)
+  (!srcfileloc  "cp/module.cc" 17278)
   nil )
  (!pair  "note_defs_table_t"
-  (!type already_seen 2374)
+  (!type already_seen 2375)
   (!srcfileloc  "cp/module.cc" 4644)
   nil )
  (!pair  "note_def_cache_hasher"
-  (!type already_seen 2373)
-  (!srcfileloc  "cp/module.cc" 4644)
-  nil )
- (!pair  "hash_table<note_def_cache_hasher>"
   (!type already_seen 2374)
   (!srcfileloc  "cp/module.cc" 4644)
   nil )
- (!pair  "entity_map_t"
-  (!type already_seen 2368)
-  (!srcfileloc  "cp/module.cc" 3986)
+ (!pair  "hash_table<note_def_cache_hasher>"
+  (!type already_seen 2375)
+  (!srcfileloc  "cp/module.cc" 4644)
   nil )
- (!pair  "0"
+ (!pair  "entity_map_t"
   (!type already_seen 2369)
   (!srcfileloc  "cp/module.cc" 3986)
   nil )
- (!pair  "int_hash<unsigned"
-  (!type already_seen 2371)
-  (!srcfileloc  "cp/module.cc" 3986)
-  nil )
- (!pair  "simple_hashmap_traits<int_hash<unsigned"
+ (!pair  "0"
   (!type already_seen 2370)
   (!srcfileloc  "cp/module.cc" 3986)
   nil )
+ (!pair  "int_hash<unsigned"
+  (!type already_seen 2372)
+  (!srcfileloc  "cp/module.cc" 3986)
+  nil )
+ (!pair  "simple_hashmap_traits<int_hash<unsigned"
+  (!type already_seen 2371)
+  (!srcfileloc  "cp/module.cc" 3986)
+  nil )
  (!pair  "hash_map<unsigned,unsigned,simple_hashmap_traits<int_hash<unsigned,0>,unsigned>>"
-  (!type already_seen 2368)
+  (!type already_seen 2369)
   (!srcfileloc  "cp/module.cc" 3986)
   nil )
  (!pair  "module_state_hash"
-  (!type already_seen 2363)
+  (!type already_seen 2364)
   (!srcfileloc  "cp/module.cc" 3980)
   nil )
  (!pair  "hash_table<module_state_hash>"
-  (!type already_seen 2366)
+  (!type already_seen 2367)
   (!srcfileloc  "cp/module.cc" 3980)
   nil )
  (!pair  "vec<module_state*,va_gc>"
-  (!type already_seen 2364)
+  (!type already_seen 2365)
   (!srcfileloc  "cp/module.cc" 3977)
   nil )
  (!pair  "vec<cpp_hashnode*>"
-  (!type already_seen 2361)
+  (!type already_seen 2362)
   (!srcfileloc  "cp/module.cc" 3779)
   nil )
  (!pair  "module_state"
@@ -34761,79 +34765,79 @@
   (!srcfileloc  "cp/module.cc" 3199)
   nil )
  (!pair  "duplicate_hash_map"
-  (!type already_seen 2348)
+  (!type already_seen 2349)
   (!srcfileloc  "cp/module.cc" 2865)
   nil )
  (!pair  "tree_node"
-  (!type already_seen 2351)
+  (!type already_seen 2352)
   (!srcfileloc  "cp/module.cc" 2864)
   nil )
  (!pair  "nodel_ptr_hash<tree_node"
-  (!type already_seen 2350)
+  (!type already_seen 2351)
   (!srcfileloc  "cp/module.cc" 2864)
   nil )
  (!pair  "simple_hashmap_traits<nodel_ptr_hash<tree_node"
-  (!type already_seen 2349)
+  (!type already_seen 2350)
   (!srcfileloc  "cp/module.cc" 2864)
   nil )
  (!pair  "hash_map<tree,uintptr_t,simple_hashmap_traits<nodel_ptr_hash<tree_node>,uintptr_t>>"
-  (!type already_seen 2348)
+  (!type already_seen 2349)
   (!srcfileloc  "cp/module.cc" 2864)
   nil )
  (!pair  "keyed_map_t"
-  (!type already_seen 2345)
-  (!srcfileloc  "cp/module.cc" 2730)
-  nil )
- (!pair  "auto_vec<tree"
   (!type already_seen 2346)
   (!srcfileloc  "cp/module.cc" 2730)
   nil )
+ (!pair  "auto_vec<tree"
+  (!type already_seen 2347)
+  (!srcfileloc  "cp/module.cc" 2730)
+  nil )
  (!pair  "hash_map<tree,auto_vec<tree>>"
-  (!type already_seen 2345)
+  (!type already_seen 2346)
   (!srcfileloc  "cp/module.cc" 2730)
   nil )
  (!pair  "pending_map_t"
-  (!type already_seen 2343)
-  (!srcfileloc  "cp/module.cc" 2717)
-  nil )
- (!pair  "auto_vec<unsigned"
   (!type already_seen 2344)
   (!srcfileloc  "cp/module.cc" 2717)
   nil )
- (!pair  "pending_key"
-  (!type already_seen 2342)
+ (!pair  "auto_vec<unsigned"
+  (!type already_seen 2345)
   (!srcfileloc  "cp/module.cc" 2717)
   nil )
- (!pair  "hash_map<pending_key,auto_vec<unsigned>>"
+ (!pair  "pending_key"
   (!type already_seen 2343)
   (!srcfileloc  "cp/module.cc" 2717)
   nil )
- (!pair  "ptr_int_hash_map"
-  (!type already_seen 2330)
-  (!srcfileloc  "cp/module.cc" 340)
+ (!pair  "hash_map<pending_key,auto_vec<unsigned>>"
+  (!type already_seen 2344)
+  (!srcfileloc  "cp/module.cc" 2717)
   nil )
- (!pair  "signed"
+ (!pair  "ptr_int_hash_map"
   (!type already_seen 2331)
   (!srcfileloc  "cp/module.cc" 340)
   nil )
+ (!pair  "signed"
+  (!type already_seen 2332)
+  (!srcfileloc  "cp/module.cc" 340)
+  nil )
  (!pair  "hash_map<void*,signed,ptr_int_traits>"
-  (!type already_seen 2330)
+  (!type already_seen 2331)
   (!srcfileloc  "cp/module.cc" 340)
   nil )
  (!pair  "ptr_int_traits"
-  (!type already_seen 2328)
-  (!srcfileloc  "cp/module.cc" 339)
-  nil )
- (!pair  "nodel_ptr_hash<void"
   (!type already_seen 2329)
   (!srcfileloc  "cp/module.cc" 339)
   nil )
+ (!pair  "nodel_ptr_hash<void"
+  (!type already_seen 2330)
+  (!srcfileloc  "cp/module.cc" 339)
+  nil )
  (!pair  "simple_hashmap_traits<nodel_ptr_hash<void>,int>"
-  (!type already_seen 2328)
+  (!type already_seen 2329)
   (!srcfileloc  "cp/module.cc" 339)
   nil )
  (!pair  "verstr_t"
-  (!type array 2578 nil  gc_unused "32" 
+  (!type array 2579 nil  gc_unused "32" 
    (!type already_seen 8)
   )
   (!srcfileloc  "cp/module.cc" 307)
@@ -34843,76 +34847,76 @@
   (!srcfileloc  "cp/mangle.cc" 151)
   nil )
  (!pair  "globals"
-  (!type already_seen 2324)
+  (!type already_seen 2325)
   (!srcfileloc  "cp/mangle.cc" 126)
   nil )
  (!pair  "subsumption_hasher"
-  (!type already_seen 2321)
-  (!srcfileloc  "cp/logic.cc" 750)
-  nil )
- (!pair  "hash_table<subsumption_hasher>"
   (!type already_seen 2322)
   (!srcfileloc  "cp/logic.cc" 750)
   nil )
+ (!pair  "hash_table<subsumption_hasher>"
+  (!type already_seen 2323)
+  (!srcfileloc  "cp/logic.cc" 750)
+  nil )
  (!pair  "conv_type_hasher"
-  (!type already_seen 2315)
-  (!srcfileloc  "cp/lex.cc" 855)
+  (!type already_seen 2316)
+  (!srcfileloc  "cp/lex.cc" 856)
   nil )
  (!pair  "hash_table<conv_type_hasher>"
-  (!type already_seen 2316)
-  (!srcfileloc  "cp/lex.cc" 855)
+  (!type already_seen 2317)
+  (!srcfileloc  "cp/lex.cc" 856)
   nil )
  (!pair  "vec<lambda_discriminator,va_gc>"
-  (!type already_seen 2311)
-  (!srcfileloc  "cp/lambda.cc" 1501)
+  (!type already_seen 2312)
+  (!srcfileloc  "cp/lambda.cc" 1504)
   nil )
  (!pair  "lambda_discriminator"
-  (!type already_seen 2310)
-  (!srcfileloc  "cp/lambda.cc" 1499)
+  (!type already_seen 2311)
+  (!srcfileloc  "cp/lambda.cc" 1502)
   nil )
  (!pair  "lambda_sig_count"
-  (!type already_seen 2307)
-  (!srcfileloc  "cp/lambda.cc" 1496)
+  (!type already_seen 2308)
+  (!srcfileloc  "cp/lambda.cc" 1499)
   nil )
  (!pair  "vec<lambda_sig_count,va_gc>"
-  (!type already_seen 2308)
-  (!srcfileloc  "cp/lambda.cc" 1496)
+  (!type already_seen 2309)
+  (!srcfileloc  "cp/lambda.cc" 1499)
   nil )
  (!pair  "pending_noexcept"
-  (!type already_seen 2303)
-  (!srcfileloc  "cp/except.cc" 1115)
+  (!type already_seen 2304)
+  (!srcfileloc  "cp/except.cc" 1116)
   nil )
  (!pair  "vec<pending_noexcept,va_gc>"
-  (!type already_seen 2304)
-  (!srcfileloc  "cp/except.cc" 1115)
+  (!type already_seen 2305)
+  (!srcfileloc  "cp/except.cc" 1116)
   nil )
  (!pair  "priority_map_t"
-  (!type already_seen 2301)
+  (!type already_seen 2302)
   (!srcfileloc  "cp/decl2.cc" 169)
   nil )
  (!pair  "priority_map_traits"
-  (!type already_seen 2300)
-  (!srcfileloc  "cp/decl2.cc" 169)
-  nil )
- (!pair  "hash_map<unsigned,tree,priority_map_traits>"
   (!type already_seen 2301)
   (!srcfileloc  "cp/decl2.cc" 169)
   nil )
+ (!pair  "hash_map<unsigned,tree,priority_map_traits>"
+  (!type already_seen 2302)
+  (!srcfileloc  "cp/decl2.cc" 169)
+  nil )
  (!pair  "mangled_decl_hash"
-  (!type already_seen 2297)
+  (!type already_seen 2298)
   (!srcfileloc  "cp/decl2.cc" 128)
   nil )
  (!pair  "hash_table<mangled_decl_hash>"
-  (!type already_seen 2298)
+  (!type already_seen 2299)
   (!srcfileloc  "cp/decl2.cc" 128)
   nil )
  (!pair  "typename_hasher"
   (!type already_seen 2292)
-  (!srcfileloc  "cp/decl.cc" 4358)
+  (!srcfileloc  "cp/decl.cc" 4374)
   nil )
  (!pair  "hash_table<typename_hasher>"
   (!type already_seen 2293)
-  (!srcfileloc  "cp/decl.cc" 4358)
+  (!srcfileloc  "cp/decl.cc" 4374)
   nil )
  (!pair  "incomplete_var"
   (!type already_seen 2287)
@@ -34948,11 +34952,11 @@
   nil )
  (!pair  "sat_hasher"
   (!type already_seen 2260)
-  (!srcfileloc  "cp/constraint.cc" 2088)
+  (!srcfileloc  "cp/constraint.cc" 2089)
   nil )
  (!pair  "hash_table<sat_hasher>"
   (!type already_seen 2261)
-  (!srcfileloc  "cp/constraint.cc" 2088)
+  (!srcfileloc  "cp/constraint.cc" 2089)
   nil )
  (!pair  "atom_hasher"
   (!type already_seen 2193)
@@ -34992,7 +34996,7 @@
   nil )
  (!pair  "hash_map<tree,int>"
   (!type already_seen 2235)
-  (!srcfileloc  "cp/class.cc" 3642)
+  (!srcfileloc  "cp/class.cc" 3647)
   nil )
  (!pair  "subobject_offset_fn"
   (!type already_seen 2)
@@ -35256,15 +35260,15 @@
   nil )
  (!pair  "omp_clause_mask"
   (!type already_seen 2069)
-  (!srcfileloc  "c-family/c-common.h" 1264)
+  (!srcfileloc  "c-family/c-common.h" 1267)
   nil )
  (!pair  "wide_int_bitmask"
   (!type already_seen 2069)
-  (!srcfileloc  "c-family/c-common.h" 1264)
+  (!srcfileloc  "c-family/c-common.h" 1267)
   nil )
  (!pair  "bc_state_t"
   (!type already_seen 2068)
-  (!srcfileloc  "c-family/c-common.h" 1219)
+  (!srcfileloc  "c-family/c-common.h" 1222)
   nil )
  (!pair  "stmt_tree"
   (!type already_seen 477)
@@ -35396,7 +35400,7 @@
   nil )
  (!pair  "vinfo_t"
   (!type already_seen 2005)
-  (!srcfileloc  "ada/gcc-interface/decl.cc" 8127)
+  (!srcfileloc  "ada/gcc-interface/decl.cc" 8133)
   nil )
  (!pair  "intrin_binding_t"
   (!type already_seen 2003)
@@ -35451,7 +35455,7 @@
   (!srcfileloc  "config/aarch64/aarch64-sve-builtins.h" 423)
   nil )
  (!pair  "type_suffix_pair"
-  (!type array 2579 nil  gc_unused "2" 
+  (!type array 2580 nil  gc_unused "2" 
    (!type already_seen 2)
   )
   (!srcfileloc  "config/aarch64/aarch64-sve-builtins.h" 218)
@@ -35630,43 +35634,43 @@
   nil )
  (!pair  "lto_file_decl_data_ptr"
   (!type already_seen 350)
-  (!srcfileloc  "lto-streamer.h" 607)
+  (!srcfileloc  "lto-streamer.h" 610)
   nil )
  (!pair  "lto_section"
   (!type already_seen 369)
-  (!srcfileloc  "lto-streamer.h" 598)
+  (!srcfileloc  "lto-streamer.h" 601)
   nil )
  (!pair  "ld_plugin_symbol_resolution"
   (!type already_seen 368)
-  (!srcfileloc  "lto-streamer.h" 592)
+  (!srcfileloc  "lto-streamer.h" 595)
   nil )
  (!pair  "hash_map<tree,ld_plugin_symbol_resolution>"
   (!type already_seen 367)
-  (!srcfileloc  "lto-streamer.h" 592)
+  (!srcfileloc  "lto-streamer.h" 595)
   nil )
  (!pair  "gcov_summary"
   (!type already_seen 365)
-  (!srcfileloc  "lto-streamer.h" 589)
+  (!srcfileloc  "lto-streamer.h" 592)
   nil )
  (!pair  "res_pair"
   (!type already_seen 364)
-  (!srcfileloc  "lto-streamer.h" 586)
+  (!srcfileloc  "lto-streamer.h" 589)
   nil )
  (!pair  "vec<res_pair>"
   (!type already_seen 363)
-  (!srcfileloc  "lto-streamer.h" 586)
+  (!srcfileloc  "lto-streamer.h" 589)
   nil )
  (!pair  "decl_state_hasher"
   (!type already_seen 360)
-  (!srcfileloc  "lto-streamer.h" 565)
+  (!srcfileloc  "lto-streamer.h" 568)
   nil )
  (!pair  "hash_table<decl_state_hasher>"
   (!type already_seen 359)
-  (!srcfileloc  "lto-streamer.h" 565)
+  (!srcfileloc  "lto-streamer.h" 568)
   nil )
  (!pair  "lto_out_decl_state_ptr"
   (!type already_seen 1805)
-  (!srcfileloc  "lto-streamer.h" 536)
+  (!srcfileloc  "lto-streamer.h" 539)
   nil )
  (!pair  "lto_in_decl_state_ptr"
   (!type already_seen 353)
@@ -35826,23 +35830,23 @@
   nil )
  (!pair  "uid_range_p"
   (!type already_seen 1802)
-  (!srcfileloc  "passes.cc" 1037)
+  (!srcfileloc  "passes.cc" 1049)
   nil )
  (!pair  "char_ptr"
   (!type already_seen 9)
-  (!srcfileloc  "passes.cc" 917)
+  (!srcfileloc  "passes.cc" 929)
   nil )
  (!pair  "aarch64_fmv_feature_datum"
   (!type already_seen 1785)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 19772)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 19768)
   nil )
  (!pair  "aarch64_fmv_feature_mask"
   (!type already_seen 2)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 19765)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 19761)
   nil )
  (!pair  "aarch64_cc"
   (!type already_seen 2)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 915)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 911)
   nil )
  (!pair  "sysreg_t"
   (!type already_seen 1778)
@@ -36434,35 +36438,35 @@
   nil )
  (!pair  "loc_list_hash_type"
   (!type already_seen 1462)
-  (!srcfileloc  "dwarf2out.cc" 32133)
+  (!srcfileloc  "dwarf2out.cc" 32134)
   nil )
  (!pair  "loc_list_hasher"
   (!type already_seen 1461)
-  (!srcfileloc  "dwarf2out.cc" 32133)
+  (!srcfileloc  "dwarf2out.cc" 32134)
   nil )
  (!pair  "hash_table<loc_list_hasher>"
   (!type already_seen 1462)
-  (!srcfileloc  "dwarf2out.cc" 32133)
+  (!srcfileloc  "dwarf2out.cc" 32134)
   nil )
  (!pair  "macinfo_hash_type"
   (!type already_seen 1459)
-  (!srcfileloc  "dwarf2out.cc" 29057)
+  (!srcfileloc  "dwarf2out.cc" 29058)
   nil )
  (!pair  "macinfo_entry_hasher"
   (!type already_seen 1458)
-  (!srcfileloc  "dwarf2out.cc" 29057)
+  (!srcfileloc  "dwarf2out.cc" 29058)
   nil )
  (!pair  "hash_table<macinfo_entry_hasher>"
   (!type already_seen 1459)
-  (!srcfileloc  "dwarf2out.cc" 29057)
+  (!srcfileloc  "dwarf2out.cc" 29058)
   nil )
  (!pair  "inline_entry_data_hasher"
   (!type already_seen 1455)
-  (!srcfileloc  "dwarf2out.cc" 24455)
+  (!srcfileloc  "dwarf2out.cc" 24456)
   nil )
  (!pair  "hash_table<inline_entry_data_hasher>"
   (!type already_seen 1456)
-  (!srcfileloc  "dwarf2out.cc" 24455)
+  (!srcfileloc  "dwarf2out.cc" 24456)
   nil )
  (!pair  "external_ref_hash_type"
   (!type already_seen 1448)
@@ -38290,7 +38294,7 @@
   (!srcfileloc  "rust/backend/rust-tree.cc" 4372)
   nil )
  (!pair  "source_location_table"
-  (!type already_seen 2576)
+  (!type already_seen 2577)
   (!srcfileloc  "rust/backend/rust-tree.cc" 4371)
   nil )
  (!pair  "tree_vector_cache"
@@ -38301,11 +38305,11 @@
   )
  )
  (!pair  "cplus_array_htab"
-  (!type already_seen 2573)
+  (!type already_seen 2574)
   (!srcfileloc  "rust/backend/rust-tree.cc" 2338)
   nil )
  (!pair  "conv_type_names"
-  (!type already_seen 2570)
+  (!type already_seen 2571)
   (!srcfileloc  "rust/backend/rust-tree.cc" 1352)
   nil )
  (!pair  "fixed_trees"
@@ -38317,13 +38321,13 @@
   (!srcfileloc  "rust/backend/rust-tree.h" 2126)
   nil )
  (!pair  "cp_global_trees"
-  (!type array 2580 nil  gc_used "CPTI_MAX" 
+  (!type array 2581 nil  gc_used "CPTI_MAX" 
    (!type already_seen 23)
   )
   (!srcfileloc  "rust/backend/rust-tree.h" 370)
   nil )
  (!pair  "c_global_trees"
-  (!type array 2581 nil  gc_used "CTI_MAX" 
+  (!type array 2582 nil  gc_used "CTI_MAX" 
    (!type already_seen 23)
   )
   (!srcfileloc  "rust/backend/rust-tree.h" 247)
@@ -38340,11 +38344,11 @@
   (!srcfileloc  "rust/backend/rust-constexpr.cc" 399)
   nil )
  (!pair  "constexpr_call_table"
-  (!type already_seen 2560)
+  (!type already_seen 2561)
   (!srcfileloc  "rust/backend/rust-constexpr.cc" 348)
   nil )
  (!pair  "constexpr_fundef_table"
-  (!type already_seen 2558)
+  (!type already_seen 2559)
   (!srcfileloc  "rust/backend/rust-constexpr.cc" 215)
   nil )
  (!pair  "rust_gc_root"
@@ -38368,15 +38372,15 @@
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 3645)
   nil )
  (!pair  "ehtype_list"
-  (!type already_seen 2542)
+  (!type already_seen 2543)
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 3301)
   nil )
  (!pair  "ivar_offset_refs"
-  (!type already_seen 2551)
+  (!type already_seen 2552)
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 3010)
   nil )
  (!pair  "protlist"
-  (!type already_seen 2548)
+  (!type already_seen 2549)
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 2284)
   nil )
  (!pair  "nonlazy_category_list"
@@ -38396,34 +38400,34 @@
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 2165)
   nil )
  (!pair  "metaclass_super_refs"
-  (!type already_seen 2542)
+  (!type already_seen 2543)
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1486)
   nil )
  (!pair  "class_super_refs"
-  (!type already_seen 2542)
+  (!type already_seen 2543)
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1485)
   nil )
  (!pair  "protrefs"
-  (!type already_seen 2548)
+  (!type already_seen 2549)
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1314)
   nil )
  (!pair  "msgrefs"
-  (!type already_seen 2545)
+  (!type already_seen 2546)
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1260)
   nil )
  (!pair  "classrefs"
-  (!type already_seen 2542)
+  (!type already_seen 2543)
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 1093)
   nil )
  (!pair  "extern_names"
-  (!type already_seen 2528)
+  (!type already_seen 2529)
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 236)
   (!options 
    (!option length string  "SIZEHASHTABLE")
   )
  )
  (!pair  "objc_v2_global_trees"
-  (!type array 2582 nil  gc_used "OCTI_V2_MAX" 
+  (!type array 2583 nil  gc_used "OCTI_V2_MAX" 
    (!type already_seen 23)
   )
   (!srcfileloc  "objc/objc-next-runtime-abi-02.cc" 186)
@@ -38493,7 +38497,7 @@
   (!srcfileloc  "objc/objc-runtime-shared-support.cc" 288)
   nil )
  (!pair  "objc_rt_trees"
-  (!type array 2583 nil  gc_used "OCTI_RT_META_MAX" 
+  (!type array 2584 nil  gc_used "OCTI_RT_META_MAX" 
    (!type already_seen 23)
   )
   (!srcfileloc  "objc/objc-runtime-shared-support.cc" 51)
@@ -38503,7 +38507,7 @@
   (!srcfileloc  "objc/objc-act.cc" 8437)
   nil )
  (!pair  "interface_map"
-  (!type already_seen 2525)
+  (!type already_seen 2526)
   (!srcfileloc  "objc/objc-act.cc" 3943)
   nil )
  (!pair  "string_layout_checked"
@@ -38511,27 +38515,27 @@
   (!srcfileloc  "objc/objc-act.cc" 3229)
   nil )
  (!pair  "string_htab"
-  (!type already_seen 2537)
+  (!type already_seen 2538)
   (!srcfileloc  "objc/objc-act.cc" 258)
   nil )
  (!pair  "alias_name_map"
-  (!type already_seen 2525)
+  (!type already_seen 2526)
   (!srcfileloc  "objc/objc-act.cc" 163)
   nil )
  (!pair  "class_name_map"
-  (!type already_seen 2525)
+  (!type already_seen 2526)
   (!srcfileloc  "objc/objc-act.cc" 162)
   nil )
  (!pair  "class_method_map"
-  (!type already_seen 2525)
+  (!type already_seen 2526)
   (!srcfileloc  "objc/objc-act.cc" 158)
   nil )
  (!pair  "instance_method_map"
-  (!type already_seen 2525)
+  (!type already_seen 2526)
   (!srcfileloc  "objc/objc-act.cc" 157)
   nil )
  (!pair  "objc_global_trees"
-  (!type array 2584 nil  gc_used "OCTI_MAX" 
+  (!type array 2585 nil  gc_used "OCTI_MAX" 
    (!type already_seen 23)
   )
   (!srcfileloc  "objc/objc-act.h" 441)
@@ -38549,7 +38553,7 @@
   (!srcfileloc  "objc/objc-act.h" 309)
   nil )
  (!pair  "imp_list"
-  (!type already_seen 2532)
+  (!type already_seen 2533)
   (!srcfileloc  "objc/objc-act.h" 308)
   nil )
  (!pair  "local_variables_to_volatilize"
@@ -38741,11 +38745,11 @@
   (!srcfileloc  "m2/gm2-gcc/m2type.cc" 75)
   nil )
  (!pair  "list_of_arrays"
-  (!type already_seen 2523)
+  (!type already_seen 2524)
   (!srcfileloc  "m2/gm2-gcc/m2type.cc" 73)
   nil )
  (!pair  "top_constructor"
-  (!type already_seen 2521)
+  (!type already_seen 2522)
   (!srcfileloc  "m2/gm2-gcc/m2type.cc" 63)
   nil )
  (!pair  "last_function"
@@ -38805,7 +38809,7 @@
   (!srcfileloc  "m2/gm2-gcc/m2decl.cc" 37)
   nil )
  (!pair  "builtin_macros"
-  (!type already_seen 2519)
+  (!type already_seen 2520)
   (!srcfileloc  "m2/gm2-gcc/m2builtins.cc" 429)
   nil )
  (!pair  "builtin_ftype_int_var"
@@ -38921,28 +38925,28 @@
   (!srcfileloc  "m2/gm2-gcc/m2block.cc" 97)
   nil )
  (!pair  "rtegraph_current_function"
-  (!type already_seen 2512)
+  (!type already_seen 2513)
   (!srcfileloc  "m2/gm2-gcc/rtegraph.cc" 77)
   nil )
  (!pair  "constructors"
-  (!type already_seen 2513)
+  (!type already_seen 2514)
   (!srcfileloc  "m2/gm2-gcc/rtegraph.cc" 69)
   nil )
  (!pair  "externs"
-  (!type already_seen 2513)
+  (!type already_seen 2514)
   (!srcfileloc  "m2/gm2-gcc/rtegraph.cc" 68)
   nil )
  (!pair  "candidates"
-  (!type already_seen 2513)
+  (!type already_seen 2514)
   (!srcfileloc  "m2/gm2-gcc/rtegraph.cc" 67)
   nil )
  (!pair  "allnodes"
-  (!type already_seen 2513)
+  (!type already_seen 2514)
   (!srcfileloc  "m2/gm2-gcc/rtegraph.cc" 66)
   nil )
  (!pair  "gm2_eh_personality_decl"
   (!type already_seen 23)
-  (!srcfileloc  "m2/gm2-lang.cc" 1089)
+  (!srcfileloc  "m2/gm2-lang.cc" 1088)
   nil )
  (!pair  "real_file_decl_data"
   (!type already_seen 351)
@@ -38995,13 +38999,13 @@
   (!srcfileloc  "lto/lto-lang.cc" 253)
   nil )
  (!pair  "builtin_types"
-  (!type array 2585 nil  gc_used "(int) BT_LAST + 1" 
+  (!type array 2586 nil  gc_used "(int) BT_LAST + 1" 
    (!type already_seen 23)
   )
   (!srcfileloc  "lto/lto-lang.cc" 251)
   nil )
  (!pair  "built_in_attributes"
-  (!type array 2586 nil  gc_used "(int) ATTR_LAST" 
+  (!type array 2587 nil  gc_used "(int) ATTR_LAST" 
    (!type already_seen 23)
   )
   (!srcfileloc  "lto/lto-lang.cc" 186)
@@ -39015,7 +39019,7 @@
   (!srcfileloc  "go/go-lang.cc" 598)
   nil )
  (!pair  "gfc_rank_cst"
-  (!type array 2587 nil  gc_used "GFC_MAX_DIMENSIONS + 1" 
+  (!type array 2588 nil  gc_used "GFC_MAX_DIMENSIONS + 1" 
    (!type already_seen 23)
   )
   (!srcfileloc  "fortran/trans-const.h" 65)
@@ -39193,9 +39197,9 @@
   (!srcfileloc  "fortran/trans.h" 941)
   nil )
  (!pair  "gfor_fndecl_math_powi"
-  (!type array 2588 nil  gc_used "4" 
-   (!type array 2589 nil  gc_used "3" 
-    (!type already_seen 2491)
+  (!type array 2589 nil  gc_used "4" 
+   (!type array 2590 nil  gc_used "3" 
+    (!type already_seen 2492)
    )
   )
   (!srcfileloc  "fortran/trans.h" 940)
@@ -39525,55 +39529,55 @@
   (!srcfileloc  "fortran/trans-types.h" 27)
   nil )
  (!pair  "gfc_pcharacter_types"
-  (!type array 2590 nil  gc_used "MAX_CHARACTER_KINDS + 1" 
+  (!type array 2591 nil  gc_used "MAX_CHARACTER_KINDS + 1" 
    (!type already_seen 23)
   )
   (!srcfileloc  "fortran/trans-types.cc" 100)
   nil )
  (!pair  "gfc_character_types"
-  (!type array 2591 nil  gc_used "MAX_CHARACTER_KINDS + 1" 
+  (!type array 2592 nil  gc_used "MAX_CHARACTER_KINDS + 1" 
    (!type already_seen 23)
   )
   (!srcfileloc  "fortran/trans-types.cc" 99)
   nil )
  (!pair  "gfc_complex_types"
-  (!type array 2592 nil  gc_used "MAX_REAL_KINDS + 1" 
+  (!type array 2593 nil  gc_used "MAX_REAL_KINDS + 1" 
    (!type already_seen 23)
   )
   (!srcfileloc  "fortran/trans-types.cc" 95)
   nil )
  (!pair  "gfc_real_types"
-  (!type array 2593 nil  gc_used "MAX_REAL_KINDS + 1" 
+  (!type array 2594 nil  gc_used "MAX_REAL_KINDS + 1" 
    (!type already_seen 23)
   )
   (!srcfileloc  "fortran/trans-types.cc" 94)
   nil )
  (!pair  "gfc_logical_types"
-  (!type array 2594 nil  gc_used "MAX_INT_KINDS + 1" 
+  (!type array 2595 nil  gc_used "MAX_INT_KINDS + 1" 
    (!type already_seen 23)
   )
   (!srcfileloc  "fortran/trans-types.cc" 90)
   nil )
  (!pair  "gfc_integer_types"
-  (!type array 2595 nil  gc_used "MAX_INT_KINDS + 1" 
+  (!type array 2596 nil  gc_used "MAX_INT_KINDS + 1" 
    (!type already_seen 23)
   )
   (!srcfileloc  "fortran/trans-types.cc" 89)
   nil )
  (!pair  "gfc_cfi_descriptor_base"
-  (!type array 2596 nil  gc_used "2 * (CFI_MAX_RANK + 2)" 
+  (!type array 2597 nil  gc_used "2 * (CFI_MAX_RANK + 2)" 
    (!type already_seen 23)
   )
   (!srcfileloc  "fortran/trans-types.cc" 81)
   nil )
  (!pair  "gfc_array_descriptor_base_caf"
-  (!type array 2597 nil  gc_used "2 * (GFC_MAX_DIMENSIONS+1)" 
+  (!type array 2598 nil  gc_used "2 * (GFC_MAX_DIMENSIONS+1)" 
    (!type already_seen 23)
   )
   (!srcfileloc  "fortran/trans-types.cc" 80)
   nil )
  (!pair  "gfc_array_descriptor_base"
-  (!type array 2598 nil  gc_used "2 * (GFC_MAX_DIMENSIONS+1)" 
+  (!type array 2599 nil  gc_used "2 * (GFC_MAX_DIMENSIONS+1)" 
    (!type already_seen 23)
   )
   (!srcfileloc  "fortran/trans-types.cc" 79)
@@ -39587,7 +39591,7 @@
   (!srcfileloc  "fortran/trans-types.cc" 77)
   nil )
  (!pair  "select_struct"
-  (!type array 2599 nil  gc_used "2" 
+  (!type array 2600 nil  gc_used "2" 
    (!type already_seen 23)
   )
   (!srcfileloc  "fortran/trans-stmt.cc" 3349)
@@ -39597,31 +39601,31 @@
   (!srcfileloc  "fortran/trans-io.cc" 162)
   nil )
  (!pair  "iocall"
-  (!type array 2600 nil  gc_used "IOCALL_NUM" 
+  (!type array 2601 nil  gc_used "IOCALL_NUM" 
    (!type already_seen 23)
   )
   (!srcfileloc  "fortran/trans-io.cc" 153)
   nil )
  (!pair  "st_parameter_field"
-  (!type array 2601 nil  gc_used "" 
-   (!type already_seen 2477)
+  (!type array 2602 nil  gc_used "" 
+   (!type already_seen 2478)
   )
   (!srcfileloc  "fortran/trans-io.cc" 101)
   nil )
  (!pair  "st_parameter"
-  (!type array 2602 nil  gc_used "" 
-   (!type already_seen 2478)
+  (!type array 2603 nil  gc_used "" 
+   (!type already_seen 2479)
   )
   (!srcfileloc  "fortran/trans-io.cc" 90)
   nil )
  (!pair  "gfc_intrinsic_map"
-  (!type array 2603 nil  gc_used "" 
-   (!type already_seen 2476)
+  (!type array 2604 nil  gc_used "" 
+   (!type already_seen 2477)
   )
   (!srcfileloc  "fortran/trans-intrinsic.cc" 117)
   nil )
  (!pair  "module_htab"
-  (!type already_seen 2471)
+  (!type already_seen 2472)
   (!srcfileloc  "fortran/trans-decl.cc" 5360)
   nil )
  (!pair  "saved_local_decls"
@@ -39661,7 +39665,7 @@
   (!srcfileloc  "fortran/f95-lang.cc" 210)
   nil )
  (!pair  "tinfo_types"
-  (!type array 2604 nil  gc_used "TK_END" 
+  (!type array 2605 nil  gc_used "TK_END" 
    (!type already_seen 23)
   )
   (!srcfileloc  "d/typeinfo.cc" 96)
@@ -39683,13 +39687,13 @@
   (!srcfileloc  "d/d-lang.cc" 93)
   nil )
  (!pair  "builtin_types"
-  (!type array 2605 nil  gc_used "(int) BT_LAST + 1" 
+  (!type array 2606 nil  gc_used "(int) BT_LAST + 1" 
    (!type already_seen 23)
   )
   (!srcfileloc  "d/d-builtins.cc" 1144)
   nil )
  (!pair  "built_in_attributes"
-  (!type array 2606 nil  gc_used "(int) ATTR_LAST" 
+  (!type array 2607 nil  gc_used "(int) ATTR_LAST" 
    (!type already_seen 23)
   )
   (!srcfileloc  "d/d-builtins.cc" 1048)
@@ -39727,7 +39731,7 @@
   (!srcfileloc  "d/d-builtins.cc" 47)
   nil )
  (!pair  "d_global_trees"
-  (!type array 2607 nil  gc_used "DTI_MAX" 
+  (!type array 2608 nil  gc_used "DTI_MAX" 
    (!type already_seen 23)
   )
   (!srcfileloc  "d/d-tree.h" 453)
@@ -39757,15 +39761,15 @@
   (!srcfileloc  "cp/tree.cc" 4483)
   nil )
  (!pair  "list_hash_table"
-  (!type already_seen 2442)
+  (!type already_seen 2443)
   (!srcfileloc  "cp/tree.cc" 2165)
   nil )
  (!pair  "cplus_array_htab"
-  (!type already_seen 2438)
+  (!type already_seen 2439)
   (!srcfileloc  "cp/tree.cc" 1046)
   nil )
  (!pair  "boolish_class_type_p_cache"
-  (!type already_seen 2429)
+  (!type already_seen 2430)
   (!srcfileloc  "cp/semantics.cc" 874)
   (!options 
    (!option deletable string  "")
@@ -39776,91 +39780,91 @@
   (!srcfileloc  "cp/semantics.cc" 137)
   nil )
  (!pair  "deferred_access_stack"
-  (!type already_seen 2427)
+  (!type already_seen 2428)
   (!srcfileloc  "cp/semantics.cc" 136)
   nil )
  (!pair  "tinfo_descs"
-  (!type already_seen 2424)
+  (!type already_seen 2425)
   (!srcfileloc  "cp/rtti.cc" 122)
   nil )
  (!pair  "dguide_cache"
-  (!type already_seen 2421)
-  (!srcfileloc  "cp/pt.cc" 30732)
+  (!type already_seen 2422)
+  (!srcfileloc  "cp/pt.cc" 30755)
   (!options 
    (!option deletable string  "")
   )
  )
  (!pair  "explicit_specifier_map"
   (!type already_seen 1022)
-  (!srcfileloc  "cp/pt.cc" 14381)
+  (!srcfileloc  "cp/pt.cc" 14401)
   (!options 
    (!option cache string  "")
   )
  )
  (!pair  "defarg_inst"
   (!type already_seen 1659)
-  (!srcfileloc  "cp/pt.cc" 14243)
+  (!srcfileloc  "cp/pt.cc" 14263)
   (!options 
    (!option cache string  "")
   )
  )
  (!pair  "last_error_tinst_level"
   (!type already_seen 2174)
-  (!srcfileloc  "cp/pt.cc" 11276)
+  (!srcfileloc  "cp/pt.cc" 11296)
   nil )
  (!pair  "pending_template_freelist_head"
-  (!type already_seen 2403)
-  (!srcfileloc  "cp/pt.cc" 9729)
+  (!type already_seen 2404)
+  (!srcfileloc  "cp/pt.cc" 9749)
   (!options 
    (!option deletable string  "")
   )
  )
  (!pair  "tinst_level_freelist_head"
   (!type already_seen 2174)
-  (!srcfileloc  "cp/pt.cc" 9720)
+  (!srcfileloc  "cp/pt.cc" 9740)
   (!options 
    (!option deletable string  "")
   )
  )
  (!pair  "tree_list_freelist_head"
   (!type already_seen 23)
-  (!srcfileloc  "cp/pt.cc" 9711)
+  (!srcfileloc  "cp/pt.cc" 9731)
   (!options 
    (!option deletable string  "")
   )
  )
  (!pair  "defaulted_ttp_cache"
   (!type already_seen 422)
-  (!srcfileloc  "cp/pt.cc" 8012)
+  (!srcfileloc  "cp/pt.cc" 8026)
   (!options 
    (!option deletable string  "")
   )
  )
  (!pair  "tparm_obj_values"
   (!type already_seen 422)
-  (!srcfileloc  "cp/pt.cc" 7366)
+  (!srcfileloc  "cp/pt.cc" 7382)
   nil )
  (!pair  "complex_alias_tmpl_info"
-  (!type already_seen 2413)
-  (!srcfileloc  "cp/pt.cc" 6546)
+  (!type already_seen 2414)
+  (!srcfileloc  "cp/pt.cc" 6560)
   (!options 
    (!option deletable string  "")
   )
  )
  (!pair  "ctp_table"
-  (!type already_seen 2410)
-  (!srcfileloc  "cp/pt.cc" 4521)
+  (!type already_seen 2411)
+  (!srcfileloc  "cp/pt.cc" 4526)
   nil )
  (!pair  "canonical_template_parms"
   (!type already_seen 85)
   (!srcfileloc  "cp/pt.cc" 126)
   nil )
  (!pair  "type_specializations"
-  (!type already_seen 2406)
+  (!type already_seen 2407)
   (!srcfileloc  "cp/pt.cc" 120)
   nil )
  (!pair  "decl_specializations"
-  (!type already_seen 2406)
+  (!type already_seen 2407)
   (!srcfileloc  "cp/pt.cc" 119)
   nil )
  (!pair  "saved_access_scope"
@@ -39872,20 +39876,20 @@
   (!srcfileloc  "cp/pt.cc" 73)
   nil )
  (!pair  "last_pending_template"
-  (!type already_seen 2403)
+  (!type already_seen 2404)
   (!srcfileloc  "cp/pt.cc" 66)
   nil )
  (!pair  "pending_templates"
-  (!type already_seen 2403)
+  (!type already_seen 2404)
   (!srcfileloc  "cp/pt.cc" 65)
   nil )
  (!pair  "generic_parm_count"
   (!type already_seen 2)
-  (!srcfileloc  "cp/parser.cc" 51870)
+  (!srcfileloc  "cp/parser.cc" 51903)
   nil )
  (!pair  "cp_parser_decl_specs_attrs"
   (!type already_seen 85)
-  (!srcfileloc  "cp/parser.cc" 20152)
+  (!srcfileloc  "cp/parser.cc" 20175)
   nil )
  (!pair  "cp_parser_context_free_list"
   (!type already_seen 2212)
@@ -39900,21 +39904,21 @@
   nil )
  (!pair  "free_saved_scope"
   (!type already_seen 2145)
-  (!srcfileloc  "cp/name-lookup.cc" 8642)
+  (!srcfileloc  "cp/name-lookup.cc" 8648)
   (!options 
    (!option deletable string  "")
   )
  )
  (!pair  "free_binding_level"
   (!type already_seen 91)
-  (!srcfileloc  "cp/name-lookup.cc" 4652)
+  (!srcfileloc  "cp/name-lookup.cc" 4655)
   (!options 
    (!option deletable string  "")
   )
  )
  (!pair  "extern_c_decls"
   (!type already_seen 100)
-  (!srcfileloc  "cp/name-lookup.cc" 3179)
+  (!srcfileloc  "cp/name-lookup.cc" 3180)
   nil )
  (!pair  "free_bindings"
   (!type already_seen 96)
@@ -39925,14 +39929,14 @@
  )
  (!pair  "headers"
   (!type already_seen 415)
-  (!srcfileloc  "cp/module.cc" 17440)
+  (!srcfileloc  "cp/module.cc" 17443)
   nil )
  (!pair  "macro_exports"
-  (!type already_seen 2381)
-  (!srcfileloc  "cp/module.cc" 17436)
+  (!type already_seen 2382)
+  (!srcfileloc  "cp/module.cc" 17439)
   nil )
  (!pair  "note_defs"
-  (!type already_seen 2375)
+  (!type already_seen 2376)
   (!srcfileloc  "cp/module.cc" 4645)
   (!options 
    (!option cache string  "")
@@ -39947,11 +39951,11 @@
   (!srcfileloc  "cp/module.cc" 4001)
   nil )
  (!pair  "modules_hash"
-  (!type already_seen 2367)
+  (!type already_seen 2368)
   (!srcfileloc  "cp/module.cc" 3980)
   nil )
  (!pair  "modules"
-  (!type already_seen 2365)
+  (!type already_seen 2366)
   (!srcfileloc  "cp/module.cc" 3977)
   nil )
  (!pair  "fixed_trees"
@@ -39966,7 +39970,7 @@
   )
  )
  (!pair  "comp_cat_cache"
-  (!type array 2608 nil  gc_used "cc_last" 
+  (!type array 2609 nil  gc_used "cc_last" 
    (!type already_seen 23)
   )
   (!srcfileloc  "cp/method.cc" 939)
@@ -39979,33 +39983,33 @@
   (!srcfileloc  "cp/method.cc" 183)
   nil )
  (!pair  "subst_identifiers"
-  (!type array 2609 nil  gc_used "SUBID_MAX" 
+  (!type array 2610 nil  gc_used "SUBID_MAX" 
    (!type already_seen 23)
   )
   (!srcfileloc  "cp/mangle.cc" 155)
   nil )
  (!pair  "G"
-  (!type already_seen 2324)
+  (!type already_seen 2325)
   (!srcfileloc  "cp/mangle.cc" 126)
   nil )
  (!pair  "subsumption_cache"
-  (!type already_seen 2323)
+  (!type already_seen 2324)
   (!srcfileloc  "cp/logic.cc" 750)
   (!options 
    (!option deletable string  "")
   )
  )
  (!pair  "conv_type_names"
-  (!type already_seen 2317)
-  (!srcfileloc  "cp/lex.cc" 855)
+  (!type already_seen 2318)
+  (!srcfileloc  "cp/lex.cc" 856)
   nil )
  (!pair  "lambda_scope_stack"
-  (!type already_seen 2312)
-  (!srcfileloc  "cp/lambda.cc" 1501)
+  (!type already_seen 2313)
+  (!srcfileloc  "cp/lambda.cc" 1504)
   nil )
  (!pair  "lambda_scope"
-  (!type already_seen 2310)
-  (!srcfileloc  "cp/lambda.cc" 1499)
+  (!type already_seen 2311)
+  (!srcfileloc  "cp/lambda.cc" 1502)
   nil )
  (!pair  "max_id"
   (!type already_seen 23)
@@ -40024,17 +40028,17 @@
   (!srcfileloc  "cp/friend.cc" 35)
   nil )
  (!pair  "pending_noexcept_checks"
-  (!type already_seen 2305)
-  (!srcfileloc  "cp/except.cc" 1115)
+  (!type already_seen 2306)
+  (!srcfileloc  "cp/except.cc" 1116)
   nil )
  (!pair  "static_init_fini_fns"
-  (!type array 2610 nil  gc_used "4" 
-   (!type already_seen 2302)
+  (!type array 2611 nil  gc_used "4" 
+   (!type already_seen 2303)
   )
   (!srcfileloc  "cp/decl2.cc" 174)
   nil )
  (!pair  "mangled_decls"
-  (!type already_seen 2299)
+  (!type already_seen 2300)
   (!srcfileloc  "cp/decl2.cc" 128)
   nil )
  (!pair  "mangling_aliases"
@@ -40055,18 +40059,18 @@
   nil )
  (!pair  "start_cleanup_cnt"
   (!type already_seen 2)
-  (!srcfileloc  "cp/decl.cc" 9889)
+  (!srcfileloc  "cp/decl.cc" 10030)
   nil )
  (!pair  "decomp_type_table"
   (!type already_seen 1022)
-  (!srcfileloc  "cp/decl.cc" 9278)
+  (!srcfileloc  "cp/decl.cc" 9413)
   (!options 
    (!option cache string  "")
   )
  )
  (!pair  "typename_htab"
   (!type already_seen 2294)
-  (!srcfileloc  "cp/decl.cc" 4358)
+  (!srcfileloc  "cp/decl.cc" 4374)
   nil )
  (!pair  "local_entities"
   (!type already_seen 85)
@@ -40099,7 +40103,7 @@
   (!srcfileloc  "cp/cp-gimplify.cc" 3858)
   nil )
  (!pair  "fold_caches"
-  (!type array 2611 nil  gc_used "2" 
+  (!type array 2612 nil  gc_used "2" 
    (!type already_seen 422)
   )
   (!srcfileloc  "cp/cp-gimplify.cc" 2894)
@@ -40113,7 +40117,7 @@
   nil )
  (!pair  "to_ramp"
   (!type already_seen 422)
-  (!srcfileloc  "cp/coroutines.cc" 690)
+  (!srcfileloc  "cp/coroutines.cc" 692)
   nil )
  (!pair  "void_coro_handle_address"
   (!type already_seen 23)
@@ -40237,28 +40241,28 @@
   nil )
  (!pair  "decl_satisfied_cache"
   (!type already_seen 422)
-  (!srcfileloc  "cp/constraint.cc" 2091)
+  (!srcfileloc  "cp/constraint.cc" 2092)
   (!options 
    (!option deletable string  "")
   )
  )
  (!pair  "sat_cache"
   (!type already_seen 2262)
-  (!srcfileloc  "cp/constraint.cc" 2088)
+  (!srcfileloc  "cp/constraint.cc" 2089)
   (!options 
    (!option deletable string  "")
   )
  )
  (!pair  "failed_type_completions"
   (!type already_seen 85)
-  (!srcfileloc  "cp/constraint.cc" 1940)
+  (!srcfileloc  "cp/constraint.cc" 1941)
   (!options 
    (!option deletable string  "")
   )
  )
  (!pair  "decl_constraints"
   (!type already_seen 1022)
-  (!srcfileloc  "cp/constraint.cc" 1072)
+  (!srcfileloc  "cp/constraint.cc" 1073)
   (!options 
    (!option cache string  "")
   )
@@ -40313,15 +40317,15 @@
   nil )
  (!pair  "dvirt_fn"
   (!type already_seen 23)
-  (!srcfileloc  "cp/class.cc" 10248)
+  (!srcfileloc  "cp/class.cc" 10260)
   nil )
  (!pair  "abort_fndecl_addr"
   (!type already_seen 23)
-  (!srcfileloc  "cp/class.cc" 10247)
+  (!srcfileloc  "cp/class.cc" 10259)
   nil )
  (!pair  "enum_to_min_precision"
   (!type already_seen 2236)
-  (!srcfileloc  "cp/class.cc" 3642)
+  (!srcfileloc  "cp/class.cc" 3647)
   (!options 
    (!option deletable string  "")
   )
@@ -40336,23 +40340,23 @@
   nil )
  (!pair  "unemitted_tinfo_decls"
   (!type already_seen 85)
-  (!srcfileloc  "cp/cp-tree.h" 7690)
+  (!srcfileloc  "cp/cp-tree.h" 7691)
   nil )
  (!pair  "ovl_op_alternate"
-  (!type array 2612 nil  gc_used "OVL_OP_MAX" 
+  (!type array 2613 nil  gc_used "OVL_OP_MAX" 
    (!type already_seen 8)
   )
   (!srcfileloc  "cp/cp-tree.h" 6282)
   nil )
  (!pair  "ovl_op_mapping"
-  (!type array 2613 nil  gc_used "MAX_TREE_CODES" 
+  (!type array 2614 nil  gc_used "MAX_TREE_CODES" 
    (!type already_seen 8)
   )
   (!srcfileloc  "cp/cp-tree.h" 6280)
   nil )
  (!pair  "ovl_op_info"
-  (!type array 2614 nil  gc_used "2" 
-   (!type array 2615 nil  gc_used "OVL_OP_MAX" 
+  (!type array 2615 nil  gc_used "2" 
+   (!type array 2616 nil  gc_used "OVL_OP_MAX" 
     (!type already_seen 2169)
    )
   )
@@ -40387,7 +40391,7 @@
   (!srcfileloc  "cp/cp-tree.h" 1911)
   nil )
  (!pair  "cp_global_trees"
-  (!type array 2616 nil  gc_used "CPTI_MAX" 
+  (!type array 2617 nil  gc_used "CPTI_MAX" 
    (!type already_seen 23)
   )
   (!srcfileloc  "cp/cp-tree.h" 243)
@@ -40453,25 +40457,25 @@
   (!srcfileloc  "c-family/c-cppbuiltin.cc" 1825)
   nil )
  (!pair  "lazy_hex_fp_values"
-  (!type array 2617 nil  gc_used "LAZY_HEX_FP_VALUES_CNT" 
+  (!type array 2618 nil  gc_used "LAZY_HEX_FP_VALUES_CNT" 
    (!type already_seen 2073)
   )
   (!srcfileloc  "c-family/c-cppbuiltin.cc" 1824)
   nil )
  (!pair  "g_string_concat_db"
   (!type already_seen 802)
-  (!srcfileloc  "c-family/c-common.h" 1209)
+  (!srcfileloc  "c-family/c-common.h" 1212)
   nil )
  (!pair  "registered_builtin_types"
   (!type already_seen 23)
-  (!srcfileloc  "c-family/c-common.h" 1192)
+  (!srcfileloc  "c-family/c-common.h" 1195)
   nil )
  (!pair  "pending_lang_change"
   (!type already_seen 2)
-  (!srcfileloc  "c-family/c-common.h" 1145)
+  (!srcfileloc  "c-family/c-common.h" 1148)
   nil )
  (!pair  "c_global_trees"
-  (!type array 2618 nil  gc_used "CTI_MAX" 
+  (!type array 2619 nil  gc_used "CTI_MAX" 
    (!type already_seen 23)
   )
   (!srcfileloc  "c-family/c-common.h" 526)
@@ -40499,17 +40503,17 @@
   (!srcfileloc  "c-family/c-common.cc" 4827)
   nil )
  (!pair  "built_in_attributes"
-  (!type array 2619 nil  gc_used "(int) ATTR_LAST" 
+  (!type array 2620 nil  gc_used "(int) ATTR_LAST" 
    (!type already_seen 23)
   )
   (!srcfileloc  "c-family/c-common.cc" 4092)
   nil )
  (!pair  "ext_block"
   (!type already_seen 23)
-  (!srcfileloc  "c/c-decl.cc" 13507)
+  (!srcfileloc  "c/c-decl.cc" 13557)
   nil )
  (!pair  "last_structptr_types"
-  (!type array 2620 nil  gc_used "builtin_structptr_type_count" 
+  (!type array 2621 nil  gc_used "builtin_structptr_type_count" 
    (!type already_seen 23)
   )
   (!srcfileloc  "c/c-decl.cc" 1797)
@@ -40562,16 +40566,16 @@
   nil )
  (!pair  "gnat_eh_personality_decl"
   (!type already_seen 23)
-  (!srcfileloc  "ada/gcc-interface/misc.cc" 1302)
+  (!srcfileloc  "ada/gcc-interface/misc.cc" 1323)
   nil )
  (!pair  "built_in_attributes"
-  (!type array 2621 nil  gc_used "(int) ATTR_LAST" 
+  (!type array 2622 nil  gc_used "(int) ATTR_LAST" 
    (!type already_seen 23)
   )
   (!srcfileloc  "ada/gcc-interface/utils.cc" 6585)
   nil )
  (!pair  "builtin_types"
-  (!type array 2622 nil  gc_used "(int) BT_LAST + 1" 
+  (!type array 2623 nil  gc_used "(int) BT_LAST + 1" 
    (!type already_seen 23)
   )
   (!srcfileloc  "ada/gcc-interface/utils.cc" 6418)
@@ -40632,14 +40636,14 @@
   (!srcfileloc  "ada/gcc-interface/utils.cc" 304)
   nil )
  (!pair  "float_types"
-  (!type array 2623 nil  gc_used "NUM_MACHINE_MODES" 
+  (!type array 2624 nil  gc_used "NUM_MACHINE_MODES" 
    (!type already_seen 23)
   )
   (!srcfileloc  "ada/gcc-interface/utils.cc" 291)
   nil )
  (!pair  "signed_and_unsigned_types"
-  (!type array 2624 nil  gc_used "2 * MAX_BITS_PER_WORD + 1" 
-   (!type array 2625 nil  gc_used "2" 
+  (!type array 2625 nil  gc_used "2 * MAX_BITS_PER_WORD + 1" 
+   (!type array 2626 nil  gc_used "2" 
     (!type already_seen 23)
    )
   )
@@ -40661,7 +40665,7 @@
  )
  (!pair  "thunk_labelno"
   (!type already_seen 2)
-  (!srcfileloc  "ada/gcc-interface/trans.cc" 11015)
+  (!srcfileloc  "ada/gcc-interface/trans.cc" 11026)
   nil )
  (!pair  "gnu_loop_stack"
   (!type already_seen 2017)
@@ -40717,25 +40721,25 @@
   )
  )
  (!pair  "gnat_raise_decls_ext"
-  (!type array 2626 nil  gc_used "(int) LAST_REASON_CODE + 1" 
+  (!type array 2627 nil  gc_used "(int) LAST_REASON_CODE + 1" 
    (!type already_seen 23)
   )
   (!srcfileloc  "ada/gcc-interface/gigi.h" 444)
   nil )
  (!pair  "gnat_raise_decls"
-  (!type array 2627 nil  gc_used "(int) LAST_REASON_CODE + 1" 
+  (!type array 2628 nil  gc_used "(int) LAST_REASON_CODE + 1" 
    (!type already_seen 23)
   )
   (!srcfileloc  "ada/gcc-interface/gigi.h" 443)
   nil )
  (!pair  "gnat_std_decls"
-  (!type array 2628 nil  gc_used "(int) ADT_LAST" 
+  (!type array 2629 nil  gc_used "(int) ADT_LAST" 
    (!type already_seen 23)
   )
   (!srcfileloc  "ada/gcc-interface/gigi.h" 442)
   nil )
  (!pair  "overload_names"
-  (!type array 2629 nil  gc_used "2" 
+  (!type array 2630 nil  gc_used "2" 
    (!type already_seen 1982)
   )
   (!srcfileloc  "config/aarch64/aarch64-sve-builtins.cc" 948)
@@ -40753,21 +40757,21 @@
   (!srcfileloc  "config/aarch64/aarch64-sve-builtins.cc" 926)
   nil )
  (!pair  "acle_vector_types"
-  (!type array 2630 nil  gc_used "MAX_TUPLE_SIZE" 
-   (!type array 2631 nil  gc_used "NUM_VECTOR_TYPES + 1" 
+  (!type array 2631 nil  gc_used "MAX_TUPLE_SIZE" 
+   (!type array 2632 nil  gc_used "NUM_VECTOR_TYPES + 1" 
     (!type already_seen 23)
    )
   )
   (!srcfileloc  "config/aarch64/aarch64-sve-builtins.cc" 922)
   nil )
  (!pair  "abi_vector_types"
-  (!type array 2632 nil  gc_used "NUM_VECTOR_TYPES + 1" 
+  (!type array 2633 nil  gc_used "NUM_VECTOR_TYPES + 1" 
    (!type already_seen 23)
   )
   (!srcfileloc  "config/aarch64/aarch64-sve-builtins.cc" 919)
   nil )
  (!pair  "scalar_types"
-  (!type array 2633 nil  gc_used "NUM_VECTOR_TYPES + 1" 
+  (!type array 2634 nil  gc_used "NUM_VECTOR_TYPES + 1" 
    (!type already_seen 23)
   )
   (!srcfileloc  "config/aarch64/aarch64-sve-builtins.cc" 913)
@@ -40777,7 +40781,7 @@
   (!srcfileloc  "config/aarch64/aarch64-builtins.cc" 1974)
   nil )
  (!pair  "aarch64_memtag_builtin_data"
-  (!type array 2634 nil  gc_used "AARCH64_MEMTAG_BUILTIN_END -\n\t\t\t      AARCH64_MEMTAG_BUILTIN_START - 1" 
+  (!type array 2635 nil  gc_used "AARCH64_MEMTAG_BUILTIN_END -\n\t\t\t      AARCH64_MEMTAG_BUILTIN_START - 1" 
    (!type already_seen 1957)
   )
   (!srcfileloc  "config/aarch64/aarch64-builtins.cc" 1925)
@@ -40795,21 +40799,21 @@
   (!srcfileloc  "config/aarch64/aarch64-builtins.cc" 960)
   nil )
  (!pair  "aarch64_simd_tuple_types"
-  (!type array 2635 nil  gc_used "ARM_NEON_H_TYPES_LAST" 
-   (!type array 2636 nil  gc_used "3" 
+  (!type array 2636 nil  gc_used "ARM_NEON_H_TYPES_LAST" 
+   (!type array 2637 nil  gc_used "3" 
     (!type already_seen 23)
    )
   )
   (!srcfileloc  "config/aarch64/aarch64-builtins.cc" 958)
   nil )
  (!pair  "aarch64_simd_types"
-  (!type array 2637 nil  gc_used "" 
+  (!type array 2638 nil  gc_used "" 
    (!type already_seen 1951)
   )
   (!srcfileloc  "config/aarch64/aarch64-builtins.cc" 948)
   nil )
  (!pair  "aarch64_builtin_decls"
-  (!type array 2638 nil  gc_used "AARCH64_BUILTIN_MAX" 
+  (!type array 2639 nil  gc_used "AARCH64_BUILTIN_MAX" 
    (!type already_seen 23)
   )
   (!srcfileloc  "config/aarch64/aarch64-builtins.cc" 915)
@@ -40823,13 +40827,13 @@
   (!srcfileloc  "omp-general.h" 200)
   nil )
  (!pair  "internal_fn_fnspec_array"
-  (!type array 2639 nil  gc_used "IFN_LAST + 1" 
+  (!type array 2640 nil  gc_used "IFN_LAST + 1" 
    (!type already_seen 23)
   )
   (!srcfileloc  "internal-fn.h" 136)
   nil )
  (!pair  "strub_cache"
-  (!type array 2640 nil  gc_used "STRUB_CACHE_SIZE" 
+  (!type array 2641 nil  gc_used "STRUB_CACHE_SIZE" 
    (!type already_seen 23)
   )
   (!srcfileloc  "ipa-strub.cc" 305)
@@ -40850,7 +40854,7 @@
   (!srcfileloc  "ubsan.cc" 1282)
   nil )
  (!pair  "ubsan_ids"
-  (!type array 2641 nil  gc_used "2" 
+  (!type array 2642 nil  gc_used "2" 
    (!type already_seen 2)
   )
   (!srcfileloc  "ubsan.cc" 363)
@@ -40883,13 +40887,13 @@
   (!srcfileloc  "asan.cc" 474)
   nil )
  (!pair  "shadow_ptr_types"
-  (!type array 2642 nil  gc_used "3" 
+  (!type array 2643 nil  gc_used "3" 
    (!type already_seen 23)
   )
   (!srcfileloc  "asan.cc" 471)
   nil )
  (!pair  "asan_memfn_rtls"
-  (!type array 2643 nil  gc_used "3" 
+  (!type array 2644 nil  gc_used "3" 
    (!type already_seen 123)
   )
   (!srcfileloc  "asan.cc" 395)
@@ -40942,7 +40946,7 @@
   (!srcfileloc  "tree-ssa-alias.h" 191)
   nil )
  (!pair  "free_phinodes"
-  (!type array 2644 nil  gc_used "NUM_BUCKETS - 2" 
+  (!type array 2645 nil  gc_used "NUM_BUCKETS - 2" 
    (!type already_seen 1809)
   )
   (!srcfileloc  "tree-phinodes.cc" 70)
@@ -40956,25 +40960,25 @@
   nil )
  (!pair  "aarch64_sls_shared_thunks_needed"
   (!type already_seen 2)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 29124)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 29120)
   nil )
  (!pair  "aarch64_sls_shared_thunks"
-  (!type array 2645 nil  gc_used "30" 
+  (!type array 2646 nil  gc_used "30" 
    (!type already_seen 23)
   )
-  (!srcfileloc  "config/aarch64/aarch64.cc" 29123)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 29119)
   nil )
  (!pair  "va_list_type"
   (!type already_seen 23)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 21144)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 21140)
   nil )
  (!pair  "aarch64_previous_fndecl"
   (!type already_seen 23)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 19091)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 19087)
   nil )
  (!pair  "tls_get_addr_libfunc"
   (!type already_seen 123)
-  (!srcfileloc  "config/aarch64/aarch64.cc" 2809)
+  (!srcfileloc  "config/aarch64/aarch64.cc" 2805)
   nil )
  (!pair  "stack_chk_fail_decl"
   (!type already_seen 23)
@@ -41167,13 +41171,13 @@
   (!srcfileloc  "tree.cc" 7186)
   nil )
  (!pair  "nonstandard_boolean_type_cache"
-  (!type array 2646 nil  gc_used "MAX_BOOL_CACHED_PREC + 1" 
+  (!type array 2647 nil  gc_used "MAX_BOOL_CACHED_PREC + 1" 
    (!type already_seen 23)
   )
   (!srcfileloc  "tree.cc" 7160)
   nil )
  (!pair  "nonstandard_integer_type_cache"
-  (!type array 2647 nil  gc_used "2 * MAX_INT_CACHED_PREC + 2" 
+  (!type array 2648 nil  gc_used "2 * MAX_INT_CACHED_PREC + 2" 
    (!type already_seen 23)
   )
   (!srcfileloc  "tree.cc" 7111)
@@ -41399,8 +41403,8 @@
   (!srcfileloc  "explow.cc" 1697)
   nil )
  (!pair  "hard_reg_clobbers"
-  (!type array 2648 nil  gc_used "NUM_MACHINE_MODES" 
-   (!type array 2649 nil  gc_used "FIRST_PSEUDO_REGISTER" 
+  (!type array 2649 nil  gc_used "NUM_MACHINE_MODES" 
+   (!type array 2650 nil  gc_used "FIRST_PSEUDO_REGISTER" 
     (!type already_seen 123)
    )
   )
@@ -41524,7 +41528,7 @@
   nil )
  (!pair  "inline_entry_data_table"
   (!type already_seen 1457)
-  (!srcfileloc  "dwarf2out.cc" 24455)
+  (!srcfileloc  "dwarf2out.cc" 24456)
   nil )
  (!pair  "external_die_map"
   (!type already_seen 1442)
@@ -42063,25 +42067,25 @@
   (!srcfileloc  "tree-core.h" 2416)
   nil )
  (!pair  "builtin_info"
-  (!type array 2650 nil  gc_used "(int)END_BUILTINS" 
+  (!type array 2651 nil  gc_used "(int)END_BUILTINS" 
    (!type already_seen 1065)
   )
   (!srcfileloc  "tree-core.h" 2410)
   nil )
  (!pair  "sizetype_tab"
-  (!type array 2651 nil  gc_used "(int) stk_type_kind_last" 
+  (!type array 2652 nil  gc_used "(int) stk_type_kind_last" 
    (!type already_seen 23)
   )
   (!srcfileloc  "tree-core.h" 2398)
   nil )
  (!pair  "integer_types"
-  (!type array 2652 nil  gc_used "itk_none" 
+  (!type array 2653 nil  gc_used "itk_none" 
    (!type already_seen 23)
   )
   (!srcfileloc  "tree-core.h" 2395)
   nil )
  (!pair  "global_trees"
-  (!type array 2653 nil  gc_used "TI_MAX" 
+  (!type array 2654 nil  gc_used "TI_MAX" 
    (!type already_seen 23)
   )
   (!srcfileloc  "tree-core.h" 2391)
@@ -42095,7 +42099,7 @@
   (!srcfileloc  "tree-core.h" 2374)
   nil )
  (!pair  "int_n_trees"
-  (!type array 2654 nil  gc_used "NUM_INT_N_ENTS" 
+  (!type array 2655 nil  gc_used "NUM_INT_N_ENTS" 
    (!type already_seen 1050)
   )
   (!srcfileloc  "tree.h" 6722)
@@ -42125,8 +42129,8 @@
   (!srcfileloc  "rtl.h" 3835)
   nil )
  (!pair  "const_tiny_rtx"
-  (!type array 2655 nil  gc_used "4" 
-   (!type array 2656 nil  gc_used "(int) MAX_MACHINE_MODE" 
+  (!type array 2656 nil  gc_used "4" 
+   (!type array 2657 nil  gc_used "(int) MAX_MACHINE_MODE" 
     (!type already_seen 123)
    )
   )
@@ -42137,7 +42141,7 @@
   (!srcfileloc  "rtl.h" 3820)
   nil )
  (!pair  "const_int_rtx"
-  (!type array 2657 nil  gc_used "MAX_SAVED_CONST_INT * 2 + 1" 
+  (!type array 2658 nil  gc_used "MAX_SAVED_CONST_INT * 2 + 1" 
    (!type already_seen 123)
   )
   (!srcfileloc  "rtl.h" 3814)
@@ -42155,7 +42159,7 @@
   (!srcfileloc  "coverage.cc" 101)
   nil )
  (!pair  "fn_v_ctrs"
-  (!type array 2658 nil  gc_used "GCOV_COUNTERS" 
+  (!type array 2659 nil  gc_used "GCOV_COUNTERS" 
    (!type already_seen 23)
   )
   (!srcfileloc  "coverage.cc" 96)

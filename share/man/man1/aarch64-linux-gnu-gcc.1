@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-08-31" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-09-07" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -7306,9 +7306,9 @@ unless \*(C+14 mode (or newer) is active.
 Warn whenever a \f(CW\*(C`switch\*(C'\fR statement has an index of enumerated type
 and lacks a \f(CW\*(C`case\*(C'\fR for one or more of the named codes of that
 enumeration.  (The presence of a \f(CW\*(C`default\*(C'\fR label prevents this
-warning.)  \f(CW\*(C`case\*(C'\fR labels outside the enumeration range also
-provoke warnings when this option is used (even if there is a
-\&\f(CW\*(C`default\*(C'\fR label).
+warning.)  \f(CW\*(C`case\*(C'\fR labels that do not correspond to enumerators also
+provoke warnings when this option is used, unless the enumeration is marked
+with the \f(CW\*(C`flag_enum\*(C'\fR attribute.
 This warning is enabled by \fB\-Wall\fR.
 .IP "\fB\-Wswitch\-default\fR" 4
 .IX Item "-Wswitch-default"
@@ -7318,8 +7318,9 @@ case.
 .IX Item "-Wswitch-enum"
 Warn whenever a \f(CW\*(C`switch\*(C'\fR statement has an index of enumerated type
 and lacks a \f(CW\*(C`case\*(C'\fR for one or more of the named codes of that
-enumeration.  \f(CW\*(C`case\*(C'\fR labels outside the enumeration range also
-provoke warnings when this option is used.  The only difference
+enumeration.  \f(CW\*(C`case\*(C'\fR labels that do not correspond to enumerators also
+provoke warnings when this option is used, unless the enumeration is marked
+with the \f(CW\*(C`flag_enum\*(C'\fR attribute.  The only difference
 between \fB\-Wswitch\fR and this option is that this option gives a
 warning about an omitted enumeration code even if there is a
 \&\f(CW\*(C`default\*(C'\fR label.
@@ -21121,7 +21122,8 @@ Enable the \s-1FEAT_SME_I16I64\s0 extension to \s-1SME.\s0
 .IP "\fBsme\-f64f64\fR" 4
 .IX Item "sme-f64f64"
 Enable the \s-1FEAT_SME_F64F64\s0 extension to \s-1SME.\s0
-+@item sme2
+.IP "\fBsme2\fR" 4
+.IX Item "sme2"
 Enable the Scalable Matrix Extension 2.  This also enables \s-1SME\s0 instructions.
 .IP "\fBlse128\fR" 4
 .IX Item "lse128"
@@ -21302,11 +21304,6 @@ These options are defined specifically for the \s-1AMD GCN\s0 port.
 Set architecture type or tuning for \fIgpu\fR. Supported values for \fIgpu\fR
 are
 .RS 4
-.IP "\fBfiji\fR" 4
-.IX Item "fiji"
-Compile for \s-1GCN3\s0 Fiji devices (gfx803).  Support deprecated; availablility
-depends on how \s-1GCC\s0 has been configured, see \fB\-\-with\-arch\fR and
-\&\fB\-\-with\-multilib\-list\fR.
 .IP "\fBgfx900\fR" 4
 .IX Item "gfx900"
 Compile for \s-1GCN5\s0 Vega 10 devices (gfx900).
@@ -22174,7 +22171,6 @@ Permissible names are:
 \&\fBarmv7\-m\fR, \fBarmv7e\-m\fR,
 \&\fBarmv8\-m.base\fR, \fBarmv8\-m.main\fR,
 \&\fBarmv8.1\-m.main\fR,
-\&\fBarmv9\-a\fR,
 \&\fBiwmmxt\fR and \fBiwmmxt2\fR.
 .Sp
 Additionally, the following architectures, which lack support for the
