@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "CPP 1"
-.TH CPP 1 "2024-09-07" "gcc-15.0.0" "GNU"
+.TH CPP 1 "2024-09-14" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -777,6 +777,15 @@ are searched.
 Do not search for header files in the \*(C+\-specific standard directories,
 but do still search the other standard directories.  (This option is
 used when building the \*(C+ library.)
+.IP "\fB\-\-embed\-dir=\fR\fIdir\fR" 4
+.IX Item "--embed-dir=dir"
+Append \fIdir\fR directory to the list of searched directories for
+\&\f(CW\*(C`#embed\*(C'\fR preprocessing directive or \f(CW\*(C`_\|_has_embed\*(C'\fR macro.
+There are no default directories for \f(CW\*(C`#embed\*(C'\fR.
+.Sp
+If \fIdir\fR begins with \fB=\fR or \f(CW$SYSROOT\fR, then the \fB=\fR
+or \f(CW$SYSROOT\fR is replaced by the sysroot prefix; see
+\&\fB\-\-sysroot\fR and \fB\-isysroot\fR.
 .IP "\fB\-Wcomment\fR" 4
 .IX Item "-Wcomment"
 .PD 0

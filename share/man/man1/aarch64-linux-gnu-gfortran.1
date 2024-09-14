@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GFORTRAN 1"
-.TH GFORTRAN 1 "2024-09-07" "gcc-15.0.0" "GNU"
+.TH GFORTRAN 1 "2024-09-14" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -189,7 +189,7 @@ by type.  Explanations are in the following sections.
 \&\-fmodule\-private \-ffixed\-form \-fno\-range\-check \-fopenacc \-fopenmp
 \&\-fopenmp\-allocators \-fopenmp\-simd \-freal\-4\-real\-10 \-freal\-4\-real\-16
 \&\-freal\-4\-real\-8 \-freal\-8\-real\-10 \-freal\-8\-real\-16 \-freal\-8\-real\-4
-\&\-std=\fR\fIstd\fR \fB\-ftest\-forall\-temp\fR
+\&\-std=\fR\fIstd\fR \fB\-ftest\-forall\-temp \-funsigned\fR
 .IP "\fIPreprocessing Options\fR" 4
 .IX Item "Preprocessing Options"
 \&\fB\-A\-\fR\fIquestion\fR[\fB=\fR\fIanswer\fR]
@@ -595,6 +595,9 @@ earlier gfortran versions and should not be used any more.
 .IP "\fB\-ftest\-forall\-temp\fR" 4
 .IX Item "-ftest-forall-temp"
 Enhance test coverage by forcing most forall assignments to use temporary.
+.IP "\fB\-funsigned\fR" 4
+.IX Item "-funsigned"
+Allow the experimental unsigned extension.
 .SS "Enable and customize preprocessing"
 .IX Subsection "Enable and customize preprocessing"
 Many Fortran compilers including \s-1GNU\s0 Fortran allow passing the source code
