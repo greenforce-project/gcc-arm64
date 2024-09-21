@@ -2410,12 +2410,12 @@ The following options only apply to building cross compilers.
      assumption that it will be provided by 'newlib'.
 
 '--with-avrlibc'
-     Only supported for the AVR target.  Specifies that 'AVR-Libc' is
+     Only supported for the AVR target.  Specifies that AVR-LibC is
      being used as the target C  library.  This causes float support
      functions like '__addsf3' to be omitted from 'libgcc.a' on the
      assumption that it will be provided by 'libm.a'.  For more
      technical details, cf.  PR54461.  It is not supported for RTEMS
-     configurations, which currently use newlib.  The option is
+     configurations, which currently use Newlib.  The option is
      supported since version 4.7.2 and is the default in 4.8.0 and
      newer.
 
@@ -3344,17 +3344,14 @@ AVR 8-bit microcontrollers.  These are used in embedded applications.
 There are no standard Unix configurations.  *Note AVR Options: (gcc)AVR
 Options, for the list of supported MCU types.
 
-   Use 'configure --target=avr --enable-languages="c"' to configure GCC.
+   Use 'configure --target=avr --enable-languages="c,c++"' to configure
+GCC.
 
    Further installation notes and other useful information about AVR
 tools can also be obtained from:
 
-   * http://www.nongnu.org/avr/
-
-   The following error:
-     Error: register required
-
-   indicates that you should upgrade to a newer version of the binutils.
+   * AVR-LibC: Building and Installing the GNU Tool Chain
+   * AVRtest: Running the avr-gcc Testsuite
 
 Blackfin
 ========
@@ -4925,90 +4922,90 @@ Ref: with-gnu-ld42181
 Ref: WithAixSoname72017
 Ref: AixLdCommand72678
 Ref: with-included-gettext88562
-Node: Building116917
-Node: Testing133128
-Node: Final install140659
-Node: Binaries143837
-Node: Specific144822
-Ref: aarch64-x-x145356
-Ref: amd64-x-solaris2147376
-Ref: amdgcn-x-amdhsa147458
-Ref: arc-x-elf32148262
-Ref: arc-linux-uclibc148438
-Ref: arm-x-eabi148579
-Ref: avr148832
-Ref: bfin149369
-Ref: cris149632
-Ref: dos149958
-Ref: epiphany-x-elf150283
-Ref: x-x-freebsd150388
-Ref: ft32-x-elf151116
-Ref: h8300-hms151214
-Ref: hppa-hp-hpux151566
-Ref: hppa-hp-hpux11153080
-Ref: x-x-linux-gnu158186
-Ref: ix86-x-linux158379
-Ref: ix86-x-solaris2158692
-Ref: ia64-x-linux158931
-Ref: ia64-x-hpux159178
-Ref: x-ibm-aix159396
-Ref: TransferAixShobj163058
-Ref: iq2000-x-elf166868
-Ref: lm32-x-elf167008
-Ref: lm32-x-uclinux167112
-Ref: loongarch167240
-Ref: m32c-x-elf167877
-Ref: m32r-x-elf167979
-Ref: m68k-x-x168081
-Ref: m68k-x-uclinux169119
-Ref: microblaze-x-elf169364
-Ref: mips-x-x169483
-Ref: moxie-x-elf171393
-Ref: msp430-x-elf171440
-Ref: nds32le-x-elf171997
-Ref: nds32be-x-elf172069
-Ref: nvptx-x-none172138
-Ref: or1k-x-elf173001
-Ref: or1k-x-linux173132
-Ref: powerpc-x-x173213
-Ref: powerpc-x-darwin173404
-Ref: powerpc-x-elf173899
-Ref: powerpc-x-linux-gnu173984
-Ref: powerpc-x-netbsd174079
-Ref: powerpc-x-eabisim174167
-Ref: powerpc-x-eabi174293
-Ref: powerpcle-x-elf174369
-Ref: powerpcle-x-eabisim174461
-Ref: powerpcle-x-eabi174594
-Ref: rl78-x-elf174677
-Ref: riscv32-x-elf174783
-Ref: riscv32-x-linux174972
-Ref: riscv64-x-elf175129
-Ref: riscv64-x-linux175318
-Ref: rx-x-elf175475
-Ref: s390-x-linux175521
-Ref: s390x-x-linux175593
-Ref: s390x-ibm-tpf175680
-Ref: x-x-solaris2175811
-Ref: sparc-x-x179123
-Ref: sparc-sun-solaris2179625
-Ref: sparc-x-linux180524
-Ref: sparc64-x-solaris2180555
-Ref: sparcv9-x-solaris2180642
-Ref: c6x-x-x181363
-Ref: visium-x-elf181455
-Ref: x-x-vxworks181563
-Ref: x86-64-x-x183086
-Ref: x86-64-x-solaris2183414
-Ref: xtensa-x-elf183919
-Ref: xtensa-x-linux184590
-Ref: windows184931
-Ref: x-x-cygwin186517
-Ref: x-x-mingw32187070
-Ref: older187452
-Ref: elf189415
-Node: GNU Free Documentation License189669
-Node: Concept Index214807
+Node: Building116915
+Node: Testing133126
+Node: Final install140657
+Node: Binaries143835
+Node: Specific144820
+Ref: aarch64-x-x145354
+Ref: amd64-x-solaris2147374
+Ref: amdgcn-x-amdhsa147456
+Ref: arc-x-elf32148260
+Ref: arc-linux-uclibc148436
+Ref: arm-x-eabi148577
+Ref: avr148830
+Ref: bfin149312
+Ref: cris149575
+Ref: dos149901
+Ref: epiphany-x-elf150226
+Ref: x-x-freebsd150331
+Ref: ft32-x-elf151059
+Ref: h8300-hms151157
+Ref: hppa-hp-hpux151509
+Ref: hppa-hp-hpux11153023
+Ref: x-x-linux-gnu158129
+Ref: ix86-x-linux158322
+Ref: ix86-x-solaris2158635
+Ref: ia64-x-linux158874
+Ref: ia64-x-hpux159121
+Ref: x-ibm-aix159339
+Ref: TransferAixShobj163001
+Ref: iq2000-x-elf166811
+Ref: lm32-x-elf166951
+Ref: lm32-x-uclinux167055
+Ref: loongarch167183
+Ref: m32c-x-elf167820
+Ref: m32r-x-elf167922
+Ref: m68k-x-x168024
+Ref: m68k-x-uclinux169062
+Ref: microblaze-x-elf169307
+Ref: mips-x-x169426
+Ref: moxie-x-elf171336
+Ref: msp430-x-elf171383
+Ref: nds32le-x-elf171940
+Ref: nds32be-x-elf172012
+Ref: nvptx-x-none172081
+Ref: or1k-x-elf172944
+Ref: or1k-x-linux173075
+Ref: powerpc-x-x173156
+Ref: powerpc-x-darwin173347
+Ref: powerpc-x-elf173842
+Ref: powerpc-x-linux-gnu173927
+Ref: powerpc-x-netbsd174022
+Ref: powerpc-x-eabisim174110
+Ref: powerpc-x-eabi174236
+Ref: powerpcle-x-elf174312
+Ref: powerpcle-x-eabisim174404
+Ref: powerpcle-x-eabi174537
+Ref: rl78-x-elf174620
+Ref: riscv32-x-elf174726
+Ref: riscv32-x-linux174915
+Ref: riscv64-x-elf175072
+Ref: riscv64-x-linux175261
+Ref: rx-x-elf175418
+Ref: s390-x-linux175464
+Ref: s390x-x-linux175536
+Ref: s390x-ibm-tpf175623
+Ref: x-x-solaris2175754
+Ref: sparc-x-x179066
+Ref: sparc-sun-solaris2179568
+Ref: sparc-x-linux180467
+Ref: sparc64-x-solaris2180498
+Ref: sparcv9-x-solaris2180585
+Ref: c6x-x-x181306
+Ref: visium-x-elf181398
+Ref: x-x-vxworks181506
+Ref: x86-64-x-x183029
+Ref: x86-64-x-solaris2183357
+Ref: xtensa-x-elf183862
+Ref: xtensa-x-linux184533
+Ref: windows184874
+Ref: x-x-cygwin186460
+Ref: x-x-mingw32187013
+Ref: older187395
+Ref: elf189358
+Node: GNU Free Documentation License189612
+Node: Concept Index214750
 
 End Tag Table
 

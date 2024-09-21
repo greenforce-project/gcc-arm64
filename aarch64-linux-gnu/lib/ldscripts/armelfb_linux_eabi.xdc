@@ -12,8 +12,11 @@ SECTIONS
 {
   /* Read-only sections, merged into text segment: */
   PROVIDE (__executable_start = SEGMENT_START("text-segment", 0)); . = SEGMENT_START("text-segment", 0) + SIZEOF_HEADERS;
-  .interp         : { *(.interp) }
+  /* Place build-id as close to the ELF headers as possible.  This
+     maximises the chance the build-id will be present in core files,
+     which GDB can then use to locate the associated debuginfo file.  */
   .note.gnu.build-id  : { *(.note.gnu.build-id) }
+  .interp         : { *(.interp) }
   .hash           : { *(.hash) }
   .gnu.hash       : { *(.gnu.hash) }
   .dynsym         : { *(.dynsym) }
@@ -60,6 +63,7 @@ SECTIONS
     {
       *(.rela.plt)
     }
+  /* Align the text segment.  */
   .init           :
   {
     KEEP (*(SORT_NONE(.init)))

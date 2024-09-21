@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "AS 1"
-.TH AS 1 "2024-09-14" "binutils-2.43.50" "GNU Development Tools"
+.TH AS 1 "2024-09-21" "binutils-2.43.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -1797,6 +1797,17 @@ R_X86_64_REX_GOTPCRELX, in 64\-bit mode.
 \&\fB\-mrelax\-relocations=\fR\fIno\fR will not generate relax
 relocations.  The default can be controlled by a configure option
 \&\fB\-\-enable\-x86\-relax\-relocations\fR.
+.IP "\fB\-mtls\-check=\fR\fIno\fR" 4
+.IX Item "-mtls-check=no"
+.PD 0
+.IP "\fB\-mtls\-check=\fR\fIyes\fR" 4
+.IX Item "-mtls-check=yes"
+.PD
+These options control whether the assembler check tls relocation.
+\&\fB\-mtls\-check=\fR\fIyes\fR will check tls relocation.
+\&\fB\-mtls\-check=\fR\fIno\fR will not check tls relocation
+The default can be controlled by a configure option
+\&\fB\-\-enable\-x86\-tls\-check\fR.
 .IP "\fB\-malign\-branch\-boundary=\fR\fI\s-1NUM\s0\fR" 4
 .IX Item "-malign-branch-boundary=NUM"
 This option controls how the assembler should align branches with segment

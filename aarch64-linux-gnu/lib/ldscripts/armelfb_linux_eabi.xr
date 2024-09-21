@@ -12,8 +12,11 @@ OUTPUT_ARCH(arm)
   bug.  But for now assigning the zero vmas works.  */
 SECTIONS
 {
-  .interp       0 : { *(.interp) }
+  /* Place build-id as close to the ELF headers as possible.  This
+     maximises the chance the build-id will be present in core files,
+     which GDB can then use to locate the associated debuginfo file.  */
   .note.gnu.build-id 0: { *(.note.gnu.build-id) }
+  .interp       0 : { *(.interp) }
   .hash         0 : { *(.hash) }
   .gnu.hash     0 : { *(.gnu.hash) }
   .dynsym       0 : { *(.dynsym) }

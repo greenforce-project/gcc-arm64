@@ -1,4 +1,4 @@
-/* Script for -shared -z combreloc -z separate-code -z relro -z now -z one-rosegment */
+/* Script for -shared -z combreloc -z separate-code -z relro -z now --rosegment */
 /* Copyright (C) 2014-2024 Free Software Foundation, Inc.
    Copying and distribution of this script, with or without modification,
    are permitted in any medium without royalty provided the copyright
@@ -11,7 +11,10 @@ SEARCH_DIR("=/__w/gcc_build/gcc_build/gcc-arm64gnu/aarch64-linux-gnu/lib64"); SE
 SECTIONS
 {
   . = SEGMENT_START("text-segment", 0) + SIZEOF_HEADERS;
-  . = ALIGN(CONSTANT (MAXPAGESIZE));
+  /* Place build-id as close to the ELF headers as possible.  This
+     maximises the chance the build-id will be present in core files,
+     which GDB can then use to locate the associated debuginfo file.  */
+  .note.gnu.build-id  : { *(.note.gnu.build-id) }
   .init           :
   {
     KEEP (*(SORT_NONE(.init)))
@@ -39,7 +42,6 @@ SECTIONS
   /* Adjust the address for the rodata segment.  We want to adjust up to
      the same address within the page on the next page up.  */
   . = SEGMENT_START("rodata-segment", ALIGN(CONSTANT (MAXPAGESIZE)) + (. & (CONSTANT (MAXPAGESIZE) - 1)));
-  .note.gnu.build-id  : { *(.note.gnu.build-id) }
   .hash           : { *(.hash) }
   .gnu.hash       : { *(.gnu.hash) }
   .dynsym         : { *(.dynsym) }
