@@ -4088,6 +4088,16 @@
 #define HAVE_aarch64_vbfcvtv8bf (TARGET_BF16_SIMD)
 #define HAVE_aarch64_vbfcvt_highv8bf (TARGET_BF16_SIMD)
 #define HAVE_aarch64_bfcvtsf (TARGET_BF16_FP)
+#define HAVE_aarch64_famaxv4hf ((TARGET_FAMINMAX) && (TARGET_SIMD_F16INST))
+#define HAVE_aarch64_faminv4hf ((TARGET_FAMINMAX) && (TARGET_SIMD_F16INST))
+#define HAVE_aarch64_famaxv8hf ((TARGET_FAMINMAX) && (TARGET_SIMD_F16INST))
+#define HAVE_aarch64_faminv8hf ((TARGET_FAMINMAX) && (TARGET_SIMD_F16INST))
+#define HAVE_aarch64_famaxv2sf (TARGET_FAMINMAX)
+#define HAVE_aarch64_faminv2sf (TARGET_FAMINMAX)
+#define HAVE_aarch64_famaxv4sf (TARGET_FAMINMAX)
+#define HAVE_aarch64_faminv4sf (TARGET_FAMINMAX)
+#define HAVE_aarch64_famaxv2df (TARGET_FAMINMAX)
+#define HAVE_aarch64_faminv2df (TARGET_FAMINMAX)
 #define HAVE_aarch64_compare_and_swapqi 1
 #define HAVE_aarch64_compare_and_swaphi 1
 #define HAVE_aarch64_compare_and_swapsi 1
@@ -17129,6 +17139,16 @@ extern rtx        gen_aarch64_vbfcvtv4bf                               (rtx, rtx
 extern rtx        gen_aarch64_vbfcvtv8bf                               (rtx, rtx);
 extern rtx        gen_aarch64_vbfcvt_highv8bf                          (rtx, rtx);
 extern rtx        gen_aarch64_bfcvtsf                                  (rtx, rtx);
+extern rtx        gen_aarch64_famaxv4hf                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_faminv4hf                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_famaxv8hf                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_faminv8hf                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_famaxv2sf                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_faminv2sf                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_famaxv4sf                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_faminv4sf                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_famaxv2df                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_faminv2df                                (rtx, rtx, rtx);
 extern rtx        gen_aarch64_compare_and_swapqi                       (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_compare_and_swaphi                       (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_compare_and_swapsi                       (rtx, rtx, rtx, rtx, rtx, rtx, rtx);

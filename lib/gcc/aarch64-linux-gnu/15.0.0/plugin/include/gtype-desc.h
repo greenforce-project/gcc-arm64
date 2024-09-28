@@ -69,6 +69,10 @@ extern void gt_ggc_mx_rtvec_def (void *);
   if ((intptr_t)(X) != 0) gt_ggc_mx_gimple (X);\
   } while (0)
 extern void gt_ggc_mx_gimple (void *);
+#define gt_ggc_m_11dw_cfi_node(X) do { \
+  if ((intptr_t)(X) != 0) gt_ggc_mx_dw_cfi_node (X);\
+  } while (0)
+extern void gt_ggc_mx_dw_cfi_node (void *);
 #define gt_ggc_m_11symtab_node(X) do { \
   if ((intptr_t)(X) != 0) gt_ggc_mx_symtab_node (X);\
   } while (0)
@@ -533,10 +537,6 @@ extern void gt_ggc_mx_modref_tree_tree_ (void *);
   if ((intptr_t)(X) != 0) gt_ggc_mx_hash_map_location_hash_nowarn_spec_t_ (X);\
   } while (0)
 extern void gt_ggc_mx_hash_map_location_hash_nowarn_spec_t_ (void *);
-#define gt_ggc_m_11dw_cfi_node(X) do { \
-  if ((intptr_t)(X) != 0) gt_ggc_mx_dw_cfi_node (X);\
-  } while (0)
-extern void gt_ggc_mx_dw_cfi_node (void *);
 #define gt_ggc_m_17dw_loc_descr_node(X) do { \
   if ((intptr_t)(X) != 0) gt_ggc_mx_dw_loc_descr_node (X);\
   } while (0)
@@ -1666,6 +1666,10 @@ extern void gt_pch_nx_rtvec_def (void *);
   if ((intptr_t)(X) != 0) gt_pch_nx_gimple (X);\
   } while (0)
 extern void gt_pch_nx_gimple (void *);
+#define gt_pch_n_11dw_cfi_node(X) do { \
+  if ((intptr_t)(X) != 0) gt_pch_nx_dw_cfi_node (X);\
+  } while (0)
+extern void gt_pch_nx_dw_cfi_node (void *);
 #define gt_pch_n_11symtab_node(X) do { \
   if ((intptr_t)(X) != 0) gt_pch_nx_symtab_node (X);\
   } while (0)
@@ -2130,10 +2134,6 @@ extern void gt_pch_nx_modref_tree_tree_ (void *);
   if ((intptr_t)(X) != 0) gt_pch_nx_hash_map_location_hash_nowarn_spec_t_ (X);\
   } while (0)
 extern void gt_pch_nx_hash_map_location_hash_nowarn_spec_t_ (void *);
-#define gt_pch_n_11dw_cfi_node(X) do { \
-  if ((intptr_t)(X) != 0) gt_pch_nx_dw_cfi_node (X);\
-  } while (0)
-extern void gt_pch_nx_dw_cfi_node (void *);
 #define gt_pch_n_17dw_loc_descr_node(X) do { \
   if ((intptr_t)(X) != 0) gt_pch_nx_dw_loc_descr_node (X);\
   } while (0)
@@ -3323,6 +3323,8 @@ extern void gt_pch_p_6gimple
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_6gimple
     (void *, void *, gt_pointer_operator, void *);
+extern void gt_pch_p_11dw_cfi_node
+    (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_11symtab_node
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_11symtab_node
@@ -3558,8 +3560,6 @@ extern void gt_pch_p_48fast_function_summary_modref_summary_lto__va_gc_
 extern void gt_pch_p_17modref_tree_tree_
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_37hash_map_location_hash_nowarn_spec_t_
-    (void *, void *, gt_pointer_operator, void *);
-extern void gt_pch_p_11dw_cfi_node
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_17dw_loc_descr_node
     (void *, void *, gt_pointer_operator, void *);

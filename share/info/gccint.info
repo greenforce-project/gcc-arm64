@@ -42942,6 +42942,19 @@ region.
      used to return a smaller mode than the raw mode to prevent call
      clobbered parts of a register altering the frame register size
 
+ -- Target Hook: bool TARGET_OUTPUT_CFI_DIRECTIVE (FILE * F, dw_cfi_ref
+          CFI)
+     This hook handles architecture-specific CFI directives and prints
+     them out to the assembly file F.  Return true if a
+     architecture-specific directive was found, false otherwise.
+
+ -- Target Hook: bool TARGET_DW_CFI_OPRND1_DESC (dwarf_call_frame_info
+          CFI_OPC, dw_cfi_oprnd_type & OPRND_TYPE)
+     This hook informs the caller what the architecture-specific
+     directives takes as a first operand.  Return true if a
+     architecture-specific directive was found and OPRND_TYPE is set,
+     false otherwise and OPRND_TYPE is not modified.
+
  -- Target Hook: void TARGET_INIT_DWARF_REG_SIZES_EXTRA (tree ADDRESS)
      If some registers are represented in Dwarf-2 unwind information in
      multiple pieces, define this hook to fill in information about the
@@ -50917,6 +50930,9 @@ in alphabetical order.
    * Geoff Berry for his Java object serialization work and various
      patches.
 
+   * Richard Biener for his ongoing middle-end contributions and bug
+     fixes and for release management.
+
    * David Binderman for testing GCC trunk against Fedora Rawhide and
      csmith.
 
@@ -51147,9 +51163,6 @@ in alphabetical order.
      code.
 
    * Michael K. Gschwind contributed the port to the PDP-11.
-
-   * Richard Biener for his ongoing middle-end contributions and bug
-     fixes and for release management.
 
    * Ron Guilmette implemented the 'protoize' and 'unprotoize' tools,
      the support for DWARF 1 symbolic debugging information, and much of
@@ -58908,7 +58921,7 @@ Concept Index
 * TARGET_ALWAYS_STRIP_DOTDOT:            Driver.             (line  250)
 * TARGET_ARG_PARTIAL_BYTES:              Register Arguments. (line   86)
 * TARGET_ARM_EABI_UNWINDER:              Exception Region Output.
-                                                             (line  133)
+                                                             (line  146)
 * TARGET_ARRAY_MODE:                     Register Arguments. (line  389)
 * TARGET_ARRAY_MODE_SUPPORTED_P:         Register Arguments. (line  404)
 * TARGET_ASAN_SHADOW_OFFSET:             Misc.               (line 1161)
@@ -58979,7 +58992,7 @@ Concept Index
 * TARGET_ASM_TM_CLONE_TABLE_SECTION:     Sections.           (line  240)
 * TARGET_ASM_TRAMPOLINE_TEMPLATE:        Trampolines.        (line   85)
 * TARGET_ASM_TTYPE:                      Exception Region Output.
-                                                             (line  127)
+                                                             (line  140)
 * TARGET_ASM_UNALIGNED_DI_OP:            Data Output.        (line   18)
 * TARGET_ASM_UNALIGNED_HI_OP:            Data Output.        (line   14)
 * TARGET_ASM_UNALIGNED_PDI_OP:           Data Output.        (line   17)
@@ -59085,6 +59098,8 @@ Concept Index
 * TARGET_DWARF_POLY_INDETERMINATE_VALUE: Frame Layout.       (line  183)
 * TARGET_DWARF_REGISTER_SPAN:            Exception Region Output.
                                                              (line  104)
+* TARGET_DW_CFI_OPRND1_DESC:             Exception Region Output.
+                                                             (line  125)
 * TARGET_D_CPU_VERSIONS:                 D Language and ABI. (line    6)
 * TARGET_D_HAS_STDCALL_CONVENTION:       D Language and ABI. (line   51)
 * TARGET_D_MINFO_SECTION:                D Language and ABI. (line   29)
@@ -59207,7 +59222,7 @@ Concept Index
 * TARGET_IFUNC_REF_LOCAL_OK:             Misc.               (line 1181)
 * TARGET_INIT_BUILTINS:                  Misc.               (line  654)
 * TARGET_INIT_DWARF_REG_SIZES_EXTRA:     Exception Region Output.
-                                                             (line  119)
+                                                             (line  132)
 * TARGET_INIT_LIBFUNCS:                  Library Calls.      (line   15)
 * TARGET_INIT_PIC_REG:                   Register Arguments. (line   82)
 * TARGET_INSERT_ATTRIBUTES:              Target Attributes.  (line  101)
@@ -59315,6 +59330,8 @@ Concept Index
 * TARGET_OPTION_VALID_VERSION_ATTRIBUTE_P: Target Attributes.
                                                              (line  141)
 * TARGET_OS_CPP_BUILTINS:                Run-time Target.    (line   41)
+* TARGET_OUTPUT_CFI_DIRECTIVE:           Exception Region Output.
+                                                             (line  119)
 * TARGET_OVERLAP_OP_BY_PIECES_P:         Costs.              (line  200)
 * TARGET_OVERRIDES_FORMAT_ATTRIBUTES:    Misc.               (line 1022)
 * TARGET_OVERRIDES_FORMAT_ATTRIBUTES_COUNT: Misc.            (line 1029)
@@ -60470,77 +60487,77 @@ Node: Macros for Initialization1829852
 Node: Instruction Output1837003
 Node: Dispatch Tables1847633
 Node: Exception Region Output1853384
-Node: Alignment Output1860466
-Node: Debugging Info1864153
-Node: All Debuggers1864703
-Node: DWARF1867636
-Node: VMS Debug1873411
-Node: CTF Debug1874008
-Node: BTF Debug1874369
-Node: Floating Point1874712
-Node: Mode Switching1877467
-Node: Target Attributes1885483
-Node: Emulated TLS1898445
-Node: MIPS Coprocessors1901835
-Node: PCH Target1902994
-Node: C++ ABI1904836
-Node: D Language and ABI1910062
-Node: Rust Language and ABI1913287
-Node: Named Address Spaces1914026
-Node: Misc1920068
-Ref: TARGET_SHIFT_TRUNCATION_MASK1927939
-Node: Host Config1990291
-Node: Host Common1991360
-Node: Filesystem1993734
-Node: Host Misc1997849
-Node: Fragments2000298
-Node: Target Fragment2001493
-Node: Host Fragment2012305
-Node: Collect22012545
-Node: Header Dirs2015181
-Node: Type Information2016604
-Node: GTY Options2020135
-Node: Inheritance and GTY2033281
-Ref: Inheritance and GTY-Footnote-12034846
-Node: User GC2035116
-Node: GGC Roots2038867
-Node: Files2039580
-Node: Invoking the garbage collector2042211
-Node: Troubleshooting2043853
-Node: Plugins2044928
-Node: Plugins loading2046057
-Node: Plugin API2047153
-Node: Plugins pass2055020
-Node: Plugins GC2056991
-Node: Plugins description2058708
-Node: Plugins attr2059244
-Node: Plugins recording2061524
-Node: Plugins gate2062374
-Node: Plugins tracking2062965
-Node: Plugins building2063553
-Node: LTO2067056
-Node: LTO Overview2067928
-Node: LTO object file layout2073684
-Node: IPA2078183
-Node: WHOPR2087235
-Node: Internal flags2091795
-Node: Match and Simplify2093206
-Node: GIMPLE API2094176
-Node: The Language2096978
-Node: Static Analyzer2110190
-Node: Analyzer Internals2110455
-Node: Debugging the Analyzer2130521
-Node: User Experience Guidelines2138179
-Node: Guidelines for Diagnostics2139115
-Ref: input_location_example2147290
-Node: Guidelines for Options2159832
-Node: Funding2160009
-Node: GNU Project2162516
-Node: Copying2163167
-Node: GNU Free Documentation License2200684
-Node: Contributors2225810
-Node: Option Index2267038
-Node: Concept Index2267915
+Node: Alignment Output1861117
+Node: Debugging Info1864804
+Node: All Debuggers1865354
+Node: DWARF1868287
+Node: VMS Debug1874062
+Node: CTF Debug1874659
+Node: BTF Debug1875020
+Node: Floating Point1875363
+Node: Mode Switching1878118
+Node: Target Attributes1886134
+Node: Emulated TLS1899096
+Node: MIPS Coprocessors1902486
+Node: PCH Target1903645
+Node: C++ ABI1905487
+Node: D Language and ABI1910713
+Node: Rust Language and ABI1913938
+Node: Named Address Spaces1914677
+Node: Misc1920719
+Ref: TARGET_SHIFT_TRUNCATION_MASK1928590
+Node: Host Config1990942
+Node: Host Common1992011
+Node: Filesystem1994385
+Node: Host Misc1998500
+Node: Fragments2000949
+Node: Target Fragment2002144
+Node: Host Fragment2012956
+Node: Collect22013196
+Node: Header Dirs2015832
+Node: Type Information2017255
+Node: GTY Options2020786
+Node: Inheritance and GTY2033932
+Ref: Inheritance and GTY-Footnote-12035497
+Node: User GC2035767
+Node: GGC Roots2039518
+Node: Files2040231
+Node: Invoking the garbage collector2042862
+Node: Troubleshooting2044504
+Node: Plugins2045579
+Node: Plugins loading2046708
+Node: Plugin API2047804
+Node: Plugins pass2055671
+Node: Plugins GC2057642
+Node: Plugins description2059359
+Node: Plugins attr2059895
+Node: Plugins recording2062175
+Node: Plugins gate2063025
+Node: Plugins tracking2063616
+Node: Plugins building2064204
+Node: LTO2067707
+Node: LTO Overview2068579
+Node: LTO object file layout2074335
+Node: IPA2078834
+Node: WHOPR2087886
+Node: Internal flags2092446
+Node: Match and Simplify2093857
+Node: GIMPLE API2094827
+Node: The Language2097629
+Node: Static Analyzer2110841
+Node: Analyzer Internals2111106
+Node: Debugging the Analyzer2131172
+Node: User Experience Guidelines2138830
+Node: Guidelines for Diagnostics2139766
+Ref: input_location_example2147941
+Node: Guidelines for Options2160483
+Node: Funding2160660
+Node: GNU Project2163167
+Node: Copying2163818
+Node: GNU Free Documentation License2201335
+Node: Contributors2226461
+Node: Option Index2267689
+Node: Concept Index2268566
 
 End Tag Table
 

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GFORTRAN 1"
-.TH GFORTRAN 1 "2024-09-21" "gcc-15.0.0" "GNU"
+.TH GFORTRAN 1 "2024-09-28" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -240,7 +240,8 @@ by type.  Explanations are in the following sections.
 \&\-finit\-character=\fR\fIn\fR \fB\-finit\-integer=\fR\fIn\fR \fB\-finit\-local\-zero
 \&\-finit\-derived \-finit\-logical=\fR\fI<true|false>\fR
 \&\fB\-finit\-real=\fR\fI<zero|inf|\-inf|nan|snan>\fR
-\&\fB\-finline\-matmul\-limit=\fR\fIn\fR
+\&\fB\-finline\-intrinsics[=<\fR\fIminloc\fR\fB,\fR\fImaxloc\fR\fB>]
+\&\-finline\-matmul\-limit=\fR\fIn\fR
 \&\fB\-finline\-arg\-packing \-fmax\-array\-constructor=\fR\fIn\fR
 \&\fB\-fmax\-stack\-var\-size=\fR\fIn\fR \fB\-fno\-align\-commons \-fno\-automatic
 \&\-fno\-protect\-parens \-fno\-underscoring \-fsecond\-underscore
@@ -1705,6 +1706,36 @@ involved are not square, the size comparison is performed using the
 geometric mean of the dimensions of the argument and result matrices.
 .Sp
 The default value for \fIn\fR is 30.
+.IP "\fB\-finline\-intrinsics\fR" 4
+.IX Item "-finline-intrinsics"
+.PD 0
+.IP "\fB\-finline\-intrinsics=\fR\fIintr1\fR\fB,\fR\fIintr2\fR\fB,...\fR" 4
+.IX Item "-finline-intrinsics=intr1,intr2,..."
+.PD
+Prefer generating inline code over calls to libgfortran functions to implement
+intrinsics.
+.Sp
+Usage of intrinsics can be implemented either by generating a call to the
+libgfortran library function or by directly generating inline code.  For most
+intrinsics, only a single variant is available, and there is no choice of
+implementation.  However, some intrinsics can use a library function or inline
+code, where inline code typically offers opportunities for additional
+optimization over a library function.  With \f(CW\*(C`\-finline\-intrinsics=...\*(C'\fR or
+\&\f(CW\*(C`\-fno\-inline\-intrinsics=...\*(C'\fR, the choice applies only to the intrinsics
+present in the comma-separated list provided as argument.
+.Sp
+For each intrinsic, if no choice of implementation was made through either of
+the flag variants, a default behaviour is chosen depending on optimization:
+library calls are generated when not optimizing or when optimizing for size;
+otherwise inline code is preferred.
+.Sp
+The set of intrinsics allowed as argument to \f(CW\*(C`\-finline\-intrinsics=\*(C'\fR
+is currently limited to \f(CW\*(C`MAXLOC\*(C'\fR and \f(CW\*(C`MINLOC\*(C'\fR.  The effect of
+the flag is moreover limited to calls of those intrinsics without
+\&\f(CW\*(C`DIM\*(C'\fR argument and with \f(CW\*(C`ARRAY\*(C'\fR of a non\-\f(CW\*(C`CHARACTER\*(C'\fR type.
+The case of rank\-1 argument and \f(CW\*(C`DIM\*(C'\fR argument present, i.e.
+\&\f(CW\*(C`MAXLOC(A(:),DIM=1)\*(C'\fR or \f(CW\*(C`MINLOC(A(:),DIM=1)\*(C'\fR is inlined
+unconditionally for numeric rank\-1 array argument \f(CW\*(C`A\*(C'\fR.
 .IP "\fB\-finline\-matmul\-limit=\fR\fIn\fR" 4
 .IX Item "-finline-matmul-limit=n"
 When front-end optimization is active, some calls to the \f(CW\*(C`MATMUL\*(C'\fR

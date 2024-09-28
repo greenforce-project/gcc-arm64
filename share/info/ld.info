@@ -2608,19 +2608,19 @@ GNU linker:
      Request the creation of a '.note.gnu.build-id' ELF note section or
      a '.buildid' COFF section.  The contents of the note are unique
      bits identifying this linked file.  STYLE can be 'uuid' to use 128
-     random bits, 'sha1' to use a 160-bit SHA1 hash on the normative
-     parts of the output contents, 'md5' to use a 128-bit MD5 hash on
-     the normative parts of the output contents, or '0xHEXSTRING' to use
-     a chosen bit string specified as an even number of hexadecimal
-     digits ('-' and ':' characters between digit pairs are ignored).
-     If STYLE is omitted, 'sha1' is used.
+     random bits; 'sha1' to use a 160-bit SHA1 hash, 'md5' to use a
+     128-bit MD5 hash, or 'xx' to use a 128-bit XXHASH on the normative
+     parts of the output contents; or '0xHEXSTRING' to use a chosen bit
+     string specified as an even number of hexadecimal digits ('-' and
+     ':' characters between digit pairs are ignored).  If STYLE is
+     omitted, 'sha1' is used.
 
-     The 'md5' and 'sha1' styles produces an identifier that is always
-     the same in an identical output file, but will be unique among all
-     nonidentical output files.  It is not intended to be compared as a
-     checksum for the file's contents.  A linked file may be changed
-     later by other tools, but the build ID bit string identifying the
-     original linked file does not change.
+     The 'md5', 'sha1', and 'xx' styles produces an identifier that is
+     always the same in an identical output file, but are almost
+     certainly unique among all nonidentical output files.  It is not
+     intended to be compared as a checksum for the file's contents.  A
+     linked file may be changed later by other tools, but the build ID
+     bit string identifying the original linked file does not change.
 
      Passing 'none' for STYLE disables the setting from any '--build-id'
      options earlier on the command line.
@@ -3281,6 +3281,11 @@ configured.
 not demangling symbols.  This environment variable is used in a similar
 fashion by the 'gcc' linker wrapper program.  The default may be
 overridden by the '--demangle' and '--no-demangle' options.
+
+   If the PE/COFF specific '--insert-timestamp' is active and the
+'SOURCE_DATE_EPOCH' environment variable is defined, then the timestamp
+value in this variable will be inserted into the COFF header instead of
+the current time.
 
 
 File: ld.info,  Node: Scripts,  Next: Plugins,  Prev: Invocation,  Up: Top
@@ -9757,6 +9762,7 @@ LD Index
                                                              (line   37)
 * SORT_NONE:                             Input Section Wildcards.
                                                              (line  119)
+* SOURCE_DATE_EPOCH:                     Environment.        (line   35)
 * SPU:                                   SPU ELF.            (line   29)
 * SPU <1>:                               SPU ELF.            (line   46)
 * SPU ELF options:                       SPU ELF.            (line    6)
@@ -9800,6 +9806,7 @@ LD Index
 * text segment origin, cmd line:         Options.            (line 2122)
 * thumb entry point:                     ARM.                (line   17)
 * TI COFF versions:                      TI COFF.            (line    6)
+* timestamps:                            Environment.        (line   35)
 * traditional format:                    Options.            (line 2094)
 * trampoline generation on M68HC11:      M68HC11/68HC12.     (line   30)
 * trampoline generation on M68HC12:      M68HC11/68HC12.     (line   30)
@@ -9849,92 +9856,92 @@ Ref: unrecognised-input-files4941
 Ref: -L23461
 Ref: --default-script40075
 Ref: --section-ordering-file96632
-Node: Environment149036
-Node: Scripts150797
-Node: Basic Script Concepts152521
-Node: Script Format155229
-Node: Simple Example156092
-Node: Simple Commands159186
-Node: Entry Point159691
-Node: File Commands160727
-Node: Format Commands165036
-Node: REGION_ALIAS166992
-Node: Miscellaneous Commands171819
-Node: Assignments177946
-Node: Simple Assignments178457
-Node: HIDDEN180188
-Node: PROVIDE180815
-Node: PROVIDE_HIDDEN182341
-Node: Source Code Reference182585
-Node: SECTIONS186502
-Node: Output Section Description188390
-Node: Output Section Name189631
-Node: Output Section Address190508
-Node: Input Section192741
-Node: Input Section Basics193542
-Node: Input Section Wildcards198560
-Node: Input Section Common204541
-Node: Input Section Keep206023
-Node: Input Section Example206513
-Node: Output Section Data207924
-Node: Output Section Keywords213068
-Node: Output Section Discarding216635
-Node: Output Section Attributes218525
-Node: Output Section Type219644
-Node: Output Section LMA221947
-Node: Forced Output Alignment225018
-Node: Forced Input Alignment225447
-Node: Output Section Constraint225835
-Node: Output Section Region226263
-Node: Output Section Phdr226696
-Node: Output Section Fill227360
-Node: Overlay Description228723
-Node: MEMORY233168
-Node: PHDRS237774
-Node: VERSION243100
-Node: Expressions251191
-Node: Constants252204
-Node: Symbolic Constants253078
-Node: Symbols253629
-Node: Orphan Sections254376
-Node: Location Counter255961
-Node: Operators260395
-Node: Evaluation261425
-Node: Expression Section262789
-Node: Builtin Functions266759
-Node: Implicit Linker Scripts275538
-Node: Plugins276313
-Node: libdep Plugin276904
-Node: lto Plugin279237
-Node: Special Sections279707
-Node: Machine Dependent281821
-Node: H8/300282918
-Node: M68HC11/68HC12284991
-Node: ARM286438
-Node: HPPA ELF32298548
-Node: M68K300171
-Node: MIPS301080
-Node: MMIX302196
-Node: MSP430303361
-Node: NDS32305274
-Node: Nios II306238
-Node: PowerPC ELF32307554
-Node: PowerPC64 ELF64310385
-Node: S/390 ELF320143
-Node: SPU ELF320490
-Node: TI COFF323118
-Node: WIN32323644
-Node: Xtensa344863
-Node: BFD348306
-Node: BFD outline349764
-Node: BFD information loss351052
-Node: Canonical format353578
-Node: Reporting Bugs357906
-Node: Bug Criteria358600
-Node: Bug Reporting359299
-Node: MRI366334
-Node: GNU Free Documentation License370805
-Node: LD Index395942
+Node: Environment149044
+Node: Scripts151034
+Node: Basic Script Concepts152758
+Node: Script Format155466
+Node: Simple Example156329
+Node: Simple Commands159423
+Node: Entry Point159928
+Node: File Commands160964
+Node: Format Commands165273
+Node: REGION_ALIAS167229
+Node: Miscellaneous Commands172056
+Node: Assignments178183
+Node: Simple Assignments178694
+Node: HIDDEN180425
+Node: PROVIDE181052
+Node: PROVIDE_HIDDEN182578
+Node: Source Code Reference182822
+Node: SECTIONS186739
+Node: Output Section Description188627
+Node: Output Section Name189868
+Node: Output Section Address190745
+Node: Input Section192978
+Node: Input Section Basics193779
+Node: Input Section Wildcards198797
+Node: Input Section Common204778
+Node: Input Section Keep206260
+Node: Input Section Example206750
+Node: Output Section Data208161
+Node: Output Section Keywords213305
+Node: Output Section Discarding216872
+Node: Output Section Attributes218762
+Node: Output Section Type219881
+Node: Output Section LMA222184
+Node: Forced Output Alignment225255
+Node: Forced Input Alignment225684
+Node: Output Section Constraint226072
+Node: Output Section Region226500
+Node: Output Section Phdr226933
+Node: Output Section Fill227597
+Node: Overlay Description228960
+Node: MEMORY233405
+Node: PHDRS238011
+Node: VERSION243337
+Node: Expressions251428
+Node: Constants252441
+Node: Symbolic Constants253315
+Node: Symbols253866
+Node: Orphan Sections254613
+Node: Location Counter256198
+Node: Operators260632
+Node: Evaluation261662
+Node: Expression Section263026
+Node: Builtin Functions266996
+Node: Implicit Linker Scripts275775
+Node: Plugins276550
+Node: libdep Plugin277141
+Node: lto Plugin279474
+Node: Special Sections279944
+Node: Machine Dependent282058
+Node: H8/300283155
+Node: M68HC11/68HC12285228
+Node: ARM286675
+Node: HPPA ELF32298785
+Node: M68K300408
+Node: MIPS301317
+Node: MMIX302433
+Node: MSP430303598
+Node: NDS32305511
+Node: Nios II306475
+Node: PowerPC ELF32307791
+Node: PowerPC64 ELF64310622
+Node: S/390 ELF320380
+Node: SPU ELF320727
+Node: TI COFF323355
+Node: WIN32323881
+Node: Xtensa345100
+Node: BFD348543
+Node: BFD outline350001
+Node: BFD information loss351289
+Node: Canonical format353815
+Node: Reporting Bugs358143
+Node: Bug Criteria358837
+Node: Bug Reporting359536
+Node: MRI366571
+Node: GNU Free Documentation License371042
+Node: LD Index396179
 
 End Tag Table
 

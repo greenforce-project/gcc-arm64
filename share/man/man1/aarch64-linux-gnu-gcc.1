@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-09-21" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-09-28" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -242,7 +242,7 @@ in the following sections.
 .IX Item " Language Options"
 \&\fB\-fabi\-version=\fR\fIn\fR  \fB\-fno\-access\-control
 \&\-faligned\-new=\fR\fIn\fR  \fB\-fargs\-in\-order=\fR\fIn\fR  \fB\-fchar8_t  \-fcheck\-new
-\&\-fconstexpr\-depth=\fR\fIn\fR  \fB\-fconstexpr\-cache\-depth=\fR\fIn\fR
+\&\-fconcepts  \-fconstexpr\-depth=\fR\fIn\fR  \fB\-fconstexpr\-cache\-depth=\fR\fIn\fR
 \&\fB\-fconstexpr\-loop\-limit=\fR\fIn\fR  \fB\-fconstexpr\-ops\-limit=\fR\fIn\fR
 \&\fB\-fno\-elide\-constructors
 \&\-fno\-enforce\-eh\-specs
@@ -261,7 +261,7 @@ in the following sections.
 \&\-fnew\-ttp\-matching
 \&\-fno\-nonansi\-builtins  \-fnothrow\-opt  \-fno\-operator\-names
 \&\-fno\-optional\-diags
-\&\-fno\-pretty\-templates
+\&\-fno\-pretty\-templates  \-frange\-for\-ext\-temps
 \&\-fno\-rtti  \-fsized\-deallocation
 \&\-ftemplate\-backtrace\-limit=\fR\fIn\fR
 \&\fB\-ftemplate\-depth=\fR\fIn\fR
@@ -3606,6 +3606,14 @@ template, the compiler omits any template arguments that match
 the default template arguments for that template.  If either of these
 behaviors make it harder to understand the error message rather than
 easier, you can use \fB\-fno\-pretty\-templates\fR to disable them.
+.IP "\fB\-frange\-for\-ext\-temps\fR" 4
+.IX Item "-frange-for-ext-temps"
+Enable lifetime extension of \*(C+ range based for temporaries.
+With \fB\-std=c++23\fR and above this is part of the language standard,
+so lifetime of the temporaries is extended until the end of the loop
+regardless of this option.  This option allows enabling that behavior also
+in earlier versions of the standard and is enabled by default in the
+\&\s-1GNU\s0 dialects, from \fB\-std=gnu++11\fR until \fB\-std=gnu++20\fR.
 .IP "\fB\-fno\-rtti\fR" 4
 .IX Item "-fno-rtti"
 Disable generation of information about every class with virtual
@@ -16164,6 +16172,9 @@ in the outgoing range calculator.
 .IP "\fBrelation-block-limit\fR" 4
 .IX Item "relation-block-limit"
 Maximum number of relations the oracle will register in a basic block.
+.IP "\fBtransitive-relations-work-bound\fR" 4
+.IX Item "transitive-relations-work-bound"
+Work bound when discovering transitive relations from existing relations.
 .IP "\fBmin-pagesize\fR" 4
 .IX Item "min-pagesize"
 Minimum page size for warning purposes.
@@ -21165,6 +21176,9 @@ Enable the RCpc3 (Release Consistency) extension.
 .IP "\fBfp8\fR" 4
 .IX Item "fp8"
 Enable the fp8 (8\-bit floating point) extension.
+.IP "\fBfaminmax\fR" 4
+.IX Item "faminmax"
+Enable the Floating Point Absolute Maximum/Minimum extension.
 .PP
 Feature \fBcrypto\fR implies \fBaes\fR, \fBsha2\fR, and \fBsimd\fR,
 which implies \fBfp\fR.
@@ -21925,9 +21939,7 @@ optimizers then assume that indexed stores exist, which is not
 the case.
 .IP "\fB\-mlra\fR" 4
 .IX Item "-mlra"
-Enable Local Register Allocation.  This is still experimental for \s-1ARC,\s0
-so by default the compiler uses standard reload
-(i.e. \fB\-mno\-lra\fR).
+Does nothing.  Preserved for backward compatibility.
 .IP "\fB\-mlra\-priority\-none\fR" 4
 .IX Item "-mlra-priority-none"
 Don't indicate any priority for target registers.

@@ -256,6 +256,9 @@ public:
   diagnostic_t
   update_effective_level_from_pragmas (diagnostic_info *diagnostic) const;
 
+  int pch_save (FILE *);
+  int pch_restore (FILE *);
+
 private:
   /* Each time a diagnostic's classification is changed with a pragma,
      we record the change and the location of the change in an array of
@@ -287,14 +290,10 @@ private:
      binary-wise or end-to-front, to find the most recent
      classification for a given diagnostic, given the location of the
      diagnostic.  */
-  diagnostic_classification_change_t *m_classification_history;
-
-  /* The size of the above array.  */
-  int m_n_classification_history;
+  vec<diagnostic_classification_change_t> m_classification_history;
 
   /* For pragma push/pop.  */
-  int *m_push_list;
-  int m_n_push;
+  vec<int> m_push_list;
 };
 
 /* A bundle of options relating to printing the user's source code
@@ -554,6 +553,18 @@ public:
 			  diagnostic_option_id, unsigned HOST_WIDE_INT,
 			  const char *, const char *, va_list *,
 			  diagnostic_t) ATTRIBUTE_GCC_DIAG(7,0);
+
+  int
+  pch_save (FILE *f)
+  {
+    return m_option_classifier.pch_save (f);
+  }
+
+  int
+  pch_restore (FILE *f)
+  {
+    return m_option_classifier.pch_restore (f);
+  }
 
 private:
   void error_recursion () ATTRIBUTE_NORETURN;

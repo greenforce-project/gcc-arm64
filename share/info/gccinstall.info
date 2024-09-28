@@ -4341,10 +4341,6 @@ GCC will build with and support only MinGW runtime 3.12 and later.
 Earlier versions of headers are incompatible with the new default
 semantics of 'extern inline' in '-std=c99' and '-std=gnu99' modes.
 
-   To support emitting DWARF debugging info you need to use GNU binutils
-version 2.16 or above containing support for the '.secrel32' assembler
-pseudo-op.
-
 Older systems
 =============
 
@@ -5002,10 +4998,10 @@ Ref: xtensa-x-linux184533
 Ref: windows184874
 Ref: x-x-cygwin186460
 Ref: x-x-mingw32187013
-Ref: older187395
-Ref: elf189358
-Node: GNU Free Documentation License189612
-Node: Concept Index214750
+Ref: older187239
+Ref: elf189202
+Node: GNU Free Documentation License189456
+Node: Concept Index214594
 
 End Tag Table
 
