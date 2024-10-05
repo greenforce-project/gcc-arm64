@@ -60,6 +60,9 @@ enum optab_tag {
   mask_len_scatter_store_optab,
   vec_extract_optab,
   vec_init_optab,
+  sdot_prod_optab,
+  udot_prod_optab,
+  usdot_prod_optab,
   while_ult_optab,
   add_optab,
   addv_optab,
@@ -323,10 +326,7 @@ enum optab_tag {
   uavg_floor_optab,
   savg_ceil_optab,
   uavg_ceil_optab,
-  sdot_prod_optab,
   ssum_widen_optab,
-  udot_prod_optab,
-  usdot_prod_optab,
   usum_widen_optab,
   usad_optab,
   ssad_optab,
@@ -467,7 +467,7 @@ enum optab_tag {
 #define NUM_OPTABS          452
 #define NUM_CONVLIB_OPTABS  17
 #define NUM_NORMLIB_OPTABS  80
-#define NUM_OPTAB_PATTERNS  2969
+#define NUM_OPTAB_PATTERNS  2971
 typedef enum optab_tag optab;
 typedef enum optab_tag convert_optab;
 typedef enum optab_tag direct_optab;
@@ -1939,11 +1939,11 @@ gen_aarch64_dot_prod_lane (int arg0, machine_mode arg1, machine_mode arg2, rtx x
   return res;
 }
 
-extern insn_code maybe_code_for_dot_prod (int, machine_mode);
+extern insn_code maybe_code_for_dot_prod (int, machine_mode, machine_mode);
 inline insn_code
-code_for_dot_prod (int arg0, machine_mode arg1)
+code_for_dot_prod (int arg0, machine_mode arg1, machine_mode arg2)
 {
-  insn_code code = maybe_code_for_dot_prod (arg0, arg1);
+  insn_code code = maybe_code_for_dot_prod (arg0, arg1, arg2);
   gcc_assert (code != CODE_FOR_nothing);
   return code;
 }
@@ -3393,24 +3393,6 @@ inline rtx
 gen_aarch64_sve_qsub_lane (int arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2, rtx x3, rtx x4)
 {
   rtx res = maybe_gen_aarch64_sve_qsub_lane (arg0, arg1, x0, x1, x2, x3, x4);
-  gcc_assert (res);
-  return res;
-}
-
-extern insn_code maybe_code_for_aarch64_sve_dotvnx4sivnx8hi (int);
-inline insn_code
-code_for_aarch64_sve_dotvnx4sivnx8hi (int arg0)
-{
-  insn_code code = maybe_code_for_aarch64_sve_dotvnx4sivnx8hi (arg0);
-  gcc_assert (code != CODE_FOR_nothing);
-  return code;
-}
-
-extern rtx maybe_gen_aarch64_sve_dotvnx4sivnx8hi (int, rtx, rtx, rtx, rtx);
-inline rtx
-gen_aarch64_sve_dotvnx4sivnx8hi (int arg0, rtx x0, rtx x1, rtx x2, rtx x3)
-{
-  rtx res = maybe_gen_aarch64_sve_dotvnx4sivnx8hi (arg0, x0, x1, x2, x3);
   gcc_assert (res);
   return res;
 }

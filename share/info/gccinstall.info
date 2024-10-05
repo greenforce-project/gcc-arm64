@@ -3419,13 +3419,6 @@ h8300-hms
 
 Renesas H8/300 series of processors.
 
-   Please have a look at the binaries page.
-
-   The calling convention and structure layout has changed in release
-2.6.  All code must be recompiled.  The calling convention now passes
-the first three arguments in function calls in registers.  Structures
-are no longer a multiple of 2 bytes.
-
 hppa*-hp-hpux*
 ==============
 
@@ -3566,12 +3559,9 @@ libstdc++-v3 documentation.
 i?86-*-linux*
 =============
 
-As of GCC 3.3, binutils 2.13.1 or later is required for this platform.
-See bug 10877 for more information.
-
-   If you receive Signal 11 errors when building on GNU/Linux, then it
-is possible you have a hardware problem.  Further information on this
-can be found on www.bitwizard.nl.
+If you receive Signal 11 errors when building on GNU/Linux, then it is
+possible you have a hardware problem.  Further information on this can
+be found on www.bitwizard.nl.
 
 i?86-*-solaris2*
 ================
@@ -4937,71 +4927,71 @@ Ref: epiphany-x-elf150226
 Ref: x-x-freebsd150331
 Ref: ft32-x-elf151059
 Ref: h8300-hms151157
-Ref: hppa-hp-hpux151509
-Ref: hppa-hp-hpux11153023
-Ref: x-x-linux-gnu158129
-Ref: ix86-x-linux158322
-Ref: ix86-x-solaris2158635
-Ref: ia64-x-linux158874
-Ref: ia64-x-hpux159121
-Ref: x-ibm-aix159339
-Ref: TransferAixShobj163001
-Ref: iq2000-x-elf166811
-Ref: lm32-x-elf166951
-Ref: lm32-x-uclinux167055
-Ref: loongarch167183
-Ref: m32c-x-elf167820
-Ref: m32r-x-elf167922
-Ref: m68k-x-x168024
-Ref: m68k-x-uclinux169062
-Ref: microblaze-x-elf169307
-Ref: mips-x-x169426
-Ref: moxie-x-elf171336
-Ref: msp430-x-elf171383
-Ref: nds32le-x-elf171940
-Ref: nds32be-x-elf172012
-Ref: nvptx-x-none172081
-Ref: or1k-x-elf172944
-Ref: or1k-x-linux173075
-Ref: powerpc-x-x173156
-Ref: powerpc-x-darwin173347
-Ref: powerpc-x-elf173842
-Ref: powerpc-x-linux-gnu173927
-Ref: powerpc-x-netbsd174022
-Ref: powerpc-x-eabisim174110
-Ref: powerpc-x-eabi174236
-Ref: powerpcle-x-elf174312
-Ref: powerpcle-x-eabisim174404
-Ref: powerpcle-x-eabi174537
-Ref: rl78-x-elf174620
-Ref: riscv32-x-elf174726
-Ref: riscv32-x-linux174915
-Ref: riscv64-x-elf175072
-Ref: riscv64-x-linux175261
-Ref: rx-x-elf175418
-Ref: s390-x-linux175464
-Ref: s390x-x-linux175536
-Ref: s390x-ibm-tpf175623
-Ref: x-x-solaris2175754
-Ref: sparc-x-x179066
-Ref: sparc-sun-solaris2179568
-Ref: sparc-x-linux180467
-Ref: sparc64-x-solaris2180498
-Ref: sparcv9-x-solaris2180585
-Ref: c6x-x-x181306
-Ref: visium-x-elf181398
-Ref: x-x-vxworks181506
-Ref: x86-64-x-x183029
-Ref: x86-64-x-solaris2183357
-Ref: xtensa-x-elf183862
-Ref: xtensa-x-linux184533
-Ref: windows184874
-Ref: x-x-cygwin186460
-Ref: x-x-mingw32187013
-Ref: older187239
-Ref: elf189202
-Node: GNU Free Documentation License189456
-Node: Concept Index214594
+Ref: hppa-hp-hpux151216
+Ref: hppa-hp-hpux11152730
+Ref: x-x-linux-gnu157836
+Ref: ix86-x-linux158029
+Ref: ix86-x-solaris2158231
+Ref: ia64-x-linux158470
+Ref: ia64-x-hpux158717
+Ref: x-ibm-aix158935
+Ref: TransferAixShobj162597
+Ref: iq2000-x-elf166407
+Ref: lm32-x-elf166547
+Ref: lm32-x-uclinux166651
+Ref: loongarch166779
+Ref: m32c-x-elf167416
+Ref: m32r-x-elf167518
+Ref: m68k-x-x167620
+Ref: m68k-x-uclinux168658
+Ref: microblaze-x-elf168903
+Ref: mips-x-x169022
+Ref: moxie-x-elf170932
+Ref: msp430-x-elf170979
+Ref: nds32le-x-elf171536
+Ref: nds32be-x-elf171608
+Ref: nvptx-x-none171677
+Ref: or1k-x-elf172540
+Ref: or1k-x-linux172671
+Ref: powerpc-x-x172752
+Ref: powerpc-x-darwin172943
+Ref: powerpc-x-elf173438
+Ref: powerpc-x-linux-gnu173523
+Ref: powerpc-x-netbsd173618
+Ref: powerpc-x-eabisim173706
+Ref: powerpc-x-eabi173832
+Ref: powerpcle-x-elf173908
+Ref: powerpcle-x-eabisim174000
+Ref: powerpcle-x-eabi174133
+Ref: rl78-x-elf174216
+Ref: riscv32-x-elf174322
+Ref: riscv32-x-linux174511
+Ref: riscv64-x-elf174668
+Ref: riscv64-x-linux174857
+Ref: rx-x-elf175014
+Ref: s390-x-linux175060
+Ref: s390x-x-linux175132
+Ref: s390x-ibm-tpf175219
+Ref: x-x-solaris2175350
+Ref: sparc-x-x178662
+Ref: sparc-sun-solaris2179164
+Ref: sparc-x-linux180063
+Ref: sparc64-x-solaris2180094
+Ref: sparcv9-x-solaris2180181
+Ref: c6x-x-x180902
+Ref: visium-x-elf180994
+Ref: x-x-vxworks181102
+Ref: x86-64-x-x182625
+Ref: x86-64-x-solaris2182953
+Ref: xtensa-x-elf183458
+Ref: xtensa-x-linux184129
+Ref: windows184470
+Ref: x-x-cygwin186056
+Ref: x-x-mingw32186609
+Ref: older186835
+Ref: elf188798
+Node: GNU Free Documentation License189052
+Node: Concept Index214190
 
 End Tag Table
 

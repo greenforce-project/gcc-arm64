@@ -221,6 +221,16 @@ SECTIONS
   .stab.indexstr 0 : { *(.stab.indexstr) }
   .comment 0 (INFO) : { *(.comment); LINKER_VERSION; }
   .gnu.build.attributes : { *(.gnu.build.attributes .gnu.build.attributes.*) }
+  /* Various note sections.  Placed here so that they do not get
+     treated as orphan sections.  */
+  .note.build-id :      { *(.note.build-id) }
+  .note.GNU-stack :     { *(.note.GNU-stack) }
+  .note.gnu-property :  { *(.note.gnu-property) }
+  .note.ABI-tag :       { *(.note.ABI-tag) }
+  .note.package :       { *(.note.package) }
+  .note.dlopen :        { *(.note.dlopen) }
+  .note.netbsd.ident :  { *(.note.netbsd.ident) }
+  .note.openbsd.ident : { *(.note.openbsd.ident) }
   /* DWARF debug sections.
      Symbols in the DWARF debugging sections are relative to the beginning
      of the section so we begin them at 0.  */

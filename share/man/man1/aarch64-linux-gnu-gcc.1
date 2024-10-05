@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-09-28" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-10-05" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -396,7 +396,7 @@ in the following sections.
 \&\fB\-Wformat\-security  \-Wformat\-signedness  \-Wformat\-truncation=\fR\fIn\fR
 \&\fB\-Wformat\-y2k  \-Wframe\-address
 \&\-Wframe\-larger\-than=\fR\fIbyte-size\fR  \fB\-Wno\-free\-nonheap\-object
-\&\-Wno\-if\-not\-aligned  \-Wno\-ignored\-attributes
+\&\-Wheader\-guard  \-Wno\-if\-not\-aligned  \-Wno\-ignored\-attributes
 \&\-Wignored\-qualifiers  \-Wno\-incompatible\-pointer\-types  \-Whardened
 \&\-Wimplicit  \-Wimplicit\-fallthrough  \-Wimplicit\-fallthrough=\fR\fIn\fR
 \&\fB\-Wno\-implicit\-function\-declaration  \-Wno\-implicit\-int
@@ -3836,8 +3836,10 @@ for code that is not valid in \*(C+23 but used to be valid but deprecated
 in \*(C+20 with a pedantic warning that can be disabled with
 \&\fB\-Wno\-comma\-subscript\fR.
 .Sp
-Enabled by default with \fB\-std=c++20\fR unless \fB\-Wno\-deprecated\fR,
-and with \fB\-std=c++23\fR regardless of \fB\-Wno\-deprecated\fR.
+Enabled by default with \fB\-std=c++20\fR unless
+\&\fB\-Wno\-deprecated\fR, and after \fB\-std=c++23\fR regardless of
+\&\fB\-Wno\-deprecated\fR.  Before \fB\-std=c++20\fR, enabled with
+explicit \fB\-Wdeprecated\fR.
 .Sp
 This warning is upgraded to an error by \fB\-pedantic\-errors\fR in
 \&\*(C+23 mode or later.
@@ -3971,7 +3973,7 @@ For example:
 .Sp
 \&\fB\-Wdeprecated\-enum\-enum\-conversion\fR is enabled by default with
 \&\fB\-std=c++20\fR.  In pre\-\*(C+20 dialects, this warning can be enabled
-by \fB\-Wenum\-conversion\fR.
+by \fB\-Wenum\-conversion\fR or \fB\-Wdeprecated\fR.
 .IP "\fB\-Wno\-deprecated\-enum\-float\-conversion\fR (\*(C+ and Objective\-\*(C+ only)" 4
 .IX Item "-Wno-deprecated-enum-float-conversion ( and Objective- only)"
 Disable the warning about the case when the usual arithmetic conversions
@@ -3987,7 +3989,17 @@ example:
 .Sp
 \&\fB\-Wdeprecated\-enum\-float\-conversion\fR is enabled by default with
 \&\fB\-std=c++20\fR.  In pre\-\*(C+20 dialects, this warning can be enabled
-by \fB\-Wenum\-conversion\fR.
+by \fB\-Wenum\-conversion\fR or \fB\-Wdeprecated\fR.
+.IP "\fB\-Wdeprecated\-literal\-operator\fR (\*(C+ and Objective\-\*(C+ only)" 4
+.IX Item "-Wdeprecated-literal-operator ( and Objective- only)"
+Warn that the declaration of a user-defined literal operator with a
+space before the suffix is deprecated.  This warning is enabled by
+default in \*(C+23, or with explicit \fB\-Wdeprecated\fR.
+.Sp
+.Vb 2
+\&        string operator "" _i18n(const char*, std::size_t); // deprecated
+\&        string operator ""_i18n(const char*, std::size_t); // preferred
+.Ve
 .IP "\fB\-Wno\-elaborated\-enum\-base\fR" 4
 .IX Item "-Wno-elaborated-enum-base"
 For \*(C+11 and above, warn if an (invalid) additional enum-base is used
@@ -4599,7 +4611,8 @@ non-class type, \f(CW\*(C`volatile\*(C'\fR\-qualified function return type,
 \&\f(CW\*(C`volatile\*(C'\fR\-qualified parameter type, and structured bindings of a
 \&\f(CW\*(C`volatile\*(C'\fR\-qualified type.  This usage was deprecated in \*(C+20.
 .Sp
-Enabled by default with \fB\-std=c++20\fR.
+Enabled by default with \fB\-std=c++20\fR.  Before
+\&\fB\-std=c++20\fR, enabled with explicit \fB\-Wdeprecated\fR.
 .IP "\fB\-Wzero\-as\-null\-pointer\-constant\fR (\*(C+ and Objective\-\*(C+ only)" 4
 .IX Item "-Wzero-as-null-pointer-constant ( and Objective- only)"
 Warn when a literal \fB0\fR is used as null pointer constant.  This can
@@ -9551,6 +9564,18 @@ the declaration of the function is diagnosed as well.
 Do not warn if certain built-in macros are redefined.  This suppresses
 warnings for redefinition of \f(CW\*(C`_\|_TIMESTAMP_\|_\*(C'\fR, \f(CW\*(C`_\|_TIME_\|_\*(C'\fR,
 \&\f(CW\*(C`_\|_DATE_\|_\*(C'\fR, \f(CW\*(C`_\|_FILE_\|_\*(C'\fR, and \f(CW\*(C`_\|_BASE_FILE_\|_\*(C'\fR.
+.IP "\fB\-Wheader\-guard\fR" 4
+.IX Item "-Wheader-guard"
+Warn if a valid preprocessor header multiple inclusion guard has
+a \f(CW\*(C`#define\*(C'\fR directive right after \f(CW\*(C`#ifndef\*(C'\fR or \f(CW\*(C`#if !defined\*(C'\fR
+directive for the multiple inclusion guard, which defines a different macro
+from the guard macro with a similar name, the actual multiple inclusion guard
+macro isn't defined at the corresponding \f(CW\*(C`#ifndef\*(C'\fR directive at the end
+of the header, and the \f(CW\*(C`#define\*(C'\fR directive defines an object-like macro
+with empty definition.  In such case, it often is just a misspelled guard
+name, either in the \f(CW\*(C`#ifndef\*(C'\fR or \f(CW\*(C`#if !defined\*(C'\fR directive or in the
+subsequent \f(CW\*(C`#define\*(C'\fR directive.  This warning is enabled
+by \fB\-Wall\fR.
 .IP "\fB\-Wstrict\-prototypes\fR (C and Objective-C only)" 4
 .IX Item "-Wstrict-prototypes (C and Objective-C only)"
 Warn if a function is declared or defined without specifying the
@@ -9760,6 +9785,13 @@ disable the error when compiled with \fB\-Werror\fR flag.
 .IP "\fB\-Wno\-deprecated\fR" 4
 .IX Item "-Wno-deprecated"
 Do not warn about usage of deprecated features.
+.Sp
+In \*(C+, explicitly specifying \fB\-Wdeprecated\fR also enables
+warnings about some features that are deprecated in later language
+standards, specifically \fB\-Wcomma\-subscript\fR,
+\&\fB\-Wvolatile\fR, \fB\-Wdeprecated\-enum\-float\-conversion\fR,
+\&\fB\-Wdeprecated\-enum\-enum\-conversion\fR, and
+\&\fB\-Wdeprecated\-literal\-operator\fR.
 .IP "\fB\-Wno\-deprecated\-declarations\fR" 4
 .IX Item "-Wno-deprecated-declarations"
 Do not warn about uses of functions,

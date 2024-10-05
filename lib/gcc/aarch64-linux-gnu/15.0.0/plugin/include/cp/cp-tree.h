@@ -5723,7 +5723,8 @@ enum base_access_flags {
   ba_unique = 1 << 0,  /* Must be a unique base.  */
   ba_check_bit = 1 << 1,   /* Check access.  */
   ba_check = ba_unique | ba_check_bit,
-  ba_ignore_scope = 1 << 2 /* Ignore access allowed by local scope.  */
+  ba_ignore_scope = 1 << 2, /* Ignore access allowed by local scope.  */
+  ba_require_virtual = 1 << 3 /* Require a virtual base.  */
 };
 
 /* This type is used for parameters and variables which hold
@@ -5839,9 +5840,14 @@ public:
 /* Entry in the specialization hash table.  */
 struct GTY((for_user)) spec_entry
 {
-  tree tmpl;  /* The general template this is a specialization of.  */
-  tree args;  /* The args for this (maybe-partial) specialization.  */
-  tree spec;  /* The specialization itself.  */
+  /* The general template this is a specialization of.  */
+  tree tmpl;
+  /* The args for this (maybe-partial) specialization.  */
+  tree args;
+  /* The specialization itself.  */
+  tree spec = NULL_TREE;
+  /* The cached result of hash_tmpl_and_args (tmpl, args).  */
+  hashval_t hash = 0;
 };
 
 /* in class.cc */

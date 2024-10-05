@@ -76,7 +76,11 @@ enum diagnostics_output_format
   DIAGNOSTICS_OUTPUT_FORMAT_SARIF_STDERR,
 
   /* SARIF-based output, to a file.  */
-  DIAGNOSTICS_OUTPUT_FORMAT_SARIF_FILE
+  DIAGNOSTICS_OUTPUT_FORMAT_SARIF_FILE,
+
+  /* Undocumented, for use by test suite.
+     SARIF-based output, to a file, using a prerelease of the 2.2 schema.  */
+  DIAGNOSTICS_OUTPUT_FORMAT_SARIF_FILE_2_2_PRERELEASE
 };
 
 /* An enum for controlling how diagnostic_paths should be printed.  */
@@ -171,11 +175,16 @@ struct diagnostic_info
 };
 
 /*  Forward declarations.  */
+class diagnostic_location_print_policy;
+class diagnostic_source_print_policy;
+
 typedef void (*diagnostic_text_starter_fn) (diagnostic_text_output_format &,
 					    const diagnostic_info *);
 
-typedef void (*diagnostic_start_span_fn) (diagnostic_context *,
-					  expanded_location);
+typedef void
+(*diagnostic_start_span_fn) (const diagnostic_location_print_policy &,
+			     pretty_printer *,
+			     expanded_location);
 
 typedef void (*diagnostic_text_finalizer_fn) (diagnostic_text_output_format &,
 					      const diagnostic_info *,
@@ -345,6 +354,104 @@ struct diagnostic_source_printing_options
   bool show_event_links_p;
 };
 
+/* A bundle of state for determining column numbers in diagnostics
+   (tab stops, whether to start at 0 or 1, etc).
+   Uses a file_cache to handle tabs.  */
+
+class diagnostic_column_policy
+{
+public:
+  diagnostic_column_policy (const diagnostic_context &dc);
+
+  int converted_column (expanded_location s) const;
+
+  label_text get_location_text (const expanded_location &s,
+				bool show_column,
+				bool colorize) const;
+
+  int get_tabstop () const { return m_tabstop; }
+
+private:
+  file_cache &m_file_cache;
+  enum diagnostics_column_unit m_column_unit;
+  int m_column_origin;
+  int m_tabstop;
+};
+
+/* A bundle of state for printing locations within diagnostics
+   (e.g. "FILENAME:LINE:COLUMN"), to isolate the interactions between
+   diagnostic_context and the start_span callbacks.  */
+
+class diagnostic_location_print_policy
+{
+public:
+  diagnostic_location_print_policy (const diagnostic_context &dc);
+  diagnostic_location_print_policy (const diagnostic_text_output_format &);
+
+  bool show_column_p () const { return m_show_column; }
+
+  const diagnostic_column_policy &
+  get_column_policy () const { return m_column_policy; }
+
+private:
+  diagnostic_column_policy m_column_policy;
+  bool m_show_column;
+};
+
+/* A bundle of state for printing source within a diagnostic,
+   to isolate the interactions between diagnostic_context and the
+   implementation of diagnostic_show_locus.  */
+
+class diagnostic_source_print_policy
+{
+public:
+  diagnostic_source_print_policy (const diagnostic_context &);
+
+  void
+  print (pretty_printer &pp,
+	 const rich_location &richloc,
+	 diagnostic_t diagnostic_kind,
+	 diagnostic_source_effect_info *effect_info) const;
+
+  const diagnostic_source_printing_options &
+  get_options () const { return m_options; }
+
+  diagnostic_start_span_fn
+  get_start_span_fn () const { return m_start_span_cb; }
+
+  file_cache &
+  get_file_cache () const { return m_file_cache; }
+
+  enum diagnostics_escape_format
+  get_escape_format () const
+  {
+    return m_escape_format;
+  }
+
+  text_art::theme *
+  get_diagram_theme () const { return m_diagram_theme; }
+
+  const diagnostic_column_policy &get_column_policy () const
+  {
+    return m_location_policy.get_column_policy ();
+  }
+
+  const diagnostic_location_print_policy &get_location_policy () const
+  {
+    return m_location_policy;
+  }
+
+private:
+  const diagnostic_source_printing_options &m_options;
+  class diagnostic_location_print_policy m_location_policy;
+  diagnostic_start_span_fn m_start_span_cb;
+  file_cache &m_file_cache;
+
+  /* Other data copied from diagnostic_context.  */
+  text_art::theme *m_diagram_theme;
+  enum diagnostics_escape_format m_escape_format;
+};
+
 /* This data structure bundles altogether any information relevant to
    the context of a diagnostic message.  */
 class diagnostic_context
@@ -358,6 +465,7 @@ public:
   friend diagnostic_text_finalizer_fn &
   diagnostic_text_finalizer (diagnostic_context *context);
 
+  friend class diagnostic_source_print_policy;
   friend class diagnostic_text_output_format;
 
   typedef void (*ice_handler_callback_t) (diagnostic_context *);
@@ -397,6 +505,19 @@ public:
     return m_option_classifier.option_unspecified_p (option_id);
   }
 
+  bool emit_diagnostic (diagnostic_t kind,
+			rich_location &richloc,
+			const diagnostic_metadata *metadata,
+			diagnostic_option_id option_id,
+			const char *gmsgid, ...)
+    ATTRIBUTE_GCC_DIAG(6,7);
+  bool emit_diagnostic_va (diagnostic_t kind,
+			   rich_location &richloc,
+			   const diagnostic_metadata *metadata,
+			   diagnostic_option_id option_id,
+			   const char *gmsgid, va_list *ap)
+    ATTRIBUTE_GCC_DIAG(6,0);
+
   bool report_diagnostic (diagnostic_info *);
 
   void check_max_errors (bool flush);
@@ -424,7 +545,7 @@ public:
 
   void maybe_show_locus (const rich_location &richloc,
 			 diagnostic_t diagnostic_kind,
-			 pretty_printer *pp,
+			 pretty_printer &pp,
 			 diagnostic_source_effect_info *effect_info);
 
   void emit_diagram (const diagnostic_diagram &diagram);
@@ -501,8 +622,6 @@ public:
   urlifier *get_urlifier () const { return m_urlifier; }
   text_art::theme *get_diagram_theme () const { return m_diagrams.m_theme; }
 
-  int converted_column (expanded_location s) const;
-
   int &diagnostic_count (diagnostic_t kind)
   {
     return m_diagnostic_count[kind];
@@ -543,9 +662,6 @@ public:
     return m_lang_mask;
   }
 
-  label_text get_location_text (const expanded_location &s,
-				bool colorize) const;
-
   bool diagnostic_impl (rich_location *, const diagnostic_metadata *,
 			diagnostic_option_id, const char *,
 			va_list *, diagnostic_t) ATTRIBUTE_GCC_DIAG(5,0);
@@ -572,11 +688,6 @@ private:
   bool diagnostic_enabled (diagnostic_info *diagnostic);
 
   void get_any_inlining_info (diagnostic_info *diagnostic);
-
-  void show_locus (const rich_location &richloc,
-		   diagnostic_t diagnostic_kind,
-		   pretty_printer *pp,
-		   diagnostic_source_effect_info *effect_info);
 
   /* Data members.
      Ideally, all of these would be private.  */
@@ -887,11 +998,13 @@ inline void
 diagnostic_show_locus (diagnostic_context *context,
 		       rich_location *richloc,
 		       diagnostic_t diagnostic_kind,
-		       pretty_printer *pp = nullptr,
+		       pretty_printer *pp,
 		       diagnostic_source_effect_info *effect_info = nullptr)
 {
+  gcc_assert (context);
   gcc_assert (richloc);
-  context->maybe_show_locus (*richloc, diagnostic_kind, pp, effect_info);
+  gcc_assert (pp);
+  context->maybe_show_locus (*richloc, diagnostic_kind, *pp, effect_info);
 }
 
 /* Because we read source files a second time after the frontend did it the
@@ -967,7 +1080,8 @@ extern void diagnostic_set_info_translated (diagnostic_info *, const char *,
 #endif
 void default_diagnostic_text_starter (diagnostic_text_output_format &,
 				      const diagnostic_info *);
-void default_diagnostic_start_span_fn (diagnostic_context *,
+void default_diagnostic_start_span_fn (const diagnostic_location_print_policy &,
+				       pretty_printer *,
 				       expanded_location);
 void default_diagnostic_text_finalizer (diagnostic_text_output_format &,
 					const diagnostic_info *,
