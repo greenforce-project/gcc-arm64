@@ -3394,8 +3394,7 @@ Adapteva Epiphany.  This configuration is intended for embedded systems.
 ============
 
 We support FreeBSD using the ELF file format with DWARF 2 debugging for
-all CPU architectures.  There are no known issues with mixing object
-files and libraries with different debugging formats.
+all CPU architectures.
 
    We recommend bootstrapping against the latest GNU binutils or the
 version found in the 'devel/binutils' port.  This also has been known to
@@ -4925,73 +4924,73 @@ Ref: cris149575
 Ref: dos149901
 Ref: epiphany-x-elf150226
 Ref: x-x-freebsd150331
-Ref: ft32-x-elf151059
-Ref: h8300-hms151157
-Ref: hppa-hp-hpux151216
-Ref: hppa-hp-hpux11152730
-Ref: x-x-linux-gnu157836
-Ref: ix86-x-linux158029
-Ref: ix86-x-solaris2158231
-Ref: ia64-x-linux158470
-Ref: ia64-x-hpux158717
-Ref: x-ibm-aix158935
-Ref: TransferAixShobj162597
-Ref: iq2000-x-elf166407
-Ref: lm32-x-elf166547
-Ref: lm32-x-uclinux166651
-Ref: loongarch166779
-Ref: m32c-x-elf167416
-Ref: m32r-x-elf167518
-Ref: m68k-x-x167620
-Ref: m68k-x-uclinux168658
-Ref: microblaze-x-elf168903
-Ref: mips-x-x169022
-Ref: moxie-x-elf170932
-Ref: msp430-x-elf170979
-Ref: nds32le-x-elf171536
-Ref: nds32be-x-elf171608
-Ref: nvptx-x-none171677
-Ref: or1k-x-elf172540
-Ref: or1k-x-linux172671
-Ref: powerpc-x-x172752
-Ref: powerpc-x-darwin172943
-Ref: powerpc-x-elf173438
-Ref: powerpc-x-linux-gnu173523
-Ref: powerpc-x-netbsd173618
-Ref: powerpc-x-eabisim173706
-Ref: powerpc-x-eabi173832
-Ref: powerpcle-x-elf173908
-Ref: powerpcle-x-eabisim174000
-Ref: powerpcle-x-eabi174133
-Ref: rl78-x-elf174216
-Ref: riscv32-x-elf174322
-Ref: riscv32-x-linux174511
-Ref: riscv64-x-elf174668
-Ref: riscv64-x-linux174857
-Ref: rx-x-elf175014
-Ref: s390-x-linux175060
-Ref: s390x-x-linux175132
-Ref: s390x-ibm-tpf175219
-Ref: x-x-solaris2175350
-Ref: sparc-x-x178662
-Ref: sparc-sun-solaris2179164
-Ref: sparc-x-linux180063
-Ref: sparc64-x-solaris2180094
-Ref: sparcv9-x-solaris2180181
-Ref: c6x-x-x180902
-Ref: visium-x-elf180994
-Ref: x-x-vxworks181102
-Ref: x86-64-x-x182625
-Ref: x86-64-x-solaris2182953
-Ref: xtensa-x-elf183458
-Ref: xtensa-x-linux184129
-Ref: windows184470
-Ref: x-x-cygwin186056
-Ref: x-x-mingw32186609
-Ref: older186835
-Ref: elf188798
-Node: GNU Free Documentation License189052
-Node: Concept Index214190
+Ref: ft32-x-elf150959
+Ref: h8300-hms151057
+Ref: hppa-hp-hpux151116
+Ref: hppa-hp-hpux11152630
+Ref: x-x-linux-gnu157736
+Ref: ix86-x-linux157929
+Ref: ix86-x-solaris2158131
+Ref: ia64-x-linux158370
+Ref: ia64-x-hpux158617
+Ref: x-ibm-aix158835
+Ref: TransferAixShobj162497
+Ref: iq2000-x-elf166307
+Ref: lm32-x-elf166447
+Ref: lm32-x-uclinux166551
+Ref: loongarch166679
+Ref: m32c-x-elf167316
+Ref: m32r-x-elf167418
+Ref: m68k-x-x167520
+Ref: m68k-x-uclinux168558
+Ref: microblaze-x-elf168803
+Ref: mips-x-x168922
+Ref: moxie-x-elf170832
+Ref: msp430-x-elf170879
+Ref: nds32le-x-elf171436
+Ref: nds32be-x-elf171508
+Ref: nvptx-x-none171577
+Ref: or1k-x-elf172440
+Ref: or1k-x-linux172571
+Ref: powerpc-x-x172652
+Ref: powerpc-x-darwin172843
+Ref: powerpc-x-elf173338
+Ref: powerpc-x-linux-gnu173423
+Ref: powerpc-x-netbsd173518
+Ref: powerpc-x-eabisim173606
+Ref: powerpc-x-eabi173732
+Ref: powerpcle-x-elf173808
+Ref: powerpcle-x-eabisim173900
+Ref: powerpcle-x-eabi174033
+Ref: rl78-x-elf174116
+Ref: riscv32-x-elf174222
+Ref: riscv32-x-linux174411
+Ref: riscv64-x-elf174568
+Ref: riscv64-x-linux174757
+Ref: rx-x-elf174914
+Ref: s390-x-linux174960
+Ref: s390x-x-linux175032
+Ref: s390x-ibm-tpf175119
+Ref: x-x-solaris2175250
+Ref: sparc-x-x178562
+Ref: sparc-sun-solaris2179064
+Ref: sparc-x-linux179963
+Ref: sparc64-x-solaris2179994
+Ref: sparcv9-x-solaris2180081
+Ref: c6x-x-x180802
+Ref: visium-x-elf180894
+Ref: x-x-vxworks181002
+Ref: x86-64-x-x182525
+Ref: x86-64-x-solaris2182853
+Ref: xtensa-x-elf183358
+Ref: xtensa-x-linux184029
+Ref: windows184370
+Ref: x-x-cygwin185956
+Ref: x-x-mingw32186509
+Ref: older186735
+Ref: elf188698
+Node: GNU Free Documentation License188952
+Node: Concept Index214090
 
 End Tag Table
 

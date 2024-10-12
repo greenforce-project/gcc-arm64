@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-10-05" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-10-12" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -419,8 +419,8 @@ in the following sections.
 \&\-Wpacked  \-Wno\-packed\-bitfield\-compat  \-Wpacked\-not\-aligned  \-Wpadded
 \&\-Wparentheses  \-Wno\-pedantic\-ms\-format
 \&\-Wpointer\-arith  \-Wno\-pointer\-compare  \-Wno\-pointer\-to\-int\-cast
-\&\-Wno\-pragmas  \-Wno\-prio\-ctor\-dtor  \-Wredundant\-decls
-\&\-Wrestrict  \-Wno\-return\-local\-addr  \-Wreturn\-type
+\&\-Wno\-pragmas  \-Wno\-pragma\-once\-outside\-header  \-Wno\-prio\-ctor\-dtor
+\&\-Wredundant\-decls  \-Wrestrict  \-Wno\-return\-local\-addr  \-Wreturn\-type
 \&\-Wno\-scalar\-storage\-order  \-Wsequence\-point
 \&\-Wshadow  \-Wshadow=global  \-Wshadow=local  \-Wshadow=compatible\-local
 \&\-Wno\-shadow\-ivar
@@ -1079,7 +1079,7 @@ in the following sections.
 \&\-mcmodel=\fR\fIcode-model\fR \fB\-mrelax \-mpass\-mrelax\-to\-as
 \&\-mrecip  \-mrecip=\fR\fIopt\fR \fB\-mfrecipe \-mno\-frecipe \-mdiv32 \-mno\-div32
 \&\-mlam\-bh \-mno\-lam\-bh \-mlamcas \-mno\-lamcas \-mld\-seq\-sa \-mno\-ld\-seq\-sa
-\&\-mtls\-dialect=\fR\fIopt\fR
+\&\-mtls\-dialect=\fR\fIopt\fR \fB\-mannotate\-tablejump \-mno\-annotate\-tablejump\fR
 .Sp
 \&\fIM32R/D Options\fR
 \&\fB\-m32r2  \-m32rx  \-m32r
@@ -5673,269 +5673,13 @@ The \fBsarif-stderr\fR and \fBsarif-file\fR formats both emit
 diagnostics in \s-1SARIF\s0 Version 2.1.0 format, either to stderr, or to a file
 named \fI\fIsource\fI.sarif\fR, respectively.
 .Sp
+The various \fBjson\fR, \fBjson-stderr\fR, and \fBjson-file\fR values
+are deprecated and refer to a legacy JSON-based output format.
 The \fBjson\fR format is a synonym for \fBjson-stderr\fR.
 The \fBjson-stderr\fR and \fBjson-file\fR formats are identical, apart from
 where the \s-1JSON\s0 is emitted to.  With \fBjson-stderr\fR, the \s-1JSON\s0 is emitted
 to stderr, whereas with \fBjson-file\fR it is written to
 \&\fI\fIsource\fI.gcc.json\fR.
-.Sp
-The emitted \s-1JSON\s0 consists of a top-level \s-1JSON\s0 array containing \s-1JSON\s0 objects
-representing the diagnostics.
-.Sp
-Diagnostics can have child diagnostics.  For example, this error and note:
-.Sp
-.Vb 8
-\&        misleading\-indentation.c:15:3: warning: this \*(Aqif\*(Aq clause does not
-\&          guard... [\-Wmisleading\-indentation]
-\&           15 |   if (flag)
-\&              |   ^~
-\&        misleading\-indentation.c:17:5: note: ...this statement, but the latter
-\&          is misleadingly indented as if it were guarded by the \*(Aqif\*(Aq
-\&           17 |     y = 2;
-\&              |     ^
-.Ve
-.Sp
-might be printed in \s-1JSON\s0 form (after formatting) like this:
-.Sp
-.Vb 10
-\&        [
-\&            {
-\&                "kind": "warning",
-\&                "locations": [
-\&                    {
-\&                        "caret": {
-\&                            "display\-column": 3,
-\&                            "byte\-column": 3,
-\&                            "column": 3,
-\&                            "file": "misleading\-indentation.c",
-\&                            "line": 15
-\&                        },
-\&                        "finish": {
-\&                            "display\-column": 4,
-\&                            "byte\-column": 4,
-\&                            "column": 4,
-\&                            "file": "misleading\-indentation.c",
-\&                            "line": 15
-\&                        }
-\&                    }
-\&                ],
-\&                "message": "this \eu2018if\eu2019 clause does not guard...",
-\&                "option": "\-Wmisleading\-indentation",
-\&                "option_url": "https://gcc.gnu.org/onlinedocs/gcc/Warning\-Options.html#index\-Wmisleading\-indentation",
-\&                "children": [
-\&                    {
-\&                        "kind": "note",
-\&                        "locations": [
-\&                            {
-\&                                "caret": {
-\&                                    "display\-column": 5,
-\&                                    "byte\-column": 5,
-\&                                    "column": 5,
-\&                                    "file": "misleading\-indentation.c",
-\&                                    "line": 17
-\&                                }
-\&                            }
-\&                        ],
-\&                        "escape\-source": false,
-\&                        "message": "...this statement, but the latter is ..."
-\&                    }
-\&                ]
-\&                "escape\-source": false,
-\&                "column\-origin": 1,
-\&            }
-\&        ]
-.Ve
-.Sp
-where the \f(CW\*(C`note\*(C'\fR is a child of the \f(CW\*(C`warning\*(C'\fR.
-.Sp
-A diagnostic has a \f(CW\*(C`kind\*(C'\fR.  If this is \f(CW\*(C`warning\*(C'\fR, then there is
-an \f(CW\*(C`option\*(C'\fR key describing the command-line option controlling the
-warning.
-.Sp
-A diagnostic can contain zero or more locations.  Each location has an
-optional \f(CW\*(C`label\*(C'\fR string and up to three positions within it: a
-\&\f(CW\*(C`caret\*(C'\fR position and optional \f(CW\*(C`start\*(C'\fR and \f(CW\*(C`finish\*(C'\fR positions.
-A position is described by a \f(CW\*(C`file\*(C'\fR name, a \f(CW\*(C`line\*(C'\fR number, and
-three numbers indicating a column position:
-.RS 4
-.IP "*" 4
-\&\f(CW\*(C`display\-column\*(C'\fR counts display columns, accounting for tabs and
-multibyte characters.
-.IP "*" 4
-\&\f(CW\*(C`byte\-column\*(C'\fR counts raw bytes.
-.IP "*" 4
-\&\f(CW\*(C`column\*(C'\fR is equal to one of
-the previous two, as dictated by the \fB\-fdiagnostics\-column\-unit\fR
-option.
-.RE
-.RS 4
-.Sp
-All three columns are relative to the origin specified by
-\&\fB\-fdiagnostics\-column\-origin\fR, which is typically equal to 1 but may
-be set, for instance, to 0 for compatibility with other utilities that
-number columns from 0.  The column origin is recorded in the \s-1JSON\s0 output in
-the \f(CW\*(C`column\-origin\*(C'\fR tag.  In the remaining examples below, the extra
-column number outputs have been omitted for brevity.
-.Sp
-For example, this error:
-.Sp
-.Vb 7
-\&        bad\-binary\-ops.c:64:23: error: invalid operands to binary + (have \*(AqS\*(Aq {aka
-\&           \*(Aqstruct s\*(Aq} and \*(AqT\*(Aq {aka \*(Aqstruct t\*(Aq})
-\&           64 |   return callee_4a () + callee_4b ();
-\&              |          ~~~~~~~~~~~~ ^ ~~~~~~~~~~~~
-\&              |          |              |
-\&              |          |              T {aka struct t}
-\&              |          S {aka struct s}
-.Ve
-.Sp
-has three locations.  Its primary location is at the \*(L"+\*(R" token at column
-23.  It has two secondary locations, describing the left and right-hand sides
-of the expression, which have labels.  It might be printed in \s-1JSON\s0 form as:
-.Sp
-.Vb 10
-\&            {
-\&                "children": [],
-\&                "kind": "error",
-\&                "locations": [
-\&                    {
-\&                        "caret": {
-\&                            "column": 23, "file": "bad\-binary\-ops.c", "line": 64
-\&                        }
-\&                    },
-\&                    {
-\&                        "caret": {
-\&                            "column": 10, "file": "bad\-binary\-ops.c", "line": 64
-\&                        },
-\&                        "finish": {
-\&                            "column": 21, "file": "bad\-binary\-ops.c", "line": 64
-\&                        },
-\&                        "label": "S {aka struct s}"
-\&                    },
-\&                    {
-\&                        "caret": {
-\&                            "column": 25, "file": "bad\-binary\-ops.c", "line": 64
-\&                        },
-\&                        "finish": {
-\&                            "column": 36, "file": "bad\-binary\-ops.c", "line": 64
-\&                        },
-\&                        "label": "T {aka struct t}"
-\&                    }
-\&                ],
-\&                "escape\-source": false,
-\&                "message": "invalid operands to binary + ..."
-\&            }
-.Ve
-.Sp
-If a diagnostic contains fix-it hints, it has a \f(CW\*(C`fixits\*(C'\fR array,
-consisting of half-open intervals, similar to the output of
-\&\fB\-fdiagnostics\-parseable\-fixits\fR.  For example, this diagnostic
-with a replacement fix-it hint:
-.Sp
-.Vb 5
-\&        demo.c:8:15: error: \*(Aqstruct s\*(Aq has no member named \*(Aqcolour\*(Aq; did you
-\&          mean \*(Aqcolor\*(Aq?
-\&            8 |   return ptr\->colour;
-\&              |               ^~~~~~
-\&              |               color
-.Ve
-.Sp
-might be printed in \s-1JSON\s0 form as:
-.Sp
-.Vb 10
-\&            {
-\&                "children": [],
-\&                "fixits": [
-\&                    {
-\&                        "next": {
-\&                            "column": 21,
-\&                            "file": "demo.c",
-\&                            "line": 8
-\&                        },
-\&                        "start": {
-\&                            "column": 15,
-\&                            "file": "demo.c",
-\&                            "line": 8
-\&                        },
-\&                        "string": "color"
-\&                    }
-\&                ],
-\&                "kind": "error",
-\&                "locations": [
-\&                    {
-\&                        "caret": {
-\&                            "column": 15,
-\&                            "file": "demo.c",
-\&                            "line": 8
-\&                        },
-\&                        "finish": {
-\&                            "column": 20,
-\&                            "file": "demo.c",
-\&                            "line": 8
-\&                        }
-\&                    }
-\&                ],
-\&                "escape\-source": false,
-\&                "message": "\eu2018struct s\eu2019 has no member named ..."
-\&            }
-.Ve
-.Sp
-where the fix-it hint suggests replacing the text from \f(CW\*(C`start\*(C'\fR up
-to but not including \f(CW\*(C`next\*(C'\fR with \f(CW\*(C`string\*(C'\fR's value.  Deletions
-are expressed via an empty value for \f(CW\*(C`string\*(C'\fR, insertions by
-having \f(CW\*(C`start\*(C'\fR equal \f(CW\*(C`next\*(C'\fR.
-.Sp
-If the diagnostic has a path of control-flow events associated with it,
-it has a \f(CW\*(C`path\*(C'\fR array of objects representing the events.  Each
-event object has a \f(CW\*(C`description\*(C'\fR string, a \f(CW\*(C`location\*(C'\fR object,
-along with a \f(CW\*(C`function\*(C'\fR string and a \f(CW\*(C`depth\*(C'\fR number for
-representing interprocedural paths.  The \f(CW\*(C`function\*(C'\fR represents the
-current function at that event, and the \f(CW\*(C`depth\*(C'\fR represents the
-stack depth relative to some baseline: the higher, the more frames are
-within the stack.
-.Sp
-For example, the intraprocedural example shown for
-\&\fB\-fdiagnostics\-path\-format=\fR might have this \s-1JSON\s0 for its path:
-.Sp
-.Vb 10
-\&            "path": [
-\&                {
-\&                    "depth": 0,
-\&                    "description": "when \*(AqPyList_New\*(Aq fails, returning NULL",
-\&                    "function": "test",
-\&                    "location": {
-\&                        "column": 10,
-\&                        "file": "test.c",
-\&                        "line": 25
-\&                    }
-\&                },
-\&                {
-\&                    "depth": 0,
-\&                    "description": "when \*(Aqi < count\*(Aq",
-\&                    "function": "test",
-\&                    "location": {
-\&                        "column": 3,
-\&                        "file": "test.c",
-\&                        "line": 27
-\&                    }
-\&                },
-\&                {
-\&                    "depth": 0,
-\&                    "description": "when calling \*(AqPyList_Append\*(Aq, passing NULL from (1) as argument 1",
-\&                    "function": "test",
-\&                    "location": {
-\&                        "column": 5,
-\&                        "file": "test.c",
-\&                        "line": 29
-\&                    }
-\&                }
-\&            ]
-.Ve
-.Sp
-Diagnostics have a boolean attribute \f(CW\*(C`escape\-source\*(C'\fR, hinting whether
-non-ASCII bytes should be escaped when printing the pertinent lines of
-source code (\f(CW\*(C`true\*(C'\fR for diagnostics involving source encoding issues).
-.RE
 .IP "\fB\-fno\-diagnostics\-json\-formatting\fR" 4
 .IX Item "-fno-diagnostics-json-formatting"
 By default, when \s-1JSON\s0 is emitted for diagnostics (via
@@ -7726,6 +7470,10 @@ the warnings are only enabled by the \fB\-Wall\fR command-line option.
 Do not warn about misuses of pragmas, such as incorrect parameters,
 invalid syntax, or conflicts between pragmas.  See also
 \&\fB\-Wunknown\-pragmas\fR.
+.IP "\fB\-Wno\-pragma\-once\-outside\-header\fR" 4
+.IX Item "-Wno-pragma-once-outside-header"
+Do not warn when \f(CW\*(C`#pragma once\*(C'\fR is used in a file that is not a header
+file, such as a main file.
 .IP "\fB\-Wno\-prio\-ctor\-dtor\fR" 4
 .IX Item "-Wno-prio-ctor-dtor"
 Do not warn if a priority from 0 to 100 is used for constructor or destructor.
@@ -13378,13 +13126,10 @@ counts that will likely execute faster than when executing the original
 scalar loop.  The \fBcheap\fR model disables vectorization of
 loops where doing so would be cost prohibitive for example due to
 required runtime checks for data dependence or alignment but otherwise
-is equal to the \fBdynamic\fR model.  The \fBvery-cheap\fR model only
-allows vectorization if the vector code would entirely replace the
-scalar code that is being vectorized.  For example, if each iteration
-of a vectorized loop would only be able to handle exactly four iterations
-of the scalar loop, the \fBvery-cheap\fR model would only allow
-vectorization if the scalar iteration count is known to be a multiple
-of four.
+is equal to the \fBdynamic\fR model.  The \fBvery-cheap\fR model disables
+vectorization of loops when any runtime check for data dependence or alignment
+is required, it also disables vectorization of epilogue loops but otherwise is
+equal to the \fBcheap\fR model.
 .Sp
 The default cost model depends on other optimization flags and is
 either \fBdynamic\fR or \fBcheap\fR.
@@ -26700,6 +26445,18 @@ Whether a load-load barrier (\f(CW\*(C`dbar 0x700\*(C'\fR) is needed.  When buil
 .IX Item "-mtls-dialect=opt"
 This option controls which tls dialect may be used for general dynamic and
 local dynamic \s-1TLS\s0 models.
+.IP "\fB\-mannotate\-tablejump\fR" 4
+.IX Item "-mannotate-tablejump"
+.PD 0
+.IP "\fB\-mno\-annotate\-tablejump\fR" 4
+.IX Item "-mno-annotate-tablejump"
+.PD
+Create an annotation section \f(CW\*(C`.discard.tablejump_annotate\*(C'\fR to
+correlate the \f(CW\*(C`jirl\*(C'\fR instruction and the jump table when a jump
+table is used to optimize the \f(CW\*(C`switch\*(C'\fR statement.  Some external
+tools, for example \fIobjtool\fR of the Linux kernel building system,
+need the annotation to analysis the control flow.  The default is
+\&\fB\-mno\-annotate\-tablejump\fR.
 .RS 4
 .IP "\fBtrad\fR" 4
 .IX Item "trad"
