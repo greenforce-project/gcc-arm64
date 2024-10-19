@@ -7593,6 +7593,7 @@ extern int template_args_equal                  (tree, tree);
 extern tree maybe_process_partial_specialization (tree);
 extern tree most_specialized_instantiation	(tree);
 extern tree most_specialized_partial_spec       (tree, tsubst_flags_t, bool = false);
+extern tree most_constrained_function		(tree);
 extern void print_candidates			(tree);
 extern void instantiate_pending_templates	(int);
 extern tree tsubst_default_argument		(tree, int, tree, tree,
@@ -8120,7 +8121,6 @@ extern tree build_exception_variant		(tree, tree);
 extern void fixup_deferred_exception_variants   (tree, tree);
 extern tree bind_template_template_parm		(tree, tree);
 extern tree array_type_nelts_total		(tree);
-extern tree array_type_nelts_top		(tree);
 extern bool array_of_unknown_bound_p		(const_tree);
 extern tree break_out_target_exprs		(tree, bool = false);
 extern tree build_ctor_subob_ref		(tree, tree, tree);

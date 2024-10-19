@@ -94,7 +94,7 @@ along with GCC; see the file COPYING3.  If not see
 	  NEXT_PASS (pass_early_vrp, 1);
 	  NEXT_PASS (pass_merge_phi, 1);
           NEXT_PASS (pass_dse, 1);
-	  NEXT_PASS_WITH_ARG (pass_cd_dce, 1, false /* update_address_taken_p */);
+	  NEXT_PASS_WITH_ARGS (pass_cd_dce, 1, false /* update_address_taken_p */, true /* remove_unused_locals */);
 	  NEXT_PASS_WITH_ARG (pass_phiopt, 1, true /* early_p */);
 	  NEXT_PASS (pass_tail_recursion, 1);
 	  NEXT_PASS (pass_if_to_switch, 1);
@@ -227,10 +227,7 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS_WITH_ARG (pass_vrp, 1, false /* final_p*/);
       NEXT_PASS (pass_array_bounds, 1);
       NEXT_PASS (pass_dse, 2);
-      NEXT_PASS (pass_dce, 2);
-      /* pass_stdarg is always run and at this point we execute
-         TODO_remove_unused_locals to prune CLOBBERs of dead
-	 variables which are otherwise a churn on alias walkings.  */
+      NEXT_PASS_WITH_ARGS (pass_dce, 2, false /* update_address_taken_p */, true /* remove_unused_locals */);
       NEXT_PASS (pass_stdarg, 1);
       NEXT_PASS (pass_call_cdce, 1);
       NEXT_PASS (pass_cselim, 1);
@@ -275,7 +272,7 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS (pass_asan, 1);
       NEXT_PASS (pass_tsan, 1);
       NEXT_PASS_WITH_ARG (pass_dse, 3, true /* use DR analysis */);
-      NEXT_PASS (pass_dce, 4);
+      NEXT_PASS_WITH_ARGS (pass_dce, 4, false /* update_address_taken_p */, false /* remove_unused_locals */);
       /* Pass group that runs when 1) enabled, 2) there are loops
 	 in the function.  Make sure to run pass_fix_loops before
 	 to discover/remove loops before running the gate function
@@ -357,7 +354,7 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS_WITH_ARG (pass_ccp, 4, true /* nonzero_p */);
       NEXT_PASS (pass_warn_restrict, 1);
       NEXT_PASS (pass_dse, 5);
-      NEXT_PASS_WITH_ARG (pass_dce, 7, true /* update_address_taken_p */);
+      NEXT_PASS_WITH_ARGS (pass_dce, 7, true /* update_address_taken_p */, true /* remove_unused_locals */);
       /* After late DCE we rewrite no longer addressed locals into SSA
 	 form if possible.  */
       NEXT_PASS (pass_forwprop, 4);
@@ -597,3 +594,10 @@ NEXT_PASS (pass_insert_bti, 1);
    along with GCC; see the file COPYING3.  If not see
    <http://www.gnu.org/licenses/>.  */
 
+#undef INSERT_PASSES_AFTER
+#undef PUSH_INSERT_PASSES_WITHIN
+#undef POP_INSERT_PASSES
+#undef NEXT_PASS
+#undef NEXT_PASS_WITH_ARG
+#undef NEXT_PASS_WITH_ARGS
+#undef TERMINATE_PASS_LIST

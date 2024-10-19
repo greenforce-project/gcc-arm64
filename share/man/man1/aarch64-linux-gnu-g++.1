@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-10-12" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-10-19" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -438,7 +438,8 @@ in the following sections.
 \&\-Wsuggest\-attribute=\fR[\fBpure\fR|\fBconst\fR|\fBnoreturn\fR|\fBformat\fR|\fBmalloc\fR]
 \&\fB\-Wswitch  \-Wno\-switch\-bool  \-Wswitch\-default  \-Wswitch\-enum
 \&\-Wno\-switch\-outside\-range  \-Wno\-switch\-unreachable  \-Wsync\-nand
-\&\-Wsystem\-headers  \-Wtautological\-compare  \-Wtrampolines  \-Wtrigraphs
+\&\-Wsystem\-headers  \-Wtautological\-compare  \-Wtrailing\-whitespace
+\&\-Wtrailing\-whitespace=\fR\fIkind\fR  \fB\-Wtrampolines  \-Wtrigraphs
 \&\-Wtrivial\-auto\-var\-init  \-Wno\-tsan  \-Wtype\-limits  \-Wundef
 \&\-Wuninitialized  \-Wunknown\-pragmas
 \&\-Wunsuffixed\-float\-constants
@@ -1421,8 +1422,7 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mvis4  \-mno\-vis4  \-mvis4b  \-mno\-vis4b
 \&\-mcbcond  \-mno\-cbcond  \-mfmaf  \-mno\-fmaf  \-mfsmuld  \-mno\-fsmuld
 \&\-mpopc  \-mno\-popc  \-msubxc  \-mno\-subxc
-\&\-mfix\-at697f  \-mfix\-ut699  \-mfix\-ut700  \-mfix\-gr712rc
-\&\-mlra  \-mno\-lra\fR
+\&\-mfix\-at697f  \-mfix\-ut699  \-mfix\-ut700  \-mfix\-gr712rc\fR
 .Sp
 \&\fISystem V Options\fR
 \&\fB\-Qy  \-Qn  \-YP,\fR\fIpaths\fR  \fB\-Ym,\fR\fIdir\fR
@@ -8298,6 +8298,21 @@ to true or false, for instance:
 will always be false.
 .Sp
 This warning is enabled by \fB\-Wall\fR.
+.IP "\fB\-Wtrailing\-whitespace\fR" 4
+.IX Item "-Wtrailing-whitespace"
+.PD 0
+.IP "\fB\-Wtrailing\-whitespace=\fR\fIkind\fR" 4
+.IX Item "-Wtrailing-whitespace=kind"
+.PD
+Warn about trailing whitespace at the end of lines, including inside of
+comments, but excluding trailing whitespace in raw string literals.
+\&\f(CW\*(C`\-Wtrailing\-whitespace\*(C'\fR is equivalent to
+\&\f(CW\*(C`\-Wtrailing\-whitespace=blank\*(C'\fR and warns just about trailing space and
+horizontal tab characters.  \f(CW\*(C`\-Wtrailing\-whitespace=space\*(C'\fR warns about
+those or trailing form feed or vertical tab characters.
+\&\f(CW\*(C`\-Wno\-trailing\-whitespace\*(C'\fR or \f(CW\*(C`\-Wtrailing\-whitespace=none\*(C'\fR
+disables the warning, which is the default.
+This is a coding style warning.
 .IP "\fB\-Wtrampolines\fR" 4
 .IX Item "-Wtrampolines"
 Warn about trampolines generated for pointers to nested functions.
@@ -32632,14 +32647,6 @@ between the two sides of function calls, as per the 32\-bit \s-1ABI.\s0
 .Sp
 The default is \fB\-mno\-std\-struct\-return\fR.  This option has no effect
 in 64\-bit mode.
-.IP "\fB\-mlra\fR" 4
-.IX Item "-mlra"
-.PD 0
-.IP "\fB\-mno\-lra\fR" 4
-.IX Item "-mno-lra"
-.PD
-Enable Local Register Allocation.  This is the default for \s-1SPARC\s0 since \s-1GCC 7\s0
-so \fB\-mno\-lra\fR needs to be passed to get old Reload.
 .IP "\fB\-mcpu=\fR\fIcpu_type\fR" 4
 .IX Item "-mcpu=cpu_type"
 Set the instruction set, register set, and instruction scheduling parameters
