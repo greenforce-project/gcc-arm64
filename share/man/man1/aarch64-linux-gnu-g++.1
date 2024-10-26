@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-10-19" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-10-26" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -404,7 +404,8 @@ in the following sections.
 \&\-Winit\-self  \-Winline  \-Wno\-int\-conversion  \-Wint\-in\-bool\-context
 \&\-Wno\-int\-to\-pointer\-cast  \-Wno\-invalid\-memory\-model
 \&\-Winvalid\-pch  \-Winvalid\-utf8  \-Wno\-unicode  \-Wjump\-misses\-init
-\&\-Wlarger\-than=\fR\fIbyte-size\fR  \fB\-Wlogical\-not\-parentheses  \-Wlogical\-op
+\&\-Wlarger\-than=\fR\fIbyte-size\fR  \fB\-Wleading\-whitespace=\fR\fIkind\fR
+\&\fB\-Wlogical\-not\-parentheses  \-Wlogical\-op
 \&\-Wlong\-long  \-Wno\-lto\-type\-mismatch \-Wmain  \-Wmaybe\-uninitialized
 \&\-Wmemset\-elt\-size  \-Wmemset\-transposed\-args
 \&\-Wmisleading\-indentation  \-Wmissing\-attributes  \-Wmissing\-braces
@@ -8313,6 +8314,27 @@ those or trailing form feed or vertical tab characters.
 \&\f(CW\*(C`\-Wno\-trailing\-whitespace\*(C'\fR or \f(CW\*(C`\-Wtrailing\-whitespace=none\*(C'\fR
 disables the warning, which is the default.
 This is a coding style warning.
+.IP "\fB\-Wleading\-whitespace=\fR\fIkind\fR" 4
+.IX Item "-Wleading-whitespace=kind"
+Warn about style issues in leading whitespace, but not about the amount of
+indentation.  Some projects use coding styles where only spaces are used
+for indentation, others use only tabs, others use zero or more tabs (for
+multiples of \f(CW\*(C`\-ftabstop=\f(CIn\f(CW\*(C'\fR) followed by zero or fewer than \fIn\fR
+spaces.  No warning is emitted on lines which contain solely whitespace
+(although \f(CW\*(C`\-Wtrailing\-whitespace=\*(C'\fR warning might be emitted), no
+warnings are emitted inside of raw string literals.  Warnings are also emitted
+for leading whitespace inside of multi-line comments.
+\&\f(CW\*(C`\-Wleading\-whitespace=spaces\*(C'\fR warns about leading whitespace other than
+spaces for projects which want to indent just by spaces.
+\&\f(CW\*(C`\-Wleading\-whitespace=tabs\*(C'\fR warns about leading whitespace other than
+horizontal tabs for projects which want to indent just by horizontal tabs.
+\&\f(CW\*(C`\-Wleading\-whitespace=blanks\*(C'\fR warns about leading whitespace other than
+spaces and horizontal tabs, or about horizontal tab after a space in the
+leading whitespace, or about \fIn\fR or more consecutive spaces in leading
+whitespace (where \fIn\fR is argument of \f(CW\*(C`\-ftabstop=\f(CIn\f(CW\*(C'\fR, 8 by
+default).
+\&\f(CW\*(C`\-Wleading\-whitespace=none\*(C'\fR disables the warning, which is the default.
+This is a coding style warning.
 .IP "\fB\-Wtrampolines\fR" 4
 .IX Item "-Wtrampolines"
 Warn about trampolines generated for pointers to nested functions.
@@ -14484,6 +14506,10 @@ use the \fB\-\-help=param \-Q\fR options.
 In each case, the \fIvalue\fR is an integer.  The following choices
 of \fIname\fR are recognized for all targets:
 .RS 4
+.IP "\fBphiopt-factor-max-stmts-live\fR" 4
+.IX Item "phiopt-factor-max-stmts-live"
+When factoring statements out of if/then/else, this is the max # of statements
+after the defining statement to be allow to extend the lifetime of a name
 .IP "\fBpredictable-branch-outcome\fR" 4
 .IX Item "predictable-branch-outcome"
 When branch is predicted to be taken with probability lower than this threshold

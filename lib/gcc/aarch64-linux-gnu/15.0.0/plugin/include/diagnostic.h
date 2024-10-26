@@ -21,6 +21,14 @@ along with GCC; see the file COPYING3.  If not see
 #ifndef GCC_DIAGNOSTIC_H
 #define GCC_DIAGNOSTIC_H
 
+/* This header uses std::unique_ptr, but <memory> can't be directly
+   included due to issues with macros.  Hence it must be included from
+   system.h by defining INCLUDE_MEMORY in any source file using it.  */
+
+#ifndef INCLUDE_MEMORY
+# error "You must define INCLUDE_MEMORY before including system.h to use diagnostic.h"
+#endif
+
 #include "unique-argv.h"
 #include "rich-location.h"
 #include "pretty-print.h"
@@ -220,13 +228,13 @@ public:
 };
 
 class edit_context;
-namespace json { class value; }
 class diagnostic_client_data_hooks;
 class logical_location;
 class diagnostic_diagram;
 class diagnostic_source_effect_info;
 class diagnostic_output_format;
   class diagnostic_text_output_format;
+class diagnostic_buffer;
 
 /* A stack of sets of classifications: each entry in the stack is
    a mapping from option index to diagnostic severity that can be changed
@@ -452,6 +460,25 @@ private:
   enum diagnostics_escape_format m_escape_format;
 };
 
+/* A collection of counters of diagnostics, per-kind
+   (e.g. "3 errors and 1 warning"), for use by both diagnostic_context
+   and by diagnostic_buffer.  */
+
+struct diagnostic_counters
+{
+  diagnostic_counters ();
+
+  void dump (FILE *out, int indent) const;
+  void DEBUG_FUNCTION dump () const { dump (stderr, 0); }
+
+  int get_count (diagnostic_t kind) const { return m_count_for_kind[kind]; }
+
+  void move_to (diagnostic_counters &dest);
+  void clear ();
+
+  int m_count_for_kind[DK_LAST_DIAGNOSTIC_KIND];
+};
+
 /* This data structure bundles altogether any information relevant to
    the context of a diagnostic message.  */
 class diagnostic_context
@@ -476,6 +503,9 @@ public:
   void urls_init (int value);
 
   void finish ();
+
+  void dump (FILE *out) const;
+  void DEBUG_FUNCTION dump () const { dump (stderr); }
 
   bool execution_failed_p () const;
 
@@ -519,9 +549,6 @@ public:
 
   bool report_diagnostic (diagnostic_info *);
 
-  void check_max_errors (bool flush);
-  void action_after_output (diagnostic_t diag_kind);
-
   diagnostic_t
   classify_diagnostic (diagnostic_option_id option_id,
 		       diagnostic_t new_kind,
@@ -549,16 +576,16 @@ public:
 
   void emit_diagram (const diagnostic_diagram &diagram);
 
-  const diagnostic_output_format *get_output_format () const
+  diagnostic_output_format *get_output_format () const
   {
     return m_output_format;
   }
 
   /* Various setters for use by option-handling logic.  */
-  void set_output_format (diagnostic_output_format *output_format);
+  void set_output_format (std::unique_ptr<diagnostic_output_format> output_format);
   void set_text_art_charset (enum diagnostic_text_art_charset charset);
-  void set_client_data_hooks (diagnostic_client_data_hooks *hooks);
-  void set_urlifier (urlifier *);
+  void set_client_data_hooks (std::unique_ptr<diagnostic_client_data_hooks> hooks);
+  void set_urlifier (std::unique_ptr<urlifier>);
   void create_edit_context ();
   void set_warning_as_error_requested (bool val)
   {
@@ -619,7 +646,11 @@ public:
 
   int &diagnostic_count (diagnostic_t kind)
   {
-    return m_diagnostic_count[kind];
+    return m_diagnostic_counters.m_count_for_kind[kind];
+  }
+  int diagnostic_count (diagnostic_t kind) const
+  {
+    return m_diagnostic_counters.get_count (kind);
   }
 
   /* Option-related member functions.  */
@@ -649,7 +680,7 @@ public:
   }
 
   void
-  set_option_manager (diagnostic_option_manager *mgr,
+  set_option_manager (std::unique_ptr<diagnostic_option_manager> mgr,
 		      unsigned lang_mask);
 
   unsigned get_lang_mask () const
@@ -677,6 +708,20 @@ public:
     return m_option_classifier.pch_restore (f);
   }
 
+
+  void set_diagnostic_buffer (diagnostic_buffer *);
+  diagnostic_buffer *get_diagnostic_buffer () const
+  {
+    return m_diagnostic_buffer;
+  }
+  void clear_diagnostic_buffer (diagnostic_buffer &);
+  void flush_diagnostic_buffer (diagnostic_buffer &);
+
+  std::unique_ptr<pretty_printer> clone_printer () const
+  {
+    return m_printer->clone ();
+  }
+
 private:
   void error_recursion () ATTRIBUTE_NORETURN;
 
@@ -684,19 +729,26 @@ private:
 
   void get_any_inlining_info (diagnostic_info *diagnostic);
 
+  void check_max_errors (bool flush);
+  void action_after_output (diagnostic_t diag_kind);
+
   /* Data members.
      Ideally, all of these would be private.  */
 
 public:
-  /* Where most of the diagnostic formatting work is done.  */
+  /* Where most of the diagnostic formatting work is done.
+     Owned by the context; this would be a std::unique_ptr if
+     diagnostic_context had a proper ctor.  */
   pretty_printer *m_printer;
 
 private:
-  /* Cache of source code.  */
+  /* Cache of source code.
+     Owned by the context; this would be a std::unique_ptr if
+     diagnostic_context had a proper ctor.  */
   file_cache *m_file_cache;
 
   /* The number of times we have issued diagnostics.  */
-  int m_diagnostic_count[DK_LAST_DIAGNOSTIC_KIND];
+  diagnostic_counters m_diagnostic_counters;
 
   /* True if it has been requested that warnings be treated as errors.  */
   bool m_warning_as_error_requested;
@@ -784,11 +836,15 @@ public:
   void (*m_adjust_diagnostic_info)(diagnostic_context *, diagnostic_info *);
 
 private:
+  /* Owned by the context; this would be a std::unique_ptr if
+     diagnostic_context had a proper ctor.  */
   diagnostic_option_manager *m_option_mgr;
   unsigned m_lang_mask;
 
   /* An optional hook for adding URLs to quoted text strings in
-     diagnostics.  Only used for the main diagnostic message.  */
+     diagnostics.  Only used for the main diagnostic message.
+     Owned by the context; this would be a std::unique_ptr if
+     diagnostic_context had a proper ctor.  */
   urlifier *m_urlifier;
 
 public:
@@ -831,7 +887,9 @@ private:
   enum diagnostics_escape_format m_escape_format;
 
   /* If non-NULL, an edit_context to which fix-it hints should be
-     applied, for generating patches.  */
+     applied, for generating patches.
+     Owned by the context; this would be a std::unique_ptr if
+     diagnostic_context had a proper ctor.  */
   edit_context *m_edit_context_ptr;
 
   /* Fields relating to diagnostic groups.  */
@@ -845,7 +903,9 @@ private:
   } m_diagnostic_groups;
 
   /* How to output diagnostics (text vs a structured format such as JSON).
-     Must be non-NULL; owned by context.  */
+     Must be non-NULL; owned by context.
+     This would be a std::unique_ptr if diagnostic_context had a proper
+     ctor.  */
   diagnostic_output_format *m_output_format;
 
   /* Callback to set the locations of call sites along the inlining
@@ -857,20 +917,33 @@ private:
   /* A bundle of hooks for providing data to the context about its client
      e.g. version information, plugins, etc.
      Used by SARIF output to give metadata about the client that's
-     producing diagnostics.  */
+     producing diagnostics.
+     Owned by the context; this would be a std::unique_ptr if
+     diagnostic_context had a proper ctor.  */
   diagnostic_client_data_hooks *m_client_data_hooks;
 
   /* Support for diagrams.  */
   struct
   {
     /* Theme to use when generating diagrams.
-       Can be NULL (if text art is disabled).  */
+       Can be NULL (if text art is disabled).
+       Owned by the context; this would be a std::unique_ptr if
+       diagnostic_context had a proper ctor.  */
     text_art::theme *m_theme;
 
   } m_diagrams;
 
   /* Owned by the context.  */
   char **m_original_argv;
+
+  /* Borrowed pointer to the active diagnostic_buffer, if any.
+     If null (the default), then diagnostics that are reported to the
+     context are immediately issued to the output format.
+     If non-null, then diagnostics that are reported to the context
+     are buffered in the buffer, and may be issued to the output format
+     later (if the buffer is flushed), moved to other buffers, or
+     discarded (if the buffer is cleared).  */
+  diagnostic_buffer *m_diagnostic_buffer;
 };
 
 inline void
@@ -1079,19 +1152,6 @@ void default_diagnostic_text_finalizer (diagnostic_text_output_format &,
 					const diagnostic_info *,
 					diagnostic_t);
 void diagnostic_set_caret_max_width (diagnostic_context *context, int value);
-
-inline void
-diagnostic_action_after_output (diagnostic_context *context,
-				diagnostic_t diag_kind)
-{
-  context->action_after_output (diag_kind);
-}
-
-inline void
-diagnostic_check_max_errors (diagnostic_context *context, bool flush = false)
-{
-  context->check_max_errors (flush);
-}
 
 int get_terminal_width (void);
 

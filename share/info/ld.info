@@ -6344,10 +6344,9 @@ option.  *Note Options::.
 * Menu:
 
 * libdep Plugin::	Static Library Dependencies Plugin
-* lto Plugin::          LTO Plugin
 
 
-File: ld.info,  Node: libdep Plugin,  Next: lto Plugin,  Up: Plugins
+File: ld.info,  Node: libdep Plugin,  Up: Plugins
 
 4.1 Static Library Dependencies Plugin
 ======================================
@@ -6383,28 +6382,6 @@ library 'libcrypto.a' which may be found in '/usr/local/lib', the
 '__.LIBDEP' member of 'libssl.a' would contain
 
      -L/usr/local/lib -lcrypto
-
-   Note any library search directories added in this way are only used
-to search for libraries which are also added the same plugin.  They are
-not used for searching for libraries specified on the linker command
-line, linker scripts or other plugins.  This does however present a
-problem if multiple archives with '__.LIBDEP' entries are present as
-they will all be handled by the libdep plugin and thus they will share
-library search paths.  This could result in a library being loaded from
-an unexpected location.
-
-
-File: ld.info,  Node: lto Plugin,  Prev: libdep Plugin,  Up: Plugins
-
-4.2 LTO Plugin
-==============
-
-Although not shipped with the binutils the LTO Plugin from the GCC
-project is nevertheless a plugin that is designed to work with the
-linker.  The plugin intercepts object files as they are loaded by the
-linker and instead sends them to the LTO compiler.  When that compiler
-finishes the resulting object file(s) are passed back to the linker for
-normal processing.
 
 
 File: ld.info,  Node: Special Sections,  Next: Machine Dependent,  Prev: Plugins,  Up: Top
@@ -9911,37 +9888,36 @@ Node: Expression Section263026
 Node: Builtin Functions266996
 Node: Implicit Linker Scripts275775
 Node: Plugins276550
-Node: libdep Plugin277141
-Node: lto Plugin279474
-Node: Special Sections279944
-Node: Machine Dependent282058
-Node: H8/300283155
-Node: M68HC11/68HC12285228
-Node: ARM286675
-Node: HPPA ELF32298785
-Node: M68K300408
-Node: MIPS301317
-Node: MMIX302433
-Node: MSP430303598
-Node: NDS32305511
-Node: Nios II306475
-Node: PowerPC ELF32307791
-Node: PowerPC64 ELF64310622
-Node: S/390 ELF320380
-Node: SPU ELF320727
-Node: TI COFF323355
-Node: WIN32323881
-Node: Xtensa345100
-Node: BFD348543
-Node: BFD outline350001
-Node: BFD information loss351289
-Node: Canonical format353815
-Node: Reporting Bugs358143
-Node: Bug Criteria358837
-Node: Bug Reporting359536
-Node: MRI366571
-Node: GNU Free Documentation License371042
-Node: LD Index396179
+Node: libdep Plugin277106
+Node: Special Sections278903
+Node: Machine Dependent281017
+Node: H8/300282114
+Node: M68HC11/68HC12284187
+Node: ARM285634
+Node: HPPA ELF32297744
+Node: M68K299367
+Node: MIPS300276
+Node: MMIX301392
+Node: MSP430302557
+Node: NDS32304470
+Node: Nios II305434
+Node: PowerPC ELF32306750
+Node: PowerPC64 ELF64309581
+Node: S/390 ELF319339
+Node: SPU ELF319686
+Node: TI COFF322314
+Node: WIN32322840
+Node: Xtensa344059
+Node: BFD347502
+Node: BFD outline348960
+Node: BFD information loss350248
+Node: Canonical format352774
+Node: Reporting Bugs357102
+Node: Bug Criteria357796
+Node: Bug Reporting358495
+Node: MRI365530
+Node: GNU Free Documentation License370001
+Node: LD Index395138
 
 End Tag Table
 

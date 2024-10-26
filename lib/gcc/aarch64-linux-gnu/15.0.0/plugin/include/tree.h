@@ -654,7 +654,7 @@ extern void omp_clause_range_check_failed (const_tree, const char *, int,
    && TREE_CODE (TREE_TYPE (TYPE)) == REAL_TYPE)
 
 /* Nonzero if TYPE represents a vector integer type.  */
-                
+
 #define VECTOR_INTEGER_TYPE_P(TYPE)			\
   (VECTOR_TYPE_P (TYPE)					\
    && TREE_CODE (TREE_TYPE (TYPE)) == INTEGER_TYPE)
@@ -2357,13 +2357,15 @@ extern tree vector_element_bits_tree (const_tree);
 
 /* The minimum alignment necessary for objects of this type without
    warning.  The value is an int, measured in bits.  */
+#define TYPE_WARN_IF_NOT_ALIGN_RAW(NODE) \
+    (TYPE_CHECK (NODE)->type_common.warn_if_not_align)
 #define TYPE_WARN_IF_NOT_ALIGN(NODE) \
-    (TYPE_CHECK (NODE)->type_common.warn_if_not_align \
-     ? ((unsigned)1) << ((NODE)->type_common.warn_if_not_align - 1) : 0)
+    (TYPE_WARN_IF_NOT_ALIGN_RAW (NODE) \
+     ? ((unsigned)1) << (TYPE_WARN_IF_NOT_ALIGN_RAW (NODE) - 1) : 0)
 
 /* Specify that TYPE_WARN_IF_NOT_ALIGN(NODE) is X.  */
 #define SET_TYPE_WARN_IF_NOT_ALIGN(NODE, X) \
-    (TYPE_CHECK (NODE)->type_common.warn_if_not_align = ffs_hwi (X))
+    (TYPE_WARN_IF_NOT_ALIGN_RAW (NODE) = ffs_hwi (X))
 
 /* If your language allows you to declare types, and you want debug info
    for them, then you need to generate corresponding TYPE_DECL nodes.
@@ -2426,7 +2428,7 @@ extern tree vector_element_bits_tree (const_tree);
 	  | (TYPE_ATOMIC (NODE) * TYPE_QUAL_ATOMIC)		\
 	  | (TYPE_RESTRICT (NODE) * TYPE_QUAL_RESTRICT)))
 
-/* The same as TYPE_QUALS without the address space and atomic 
+/* The same as TYPE_QUALS without the address space and atomic
    qualifications.  */
 #define TYPE_QUALS_NO_ADDR_SPACE_NO_ATOMIC(NODE)		\
   ((int) ((TYPE_READONLY (NODE) * TYPE_QUAL_CONST)		\
@@ -5600,6 +5602,19 @@ struct_ptr_hash (const void *a)
 {
   const void * const * x = (const void * const *) a;
   return (intptr_t)*x >> 4;
+}
+
+/* Return true if CODE can be treated as a truncating division.
+
+   EXACT_DIV_EXPR can be treated as a truncating division in which the
+   remainder is known to be zero.  However, if trunc_div_p gates the
+   generation of new IL, the conservative choice for that new IL is
+   TRUNC_DIV_EXPR rather than CODE.  Using CODE (EXACT_DIV_EXPR) would
+   only be correct if the transformation preserves exactness.  */
+inline bool
+trunc_or_exact_div_p (tree_code code)
+{
+  return code == TRUNC_DIV_EXPR || code == EXACT_DIV_EXPR;
 }
 
 /* Return nonzero if CODE is a tree code that represents a truth value.  */

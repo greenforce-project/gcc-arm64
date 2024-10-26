@@ -47,7 +47,8 @@ extern bool aarch64_reg_or_fp_zero (rtx, machine_mode);
 extern bool aarch64_reg_zero_or_fp_zero (rtx, machine_mode);
 extern bool aarch64_reg_zero_or_m1_or_1 (rtx, machine_mode);
 extern bool aarch64_reg_or_orr_imm (rtx, machine_mode);
-extern bool aarch64_reg_or_bic_imm (rtx, machine_mode);
+extern bool aarch64_reg_or_and_imm (rtx, machine_mode);
+extern bool aarch64_reg_or_xor_imm (rtx, machine_mode);
 extern bool aarch64_fp_compare_operand (rtx, machine_mode);
 extern bool aarch64_fp_pow2 (rtx, machine_mode);
 extern bool aarch64_fp_pow2_recip (rtx, machine_mode);
@@ -196,7 +197,6 @@ extern bool aarch64_sve_add_operand (rtx, machine_mode);
 extern bool aarch64_sve_sqadd_operand (rtx, machine_mode);
 extern bool aarch64_sve_pred_and_operand (rtx, machine_mode);
 extern bool aarch64_sve_logical_operand (rtx, machine_mode);
-extern bool aarch64_orr_imm_sve_advsimd (rtx, machine_mode);
 extern bool aarch64_sve_gather_offset_b (rtx, machine_mode);
 extern bool aarch64_sve_gather_offset_h (rtx, machine_mode);
 extern bool aarch64_sve_gather_offset_w (rtx, machine_mode);
@@ -342,6 +342,7 @@ enum constraint_num
   CONSTRAINT_Uvi,
   CONSTRAINT_Do,
   CONSTRAINT_Db,
+  CONSTRAINT_De,
   CONSTRAINT_Dn,
   CONSTRAINT_Dh,
   CONSTRAINT_Dq,
