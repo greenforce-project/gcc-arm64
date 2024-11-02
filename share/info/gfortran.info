@@ -2788,7 +2788,7 @@ extensions.
 
 * Extensions implemented in GNU Fortran::
 * Extensions not implemented in GNU Fortran::
-* Experimental features for Fortran 202Y::
+* Experimental features for future Fortran versions::
 
 
 File: gfortran.info,  Node: Extensions implemented in GNU Fortran,  Next: Extensions not implemented in GNU Fortran,  Up: Extensions
@@ -4020,7 +4020,7 @@ real constants with '-fdec'.  For example, '9e' would be interpreted as
 '9e0', rather than an error.
 
 
-File: gfortran.info,  Node: Extensions not implemented in GNU Fortran,  Next: Experimental features for Fortran 202Y,  Prev: Extensions implemented in GNU Fortran,  Up: Extensions
+File: gfortran.info,  Node: Extensions not implemented in GNU Fortran,  Next: Experimental features for future Fortran versions,  Prev: Extensions implemented in GNU Fortran,  Up: Extensions
 
 5.2 Extensions not implemented in GNU Fortran
 =============================================
@@ -4178,33 +4178,34 @@ to get the file position, count the characters up to the next 'NEW_LINE'
 and then start reading from the position marked previously.
 
 
-File: gfortran.info,  Node: Experimental features for Fortran 202Y,  Prev: Extensions not implemented in GNU Fortran,  Up: Extensions
+File: gfortran.info,  Node: Experimental features for future Fortran versions,  Prev: Extensions not implemented in GNU Fortran,  Up: Extensions
 
-5.3 Experimental features for Fortran 202Y
-==========================================
+5.3 Experimental features future Fortran versions
+=================================================
 
 GNU Fortran supports some experimental features which have been proposed
 and accepted by the J3 standards committee.  These exist to give users a
 chance to try them out, and to provide a reference implementation.
 
-   As these features have not been finalized, there is a chance that the
-version in the upcoming standard will differ from what GNU Fortran
-currently implements.  Stability of these implementations is therefore
-not guaranteed.
+   As these features have not been included in the worklist for Fortran
+202Y by WG5, there is a chance that a version in any upcoming standard
+will differ from what GNU Fortran currently implements.  These features
+are therefore currently classified as an extension.
 
 * Menu:
 
 * Unsigned integers::
 
 
-File: gfortran.info,  Node: Unsigned integers,  Up: Experimental features for Fortran 202Y
+File: gfortran.info,  Node: Unsigned integers,  Up: Experimental features for future Fortran versions
 
 5.3.1 Unsigned integers
 -----------------------
 
-GNU Fortran supports unsigned integers according to J3/24-116
+If the '-funsigned' option is given, GNU Fortran supports unsigned
+integers according to J3/24-116
 (https://j3-fortran.org/doc/year/24/24-116.txt).  The data type is
-called 'UNSIGNED'.  For an unsigned type with $n$ bits, it implements
+called 'UNSIGNED'.  For an unsigned type with 'n' bits, it implements
 integer arithmetic modulo '2**n', comparable to the 'unsigned' data type
 in C.
 
@@ -4246,27 +4247,66 @@ formatted and unformatted I/O. For formatted I/O, the 'B', 'I', 'O' and
 'Z' descriptors are valid.  Negative values and values which would
 overflow are rejected with '-pedantic'.
 
-   As of now, the following intrinsics take unsigned arguments:
-   * 'BLT', 'BLE', 'BGE' and 'BGT'.  These intrinsics are actually
-     redundant because comparison operators could be used directly.
-   * 'IAND', 'IOR', 'IEOR' and 'NOT'
-   * 'BIT_SIZE', 'DIGITS' and 'HUGE'
-   * 'DSHIFTL' and 'DSHIFTR'
-   * 'IBCLR', 'IBITS' and 'IBSET'
-   * 'MIN' and 'MAX'
-   * 'ISHFT', 'ISHFTC', 'SHIFTL', 'SHIFTR' and 'SHIFTA'.
-   * 'MERGE_BITS'
-   * 'MOD' and 'MODULO'
-   * 'MVBITS'
-   * 'RANGE'
-   * 'TRANSFER'
-   * 'SUM', 'PRODUCT', 'MATMUL' and 'DOT_PRODUCT'
-   * 'IANY', 'IALL' and 'IPARITY'
-   * 'RANDOM_NUMBER'
-   * 'CSHIFT' and 'EOSHIFT'
-   * 'FINDLOC'
-   * 'MAXVAL' and 'MINVAL'
-   * 'MAXLOC' and 'MINLOC'.
+   The following intrinsics take unsigned arguments:
+   * 'BGE', *note BGE::
+   * 'BGT', *note BGT::
+   * 'BIT_SIZE', *note BIT_SIZE::
+   * 'BLE', *note BLE::
+   * 'BLT', *note BLT::
+   * 'CSHIFT', *note CSHIFT::
+   * 'DIGITS', *note DIGITS::
+   * 'DOT_PRODUCT', *note DOT_PRODUCT::
+   * 'DSHIFTL', *note DSHIFTL::
+   * 'DSHIFTR', *note DSHIFTR::
+   * 'EOSHIFT', *note EOSHIFT::
+   * 'FINDLOC', *note FINDLOC::
+   * 'HUGE', *note HUGE::
+   * 'IALL', *note IALL::
+   * 'IAND', *note IAND::
+   * 'IANY', *note IANY::
+   * 'IBCLR', *note IBCLR::
+   * 'IBITS', *note IBITS::
+   * 'IBSET', *note IBSET::
+   * 'IEOR', *note IEOR::
+   * 'IOR', *note IOR::
+   * 'IPARITY', *note IPARITY::
+   * 'ISHFT', *note ISHFT::
+   * 'ISHFTC', *note ISHFTC::
+   * 'MATMUL', *note MATMUL::
+   * 'MAX', *note MAX::
+   * 'MAXLOC', *note MAXLOC::
+   * 'MAXVAL', *note MAXVAL::
+   * 'MERGE', *note MERGE::
+   * 'MERGE_BITS', *note MERGE_BITS::
+   * 'MIN', *note MIN::
+   * 'MINLOC', *note MINLOC::
+   * 'MINVAL', *note MINVAL::
+   * 'MOD', *note MOD::
+   * 'MODULO', *note MODULO::
+   * 'MVBITS', *note MVBITS::
+   * 'NOT', *note NOT::
+   * 'PRODUCT', *note PRODUCT::
+   * 'RANDOM_NUMBER', *note RANDOM_NUMBER::
+   * 'RANGE', *note RANGE::
+   * 'SHIFTA', *note SHIFTA::
+   * 'SHIFTL', *note SHIFTL::
+   * 'SHIFTR', *note SHIFTR::
+   * 'SUM', *note SUM::
+   * 'TRANSPOSE', *note TRANSPOSE::
+   * 'TRANSFER', *note TRANSFER::
+
+   The following intinsics are enabled with '-funsigned':
+   * 'UINT', *note UINT::
+   * 'SELECTED_UNSIGNED_KIND', *note SELECTED_UNSIGNED_KIND::
+
+   The following intrinsics will take unsigned arguments in the future:
+   * 'MASKL', *note MASKL::
+   * 'MASKR', *note MASKR::
+
+   The following intrinsics are not yet implemented in GNU Fortran, but
+will take unsigned arguments once they have been:
+   * 'OUT_OF_RANGE'
+
    The following constants have been added to the intrinsic
 'ISO_C_BINDING' module: 'c_unsigned', 'c_unsigned_short',
 'c_unsigned_char', 'c_unsigned_long', 'c_unsigned_long_long',
@@ -7190,6 +7230,7 @@ File: gfortran.info,  Node: Intrinsic Procedures,  Next: Intrinsic Modules,  Pre
 * 'SELECTED_INT_KIND': SELECTED_INT_KIND,  Choose integer kind
 * 'SELECTED_LOGICAL_KIND': SELECTED_LOGICAL_KIND,  Choose logical kind
 * 'SELECTED_REAL_KIND': SELECTED_REAL_KIND,  Choose real kind
+* 'SELECTED_UNSIGNED_KIND': SELECTED_UNSIGNED_KIND, Chose unsigned kind
 * 'SET_EXPONENT':  SET_EXPONENT, Set the exponent of the model
 * 'SHAPE':         SHAPE,     Determine the shape of an array
 * 'SHIFTA':        SHIFTA,    Right shift with fill
@@ -7227,6 +7268,7 @@ File: gfortran.info,  Node: Intrinsic Procedures,  Next: Intrinsic Modules,  Pre
 * 'TTYNAM':        TTYNAM,    Get the name of a terminal device
 * 'UBOUND':        UBOUND,    Upper dimension bounds of an array
 * 'UCOBOUND':      UCOBOUND,  Upper codimension bounds of an array
+* 'UINT':          UINT,      Convert to an unsigned integer type
 * 'UMASK':         UMASK,     Set the file creation mask
 * 'UNLINK':        UNLINK,    Remove a file from the file system
 * 'UNPACK':        UNPACK,    Unpack an array of rank one into an array
@@ -9360,7 +9402,8 @@ _Description_:
      to another.
 
 _Standard_:
-     Fortran 2008 and later
+     Fortran 2008 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Elemental function
@@ -9369,12 +9412,15 @@ _Syntax_:
      'RESULT = BGE(I, J)'
 
 _Arguments_:
-     I           Shall be of 'INTEGER' type.
-     J           Shall be of 'INTEGER' type, and of the same kind
-                 as I.
+     I           Shall be of 'INTEGER' or 'UNSIGNED' type.
+     J           Shall be of the same type and kind as I.
 
 _Return value_:
      The return value is of type 'LOGICAL' and of the default kind.
+
+_Note_:
+     For 'UNSIGNED' arguments, this function is identical to the '.GE.'
+     and '>=' operators.
 
 _See also_:
      *note BGT::,
@@ -9391,7 +9437,8 @@ _Description_:
      Determines whether an integral is a bitwise greater than another.
 
 _Standard_:
-     Fortran 2008 and later
+     Fortran 2008 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Elemental function
@@ -9400,12 +9447,15 @@ _Syntax_:
      'RESULT = BGT(I, J)'
 
 _Arguments_:
-     I           Shall be of 'INTEGER' type.
-     J           Shall be of 'INTEGER' type, and of the same kind
-                 as I.
+     I           Shall be of 'INTEGER' or 'UNSIGNED' type.
+     J           Shall be of the same type and kind as I.
 
 _Return value_:
      The return value is of type 'LOGICAL' and of the default kind.
+
+_Note_:
+     For 'UNSIGNED' arguments, this function is identical to the '.GT.'
+     and '>' operators.
 
 _See also_:
      *note BGE::,
@@ -9419,12 +9469,13 @@ File: gfortran.info,  Node: BIT_SIZE,  Next: BLE,  Prev: BGT,  Up: Intrinsic Pro
 ============================================
 
 _Description_:
-     'BIT_SIZE(I)' returns the number of bits (integer precision plus
-     sign bit) represented by the type of I.  The result of
-     'BIT_SIZE(I)' is independent of the actual value of I.
+     'BIT_SIZE(I)' returns the number of bits (for integers, the
+     precision plus the sign bit) represented by the type of I.  The
+     result of 'BIT_SIZE(I)' is independent of the actual value of I.
 
 _Standard_:
-     Fortran 90 and later
+     Fortran 90 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Inquiry function
@@ -9433,7 +9484,7 @@ _Syntax_:
      'RESULT = BIT_SIZE(I)'
 
 _Arguments_:
-     I           The type shall be 'INTEGER'.
+     I           The type shall be 'INTEGER' or 'UNSIGNED'.
 
 _Return value_:
      The return value is of type 'INTEGER'
@@ -9457,7 +9508,8 @@ _Description_:
      another.
 
 _Standard_:
-     Fortran 2008 and later
+     Fortran 2008 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Elemental function
@@ -9466,12 +9518,15 @@ _Syntax_:
      'RESULT = BLE(I, J)'
 
 _Arguments_:
-     I           Shall be of 'INTEGER' type.
-     J           Shall be of 'INTEGER' type, and of the same kind
-                 as I.
+     I           Shall be of 'INTEGER' or 'UNSIGNED' type.
+     J           Shall be of the same type and kind as I.
 
 _Return value_:
      The return value is of type 'LOGICAL' and of the default kind.
+
+_Note_:
+     For 'UNSIGNED' arguments, this function is identical to the '.LE.'
+     and '<=' operators.
 
 _See also_:
      *note BGT::,
@@ -9488,7 +9543,8 @@ _Description_:
      Determines whether an integral is a bitwise less than another.
 
 _Standard_:
-     Fortran 2008 and later
+     Fortran 2008 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Elemental function
@@ -9497,12 +9553,15 @@ _Syntax_:
      'RESULT = BLT(I, J)'
 
 _Arguments_:
-     I           Shall be of 'INTEGER' type.
-     J           Shall be of 'INTEGER' type, and of the same kind
-                 as I.
+     I           Shall be of 'INTEGER' or 'UNSIGNED' type.
+     J           Shall be of the same type and kind as I.
 
 _Return value_:
      The return value is of type 'LOGICAL' and of the default kind.
+
+_Note_:
+     For 'UNSIGNED' arguments, this function is identical to the '.LT.'
+     and '<' operators.
 
 _See also_:
      *note BGE::,
@@ -9520,7 +9579,8 @@ _Description_:
      set.  The counting of the bits starts at 0.
 
 _Standard_:
-     Fortran 90 and later, has overloads that are GNU extensions
+     Fortran 90 and later, has overloads that are GNU extensions;
+     extension for 'UNSIGNED' (*note Unsigned integers::)
 
 _Class_:
      Elemental function
@@ -9529,7 +9589,7 @@ _Syntax_:
      'RESULT = BTEST(I, POS)'
 
 _Arguments_:
-     I           The type shall be 'INTEGER'.
+     I           The type shall be 'INTEGER' or 'UNSIGNED'.
      POS         The type shall be 'INTEGER'.
 
 _Return value_:
@@ -10941,6 +11001,9 @@ _Arguments_:
      SHIFT       The type shall be 'INTEGER'.
      DIM         The type shall be 'INTEGER'.
 
+_Note_:
+     ARRAY can also be 'UNSIGNED'.
+
 _Return value_:
      Returns an array of same type and rank as the ARRAY argument.
 
@@ -11171,7 +11234,8 @@ _Description_:
      likely return 24.
 
 _Standard_:
-     Fortran 90 and later
+     Fortran 90 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Inquiry function
@@ -11180,7 +11244,7 @@ _Syntax_:
      'RESULT = DIGITS(X)'
 
 _Arguments_:
-     X           The type may be 'INTEGER' or 'REAL'.
+     X           The type may be 'INTEGER', 'REAL' or 'UNSIGNED'.
 
 _Return value_:
      The return value is of type 'INTEGER'.
@@ -11251,13 +11315,16 @@ _Description_:
      'DOT_PRODUCT(VECTOR_A, VECTOR_B)' computes the dot product
      multiplication of two vectors VECTOR_A and VECTOR_B.  The two
      vectors may be either numeric or logical and must be arrays of rank
-     one and of equal size.  If the vectors are 'INTEGER' or 'REAL', the
-     result is 'SUM(VECTOR_A*VECTOR_B)'.  If the vectors are 'COMPLEX',
-     the result is 'SUM(CONJG(VECTOR_A)*VECTOR_B)'.  If the vectors are
-     'LOGICAL', the result is 'ANY(VECTOR_A .AND. VECTOR_B)'.
+     one and of equal size.  If the vectors are 'INTEGER', 'REAL' or
+     'UNSIGNED', the result is 'SUM(VECTOR_A*VECTOR_B)'.  If the vectors
+     are 'COMPLEX', the result is 'SUM(CONJG(VECTOR_A)*VECTOR_B)'.  If
+     the vectors are 'LOGICAL', the result is 'ANY(VECTOR_A .AND.
+     VECTOR_B)'.  If one of VECTOR_A or VECTOR_B is 'UNSIGNED', the
+     other one shall also be 'UNSIGNED'.
 
 _Standard_:
-     Fortran 90 and later
+     Fortran 90 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Transformational function
@@ -11267,14 +11334,19 @@ _Syntax_:
 
 _Arguments_:
      VECTOR_A    The type shall be numeric or 'LOGICAL', rank 1.
-     VECTOR_B    The type shall be numeric if VECTOR_A is of
-                 numeric type or 'LOGICAL' if VECTOR_A is of type
-                 'LOGICAL'.  VECTOR_B shall be a rank-one array.
+                 If VECTOR_B is 'UNSIGNED', VECTOR_A shall also
+                 be unsigned.
+                 
+     VECTOR_B    The type shall if VECTOR_A is of numeric type or
+                 'LOGICAL' if VECTOR_A is of type 'LOGICAL'.
+                 VECTOR_B shall be a rank-one array.  If VECTOR_A
+                 is 'UNSIGNED', VECTOR_B shall also be unsigned.
+                 
 
 _Return value_:
      If the arguments are numeric, the return value is a scalar of
-     numeric type, 'INTEGER', 'REAL', or 'COMPLEX'.  If the arguments
-     are 'LOGICAL', the return value is '.TRUE.' or '.FALSE.'.
+     numeric type, 'INTEGER', 'REAL', 'COMPLEX' or 'UNSIGNED'.  If the
+     arguments are 'LOGICAL', the return value is '.TRUE.' or '.FALSE.'.
 
 _Example_:
           program test_dot_prod
@@ -11372,7 +11444,8 @@ _Description_:
      remaining bits are the rightmost bits of I.
 
 _Standard_:
-     Fortran 2008 and later
+     Fortran 2008 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Elemental function
@@ -11381,11 +11454,13 @@ _Syntax_:
      'RESULT = DSHIFTL(I, J, SHIFT)'
 
 _Arguments_:
-     I           Shall be of type 'INTEGER' or a BOZ constant.
-     J           Shall be of type 'INTEGER' or a BOZ constant.
-                 If both I and J have integer type, then they
-                 shall have the same kind type parameter.  I and
-                 J shall not both be BOZ constants.
+     I           Shall be of type 'INTEGER', 'UNSIGNED' or a BOZ
+                 constant.
+     J           Shall be of type 'INTEGER', 'UNSIGNED' or a BOZ
+                 constant.  If both I and J have 'INTEGER' or
+                 'UNSIGNED' type, then they shall have the same
+                 type and kind type parameter.  I and J shall not
+                 both be BOZ constants.
      SHIFT       Shall be of type 'INTEGER'.  It shall be
                  nonnegative.  If I is not a BOZ constant, then
                  SHIFT shall be less than or equal to
@@ -11393,9 +11468,8 @@ _Arguments_:
                  than or equal to 'BIT_SIZE(J)'.
 
 _Return value_:
-     If either I or J is a BOZ constant, it is first converted as if by
-     the intrinsic function 'INT' to an integer type with the kind type
-     parameter of the other.
+     The return value is the same type and type kind parameter as I or,
+     if I is a BOZ constant, J.
 
 _See also_:
      *note DSHIFTR::
@@ -11412,7 +11486,8 @@ _Description_:
      remaining bits are the leftmost bits of J.
 
 _Standard_:
-     Fortran 2008 and later
+     Fortran 2008 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Elemental function
@@ -11421,11 +11496,13 @@ _Syntax_:
      'RESULT = DSHIFTR(I, J, SHIFT)'
 
 _Arguments_:
-     I           Shall be of type 'INTEGER' or a BOZ constant.
-     J           Shall be of type 'INTEGER' or a BOZ constant.
-                 If both I and J have integer type, then they
-                 shall have the same kind type parameter.  I and
-                 J shall not both be BOZ constants.
+     I           Shall be of type 'INTEGER', 'UNSIGNED' or a BOZ
+                 constant.
+     J           Shall be of type 'INTEGER', 'UNSIGNED' or a BOZ
+                 constant.  If both I and J have 'INTEGER' or
+                 'UNSIGNED' type, then they shall have the same
+                 type and kind type parameter.  I and J shall not
+                 both be BOZ constants.
      SHIFT       Shall be of type 'INTEGER'.  It shall be
                  nonnegative.  If I is not a BOZ constant, then
                  SHIFT shall be less than or equal to
@@ -11433,9 +11510,8 @@ _Arguments_:
                  than or equal to 'BIT_SIZE(J)'.
 
 _Return value_:
-     If either I or J is a BOZ constant, it is first converted as if by
-     the intrinsic function 'INT' to an integer type with the kind type
-     parameter of the other.
+     The return value is the same type and type kind parameter as I or,
+     if I is a BOZ constant, J.
 
 _See also_:
      *note DSHIFTL::
@@ -11544,7 +11620,8 @@ _Description_:
      Character(LEN)LEN blanks.
 
 _Standard_:
-     Fortran 90 and later
+     Fortran 90 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Transformational function
@@ -11557,6 +11634,9 @@ _Arguments_:
      SHIFT       The type shall be 'INTEGER'.
      BOUNDARY    Same type as ARRAY.
      DIM         The type shall be 'INTEGER'.
+
+_Note_:
+     ARRAY can also be 'UNSIGNED'.
 
 _Return value_:
      Returns an array of same type and rank as the ARRAY argument.
@@ -12230,7 +12310,7 @@ _Description_:
      zero.
 
 _Standard_:
-     Fortran 2008 and later.
+     Fortran 2008 and later
 
 _Class_:
      Transformational function
@@ -12255,6 +12335,9 @@ _Arguments_:
                  expression indicating the kind parameter of the
                  result.
      BACK        (Optional) A scalar of type 'LOGICAL'.
+
+_Note_:
+     ARRAY can also be 'UNSIGNED'.
 
 _Return value_:
      If DIM is absent, the result is a rank-one array with a length
@@ -13341,7 +13424,8 @@ _Description_:
      model of the type of 'X'.
 
 _Standard_:
-     Fortran 90 and later
+     Fortran 90 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Inquiry function
@@ -13350,7 +13434,8 @@ _Syntax_:
      'RESULT = HUGE(X)'
 
 _Arguments_:
-     X           Shall be of type 'REAL' or 'INTEGER'.
+     X           Shall be of type 'REAL', 'INTEGER' or
+                 'UNSIGNED'.
 
 _Return value_:
      The return value is of the same type and kind as X
@@ -13449,7 +13534,8 @@ _Description_:
      if the corresponding element in MASK is 'TRUE'.
 
 _Standard_:
-     Fortran 2008 and later
+     Fortran 2008 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Transformational function
@@ -13459,7 +13545,8 @@ _Syntax_:
      'RESULT = IALL(ARRAY, DIM[, MASK])'
 
 _Arguments_:
-     ARRAY       Shall be an array of type 'INTEGER'
+     ARRAY       Shall be an array of type 'INTEGER' or
+                 'UNSIGNED'
      DIM         (Optional) shall be a scalar of type 'INTEGER'
                  with a value in the range from 1 to n, where n
                  equals the rank of ARRAY.
@@ -13502,7 +13589,8 @@ _Description_:
 
 _Standard_:
      Fortran 90 and later, with boz-literal-constant Fortran 2008 and
-     later, has overloads that are GNU extensions
+     later, has overloads that are GNU extensions.  Extension for
+     'UNSIGNED' (*note Unsigned integers::)
 
 _Class_:
      Elemental function
@@ -13511,17 +13599,18 @@ _Syntax_:
      'RESULT = IAND(I, J)'
 
 _Arguments_:
-     I           The type shall be 'INTEGER' or a
+     I           The type shall be 'INTEGER', 'UNSIGNED' or a
                  boz-literal-constant.
-     J           The type shall be 'INTEGER' with the same kind
-                 type parameter as I or a boz-literal-constant.
-                 I and J shall not both be boz-literal-constants.
+     J           The type shall be the same type as I with the
+                 same kind type parameter or a
+                 boz-literal-constant.  I and J shall not both be
+                 boz-literal-constants.
 
 _Return value_:
-     The return type is 'INTEGER' with the kind type parameter of the
-     arguments.  A boz-literal-constant is converted to an 'INTEGER'
+     The return type is with the kind type parameter of the arguments.
+     A boz-literal-constant is converted to an 'INTEGER' or 'UNSIGNED'
      with the kind type parameter of the other argument as-if a call to
-     *note INT:: occurred.
+     *note INT:: or *note UINT::, respectively, occurred.
 
 _Example_:
           PROGRAM test_iand
@@ -13558,7 +13647,8 @@ _Description_:
      dimension DIM if the corresponding element in MASK is 'TRUE'.
 
 _Standard_:
-     Fortran 2008 and later
+     Fortran 2008 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Transformational function
@@ -13568,7 +13658,8 @@ _Syntax_:
      'RESULT = IANY(ARRAY, DIM[, MASK])'
 
 _Arguments_:
-     ARRAY       Shall be an array of type 'INTEGER'
+     ARRAY       Shall be an array of type 'INTEGER' or
+                 'UNSIGNED'
      DIM         (Optional) shall be a scalar of type 'INTEGER'
                  with a value in the range from 1 to n, where n
                  equals the rank of ARRAY.
@@ -13652,7 +13743,8 @@ _Description_:
      zero.
 
 _Standard_:
-     Fortran 90 and later, has overloads that are GNU extensions
+     Fortran 90 and later, has overloads that are GNU extensions.
+     Extension for 'UNSIGNED' (*note Unsigned integers::)
 
 _Class_:
      Elemental function
@@ -13661,11 +13753,11 @@ _Syntax_:
      'RESULT = IBCLR(I, POS)'
 
 _Arguments_:
-     I           The type shall be 'INTEGER'.
+     I           The type shall be 'INTEGER' or 'UNSIGNED'.
      POS         The type shall be 'INTEGER'.
 
 _Return value_:
-     The return value is of type 'INTEGER' and of the same kind as I.
+     The return value is of the same type as I.
 
 _Specific names_:
      Name           Argument          Return type    Standard
@@ -13697,7 +13789,8 @@ _Description_:
      'POS+LEN' must be less than or equal to the value 'BIT_SIZE(I)'.
 
 _Standard_:
-     Fortran 90 and later, has overloads that are GNU extensions
+     Fortran 90 and later, has overloads that are GNU extensions.
+     Extension for 'UNSIGNED' (*note Unsigned integers::)
 
 _Class_:
      Elemental function
@@ -13706,12 +13799,12 @@ _Syntax_:
      'RESULT = IBITS(I, POS, LEN)'
 
 _Arguments_:
-     I           The type shall be 'INTEGER'.
+     I           The type shall be 'INTEGER' or 'UNSIGNED'.
      POS         The type shall be 'INTEGER'.
      LEN         The type shall be 'INTEGER'.
 
 _Return value_:
-     The return value is of type 'INTEGER' and of the same kind as I.
+     The return value is of type as I.
 
 _Specific names_:
      Name           Argument          Return type    Standard
@@ -13741,7 +13834,8 @@ _Description_:
      one.
 
 _Standard_:
-     Fortran 90 and later, has overloads that are GNU extensions
+     Fortran 90 and later, has overloads that are GNU extensions.
+     Extension for 'UNSIGNED' (*note Unsigned integers::)
 
 _Class_:
      Elemental function
@@ -13750,11 +13844,11 @@ _Syntax_:
      'RESULT = IBSET(I, POS)'
 
 _Arguments_:
-     I           The type shall be 'INTEGER'.
+     I           The type shall be 'INTEGER' or 'UNSIGNED'.
      POS         The type shall be 'INTEGER'.
 
 _Return value_:
-     The return value is of type 'INTEGER' and of the same kind as I.
+     The return value is of the same type as I.
 
 _Specific names_:
      Name           Argument          Return type    Standard
@@ -13896,7 +13990,8 @@ _Description_:
 
 _Standard_:
      Fortran 90 and later, with boz-literal-constant Fortran 2008 and
-     later, has overloads that are GNU extensions
+     later, has overloads that are GNU extensions.  Extension for
+     'UNSIGNED' (*note Unsigned integers::)
 
 _Class_:
      Elemental function
@@ -13905,17 +14000,18 @@ _Syntax_:
      'RESULT = IEOR(I, J)'
 
 _Arguments_:
-     I           The type shall be 'INTEGER' or a
+     I           The type shall be 'INTEGER', 'UNSIGNED' or a
                  boz-literal-constant.
-     J           The type shall be 'INTEGER' with the same kind
-                 type parameter as I or a boz-literal-constant.
-                 I and J shall not both be boz-literal-constants.
+     J           The type shall be the same type as I with the
+                 same kind type parameter or a
+                 boz-literal-constant.  I and J shall not both be
+                 boz-literal-constants.
 
 _Return value_:
-     The return type is 'INTEGER' with the kind type parameter of the
-     arguments.  A boz-literal-constant is converted to an 'INTEGER'
+     The return type is with the kind type parameter of the arguments.
+     A boz-literal-constant is converted to an 'INTEGER' or 'UNSIGNED'
      with the kind type parameter of the other argument as-if a call to
-     *note INT:: occurred.
+     *note INT:: or *note UINT::, respectively, occurred.
 
 _Specific names_:
      Name           Argument          Return type    Standard
@@ -14065,8 +14161,8 @@ _Syntax_:
      'RESULT = INT(A [, KIND))'
 
 _Arguments_:
-     A           Shall be of type 'INTEGER', 'REAL', or 'COMPLEX'
-                 or a boz-literal-constant.
+     A           Shall be of type 'INTEGER', 'REAL', 'COMPLEX' or
+                 'UNSIGNED' or a boz-literal-constant.
      KIND        (Optional) A scalar 'INTEGER' constant
                  expression indicating the kind parameter of the
                  result.
@@ -14085,6 +14181,10 @@ _Return value_:
      (C)
           If A is of type 'COMPLEX', rule B is applied to the real part
           of A.
+     (D)
+          If A is of type 'UNSIGNED' and 0 \leq A \leq 'HUGE(A)',
+          'INT(A) = A'.  Outside that range, the result is interpreted
+          using two's complement.
 
 _Example_:
           program test_int
@@ -14174,7 +14274,8 @@ _Description_:
 
 _Standard_:
      Fortran 90 and later, with boz-literal-constant Fortran 2008 and
-     later, has overloads that are GNU extensions
+     later, has overloads that are GNU extensions.  Extension for
+     'UNSIGNED' (*note Unsigned integers::)
 
 _Class_:
      Elemental function
@@ -14183,17 +14284,18 @@ _Syntax_:
      'RESULT = IOR(I, J)'
 
 _Arguments_:
-     I           The type shall be 'INTEGER' or a
+     I           The type shall be 'INTEGER', 'UNSIGNED' or a
                  boz-literal-constant.
-     J           The type shall be 'INTEGER' with the same kind
-                 type parameter as I or a boz-literal-constant.
-                 I and J shall not both be boz-literal-constants.
+     J           The type shall be the same type as I with the
+                 same kind type parameter or a
+                 boz-literal-constant.  I and J shall not both be
+                 boz-literal-constants.
 
 _Return value_:
      The return type is 'INTEGER' with the kind type parameter of the
-     arguments.  A boz-literal-constant is converted to an 'INTEGER'
-     with the kind type parameter of the other argument as-if a call to
-     *note INT:: occurred.
+     arguments.  A boz-literal-constant is converted to an 'INTEGER' or
+     'UNSIGNED' with the kind type parameter of the other argument as-if
+     a call to *note INT:: or *note UINT::, respectively, occurred.
 
 _Specific names_:
      Name           Argument          Return type    Standard
@@ -14223,7 +14325,8 @@ _Description_:
      dimension DIM if the corresponding element in MASK is 'TRUE'.
 
 _Standard_:
-     Fortran 2008 and later
+     Fortran 2008 and later.  Extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Transformational function
@@ -14233,7 +14336,8 @@ _Syntax_:
      'RESULT = IPARITY(ARRAY, DIM[, MASK])'
 
 _Arguments_:
-     ARRAY       Shall be an array of type 'INTEGER'
+     ARRAY       Shall be an array of type 'INTEGER' or
+                 'UNSIGNED'.
      DIM         (Optional) shall be a scalar of type 'INTEGER'
                  with a value in the range from 1 to n, where n
                  equals the rank of ARRAY.
@@ -14478,7 +14582,8 @@ _Description_:
      end are lost; zeros are shifted in from the opposite end.
 
 _Standard_:
-     Fortran 90 and later, has overloads that are GNU extensions
+     Fortran 90 and later, has overloads that are GNU extensions.
+     Extension for 'UNSIGNED' (*note Unsigned integers::)
 
 _Class_:
      Elemental function
@@ -14487,11 +14592,11 @@ _Syntax_:
      'RESULT = ISHFT(I, SHIFT)'
 
 _Arguments_:
-     I           The type shall be 'INTEGER'.
+     I           The type shall be 'INTEGER' or 'UNSIGNED'.
      SHIFT       The type shall be 'INTEGER'.
 
 _Return value_:
-     The return value is of type 'INTEGER' and of the same kind as I.
+     The return value is of type of I.
 
 _Specific names_:
      Name           Argument          Return type    Standard
@@ -14522,7 +14627,8 @@ _Description_:
      'BIT_SIZE(I)'.
 
 _Standard_:
-     Fortran 90 and later, has overloads that are GNU extensions
+     Fortran 90 and later, has overloads that are GNU extensions.
+     Extension for 'UNSIGNED' (*note Unsigned integers::)
 
 _Class_:
      Elemental function
@@ -14531,14 +14637,14 @@ _Syntax_:
      'RESULT = ISHFTC(I, SHIFT [, SIZE])'
 
 _Arguments_:
-     I           The type shall be 'INTEGER'.
+     I           The type shall be 'INTEGER' or 'UNSIGNED'.
      SHIFT       The type shall be 'INTEGER'.
      SIZE        (Optional) The type shall be 'INTEGER'; the
                  value must be greater than zero and less than or
                  equal to 'BIT_SIZE(I)'.
 
 _Return value_:
-     The return value is of type 'INTEGER' and of the same kind as I.
+     The return value is of the same type as I.
 
 _Specific names_:
      Name           Argument          Return type    Standard
@@ -15608,7 +15714,8 @@ _Description_:
      Performs a matrix multiplication on numeric or logical arguments.
 
 _Standard_:
-     Fortran 90 and later
+     Fortran 90 and later.  Extension for'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Transformational function
@@ -15617,15 +15724,20 @@ _Syntax_:
      'RESULT = MATMUL(MATRIX_A, MATRIX_B)'
 
 _Arguments_:
-     MATRIX_A    An array of 'INTEGER', 'REAL', 'COMPLEX', or
-                 'LOGICAL' type, with a rank of one or two.
+
+     MATRIX_A    An array of 'INTEGER', 'REAL', 'COMPLEX',
+                 'UNSIGNED' or 'LOGICAL' type, with a rank of one
+                 or two.
+                 
      MATRIX_B    An array of 'INTEGER', 'REAL', or 'COMPLEX' type
-                 if MATRIX_A is of a numeric type; otherwise, an
-                 array of 'LOGICAL' type.  The rank shall be one
-                 or two, and the first (or only) dimension of
-                 MATRIX_B shall be equal to the last (or only)
-                 dimension of MATRIX_A.  MATRIX_A and MATRIX_B
-                 shall not both be rank one arrays.
+                 if MATRIX_A is of 'INTEGER', 'REAL', or
+                 'COMPLEX' type.  Otherwise, if MATRIX_A is an
+                 array of 'UNSIGNED' or 'LOGICAL' type, the type
+                 shall be the same as that of MATRIX_A.  The rank
+                 shall be one or two, and the first (or only)
+                 dimension of MATRIX_B shall be equal to the last
+                 (or only) dimension of MATRIX_A.  MATRIX_A and
+                 MATRIX_B shall not both be rank one arrays.
 
 _Return value_:
      The matrix product of MATRIX_A and MATRIX_B.  The type and kind of
@@ -15642,7 +15754,8 @@ _Description_:
      Returns the argument with the largest (most positive) value.
 
 _Standard_:
-     Fortran 77 and later
+     Fortran 77 and later.  Extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Elemental function
@@ -15651,7 +15764,8 @@ _Syntax_:
      'RESULT = MAX(A1, A2 [, A3 [, ...]])'
 
 _Arguments_:
-     A1          The type shall be 'INTEGER' or 'REAL'.
+     A1          The type shall be 'INTEGER', 'REAL' or
+                 'UNSIGNED'.
      A2, A3,     An expression of the same type and kind as A1.
      ...         (As a GNU extension, arguments of different
                  kinds are permitted.)
@@ -15733,7 +15847,8 @@ _Description_:
 _Standard_:
      Fortran 95 and later; ARRAY of 'CHARACTER' and the KIND argument
      are available in Fortran 2003 and later.  The BACK argument is
-     available in Fortran 2008 and later.
+     available in Fortran 2008 and later.  Extension for'UNSIGNED'
+     (*note Unsigned integers::).
 
 _Class_:
      Transformational function
@@ -15743,7 +15858,8 @@ _Syntax_:
      'RESULT = MAXLOC(ARRAY [, MASK] [,KIND] [,BACK])'
 
 _Arguments_:
-     ARRAY       Shall be an array of type 'INTEGER' or 'REAL'.
+     ARRAY       Shall be an array of type 'INTEGER', 'REAL',
+                 'UNSIGNED' or 'CHARACTER'.
      DIM         (Optional) Shall be a scalar of type 'INTEGER',
                  with a value between one and the rank of ARRAY,
                  inclusive.  It may not be an optional dummy
@@ -15781,11 +15897,13 @@ _Description_:
      each row of the array in the DIM direction.  If MASK is present,
      only the elements for which MASK is '.TRUE.' are considered.  If
      the array has zero size, or all of the elements of MASK are
-     '.FALSE.', then the result is '-HUGE(ARRAY)' if ARRAY is numeric,
-     or a string of nulls if ARRAY is of character type.
+     '.FALSE.', then the result is '-HUGE(ARRAY)' if ARRAY is of type
+     'INTEGER' or 'REAL', '0' if it is type 'UNSIGNED'.  or a string of
+     nulls if ARRAY is of character type.
 
 _Standard_:
-     Fortran 90 and later
+     Fortran 90 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Transformational function
@@ -15795,7 +15913,8 @@ _Syntax_:
      'RESULT = MAXVAL(ARRAY [, MASK])'
 
 _Arguments_:
-     ARRAY       Shall be an array of type 'INTEGER' or 'REAL'.
+     ARRAY       Shall be an array of type 'INTEGER', 'REAL',
+                 'UNSIGNED' or 'CHARACTER'.
      DIM         (Optional) Shall be a scalar of type 'INTEGER',
                  with a value between one and the rank of ARRAY,
                  inclusive.  It may not be an optional dummy
@@ -15932,7 +16051,8 @@ _Description_:
      otherwise.
 
 _Standard_:
-     Fortran 2008 and later
+     Fortran 2008 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Elemental function
@@ -15941,13 +16061,14 @@ _Syntax_:
      'RESULT = MERGE_BITS(I, J, MASK)'
 
 _Arguments_:
-     I           Shall be of type 'INTEGER' or a
+     I           Shall be of type 'INTEGER', 'UNSIGNED' or a
+                 boz-literal-constant.  I and J shall not both be
+                 boz-literal-constants.
+     J           The type shall be the same type as I with the
+                 same kind type parameter or a
                  boz-literal-constant.
-     J           Shall be of type 'INTEGER' with the same kind
-                 type parameter as I or a boz-literal-constant.
-                 I and J shall not both be boz-literal-constants.
-     MASK        Shall be of type 'INTEGER' or a
-                 boz-literal-constant and of the same kind as I.
+     MASK        Shall be of the same type as I, J or a
+                 boz-literal-constant.
 
 _Return value_:
      The result is of the same type and kind as I.
@@ -15962,7 +16083,8 @@ _Description_:
      Returns the argument with the smallest (most negative) value.
 
 _Standard_:
-     Fortran 77 and later
+     Fortran 77 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Elemental function
@@ -15971,7 +16093,8 @@ _Syntax_:
      'RESULT = MIN(A1, A2 [, A3, ...])'
 
 _Arguments_:
-     A1          The type shall be 'INTEGER' or 'REAL'.
+     A1          The type shall be 'INTEGER', 'REAL' or
+                 'UNSIGNED'.
      A2, A3,     An expression of the same type and kind as A1.
      ...         (As a GNU extension, arguments of different
                  kinds are permitted.)
@@ -16047,7 +16170,8 @@ _Description_:
 _Standard_:
      Fortran 90 and later; ARRAY of 'CHARACTER' and the KIND argument
      are available in Fortran 2003 and later.  The BACK argument is
-     available in Fortran 2008 and later.
+     available in Fortran 2008 and later.  Extension for 'UNSIGNED'
+     (*note Unsigned integers::).
 
 _Class_:
      Transformational function
@@ -16057,8 +16181,8 @@ _Syntax_:
      'RESULT = MINLOC(ARRAY [, MASK], [,KIND] [,BACK])'
 
 _Arguments_:
-     ARRAY       Shall be an array of type 'INTEGER', 'REAL' or
-                 'CHARACTER'.
+     ARRAY       Shall be an array of type 'INTEGER', 'REAL',
+                 'CHARACTER' or 'UNSIGNED'.
      DIM         (Optional) Shall be a scalar of type 'INTEGER',
                  with a value between one and the rank of ARRAY,
                  inclusive.  It may not be an optional dummy
@@ -16100,7 +16224,8 @@ _Description_:
      a string of 'CHAR(255)' characters if ARRAY is of character type.
 
 _Standard_:
-     Fortran 90 and later
+     Fortran 90 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Transformational function
@@ -16110,7 +16235,8 @@ _Syntax_:
      'RESULT = MINVAL(ARRAY [, MASK])'
 
 _Arguments_:
-     ARRAY       Shall be an array of type 'INTEGER' or 'REAL'.
+     ARRAY       Shall be an array of type 'INTEGER', 'REAL' or
+                 'UNSIGNED'.
      DIM         (Optional) Shall be a scalar of type 'INTEGER',
                  with a value between one and the rank of ARRAY,
                  inclusive.  It may not be an optional dummy
@@ -16139,7 +16265,8 @@ _Description_:
      'MOD(A,P)' computes the remainder of the division of A by P.
 
 _Standard_:
-     Fortran 77 and later, has overloads that are GNU extensions
+     Fortran 77 and later, has overloads that are GNU extensions.
+     Extension for 'UNSIGNED'.
 
 _Class_:
      Elemental function
@@ -16148,7 +16275,8 @@ _Syntax_:
      'RESULT = MOD(A, P)'
 
 _Arguments_:
-     A           Shall be a scalar of type 'INTEGER' or 'REAL'.
+     A           Shall be a scalar of type 'INTEGER', 'REAL' or
+                 'UNSIGNED'.
      P           Shall be a scalar of the same type and kind as A
                  and not equal to zero.  (As a GNU extension,
                  arguments of different kinds are permitted.)
@@ -16159,6 +16287,10 @@ _Return value_:
      The returned value has the same sign as A and a magnitude less than
      the magnitude of P. (As a GNU extension, kind is the largest kind
      of the actual arguments.)
+
+_Note_:
+     'MOD' and 'MODULO' yield identical results if their arguments are
+     'UNSIGNED'.
 
 _Example_:
           program test_mod
@@ -16202,7 +16334,8 @@ _Description_:
      'MODULO(A,P)' computes the A modulo P.
 
 _Standard_:
-     Fortran 95 and later
+     Fortran 95 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Elemental function
@@ -16219,13 +16352,17 @@ _Arguments_:
 _Return value_:
      The type and kind of the result are those of the arguments.  (As a
      GNU extension, kind is the largest kind of the actual arguments.)
-     If A and P are of type 'INTEGER':
+     If A and P are of type 'INTEGER' or 'UNSIGNED':
           'MODULO(A,P)' has the value R such that 'A=Q*P+R', where Q is
           an integer and R is between 0 (inclusive) and P (exclusive).
      If A and P are of type 'REAL':
           'MODULO(A,P)' has the value of 'A - FLOOR (A / P) * P'.
      The returned value has the same sign as P and a magnitude less than
      the magnitude of P.
+
+_Note_:
+     'MOD' and 'MODULO' yield identical results if their arguments are
+     'UNSIGNED'.
 
 _Example_:
           program test_modulo
@@ -16295,7 +16432,8 @@ _Description_:
      'BIT_SIZE(FROM)'.
 
 _Standard_:
-     Fortran 90 and later, has overloads that are GNU extensions
+     Fortran 90 and later, has overloads that are GNU extensions.
+     Extension for 'UNSIGNED' (*note Unsigned integers::).
 
 _Class_:
      Elemental subroutine
@@ -16304,10 +16442,10 @@ _Syntax_:
      'CALL MVBITS(FROM, FROMPOS, LEN, TO, TOPOS)'
 
 _Arguments_:
-     FROM        The type shall be 'INTEGER'.
+     FROM        The type shall be 'INTEGER' or 'UNSIGNED'.
      FROMPOS     The type shall be 'INTEGER'.
      LEN         The type shall be 'INTEGER'.
-     TO          The type shall be 'INTEGER', of the same kind as
+     TO          The type shall be of the same type and kind as
                  FROM.
      TOPOS       The type shall be 'INTEGER'.
 
@@ -16494,7 +16632,8 @@ _Description_:
      'NOT' returns the bitwise Boolean inverse of I.
 
 _Standard_:
-     Fortran 90 and later, has overloads that are GNU extensions
+     Fortran 90 and later, has overloads that are GNU extensions,
+     extension for 'UNSIGNED' (*note Unsigned integers::)
 
 _Class_:
      Elemental function
@@ -16503,7 +16642,7 @@ _Syntax_:
      'RESULT = NOT(I)'
 
 _Arguments_:
-     I           The type shall be 'INTEGER'.
+     I           The type shall be 'INTEGER' or 'UNSIGNED'.
 
 _Return value_:
      The return type is 'INTEGER', of the same kind as the argument.
@@ -16960,7 +17099,8 @@ _Description_:
      corresponding element in MASK is 'TRUE'.
 
 _Standard_:
-     Fortran 90 and later
+     Fortran 90 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Transformational function
@@ -16970,8 +17110,8 @@ _Syntax_:
      'RESULT = PRODUCT(ARRAY, DIM[, MASK])'
 
 _Arguments_:
-     ARRAY       Shall be an array of type 'INTEGER', 'REAL' or
-                 'COMPLEX'.
+     ARRAY       Shall be an array of type 'INTEGER', 'REAL',
+                 'COMPLEX' or 'UNSIGNED'.
      DIM         (Optional) shall be a scalar of type 'INTEGER'
                  with a value in the range from 1 to n, where n
                  equals the rank of ARRAY.
@@ -17158,8 +17298,13 @@ File: gfortran.info,  Node: RANDOM_NUMBER,  Next: RANDOM_SEED,  Prev: RANDOM_INI
 =============================================
 
 _Description_:
-     Returns a single pseudorandom number or an array of pseudorandom
-     numbers from the uniform distribution over the range 0 \leq x < 1.
+     For 'REAL' argument, returns a single pseudorandom number or an
+     array of pseudorandom numbers from the uniform distribution over
+     the range 0 <= x < 1.
+
+     For 'UNSIGNED' argument returns a single pseudorandom number or an
+     array of pseudorandom numbers in over the range of 0 <= x <=
+     HUGE(HARVEST).
 
      The runtime-library implements the xoshiro256** pseudorandom number
      generator (PRNG). This generator has a period of 2^{256} - 1, and
@@ -17172,7 +17317,8 @@ _Description_:
      'RANDOM_SEED' intrinsic.
 
 _Standard_:
-     Fortran 90 and later
+     Fortran 90 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Subroutine
@@ -17270,7 +17416,8 @@ _Description_:
      type of 'X'.
 
 _Standard_:
-     Fortran 90 and later
+     Fortran 90 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Inquiry function
@@ -17279,7 +17426,8 @@ _Syntax_:
      'RESULT = RANGE(X)'
 
 _Arguments_:
-     X           Shall be of type 'INTEGER', 'REAL' or 'COMPLEX'.
+     X           Shall be of type 'INTEGER', 'REAL', 'COMPLEX' or
+                 'UNSIGNED'.
 
 _Return value_:
      The return value is of type 'INTEGER' and of the default integer
@@ -17876,7 +18024,7 @@ _Example_:
           end program logical_kinds
 
 
-File: gfortran.info,  Node: SELECTED_REAL_KIND,  Next: SET_EXPONENT,  Prev: SELECTED_LOGICAL_KIND,  Up: Intrinsic Procedures
+File: gfortran.info,  Node: SELECTED_REAL_KIND,  Next: SELECTED_UNSIGNED_KIND,  Prev: SELECTED_LOGICAL_KIND,  Up: Intrinsic Procedures
 
 8.242 'SELECTED_REAL_KIND' -- Choose real kind
 ==============================================
@@ -17946,9 +18094,43 @@ _See also_:
      *note RADIX::
 
 
-File: gfortran.info,  Node: SET_EXPONENT,  Next: SHAPE,  Prev: SELECTED_REAL_KIND,  Up: Intrinsic Procedures
+File: gfortran.info,  Node: SELECTED_UNSIGNED_KIND,  Next: SET_EXPONENT,  Prev: SELECTED_REAL_KIND,  Up: Intrinsic Procedures
 
-8.243 'SET_EXPONENT' -- Set the exponent of the model
+8.243 'SELECTED_UNSIGNED_KIND' -- Choose unsigned kind
+======================================================
+
+_Description_:
+     'SELECTED_UNSIGNED_KIND(R)' return the kind value of the smallest
+     integer type that can represent all values ranging from 0 to 10^R
+     (exclusive).  If there is no unsigned kind that accommodates this
+     range, 'SELECTED_UNSIGNED_KIND' returns -1.
+
+_Standard_:
+     Extension for 'UNSIGNED' (*note Unsigned integers::)
+
+_Class_:
+     Transformational function
+
+_Syntax_:
+     'RESULT = SELECTED_UNSIGNED_KIND(R)'
+
+_Arguments_:
+     R           Shall be a scalar and of type 'INTEGER'.
+
+_Example_:
+          program large_unsigned
+            integer,parameter :: k5 = selected_unsigned_kind(5)
+            integer,parameter :: k15 = selected_unsigned_kind(15)
+            unsigned(kind=k5) :: i5
+            unsigned(kind=k15) :: i15
+
+            print *, huge(i5), huge(i15)
+          end program large_unsigned
+
+
+File: gfortran.info,  Node: SET_EXPONENT,  Next: SHAPE,  Prev: SELECTED_UNSIGNED_KIND,  Up: Intrinsic Procedures
+
+8.244 'SET_EXPONENT' -- Set the exponent of the model
 =====================================================
 
 _Description_:
@@ -17983,7 +18165,7 @@ _Example_:
 
 File: gfortran.info,  Node: SHAPE,  Next: SHIFTA,  Prev: SET_EXPONENT,  Up: Intrinsic Procedures
 
-8.244 'SHAPE' -- Determine the shape of an array
+8.245 'SHAPE' -- Determine the shape of an array
 ================================================
 
 _Description_:
@@ -18028,7 +18210,7 @@ _See also_:
 
 File: gfortran.info,  Node: SHIFTA,  Next: SHIFTL,  Prev: SHAPE,  Up: Intrinsic Procedures
 
-8.245 'SHIFTA' -- Right shift with fill
+8.246 'SHIFTA' -- Right shift with fill
 =======================================
 
 _Description_:
@@ -18041,7 +18223,8 @@ _Description_:
      sign bit.
 
 _Standard_:
-     Fortran 2008 and later
+     Fortran 2008 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Elemental function
@@ -18050,11 +18233,11 @@ _Syntax_:
      'RESULT = SHIFTA(I, SHIFT)'
 
 _Arguments_:
-     I           The type shall be 'INTEGER'.
+     I           The type shall be 'INTEGER' or 'UNSIGNED'.
      SHIFT       The type shall be 'INTEGER'.
 
 _Return value_:
-     The return value is of type 'INTEGER' and of the same kind as I.
+     The return value is of the same type and kind as I.
 
 _See also_:
      *note SHIFTL::,
@@ -18063,7 +18246,7 @@ _See also_:
 
 File: gfortran.info,  Node: SHIFTL,  Next: SHIFTR,  Prev: SHIFTA,  Up: Intrinsic Procedures
 
-8.246 'SHIFTL' -- Left shift
+8.247 'SHIFTL' -- Left shift
 ============================
 
 _Description_:
@@ -18074,7 +18257,8 @@ _Description_:
      shifted in from the right end are set to 0.
 
 _Standard_:
-     Fortran 2008 and later
+     Fortran 2008 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Elemental function
@@ -18083,11 +18267,11 @@ _Syntax_:
      'RESULT = SHIFTL(I, SHIFT)'
 
 _Arguments_:
-     I           The type shall be 'INTEGER'.
+     I           The type shall be 'INTEGER' or 'UNSIGNED'.
      SHIFT       The type shall be 'INTEGER'.
 
 _Return value_:
-     The return value is of type 'INTEGER' and of the same kind as I.
+     The return value is of the same type and kind as I.
 
 _See also_:
      *note SHIFTA::,
@@ -18096,7 +18280,7 @@ _See also_:
 
 File: gfortran.info,  Node: SHIFTR,  Next: SIGN,  Prev: SHIFTL,  Up: Intrinsic Procedures
 
-8.247 'SHIFTR' -- Right shift
+8.248 'SHIFTR' -- Right shift
 =============================
 
 _Description_:
@@ -18129,7 +18313,7 @@ _See also_:
 
 File: gfortran.info,  Node: SIGN,  Next: SIGNAL,  Prev: SHIFTR,  Up: Intrinsic Procedures
 
-8.248 'SIGN' -- Sign copying function
+8.249 'SIGN' -- Sign copying function
 =====================================
 
 _Description_:
@@ -18173,7 +18357,7 @@ _Specific names_:
 
 File: gfortran.info,  Node: SIGNAL,  Next: SIN,  Prev: SIGN,  Up: Intrinsic Procedures
 
-8.249 'SIGNAL' -- Signal handling subroutine (or function)
+8.250 'SIGNAL' -- Signal handling subroutine (or function)
 ==========================================================
 
 _Description_:
@@ -18229,7 +18413,7 @@ _Example_:
 
 File: gfortran.info,  Node: SIN,  Next: SIND,  Prev: SIGNAL,  Up: Intrinsic Procedures
 
-8.250 'SIN' -- Sine function
+8.251 'SIN' -- Sine function
 ============================
 
 _Description_:
@@ -18274,7 +18458,7 @@ _See also_:
 
 File: gfortran.info,  Node: SIND,  Next: SINH,  Prev: SIN,  Up: Intrinsic Procedures
 
-8.251 'SIND' -- Sine function, degrees
+8.252 'SIND' -- Sine function, degrees
 ======================================
 
 _Description_:
@@ -18320,7 +18504,7 @@ _See also_:
 
 File: gfortran.info,  Node: SINH,  Next: SIZE,  Prev: SIND,  Up: Intrinsic Procedures
 
-8.252 'SINH' -- Hyperbolic sine function
+8.253 'SINH' -- Hyperbolic sine function
 ========================================
 
 _Description_:
@@ -18359,7 +18543,7 @@ _See also_:
 
 File: gfortran.info,  Node: SIZE,  Next: SIZEOF,  Prev: SINH,  Up: Intrinsic Procedures
 
-8.253 'SIZE' -- Determine the size of an array
+8.254 'SIZE' -- Determine the size of an array
 ==============================================
 
 _Description_:
@@ -18402,7 +18586,7 @@ _See also_:
 
 File: gfortran.info,  Node: SIZEOF,  Next: SLEEP,  Prev: SIZE,  Up: Intrinsic Procedures
 
-8.254 'SIZEOF' -- Size in bytes of an expression
+8.255 'SIZEOF' -- Size in bytes of an expression
 ================================================
 
 _Description_:
@@ -18451,7 +18635,7 @@ _See also_:
 
 File: gfortran.info,  Node: SLEEP,  Next: SPACING,  Prev: SIZEOF,  Up: Intrinsic Procedures
 
-8.255 'SLEEP' -- Sleep for the specified number of seconds
+8.256 'SLEEP' -- Sleep for the specified number of seconds
 ==========================================================
 
 _Description_:
@@ -18478,7 +18662,7 @@ _Example_:
 
 File: gfortran.info,  Node: SPACING,  Next: SPREAD,  Prev: SLEEP,  Up: Intrinsic Procedures
 
-8.256 'SPACING' -- Smallest distance between two numbers of a given type
+8.257 'SPACING' -- Smallest distance between two numbers of a given type
 ========================================================================
 
 _Description_:
@@ -18515,7 +18699,7 @@ _See also_:
 
 File: gfortran.info,  Node: SPREAD,  Next: SQRT,  Prev: SPACING,  Up: Intrinsic Procedures
 
-8.257 'SPREAD' -- Add a dimension to an array
+8.258 'SPREAD' -- Add a dimension to an array
 =============================================
 
 _Description_:
@@ -18556,7 +18740,7 @@ _See also_:
 
 File: gfortran.info,  Node: SQRT,  Next: SRAND,  Prev: SPREAD,  Up: Intrinsic Procedures
 
-8.258 'SQRT' -- Square-root function
+8.259 'SQRT' -- Square-root function
 ====================================
 
 _Description_:
@@ -18598,7 +18782,7 @@ _Specific names_:
 
 File: gfortran.info,  Node: SRAND,  Next: STAT,  Prev: SQRT,  Up: Intrinsic Procedures
 
-8.259 'SRAND' -- Reinitialize the random number generator
+8.260 'SRAND' -- Reinitialize the random number generator
 =========================================================
 
 _Description_:
@@ -18643,7 +18827,7 @@ _See also_:
 
 File: gfortran.info,  Node: STAT,  Next: STORAGE_SIZE,  Prev: SRAND,  Up: Intrinsic Procedures
 
-8.260 'STAT' -- Get file status
+8.261 'STAT' -- Get file status
 ===============================
 
 _Description_:
@@ -18724,7 +18908,7 @@ _See also_:
 
 File: gfortran.info,  Node: STORAGE_SIZE,  Next: SUM,  Prev: STAT,  Up: Intrinsic Procedures
 
-8.261 'STORAGE_SIZE' -- Storage size in bits
+8.262 'STORAGE_SIZE' -- Storage size in bits
 ============================================
 
 _Description_:
@@ -18754,7 +18938,7 @@ _See also_:
 
 File: gfortran.info,  Node: SUM,  Next: SYMLNK,  Prev: STORAGE_SIZE,  Up: Intrinsic Procedures
 
-8.262 'SUM' -- Sum of array elements
+8.263 'SUM' -- Sum of array elements
 ====================================
 
 _Description_:
@@ -18762,7 +18946,8 @@ _Description_:
      element in MASK is 'TRUE'.
 
 _Standard_:
-     Fortran 90 and later
+     Fortran 90 and later, extension for 'UNSIGNED' (*note Unsigned
+     integers::)
 
 _Class_:
      Transformational function
@@ -18772,8 +18957,8 @@ _Syntax_:
      'RESULT = SUM(ARRAY, DIM[, MASK])'
 
 _Arguments_:
-     ARRAY       Shall be an array of type 'INTEGER', 'REAL' or
-                 'COMPLEX'.
+     ARRAY       Shall be an array of type 'INTEGER', 'REAL',
+                 'COMPLEX' or 'UNSIGNED'.
      DIM         (Optional) shall be a scalar of type 'INTEGER'
                  with a value in the range from 1 to n, where n
                  equals the rank of ARRAY.
@@ -18802,7 +18987,7 @@ _See also_:
 
 File: gfortran.info,  Node: SYMLNK,  Next: SYSTEM,  Prev: SUM,  Up: Intrinsic Procedures
 
-8.263 'SYMLNK' -- Create a symbolic link
+8.264 'SYMLNK' -- Create a symbolic link
 ========================================
 
 _Description_:
@@ -18838,7 +19023,7 @@ _See also_:
 
 File: gfortran.info,  Node: SYSTEM,  Next: SYSTEM_CLOCK,  Prev: SYMLNK,  Up: Intrinsic Procedures
 
-8.264 'SYSTEM' -- Execute a shell command
+8.265 'SYSTEM' -- Execute a shell command
 =========================================
 
 _Description_:
@@ -18876,7 +19061,7 @@ _See also_:
 
 File: gfortran.info,  Node: SYSTEM_CLOCK,  Next: TAN,  Prev: SYSTEM,  Up: Intrinsic Procedures
 
-8.265 'SYSTEM_CLOCK' -- Time function
+8.266 'SYSTEM_CLOCK' -- Time function
 =====================================
 
 _Description_:
@@ -18945,7 +19130,7 @@ _See also_:
 
 File: gfortran.info,  Node: TAN,  Next: TAND,  Prev: SYSTEM_CLOCK,  Up: Intrinsic Procedures
 
-8.266 'TAN' -- Tangent function
+8.267 'TAN' -- Tangent function
 ===============================
 
 _Description_:
@@ -18988,7 +19173,7 @@ _See also_:
 
 File: gfortran.info,  Node: TAND,  Next: TANH,  Prev: TAN,  Up: Intrinsic Procedures
 
-8.267 'TAND' -- Tangent function, degrees
+8.268 'TAND' -- Tangent function, degrees
 =========================================
 
 _Description_:
@@ -19030,7 +19215,7 @@ _See also_:
 
 File: gfortran.info,  Node: TANH,  Next: THIS_IMAGE,  Prev: TAND,  Up: Intrinsic Procedures
 
-8.268 'TANH' -- Hyperbolic tangent function
+8.269 'TANH' -- Hyperbolic tangent function
 ===========================================
 
 _Description_:
@@ -19071,7 +19256,7 @@ _See also_:
 
 File: gfortran.info,  Node: THIS_IMAGE,  Next: TIME,  Prev: TANH,  Up: Intrinsic Procedures
 
-8.269 'THIS_IMAGE' -- Function that returns the cosubscript index of this image
+8.270 'THIS_IMAGE' -- Function that returns the cosubscript index of this image
 ===============================================================================
 
 _Description_:
@@ -19134,7 +19319,7 @@ _See also_:
 
 File: gfortran.info,  Node: TIME,  Next: TIME8,  Prev: THIS_IMAGE,  Up: Intrinsic Procedures
 
-8.270 'TIME' -- Time function
+8.271 'TIME' -- Time function
 =============================
 
 _Description_:
@@ -19176,7 +19361,7 @@ _See also_:
 
 File: gfortran.info,  Node: TIME8,  Next: TINY,  Prev: TIME,  Up: Intrinsic Procedures
 
-8.271 'TIME8' -- Time function (64-bit)
+8.272 'TIME8' -- Time function (64-bit)
 =======================================
 
 _Description_:
@@ -19216,7 +19401,7 @@ _See also_:
 
 File: gfortran.info,  Node: TINY,  Next: TRAILZ,  Prev: TIME8,  Up: Intrinsic Procedures
 
-8.272 'TINY' -- Smallest positive number of a real kind
+8.273 'TINY' -- Smallest positive number of a real kind
 =======================================================
 
 _Description_:
@@ -19244,7 +19429,7 @@ _Example_:
 
 File: gfortran.info,  Node: TRAILZ,  Next: TRANSFER,  Prev: TINY,  Up: Intrinsic Procedures
 
-8.273 'TRAILZ' -- Number of trailing zero bits of an integer
+8.274 'TRAILZ' -- Number of trailing zero bits of an integer
 ============================================================
 
 _Description_:
@@ -19280,7 +19465,7 @@ _See also_:
 
 File: gfortran.info,  Node: TRANSFER,  Next: TRANSPOSE,  Prev: TRAILZ,  Up: Intrinsic Procedures
 
-8.274 'TRANSFER' -- Transfer bit patterns
+8.275 'TRANSFER' -- Transfer bit patterns
 =========================================
 
 _Description_:
@@ -19334,7 +19519,7 @@ _Example_:
 
 File: gfortran.info,  Node: TRANSPOSE,  Next: TRIM,  Prev: TRANSFER,  Up: Intrinsic Procedures
 
-8.275 'TRANSPOSE' -- Transpose an array of rank two
+8.276 'TRANSPOSE' -- Transpose an array of rank two
 ===================================================
 
 _Description_:
@@ -19361,7 +19546,7 @@ _Return value_:
 
 File: gfortran.info,  Node: TRIM,  Next: TTYNAM,  Prev: TRANSPOSE,  Up: Intrinsic Procedures
 
-8.276 'TRIM' -- Remove trailing blank characters of a string
+8.277 'TRIM' -- Remove trailing blank characters of a string
 ============================================================
 
 _Description_:
@@ -19396,7 +19581,7 @@ _See also_:
 
 File: gfortran.info,  Node: TTYNAM,  Next: UBOUND,  Prev: TRIM,  Up: Intrinsic Procedures
 
-8.277 'TTYNAM' -- Get the name of a terminal device
+8.278 'TTYNAM' -- Get the name of a terminal device
 ===================================================
 
 _Description_:
@@ -19434,7 +19619,7 @@ _See also_:
 
 File: gfortran.info,  Node: UBOUND,  Next: UCOBOUND,  Prev: TTYNAM,  Up: Intrinsic Procedures
 
-8.278 'UBOUND' -- Upper dimension bounds of an array
+8.279 'UBOUND' -- Upper dimension bounds of an array
 ====================================================
 
 _Description_:
@@ -19471,9 +19656,9 @@ _See also_:
      *note LCOBOUND::
 
 
-File: gfortran.info,  Node: UCOBOUND,  Next: UMASK,  Prev: UBOUND,  Up: Intrinsic Procedures
+File: gfortran.info,  Node: UCOBOUND,  Next: UINT,  Prev: UBOUND,  Up: Intrinsic Procedures
 
-8.279 'UCOBOUND' -- Upper codimension bounds of an array
+8.280 'UCOBOUND' -- Upper codimension bounds of an array
 ========================================================
 
 _Description_:
@@ -19507,9 +19692,34 @@ _See also_:
      *note LBOUND::
 
 
-File: gfortran.info,  Node: UMASK,  Next: UNLINK,  Prev: UCOBOUND,  Up: Intrinsic Procedures
+File: gfortran.info,  Node: UINT,  Next: UMASK,  Prev: UCOBOUND,  Up: Intrinsic Procedures
 
-8.280 'UMASK' -- Set the file creation mask
+8.281 'UINT' - Convert to 'UNSIGNED' type
+=========================================
+
+_Description_:
+     Convert to unsigned type
+
+_Standard_:
+     Extension.
+
+_Class_:
+     Elemental function
+
+_Syntax_:
+     'RESULT = UINT(A [, KIND))'
+
+_Arguments_:
+     A           Shall be of type 'INTEGER', 'REAL', 'COMPLEX' or
+                 'UNSIGNED' or a boz-literal-constant.
+     KIND        (Optional) A scalar 'INTEGER' constant
+                 expression indicating the kind parameter of the
+                 result.
+
+
+File: gfortran.info,  Node: UMASK,  Next: UNLINK,  Prev: UINT,  Up: Intrinsic Procedures
+
+8.282 'UMASK' -- Set the file creation mask
 ===========================================
 
 _Description_:
@@ -19534,7 +19744,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: UNLINK,  Next: UNPACK,  Prev: UMASK,  Up: Intrinsic Procedures
 
-8.281 'UNLINK' -- Remove a file from the file system
+8.283 'UNLINK' -- Remove a file from the file system
 ====================================================
 
 _Description_:
@@ -19568,7 +19778,7 @@ _See also_:
 
 File: gfortran.info,  Node: UNPACK,  Next: VERIFY,  Prev: UNLINK,  Up: Intrinsic Procedures
 
-8.282 'UNPACK' -- Unpack an array of rank one into an array
+8.284 'UNPACK' -- Unpack an array of rank one into an array
 ===========================================================
 
 _Description_:
@@ -19612,7 +19822,7 @@ _See also_:
 
 File: gfortran.info,  Node: VERIFY,  Next: XOR,  Prev: UNPACK,  Up: Intrinsic Procedures
 
-8.283 'VERIFY' -- Scan a string for characters not a given set
+8.285 'VERIFY' -- Scan a string for characters not a given set
 ==============================================================
 
 _Description_:
@@ -19661,7 +19871,7 @@ _See also_:
 
 File: gfortran.info,  Node: XOR,  Prev: VERIFY,  Up: Intrinsic Procedures
 
-8.284 'XOR' -- Bitwise logical exclusive OR
+8.286 'XOR' -- Bitwise logical exclusive OR
 ===========================================
 
 _Description_:
@@ -21814,6 +22024,7 @@ Keyword Index
                                                               (line   6)
 * &:                                     Error and Warning Options.
                                                               (line  87)
+* , conversion, to unsigned:             UINT.                (line   6)
 * _gfortran_set_args:                    _gfortran_set_args.  (line   6)
 * _gfortran_set_convert:                 _gfortran_set_convert.
                                                               (line   6)
@@ -22490,8 +22701,6 @@ Keyword Index
                                                               (line   6)
 * FORMAT:                                Variable FORMAT expressions.
                                                               (line   6)
-* Fortran 202Y:                          Experimental features for Fortran 202Y.
-                                                              (line   6)
 * FPP:                                   Preprocessing Options.
                                                               (line   6)
 * FPUT:                                  FPUT.                (line   6)
@@ -22507,6 +22716,8 @@ Keyword Index
 * function interoperability with C:      Interoperable Subroutines and Functions.
                                                               (line   6)
 * Further Interoperability of Fortran with C: Further Interoperability of Fortran with C.
+                                                              (line   6)
+* Future Fortran versions:               Experimental features for future Fortran versions.
                                                               (line   6)
 * g77 calling convention:                Code Gen Options.    (line  27)
 * g77 calling convention <1>:            Code Gen Options.    (line 112)
@@ -22667,6 +22878,8 @@ Keyword Index
 * kind, old-style:                       Old-style kind specifications.
                                                               (line   6)
 * kind, real:                            SELECTED_REAL_KIND.  (line   6)
+* kind, unsigned:                        SELECTED_UNSIGNED_KIND.
+                                                              (line   6)
 * KIOR:                                  IOR.                 (line   6)
 * KISHFT:                                ISHFT.               (line   6)
 * KISHFTC:                               ISHFTC.              (line   6)
@@ -23021,6 +23234,8 @@ Keyword Index
 * SELECTED_LOGICAL_KIND:                 SELECTED_LOGICAL_KIND.
                                                               (line   6)
 * SELECTED_REAL_KIND:                    SELECTED_REAL_KIND.  (line   6)
+* SELECTED_UNSIGNED_KIND:                SELECTED_UNSIGNED_KIND.
+                                                              (line   6)
 * sequential, unformatted:               File format of unformatted sequential files.
                                                               (line   6)
 * SET_EXPONENT:                          SET_EXPONENT.        (line   6)
@@ -23200,6 +23415,7 @@ Keyword Index
 * type cast:                             TRANSFER.            (line   6)
 * UBOUND:                                UBOUND.              (line   6)
 * UCOBOUND:                              UCOBOUND.            (line   6)
+* UINT:                                  UINT.                (line   6)
 * UMASK:                                 UMASK.               (line   6)
 * underflow:                             Error and Warning Options.
                                                               (line 206)
@@ -23211,6 +23427,8 @@ Keyword Index
 * UNLINK:                                UNLINK.              (line   6)
 * UNPACK:                                UNPACK.              (line   6)
 * Unsigned integers:                     Unsigned integers.   (line   6)
+* unsigned kind:                         SELECTED_UNSIGNED_KIND.
+                                                              (line   6)
 * unused dummy argument:                 Error and Warning Options.
                                                               (line 222)
 * unused parameter:                      Error and Warning Options.
@@ -23318,6 +23536,7 @@ Node: Fortran 2018 status14553
 Node: Invoking GNU Fortran16156
 Node: Option Summary18046
 Node: Fortran Dialect Options22449
+Ref: -funsigned39659
 Node: Preprocessing Options39708
 Node: Error and Warning Options49706
 Node: Debugging Options61907
@@ -23355,417 +23574,419 @@ Node: File format of unformatted sequential files120980
 Node: Asynchronous I/O123354
 Node: Behavior on integer overflow124091
 Node: Extensions124864
-Node: Extensions implemented in GNU Fortran125512
-Node: Old-style kind specifications127457
-Node: Old-style variable initialization128584
-Node: Extensions to namelist129896
-Node: X format descriptor without count field132199
-Node: Commas in FORMAT specifications132726
-Node: Missing period in FORMAT specifications133479
-Node: Default widths for F, G and I format descriptors134075
-Node: I/O item lists134780
-Node: Q exponent-letter135174
-Node: BOZ literal constants135772
-Node: Real array indices137349
-Node: Unary operators137648
-Node: Implicitly convert LOGICAL and INTEGER values138062
-Node: Hollerith constants support139021
-Node: Character conversion141245
-Node: Cray pointers142139
-Node: CONVERT specifier147640
-Node: OpenMP149955
-Node: OpenACC152204
-Node: Argument list functions153345
-Node: Read/Write after EOF marker154988
-Node: STRUCTURE and RECORD155591
-Node: UNION and MAP160678
-Node: Type variants for integer intrinsics163646
-Node: AUTOMATIC and STATIC attributes165541
-Node: Form feed as whitespace167074
-Node: TYPE as an alias for PRINT167627
-Node: %LOC as an rvalue168092
-Node: .XOR. operator168739
-Node: Bitwise logical operators169139
-Node: Extended I/O specifiers170640
-Node: Legacy PARAMETER statements174360
-Node: Default exponents174965
-Node: Extensions not implemented in GNU Fortran175317
-Node: ENCODE and DECODE statements176331
-Node: Variable FORMAT expressions177662
-Node: Alternate complex function syntax178767
-Node: Volatile COMMON blocks179317
-Node: OPEN( ... NAME=)179819
-Node: Q edit descriptor180247
-Node: Experimental features for Fortran 202Y181199
-Node: Unsigned integers181897
-Node: Mixed-Language Programming185280
-Node: Interoperability with C186513
-Node: Intrinsic Types187848
-Node: Derived Types and struct188869
-Node: Interoperable Global Variables190211
-Node: Interoperable Subroutines and Functions191486
-Node: Working with C Pointers194977
-Node: Further Interoperability of Fortran with C199642
-Node: GNU Fortran Compiler Directives200986
-Node: ATTRIBUTES directive201362
-Node: UNROLL directive205185
-Node: BUILTIN directive205830
-Node: IVDEP directive206672
-Node: VECTOR directive207585
-Node: NOVECTOR directive208091
-Node: Non-Fortran Main Program208584
-Node: _gfortran_set_args210772
-Node: _gfortran_set_options211710
-Node: _gfortran_set_convert215437
-Node: _gfortran_set_record_marker216305
-Node: _gfortran_set_fpe217115
-Node: _gfortran_set_max_subrecord_length218313
-Node: Naming and argument-passing conventions219236
-Node: Naming conventions219955
-Node: Argument passing conventions221427
-Node: Coarray Programming226765
-Node: Type and enum ABI Documentation227012
-Node: caf_token_t227310
-Node: caf_register_t227546
-Node: caf_deregister_t228757
-Node: caf_reference_t229258
-Node: caf_team_t233583
-Node: Function ABI Documentation233882
-Node: _gfortran_caf_init236332
-Node: _gfortran_caf_finish237758
-Node: _gfortran_caf_this_image238697
-Node: _gfortran_caf_num_images239452
-Node: _gfortran_caf_image_status240563
-Node: _gfortran_caf_failed_images241683
-Node: _gfortran_caf_stopped_images242853
-Node: _gfortran_caf_register244026
-Node: _gfortran_caf_deregister248207
-Node: _gfortran_caf_is_present249813
-Node: _gfortran_caf_send250892
-Node: _gfortran_caf_get254082
-Node: _gfortran_caf_sendget257163
-Node: _gfortran_caf_send_by_ref261074
-Node: _gfortran_caf_get_by_ref264683
-Node: _gfortran_caf_sendget_by_ref268202
-Node: _gfortran_caf_lock272498
-Node: _gfortran_caf_unlock274287
-Node: _gfortran_caf_event_post275768
-Node: _gfortran_caf_event_wait277216
-Node: _gfortran_caf_event_query279322
-Node: _gfortran_caf_sync_all280653
-Node: _gfortran_caf_sync_images281581
-Node: _gfortran_caf_sync_memory283116
-Node: _gfortran_caf_error_stop284108
-Node: _gfortran_caf_error_stop_str284712
-Node: _gfortran_caf_fail_image285417
-Node: _gfortran_caf_atomic_define285953
-Node: _gfortran_caf_atomic_ref287268
-Node: _gfortran_caf_atomic_cas288572
-Node: _gfortran_caf_atomic_op290333
-Node: _gfortran_caf_co_broadcast292435
-Node: _gfortran_caf_co_max293540
-Node: _gfortran_caf_co_min295166
-Node: _gfortran_caf_co_sum296786
-Node: _gfortran_caf_co_reduce298326
-Node: Intrinsic Procedures300970
-Node: Introduction to Intrinsics318245
-Node: ABORT320439
-Node: ABS321194
-Node: ACCESS322918
-Node: ACHAR324819
-Node: ACOS326033
-Node: ACOSD327322
-Node: ACOSH328534
-Node: ADJUSTL329620
-Node: ADJUSTR330567
-Node: AIMAG331522
-Node: AINT332972
-Node: ALARM334566
-Node: ALL336198
-Node: ALLOCATED338122
-Node: AND339261
-Node: ANINT341001
-Node: ANY342486
-Node: ASIN344412
-Node: ASIND345690
-Node: ASINH346880
-Node: ASSOCIATED347976
-Node: ATAN350987
-Node: ATAND352463
-Node: ATAN2353740
-Node: ATAN2D355609
-Node: ATANH357496
-Node: ATOMIC_ADD358592
-Node: ATOMIC_AND360141
-Node: ATOMIC_CAS361744
-Node: ATOMIC_DEFINE363613
-Node: ATOMIC_FETCH_ADD365352
-Node: ATOMIC_FETCH_AND367169
-Node: ATOMIC_FETCH_OR368974
-Node: ATOMIC_FETCH_XOR370766
-Node: ATOMIC_OR372564
-Node: ATOMIC_REF374164
-Node: ATOMIC_XOR376080
-Node: BACKTRACE377680
-Node: BESSEL_J0378260
-Node: BESSEL_J1379361
-Node: BESSEL_JN380463
-Node: BESSEL_Y0382368
-Node: BESSEL_Y1383408
-Node: BESSEL_YN384448
-Node: BGE386364
-Node: BGT387066
-Node: BIT_SIZE387726
-Node: BLE388548
-Node: BLT389240
-Node: BTEST389888
-Node: C_ASSOCIATED391333
-Node: C_F_POINTER392549
-Node: C_F_PROCPOINTER393989
-Node: C_FUNLOC395501
-Node: C_LOC396882
-Node: C_SIZEOF398171
-Node: CEILING399584
-Node: CHAR400597
-Node: CHDIR401911
-Node: CHMOD403085
-Node: CMPLX405000
-Node: CO_BROADCAST406443
-Node: CO_MAX408270
-Node: CO_MIN410178
-Node: CO_REDUCE412072
-Node: CO_SUM415648
-Node: COMMAND_ARGUMENT_COUNT417629
-Node: COMPILER_OPTIONS418551
-Node: COMPILER_VERSION419581
-Node: COMPLEX420549
-Node: CONJG421688
-Node: COS422744
-Node: COSD424115
-Node: COSH425348
-Node: COTAN426524
-Node: COTAND427766
-Node: COUNT429008
-Node: CPU_TIME431033
-Node: CSHIFT432395
-Node: CTIME434055
-Node: DATE_AND_TIME435578
-Node: DBLE437965
-Node: DCMPLX438760
-Node: DIGITS439942
-Node: DIM440909
-Node: DOT_PRODUCT442317
-Node: DPROD443960
-Node: DREAL444922
-Node: DSHIFTL445588
-Node: DSHIFTR446921
-Node: DTIME448255
-Node: EOSHIFT450961
-Node: EPSILON453034
-Node: ERF453761
-Node: ERFC454627
-Node: ERFC_SCALED455522
-Node: ETIME456215
-Node: EVENT_QUERY458385
-Node: EXECUTE_COMMAND_LINE459974
-Node: EXIT462754
-Node: EXP463637
-Node: EXPONENT464791
-Node: EXTENDS_TYPE_OF465555
-Node: FDATE466413
-Node: FGET467904
-Node: FGETC469741
-Node: FINDLOC471561
-Node: FLOOR474160
-Node: FLUSH475156
-Node: FNUM477035
-Node: FPUT477760
-Node: FPUTC479404
-Node: FRACTION481195
-Node: FREE482099
-Node: FSEEK482942
-Node: FSTAT485248
-Node: FTELL486349
-Node: GAMMA487331
-Node: GERROR488411
-Node: GETARG489164
-Node: GET_COMMAND490903
-Node: GET_COMMAND_ARGUMENT492282
-Node: GETCWD494334
-Node: GETENV495314
-Node: GET_ENVIRONMENT_VARIABLE496746
-Node: GETGID498909
-Node: GETLOG499451
-Node: GETPID500309
-Node: GETUID501044
-Node: GMTIME501565
-Node: HOSTNM503340
-Node: HUGE504261
-Node: HYPOT504983
-Node: IACHAR505809
-Node: IALL506987
-Node: IAND508482
-Node: IANY510239
-Node: IARGC511743
-Node: IBCLR512777
-Node: IBITS514000
-Node: IBSET515479
-Node: ICHAR516697
-Node: IDATE518912
-Node: IEOR520212
-Node: IERRNO521862
-Node: IMAGE_INDEX522410
-Node: INDEX intrinsic523437
-Node: INT525058
-Node: INT2526840
-Node: INT8527546
-Node: IOR528252
-Node: IPARITY529878
-Node: IRAND531441
-Node: IS_CONTIGUOUS532800
-Node: IS_IOSTAT_END533966
-Node: IS_IOSTAT_EOR535073
-Node: ISATTY536202
-Node: ISHFT536983
-Node: ISHFTC538507
-Node: ISNAN540269
-Node: ITIME541036
-Node: KILL542334
-Node: KIND543475
-Node: LBOUND544373
-Node: LCOBOUND545716
-Node: LEADZ546856
-Node: LEN547732
-Node: LEN_TRIM549073
-Node: LGE550071
-Node: LGT551684
-Node: LINK553262
-Node: LLE554306
-Node: LLT555906
-Node: LNBLNK557477
-Node: LOC558260
-Node: LOG558992
-Node: LOG10560428
-Node: LOG_GAMMA561406
-Node: LOGICAL562604
-Node: LSHIFT563428
-Node: LSTAT564560
-Node: LTIME565774
-Node: MALLOC567471
-Node: MASKL568933
-Node: MASKR569700
-Node: MATMUL570470
-Node: MAX571630
-Node: MAXEXPONENT573022
-Node: MAXLOC573839
-Node: MAXVAL576457
-Node: MCLOCK578104
-Node: MCLOCK8579142
-Node: MERGE580387
-Node: MERGE_BITS581139
-Node: MIN582178
-Node: MINEXPONENT583573
-Node: MINLOC584204
-Node: MINVAL586853
-Node: MOD588502
-Node: MODULO590687
-Node: MOVE_ALLOC592152
-Node: MVBITS593185
-Node: NEAREST594812
-Node: NEW_LINE595912
-Node: NINT596685
-Node: NORM2598099
-Node: NOT599238
-Node: NULL600383
-Node: NUM_IMAGES601291
-Node: OR602997
-Node: PACK604725
-Node: PARITY606769
-Node: PERROR607990
-Node: POPCNT608615
-Node: POPPAR609496
-Node: PRECISION610559
-Node: PRESENT611496
-Node: PRODUCT612608
-Node: RADIX614142
-Node: RAN614953
-Node: RAND615414
-Node: RANDOM_INIT616752
-Node: RANDOM_NUMBER618868
-Node: RANDOM_SEED620125
-Node: RANGE622600
-Node: RANK623285
-Node: REAL624066
-Node: RENAME626145
-Node: REPEAT627167
-Node: RESHAPE627895
-Node: RRSPACING629362
-Node: RSHIFT630055
-Node: SAME_TYPE_AS631243
-Node: SCALE632075
-Node: SCAN632856
-Node: SECNDS634419
-Node: SECOND635511
-Node: SELECTED_CHAR_KIND636387
-Node: SELECTED_INT_KIND637982
-Node: SELECTED_LOGICAL_KIND639162
-Node: SELECTED_REAL_KIND640262
-Node: SET_EXPONENT642952
-Node: SHAPE643939
-Node: SHIFTA645368
-Node: SHIFTL646364
-Node: SHIFTR647229
-Node: SIGN648095
-Node: SIGNAL649386
-Node: SIN651346
-Node: SIND652526
-Node: SINH653731
-Node: SIZE654684
-Node: SIZEOF656008
-Node: SLEEP657668
-Node: SPACING658229
-Node: SPREAD659243
-Node: SQRT660394
-Node: SRAND661627
-Node: STAT662871
-Node: STORAGE_SIZE666053
-Node: SUM666937
-Node: SYMLNK668429
-Node: SYSTEM669569
-Node: SYSTEM_CLOCK670824
-Node: TAN673677
-Node: TAND674751
-Node: TANH675734
-Node: THIS_IMAGE676897
-Node: TIME679202
-Node: TIME8680393
-Node: TINY681612
-Node: TRAILZ682213
-Node: TRANSFER683046
-Node: TRANSPOSE685082
-Node: TRIM685772
-Node: TTYNAM686635
-Node: UBOUND687551
-Node: UCOBOUND688946
-Node: UMASK690088
-Node: UNLINK690770
-Node: UNPACK691755
-Node: VERIFY693055
-Node: XOR694789
-Node: Intrinsic Modules696604
-Node: ISO_FORTRAN_ENV696891
-Node: ISO_C_BINDING701292
-Node: IEEE modules705237
-Node: OpenMP Modules OMP_LIB and OMP_LIB_KINDS706378
-Node: OpenACC Module OPENACC710594
-Node: Contributing711520
-Node: Contributors712350
-Node: Projects714004
-Node: Copying715182
-Node: GNU Free Documentation License752733
-Node: Funding777862
-Node: Option Index780388
-Node: Keyword Index799939
+Node: Extensions implemented in GNU Fortran125523
+Node: Old-style kind specifications127468
+Node: Old-style variable initialization128595
+Node: Extensions to namelist129907
+Node: X format descriptor without count field132210
+Node: Commas in FORMAT specifications132737
+Node: Missing period in FORMAT specifications133490
+Node: Default widths for F, G and I format descriptors134086
+Node: I/O item lists134791
+Node: Q exponent-letter135185
+Node: BOZ literal constants135783
+Node: Real array indices137360
+Node: Unary operators137659
+Node: Implicitly convert LOGICAL and INTEGER values138073
+Node: Hollerith constants support139032
+Node: Character conversion141256
+Node: Cray pointers142150
+Node: CONVERT specifier147651
+Node: OpenMP149966
+Node: OpenACC152215
+Node: Argument list functions153356
+Node: Read/Write after EOF marker154999
+Node: STRUCTURE and RECORD155602
+Node: UNION and MAP160689
+Node: Type variants for integer intrinsics163657
+Node: AUTOMATIC and STATIC attributes165552
+Node: Form feed as whitespace167085
+Node: TYPE as an alias for PRINT167638
+Node: %LOC as an rvalue168103
+Node: .XOR. operator168750
+Node: Bitwise logical operators169150
+Node: Extended I/O specifiers170651
+Node: Legacy PARAMETER statements174371
+Node: Default exponents174976
+Node: Extensions not implemented in GNU Fortran175328
+Node: ENCODE and DECODE statements176353
+Node: Variable FORMAT expressions177684
+Node: Alternate complex function syntax178789
+Node: Volatile COMMON blocks179339
+Node: OPEN( ... NAME=)179841
+Node: Q edit descriptor180269
+Node: Experimental features for future Fortran versions181221
+Node: Unsigned integers181984
+Node: Mixed-Language Programming186532
+Node: Interoperability with C187765
+Node: Intrinsic Types189100
+Node: Derived Types and struct190121
+Node: Interoperable Global Variables191463
+Node: Interoperable Subroutines and Functions192738
+Node: Working with C Pointers196229
+Node: Further Interoperability of Fortran with C200894
+Node: GNU Fortran Compiler Directives202238
+Node: ATTRIBUTES directive202614
+Node: UNROLL directive206437
+Node: BUILTIN directive207082
+Node: IVDEP directive207924
+Node: VECTOR directive208837
+Node: NOVECTOR directive209343
+Node: Non-Fortran Main Program209836
+Node: _gfortran_set_args212024
+Node: _gfortran_set_options212962
+Node: _gfortran_set_convert216689
+Node: _gfortran_set_record_marker217557
+Node: _gfortran_set_fpe218367
+Node: _gfortran_set_max_subrecord_length219565
+Node: Naming and argument-passing conventions220488
+Node: Naming conventions221207
+Node: Argument passing conventions222679
+Node: Coarray Programming228017
+Node: Type and enum ABI Documentation228264
+Node: caf_token_t228562
+Node: caf_register_t228798
+Node: caf_deregister_t230009
+Node: caf_reference_t230510
+Node: caf_team_t234835
+Node: Function ABI Documentation235134
+Node: _gfortran_caf_init237584
+Node: _gfortran_caf_finish239010
+Node: _gfortran_caf_this_image239949
+Node: _gfortran_caf_num_images240704
+Node: _gfortran_caf_image_status241815
+Node: _gfortran_caf_failed_images242935
+Node: _gfortran_caf_stopped_images244105
+Node: _gfortran_caf_register245278
+Node: _gfortran_caf_deregister249459
+Node: _gfortran_caf_is_present251065
+Node: _gfortran_caf_send252144
+Node: _gfortran_caf_get255334
+Node: _gfortran_caf_sendget258415
+Node: _gfortran_caf_send_by_ref262326
+Node: _gfortran_caf_get_by_ref265935
+Node: _gfortran_caf_sendget_by_ref269454
+Node: _gfortran_caf_lock273750
+Node: _gfortran_caf_unlock275539
+Node: _gfortran_caf_event_post277020
+Node: _gfortran_caf_event_wait278468
+Node: _gfortran_caf_event_query280574
+Node: _gfortran_caf_sync_all281905
+Node: _gfortran_caf_sync_images282833
+Node: _gfortran_caf_sync_memory284368
+Node: _gfortran_caf_error_stop285360
+Node: _gfortran_caf_error_stop_str285964
+Node: _gfortran_caf_fail_image286669
+Node: _gfortran_caf_atomic_define287205
+Node: _gfortran_caf_atomic_ref288520
+Node: _gfortran_caf_atomic_cas289824
+Node: _gfortran_caf_atomic_op291585
+Node: _gfortran_caf_co_broadcast293687
+Node: _gfortran_caf_co_max294792
+Node: _gfortran_caf_co_min296418
+Node: _gfortran_caf_co_sum298038
+Node: _gfortran_caf_co_reduce299578
+Node: Intrinsic Procedures302222
+Node: Introduction to Intrinsics319635
+Node: ABORT321829
+Node: ABS322584
+Node: ACCESS324308
+Node: ACHAR326209
+Node: ACOS327423
+Node: ACOSD328712
+Node: ACOSH329924
+Node: ADJUSTL331010
+Node: ADJUSTR331957
+Node: AIMAG332912
+Node: AINT334362
+Node: ALARM335956
+Node: ALL337588
+Node: ALLOCATED339512
+Node: AND340651
+Node: ANINT342391
+Node: ANY343876
+Node: ASIN345802
+Node: ASIND347080
+Node: ASINH348270
+Node: ASSOCIATED349366
+Node: ATAN352377
+Node: ATAND353853
+Node: ATAN2355130
+Node: ATAN2D356999
+Node: ATANH358886
+Node: ATOMIC_ADD359982
+Node: ATOMIC_AND361531
+Node: ATOMIC_CAS363134
+Node: ATOMIC_DEFINE365003
+Node: ATOMIC_FETCH_ADD366742
+Node: ATOMIC_FETCH_AND368559
+Node: ATOMIC_FETCH_OR370364
+Node: ATOMIC_FETCH_XOR372156
+Node: ATOMIC_OR373954
+Node: ATOMIC_REF375554
+Node: ATOMIC_XOR377470
+Node: BACKTRACE379070
+Node: BESSEL_J0379650
+Node: BESSEL_J1380751
+Node: BESSEL_JN381853
+Node: BESSEL_Y0383758
+Node: BESSEL_Y1384798
+Node: BESSEL_YN385838
+Node: BGE387754
+Node: BGT388604
+Node: BIT_SIZE389411
+Node: BLE390320
+Node: BLT391160
+Node: BTEST391955
+Node: C_ASSOCIATED393473
+Node: C_F_POINTER394689
+Node: C_F_PROCPOINTER396129
+Node: C_FUNLOC397641
+Node: C_LOC399022
+Node: C_SIZEOF400311
+Node: CEILING401724
+Node: CHAR402737
+Node: CHDIR404051
+Node: CHMOD405225
+Node: CMPLX407140
+Node: CO_BROADCAST408583
+Node: CO_MAX410410
+Node: CO_MIN412318
+Node: CO_REDUCE414212
+Node: CO_SUM417788
+Node: COMMAND_ARGUMENT_COUNT419769
+Node: COMPILER_OPTIONS420691
+Node: COMPILER_VERSION421721
+Node: COMPLEX422689
+Node: CONJG423828
+Node: COS424884
+Node: COSD426255
+Node: COSH427488
+Node: COTAN428664
+Node: COTAND429906
+Node: COUNT431148
+Node: CPU_TIME433173
+Node: CSHIFT434535
+Node: CTIME436239
+Node: DATE_AND_TIME437762
+Node: DBLE440149
+Node: DCMPLX440944
+Node: DIGITS442126
+Node: DIM443164
+Node: DOT_PRODUCT444572
+Node: DPROD446590
+Node: DREAL447552
+Node: DSHIFTL448218
+Node: DSHIFTR449625
+Node: DTIME451033
+Node: EOSHIFT453739
+Node: EPSILON455915
+Node: ERF456642
+Node: ERFC457508
+Node: ERFC_SCALED458403
+Node: ETIME459096
+Node: EVENT_QUERY461266
+Node: EXECUTE_COMMAND_LINE462855
+Node: EXIT465635
+Node: EXP466518
+Node: EXPONENT467672
+Node: EXTENDS_TYPE_OF468436
+Node: FDATE469294
+Node: FGET470785
+Node: FGETC472622
+Node: FINDLOC474442
+Node: FLOOR477084
+Node: FLUSH478080
+Node: FNUM479959
+Node: FPUT480684
+Node: FPUTC482328
+Node: FRACTION484119
+Node: FREE485023
+Node: FSEEK485866
+Node: FSTAT488172
+Node: FTELL489273
+Node: GAMMA490255
+Node: GERROR491335
+Node: GETARG492088
+Node: GET_COMMAND493827
+Node: GET_COMMAND_ARGUMENT495206
+Node: GETCWD497258
+Node: GETENV498238
+Node: GET_ENVIRONMENT_VARIABLE499670
+Node: GETGID501833
+Node: GETLOG502375
+Node: GETPID503233
+Node: GETUID503968
+Node: GMTIME504489
+Node: HOSTNM506264
+Node: HUGE507185
+Node: HYPOT507995
+Node: IACHAR508821
+Node: IALL509999
+Node: IAND511584
+Node: IANY513469
+Node: IARGC515063
+Node: IBCLR516097
+Node: IBITS517371
+Node: IBSET518892
+Node: ICHAR520161
+Node: IDATE522376
+Node: IEOR523676
+Node: IERRNO525454
+Node: IMAGE_INDEX526002
+Node: INDEX intrinsic527029
+Node: INT528650
+Node: INT2530623
+Node: INT8531329
+Node: IOR532035
+Node: IPARITY533800
+Node: IRAND535455
+Node: IS_CONTIGUOUS536814
+Node: IS_IOSTAT_END537980
+Node: IS_IOSTAT_EOR539087
+Node: ISATTY540216
+Node: ISHFT540997
+Node: ISHFTC542563
+Node: ISNAN544376
+Node: ITIME545143
+Node: KILL546441
+Node: KIND547582
+Node: LBOUND548480
+Node: LCOBOUND549823
+Node: LEADZ550963
+Node: LEN551839
+Node: LEN_TRIM553180
+Node: LGE554178
+Node: LGT555791
+Node: LINK557369
+Node: LLE558413
+Node: LLT560013
+Node: LNBLNK561584
+Node: LOC562367
+Node: LOG563099
+Node: LOG10564535
+Node: LOG_GAMMA565513
+Node: LOGICAL566711
+Node: LSHIFT567535
+Node: LSTAT568667
+Node: LTIME569881
+Node: MALLOC571578
+Node: MASKL573040
+Node: MASKR573807
+Node: MATMUL574577
+Node: MAX575977
+Node: MAXEXPONENT577458
+Node: MAXLOC578275
+Node: MAXVAL580994
+Node: MCLOCK582798
+Node: MCLOCK8583836
+Node: MERGE585081
+Node: MERGE_BITS585833
+Node: MIN586947
+Node: MINEXPONENT588430
+Node: MINLOC589061
+Node: MINVAL591782
+Node: MOD593519
+Node: MODULO595862
+Node: MOVE_ALLOC597497
+Node: MVBITS598530
+Node: NEAREST600229
+Node: NEW_LINE601329
+Node: NINT602102
+Node: NORM2603516
+Node: NOT604655
+Node: NULL605873
+Node: NUM_IMAGES606781
+Node: OR608487
+Node: PACK610215
+Node: PARITY612259
+Node: PERROR613480
+Node: POPCNT614105
+Node: POPPAR614986
+Node: PRECISION616049
+Node: PRESENT616986
+Node: PRODUCT618098
+Node: RADIX619703
+Node: RAN620514
+Node: RAND620975
+Node: RANDOM_INIT622313
+Node: RANDOM_NUMBER624429
+Node: RANDOM_SEED625928
+Node: RANGE628403
+Node: RANK629176
+Node: REAL629957
+Node: RENAME632036
+Node: REPEAT633058
+Node: RESHAPE633786
+Node: RRSPACING635253
+Node: RSHIFT635946
+Node: SAME_TYPE_AS637134
+Node: SCALE637966
+Node: SCAN638747
+Node: SECNDS640310
+Node: SECOND641402
+Node: SELECTED_CHAR_KIND642278
+Node: SELECTED_INT_KIND643873
+Node: SELECTED_LOGICAL_KIND645053
+Node: SELECTED_REAL_KIND646153
+Node: SELECTED_UNSIGNED_KIND648853
+Node: SET_EXPONENT649936
+Node: SHAPE650927
+Node: SHIFTA652356
+Node: SHIFTL653412
+Node: SHIFTR654337
+Node: SIGN655203
+Node: SIGNAL656494
+Node: SIN658454
+Node: SIND659634
+Node: SINH660839
+Node: SIZE661792
+Node: SIZEOF663116
+Node: SLEEP664776
+Node: SPACING665337
+Node: SPREAD666351
+Node: SQRT667502
+Node: SRAND668735
+Node: STAT669979
+Node: STORAGE_SIZE673161
+Node: SUM674045
+Node: SYMLNK675608
+Node: SYSTEM676748
+Node: SYSTEM_CLOCK678003
+Node: TAN680856
+Node: TAND681930
+Node: TANH682913
+Node: THIS_IMAGE684076
+Node: TIME686381
+Node: TIME8687572
+Node: TINY688791
+Node: TRAILZ689392
+Node: TRANSFER690225
+Node: TRANSPOSE692261
+Node: TRIM692951
+Node: TTYNAM693814
+Node: UBOUND694730
+Node: UCOBOUND696125
+Node: UINT697266
+Node: UMASK697879
+Node: UNLINK698557
+Node: UNPACK699542
+Node: VERIFY700842
+Node: XOR702576
+Node: Intrinsic Modules704391
+Node: ISO_FORTRAN_ENV704678
+Node: ISO_C_BINDING709079
+Node: IEEE modules713024
+Node: OpenMP Modules OMP_LIB and OMP_LIB_KINDS714165
+Node: OpenACC Module OPENACC718381
+Node: Contributing719307
+Node: Contributors720137
+Node: Projects721791
+Node: Copying722969
+Node: GNU Free Documentation License760520
+Node: Funding785649
+Node: Option Index788175
+Node: Keyword Index807726
 
 End Tag Table
 

@@ -19964,11 +19964,11 @@ instruction formats:
 
      opcode7     Unsigned immediate or opcode name for 7-bits opcode.
      opcode2     Unsigned immediate or opcode name for 2-bits opcode.
-     func7       Unsigned immediate for 7-bits function code.
-     func6       Unsigned immediate for 6-bits function code.
-     func4       Unsigned immediate for 4-bits function code.
-     func3       Unsigned immediate for 3-bits function code.
-     func2       Unsigned immediate for 2-bits function code.
+     funct7      Unsigned immediate for 7-bits function code.
+     funct6      Unsigned immediate for 6-bits function code.
+     funct4      Unsigned immediate for 4-bits function code.
+     funct3      Unsigned immediate for 3-bits function code.
+     funct2      Unsigned immediate for 2-bits function code.
      rd          Destination register number for operand x, can be GPR or FPR.
      rd'         Destination register number for operand x,
                  only accept s0-s1, a0-a5, fs0-fs1 and fa0-fa5.
@@ -20070,38 +20070,38 @@ instruction, 11 indicates a four byte instruction.
    The following table lists the RISC-V instruction formats that are
 available with the '.insn' pseudo directive:
 
-'R type: .insn r opcode7, func3, func7, rd, rs1, rs2'
-     +-------+-----+-----+-------+----+---------+
-     | func7 | rs2 | rs1 | func3 | rd | opcode7 |
-     +-------+-----+-----+-------+----+---------+
-     31      25    20    15      12   7        0
+'R type: .insn r opcode7, funct3, funct7, rd, rs1, rs2'
+     +--------+-----+-----+--------+----+---------+
+     | funct7 | rs2 | rs1 | funct3 | rd | opcode7 |
+     +--------+-----+-----+--------+----+---------+
+     31       25    20    15       12   7         0
 
-'R type with 4 register operands: .insn r opcode7, func3, func2, rd, rs1, rs2, rs3'
-'R4 type: .insn r4 opcode7, func3, func2, rd, rs1, rs2, rs3'
-     +-----+-------+-----+-----+-------+----+---------+
-     | rs3 | func2 | rs2 | rs1 | func3 | rd | opcode7 |
-     +-----+-------+-----+-----+-------+----+---------+
-     31    27      25    20    15      12   7         0
+'R type with 4 register operands: .insn r opcode7, funct3, funct2, rd, rs1, rs2, rs3'
+'R4 type: .insn r4 opcode7, funct3, funct2, rd, rs1, rs2, rs3'
+     +-----+--------+-----+-----+--------+----+---------+
+     | rs3 | funct2 | rs2 | rs1 | funct3 | rd | opcode7 |
+     +-----+--------+-----+-----+--------+----+---------+
+     31    27       25    20    15       12   7         0
 
-'I type: .insn i opcode7, func3, rd, rs1, simm12'
-'I type: .insn i opcode7, func3, rd, simm12(rs1)'
-     +--------------+-----+-------+----+---------+
-     | simm12[11:0] | rs1 | func3 | rd | opcode7 |
-     +--------------+-----+-------+----+---------+
-     31             20    15      12   7         0
+'I type: .insn i opcode7, funct3, rd, rs1, simm12'
+'I type: .insn i opcode7, funct3, rd, simm12(rs1)'
+     +--------------+-----+--------+----+---------+
+     | simm12[11:0] | rs1 | funct3 | rd | opcode7 |
+     +--------------+-----+--------+----+---------+
+     31             20    15       12   7         0
 
-'S type: .insn s opcode7, func3, rs2, simm12(rs1)'
-     +--------------+-----+-----+-------+-------------+---------+
-     | simm12[11:5] | rs2 | rs1 | func3 | simm12[4:0] | opcode7 |
-     +--------------+-----+-----+-------+-------------+---------+
-     31             25    20    15      12            7         0
+'S type: .insn s opcode7, funct3, rs2, simm12(rs1)'
+     +--------------+-----+-----+--------+-------------+---------+
+     | simm12[11:5] | rs2 | rs1 | funct3 | simm12[4:0] | opcode7 |
+     +--------------+-----+-----+--------+-------------+---------+
+     31             25    20    15       12            7         0
 
-'B type: .insn s opcode7, func3, rs1, rs2, symbol'
-'SB type: .insn sb opcode7, func3, rs1, rs2, symbol'
-     +-----------------+-----+-----+-------+----------------+---------+
-     | simm12[12|10:5] | rs2 | rs1 | func3 | simm12[4:1|11] | opcode7 |
-     +-----------------+-----+-----+-------+----------------+---------+
-     31                25    20    15      12               7         0
+'B type: .insn s opcode7, funct3, rs1, rs2, symbol'
+'SB type: .insn sb opcode7, funct3, rs1, rs2, symbol'
+     +-----------------+-----+-----+--------+----------------+---------+
+     | simm12[12|10:5] | rs2 | rs1 | funct3 | simm12[4:1|11] | opcode7 |
+     +-----------------+-----+-----+--------+----------------+---------+
+     31                25    20    15       12               7         0
 
 'U type: .insn u opcode7, rd, simm20'
      +--------------+----+---------+
@@ -20116,59 +20116,59 @@ available with the '.insn' pseudo directive:
      +------------+--------------+------------+---------------+----+---------+
      31           30             21           20              12   7         0
 
-'CR type: .insn cr opcode2, func4, rd, rs2'
-     +-------+--------+-----+---------+
-     | func4 | rd/rs1 | rs2 | opcode2 |
-     +-------+--------+-----+---------+
-     15      12       7     2        0
+'CR type: .insn cr opcode2, funct4, rd, rs2'
+     +--------+--------+-----+---------+
+     | funct4 | rd/rs1 | rs2 | opcode2 |
+     +--------+--------+-----+---------+
+     15       12       7     2        0
 
-'CI type: .insn ci opcode2, func3, rd, simm6'
-     +-------+----------+--------+------------+---------+
-     | func3 | simm6[5] | rd/rs1 | simm6[4:0] | opcode2 |
-     +-------+----------+--------+------------+---------+
-     15      13         12       7            2         0
+'CI type: .insn ci opcode2, funct3, rd, simm6'
+     +--------+----------+--------+------------+---------+
+     | funct3 | simm6[5] | rd/rs1 | simm6[4:0] | opcode2 |
+     +--------+----------+--------+------------+---------+
+     15       13         12       7            2         0
 
-'CIW type: .insn ciw opcode2, func3, rd', uimm8'
-     +-------+------------+-----+---------+
-     | func3 | uimm8[7:0] | rd' | opcode2 |
-     +-------+-------- ---+-----+---------+
-     15      13           5     2         0
+'CIW type: .insn ciw opcode2, funct3, rd', uimm8'
+     +--------+------------+-----+---------+
+     | funct3 | uimm8[7:0] | rd' | opcode2 |
+     +--------+-------- ---+-----+---------+
+     15       13           5     2         0
 
-'CSS type: .insn css opcode2, func3, rd, uimm6'
-     +-------+------------+----+---------+
-     | func3 | uimm6[5:0] | rd | opcode2 |
-     +-------+------------+----+---------+
-     15      13           7    2         0
+'CSS type: .insn css opcode2, funct3, rd, uimm6'
+     +--------+------------+----+---------+
+     | funct3 | uimm6[5:0] | rd | opcode2 |
+     +--------+------------+----+---------+
+     15       13           7    2         0
 
-'CL type: .insn cl opcode2, func3, rd', uimm5(rs1')'
-     +-------+------------+------+------------+------+---------+
-     | func3 | uimm5[4:2] | rs1' | uimm5[1:0] |  rd' | opcode2 |
-     +-------+------------+------+------------+------+---------+
-     15      13           10     7            5      2         0
+'CL type: .insn cl opcode2, funct3, rd', uimm5(rs1')'
+     +--------+------------+------+------------+------+---------+
+     | funct3 | uimm5[4:2] | rs1' | uimm5[1:0] |  rd' | opcode2 |
+     +--------+------------+------+------------+------+---------+
+     15       13           10     7            5      2         0
 
-'CS type: .insn cs opcode2, func3, rs2', uimm5(rs1')'
-     +-------+------------+------+------------+------+---------+
-     | func3 | uimm5[4:2] | rs1' | uimm5[1:0] | rs2' | opcode2 |
-     +-------+------------+------+------------+------+---------+
-     15      13           10     7            5      2         0
+'CS type: .insn cs opcode2, funct3, rs2', uimm5(rs1')'
+     +--------+------------+------+------------+------+---------+
+     | funct3 | uimm5[4:2] | rs1' | uimm5[1:0] | rs2' | opcode2 |
+     +--------+------------+------+------------+------+---------+
+     15       13           10     7            5      2         0
 
-'CA type: .insn ca opcode2, func6, func2, rd', rs2''
-     +-- ----+----------+-------+------+---------+
-     | func6 | rd'/rs1' | func2 | rs2' | opcode2 |
-     +-------+----------+-------+------+---------+
-     15      10         7       5      2         0
+'CA type: .insn ca opcode2, funct6, funct2, rd', rs2''
+     +--------+----------+--------+------+---------+
+     | funct6 | rd'/rs1' | funct2 | rs2' | opcode2 |
+     +--------+----------+--------+------+---------+
+     15       10         7        5      2         0
 
-'CB type: .insn cb opcode2, func3, rs1', symbol'
-     +-------+--------------+------+------------------+---------+
-     | func3 | simm8[8|4:3] | rs1' | simm8[7:6|2:1|5] | opcode2 |
-     +-------+--------------+------+------------------+---------+
-     15      13             10     7                  2         0
+'CB type: .insn cb opcode2, funct3, rs1', symbol'
+     +--------+--------------+------+------------------+---------+
+     | funct3 | simm8[8|4:3] | rs1' | simm8[7:6|2:1|5] | opcode2 |
+     +--------+--------------+------+------------------+---------+
+     15       13             10     7                  2         0
 
-'CJ type: .insn cj opcode2, func3, symbol'
-     +-------+-------------------------------+---------+
-     | func3 | simm11[11|4|9:8|10|6|7|3:1|5] | opcode2 |
-     +-------+-------------------------------+---------+
-     15      13                              2         0
+'CJ type: .insn cj opcode2, funct3, symbol'
+     +--------+-------------------------------+---------+
+     | funct3 | simm11[11|4|9:8|10|6|7|3:1|5] | opcode2 |
+     +--------+-------------------------------+---------+
+     15       13                              2         0
 
    For the complete list of all instruction format variants see The
 RISC-V Instruction Set Manual Volume I: User-Level ISA.
@@ -31247,183 +31247,183 @@ Node: RISC-V-Directives719641
 Node: RISC-V-Modifiers725297
 Node: RISC-V-Floating-Point729372
 Node: RISC-V-Formats730836
-Node: RISC-V-ATTRIBUTE739402
-Node: RISC-V-CustomExts741390
-Node: RL78-Dependent747587
-Node: RL78-Opts747988
-Node: RL78-Modifiers748822
-Node: RL78-Directives749601
-Node: RL78-Syntax750205
-Node: RL78-Chars750401
-Node: RX-Dependent750957
-Node: RX-Opts751388
-Node: RX-Modifiers755650
-Node: RX-Directives756753
-Node: RX-Float757492
-Node: RX-Syntax758127
-Node: RX-Chars758306
-Node: S/390-Dependent758858
-Node: s390 Options759727
-Node: s390 Characters761923
-Node: s390 Syntax762444
-Node: s390 Register763346
-Node: s390 Mnemonics764162
-Node: s390 Operands767182
-Node: s390 Formats769871
-Node: s390 Aliases779462
-Node: s390 Operand Modifier783427
-Node: s390 Instruction Marker787230
-Node: s390 Literal Pool Entries788244
-Node: s390 Directives790177
-Node: s390 Floating Point795634
-Node: SCORE-Dependent796082
-Node: SCORE-Opts796384
-Node: SCORE-Pseudo797671
-Node: SCORE-Syntax799753
-Node: SCORE-Chars799935
-Node: SH-Dependent800493
-Node: SH Options800905
-Node: SH Syntax801956
-Node: SH-Chars802229
-Node: SH-Regs802772
-Node: SH-Addressing803386
-Node: SH Floating Point804294
-Node: SH Directives805391
-Node: SH Opcodes805792
-Node: Sparc-Dependent810113
-Node: Sparc-Opts810522
-Node: Sparc-Aligned-Data816235
-Node: Sparc-Syntax817067
-Node: Sparc-Chars817641
-Node: Sparc-Regs818204
-Node: Sparc-Constants824053
-Node: Sparc-Relocs828813
-Node: Sparc-Size-Translations833931
-Node: Sparc-Float835581
-Node: Sparc-Directives835776
-Node: TIC54X-Dependent837738
-Node: TIC54X-Opts838501
-Node: TIC54X-Block839542
-Node: TIC54X-Env839902
-Node: TIC54X-Constants840250
-Node: TIC54X-Subsyms840647
-Node: TIC54X-Locals842551
-Node: TIC54X-Builtins843291
-Node: TIC54X-Ext845705
-Node: TIC54X-Directives846276
-Node: TIC54X-Macros857184
-Node: TIC54X-MMRegs859271
-Node: TIC54X-Syntax859508
-Node: TIC54X-Chars859698
-Node: TIC6X-Dependent860389
-Node: TIC6X Options860692
-Node: TIC6X Syntax862691
-Node: TIC6X Directives863794
-Node: TILE-Gx-Dependent866078
-Node: TILE-Gx Options866388
-Node: TILE-Gx Syntax866737
-Node: TILE-Gx Opcodes868973
-Node: TILE-Gx Registers869261
-Node: TILE-Gx Modifiers870032
-Node: TILE-Gx Directives875031
-Node: TILEPro-Dependent875934
-Node: TILEPro Options876243
-Node: TILEPro Syntax876427
-Node: TILEPro Opcodes878663
-Node: TILEPro Registers878954
-Node: TILEPro Modifiers879724
-Node: TILEPro Directives884513
-Node: V850-Dependent885416
-Node: V850 Options885812
-Node: V850 Syntax890090
-Node: V850-Chars890330
-Node: V850-Regs890874
-Node: V850 Floating Point892384
-Node: V850 Directives892590
-Node: V850 Opcodes894656
-Node: Vax-Dependent900535
-Node: VAX-Opts901119
-Node: VAX-float904840
-Node: VAX-directives905473
-Node: VAX-opcodes906333
-Node: VAX-branch906722
-Node: VAX-operands909226
-Node: VAX-no909989
-Node: VAX-Syntax910245
-Node: VAX-Chars910411
-Node: Visium-Dependent910965
-Node: Visium Options911278
-Node: Visium Syntax911744
-Node: Visium Characters911989
-Node: Visium Registers912570
-Node: Visium Opcodes912842
-Node: WebAssembly-Dependent913268
-Node: WebAssembly-Notes913709
-Node: WebAssembly-Syntax913995
-Node: WebAssembly-Chars914561
-Node: WebAssembly-Relocs914940
-Node: WebAssembly-Signatures915666
-Node: WebAssembly-Floating-Point916167
-Node: WebAssembly-Opcodes916408
-Node: WebAssembly-module-layout917041
-Node: XGATE-Dependent917520
-Node: XGATE-Opts917947
-Node: XGATE-Syntax918936
-Node: XGATE-Directives921015
-Node: XGATE-Float921254
-Node: XGATE-opcodes921751
-Node: XSTORMY16-Dependent921863
-Node: XStormy16 Syntax922209
-Node: XStormy16-Chars922399
-Node: XStormy16 Directives923012
-Node: XStormy16 Opcodes923666
-Node: Xtensa-Dependent924721
-Node: Xtensa Options925452
-Node: Xtensa Syntax930025
-Node: Xtensa Opcodes932169
-Node: Xtensa Registers933962
-Node: Xtensa Optimizations934595
-Node: Density Instructions935047
-Node: Xtensa Automatic Alignment936149
-Node: Xtensa Relaxation938596
-Node: Xtensa Branch Relaxation939561
-Node: Xtensa Call Relaxation940933
-Node: Xtensa Jump Relaxation942714
-Node: Xtensa Immediate Relaxation944814
-Node: Xtensa Directives947389
-Node: Schedule Directive949097
-Node: Longcalls Directive949437
-Node: Transform Directive949981
-Node: Literal Directive950723
-Ref: Literal Directive-Footnote-1954262
-Node: Literal Position Directive954404
-Node: Literal Prefix Directive956103
-Node: Absolute Literals Directive957001
-Node: Z80-Dependent958308
-Node: Z80 Options958696
-Node: Z80 Syntax961195
-Node: Z80-Chars961903
-Node: Z80-Regs962754
-Node: Z80-Case963106
-Node: Z80-Labels963570
-Node: Z80 Floating Point964066
-Node: Z80 Directives964535
-Node: Z80 Opcodes966967
-Node: Z8000-Dependent968593
-Node: Z8000 Options969529
-Node: Z8000 Syntax969746
-Node: Z8000-Chars970036
-Node: Z8000-Regs970518
-Node: Z8000-Addressing971308
-Node: Z8000 Directives972418
-Node: Z8000 Opcodes974027
-Node: Reporting Bugs983969
-Node: Bug Criteria984695
-Node: Bug Reporting985462
-Node: Acknowledgements992103
-Ref: Acknowledgements-Footnote-1997069
-Node: GNU Free Documentation License997095
-Node: AS Index1022245
+Node: RISC-V-ATTRIBUTE739492
+Node: RISC-V-CustomExts741480
+Node: RL78-Dependent747677
+Node: RL78-Opts748078
+Node: RL78-Modifiers748912
+Node: RL78-Directives749691
+Node: RL78-Syntax750295
+Node: RL78-Chars750491
+Node: RX-Dependent751047
+Node: RX-Opts751478
+Node: RX-Modifiers755740
+Node: RX-Directives756843
+Node: RX-Float757582
+Node: RX-Syntax758217
+Node: RX-Chars758396
+Node: S/390-Dependent758948
+Node: s390 Options759817
+Node: s390 Characters762013
+Node: s390 Syntax762534
+Node: s390 Register763436
+Node: s390 Mnemonics764252
+Node: s390 Operands767272
+Node: s390 Formats769961
+Node: s390 Aliases779552
+Node: s390 Operand Modifier783517
+Node: s390 Instruction Marker787320
+Node: s390 Literal Pool Entries788334
+Node: s390 Directives790267
+Node: s390 Floating Point795724
+Node: SCORE-Dependent796172
+Node: SCORE-Opts796474
+Node: SCORE-Pseudo797761
+Node: SCORE-Syntax799843
+Node: SCORE-Chars800025
+Node: SH-Dependent800583
+Node: SH Options800995
+Node: SH Syntax802046
+Node: SH-Chars802319
+Node: SH-Regs802862
+Node: SH-Addressing803476
+Node: SH Floating Point804384
+Node: SH Directives805481
+Node: SH Opcodes805882
+Node: Sparc-Dependent810203
+Node: Sparc-Opts810612
+Node: Sparc-Aligned-Data816325
+Node: Sparc-Syntax817157
+Node: Sparc-Chars817731
+Node: Sparc-Regs818294
+Node: Sparc-Constants824143
+Node: Sparc-Relocs828903
+Node: Sparc-Size-Translations834021
+Node: Sparc-Float835671
+Node: Sparc-Directives835866
+Node: TIC54X-Dependent837828
+Node: TIC54X-Opts838591
+Node: TIC54X-Block839632
+Node: TIC54X-Env839992
+Node: TIC54X-Constants840340
+Node: TIC54X-Subsyms840737
+Node: TIC54X-Locals842641
+Node: TIC54X-Builtins843381
+Node: TIC54X-Ext845795
+Node: TIC54X-Directives846366
+Node: TIC54X-Macros857274
+Node: TIC54X-MMRegs859361
+Node: TIC54X-Syntax859598
+Node: TIC54X-Chars859788
+Node: TIC6X-Dependent860479
+Node: TIC6X Options860782
+Node: TIC6X Syntax862781
+Node: TIC6X Directives863884
+Node: TILE-Gx-Dependent866168
+Node: TILE-Gx Options866478
+Node: TILE-Gx Syntax866827
+Node: TILE-Gx Opcodes869063
+Node: TILE-Gx Registers869351
+Node: TILE-Gx Modifiers870122
+Node: TILE-Gx Directives875121
+Node: TILEPro-Dependent876024
+Node: TILEPro Options876333
+Node: TILEPro Syntax876517
+Node: TILEPro Opcodes878753
+Node: TILEPro Registers879044
+Node: TILEPro Modifiers879814
+Node: TILEPro Directives884603
+Node: V850-Dependent885506
+Node: V850 Options885902
+Node: V850 Syntax890180
+Node: V850-Chars890420
+Node: V850-Regs890964
+Node: V850 Floating Point892474
+Node: V850 Directives892680
+Node: V850 Opcodes894746
+Node: Vax-Dependent900625
+Node: VAX-Opts901209
+Node: VAX-float904930
+Node: VAX-directives905563
+Node: VAX-opcodes906423
+Node: VAX-branch906812
+Node: VAX-operands909316
+Node: VAX-no910079
+Node: VAX-Syntax910335
+Node: VAX-Chars910501
+Node: Visium-Dependent911055
+Node: Visium Options911368
+Node: Visium Syntax911834
+Node: Visium Characters912079
+Node: Visium Registers912660
+Node: Visium Opcodes912932
+Node: WebAssembly-Dependent913358
+Node: WebAssembly-Notes913799
+Node: WebAssembly-Syntax914085
+Node: WebAssembly-Chars914651
+Node: WebAssembly-Relocs915030
+Node: WebAssembly-Signatures915756
+Node: WebAssembly-Floating-Point916257
+Node: WebAssembly-Opcodes916498
+Node: WebAssembly-module-layout917131
+Node: XGATE-Dependent917610
+Node: XGATE-Opts918037
+Node: XGATE-Syntax919026
+Node: XGATE-Directives921105
+Node: XGATE-Float921344
+Node: XGATE-opcodes921841
+Node: XSTORMY16-Dependent921953
+Node: XStormy16 Syntax922299
+Node: XStormy16-Chars922489
+Node: XStormy16 Directives923102
+Node: XStormy16 Opcodes923756
+Node: Xtensa-Dependent924811
+Node: Xtensa Options925542
+Node: Xtensa Syntax930115
+Node: Xtensa Opcodes932259
+Node: Xtensa Registers934052
+Node: Xtensa Optimizations934685
+Node: Density Instructions935137
+Node: Xtensa Automatic Alignment936239
+Node: Xtensa Relaxation938686
+Node: Xtensa Branch Relaxation939651
+Node: Xtensa Call Relaxation941023
+Node: Xtensa Jump Relaxation942804
+Node: Xtensa Immediate Relaxation944904
+Node: Xtensa Directives947479
+Node: Schedule Directive949187
+Node: Longcalls Directive949527
+Node: Transform Directive950071
+Node: Literal Directive950813
+Ref: Literal Directive-Footnote-1954352
+Node: Literal Position Directive954494
+Node: Literal Prefix Directive956193
+Node: Absolute Literals Directive957091
+Node: Z80-Dependent958398
+Node: Z80 Options958786
+Node: Z80 Syntax961285
+Node: Z80-Chars961993
+Node: Z80-Regs962844
+Node: Z80-Case963196
+Node: Z80-Labels963660
+Node: Z80 Floating Point964156
+Node: Z80 Directives964625
+Node: Z80 Opcodes967057
+Node: Z8000-Dependent968683
+Node: Z8000 Options969619
+Node: Z8000 Syntax969836
+Node: Z8000-Chars970126
+Node: Z8000-Regs970608
+Node: Z8000-Addressing971398
+Node: Z8000 Directives972508
+Node: Z8000 Opcodes974117
+Node: Reporting Bugs984059
+Node: Bug Criteria984785
+Node: Bug Reporting985552
+Node: Acknowledgements992193
+Ref: Acknowledgements-Footnote-1997159
+Node: GNU Free Documentation License997185
+Node: AS Index1022335
 
 End Tag Table
 

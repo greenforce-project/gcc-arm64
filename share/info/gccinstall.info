@@ -111,17 +111,23 @@ described below.
 Tools/packages necessary for building GCC
 =========================================
 
-ISO C++11 compiler
-     Necessary to bootstrap GCC. GCC 4.8.3 or newer has sufficient
-     support for used C++11 features.
+ISO C++14 compiler
+     Necessary to bootstrap GCC. GCC 5.4 or newer has sufficient support
+     for used C++14 features.
 
-     Versions of GCC prior to 11 also allow bootstrapping with an ISO
-     C++98 compiler, and versions of GCC prior to 4.8 also allow
-     bootstrapping with an ISO C89 compiler.
+     Versions of GCC prior to 15 allow bootstrapping with an ISO C++11
+     compiler, versions prior to 11 allow bootstrapping with an ISO
+     C++98 compiler, and versions prior to 4.8 allow bootstrapping with
+     an ISO C89 compiler.
+
+     If you need to build an intermediate version of GCC in order to
+     bootstrap current GCC, consider GCC 9.5: it can build the current
+     Ada and D compilers, and was also the version that declared C++17
+     support stable.
 
      To build all languages in a cross-compiler or other configuration
      where 3-stage bootstrap is not performed, you need to start with an
-     existing GCC binary (version 4.8.3 or later) because source code
+     existing GCC binary (of a new enough version) because source code
      for language frontends other than C might use GCC extensions.
 
 C standard library and headers
@@ -4896,101 +4902,101 @@ Tag Table:
 Node: Top1696
 Node: Installing GCC2201
 Node: Prerequisites3659
-Ref: GNAT-prerequisite5684
-Ref: GDC-prerequisite7081
-Ref: GM2-prerequisite8264
-Node: Downloading the source18979
-Node: Configuration20698
-Ref: with-gnu-as39965
-Ref: with-as40816
-Ref: with-gnu-ld42181
-Ref: WithAixSoname72017
-Ref: AixLdCommand72678
-Ref: with-included-gettext88562
-Node: Building116915
-Node: Testing133126
-Node: Final install140657
-Node: Binaries143835
-Node: Specific144820
-Ref: aarch64-x-x145354
-Ref: amd64-x-solaris2147374
-Ref: amdgcn-x-amdhsa147456
-Ref: arc-x-elf32148260
-Ref: arc-linux-uclibc148436
-Ref: arm-x-eabi148577
-Ref: avr148830
-Ref: bfin149312
-Ref: cris149575
-Ref: dos149901
-Ref: epiphany-x-elf150226
-Ref: x-x-freebsd150331
-Ref: ft32-x-elf150959
-Ref: h8300-hms151057
-Ref: hppa-hp-hpux151116
-Ref: hppa-hp-hpux11152630
-Ref: x-x-linux-gnu157736
-Ref: ix86-x-linux157929
-Ref: ix86-x-solaris2158131
-Ref: ia64-x-linux158370
-Ref: ia64-x-hpux158617
-Ref: x-ibm-aix158835
-Ref: TransferAixShobj162497
-Ref: iq2000-x-elf166307
-Ref: lm32-x-elf166447
-Ref: lm32-x-uclinux166551
-Ref: loongarch166679
-Ref: m32c-x-elf167316
-Ref: m32r-x-elf167418
-Ref: m68k-x-x167520
-Ref: m68k-x-uclinux168558
-Ref: microblaze-x-elf168803
-Ref: mips-x-x168922
-Ref: moxie-x-elf170832
-Ref: msp430-x-elf170879
-Ref: nds32le-x-elf171436
-Ref: nds32be-x-elf171508
-Ref: nvptx-x-none171577
-Ref: or1k-x-elf172440
-Ref: or1k-x-linux172571
-Ref: powerpc-x-x172652
-Ref: powerpc-x-darwin172843
-Ref: powerpc-x-elf173338
-Ref: powerpc-x-linux-gnu173423
-Ref: powerpc-x-netbsd173518
-Ref: powerpc-x-eabisim173606
-Ref: powerpc-x-eabi173732
-Ref: powerpcle-x-elf173808
-Ref: powerpcle-x-eabisim173900
-Ref: powerpcle-x-eabi174033
-Ref: rl78-x-elf174116
-Ref: riscv32-x-elf174222
-Ref: riscv32-x-linux174411
-Ref: riscv64-x-elf174568
-Ref: riscv64-x-linux174757
-Ref: rx-x-elf174914
-Ref: s390-x-linux174960
-Ref: s390x-x-linux175032
-Ref: s390x-ibm-tpf175119
-Ref: x-x-solaris2175250
-Ref: sparc-x-x178562
-Ref: sparc-sun-solaris2179064
-Ref: sparc-x-linux179963
-Ref: sparc64-x-solaris2179994
-Ref: sparcv9-x-solaris2180081
-Ref: c6x-x-x180802
-Ref: visium-x-elf180894
-Ref: x-x-vxworks181002
-Ref: x86-64-x-x182525
-Ref: x86-64-x-solaris2182853
-Ref: xtensa-x-elf183358
-Ref: xtensa-x-linux184029
-Ref: windows184370
-Ref: x-x-cygwin185956
-Ref: x-x-mingw32186509
-Ref: older186735
-Ref: elf188698
-Node: GNU Free Documentation License188952
-Node: Concept Index214090
+Ref: GNAT-prerequisite5973
+Ref: GDC-prerequisite7370
+Ref: GM2-prerequisite8553
+Node: Downloading the source19268
+Node: Configuration20987
+Ref: with-gnu-as40254
+Ref: with-as41105
+Ref: with-gnu-ld42470
+Ref: WithAixSoname72306
+Ref: AixLdCommand72967
+Ref: with-included-gettext88851
+Node: Building117204
+Node: Testing133415
+Node: Final install140946
+Node: Binaries144124
+Node: Specific145109
+Ref: aarch64-x-x145643
+Ref: amd64-x-solaris2147663
+Ref: amdgcn-x-amdhsa147745
+Ref: arc-x-elf32148549
+Ref: arc-linux-uclibc148725
+Ref: arm-x-eabi148866
+Ref: avr149119
+Ref: bfin149601
+Ref: cris149864
+Ref: dos150190
+Ref: epiphany-x-elf150515
+Ref: x-x-freebsd150620
+Ref: ft32-x-elf151248
+Ref: h8300-hms151346
+Ref: hppa-hp-hpux151405
+Ref: hppa-hp-hpux11152919
+Ref: x-x-linux-gnu158025
+Ref: ix86-x-linux158218
+Ref: ix86-x-solaris2158420
+Ref: ia64-x-linux158659
+Ref: ia64-x-hpux158906
+Ref: x-ibm-aix159124
+Ref: TransferAixShobj162786
+Ref: iq2000-x-elf166596
+Ref: lm32-x-elf166736
+Ref: lm32-x-uclinux166840
+Ref: loongarch166968
+Ref: m32c-x-elf167605
+Ref: m32r-x-elf167707
+Ref: m68k-x-x167809
+Ref: m68k-x-uclinux168847
+Ref: microblaze-x-elf169092
+Ref: mips-x-x169211
+Ref: moxie-x-elf171121
+Ref: msp430-x-elf171168
+Ref: nds32le-x-elf171725
+Ref: nds32be-x-elf171797
+Ref: nvptx-x-none171866
+Ref: or1k-x-elf172729
+Ref: or1k-x-linux172860
+Ref: powerpc-x-x172941
+Ref: powerpc-x-darwin173132
+Ref: powerpc-x-elf173627
+Ref: powerpc-x-linux-gnu173712
+Ref: powerpc-x-netbsd173807
+Ref: powerpc-x-eabisim173895
+Ref: powerpc-x-eabi174021
+Ref: powerpcle-x-elf174097
+Ref: powerpcle-x-eabisim174189
+Ref: powerpcle-x-eabi174322
+Ref: rl78-x-elf174405
+Ref: riscv32-x-elf174511
+Ref: riscv32-x-linux174700
+Ref: riscv64-x-elf174857
+Ref: riscv64-x-linux175046
+Ref: rx-x-elf175203
+Ref: s390-x-linux175249
+Ref: s390x-x-linux175321
+Ref: s390x-ibm-tpf175408
+Ref: x-x-solaris2175539
+Ref: sparc-x-x178851
+Ref: sparc-sun-solaris2179353
+Ref: sparc-x-linux180252
+Ref: sparc64-x-solaris2180283
+Ref: sparcv9-x-solaris2180370
+Ref: c6x-x-x181091
+Ref: visium-x-elf181183
+Ref: x-x-vxworks181291
+Ref: x86-64-x-x182814
+Ref: x86-64-x-solaris2183142
+Ref: xtensa-x-elf183647
+Ref: xtensa-x-linux184318
+Ref: windows184659
+Ref: x-x-cygwin186245
+Ref: x-x-mingw32186798
+Ref: older187024
+Ref: elf188987
+Node: GNU Free Documentation License189241
+Node: Concept Index214379
 
 End Tag Table
 

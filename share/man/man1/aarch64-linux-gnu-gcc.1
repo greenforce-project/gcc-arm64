@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-10-26" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-11-02" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -332,6 +332,8 @@ in the following sections.
 \&\fB\-fdiagnostics\-color=\fR[\fBauto\fR|\fBnever\fR|\fBalways\fR]
 \&\fB\-fdiagnostics\-urls=\fR[\fBauto\fR|\fBnever\fR|\fBalways\fR]
 \&\fB\-fdiagnostics\-format=\fR[\fBtext\fR|\fBsarif-stderr\fR|\fBsarif-file\fR|\fBjson\fR|\fBjson-stderr\fR|\fBjson-file\fR]
+\&\fB\-fdiagnostics\-add\-output=\fR\fIDIAGNOSTICS-OUTPUT-SPEC\fR
+\&\fB\-fdiagnostics\-set\-output=\fR\fIDIAGNOSTICS-OUTPUT-SPEC\fR
 \&\fB\-fno\-diagnostics\-json\-formatting
 \&\-fno\-diagnostics\-show\-option  \-fno\-diagnostics\-show\-caret
 \&\-fno\-diagnostics\-show\-event\-links
@@ -1488,11 +1490,11 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mvpclmulqdq  \-mavx512bitalg  \-mmovdiri  \-mmovdir64b  \-mavx512vpopcntdq
 \&\-mavx512vnni  \-mprfchw  \-mrdpid
 \&\-mrdseed  \-msgx \-mavx512vp2intersect \-mserialize \-mtsxldtrk
-\&\-mamx\-tile  \-mamx\-int8  \-mamx\-bf16 \-muintr \-mhreset \-mavxvnni
+\&\-mamx\-tile  \-mamx\-int8  \-mamx\-bf16 \-muintr \-mhreset \-mavxvnni \-mamx\-fp8
 \&\-mavx512fp16 \-mavxifma \-mavxvnniint8 \-mavxneconvert \-mcmpccxadd \-mamx\-fp16
 \&\-mprefetchi \-mraoint \-mamx\-complex \-mavxvnniint16 \-msm3 \-msha512 \-msm4 \-mapxf
 \&\-musermsr \-mavx10.1 \-mavx10.1\-256 \-mavx10.1\-512 \-mevex512 \-mavx10.2 \-mavx10.2\-256
-\&\-mavx10.2\-512
+\&\-mavx10.2\-512 \-mamx\-avx512 \-mamx\-tf32 \-mamx\-transpose \-mmovrs \-mamx\-movrs
 \&\-mcldemote  \-mms\-bitfields  \-mno\-align\-stringops  \-minline\-all\-stringops
 \&\-minline\-stringops\-dynamically  \-mstringop\-strategy=\fR\fIalg\fR
 \&\fB\-mkl \-mwidekl
@@ -2499,8 +2501,7 @@ applied with \fB\-std=c11\fR) and a new value of
 .IX Item "iso9899:2024"
 .PD
 \&\s-1ISO C23,\s0 the 2023 revision of the \s-1ISO C\s0 standard (expected to be
-published in 2024).  The support for this version is experimental and
-incomplete.  The name \fBc2x\fR is deprecated.
+published in 2024).  The name \fBc2x\fR is deprecated.
 .IP "\fBc2y\fR" 4
 .IX Item "c2y"
 The next version of the \s-1ISO C\s0 standard, still under development.  The
@@ -2540,8 +2541,7 @@ The name \fBgnu1x\fR is deprecated.
 .IP "\fBgnu2x\fR" 4
 .IX Item "gnu2x"
 .PD
-\&\s-1GNU\s0 dialect of \s-1ISO C23.\s0  The support for this version is experimental
-and incomplete.  The name \fBgnu2x\fR is deprecated.
+\&\s-1GNU\s0 dialect of \s-1ISO C23.\s0  The name \fBgnu2x\fR is deprecated.
 .IP "\fBgnu2y\fR" 4
 .IX Item "gnu2y"
 The next version of the \s-1ISO C\s0 standard, still under development, plus
@@ -2631,24 +2631,26 @@ The name \fBc++2a\fR is deprecated.
 Support is experimental, and could change in incompatible ways in
 future releases.
 The name \fBgnu++2a\fR is deprecated.
-.IP "\fBc++2b\fR" 4
-.IX Item "c++2b"
-.PD 0
 .IP "\fBc++23\fR" 4
 .IX Item "c++23"
-.PD
-The next revision of the \s-1ISO \*(C+\s0 standard, planned for
-2023.  Support is highly experimental, and will almost certainly
-change in incompatible ways in future releases.
-.IP "\fBgnu++2b\fR" 4
-.IX Item "gnu++2b"
 .PD 0
+.IP "\fBc++2b\fR" 4
+.IX Item "c++2b"
+.PD
+The 2023 \s-1ISO \*(C+\s0 standard plus amendments (published in 2024).
+Support is experimental, and could change in incompatible ways in
+future releases.
+The name \fBc++2b\fR is deprecated.
 .IP "\fBgnu++23\fR" 4
 .IX Item "gnu++23"
+.PD 0
+.IP "\fBgnu++2b\fR" 4
+.IX Item "gnu++2b"
 .PD
-\&\s-1GNU\s0 dialect of \fB\-std=c++2b\fR.  Support is highly experimental,
-and will almost certainly change in incompatible ways in future
-releases.
+\&\s-1GNU\s0 dialect of \fB\-std=c++23\fR.
+Support is experimental, and could change in incompatible ways in
+future releases.
+The name \fBgnu++2b\fR is deprecated.
 .IP "\fBc++2c\fR" 4
 .IX Item "c++2c"
 .PD 0
@@ -5668,6 +5670,10 @@ Select a different format for printing diagnostics.
 \&\fI\s-1FORMAT\s0\fR is \fBtext\fR, \fBsarif-stderr\fR, \fBsarif-file\fR,
 \&\fBjson\fR, \fBjson-stderr\fR, or \fBjson-file\fR.
 .Sp
+Using this option replaces any additional \*(L"output sinks\*(R" added by
+\&\fB\-fdiagnostics\-add\-output=\fR, or that set by
+\&\fB\-fdiagnostics\-set\-output=\fR.
+.Sp
 The default is \fBtext\fR.
 .Sp
 The \fBsarif-stderr\fR and \fBsarif-file\fR formats both emit
@@ -5681,6 +5687,93 @@ The \fBjson-stderr\fR and \fBjson-file\fR formats are identical, apart from
 where the \s-1JSON\s0 is emitted to.  With \fBjson-stderr\fR, the \s-1JSON\s0 is emitted
 to stderr, whereas with \fBjson-file\fR it is written to
 \&\fI\fIsource\fI.gcc.json\fR.
+.IP "\fB\-fdiagnostics\-add\-output=\fR\fIDIAGNOSTICS-OUTPUT-SPEC\fR" 4
+.IX Item "-fdiagnostics-add-output=DIAGNOSTICS-OUTPUT-SPEC"
+Add an additional \*(L"output sink\*(R" for emitting diagnostics.
+.Sp
+\&\fIDIAGNOSTICS-OUTPUT-SPEC\fR should specify a scheme, optionally followed
+by \f(CW\*(C`:\*(C'\fR and one or more \fI\s-1KEY\s0\fR=\fI\s-1VALUE\s0\fR pairs, in this form:
+.Sp
+.Vb 3
+\&        <SCHEME>
+\&        <SCHEME>:<KEY>=<VALUE>
+\&        <SCHEME>:<KEY>=<VALUE>,<KEY2>=<VALUE2>
+.Ve
+.Sp
+etc.
+.Sp
+\&\fI\s-1SCHEME\s0\fR can be
+.RS 4
+.IP "\fBtext\fR" 4
+.IX Item "text"
+Emit diagnostics to stderr using \s-1GCC\s0's classic text output format.
+.Sp
+Supported keys are:
+.RS 4
+.IP "\fBcolor=\fR[\fByes\fR|\fBno\fR]" 4
+.IX Item "color=[yes|no]"
+Override colorization settings from \fB\-fdiagnostics\-color\fR for this
+text output.
+.RE
+.RS 4
+.RE
+.IP "\fBsarif\fR" 4
+.IX Item "sarif"
+Emit diagnostics to a file in \s-1SARIF\s0 format.
+.Sp
+Supported keys are:
+.RS 4
+.IP "\fBfile=\fR\fI\s-1FILENAME\s0\fR" 4
+.IX Item "file=FILENAME"
+Specify the filename to write the \s-1SARIF\s0 output to, potentially with a
+leading absolute or relative path.  If not specified, it defaults to
+\&\fI\fIsource\fI.sarif\fR.
+.IP "\fBversion=\fR[\fB2.1\fR|\fB2.2\-prerelease\fR]" 4
+.IX Item "version=[2.1|2.2-prerelease]"
+Specify the version of \s-1SARIF\s0 to use for the output.  If not specified,
+defaults to 2.1.  \f(CW\*(C`2.2\-prerelease\*(C'\fR uses an unofficial draft of the
+future \s-1SARIF 2.2\s0 specification and should only be used for experimentation
+in this release.
+.RE
+.RS 4
+.RE
+.RE
+.RS 4
+.Sp
+For example,
+.Sp
+.Vb 2
+\&        \-fdiagnostics\-add\-output=sarif:version=2.1,file=foo.2.1.sarif
+\&        \-fdiagnostics\-add\-output=sarif:version=2.2\-prerelease,file=foo.2.2.sarif
+.Ve
+.Sp
+would add a pair of outputs, each writing to a different file, using
+versions 2.1 and 2.2 of the \s-1SARIF\s0 standard respectively.
+.Sp
+In \s-1EBNF:\s0
+.Sp
+.Vb 2
+\&        <diagnostics\-output\-specifier> = <diagnostics\-output\-name>
+\&                                           | <diagnostics\-output\-name>, ":", <key\-value\-pairs>;
+\&        
+\&        <diagnostics\-output\-name> = "text" | "sarif";
+\&        
+\&        <key\-value\-pairs> = <key\-value\-pair>
+\&                              | <key\-value\-pair> "," <key\-value\-pairs>;
+\&        
+\&        <key\-value\-pair> = <key> "=" <value>;
+\&        
+\&        <key> = ? string without a \*(Aq=\*(Aq ? ;
+\&        <value> = ? string without a \*(Aq,\*(Aq ? ;
+.Ve
+.RE
+.IP "\fB\-fdiagnostics\-set\-output=\fR\fIDIAGNOSTICS-OUTPUT-SPEC\fR" 4
+.IX Item "-fdiagnostics-set-output=DIAGNOSTICS-OUTPUT-SPEC"
+This works in a similar way to \fB\-fdiagnostics\-add\-output=\fR except
+that instead of adding an additional \*(L"output sink\*(R" for diagnostics, it
+replaces all existing output sinks, such as from \fB\-fdiagnostics\-format=\fR,
+\&\fB\-fdiagnostics\-add\-output=\fR, or a prior call to
+\&\fB\-fdiagnostics\-set\-output=\fR.
 .IP "\fB\-fno\-diagnostics\-json\-formatting\fR" 4
 .IX Item "-fno-diagnostics-json-formatting"
 By default, when \s-1JSON\s0 is emitted for diagnostics (via
@@ -8308,8 +8401,8 @@ This warning is enabled by \fB\-Wall\fR.
 Warn about trailing whitespace at the end of lines, including inside of
 comments, but excluding trailing whitespace in raw string literals.
 \&\f(CW\*(C`\-Wtrailing\-whitespace\*(C'\fR is equivalent to
-\&\f(CW\*(C`\-Wtrailing\-whitespace=blank\*(C'\fR and warns just about trailing space and
-horizontal tab characters.  \f(CW\*(C`\-Wtrailing\-whitespace=space\*(C'\fR warns about
+\&\f(CW\*(C`\-Wtrailing\-whitespace=blanks\*(C'\fR and warns just about trailing space and
+horizontal tab characters.  \f(CW\*(C`\-Wtrailing\-whitespace=any\*(C'\fR warns about
 those or trailing form feed or vertical tab characters.
 \&\f(CW\*(C`\-Wno\-trailing\-whitespace\*(C'\fR or \f(CW\*(C`\-Wtrailing\-whitespace=none\*(C'\fR
 disables the warning, which is the default.
@@ -34577,6 +34670,18 @@ preferred alignment to \fB\-mpreferred\-stack\-boundary=2\fR.
 .IX Item "-mavx10.2-256"
 .IP "\fB\-mavx10.2\-512\fR" 4
 .IX Item "-mavx10.2-512"
+.IP "\fB\-mamx\-avx512\fR" 4
+.IX Item "-mamx-avx512"
+.IP "\fB\-mamx\-tf32\fR" 4
+.IX Item "-mamx-tf32"
+.IP "\fB\-mamx\-transpose\fR" 4
+.IX Item "-mamx-transpose"
+.IP "\fB\-mamx\-fp8\fR" 4
+.IX Item "-mamx-fp8"
+.IP "\fB\-mmovrs\fR" 4
+.IX Item "-mmovrs"
+.IP "\fB\-mamx\-movrs\fR" 4
+.IX Item "-mamx-movrs"
 .PD
 These switches enable the use of instructions in the \s-1MMX, SSE,
 AVX512CD, AVX512VL, AVX512BW, AVX512DQ, AVX512IFMA, AVX512VBMI, SHA, AES,
@@ -34588,9 +34693,9 @@ WAITPKG, VPCLMULQDQ, AVX512BITALG, MOVDIRI, MOVDIR64B, AVX512BF16, ENQCMD,
 AVX512VPOPCNTDQ, AVX512VNNI, SERIALIZE, UINTR, HRESET, AMXTILE, AMXINT8,
 AMXBF16, KL, WIDEKL, AVXVNNI, AVX512\-FP16, AVXIFMA, AVXVNNIINT8, AVXNECONVERT,
 CMPCCXADD, AMX\-FP16, PREFETCHI, RAOINT,\s0 AMX-COMPLEX, \s-1AVXVNNIINT16, SM3, SHA512,
-SM4, APX_F, USER_MSR, AVX10.1, AVX10.2\s0 or \s-1CLDEMOTE\s0 extended instruction sets.
-Each has a corresponding \fB\-mno\-\fR option to disable use of these
-instructions.
+SM4, APX_F, USER_MSR, AVX10.1, AVX10.2, AMX\-AVX512, AMX\-TF32,\s0 AMX-TRANSPOSE,
+\&\s-1AMX\-FP8, MOVRS,\s0 AMX-MOVRS or \s-1CLDEMOTE\s0 extended instruction sets. Each has a
+corresponding \fB\-mno\-\fR option to disable use of these instructions.
 .Sp
 These extensions are also available as built-in functions: see
 \&\fBx86 Built-in Functions\fR, for details of the functions enabled and

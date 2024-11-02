@@ -453,6 +453,8 @@ enum optab_tag {
   vec_shl_insert_optab,
   len_load_optab,
   len_store_optab,
+  mask_len_strided_load_optab,
+  mask_len_strided_store_optab,
   select_vl_optab,
   andn_optab,
   iorn_optab,
@@ -464,7 +466,7 @@ enum optab_tag {
   LAST_NORM_OPTAB = iorn_optab
 };
 
-#define NUM_OPTABS          452
+#define NUM_OPTABS          454
 #define NUM_CONVLIB_OPTABS  17
 #define NUM_NORMLIB_OPTABS  80
 #define NUM_OPTAB_PATTERNS  2982

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "LD 1"
-.TH LD 1 "2024-10-26" "binutils-2.43.50" "GNU Development Tools"
+.TH LD 1 "2024-11-02" "binutils-2.43.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -2553,6 +2553,17 @@ for compatibility with other linkers, you may omit the leading
 \&\fB0x\fR usually associated with hexadecimal values.  \fINote:\fR there
 should be no white space between \fIsectionname\fR, the equals
 sign ("\fB=\fR"), and \fIorg\fR.
+.IP "\fB\-\-image\-base=\fR\fIorg\fR" 4
+.IX Item "--image-base=org"
+When using \s-1ELF,\s0 same as \fB\-Ttext\-segment\fR, with both options effectively
+setting the base address of the \s-1ELF\s0 executable.
+.Sp
+When using \s-1PE,\s0 use \fIvalue\fR as the base address of your program or dll.
+This is the lowest memory location that will be used when your program or
+dll is loaded.  To reduce the need to relocate and improve performance of
+your dlls, each should have a unique base address and not overlap any
+other dlls.  The default is 0x400000 for executables, and 0x10000000
+for dlls.
 .IP "\fB\-Tbss=\fR\fIorg\fR" 4
 .IX Item "-Tbss=org"
 .PD 0
@@ -2566,7 +2577,7 @@ Same as \fB\-\-section\-start\fR, with \f(CW\*(C`.bss\*(C'\fR, \f(CW\*(C`.data\*
 .IP "\fB\-Ttext\-segment=\fR\fIorg\fR" 4
 .IX Item "-Ttext-segment=org"
 When creating an \s-1ELF\s0 executable, it will set the address of the first
-byte of the text segment.  Note that when \fB\-pie\fR is used with
+byte of the first segment.  Note that when \fB\-pie\fR is used with
 \&\fB\-Ttext\-segment=\fR\fIorg\fR, the output executable is marked
 \&\s-1ET_EXEC\s0 so that the address of the first byte of the text segment will
 be guaranteed to be \fIorg\fR at run time.
@@ -3181,15 +3192,6 @@ file offsets which are multiples of this number.  This defaults to
 Specify the number of bytes of memory to reserve (and optionally commit)
 to be used as heap for this program.  The default is 1MB reserved, 4K
 committed.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
-.IP "\fB\-\-image\-base\fR \fIvalue\fR" 4
-.IX Item "--image-base value"
-Use \fIvalue\fR as the base address of your program or dll.  This is
-the lowest memory location that will be used when your program or dll
-is loaded.  To reduce the need to relocate and improve performance of
-your dlls, each should have a unique base address and not overlap any
-other dlls.  The default is 0x400000 for executables, and 0x10000000
-for dlls.
 [This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
 .IP "\fB\-\-kill\-at\fR" 4
 .IX Item "--kill-at"

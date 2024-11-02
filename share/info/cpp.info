@@ -1686,8 +1686,8 @@ the current function.  They tend to be useful in conjunction with
      the 2011 revision of the C standard; the value '201710L' signifies
      the 2017 revision of the C standard (which is otherwise identical
      to the 2011 version apart from correction of defects).  The value
-     '202311L' is used for the experimental '-std=c23' and '-std=gnu23'
-     modes.  An unspecified value larger than '202311L' is used for the
+     '202311L' is used for the '-std=c23' and '-std=gnu23' modes.  An
+     unspecified value larger than '202311L' is used for the
      experimental '-std=c2y' and '-std=gnu2y' modes.
 
      This macro is not defined if the '-traditional-cpp' option is used,
@@ -5730,61 +5730,61 @@ Node: Concatenation56062
 Node: Variadic Macros59159
 Node: Predefined Macros64111
 Node: Standard Predefined Macros64699
-Node: Common Predefined Macros71205
-Node: System-specific Predefined Macros93840
-Node: C++ Named Operators95863
-Node: Undefining and Redefining Macros96827
-Node: Directives Within Macro Arguments98925
-Node: Macro Pitfalls99866
-Node: Misnesting100399
-Node: Operator Precedence Problems101511
-Node: Swallowing the Semicolon103377
-Node: Duplication of Side Effects105400
-Node: Self-Referential Macros107583
-Node: Argument Prescan109992
-Node: Newlines in Arguments113743
-Node: Conditionals114694
-Node: Conditional Uses116390
-Node: Conditional Syntax117748
-Node: Ifdef118224
-Node: If121381
-Node: Defined123685
-Node: Else125078
-Node: Elif125648
-Node: __has_attribute126961
-Node: __has_cpp_attribute128555
-Node: __has_c_attribute129445
-Node: __has_builtin130218
-Node: __has_feature131351
-Node: __has_extension132230
-Node: __has_include133352
-Node: __has_embed134963
-Node: Deleted Code136297
-Node: Diagnostics137544
-Node: Line Control139093
-Node: Pragmas141371
-Node: Binary Resource Inclusion145892
-Node: Other Directives149148
-Node: Preprocessor Output150216
-Node: Traditional Mode153371
-Node: Traditional lexical analysis154508
-Node: Traditional macros157011
-Node: Traditional miscellany160808
-Node: Traditional warnings161804
-Node: Implementation Details164001
-Node: Implementation-defined behavior164564
-Ref: Identifier characters165314
-Node: Implementation limits168363
-Node: Obsolete Features171036
-Node: Invocation173880
-Ref: dashMF179915
-Ref: fdollars-in-identifiers184577
-Ref: Wtrigraphs199121
-Node: Environment Variables201176
-Node: GNU Free Documentation License204867
-Node: Index of Directives230017
-Node: Option Index232316
-Node: Concept Index238491
+Node: Common Predefined Macros71192
+Node: System-specific Predefined Macros93827
+Node: C++ Named Operators95850
+Node: Undefining and Redefining Macros96814
+Node: Directives Within Macro Arguments98912
+Node: Macro Pitfalls99853
+Node: Misnesting100386
+Node: Operator Precedence Problems101498
+Node: Swallowing the Semicolon103364
+Node: Duplication of Side Effects105387
+Node: Self-Referential Macros107570
+Node: Argument Prescan109979
+Node: Newlines in Arguments113730
+Node: Conditionals114681
+Node: Conditional Uses116377
+Node: Conditional Syntax117735
+Node: Ifdef118211
+Node: If121368
+Node: Defined123672
+Node: Else125065
+Node: Elif125635
+Node: __has_attribute126948
+Node: __has_cpp_attribute128542
+Node: __has_c_attribute129432
+Node: __has_builtin130205
+Node: __has_feature131338
+Node: __has_extension132217
+Node: __has_include133339
+Node: __has_embed134950
+Node: Deleted Code136284
+Node: Diagnostics137531
+Node: Line Control139080
+Node: Pragmas141358
+Node: Binary Resource Inclusion145879
+Node: Other Directives149135
+Node: Preprocessor Output150203
+Node: Traditional Mode153358
+Node: Traditional lexical analysis154495
+Node: Traditional macros156998
+Node: Traditional miscellany160795
+Node: Traditional warnings161791
+Node: Implementation Details163988
+Node: Implementation-defined behavior164551
+Ref: Identifier characters165301
+Node: Implementation limits168350
+Node: Obsolete Features171023
+Node: Invocation173867
+Ref: dashMF179902
+Ref: fdollars-in-identifiers184564
+Ref: Wtrigraphs199108
+Node: Environment Variables201163
+Node: GNU Free Documentation License204854
+Node: Index of Directives230004
+Node: Option Index232303
+Node: Concept Index238478
 
 End Tag Table
 

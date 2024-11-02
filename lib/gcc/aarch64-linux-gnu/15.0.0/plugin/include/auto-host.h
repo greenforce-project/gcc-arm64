@@ -884,6 +884,12 @@
 #endif
 
 
+/* Define to 1 if you have the `clock_gettime' function. */
+#ifndef USED_FOR_TARGET
+#define HAVE_CLOCK_GETTIME 1
+#endif
+
+
 /* Define if <time.h> defines clock_t. */
 #ifndef USED_FOR_TARGET
 #define HAVE_CLOCK_T 1
@@ -1016,6 +1022,13 @@
    define to 0. */
 #ifndef USED_FOR_TARGET
 #define HAVE_DECL_FILENO_UNLOCKED 1
+#endif
+
+
+/* Define to 1 if we found a declaration for 'fmemopen', otherwise define to
+   0. */
+#ifndef USED_FOR_TARGET
+#define HAVE_DECL_FMEMOPEN 1
 #endif
 
 
