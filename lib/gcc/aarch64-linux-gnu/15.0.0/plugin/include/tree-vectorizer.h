@@ -987,12 +987,20 @@ public:
   class loop *scalar_loop;
 
   /* For loops being epilogues of already vectorized loops
-     this points to the original vectorized loop.  Otherwise NULL.  */
+     this points to the main vectorized loop.  Otherwise NULL.  */
+  _loop_vec_info *main_loop_info;
+
+  /* For loops being epilogues of already vectorized loops
+     this points to the preceeding vectorized (possibly epilogue) loop.
+     Otherwise NULL.  */
   _loop_vec_info *orig_loop_info;
 
-  /* Used to store loop_vec_infos of epilogues of this loop during
+  /* Used to store loop_vec_infos of the epilogue of this loop during
      analysis.  */
-  vec<_loop_vec_info *> epilogue_vinfos;
+  _loop_vec_info *epilogue_vinfo;
+
+  /* If this is an epilogue loop the DR advancement applied.  */
+  tree drs_advanced_by;
 
   /* The controlling loop IV for the current loop when vectorizing.  This IV
      controls the natural exits of the loop.  */
@@ -1093,10 +1101,12 @@ public:
 #define LOOP_VINFO_SCALAR_LOOP_SCALING(L)  (L)->scalar_loop_scaling
 #define LOOP_VINFO_HAS_MASK_STORE(L)       (L)->has_mask_store
 #define LOOP_VINFO_SCALAR_ITERATION_COST(L) (L)->scalar_cost_vec
+#define LOOP_VINFO_MAIN_LOOP_INFO(L)       (L)->main_loop_info
 #define LOOP_VINFO_ORIG_LOOP_INFO(L)       (L)->orig_loop_info
 #define LOOP_VINFO_SIMD_IF_COND(L)         (L)->simd_if_cond
 #define LOOP_VINFO_INNER_LOOP_COST_FACTOR(L) (L)->inner_loop_cost_factor
 #define LOOP_VINFO_INV_PATTERN_DEF_SEQ(L)  (L)->inv_pattern_def_seq
+#define LOOP_VINFO_DRS_ADVANCED_BY(L)      (L)->drs_advanced_by
 
 #define LOOP_VINFO_FULLY_MASKED_P(L)		\
   (LOOP_VINFO_USING_PARTIAL_VECTORS_P (L)	\

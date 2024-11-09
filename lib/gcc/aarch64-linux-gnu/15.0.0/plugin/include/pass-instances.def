@@ -559,7 +559,6 @@ NEXT_PASS (pass_late_track_speculation, 1);
 	  NEXT_PASS (pass_variable_tracking, 1);
 	  NEXT_PASS (pass_free_cfg, 1);
 	  NEXT_PASS (pass_machine_reorg, 1);
-NEXT_PASS (pass_tag_collision_avoidance, 1);
 	  NEXT_PASS (pass_cleanup_barriers, 1);
 	  NEXT_PASS (pass_delay_slots, 1);
 	  NEXT_PASS (pass_split_for_shorten_branches, 1);

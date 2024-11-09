@@ -7464,10 +7464,10 @@
 #define HAVE_aarch64_sve_pext16x2 (TARGET_STREAMING_SME2)
 #define HAVE_aarch64_sve_pext32x2 (TARGET_STREAMING_SME2)
 #define HAVE_aarch64_sve_pext64x2 (TARGET_STREAMING_SME2)
-#define HAVE_aarch64_sve_psel8 (TARGET_STREAMING_SME2)
-#define HAVE_aarch64_sve_psel16 (TARGET_STREAMING_SME2)
-#define HAVE_aarch64_sve_psel32 (TARGET_STREAMING_SME2)
-#define HAVE_aarch64_sve_psel64 (TARGET_STREAMING_SME2)
+#define HAVE_aarch64_sve_psel8 (TARGET_STREAMING)
+#define HAVE_aarch64_sve_psel16 (TARGET_STREAMING)
+#define HAVE_aarch64_sve_psel32 (TARGET_STREAMING)
+#define HAVE_aarch64_sve_psel64 (TARGET_STREAMING)
 #define HAVE_aarch64_sve_cntp_c8 (TARGET_STREAMING_SME2)
 #define HAVE_aarch64_sve_cntp_c16 (TARGET_STREAMING_SME2)
 #define HAVE_aarch64_sve_cntp_c32 (TARGET_STREAMING_SME2)
@@ -7662,9 +7662,9 @@
 #define HAVE_aarch64_pred_uqshlvnx4si (TARGET_SVE2)
 #define HAVE_aarch64_pred_sqshlvnx2di (TARGET_SVE2)
 #define HAVE_aarch64_pred_uqshlvnx2di (TARGET_SVE2)
-#define HAVE_aarch64_sve_fclampvnx8hf (TARGET_STREAMING_SME)
-#define HAVE_aarch64_sve_fclampvnx4sf (TARGET_STREAMING_SME)
-#define HAVE_aarch64_sve_fclampvnx2df (TARGET_STREAMING_SME)
+#define HAVE_aarch64_sve_fclampvnx8hf (TARGET_STREAMING_SME2)
+#define HAVE_aarch64_sve_fclampvnx4sf (TARGET_STREAMING_SME2)
+#define HAVE_aarch64_sve_fclampvnx2df (TARGET_STREAMING_SME2)
 #define HAVE_aarch64_sve_fclamp_singlevnx16hf (TARGET_STREAMING_SME2)
 #define HAVE_aarch64_sve_fclamp_singlevnx8sf (TARGET_STREAMING_SME2)
 #define HAVE_aarch64_sve_fclamp_singlevnx4df (TARGET_STREAMING_SME2)
@@ -7715,10 +7715,17 @@
 #define HAVE_aarch64_sve_sub_mul_lane_vnx8hi (TARGET_SVE2)
 #define HAVE_aarch64_sve_sub_mul_lane_vnx4si (TARGET_SVE2)
 #define HAVE_aarch64_sve_sub_mul_lane_vnx2di (TARGET_SVE2)
-#define HAVE_aarch64_sve2_xarvnx16qi (TARGET_SVE2)
-#define HAVE_aarch64_sve2_xarvnx8hi (TARGET_SVE2)
-#define HAVE_aarch64_sve2_xarvnx4si (TARGET_SVE2)
-#define HAVE_aarch64_sve2_xarvnx2di (TARGET_SVE2)
+#define HAVE_aarch64_sve2_xarvnx16qi (TARGET_SVE2 && !(VNx16QImode == V2DImode && TARGET_SHA3))
+#define HAVE_aarch64_sve2_xarvnx8hi (TARGET_SVE2 && !(VNx8HImode == V2DImode && TARGET_SHA3))
+#define HAVE_aarch64_sve2_xarvnx4si (TARGET_SVE2 && !(VNx4SImode == V2DImode && TARGET_SHA3))
+#define HAVE_aarch64_sve2_xarvnx2di (TARGET_SVE2 && !(VNx2DImode == V2DImode && TARGET_SHA3))
+#define HAVE_aarch64_sve2_xarv8qi (TARGET_SVE2 && !(V8QImode == V2DImode && TARGET_SHA3))
+#define HAVE_aarch64_sve2_xarv16qi (TARGET_SVE2 && !(V16QImode == V2DImode && TARGET_SHA3))
+#define HAVE_aarch64_sve2_xarv4hi (TARGET_SVE2 && !(V4HImode == V2DImode && TARGET_SHA3))
+#define HAVE_aarch64_sve2_xarv8hi (TARGET_SVE2 && !(V8HImode == V2DImode && TARGET_SHA3))
+#define HAVE_aarch64_sve2_xarv2si (TARGET_SVE2 && !(V2SImode == V2DImode && TARGET_SHA3))
+#define HAVE_aarch64_sve2_xarv4si (TARGET_SVE2 && !(V4SImode == V2DImode && TARGET_SHA3))
+#define HAVE_aarch64_sve2_xarv2di (TARGET_SVE2 && !(V2DImode == V2DImode && TARGET_SHA3))
 #define HAVE_aarch64_sve2_eor3vnx16qi (TARGET_SVE2)
 #define HAVE_aarch64_sve2_eor3vnx8hi (TARGET_SVE2)
 #define HAVE_aarch64_sve2_eor3vnx4si (TARGET_SVE2)
@@ -20020,6 +20027,13 @@ extern rtx        gen_aarch64_sve2_xarvnx16qi                          (rtx, rtx
 extern rtx        gen_aarch64_sve2_xarvnx8hi                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve2_xarvnx4si                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve2_xarvnx2di                           (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve2_xarv8qi                             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve2_xarv16qi                            (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve2_xarv4hi                             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve2_xarv8hi                             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve2_xarv2si                             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve2_xarv4si                             (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve2_xarv2di                             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve2_eor3vnx16qi                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve2_eor3vnx8hi                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve2_eor3vnx4si                          (rtx, rtx, rtx, rtx);
