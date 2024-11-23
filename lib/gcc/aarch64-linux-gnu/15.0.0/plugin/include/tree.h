@@ -1555,6 +1555,9 @@ class auto_suppress_location_wrappers
 #define OMP_FOR_PRE_BODY(NODE)	   TREE_OPERAND (OMP_LOOPING_CHECK (NODE), 5)
 #define OMP_FOR_ORIG_DECLS(NODE)   TREE_OPERAND (OMP_LOOPING_CHECK (NODE), 6)
 
+#define OMP_INTEROP_CLAUSES(NODE)\
+  TREE_OPERAND (OMP_INTEROP_CHECK (NODE), 0)
+
 #define OMP_LOOPXFORM_CHECK(NODE) TREE_RANGE_CHECK (NODE, OMP_TILE, OMP_UNROLL)
 #define OMP_LOOPXFORM_LOWERED(NODE) \
   (OMP_LOOPXFORM_CHECK (NODE)->base.public_flag)
@@ -1611,6 +1614,9 @@ class auto_suppress_location_wrappers
 
 #define OMP_SCAN_BODY(NODE)	TREE_OPERAND (OMP_SCAN_CHECK (NODE), 0)
 #define OMP_SCAN_CLAUSES(NODE)	TREE_OPERAND (OMP_SCAN_CHECK (NODE), 1)
+
+#define OMP_DISPATCH_BODY(NODE) TREE_OPERAND (OMP_DISPATCH_CHECK (NODE), 0)
+#define OMP_DISPATCH_CLAUSES(NODE) TREE_OPERAND (OMP_DISPATCH_CHECK (NODE), 1)
 
 #define OMP_CLAUSE_SIZE(NODE)						\
   OMP_CLAUSE_OPERAND (OMP_CLAUSE_RANGE_CHECK (OMP_CLAUSE_CHECK (NODE),	\
@@ -1759,6 +1765,10 @@ class auto_suppress_location_wrappers
   OMP_CLAUSE_OPERAND (OMP_CLAUSE_SUBCODE_CHECK (NODE, OMP_CLAUSE_PARTIAL), 0)
 #define OMP_CLAUSE_SIZES_LIST(NODE) \
   OMP_CLAUSE_OPERAND (OMP_CLAUSE_SUBCODE_CHECK (NODE, OMP_CLAUSE_SIZES), 0)
+#define OMP_CLAUSE_NOVARIANTS_EXPR(NODE)                                       \
+  OMP_CLAUSE_OPERAND (OMP_CLAUSE_SUBCODE_CHECK (NODE, OMP_CLAUSE_NOVARIANTS), 0)
+#define OMP_CLAUSE_NOCONTEXT_EXPR(NODE)                                        \
+  OMP_CLAUSE_OPERAND (OMP_CLAUSE_SUBCODE_CHECK (NODE, OMP_CLAUSE_NOCONTEXT), 0)
 
 #define OMP_CLAUSE_GRAINSIZE_EXPR(NODE) \
   OMP_CLAUSE_OPERAND (OMP_CLAUSE_SUBCODE_CHECK (NODE, OMP_CLAUSE_GRAINSIZE),0)
@@ -1823,6 +1833,15 @@ class auto_suppress_location_wrappers
 
 #define OMP_CLAUSE_MOTION_PRESENT(NODE) \
   (OMP_CLAUSE_RANGE_CHECK (NODE, OMP_CLAUSE_FROM, OMP_CLAUSE_TO)->base.deprecated_flag)
+
+#define OMP_CLAUSE_INIT_TARGET(NODE) \
+  (OMP_CLAUSE_SUBCODE_CHECK (NODE, OMP_CLAUSE_INIT)->base.public_flag)
+#define OMP_CLAUSE_INIT_TARGETSYNC(NODE) \
+  (OMP_CLAUSE_SUBCODE_CHECK (NODE, OMP_CLAUSE_INIT)->base.deprecated_flag)
+#define OMP_CLAUSE_INIT_PREFER_TYPE(NODE)				\
+  OMP_CLAUSE_OPERAND (OMP_CLAUSE_RANGE_CHECK (OMP_CLAUSE_CHECK (NODE),	\
+					      OMP_CLAUSE_INIT,		\
+					      OMP_CLAUSE_INIT), 1)
 
 /* Nonzero if this map clause is for array (rather than pointer) based array
    section with zero bias.  Both the non-decl OMP_CLAUSE_MAP and corresponding
@@ -4537,6 +4556,7 @@ tree_strip_any_location_wrapper (tree exp)
 #define dfloat32_type_node              global_trees[TI_DFLOAT32_TYPE]
 #define dfloat64_type_node              global_trees[TI_DFLOAT64_TYPE]
 #define dfloat128_type_node             global_trees[TI_DFLOAT128_TYPE]
+#define dfloat64x_type_node		global_trees[TI_DFLOAT64X_TYPE]
 
 /* The fixed-point types.  */
 #define sat_short_fract_type_node       global_trees[TI_SAT_SFRACT_TYPE]

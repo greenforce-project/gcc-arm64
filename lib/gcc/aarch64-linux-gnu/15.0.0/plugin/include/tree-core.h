@@ -374,6 +374,22 @@ enum omp_clause_code {
 
   /* Range END above for: OMP_CLAUSE_SIZE */
 
+  /* OpenMP clause: destroy (variable-list ).  */
+  OMP_CLAUSE_DESTROY,
+
+  /* Range START below for: OMP_CLAUSE_INIT_PREFER_TYPE  */
+
+  /* OpenMP clause: init ( [modifier-list : ] variable-list ).  */
+  OMP_CLAUSE_INIT,
+
+  /* Range END above for: OMP_CLAUSE_INIT_PREFER_TYPE  */
+
+  /* OpenMP clause: use (variable-list ).  */
+  OMP_CLAUSE_USE,
+
+  /* OpenMP clause: interop (variable-list).  */
+  OMP_CLAUSE_INTEROP,
+
   /* OpenACC clause: gang [(gang-argument-list)].
      Where
       gang-argument-list: [gang-argument-list, ] gang-argument
@@ -564,6 +580,13 @@ enum omp_clause_code {
 
   /* OpenACC clause: nohost.  */
   OMP_CLAUSE_NOHOST,
+
+  /* OpenMP clause: novariants (scalar-expression).  */
+  OMP_CLAUSE_NOVARIANTS,
+
+  /* OpenMP clause: nocontext (scalar-expression).  */
+  OMP_CLAUSE_NOCONTEXT,
+
 };
 
 #undef DEFTREESTRUCT
@@ -781,6 +804,7 @@ enum tree_index : unsigned {
   TI_DFLOAT32_TYPE,
   TI_DFLOAT64_TYPE,
   TI_DFLOAT128_TYPE,
+  TI_DFLOAT64X_TYPE,
 
   TI_VOID_LIST_NODE,
 

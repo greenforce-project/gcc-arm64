@@ -338,15 +338,24 @@ constexpr auto AARCH64_FL_DEFAULT_ISA_MODE ATTRIBUTE_UNUSED
 /* SVE2 SM4 instructions, enabled through +sve2-sm4.  */
 #define TARGET_SVE2_SM4 (AARCH64_HAVE_ISA (SVE2_SM4) && TARGET_NON_STREAMING)
 
-/* SME instructions, enabled through +sme.  Note that this does not
-   imply anything about the state of PSTATE.SM.  */
-#define TARGET_SME AARCH64_HAVE_ISA (SME)
+/* SVE2p1 instructions, enabled through +sve2p1.  */
+#define TARGET_SVE2p1 AARCH64_HAVE_ISA (SVE2p1)
 
-/* Same with streaming mode enabled.  */
-#define TARGET_STREAMING_SME (TARGET_STREAMING && TARGET_SME)
+/* SME instructions, enabled through +sme.  Note that this does not
+   imply anything about the state of PSTATE.SM; instructions that require
+   SME and streaming mode should use TARGET_STREAMING instead.  */
+#define TARGET_SME AARCH64_HAVE_ISA (SME)
 
 /* The FEAT_SME_I16I64 extension to SME, enabled through +sme-i16i64.  */
 #define TARGET_SME_I16I64 AARCH64_HAVE_ISA (SME_I16I64)
+
+/* The FEAT_SME_B16B16 extension to SME, enabled through +sme-b16b16.  */
+#define TARGET_STREAMING_SME_B16B16 \
+  (AARCH64_HAVE_ISA (SME_B16B16) && TARGET_STREAMING)
+
+/* The FEAT_SME_F16F16 extension to SME, enabled through +sme-f16f16.  */
+#define TARGET_STREAMING_SME_F16F16 \
+  (AARCH64_HAVE_ISA (SME_F16F16) && TARGET_STREAMING)
 
 /* The FEAT_SME_F64F64 extension to SME, enabled through +sme-f64f64.  */
 #define TARGET_SME_F64F64 AARCH64_HAVE_ISA (SME_F64F64)
@@ -356,6 +365,10 @@ constexpr auto AARCH64_FL_DEFAULT_ISA_MODE ATTRIBUTE_UNUSED
 
 /* Same with streaming mode enabled.  */
 #define TARGET_STREAMING_SME2 (TARGET_STREAMING && TARGET_SME2)
+
+#define TARGET_STREAMING_SME2p1 (TARGET_STREAMING && AARCH64_HAVE_ISA (SME2p1))
+
+#define TARGET_SME_B16B16 AARCH64_HAVE_ISA (SME_B16B16)
 
 /* ARMv8.3-A features.  */
 #define TARGET_ARMV8_3	AARCH64_HAVE_ISA (V8_3A)
@@ -482,6 +495,23 @@ constexpr auto AARCH64_FL_DEFAULT_ISA_MODE ATTRIBUTE_UNUSED
 
 /* fp8 instructions are enabled through +fp8.  */
 #define TARGET_FP8 AARCH64_HAVE_ISA (FP8)
+
+/* Combinatorial tests.  */
+
+#define TARGET_SVE2_OR_SME2 \
+  ((TARGET_SVE2 || TARGET_STREAMING) \
+   && (TARGET_SME2 || TARGET_NON_STREAMING))
+
+/* There's no need to check TARGET_SME for streaming or streaming-compatible
+   functions, since streaming mode itself implies SME.  */
+#define TARGET_SVE2p1_OR_SME (TARGET_SVE2p1 || TARGET_STREAMING)
+
+#define TARGET_SVE2p1_OR_SME2 \
+  ((TARGET_SVE2p1 || TARGET_STREAMING) \
+   && (TARGET_SME2 || TARGET_NON_STREAMING))
+
+#define TARGET_SSVE_B16B16 \
+  (AARCH64_HAVE_ISA (SVE_B16B16) && TARGET_SVE2_OR_SME2)
 
 /* Standard register usage.  */
 
@@ -1131,6 +1161,7 @@ typedef struct
 {
   enum arm_pcs pcs_variant;
   aarch64_isa_mode isa_mode;
+  bool indirect_return;		/* Whether function is marked with indirect_return attribute.  */
   int aapcs_arg_processed;	/* No need to lay out this argument again.  */
   int aapcs_ncrn;		/* Next Core register number.  */
   int aapcs_nextncrn;		/* Next next core register number.  */
@@ -1296,6 +1327,13 @@ typedef struct
   ((VALUE) = GET_MODE_UNIT_BITSIZE (MODE), 2)
 #define CTZ_DEFINED_VALUE_AT_ZERO(MODE, VALUE) \
   ((VALUE) = GET_MODE_UNIT_BITSIZE (MODE), 2)
+
+/* Have space for both SP and GCSPR in the NONLOCAL case in
+   emit_stack_save as well as in __builtin_setjmp, __builtin_longjmp
+   and __builtin_nonlocal_goto.
+   Note: On ILP32 the documented buf size is not enough PR84150.  */
+#define STACK_SAVEAREA_MODE(LEVEL)			\
+  ((LEVEL) == SAVE_NONLOCAL ? E_CDImode : Pmode)
 
 #define INCOMING_RETURN_ADDR_RTX gen_rtx_REG (Pmode, LR_REGNUM)
 

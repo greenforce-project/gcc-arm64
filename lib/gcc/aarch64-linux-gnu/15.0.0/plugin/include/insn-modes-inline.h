@@ -283,6 +283,7 @@ mode_inner_inline (machine_mode mode)
     case E_VNx4BImode: return E_BImode;
     case E_VNx2BImode: return E_BImode;
     case E_VNx32BImode: return E_BImode;
+    case E_VNx64BImode: return E_BImode;
     case E_V8QImode: return E_QImode;
     case E_V4HImode: return E_HImode;
     case E_V2SImode: return E_SImode;
@@ -303,9 +304,11 @@ mode_inner_inline (machine_mode mode)
     case E_VNx2QImode: return E_QImode;
     case E_VNx4QImode: return E_QImode;
     case E_VNx2HImode: return E_HImode;
+    case E_VNx1SImode: return E_SImode;
     case E_VNx8QImode: return E_QImode;
     case E_VNx4HImode: return E_HImode;
     case E_VNx2SImode: return E_SImode;
+    case E_VNx1DImode: return E_DImode;
     case E_V2x8QImode: return E_QImode;
     case E_V3x8QImode: return E_QImode;
     case E_V4x8QImode: return E_QImode;
@@ -484,6 +487,7 @@ mode_unit_size_inline (machine_mode mode)
     case E_VNx4BImode: return 1;
     case E_VNx2BImode: return 1;
     case E_VNx32BImode: return 1;
+    case E_VNx64BImode: return 1;
     case E_V8QImode: return 1;
     case E_V4HImode: return 2;
     case E_V2SImode: return 4;
@@ -504,9 +508,11 @@ mode_unit_size_inline (machine_mode mode)
     case E_VNx2QImode: return 1;
     case E_VNx4QImode: return 1;
     case E_VNx2HImode: return 2;
+    case E_VNx1SImode: return 4;
     case E_VNx8QImode: return 1;
     case E_VNx4HImode: return 2;
     case E_VNx2SImode: return 4;
+    case E_VNx1DImode: return 8;
     case E_V2x8QImode: return 1;
     case E_V3x8QImode: return 1;
     case E_V4x8QImode: return 1;
@@ -685,6 +691,7 @@ mode_unit_precision_inline (machine_mode mode)
     case E_VNx4BImode: return 1;
     case E_VNx2BImode: return 1;
     case E_VNx32BImode: return 1;
+    case E_VNx64BImode: return 1;
     case E_V8QImode: return 1*BITS_PER_UNIT;
     case E_V4HImode: return 2*BITS_PER_UNIT;
     case E_V2SImode: return 4*BITS_PER_UNIT;
@@ -705,9 +712,11 @@ mode_unit_precision_inline (machine_mode mode)
     case E_VNx2QImode: return 1*BITS_PER_UNIT;
     case E_VNx4QImode: return 1*BITS_PER_UNIT;
     case E_VNx2HImode: return 2*BITS_PER_UNIT;
+    case E_VNx1SImode: return 4*BITS_PER_UNIT;
     case E_VNx8QImode: return 1*BITS_PER_UNIT;
     case E_VNx4HImode: return 2*BITS_PER_UNIT;
     case E_VNx2SImode: return 4*BITS_PER_UNIT;
+    case E_VNx1DImode: return 8*BITS_PER_UNIT;
     case E_V2x8QImode: return 1*BITS_PER_UNIT;
     case E_V3x8QImode: return 1*BITS_PER_UNIT;
     case E_V4x8QImode: return 1*BITS_PER_UNIT;

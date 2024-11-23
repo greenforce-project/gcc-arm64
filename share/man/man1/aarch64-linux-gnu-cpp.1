@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "CPP 1"
-.TH CPP 1 "2024-11-07" "gcc-15.0.0" "GNU"
+.TH CPP 1 "2024-11-23" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -451,6 +451,20 @@ When preprocessing, do not shorten system header paths with canonicalization.
 .IP "\fB\-fmax\-include\-depth=\fR\fIdepth\fR" 4
 .IX Item "-fmax-include-depth=depth"
 Set the maximum depth of the nested #include. The default is 200.
+.IP "\fB\-fsearch\-include\-path\fR[\fB=\fR\fIkind\fR]" 4
+.IX Item "-fsearch-include-path[=kind]"
+Look for input files on the #include path, not just the current
+directory.  This is particularly useful with \*(C+20 modules, for which
+both header units and module interface units need to be compiled
+directly:
+.Sp
+.Vb 1
+\&        g++ \-c \-std=c++20 \-fmodules \-fsearch\-include\-path bits/stdc++.h bits/std.cc
+.Ve
+.Sp
+\&\fIkind\fR defaults to \fBuser\fR, which looks on the \f(CW\*(C`#include
+"..."\*(C'\fR search path; you can also explicitly specify \fBsystem\fR
+for the \f(CW\*(C`#include <...>\*(C'\fR search path.
 .IP "\fB\-ftabstop=\fR\fIwidth\fR" 4
 .IX Item "-ftabstop=width"
 Set the distance between tab stops.  This helps the preprocessor report

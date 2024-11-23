@@ -226,6 +226,7 @@ extern bool aarch64_bytes_per_sve_vector_operand (rtx, machine_mode);
 extern bool aarch64_memtag_tag_offset (rtx, machine_mode);
 extern bool aarch64_granule16_uimm6 (rtx, machine_mode);
 extern bool aarch64_granule16_simm9 (rtx, machine_mode);
+extern bool aarch64_maskload_else_operand (rtx, machine_mode);
 #endif /* HAVE_MACHINE_MODES */
 
 #ifdef GCC_HARD_REG_SET_H

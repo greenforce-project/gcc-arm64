@@ -759,6 +759,19 @@ struct aarch64_required_extensions
 	     sm_on ? sm_on | flags : 0 };
   }
 
+  /* Return a requirement that is as restrictive as possible while still being
+     no more restrictive than THIS and no more restrictive than OTHER.  */
+  inline CONSTEXPR aarch64_required_extensions
+  common_denominator (const aarch64_required_extensions &other)
+  {
+    return { sm_off && other.sm_off
+	     ? sm_off & other.sm_off
+	     : sm_off | other.sm_off,
+	     sm_on && other.sm_on
+	     ? sm_on & other.sm_on
+	     : sm_on | other.sm_on };
+  }
+
   /* Require non-streaming mode and the features in FLAGS.  */
   static inline CONSTEXPR aarch64_required_extensions
   nonstreaming_only (aarch64_feature_flags flags)
@@ -853,7 +866,7 @@ bool aarch64_emit_approx_div (rtx, rtx, rtx);
 bool aarch64_emit_approx_sqrt (rtx, rtx, bool);
 bool aarch64_emit_opt_vec_rotate (rtx, rtx, rtx);
 tree aarch64_vector_load_decl (tree);
-rtx aarch64_gen_callee_cookie (aarch64_isa_mode, arm_pcs);
+rtx aarch64_gen_callee_cookie (aarch64_isa_mode, arm_pcs, bool);
 void aarch64_expand_call (rtx, rtx, rtx, bool);
 bool aarch64_expand_cpymem_mops (rtx *, bool);
 bool aarch64_expand_cpymem (rtx *, bool);
@@ -1045,7 +1058,7 @@ rtx aarch64_simd_expand_builtin (int, tree, rtx);
 void aarch64_simd_lane_bounds (rtx, HOST_WIDE_INT, HOST_WIDE_INT, const_tree);
 rtx aarch64_endian_lane_rtx (machine_mode, unsigned int);
 
-void aarch64_split_double_move (rtx, rtx, machine_mode);
+void aarch64_split_move (rtx, rtx, machine_mode);
 void aarch64_split_128bit_move (rtx, rtx);
 
 bool aarch64_split_128bit_move_p (rtx, rtx);
@@ -1205,5 +1218,7 @@ extern void aarch64_adjust_reg_alloc_order ();
 
 bool aarch64_optimize_mode_switching (aarch64_mode_entity);
 void aarch64_restore_za (rtx);
+
+extern bool aarch64_gcs_enabled ();
 
 #endif /* GCC_AARCH64_PROTOS_H */

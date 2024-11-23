@@ -913,6 +913,9 @@ public:
      fewer than VF scalars.  */
   bool can_use_partial_vectors_p;
 
+  /* Records whether we must use niter masking for correctness reasons.  */
+  bool must_use_partial_vectors_p;
+
   /* True if we've decided to use partially-populated vectors, so that
      the vector loop can handle fewer than VF scalars.  */
   bool using_partial_vectors_p;
@@ -1051,6 +1054,7 @@ public:
 #define LOOP_VINFO_VERSIONING_THRESHOLD(L) (L)->versioning_threshold
 #define LOOP_VINFO_VECTORIZABLE_P(L)       (L)->vectorizable
 #define LOOP_VINFO_CAN_USE_PARTIAL_VECTORS_P(L) (L)->can_use_partial_vectors_p
+#define LOOP_VINFO_MUST_USE_PARTIAL_VECTORS_P(L) (L)->must_use_partial_vectors_p
 #define LOOP_VINFO_USING_PARTIAL_VECTORS_P(L) (L)->using_partial_vectors_p
 #define LOOP_VINFO_USING_DECREMENTING_IV_P(L) (L)->using_decrementing_iv_p
 #define LOOP_VINFO_USING_SELECT_VL_P(L) (L)->using_select_vl_p
@@ -1669,6 +1673,7 @@ public:
   unsigned int outside_cost () const;
   unsigned int total_cost () const;
   unsigned int suggested_unroll_factor () const;
+  machine_mode suggested_epilogue_mode () const;
 
 protected:
   unsigned int record_stmt_cost (stmt_vec_info, vect_cost_model_location,
@@ -1691,6 +1696,10 @@ protected:
   /* The suggested unrolling factor determined at finish_cost.  */
   unsigned int m_suggested_unroll_factor;
 
+  /* The suggested mode to be used for a vectorized epilogue or VOIDmode,
+     determined at finish_cost.  */
+  machine_mode m_suggested_epilogue_mode;
+
   /* True if finish_cost has been called.  */
   bool m_finished;
 };
@@ -1704,6 +1713,7 @@ vector_costs::vector_costs (vec_info *vinfo, bool costing_for_scalar)
     m_costing_for_scalar (costing_for_scalar),
     m_costs (),
     m_suggested_unroll_factor(1),
+    m_suggested_epilogue_mode(VOIDmode),
     m_finished (false)
 {
 }
@@ -1759,6 +1769,15 @@ vector_costs::suggested_unroll_factor () const
 {
   gcc_checking_assert (m_finished);
   return m_suggested_unroll_factor;
+}
+
+/* Return the suggested epilogue mode.  */
+
+inline machine_mode
+vector_costs::suggested_epilogue_mode () const
+{
+  gcc_checking_assert (m_finished);
+  return m_suggested_epilogue_mode;
 }
 
 #define VECT_MAX_COST 1000
@@ -2335,6 +2354,10 @@ extern unsigned record_stmt_cost (stmt_vector_for_cost *, int,
 extern unsigned record_stmt_cost (stmt_vector_for_cost *, int,
 				  enum vect_cost_for_stmt,
 				  enum vect_cost_model_location);
+extern unsigned record_stmt_cost (stmt_vector_for_cost *, int,
+				  enum vect_cost_for_stmt, stmt_vec_info,
+				  slp_tree, tree, int,
+				  enum vect_cost_model_location);
 
 /* Overload of record_stmt_cost with VECTYPE derived from STMT_INFO.  */
 
@@ -2356,12 +2379,8 @@ record_stmt_cost (stmt_vector_for_cost *body_cost_vec, int count,
 		  slp_tree node,
 		  int misalign, enum vect_cost_model_location where)
 {
-  if (node)
-    return record_stmt_cost (body_cost_vec, count, kind, node,
-			     STMT_VINFO_VECTYPE (stmt_info), misalign, where);
-  else
-    return record_stmt_cost (body_cost_vec, count, kind, stmt_info,
-			     STMT_VINFO_VECTYPE (stmt_info), misalign, where);
+  return record_stmt_cost (body_cost_vec, count, kind, stmt_info, node,
+			   STMT_VINFO_VECTYPE (stmt_info), misalign, where);
 }
 
 extern void vect_finish_replace_stmt (vec_info *, stmt_vec_info, gimple *);
@@ -2392,12 +2411,12 @@ extern bool vect_nop_conversion_p (stmt_vec_info);
 extern opt_result vect_analyze_stmt (vec_info *, stmt_vec_info, bool *,
 				     slp_tree,
 				     slp_instance, stmt_vector_for_cost *);
-extern void vect_get_load_cost (vec_info *, stmt_vec_info, int,
+extern void vect_get_load_cost (vec_info *, stmt_vec_info, slp_tree, int,
 				dr_alignment_support, int, bool,
 				unsigned int *, unsigned int *,
 				stmt_vector_for_cost *,
 				stmt_vector_for_cost *, bool);
-extern void vect_get_store_cost (vec_info *, stmt_vec_info, int,
+extern void vect_get_store_cost (vec_info *, stmt_vec_info, slp_tree, int,
 				 dr_alignment_support, int,
 				 unsigned int *, stmt_vector_for_cost *);
 extern bool vect_supportable_shift (vec_info *, enum tree_code, tree);
@@ -2428,9 +2447,11 @@ extern bool vect_slp_analyze_instance_alignment (vec_info *, slp_instance);
 extern opt_result vect_analyze_data_ref_accesses (vec_info *, vec<int> *);
 extern opt_result vect_prune_runtime_alias_test_list (loop_vec_info);
 extern bool vect_gather_scatter_fn_p (vec_info *, bool, bool, tree, tree,
-				      tree, int, internal_fn *, tree *);
+				      tree, int, internal_fn *, tree *,
+				      vec<int> * = nullptr);
 extern bool vect_check_gather_scatter (stmt_vec_info, loop_vec_info,
-				       gather_scatter_info *);
+				       gather_scatter_info *,
+				       vec<int> * = nullptr);
 extern opt_result vect_find_stmt_data_reference (loop_p, gimple *,
 						 vec<data_reference_p> *,
 						 vec<int> *, int);
@@ -2448,7 +2469,8 @@ extern tree vect_create_destination_var (tree, tree);
 extern bool vect_grouped_store_supported (tree, unsigned HOST_WIDE_INT);
 extern internal_fn vect_store_lanes_supported (tree, unsigned HOST_WIDE_INT, bool);
 extern bool vect_grouped_load_supported (tree, bool, unsigned HOST_WIDE_INT);
-extern internal_fn vect_load_lanes_supported (tree, unsigned HOST_WIDE_INT, bool);
+extern internal_fn vect_load_lanes_supported (tree, unsigned HOST_WIDE_INT,
+					      bool, vec<int> * = nullptr);
 extern void vect_permute_store_chain (vec_info *, vec<tree> &,
 				      unsigned int, stmt_vec_info,
 				      gimple_stmt_iterator *, vec<tree> *);
@@ -2594,6 +2616,7 @@ extern int vect_slp_child_index_for_operand (const gimple *, int op, bool);
 
 extern tree prepare_vec_mask (loop_vec_info, tree, tree, tree,
 			      gimple_stmt_iterator *);
+extern tree vect_get_mask_load_else (int, tree);
 
 /* In tree-vect-patterns.cc.  */
 extern void

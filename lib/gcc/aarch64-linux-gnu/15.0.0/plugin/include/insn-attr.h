@@ -39,6 +39,18 @@ extern enum attr_fp get_attr_fp (rtx_insn *);
 #define HAVE_ATTR_arch_enabled 1
 extern enum attr_arch_enabled get_attr_arch_enabled (rtx_insn *);
 
+#define HAVE_ATTR_is_bf16 1
+extern enum attr_is_bf16 get_attr_is_bf16 (rtx_insn *);
+
+#define HAVE_ATTR_is_rev 1
+extern enum attr_is_rev get_attr_is_rev (rtx_insn *);
+
+#define HAVE_ATTR_supports_bf16_rev 1
+extern enum attr_supports_bf16_rev get_attr_supports_bf16_rev (rtx_insn *);
+
+#define HAVE_ATTR_mode_enabled 1
+extern enum attr_mode_enabled get_attr_mode_enabled (rtx_insn *);
+
 #define HAVE_ATTR_enabled 1
 extern enum attr_enabled get_attr_enabled (rtx_insn *);
 

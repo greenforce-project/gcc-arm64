@@ -962,8 +962,7 @@ option.
      whether you use the GNU assembler.  On any other system,
      '--with-gnu-as' has no effect.
 
-        * 'hppa1.0-ANY-ANY'
-        * 'hppa1.1-ANY-ANY'
+        * 'hppa*-ANY-ANY'
         * '*-*-solaris2.11'
 
 '--with-as=PATHNAME'
@@ -1039,6 +1038,18 @@ option.
      virtual calls in verifiable mode at all.  However the libvtv
      library will still be built (see '--disable-libvtv' to turn off
      building libvtv).  '--disable-vtable-verify' is the default.
+
+'--enable-libdiagnostics'
+     Specify whether to build 'libdiagnostics', a shared library
+     exposing GCC's diagnostics capabilities via a C API, and a C++
+     wrapper API adding "syntactic sugar".
+
+     This option requires '--enable-host-shared' on non-Windows hosts.
+
+     This option also enables 'sarif-replay', a command-line tool for
+     viewing SARIF files.  'sarif-replay' takes one or more '.sarif'
+     files as input and attempts to replay any diagnostics within them
+     to stderr (via 'libdiagnostics') in the style of GCC's diagnostics.
 
 '--disable-gcov'
      Specify that the run-time library used for coverage analysis and
@@ -2833,6 +2844,13 @@ configurations are:
      available on AArch64 systems that are running Linux kernel version
      5.4 or later.
 
+'bootstrap-ubsan'
+     Compiles GCC itself using Undefined Behavior Sanitization in order
+     to catch undefined behavior within the GCC code.  Note that it does
+     not abort on errors by default.  'UBSAN_OPTIONS' can be set to
+     change this, like
+     'UBSAN_OPTIONS='abort_on_error=1:halt_on_error=1:print_summary=1:print_stacktrace=1''.
+
 5.2 Building a cross compiler
 =============================
 
@@ -3227,9 +3245,6 @@ makers.
 
    * DOS--DJGPP.
 
-   * HP-UX:
-        * HP-UX Porting Center;
-
    * macOS:
         * The Homebrew package manager;
         * MacPorts.
@@ -3424,135 +3439,28 @@ h8300-hms
 
 Renesas H8/300 series of processors.
 
-hppa*-hp-hpux*
-==============
+hppa64-hp-hpux11*
+=================
 
-We require using gas on all hppa platforms.  Version 2.19 or later is
-recommended.
+Only the 64-bit 'hppa' target is supported on HP-UX. Support for 32-bit
+'hppa' was discontinued in GCC 13.
+
+   We require using gas on all hppa platforms.
 
    It may be helpful to configure GCC with the '--with-gnu-as' and
 '--with-as=...' options to ensure that GCC can find GAS.
 
-   There are two default scheduling models for instructions.  These are
-PROCESSOR_7100LC and PROCESSOR_8000.  They are selected from the pa-risc
-architecture specified for the target machine when configuring.
-PROCESSOR_8000 is the default.  PROCESSOR_7100LC is selected when the
-target is a 'hppa1*' machine.
+   Only the HP linker is supported.  Thus, it is best to explicitly
+configure the target with the '--with-ld=...' option.
 
-   The PROCESSOR_8000 model is not well suited to older processors.
-Thus, it is important to completely specify the machine architecture
-when configuring if you want a model other than PROCESSOR_8000.  The
-macro TARGET_SCHED_DEFAULT can be defined in BOOT_CFLAGS if a different
-default scheduling model is desired.
+   The DCE thread library is not supported, so '--enable-threads=dce'
+does not work.
 
-   As of GCC 4.0, GCC uses the UNIX 95 namespace for HP-UX 10.10 through
-11.00, and the UNIX 98 namespace for HP-UX 11.11 and later.  This
-namespace change might cause problems when bootstrapping with an earlier
-version of GCC or the HP compiler as essentially the same namespace is
-required for an entire build.  This problem can be avoided in a number
-of ways.  With HP cc, 'UNIX_STD' can be set to '95' or '98'.  Another
-way is to add an appropriate set of predefines to 'CC'.  The description
-for the 'munix=' option contains a list of the predefines used with each
-standard.
+   Currently, there are no precompiled binaries for 64-bit HP-UX.
 
-   More specific information to 'hppa*-hp-hpux*' targets follows.
-
-hppa*-hp-hpux11
-===============
-
-Refer to binaries for information about obtaining precompiled GCC
-binaries for HP-UX.  Precompiled binaries must be obtained to build the
-Ada language as it cannot be bootstrapped using C.  Ada is only
-available for the 32-bit PA-RISC runtime.
-
-   Starting with GCC 3.4 an ISO C compiler is required to bootstrap.
-The bundled compiler supports only traditional C; you will need either
-HP's unbundled compiler, or a binary distribution of GCC.
-
-   It is possible to build GCC 3.3 starting with the bundled HP
-compiler, but the process requires several steps.  GCC 3.3 can then be
-used to build later versions.
-
-   There are several possible approaches to building the distribution.
-Binutils can be built first using the HP tools.  Then, the GCC
-distribution can be built.  The second approach is to build GCC first
-using the HP tools, then build binutils, then rebuild GCC.  There have
-been problems with various binary distributions, so it is best not to
-start from a binary distribution.
-
-   On 64-bit capable systems, there are two distinct targets.  Different
-installation prefixes must be used if both are to be installed on the
-same system.  The 'hppa[1-2]*-hp-hpux11*' target generates code for the
-32-bit PA-RISC runtime architecture and uses the HP linker.  The
-'hppa64-hp-hpux11*' target generates 64-bit code for the PA-RISC 2.0
-architecture.
-
-   The script config.guess now selects the target type based on the
-compiler detected during configuration.  You must define 'PATH' or 'CC'
-so that configure finds an appropriate compiler for the initial
-bootstrap.  When 'CC' is used, the definition should contain the options
-that are needed whenever 'CC' is used.
-
-   Specifically, options that determine the runtime architecture must be
-in 'CC' to correctly select the target for the build.  It is also
-convenient to place many other compiler options in 'CC'.  For example,
-'CC="cc -Ac +DA2.0W -Wp,-H16376 -D_CLASSIC_TYPES -D_HPUX_SOURCE"' can be
-used to bootstrap the GCC 3.3 branch with the HP compiler in 64-bit
-K&R/bundled mode.  The '+DA2.0W' option will result in the automatic
-selection of the 'hppa64-hp-hpux11*' target.  The macro definition table
-of cpp needs to be increased for a successful build with the HP
-compiler.  _CLASSIC_TYPES and _HPUX_SOURCE need to be defined when
-building with the bundled compiler, or when using the '-Ac' option.
-These defines aren't necessary with '-Ae'.
-
-   It is best to explicitly configure the 'hppa64-hp-hpux11*' target
-with the '--with-ld=...' option.  This overrides the standard search for
-ld.  The two linkers supported on this target require different
-commands.  The default linker is determined during configuration.  As a
-result, it's not possible to switch linkers in the middle of a GCC
-build.  This has been reported to sometimes occur in unified builds of
-binutils and GCC.
-
-   A recent linker patch must be installed for the correct operation of
-GCC 3.3 and later.  'PHSS_26559' and 'PHSS_24304' are the oldest linker
-patches that are known to work.  They are for HP-UX 11.00 and 11.11,
-respectively.  'PHSS_24303', the companion to 'PHSS_24304', might be
-usable but it hasn't been tested.  These patches have been superseded.
-Consult the HP patch database to obtain the currently recommended linker
-patch for your system.
-
-   The patches are necessary for the support of weak symbols on the
-32-bit port, and for the running of initializers and finalizers.  Weak
-symbols are implemented using SOM secondary definition symbols.  Prior
-to HP-UX 11, there are bugs in the linker support for secondary symbols.
-The patches correct a problem of linker core dumps creating shared
-libraries containing secondary symbols, as well as various other linking
-issues involving secondary symbols.
-
-   GCC 3.3 uses the ELF DT_INIT_ARRAY and DT_FINI_ARRAY capabilities to
-run initializers and finalizers on the 64-bit port.  The 32-bit port
-uses the linker '+init' and '+fini' options for the same purpose.  The
-patches correct various problems with the +init/+fini options, including
-program core dumps.  Binutils 2.14 corrects a problem on the 64-bit port
-resulting from HP's non-standard use of the .init and .fini sections for
-array initializers and finalizers.
-
-   Only the HP linker is supported for the 'hppa64-hp-hpux11*' target.
-
-   At this time, the GNU linker does not support the creation of long
-branch stubs.  As a result, it cannot successfully link binaries
-containing branch offsets larger than 8 megabytes.  In addition, there
-are problems linking shared libraries, linking executables with
-'-static', and with dwarf2 unwind and exception support.  It also
-doesn't provide stubs for internal calls to global functions in shared
-libraries, so these calls cannot be overloaded.
-
-   The HP dynamic loader does not support GNU symbol versioning, so
-symbol versioning is not supported.  It may be necessary to disable
-symbol versioning with '--disable-symvers' when using GNU ld.
-
-   POSIX threads are the default.  The optional DCE thread library is
-not supported, so '--enable-threads=dce' does not work.
+   Binutils and other required tools can be built using the HP tools.
+Then, the GCC distribution can be built.  This is challenging due to the
+many dependencies.
 
 *-*-linux-gnu
 =============
@@ -4873,7 +4781,7 @@ Concept Index
 * Menu:
 
 * Binaries:                              Binaries.           (line    6)
-* build_configargs:                      Configuration.      (line 1971)
+* build_configargs:                      Configuration.      (line 1982)
 * Configuration:                         Configuration.      (line    6)
 * Downloading GCC:                       Downloading the source.
                                                              (line    6)
@@ -4882,7 +4790,7 @@ Concept Index
 * FDL, GNU Free Documentation License:   GNU Free Documentation License.
                                                              (line    6)
 * Host specific installation:            Specific.           (line    6)
-* host_configargs:                       Configuration.      (line 1975)
+* host_configargs:                       Configuration.      (line 1986)
 * Installing GCC: Binaries:              Binaries.           (line    6)
 * Installing GCC: Building:              Building.           (line    6)
 * Installing GCC: Configuration:         Configuration.      (line    6)
@@ -4892,7 +4800,7 @@ Concept Index
 * Specific installation notes:           Specific.           (line    6)
 * Target specific installation:          Specific.           (line    6)
 * Target specific installation notes:    Specific.           (line    6)
-* target_configargs:                     Configuration.      (line 1979)
+* target_configargs:                     Configuration.      (line 1990)
 * Testing:                               Testing.            (line    6)
 * Testsuite:                             Testing.            (line    6)
 
@@ -4908,95 +4816,94 @@ Ref: GM2-prerequisite8553
 Node: Downloading the source19268
 Node: Configuration20987
 Ref: with-gnu-as40254
-Ref: with-as41105
-Ref: with-gnu-ld42470
-Ref: WithAixSoname72306
-Ref: AixLdCommand72967
-Ref: with-included-gettext88851
-Node: Building117204
-Node: Testing133415
-Node: Final install140946
-Node: Binaries144124
-Node: Specific145109
-Ref: aarch64-x-x145643
-Ref: amd64-x-solaris2147663
-Ref: amdgcn-x-amdhsa147745
-Ref: arc-x-elf32148549
-Ref: arc-linux-uclibc148725
-Ref: arm-x-eabi148866
-Ref: avr149119
-Ref: bfin149601
-Ref: cris149864
-Ref: dos150190
-Ref: epiphany-x-elf150515
-Ref: x-x-freebsd150620
-Ref: ft32-x-elf151248
-Ref: h8300-hms151346
-Ref: hppa-hp-hpux151405
-Ref: hppa-hp-hpux11152919
-Ref: x-x-linux-gnu158025
-Ref: ix86-x-linux158218
-Ref: ix86-x-solaris2158420
-Ref: ia64-x-linux158659
-Ref: ia64-x-hpux158906
-Ref: x-ibm-aix159124
-Ref: TransferAixShobj162786
-Ref: iq2000-x-elf166596
-Ref: lm32-x-elf166736
-Ref: lm32-x-uclinux166840
-Ref: loongarch166968
-Ref: m32c-x-elf167605
-Ref: m32r-x-elf167707
-Ref: m68k-x-x167809
-Ref: m68k-x-uclinux168847
-Ref: microblaze-x-elf169092
-Ref: mips-x-x169211
-Ref: moxie-x-elf171121
-Ref: msp430-x-elf171168
-Ref: nds32le-x-elf171725
-Ref: nds32be-x-elf171797
-Ref: nvptx-x-none171866
-Ref: or1k-x-elf172729
-Ref: or1k-x-linux172860
-Ref: powerpc-x-x172941
-Ref: powerpc-x-darwin173132
-Ref: powerpc-x-elf173627
-Ref: powerpc-x-linux-gnu173712
-Ref: powerpc-x-netbsd173807
-Ref: powerpc-x-eabisim173895
-Ref: powerpc-x-eabi174021
-Ref: powerpcle-x-elf174097
-Ref: powerpcle-x-eabisim174189
-Ref: powerpcle-x-eabi174322
-Ref: rl78-x-elf174405
-Ref: riscv32-x-elf174511
-Ref: riscv32-x-linux174700
-Ref: riscv64-x-elf174857
-Ref: riscv64-x-linux175046
-Ref: rx-x-elf175203
-Ref: s390-x-linux175249
-Ref: s390x-x-linux175321
-Ref: s390x-ibm-tpf175408
-Ref: x-x-solaris2175539
-Ref: sparc-x-x178851
-Ref: sparc-sun-solaris2179353
-Ref: sparc-x-linux180252
-Ref: sparc64-x-solaris2180283
-Ref: sparcv9-x-solaris2180370
-Ref: c6x-x-x181091
-Ref: visium-x-elf181183
-Ref: x-x-vxworks181291
-Ref: x86-64-x-x182814
-Ref: x86-64-x-solaris2183142
-Ref: xtensa-x-elf183647
-Ref: xtensa-x-linux184318
-Ref: windows184659
-Ref: x-x-cygwin186245
-Ref: x-x-mingw32186798
-Ref: older187024
-Ref: elf188987
-Node: GNU Free Documentation License189241
-Node: Concept Index214379
+Ref: with-as41075
+Ref: with-gnu-ld42440
+Ref: WithAixSoname72835
+Ref: AixLdCommand73496
+Ref: with-included-gettext89380
+Node: Building117733
+Node: Testing134291
+Node: Final install141822
+Node: Binaries145000
+Node: Specific145940
+Ref: aarch64-x-x146474
+Ref: amd64-x-solaris2148494
+Ref: amdgcn-x-amdhsa148576
+Ref: arc-x-elf32149380
+Ref: arc-linux-uclibc149556
+Ref: arm-x-eabi149697
+Ref: avr149950
+Ref: bfin150432
+Ref: cris150695
+Ref: dos151021
+Ref: epiphany-x-elf151346
+Ref: x-x-freebsd151451
+Ref: ft32-x-elf152079
+Ref: h8300-hms152177
+Ref: hppa64-hp-hpux11152236
+Ref: x-x-linux-gnu152993
+Ref: ix86-x-linux153186
+Ref: ix86-x-solaris2153388
+Ref: ia64-x-linux153627
+Ref: ia64-x-hpux153874
+Ref: x-ibm-aix154092
+Ref: TransferAixShobj157754
+Ref: iq2000-x-elf161564
+Ref: lm32-x-elf161704
+Ref: lm32-x-uclinux161808
+Ref: loongarch161936
+Ref: m32c-x-elf162573
+Ref: m32r-x-elf162675
+Ref: m68k-x-x162777
+Ref: m68k-x-uclinux163815
+Ref: microblaze-x-elf164060
+Ref: mips-x-x164179
+Ref: moxie-x-elf166089
+Ref: msp430-x-elf166136
+Ref: nds32le-x-elf166693
+Ref: nds32be-x-elf166765
+Ref: nvptx-x-none166834
+Ref: or1k-x-elf167697
+Ref: or1k-x-linux167828
+Ref: powerpc-x-x167909
+Ref: powerpc-x-darwin168100
+Ref: powerpc-x-elf168595
+Ref: powerpc-x-linux-gnu168680
+Ref: powerpc-x-netbsd168775
+Ref: powerpc-x-eabisim168863
+Ref: powerpc-x-eabi168989
+Ref: powerpcle-x-elf169065
+Ref: powerpcle-x-eabisim169157
+Ref: powerpcle-x-eabi169290
+Ref: rl78-x-elf169373
+Ref: riscv32-x-elf169479
+Ref: riscv32-x-linux169668
+Ref: riscv64-x-elf169825
+Ref: riscv64-x-linux170014
+Ref: rx-x-elf170171
+Ref: s390-x-linux170217
+Ref: s390x-x-linux170289
+Ref: s390x-ibm-tpf170376
+Ref: x-x-solaris2170507
+Ref: sparc-x-x173819
+Ref: sparc-sun-solaris2174321
+Ref: sparc-x-linux175220
+Ref: sparc64-x-solaris2175251
+Ref: sparcv9-x-solaris2175338
+Ref: c6x-x-x176059
+Ref: visium-x-elf176151
+Ref: x-x-vxworks176259
+Ref: x86-64-x-x177782
+Ref: x86-64-x-solaris2178110
+Ref: xtensa-x-elf178615
+Ref: xtensa-x-linux179286
+Ref: windows179627
+Ref: x-x-cygwin181213
+Ref: x-x-mingw32181766
+Ref: older181992
+Ref: elf183955
+Node: GNU Free Documentation License184209
+Node: Concept Index209347
 
 End Tag Table
 

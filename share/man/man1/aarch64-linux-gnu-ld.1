@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "LD 1"
-.TH LD 1 "2024-11-09" "binutils-2.43.50" "GNU Development Tools"
+.TH LD 1 "2024-11-23" "binutils-2.43.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -3055,6 +3055,11 @@ Request the creation of a \f(CW\*(C`.note.package\*(C'\fR \s-1ELF\s0 note sectio
 contents of the note are in \s-1JSON\s0 format, as per the package metadata
 specification.  For more information see:
 https://systemd.io/ELF_PACKAGE_METADATA/
+The \s-1JSON\s0 argument support percent-encoding and following %[string]
+(where string refers to the name in \s-1HTML\s0's Named Character References)
+encoding: \fB%[comma]\fR for \fB,\fR, \fB%[lbrace]\fR for \fB{\fR,
+\&\fB%[quot]\fR for \fB"\fR, \fB%[rbrace]\fR for \fB}\fR, and
+\&\fB%[space]\fR for space character.
 If the \s-1JSON\s0 argument is missing/empty then this will disable the
 creation of the metadata note, if one had been enabled by an earlier
 occurrence of the \-\-package\-metadata option.
