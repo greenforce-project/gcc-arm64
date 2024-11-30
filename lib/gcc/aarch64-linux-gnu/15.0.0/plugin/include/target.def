@@ -3376,6 +3376,16 @@ to be used.",
  bool, (machine_mode mode),
  NULL)
 
+DEFHOOK
+(redzone_clobber,
+ "Define this to return some RTL for the @code{redzone} @code{asm} clobber\n\
+if target has a red zone and wants to support the @code{redzone} clobber\n\
+or return NULL if the clobber should be ignored.\n\
+\n\
+The default is to ignore the @code{redzone} clobber.",
+ rtx, (),
+ NULL)
+
 /* Support for named address spaces.  */
 #undef HOOK_PREFIX
 #define HOOK_PREFIX "TARGET_ADDR_SPACE_"
@@ -4700,9 +4710,15 @@ DEFHOOK
  "Return the offset bitwise ored into shifted address to get corresponding\n\
 Address Sanitizer shadow memory address.  NULL if Address Sanitizer is not\n\
 supported by the target.  May return 0 if Address Sanitizer is not supported\n\
-by a subtarget.",
+or using dynamic shadow offset by a subtarget.",
  unsigned HOST_WIDE_INT, (void),
  NULL)
+
+DEFHOOK
+(asan_dynamic_shadow_offset_p,
+ "Return true if asan should use dynamic shadow offset.",
+ bool, (void),
+ hook_bool_void_false)
 
 /* Functions relating to calls - argument passing, returns, etc.  */
 /* Members of struct call have no special macro prefix.  */
@@ -6978,6 +6994,16 @@ will be deleted after this call.",
 HOOK_VECTOR_END (shrink_wrap)
 #undef HOOK_PREFIX
 #define HOOK_PREFIX "TARGET_"
+
+DEFHOOK
+(avoid_store_forwarding_p,
+ "Given a list of stores and a load instruction that reads from the location\n\
+of the stores, this hook decides if it's profitable to emit additional code\n\
+to avoid a potential store forwarding stall.  The additional instructions\n\
+needed, the sequence cost and additional relevant information is given in\n\
+the arguments so that the target can make an informed decision.",
+ bool, (vec<store_fwd_info>, rtx, int, bool),
+ default_avoid_store_forwarding_p)
 
 /* Determine the type of unwind info to emit for debugging.  */
 DEFHOOK

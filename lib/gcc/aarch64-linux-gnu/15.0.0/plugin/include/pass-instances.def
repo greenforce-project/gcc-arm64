@@ -507,6 +507,7 @@ NEXT_PASS (pass_cc_fusion, 1);
       NEXT_PASS (pass_live_range_shrinkage, 1);
 NEXT_PASS (pass_aarch64_early_ra, 1);
       NEXT_PASS (pass_sched, 1);
+      NEXT_PASS (pass_rtl_avoid_store_forwarding, 1);
 NEXT_PASS (pass_ldp_fusion, 1);
       NEXT_PASS (pass_early_remat, 1);
       NEXT_PASS (pass_ira, 1);

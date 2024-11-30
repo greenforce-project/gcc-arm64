@@ -659,8 +659,8 @@ It looks like this: 'CPU-COMPANY-SYSTEM'.
      microblazeel, mips, mips64, mips64el, mips64octeon, mips64orion,
      mips64vr, mipsel, mipsisa32, mipsisa32r2, mipsisa64, mipsisa64r2,
      mipsisa64r2el, mipsisa64sb1, mipsisa64sr71k, mipstx39, mmix,
-     mn10300, moxie, msp430, nds32be, nds32le, nios2, nvptx, or1k,
-     pdp11, powerpc, powerpc64, powerpc64le, powerpcle, pru, riscv32,
+     mn10300, moxie, msp430, nds32be, nds32le, nvptx, or1k, pdp11,
+     powerpc, powerpc64, powerpc64le, powerpcle, pru, riscv32,
      riscv32be, riscv64, riscv64be, rl78, rx, s390, s390x, sh, shle,
      sparc, sparc64, tic6x, v850, v850e, v850e1, vax, visium, x86_64,
      xstormy16, xtensa
@@ -1039,8 +1039,8 @@ option.
      library will still be built (see '--disable-libvtv' to turn off
      building libvtv).  '--disable-vtable-verify' is the default.
 
-'--enable-libdiagnostics'
-     Specify whether to build 'libdiagnostics', a shared library
+'--enable-libgdiagnostics'
+     Specify whether to build 'libgdiagnostics', a shared library
      exposing GCC's diagnostics capabilities via a C API, and a C++
      wrapper API adding "syntactic sugar".
 
@@ -1049,7 +1049,8 @@ option.
      This option also enables 'sarif-replay', a command-line tool for
      viewing SARIF files.  'sarif-replay' takes one or more '.sarif'
      files as input and attempts to replay any diagnostics within them
-     to stderr (via 'libdiagnostics') in the style of GCC's diagnostics.
+     to stderr (via 'libgdiagnostics') in the style of GCC's
+     diagnostics.
 
 '--disable-gcov'
      Specify that the run-time library used for coverage analysis and
@@ -4781,7 +4782,7 @@ Concept Index
 * Menu:
 
 * Binaries:                              Binaries.           (line    6)
-* build_configargs:                      Configuration.      (line 1982)
+* build_configargs:                      Configuration.      (line 1983)
 * Configuration:                         Configuration.      (line    6)
 * Downloading GCC:                       Downloading the source.
                                                              (line    6)
@@ -4790,7 +4791,7 @@ Concept Index
 * FDL, GNU Free Documentation License:   GNU Free Documentation License.
                                                              (line    6)
 * Host specific installation:            Specific.           (line    6)
-* host_configargs:                       Configuration.      (line 1986)
+* host_configargs:                       Configuration.      (line 1987)
 * Installing GCC: Binaries:              Binaries.           (line    6)
 * Installing GCC: Building:              Building.           (line    6)
 * Installing GCC: Configuration:         Configuration.      (line    6)
@@ -4800,7 +4801,7 @@ Concept Index
 * Specific installation notes:           Specific.           (line    6)
 * Target specific installation:          Specific.           (line    6)
 * Target specific installation notes:    Specific.           (line    6)
-* target_configargs:                     Configuration.      (line 1990)
+* target_configargs:                     Configuration.      (line 1991)
 * Testing:                               Testing.            (line    6)
 * Testsuite:                             Testing.            (line    6)
 
@@ -4815,95 +4816,95 @@ Ref: GDC-prerequisite7370
 Ref: GM2-prerequisite8553
 Node: Downloading the source19268
 Node: Configuration20987
-Ref: with-gnu-as40254
-Ref: with-as41075
-Ref: with-gnu-ld42440
-Ref: WithAixSoname72835
-Ref: AixLdCommand73496
-Ref: with-included-gettext89380
-Node: Building117733
-Node: Testing134291
-Node: Final install141822
-Node: Binaries145000
-Node: Specific145940
-Ref: aarch64-x-x146474
-Ref: amd64-x-solaris2148494
-Ref: amdgcn-x-amdhsa148576
-Ref: arc-x-elf32149380
-Ref: arc-linux-uclibc149556
-Ref: arm-x-eabi149697
-Ref: avr149950
-Ref: bfin150432
-Ref: cris150695
-Ref: dos151021
-Ref: epiphany-x-elf151346
-Ref: x-x-freebsd151451
-Ref: ft32-x-elf152079
-Ref: h8300-hms152177
-Ref: hppa64-hp-hpux11152236
-Ref: x-x-linux-gnu152993
-Ref: ix86-x-linux153186
-Ref: ix86-x-solaris2153388
-Ref: ia64-x-linux153627
-Ref: ia64-x-hpux153874
-Ref: x-ibm-aix154092
-Ref: TransferAixShobj157754
-Ref: iq2000-x-elf161564
-Ref: lm32-x-elf161704
-Ref: lm32-x-uclinux161808
-Ref: loongarch161936
-Ref: m32c-x-elf162573
-Ref: m32r-x-elf162675
-Ref: m68k-x-x162777
-Ref: m68k-x-uclinux163815
-Ref: microblaze-x-elf164060
-Ref: mips-x-x164179
-Ref: moxie-x-elf166089
-Ref: msp430-x-elf166136
-Ref: nds32le-x-elf166693
-Ref: nds32be-x-elf166765
-Ref: nvptx-x-none166834
-Ref: or1k-x-elf167697
-Ref: or1k-x-linux167828
-Ref: powerpc-x-x167909
-Ref: powerpc-x-darwin168100
-Ref: powerpc-x-elf168595
-Ref: powerpc-x-linux-gnu168680
-Ref: powerpc-x-netbsd168775
-Ref: powerpc-x-eabisim168863
-Ref: powerpc-x-eabi168989
-Ref: powerpcle-x-elf169065
-Ref: powerpcle-x-eabisim169157
-Ref: powerpcle-x-eabi169290
-Ref: rl78-x-elf169373
-Ref: riscv32-x-elf169479
-Ref: riscv32-x-linux169668
-Ref: riscv64-x-elf169825
-Ref: riscv64-x-linux170014
-Ref: rx-x-elf170171
-Ref: s390-x-linux170217
-Ref: s390x-x-linux170289
-Ref: s390x-ibm-tpf170376
-Ref: x-x-solaris2170507
-Ref: sparc-x-x173819
-Ref: sparc-sun-solaris2174321
-Ref: sparc-x-linux175220
-Ref: sparc64-x-solaris2175251
-Ref: sparcv9-x-solaris2175338
-Ref: c6x-x-x176059
-Ref: visium-x-elf176151
-Ref: x-x-vxworks176259
-Ref: x86-64-x-x177782
-Ref: x86-64-x-solaris2178110
-Ref: xtensa-x-elf178615
-Ref: xtensa-x-linux179286
-Ref: windows179627
-Ref: x-x-cygwin181213
-Ref: x-x-mingw32181766
-Ref: older181992
-Ref: elf183955
-Node: GNU Free Documentation License184209
-Node: Concept Index209347
+Ref: with-gnu-as40247
+Ref: with-as41068
+Ref: with-gnu-ld42433
+Ref: WithAixSoname72836
+Ref: AixLdCommand73497
+Ref: with-included-gettext89381
+Node: Building117734
+Node: Testing134292
+Node: Final install141823
+Node: Binaries145001
+Node: Specific145941
+Ref: aarch64-x-x146475
+Ref: amd64-x-solaris2148495
+Ref: amdgcn-x-amdhsa148577
+Ref: arc-x-elf32149381
+Ref: arc-linux-uclibc149557
+Ref: arm-x-eabi149698
+Ref: avr149951
+Ref: bfin150433
+Ref: cris150696
+Ref: dos151022
+Ref: epiphany-x-elf151347
+Ref: x-x-freebsd151452
+Ref: ft32-x-elf152080
+Ref: h8300-hms152178
+Ref: hppa64-hp-hpux11152237
+Ref: x-x-linux-gnu152994
+Ref: ix86-x-linux153187
+Ref: ix86-x-solaris2153389
+Ref: ia64-x-linux153628
+Ref: ia64-x-hpux153875
+Ref: x-ibm-aix154093
+Ref: TransferAixShobj157755
+Ref: iq2000-x-elf161565
+Ref: lm32-x-elf161705
+Ref: lm32-x-uclinux161809
+Ref: loongarch161937
+Ref: m32c-x-elf162574
+Ref: m32r-x-elf162676
+Ref: m68k-x-x162778
+Ref: m68k-x-uclinux163816
+Ref: microblaze-x-elf164061
+Ref: mips-x-x164180
+Ref: moxie-x-elf166090
+Ref: msp430-x-elf166137
+Ref: nds32le-x-elf166694
+Ref: nds32be-x-elf166766
+Ref: nvptx-x-none166835
+Ref: or1k-x-elf167698
+Ref: or1k-x-linux167829
+Ref: powerpc-x-x167910
+Ref: powerpc-x-darwin168101
+Ref: powerpc-x-elf168596
+Ref: powerpc-x-linux-gnu168681
+Ref: powerpc-x-netbsd168776
+Ref: powerpc-x-eabisim168864
+Ref: powerpc-x-eabi168990
+Ref: powerpcle-x-elf169066
+Ref: powerpcle-x-eabisim169158
+Ref: powerpcle-x-eabi169291
+Ref: rl78-x-elf169374
+Ref: riscv32-x-elf169480
+Ref: riscv32-x-linux169669
+Ref: riscv64-x-elf169826
+Ref: riscv64-x-linux170015
+Ref: rx-x-elf170172
+Ref: s390-x-linux170218
+Ref: s390x-x-linux170290
+Ref: s390x-ibm-tpf170377
+Ref: x-x-solaris2170508
+Ref: sparc-x-x173820
+Ref: sparc-sun-solaris2174322
+Ref: sparc-x-linux175221
+Ref: sparc64-x-solaris2175252
+Ref: sparcv9-x-solaris2175339
+Ref: c6x-x-x176060
+Ref: visium-x-elf176152
+Ref: x-x-vxworks176260
+Ref: x86-64-x-x177783
+Ref: x86-64-x-solaris2178111
+Ref: xtensa-x-elf178616
+Ref: xtensa-x-linux179287
+Ref: windows179628
+Ref: x-x-cygwin181214
+Ref: x-x-mingw32181767
+Ref: older181993
+Ref: elf183956
+Node: GNU Free Documentation License184210
+Node: Concept Index209348
 
 End Tag Table
 

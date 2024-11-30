@@ -35,6 +35,8 @@ enum optab_tag {
   umsub_widen_optab,
   ssmsub_widen_optab,
   usmsub_widen_optab,
+  crc_optab,
+  crc_rev_optab,
   vec_load_lanes_optab,
   vec_store_lanes_optab,
   vec_mask_load_lanes_optab,
@@ -466,7 +468,7 @@ enum optab_tag {
   LAST_NORM_OPTAB = iorn_optab
 };
 
-#define NUM_OPTABS          454
+#define NUM_OPTABS          456
 #define NUM_CONVLIB_OPTABS  17
 #define NUM_NORMLIB_OPTABS  80
 #define NUM_OPTAB_PATTERNS  3010
@@ -2571,6 +2573,15 @@ gen_aarch64_sve_cvtnt (machine_mode arg0, rtx x0, rtx x1, rtx x2, rtx x3)
   return res;
 }
 
+extern rtx maybe_gen_aarch64_sve_cvtnt (machine_mode, rtx, rtx, rtx);
+inline rtx
+gen_aarch64_sve_cvtnt (machine_mode arg0, rtx x0, rtx x1, rtx x2)
+{
+  rtx res = maybe_gen_aarch64_sve_cvtnt (arg0, x0, x1, x2);
+  gcc_assert (res);
+  return res;
+}
+
 extern insn_code maybe_code_for_aarch64_sve_punpk (int, machine_mode);
 inline insn_code
 code_for_aarch64_sve_punpk (int arg0, machine_mode arg1)
@@ -3426,6 +3437,42 @@ gen_aarch64_sve_add_lane (int arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2, r
   return res;
 }
 
+extern insn_code maybe_code_for_aarch64_sve_dot (machine_mode);
+inline insn_code
+code_for_aarch64_sve_dot (machine_mode arg0)
+{
+  insn_code code = maybe_code_for_aarch64_sve_dot (arg0);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_sve_dot (machine_mode, rtx, rtx, rtx, rtx);
+inline rtx
+gen_aarch64_sve_dot (machine_mode arg0, rtx x0, rtx x1, rtx x2, rtx x3)
+{
+  rtx res = maybe_gen_aarch64_sve_dot (arg0, x0, x1, x2, x3);
+  gcc_assert (res);
+  return res;
+}
+
+extern insn_code maybe_code_for_aarch64_sve_dot_lane (machine_mode);
+inline insn_code
+code_for_aarch64_sve_dot_lane (machine_mode arg0)
+{
+  insn_code code = maybe_code_for_aarch64_sve_dot_lane (arg0);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_sve_dot_lane (machine_mode, rtx, rtx, rtx, rtx, rtx);
+inline rtx
+gen_aarch64_sve_dot_lane (machine_mode arg0, rtx x0, rtx x1, rtx x2, rtx x3, rtx x4)
+{
+  rtx res = maybe_gen_aarch64_sve_dot_lane (arg0, x0, x1, x2, x3, x4);
+  gcc_assert (res);
+  return res;
+}
+
 extern insn_code maybe_code_for_aarch64_sve_qadd (int, machine_mode);
 inline insn_code
 code_for_aarch64_sve_qadd (int arg0, machine_mode arg1)
@@ -3552,6 +3599,24 @@ gen_aarch64_sve (int arg0, machine_mode arg1, machine_mode arg2, rtx x0, rtx x1)
   return res;
 }
 
+extern insn_code maybe_code_for_aarch64_sve2_fp8_cvt (int, machine_mode);
+inline insn_code
+code_for_aarch64_sve2_fp8_cvt (int arg0, machine_mode arg1)
+{
+  insn_code code = maybe_code_for_aarch64_sve2_fp8_cvt (arg0, arg1);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_sve2_fp8_cvt (int, machine_mode, rtx, rtx);
+inline rtx
+gen_aarch64_sve2_fp8_cvt (int arg0, machine_mode arg1, rtx x0, rtx x1)
+{
+  rtx res = maybe_gen_aarch64_sve2_fp8_cvt (arg0, arg1, x0, x1);
+  gcc_assert (res);
+  return res;
+}
+
 extern insn_code maybe_code_for_aarch64_sve2_cvtxnt (machine_mode);
 inline insn_code
 code_for_aarch64_sve2_cvtxnt (machine_mode arg0)
@@ -3586,6 +3651,33 @@ gen_aarch64_sve_cvtn (machine_mode arg0, rtx x0, rtx x1)
   rtx res = maybe_gen_aarch64_sve_cvtn (arg0, x0, x1);
   gcc_assert (res);
   return res;
+}
+
+extern insn_code maybe_code_for_aarch64_sve2_fp8_cvtn (machine_mode);
+inline insn_code
+code_for_aarch64_sve2_fp8_cvtn (machine_mode arg0)
+{
+  insn_code code = maybe_code_for_aarch64_sve2_fp8_cvtn (arg0);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_sve2_fp8_cvtn (machine_mode, rtx, rtx);
+inline rtx
+gen_aarch64_sve2_fp8_cvtn (machine_mode arg0, rtx x0, rtx x1)
+{
+  rtx res = maybe_gen_aarch64_sve2_fp8_cvtn (arg0, x0, x1);
+  gcc_assert (res);
+  return res;
+}
+
+extern insn_code maybe_code_for_aarch64_sve2_fp8_cvtnb (machine_mode);
+inline insn_code
+code_for_aarch64_sve2_fp8_cvtnb (machine_mode arg0)
+{
+  insn_code code = maybe_code_for_aarch64_sve2_fp8_cvtnb (arg0);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
 }
 
 extern insn_code maybe_code_for_aarch64_sve2_pmul (machine_mode);
