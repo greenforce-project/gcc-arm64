@@ -4103,6 +4103,22 @@
 #define HAVE_aarch64_faminv4sf (TARGET_FAMINMAX)
 #define HAVE_aarch64_famaxv2df (TARGET_FAMINMAX)
 #define HAVE_aarch64_faminv2df (TARGET_FAMINMAX)
+#define HAVE_aarch64_lutv8qiv8qi (TARGET_LUT && INTVAL (operands[4]) <= exact_log2 (8))
+#define HAVE_aarch64_lutv16qiv8qi (TARGET_LUT && INTVAL (operands[4]) <= exact_log2 (16))
+#define HAVE_aarch64_lutv4hiv8qi (TARGET_LUT && INTVAL (operands[4]) <= exact_log2 (4))
+#define HAVE_aarch64_lutv4hfv8qi (TARGET_LUT && INTVAL (operands[4]) <= exact_log2 (4))
+#define HAVE_aarch64_lutv4bfv8qi (TARGET_LUT && INTVAL (operands[4]) <= exact_log2 (4))
+#define HAVE_aarch64_lutv8qiv16qi (TARGET_LUT && INTVAL (operands[4]) <= exact_log2 (8))
+#define HAVE_aarch64_lutv16qiv16qi (TARGET_LUT && INTVAL (operands[4]) <= exact_log2 (16))
+#define HAVE_aarch64_lutv4hiv16qi (TARGET_LUT && INTVAL (operands[4]) <= exact_log2 (4))
+#define HAVE_aarch64_lutv4hfv16qi (TARGET_LUT && INTVAL (operands[4]) <= exact_log2 (4))
+#define HAVE_aarch64_lutv4bfv16qi (TARGET_LUT && INTVAL (operands[4]) <= exact_log2 (4))
+#define HAVE_aarch64_lutv2x8hiv8qi (TARGET_LUT && INTVAL (operands[4]) == 4)
+#define HAVE_aarch64_lutv2x8hfv8qi (TARGET_LUT && INTVAL (operands[4]) == 4)
+#define HAVE_aarch64_lutv2x8bfv8qi (TARGET_LUT && INTVAL (operands[4]) == 4)
+#define HAVE_aarch64_lutv2x8hiv16qi (TARGET_LUT && INTVAL (operands[4]) == 4)
+#define HAVE_aarch64_lutv2x8hfv16qi (TARGET_LUT && INTVAL (operands[4]) == 4)
+#define HAVE_aarch64_lutv2x8bfv16qi (TARGET_LUT && INTVAL (operands[4]) == 4)
 #define HAVE_aarch64_compare_and_swapqi 1
 #define HAVE_aarch64_compare_and_swaphi 1
 #define HAVE_aarch64_compare_and_swapsi 1
@@ -17468,6 +17484,22 @@ extern rtx        gen_aarch64_famaxv4sf                                (rtx, rtx
 extern rtx        gen_aarch64_faminv4sf                                (rtx, rtx, rtx);
 extern rtx        gen_aarch64_famaxv2df                                (rtx, rtx, rtx);
 extern rtx        gen_aarch64_faminv2df                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_lutv8qiv8qi                              (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_lutv16qiv8qi                             (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_lutv4hiv8qi                              (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_lutv4hfv8qi                              (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_lutv4bfv8qi                              (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_lutv8qiv16qi                             (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_lutv16qiv16qi                            (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_lutv4hiv16qi                             (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_lutv4hfv16qi                             (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_lutv4bfv16qi                             (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_lutv2x8hiv8qi                            (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_lutv2x8hfv8qi                            (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_lutv2x8bfv8qi                            (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_lutv2x8hiv16qi                           (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_lutv2x8hfv16qi                           (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_lutv2x8bfv16qi                           (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_compare_and_swapqi                       (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_compare_and_swaphi                       (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_compare_and_swapsi                       (rtx, rtx, rtx, rtx, rtx, rtx, rtx);

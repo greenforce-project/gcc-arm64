@@ -1460,6 +1460,12 @@
 /* Define 0/1 if your assembler supports .cfi_sections. */
 #define HAVE_GAS_CFI_SECTIONS_DIRECTIVE 1
 
+/* Define if your assembler supports .cv_ucomp. */
+#ifndef USED_FOR_TARGET
+/* #undef HAVE_GAS_CV_UCOMP */
+#endif
+
+
 /* Define if your assembler supports the .loc discriminator sub-directive. */
 #ifndef USED_FOR_TARGET
 #define HAVE_GAS_DISCRIMINATOR 1

@@ -1084,8 +1084,8 @@ option.
      Specify what multilibs to build.  LIST is a comma separated list of
      values, possibly consisting of a single value.  Currently only
      implemented for aarch64*-*-*, amdgcn*-*-*, arm*-*-*,
-     loongarch*-*-*, riscv*-*-*, sh*-*-* and x86-64-*-linux*.  The
-     accepted values and meaning for each target is given below.
+     loongarch*-*-*, nvptx-*, riscv*-*-*, sh*-*-* and x86-64-*-linux*.
+     The accepted values and meaning for each target is given below.
 
      'aarch64*-*-*'
           LIST is a comma separated list of 'ilp32', and 'lp64' to
@@ -1188,6 +1188,20 @@ option.
           not specified, then only the default variant of the libraries
           are built, where the default ABI is implied by the configured
           target triplet.
+
+     'nvptx-*'
+          The target libraries corresponding to the default value of the
+          '-march' option are always built, *note host/target specific
+          installation notes: nvptx-x-none.  If LIST is empty, 'no', or
+          '--without-multilib-list' is specified, then no additional
+          multilibs are built.  Otherwise, LIST is a comma separated
+          list specifying which multilibs to build.  List items are
+          either 'sm_SM', or 'default', which is a placeholder
+          specifying a default set of multilibs: 'sm_30'.  Any
+          duplicates are filtered out.  If '--with-multilib-list' is not
+          specified, then '--with-multilib-list=default' is assumed.
+          For 'sm_30', 'sm_35' target libraries, '-mptx-3.1'
+          sub-variants are additionally built.
 
      'riscv*-*-*'
           LIST is a single ABI name.  The target architecture must be
@@ -1307,6 +1321,10 @@ option.
      'little,big'
           Use little endian by default.  Provide a multilib for big
           endian.
+
+'--with-cmodel=CMODEL'
+     Specify what code model to use by default.  Currently only
+     implemented for riscv*-*-*.
 
 '--enable-threads'
      Specify that the target supports threads.  This affects the
@@ -3827,9 +3845,10 @@ together with GCC.  For this, add a symbolic link to nvptx-newlib's
 value for the '-march' option, and to also build corresponding target
 libraries.  The default is '--with-arch=sm_30'.
 
-   For example, if '--with-arch=sm_70' is specified, '-march=sm_30' and
-'-march=sm_70' target libraries are built, and code generation defaults
-to '-march=sm_70'.
+   For example, if '--with-arch=sm_70' is specified, code generation
+defaults to '-march=sm_70' and corresponding target libraries are built,
+in addition to those mandated by '--with-multilib-list', if any, *note
+'--with-multilib-list': with-multilib-list.
 
 or1k-*-elf
 ==========
@@ -4782,7 +4801,7 @@ Concept Index
 * Menu:
 
 * Binaries:                              Binaries.           (line    6)
-* build_configargs:                      Configuration.      (line 1983)
+* build_configargs:                      Configuration.      (line 2001)
 * Configuration:                         Configuration.      (line    6)
 * Downloading GCC:                       Downloading the source.
                                                              (line    6)
@@ -4791,7 +4810,7 @@ Concept Index
 * FDL, GNU Free Documentation License:   GNU Free Documentation License.
                                                              (line    6)
 * Host specific installation:            Specific.           (line    6)
-* host_configargs:                       Configuration.      (line 1987)
+* host_configargs:                       Configuration.      (line 2005)
 * Installing GCC: Binaries:              Binaries.           (line    6)
 * Installing GCC: Building:              Building.           (line    6)
 * Installing GCC: Configuration:         Configuration.      (line    6)
@@ -4801,7 +4820,7 @@ Concept Index
 * Specific installation notes:           Specific.           (line    6)
 * Target specific installation:          Specific.           (line    6)
 * Target specific installation notes:    Specific.           (line    6)
-* target_configargs:                     Configuration.      (line 1991)
+* target_configargs:                     Configuration.      (line 2009)
 * Testing:                               Testing.            (line    6)
 * Testsuite:                             Testing.            (line    6)
 
@@ -4819,92 +4838,93 @@ Node: Configuration20987
 Ref: with-gnu-as40247
 Ref: with-as41068
 Ref: with-gnu-ld42433
-Ref: WithAixSoname72836
-Ref: AixLdCommand73497
-Ref: with-included-gettext89381
-Node: Building117734
-Node: Testing134292
-Node: Final install141823
-Node: Binaries145001
-Node: Specific145941
-Ref: aarch64-x-x146475
-Ref: amd64-x-solaris2148495
-Ref: amdgcn-x-amdhsa148577
-Ref: arc-x-elf32149381
-Ref: arc-linux-uclibc149557
-Ref: arm-x-eabi149698
-Ref: avr149951
-Ref: bfin150433
-Ref: cris150696
-Ref: dos151022
-Ref: epiphany-x-elf151347
-Ref: x-x-freebsd151452
-Ref: ft32-x-elf152080
-Ref: h8300-hms152178
-Ref: hppa64-hp-hpux11152237
-Ref: x-x-linux-gnu152994
-Ref: ix86-x-linux153187
-Ref: ix86-x-solaris2153389
-Ref: ia64-x-linux153628
-Ref: ia64-x-hpux153875
-Ref: x-ibm-aix154093
-Ref: TransferAixShobj157755
-Ref: iq2000-x-elf161565
-Ref: lm32-x-elf161705
-Ref: lm32-x-uclinux161809
-Ref: loongarch161937
-Ref: m32c-x-elf162574
-Ref: m32r-x-elf162676
-Ref: m68k-x-x162778
-Ref: m68k-x-uclinux163816
-Ref: microblaze-x-elf164061
-Ref: mips-x-x164180
-Ref: moxie-x-elf166090
-Ref: msp430-x-elf166137
-Ref: nds32le-x-elf166694
-Ref: nds32be-x-elf166766
-Ref: nvptx-x-none166835
-Ref: or1k-x-elf167698
-Ref: or1k-x-linux167829
-Ref: powerpc-x-x167910
-Ref: powerpc-x-darwin168101
-Ref: powerpc-x-elf168596
-Ref: powerpc-x-linux-gnu168681
-Ref: powerpc-x-netbsd168776
-Ref: powerpc-x-eabisim168864
-Ref: powerpc-x-eabi168990
-Ref: powerpcle-x-elf169066
-Ref: powerpcle-x-eabisim169158
-Ref: powerpcle-x-eabi169291
-Ref: rl78-x-elf169374
-Ref: riscv32-x-elf169480
-Ref: riscv32-x-linux169669
-Ref: riscv64-x-elf169826
-Ref: riscv64-x-linux170015
-Ref: rx-x-elf170172
-Ref: s390-x-linux170218
-Ref: s390x-x-linux170290
-Ref: s390x-ibm-tpf170377
-Ref: x-x-solaris2170508
-Ref: sparc-x-x173820
-Ref: sparc-sun-solaris2174322
-Ref: sparc-x-linux175221
-Ref: sparc64-x-solaris2175252
-Ref: sparcv9-x-solaris2175339
-Ref: c6x-x-x176060
-Ref: visium-x-elf176152
-Ref: x-x-vxworks176260
-Ref: x86-64-x-x177783
-Ref: x86-64-x-solaris2178111
-Ref: xtensa-x-elf178616
-Ref: xtensa-x-linux179287
-Ref: windows179628
-Ref: x-x-cygwin181214
-Ref: x-x-mingw32181767
-Ref: older181993
-Ref: elf183956
-Node: GNU Free Documentation License184210
-Node: Concept Index209348
+Ref: with-multilib-list46039
+Ref: WithAixSoname73779
+Ref: AixLdCommand74440
+Ref: with-included-gettext90324
+Node: Building118677
+Node: Testing135235
+Node: Final install142766
+Node: Binaries145944
+Node: Specific146884
+Ref: aarch64-x-x147418
+Ref: amd64-x-solaris2149438
+Ref: amdgcn-x-amdhsa149520
+Ref: arc-x-elf32150324
+Ref: arc-linux-uclibc150500
+Ref: arm-x-eabi150641
+Ref: avr150894
+Ref: bfin151376
+Ref: cris151639
+Ref: dos151965
+Ref: epiphany-x-elf152290
+Ref: x-x-freebsd152395
+Ref: ft32-x-elf153023
+Ref: h8300-hms153121
+Ref: hppa64-hp-hpux11153180
+Ref: x-x-linux-gnu153937
+Ref: ix86-x-linux154130
+Ref: ix86-x-solaris2154332
+Ref: ia64-x-linux154571
+Ref: ia64-x-hpux154818
+Ref: x-ibm-aix155036
+Ref: TransferAixShobj158698
+Ref: iq2000-x-elf162508
+Ref: lm32-x-elf162648
+Ref: lm32-x-uclinux162752
+Ref: loongarch162880
+Ref: m32c-x-elf163517
+Ref: m32r-x-elf163619
+Ref: m68k-x-x163721
+Ref: m68k-x-uclinux164759
+Ref: microblaze-x-elf165004
+Ref: mips-x-x165123
+Ref: moxie-x-elf167033
+Ref: msp430-x-elf167080
+Ref: nds32le-x-elf167637
+Ref: nds32be-x-elf167709
+Ref: nvptx-x-none167778
+Ref: or1k-x-elf168735
+Ref: or1k-x-linux168866
+Ref: powerpc-x-x168947
+Ref: powerpc-x-darwin169138
+Ref: powerpc-x-elf169633
+Ref: powerpc-x-linux-gnu169718
+Ref: powerpc-x-netbsd169813
+Ref: powerpc-x-eabisim169901
+Ref: powerpc-x-eabi170027
+Ref: powerpcle-x-elf170103
+Ref: powerpcle-x-eabisim170195
+Ref: powerpcle-x-eabi170328
+Ref: rl78-x-elf170411
+Ref: riscv32-x-elf170517
+Ref: riscv32-x-linux170706
+Ref: riscv64-x-elf170863
+Ref: riscv64-x-linux171052
+Ref: rx-x-elf171209
+Ref: s390-x-linux171255
+Ref: s390x-x-linux171327
+Ref: s390x-ibm-tpf171414
+Ref: x-x-solaris2171545
+Ref: sparc-x-x174857
+Ref: sparc-sun-solaris2175359
+Ref: sparc-x-linux176258
+Ref: sparc64-x-solaris2176289
+Ref: sparcv9-x-solaris2176376
+Ref: c6x-x-x177097
+Ref: visium-x-elf177189
+Ref: x-x-vxworks177297
+Ref: x86-64-x-x178820
+Ref: x86-64-x-solaris2179148
+Ref: xtensa-x-elf179653
+Ref: xtensa-x-linux180324
+Ref: windows180665
+Ref: x-x-cygwin182251
+Ref: x-x-mingw32182804
+Ref: older183030
+Ref: elf184993
+Node: GNU Free Documentation License185247
+Node: Concept Index210385
 
 End Tag Table
 

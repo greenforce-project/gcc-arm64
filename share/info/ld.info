@@ -6791,6 +6791,50 @@ symbols present in the input import library have disappeared from the
 executable.  This option is only effective for Secure Gateway import
 libraries, ie.  when '--cmse-implib' is specified.
 
+   The '-z force-bti' option turns on the verification of Branch Target
+Identification (BTI) in input objects, generates PLTs with BTI, and
+marks the output with BTI. If this option is omitted, but all input
+objects belonging to the link unit have the BTI marking, the linker
+implicitly generates PLTs with BTI, and marks the output with BTI.
+
+   The '-z bti-report[=none|warning|error]' option specifies how to
+report missing BTI markings on inputs, i.e.  the
+GNU_PROPERTY_AARCH64_FEATURE_1_BTI property.  By default, if the option
+is omitted and '-z force-bti' is provided, warnings are emitted.
+   * 'none' disables any warning messages.
+   * 'warning' (the default value) emits warning messages when input
+     objects composing the link unit are missing BTI markings.
+   * 'error' turns the warning messages into errors.
+   If issues are found, a maximum of 20 messages will be emitted, and
+then a summary with the total number of issues will be displayed at the
+end.
+
+   The '-z pac-plt' option enables the usage of pointer authentication
+in PLTs.
+
+   The '-z gcs' option controls the verification of Guarded Control
+Stack (GCS) markings on input objects and marks the output with GCS if
+all conditions are validated.
+   * 'implicit' (default if '-z gcs' is omitted) enables GCS marking on
+     the output if, and only if, all input objects composing the link
+     unit are marked with GCS.
+   * 'always' forces the marking of the output with GCS.
+   * 'never' ignores any GCS marking on the input objects, and does not
+     mark the output with GCS.
+
+   The '-z gcs-report[=none|warning|error]' specifies how to report the
+missing GCS markings on inputs, i.e.  the
+GNU_PROPERTY_AARCH64_FEATURE_1_GCS property.  By default, if the option
+is omitted and '-z gcs' is provided, warnings are emitted.
+   * 'none' disables any warning messages.
+   * 'warning' (the default value) emits warning messages when input
+     objects composing the link unit are missing GCS markings, or
+     dynamic objects containing external symbols used in the link unit.
+   * 'error' turns the warning messages into errors.
+   If issues are found, a maximum of 20 messages will be emitted, and
+then a summary with the total number of issues will be displayed at the
+end.
+
 
 File: ld.info,  Node: HPPA ELF32,  Next: M68K,  Prev: ARM,  Up: Machine Dependent
 
@@ -9202,9 +9246,14 @@ LD Index
 * -Y PATH:                               Options.            (line  905)
 * -y SYMBOL:                             Options.            (line  896)
 * -z:                                    Options.            (line 3148)
+* -z bti-report[=none|warning|error]:    ARM.                (line  252)
 * -z defs:                               Options.            (line 1700)
+* -z force-bti:                          ARM.                (line  246)
+* -z gcs-report[=none|warning|error]:    ARM.                (line  277)
+* -z gcs=[always|never|implicit]:        ARM.                (line  267)
 * -z KEYWORD:                            Options.            (line  909)
 * -z muldefs:                            Options.            (line 1710)
+* -z pac-plt:                            ARM.                (line  264)
 * -z undefs:                             Options.            (line 1700)
 * .:                                     Location Counter.   (line    6)
 * /DISCARD/:                             Output Section Discarding.
@@ -9298,6 +9347,10 @@ LD Index
                                                              (line   19)
 * constructors, arranging in link:       Output Section Keywords.
                                                              (line   19)
+* Control warnings for missing BTI markings.: ARM.           (line  252)
+* Control warnings for missing GCS markings.: ARM.           (line  277)
+* Controls whether the output object supports the Guarded Control Stack (GCS) mechanism.: ARM.
+                                                             (line  267)
 * Cortex-A53 erratum 835769 workaround:  ARM.                (line  208)
 * Cortex-A8 erratum workaround:          ARM.                (line  199)
 * crash of linker:                       Bug Criteria.       (line    9)
@@ -9616,6 +9669,8 @@ LD Index
                                                              (line    6)
 * program headers, not enough room:      Builtin Functions.  (line  202)
 * program segments:                      PHDRS.              (line    6)
+* Protect PLTs with Branch Target Identification: ARM.       (line  246)
+* Protect PLTs with Returned Pointer Authentication: ARM.    (line  264)
 * PROVIDE:                               PROVIDE.            (line    6)
 * PROVIDE_HIDDEN:                        PROVIDE_HIDDEN.     (line    6)
 * PUBLIC (MRI):                          MRI.                (line   95)
@@ -9868,29 +9923,29 @@ Node: Machine Dependent281324
 Node: H8/300282379
 Node: M68HC11/68HC12284452
 Node: ARM285899
-Node: HPPA ELF32298009
-Node: M68K299632
-Node: MIPS300541
-Node: MMIX301657
-Node: MSP430302822
-Node: NDS32304735
-Node: PowerPC ELF32305705
-Node: PowerPC64 ELF64308534
-Node: S/390 ELF318292
-Node: SPU ELF318639
-Node: TI COFF321267
-Node: WIN32321793
-Node: Xtensa343012
-Node: BFD346455
-Node: BFD outline347913
-Node: BFD information loss349201
-Node: Canonical format351727
-Node: Reporting Bugs356055
-Node: Bug Criteria356749
-Node: Bug Reporting357448
-Node: MRI364483
-Node: GNU Free Documentation License368954
-Node: LD Index394091
+Node: HPPA ELF32300263
+Node: M68K301886
+Node: MIPS302795
+Node: MMIX303911
+Node: MSP430305076
+Node: NDS32306989
+Node: PowerPC ELF32307959
+Node: PowerPC64 ELF64310788
+Node: S/390 ELF320546
+Node: SPU ELF320893
+Node: TI COFF323521
+Node: WIN32324047
+Node: Xtensa345266
+Node: BFD348709
+Node: BFD outline350167
+Node: BFD information loss351455
+Node: Canonical format353981
+Node: Reporting Bugs358309
+Node: Bug Criteria359003
+Node: Bug Reporting359702
+Node: MRI366737
+Node: GNU Free Documentation License371208
+Node: LD Index396345
 
 End Tag Table
 

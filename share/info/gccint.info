@@ -44988,8 +44988,8 @@ Here are several miscellaneous parameters.
      IGNORE is nonzero if the value is to be ignored.  This function
      should return the result of the call to the built-in function.
 
- -- Target Hook: tree TARGET_RESOLVE_OVERLOADED_BUILTIN (unsigned int
-          LOC, tree FNDECL, void *ARGLIST)
+ -- Target Hook: tree TARGET_RESOLVE_OVERLOADED_BUILTIN (location_t LOC,
+          tree FNDECL, void *ARGLIST)
      Select a replacement for a machine specific built-in function that
      was set up by 'TARGET_INIT_BUILTINS'.  This is done _before_
      regular type checking, and so allows the target to implement a
@@ -45672,6 +45672,11 @@ Here are several miscellaneous parameters.
  -- Target Hook: bool TARGET_HAVE_LIBATOMIC
      This value is true if the target platform supports libatomic.  The
      default value is false.
+
+ -- Target Hook: const char * TARGET_DOCUMENTATION_NAME
+     If non-NULL, this value is a string used for locating
+     target-specific documentation for this target.  The default value
+     is NULL.
 
 
 File: gccint.info,  Node: Host Config,  Next: Fragments,  Prev: Target Macros,  Up: Top
@@ -59192,6 +59197,7 @@ Concept Index
 * TARGET_DELEGITIMIZE_ADDRESS:           Addressing Modes.   (line  237)
 * TARGET_DIFFERENT_ADDR_DISPLACEMENT_P:  Register Classes.   (line  631)
 * TARGET_DLLIMPORT_DECL_ATTRIBUTES:      Target Attributes.  (line   76)
+* TARGET_DOCUMENTATION_NAME:             Misc.               (line 1376)
 * TARGET_DOLOOP_COST_FOR_ADDRESS:        Misc.               (line  779)
 * TARGET_DOLOOP_COST_FOR_GENERIC:        Misc.               (line  768)
 * TARGET_DTORS_FROM_CXA_ATEXIT:          Macros for Initialization.
@@ -60612,58 +60618,58 @@ Node: Rust Language and ABI1919086
 Node: Named Address Spaces1919825
 Node: Misc1925867
 Ref: TARGET_SHIFT_TRUNCATION_MASK1933738
-Node: Host Config1996251
-Node: Host Common1997320
-Node: Filesystem1999694
-Node: Host Misc2003809
-Node: Fragments2006258
-Node: Target Fragment2007453
-Node: Host Fragment2018265
-Node: Collect22018505
-Node: Header Dirs2021141
-Node: Type Information2022564
-Node: GTY Options2026095
-Node: Inheritance and GTY2039241
-Ref: Inheritance and GTY-Footnote-12040806
-Node: User GC2041076
-Node: GGC Roots2044827
-Node: Files2045540
-Node: Invoking the garbage collector2048171
-Node: Troubleshooting2049813
-Node: Plugins2050888
-Node: Plugins loading2052017
-Node: Plugin API2053113
-Node: Plugins pass2060980
-Node: Plugins GC2062951
-Node: Plugins description2064668
-Node: Plugins attr2065204
-Node: Plugins recording2067484
-Node: Plugins gate2068334
-Node: Plugins tracking2068925
-Node: Plugins building2069513
-Node: LTO2073016
-Node: LTO Overview2073888
-Node: LTO object file layout2079644
-Node: IPA2084143
-Node: WHOPR2093195
-Node: Internal flags2097755
-Node: Match and Simplify2099166
-Node: GIMPLE API2100136
-Node: The Language2102938
-Node: Static Analyzer2116150
-Node: Analyzer Internals2116415
-Node: Debugging the Analyzer2136481
-Node: User Experience Guidelines2144139
-Node: Guidelines for Diagnostics2145075
-Ref: input_location_example2153250
-Node: Guidelines for Options2165792
-Node: Funding2165969
-Node: GNU Project2168476
-Node: Copying2169127
-Node: GNU Free Documentation License2206644
-Node: Contributors2231770
-Node: Option Index2272998
-Node: Concept Index2273875
+Node: Host Config1996450
+Node: Host Common1997519
+Node: Filesystem1999893
+Node: Host Misc2004008
+Node: Fragments2006457
+Node: Target Fragment2007652
+Node: Host Fragment2018464
+Node: Collect22018704
+Node: Header Dirs2021340
+Node: Type Information2022763
+Node: GTY Options2026294
+Node: Inheritance and GTY2039440
+Ref: Inheritance and GTY-Footnote-12041005
+Node: User GC2041275
+Node: GGC Roots2045026
+Node: Files2045739
+Node: Invoking the garbage collector2048370
+Node: Troubleshooting2050012
+Node: Plugins2051087
+Node: Plugins loading2052216
+Node: Plugin API2053312
+Node: Plugins pass2061179
+Node: Plugins GC2063150
+Node: Plugins description2064867
+Node: Plugins attr2065403
+Node: Plugins recording2067683
+Node: Plugins gate2068533
+Node: Plugins tracking2069124
+Node: Plugins building2069712
+Node: LTO2073215
+Node: LTO Overview2074087
+Node: LTO object file layout2079843
+Node: IPA2084342
+Node: WHOPR2093394
+Node: Internal flags2097954
+Node: Match and Simplify2099365
+Node: GIMPLE API2100335
+Node: The Language2103137
+Node: Static Analyzer2116349
+Node: Analyzer Internals2116614
+Node: Debugging the Analyzer2136680
+Node: User Experience Guidelines2144338
+Node: Guidelines for Diagnostics2145274
+Ref: input_location_example2153449
+Node: Guidelines for Options2165991
+Node: Funding2166168
+Node: GNU Project2168675
+Node: Copying2169326
+Node: GNU Free Documentation License2206843
+Node: Contributors2231969
+Node: Option Index2273197
+Node: Concept Index2274074
 
 End Tag Table
 

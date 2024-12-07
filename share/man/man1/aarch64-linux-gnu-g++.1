@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-11-30" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-12-07" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -625,7 +625,7 @@ in the following sections.
 \&\-fno\-peephole2  \-fno\-printf\-return\-value  \-fno\-sched\-interblock
 \&\-fno\-sched\-spec  \-fno\-signed\-zeros
 \&\-fno\-toplevel\-reorder  \-fno\-trapping\-math  \-fno\-zero\-initialized\-in\-bss
-\&\-fomit\-frame\-pointer  \-foptimize\-sibling\-calls
+\&\-fomit\-frame\-pointer  \-foptimize\-crc  \-foptimize\-sibling\-calls
 \&\-fpartial\-inlining  \-fpeel\-loops  \-fpredictive\-commoning
 \&\-fprefetch\-loop\-arrays
 \&\-fprofile\-correction
@@ -912,9 +912,9 @@ in the following sections.
 \&\-mbranch\-cost=\fR\fIcost\fR  \fB\-mfuse\-add=\fR\fIlevel\fR  \fB\-mfuse\-move=\fR\fIlevel\fR
 \&\fB\-mcall\-prologues  \-mgas\-isr\-prologues  \-mint8  \-mflmap
 \&\-mdouble=\fR\fIbits\fR  \fB\-mlong\-double=\fR\fIbits\fR
-\&\fB\-mn_flash=\fR\fIsize\fR  \fB\-mno\-interrupts
+\&\fB\-mn_flash=\fR\fIsize\fR  \fB\-mfract\-convert\-truncate  \-mno\-interrupts
 \&\-mmain\-is\-OS_task  \-mrelax  \-mrmw  \-mstrict\-X  \-mtiny\-stack
-\&\-mrodata\-in\-ram  \-mfract\-convert\-truncate  \-msplit\-bit\-shift
+\&\-mrodata\-in\-ram  \-msplit\-bit\-shift  \-msplit\-ldst
 \&\-mshort\-calls  \-mskip\-bug  \-nodevicelib  \-nodevicespecs
 \&\-Waddr\-space\-convert  \-Wmisspelled\-isr\fR
 .Sp
@@ -4020,6 +4020,20 @@ default in \*(C+23, or with explicit \fB\-Wdeprecated\fR.
 .Vb 2
 \&        string operator "" _i18n(const char*, std::size_t); // deprecated
 \&        string operator ""_i18n(const char*, std::size_t); // preferred
+.Ve
+.IP "\fB\-Wdeprecated\-variadic\-comma\-omission\fR (\*(C+ and Objective\-\*(C+ only)" 4
+.IX Item "-Wdeprecated-variadic-comma-omission ( and Objective- only)"
+Warn that omitting a comma before the varargs \f(CW\*(C`...\*(C'\fR at the end of
+a function parameter list is deprecated.  This warning is enabled by
+default in \*(C+26, or with explicit \fB\-Wdeprecated\fR.
+.Sp
+.Vb 6
+\&        void f1(int...); // deprecated
+\&        void f1(int, ...); // preferred
+\&        template <typename ...T>
+\&        void f2(T...); // ok
+\&        template <typename ...T>
+\&        void f3(T......); // deprecated
 .Ve
 .IP "\fB\-Wno\-elaborated\-enum\-base\fR" 4
 .IX Item "-Wno-elaborated-enum-base"
@@ -9731,8 +9745,9 @@ In \*(C+, explicitly specifying \fB\-Wdeprecated\fR also enables
 warnings about some features that are deprecated in later language
 standards, specifically \fB\-Wcomma\-subscript\fR,
 \&\fB\-Wvolatile\fR, \fB\-Wdeprecated\-enum\-float\-conversion\fR,
-\&\fB\-Wdeprecated\-enum\-enum\-conversion\fR, and
-\&\fB\-Wdeprecated\-literal\-operator\fR.
+\&\fB\-Wdeprecated\-enum\-enum\-conversion\fR,
+\&\fB\-Wdeprecated\-literal\-operator\fR, and
+\&\fB\-Wdeprecated\-variadic\-comma\-omission\fR.
 .IP "\fB\-Wno\-deprecated\-declarations\fR" 4
 .IX Item "-Wno-deprecated-declarations"
 Do not warn about uses of functions,
@@ -11886,6 +11901,7 @@ also turns on the following optimization flags:
 \&\-fipa\-ra  \-fipa\-sra  \-fipa\-vrp
 \&\-fisolate\-erroneous\-paths\-dereference
 \&\-flra\-remat
+\&\-foptimize\-crc
 \&\-foptimize\-sibling\-calls
 \&\-foptimize\-strlen
 \&\-fpartial\-inlining
@@ -12045,6 +12061,18 @@ is used in all functions.  Several targets always omit the frame pointer in
 leaf functions.
 .Sp
 Enabled by default at \fB\-O1\fR and higher.
+.IP "\fB\-foptimize\-crc\fR" 4
+.IX Item "-foptimize-crc"
+Detect loops calculating \s-1CRC\s0 (performing polynomial long division) and
+replace them with a faster implementation.  Detect 8, 16, 32, and 64 bit \s-1CRC,\s0
+with a constant polynomial without the leading 1 bit,
+for both bit-forward and bit-reversed cases.
+If the target supports a \s-1CRC\s0 instruction and the polynomial used in the source
+code matches the polynomial used in the \s-1CRC\s0 instruction, generate that \s-1CRC\s0
+instruction.  Otherwise, if the target supports a carry-less-multiplication
+instruction, generate \s-1CRC\s0 using it; otherwise generate table-based \s-1CRC.\s0
+.Sp
+Enabled by default at \fB\-O2\fR and higher.
 .IP "\fB\-foptimize\-sibling\-calls\fR" 4
 .IX Item "-foptimize-sibling-calls"
 Optimize sibling and tail recursive calls.
@@ -16104,6 +16132,11 @@ diagnostics.
 .IP "\fBstore-merging-max-size\fR" 4
 .IX Item "store-merging-max-size"
 Maximum size of a single store merging region in bytes.
+.IP "\fBstore-forwarding-max-distance\fR" 4
+.IX Item "store-forwarding-max-distance"
+Maximum number of instruction distance that a small store forwarded to a larger
+load may stall. Value '0' disables the cost checks for the
+avoid-store-forwarding pass.
 .IP "\fBhash-table-verification-limit\fR" 4
 .IX Item "hash-table-verification-limit"
 The number of elements for which hash table verification is done
@@ -16193,6 +16226,16 @@ Control whether the \fB\-fopt\-info\-omp\-note\fR and applicable
 With \fB\-\-param=openacc\-privatization=quiet\fR, don't diagnose.
 This is the current default.
 With \fB\-\-param=openacc\-privatization=noisy\fR, do diagnose.
+.IP "\fBcycle-accurate-model\fR" 4
+.IX Item "cycle-accurate-model"
+Specifies whether \s-1GCC\s0 should assume that the scheduling description is mostly
+a cycle-accurate model of the target processor, where the code is intended to
+run on, in the absence of cache misses.  Nonzero means that the selected
+scheduling model is accurate and likely describes an in-order processor,
+and that scheduling will aggressively spill to try and fill any pipeline
+bubbles.  This is the current default.  Zero could mean scheduling descrption
+might not be available/accurate or perhaps not applicale at all such as for
+modern out-of-order processors.
 .RE
 .RS 4
 .Sp
@@ -21272,6 +21315,9 @@ extension in streaming mode.
 .IP "\fBfaminmax\fR" 4
 .IX Item "faminmax"
 Enable the Floating Point Absolute Maximum/Minimum extension.
+.IP "\fBlut\fR" 4
+.IX Item "lut"
+Enable the Lookup Table extension.
 .IP "\fBsve\-b16b16\fR" 4
 .IX Item "sve-b16b16"
 Enable the \s-1SVE\s0 non-widening brain floating-point (\f(CW\*(C`bf16\*(C'\fR) extension.
@@ -22961,7 +23007,8 @@ on \fBcortex\-m52\fR and \fBcortex\-m85\fR.
 .IP "\fB+nomve\fR" 4
 .IX Item "+nomve"
 Disable the M\-Profile Vector Extension (\s-1MVE\s0) integer and single precision
-floating-point instructions on \fBcortex\-m52\fR, \fBcortex\-m55\fR and \fBcortex\-m85\fR.
+floating-point instructions on \fBcortex\-m52\fR, \fBcortex\-m55\fR and
+\&\fBcortex\-m85\fR.
 .IP "\fB+nomve.fp\fR" 4
 .IX Item "+nomve.fp"
 Disable the M\-Profile Vector Extension (\s-1MVE\s0) single precision floating-point
@@ -22969,7 +23016,8 @@ instructions on \fBcortex\-m52\fR, \fBcortex\-m55\fR and \fBcortex\-m85\fR.
 .IP "\fB+cdecp0, +cdecp1, ... , +cdecp7\fR" 4
 .IX Item "+cdecp0, +cdecp1, ... , +cdecp7"
 Enable the Custom Datapath Extension (\s-1CDE\s0) on selected coprocessors according
-to the numbers given in the options in the range 0 to 7 on \fBcortex\-m52\fR and \fBcortex\-m55\fR.
+to the numbers given in the options in the range 0 to 7 on \fBcortex\-m52\fR,
+\&\fBcortex\-m55\fR and \fBstar\-mc1\fR.
 .IP "\fB+nofp\fR" 4
 .IX Item "+nofp"
 Disables the floating-point instructions on \fBarm9e\fR,
@@ -23635,6 +23683,10 @@ This optimization is turned on per default for \fB\-O2\fR and higher,
 including \fB\-Os\fR but excluding \fB\-Oz\fR.
 Splitting of shifts with a constant offset that is
 a multiple of 8 is controlled by \fB\-mfuse\-move\fR.
+.IP "\fB\-msplit\-ldst\fR" 4
+.IX Item "-msplit-ldst"
+Split multi-byte loads and stores into several byte loads and stores.
+This optimization is turned on per default for \fB\-O2\fR and higher.
 .IP "\fB\-mtiny\-stack\fR" 4
 .IX Item "-mtiny-stack"
 Only change the lower 8 bits of the stack pointer.
@@ -29145,10 +29197,12 @@ Ignored, but preserved for backward compatibility.  Only 64\-bit \s-1ABI\s0 is
 supported.
 .IP "\fB\-march=\fR\fIarchitecture-string\fR" 4
 .IX Item "-march=architecture-string"
-Generate code for the specified \s-1PTX ISA\s0 target architecture
-(e.g. \fBsm_35\fR).  Valid architecture strings are \fBsm_30\fR,
-\&\fBsm_35\fR, \fBsm_53\fR, \fBsm_70\fR, \fBsm_75\fR and
-\&\fBsm_80\fR.
+Generate code for the specified \s-1PTX ISA\s0 target architecture.
+Valid architecture strings are
+\&\fBsm_30\fR, \fBsm_35\fR, \fBsm_37\fR,
+\&\fBsm_52\fR, \fBsm_53\fR,
+\&\fBsm_70\fR, \fBsm_75\fR,
+\&\fBsm_80\fR, and \fBsm_89\fR.
 The default depends on how the compiler has been configured, see
 \&\fB\-\-with\-arch\fR.
 .Sp
@@ -29166,9 +29220,13 @@ capable.  For instance, for \fB\-march\-map=sm_50\fR select
 \&\fB\-march=sm_53\fR.
 .IP "\fB\-mptx=\fR\fIversion-string\fR" 4
 .IX Item "-mptx=version-string"
-Generate code for the specified \s-1PTX ISA\s0 version (e.g. \fB7.0\fR).
-Valid version strings include \fB3.1\fR, \fB6.0\fR, \fB6.3\fR, and
-\&\fB7.0\fR.  The default \s-1PTX ISA\s0 version is 6.0, unless a higher
+Generate code for the specified \s-1PTX ISA\s0 version.
+Valid version strings are
+\&\fB3.1\fR,
+\&\fB4.1\fR, \fB4.2\fR,
+\&\fB6.0\fR, \fB6.3\fR,
+\&\fB7.0\fR, and \fB7.8\fR.
+The default \s-1PTX ISA\s0 version is 6.0, unless a higher
 version is required for specified \s-1PTX ISA\s0 target architecture via
 option \fB\-march=\fR.
 .Sp
@@ -30191,8 +30249,10 @@ element-misaligned vector memory access.
 .IX Item "-mcmodel=medlow"
 Generate code for the medium-low code model. The program and its statically
 defined symbols must lie within a single 2 GiB address range and must lie
-between absolute addresses \-2 GiB and +2 GiB. Programs can be
-statically or dynamically linked. This is the default code model.
+between absolute addresses \-2 GiB and +2 GiB. Programs can be statically
+or dynamically linked. This is the default code model unless \s-1GCC\s0 has been
+configured with \fB\-\-with\-cmodel=\fR specifying a different default code
+model.
 .IP "\fB\-mcmodel=medany\fR" 4
 .IX Item "-mcmodel=medany"
 Generate code for the medium-any code model. The program and its statically

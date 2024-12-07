@@ -1273,6 +1273,10 @@ extern void gt_ggc_mx_spec_entry (void *);
   if ((intptr_t)(X) != 0) gt_ggc_mx_tinst_level (X);\
   } while (0)
 extern void gt_ggc_mx_tinst_level (void *);
+#define gt_ggc_m_46hash_map_tree_location_t_decl_location_traits_(X) do { \
+  if ((intptr_t)(X) != 0) gt_ggc_mx_hash_map_tree_location_t_decl_location_traits_ (X);\
+  } while (0)
+extern void gt_ggc_mx_hash_map_tree_location_t_decl_location_traits_ (void *);
 #define gt_ggc_m_12module_state(X) do { \
   if ((intptr_t)(X) != 0) gt_ggc_mx_module_state (X);\
   } while (0)
@@ -2870,6 +2874,10 @@ extern void gt_pch_nx_spec_entry (void *);
   if ((intptr_t)(X) != 0) gt_pch_nx_tinst_level (X);\
   } while (0)
 extern void gt_pch_nx_tinst_level (void *);
+#define gt_pch_n_46hash_map_tree_location_t_decl_location_traits_(X) do { \
+  if ((intptr_t)(X) != 0) gt_pch_nx_hash_map_tree_location_t_decl_location_traits_ (X);\
+  } while (0)
+extern void gt_pch_nx_hash_map_tree_location_t_decl_location_traits_ (void *);
 #define gt_pch_n_12module_state(X) do { \
   if ((intptr_t)(X) != 0) gt_pch_nx_module_state (X);\
   } while (0)
@@ -3960,6 +3968,8 @@ extern void gt_pch_p_27hash_table_named_decl_hash_
 extern void gt_pch_p_10spec_entry
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_11tinst_level
+    (void *, void *, gt_pointer_operator, void *);
+extern void gt_pch_p_46hash_map_tree_location_t_decl_location_traits_
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_12module_state
     (void *, void *, gt_pointer_operator, void *);

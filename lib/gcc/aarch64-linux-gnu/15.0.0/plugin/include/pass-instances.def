@@ -293,6 +293,7 @@ along with GCC; see the file COPYING3.  If not see
 	  NEXT_PASS_WITH_ARG (pass_cd_dce, 2, false /* update_address_taken_p */);
 	  NEXT_PASS (pass_iv_canon, 1);
 	  NEXT_PASS (pass_loop_distribution, 1);
+	  NEXT_PASS (pass_crc_optimization, 1);
 	  NEXT_PASS (pass_linterchange, 1);
 	  NEXT_PASS (pass_copy_prop, 3);
 	  NEXT_PASS (pass_graphite, 1);

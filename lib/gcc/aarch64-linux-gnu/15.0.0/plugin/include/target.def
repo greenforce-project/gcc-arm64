@@ -2497,7 +2497,7 @@ arguments passed to the built-in function.  The result is a\n\
 complete expression that implements the operation, usually\n\
 another @code{CALL_EXPR}.\n\
 @var{arglist} really has type @samp{VEC(tree,gc)*}",
- tree, (unsigned int /*location_t*/ loc, tree fndecl, void *arglist), NULL)
+ tree, (location_t loc, tree fndecl, void *arglist), NULL)
 
 DEFHOOK
 (check_builtin_call,
@@ -7485,6 +7485,15 @@ DEFHOOKPOD
  "This value is true if the target platform supports\n\
 libatomic.  The default value is false.",
  bool, false)
+
+/* This value represents whether libatomic is available on
+   the target platform.  */
+DEFHOOKPOD
+(documentation_name,
+ "If non-NULL, this value is a string used for locating target-specific\
+ documentation for this target.\n\
+The default value is NULL.",
+ const char *, NULL)
 
 /* Close the 'struct gcc_target' definition.  */
 HOOK_VECTOR_END (C90_EMPTY_HACK)
