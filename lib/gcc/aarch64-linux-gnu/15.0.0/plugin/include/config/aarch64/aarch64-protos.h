@@ -1018,6 +1018,7 @@ void aarch64_expand_mov_immediate (rtx, rtx);
 rtx aarch64_stack_protect_canary_mem (machine_mode, rtx, aarch64_salt_type);
 rtx aarch64_ptrue_reg (machine_mode);
 rtx aarch64_ptrue_reg (machine_mode, unsigned int);
+rtx aarch64_ptrue_reg (machine_mode, machine_mode);
 rtx aarch64_pfalse_reg (machine_mode);
 bool aarch64_sve_same_pred_for_ptest_p (rtx *, rtx *);
 void aarch64_emit_sve_pred_move (rtx, rtx, rtx);
@@ -1094,7 +1095,6 @@ void aarch64_finish_ldpstp_peephole (rtx *, bool,
 
 void aarch64_expand_sve_vec_cmp_int (rtx, rtx_code, rtx, rtx);
 bool aarch64_expand_sve_vec_cmp_float (rtx, rtx_code, rtx, rtx, bool);
-void aarch64_expand_sve_vcond (machine_mode, machine_mode, rtx *);
 
 bool aarch64_prepare_sve_int_fma (rtx *, rtx_code);
 bool aarch64_prepare_sve_cond_int_fma (rtx *, rtx_code);
@@ -1231,7 +1231,13 @@ extern void aarch64_adjust_reg_alloc_order ();
 
 bool aarch64_optimize_mode_switching (aarch64_mode_entity);
 void aarch64_restore_za (rtx);
+void aarch64_expand_crc_using_pmull (scalar_mode, scalar_mode, rtx *);
+void aarch64_expand_reversed_crc_using_pmull (scalar_mode, scalar_mode, rtx *);
+
 
 extern bool aarch64_gcs_enabled ();
+
+extern unsigned aarch64_data_alignment (const_tree exp, unsigned align);
+extern unsigned aarch64_stack_alignment (const_tree exp, unsigned align);
 
 #endif /* GCC_AARCH64_PROTOS_H */

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-12-07" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-12-14" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -440,7 +440,7 @@ in the following sections.
 \&\fB\-Wstring\-compare
 \&\-Wno\-stringop\-overflow \-Wno\-stringop\-overread
 \&\-Wno\-stringop\-truncation  \-Wstrict\-flex\-arrays
-\&\-Wsuggest\-attribute=\fR[\fBpure\fR|\fBconst\fR|\fBnoreturn\fR|\fBformat\fR|\fBmalloc\fR]
+\&\-Wsuggest\-attribute=\fR\fIattribute-name\fR
 \&\fB\-Wswitch  \-Wno\-switch\-bool  \-Wswitch\-default  \-Wswitch\-enum
 \&\-Wno\-switch\-outside\-range  \-Wno\-switch\-unreachable  \-Wsync\-nand
 \&\-Wsystem\-headers  \-Wtautological\-compare  \-Wtrailing\-whitespace
@@ -711,8 +711,8 @@ in the following sections.
 \&\fB\-dD  \-dI  \-dM  \-dN  \-dU
 \&\-fdebug\-cpp  \-fdirectives\-only  \-fdollars\-in\-identifiers
 \&\-fexec\-charset=\fR\fIcharset\fR  \fB\-fextended\-identifiers
-\&\-finput\-charset=\fR\fIcharset\fR  \fB\-flarge\-source\-files
-\&\-fmacro\-prefix\-map=\fR\fIold\fR\fB=\fR\fInew\fR \fB\-fmax\-include\-depth=\fR\fIdepth\fR
+\&\-finput\-charset=\fR\fIcharset\fR
+\&\fB\-fmacro\-prefix\-map=\fR\fIold\fR\fB=\fR\fInew\fR \fB\-fmax\-include\-depth=\fR\fIdepth\fR
 \&\fB\-fno\-canonical\-system\-headers  \-fpch\-deps  \-fpch\-preprocess
 \&\-fpreprocessed  \-ftabstop=\fR\fIwidth\fR  \fB\-ftrack\-macro\-expansion
 \&\-fwide\-exec\-charset=\fR\fIcharset\fR  \fB\-fworking\-directory
@@ -3012,16 +3012,22 @@ member for the purpose of accessing the elements of such an array.  The value
 of \fIlevel\fR controls the level of strictness.
 .Sp
 \&\fB\-fstrict\-flex\-arrays\fR is equivalent to
-\&\fB\-fstrict\-flex\-arrays=3\fR, which is the strictest; all
-trailing arrays of structures are treated as flexible array members.
+\&\fB\-fstrict\-flex\-arrays=3\fR, which is the strictest;
+a trailing array is treated as a flexible array member only when
+it is declared as a flexible array member per C99 standard onwards.
 .Sp
 The negative form \fB\-fno\-strict\-flex\-arrays\fR is equivalent to
 \&\fB\-fstrict\-flex\-arrays=0\fR, which is the least strict.  In this
-case a trailing array is treated as a flexible array member only when
-it is declared as a flexible array member per C99 standard onwards.
+case all trailing arrays of structures are treated as flexible array members.
 .Sp
-The possible values of \fIlevel\fR are the same as for the
-\&\f(CW\*(C`strict_flex_array\*(C'\fR attribute.
+There are two more levels in between 0 and 3, which are provided to
+support older code that uses the \s-1GCC\s0 zero-length array extension
+(\fB[0]\fR) or one-element array as flexible array members
+(\fB[1]\fR).  When \fIlevel\fR is 1, the trailing array is treated as
+a flexible array member when it is declared as either \fB[]\fR,
+\&\fB[0]\fR, or \fB[1]\fR.  When \fIlevel\fR is 2, the trailing array
+is treated as a flexible array member when it is declared as either
+\&\fB[]\fR, or \fB[0]\fR.
 .Sp
 You can control this behavior for a specific trailing array field of a
 structure by using the variable attribute \f(CW\*(C`strict_flex_array\*(C'\fR attribute.
@@ -7918,10 +7924,10 @@ if the array is referenced as a flexible array member.
 This option is more effective when \fB\-ftree\-vrp\fR is active (the
 default for \fB\-O2\fR and above) but some warnings may be diagnosed
 even without optimization.
-.IP "\fB\-Wsuggest\-attribute=\fR[\fBpure\fR|\fBconst\fR|\fBnoreturn\fR|\fBformat\fR|\fBcold\fR|\fBmalloc\fR]\fBreturns_nonnull\fR|" 4
-.IX Item "-Wsuggest-attribute=[pure|const|noreturn|format|cold|malloc]returns_nonnull|"
+.IP "\fB\-Wsuggest\-attribute=\fR\fIattribute-name\fR" 4
+.IX Item "-Wsuggest-attribute=attribute-name"
 Warn for cases where adding an attribute may be beneficial. The
-attributes currently supported are listed below.
+\&\fIattribute-name\fRs currently supported are listed below.
 .RS 4
 .IP "\fB\-Wsuggest\-attribute=pure\fR" 4
 .IX Item "-Wsuggest-attribute=pure"
@@ -7936,11 +7942,10 @@ attributes currently supported are listed below.
 .IX Item "-Wsuggest-attribute=malloc"
 .IP "\fB\-Wsuggest\-attribute=returns_nonnull\fR" 4
 .IX Item "-Wsuggest-attribute=returns_nonnull"
-.IP "\fB\-Wno\-suggest\-attribute=returns_nonnull\fR" 4
-.IX Item "-Wno-suggest-attribute=returns_nonnull"
 .PD
 Warn about functions that might be candidates for attributes
-\&\f(CW\*(C`pure\*(C'\fR, \f(CW\*(C`const\*(C'\fR, \f(CW\*(C`noreturn\*(C'\fR, \f(CW\*(C`malloc\*(C'\fR or \f(CW\*(C`returns_nonnull\*(C'\fR. The compiler
+\&\f(CW\*(C`pure\*(C'\fR, \f(CW\*(C`const\*(C'\fR, \f(CW\*(C`noreturn\*(C'\fR, \f(CW\*(C`malloc\*(C'\fR or
+\&\f(CW\*(C`returns_nonnull\*(C'\fR.  The compiler
 only warns for functions visible in other compilation units or (in the case of
 \&\f(CW\*(C`pure\*(C'\fR and \f(CW\*(C`const\*(C'\fR) if it cannot prove that the function returns
 normally. A function returns normally if it doesn't contain an infinite loop or
@@ -15507,6 +15512,9 @@ set this value to 0 to disable canonical types.
 Switch initialization conversion refuses to create arrays that are
 bigger than \fBswitch-conversion-max-branch-ratio\fR times the number of
 branches in the switch.
+.IP "\fBswitch-lower-slow-alg-max-cases\fR" 4
+.IX Item "switch-lower-slow-alg-max-cases"
+Maximum number of cases for slow switch lowering algorithms to be used.
 .IP "\fBmax-partial-antic-length\fR" 4
 .IX Item "max-partial-antic-length"
 Maximum length of the partial antic set computed during the tree
@@ -16738,8 +16746,10 @@ the available options are shown at startup of the instrumented program.  See
 <\fBhttps://github.com/google/sanitizers/wiki/AddressSanitizerFlags#run\-time\-flags\fR>
 for a list of supported options.
 The option cannot be combined with \fB\-fsanitize=thread\fR or
-\&\fB\-fsanitize=hwaddress\fR.  Note that the only target
-\&\fB\-fsanitize=hwaddress\fR is currently supported on is AArch64.
+\&\fB\-fsanitize=hwaddress\fR.  Note that the only targets
+\&\fB\-fsanitize=hwaddress\fR is currently supported on are x86\-64
+(only with \f(CW\*(C`\-mlam=u48\*(C'\fR or \f(CW\*(C`\-mlam=u57\*(C'\fR options) and AArch64,
+in both cases only in ABIs with 64\-bit pointers.
 .Sp
 To get more accurate stack traces, it is possible to use options such as
 \&\fB\-O0\fR, \fB\-O1\fR, or \fB\-Og\fR (which, for instance, prevent
@@ -18119,20 +18129,6 @@ This option may be useful in conjunction with the \fB\-B\fR or
 \&\fB\-wrapper\fR options to specify an alternate preprocessor or
 perform additional processing of the program source between
 normal preprocessing and compilation.
-.IP "\fB\-flarge\-source\-files\fR" 4
-.IX Item "-flarge-source-files"
-Adjust \s-1GCC\s0 to expect large source files, at the expense of slower
-compilation and higher memory usage.
-.Sp
-Specifically, \s-1GCC\s0 normally tracks both column numbers and line numbers
-within source files and it normally prints both of these numbers in
-diagnostics.  However, once it has processed a certain number of source
-lines, it stops tracking column numbers and only tracks line numbers.
-This means that diagnostics for later lines do not include column numbers.
-It also means that options like \fB\-Wmisleading\-indentation\fR cease to work
-at that point, although the compiler prints a note if this happens.
-Passing \fB\-flarge\-source\-files\fR significantly increases the number
-of source lines that \s-1GCC\s0 can process before it stops tracking columns.
 .SS "Passing Options to the Assembler"
 .IX Subsection "Passing Options to the Assembler"
 You can pass options to the assembler.
@@ -31539,8 +31535,6 @@ The \fB\-mno\-compat\-align\-parm\fR option is the default.
 .IX Item "-mstack-protector-guard-reg=reg"
 .IP "\fB\-mstack\-protector\-guard\-offset=\fR\fIoffset\fR" 4
 .IX Item "-mstack-protector-guard-offset=offset"
-.IP "\fB\-mstack\-protector\-guard\-symbol=\fR\fIsymbol\fR" 4
-.IX Item "-mstack-protector-guard-symbol=symbol"
 .PD
 Generate stack protection code using canary at \fIguard\fR.  Supported
 locations are \fBglobal\fR for global canary or \fBtls\fR for per-thread
@@ -31551,8 +31545,7 @@ With the latter choice the options
 \&\fB\-mstack\-protector\-guard\-offset=\fR\fIoffset\fR furthermore specify
 which register to use as base register for reading the canary, and from what
 offset from that base register. The default for those is as specified in the
-relevant \s-1ABI.\s0  \fB\-mstack\-protector\-guard\-symbol=\fR\fIsymbol\fR overrides
-the offset with a symbol reference to a canary in the \s-1TLS\s0 block.
+relevant \s-1ABI.\s0
 .IP "\fB\-mpcrel\fR" 4
 .IX Item "-mpcrel"
 .PD 0
@@ -35234,6 +35227,8 @@ Split 32\-byte \s-1AVX\s0 unaligned load and store.
 .IX Item "-mstack-protector-guard-reg=reg"
 .IP "\fB\-mstack\-protector\-guard\-offset=\fR\fIoffset\fR" 4
 .IX Item "-mstack-protector-guard-offset=offset"
+.IP "\fB\-mstack\-protector\-guard\-symbol=\fR\fIsymbol\fR" 4
+.IX Item "-mstack-protector-guard-symbol=symbol"
 .PD
 Generate stack protection code using canary at \fIguard\fR.  Supported
 locations are \fBglobal\fR for global canary or \fBtls\fR for per-thread
@@ -35246,6 +35241,9 @@ With the latter choice the options
 which segment register (\f(CW%fs\fR or \f(CW%gs\fR) to use as base register
 for reading the canary, and from what offset from that base register.
 The default for those is as specified in the relevant \s-1ABI.\s0
+.Sp
+\&\fB\-mstack\-protector\-guard\-symbol=\fR\fIsymbol\fR overrides
+the offset with a symbol reference to a canary in the \s-1TLS\s0 block.
 .IP "\fB\-mgeneral\-regs\-only\fR" 4
 .IX Item "-mgeneral-regs-only"
 Generate code that uses only the general-purpose registers.  This

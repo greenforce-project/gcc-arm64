@@ -6,7 +6,7 @@
 #define GCCPLUGIN_VERSION  (GCCPLUGIN_VERSION_MAJOR*1000 + GCCPLUGIN_VERSION_MINOR)
 
 static char basever[] = "15.0.0";
-static char datestamp[] = "20241207";
+static char datestamp[] = "20241214";
 static char devphase[] = "Gf Cross v15";
 static char revision[] = "";
 

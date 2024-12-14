@@ -43,9 +43,6 @@ enum optab_tag {
   vec_mask_store_lanes_optab,
   vec_mask_len_load_lanes_optab,
   vec_mask_len_store_lanes_optab,
-  vcond_optab,
-  vcondu_optab,
-  vcondeq_optab,
   vcond_mask_optab,
   vec_cmp_optab,
   vec_cmpu_optab,
@@ -468,10 +465,10 @@ enum optab_tag {
   LAST_NORM_OPTAB = iorn_optab
 };
 
-#define NUM_OPTABS          456
+#define NUM_OPTABS          453
 #define NUM_CONVLIB_OPTABS  17
 #define NUM_NORMLIB_OPTABS  80
-#define NUM_OPTAB_PATTERNS  3010
+#define NUM_OPTAB_PATTERNS  2627
 typedef enum optab_tag optab;
 typedef enum optab_tag convert_optab;
 typedef enum optab_tag direct_optab;
@@ -926,6 +923,24 @@ gen_aarch64_addlp (rtx_code arg0, machine_mode arg1, rtx x0, rtx x1)
   return res;
 }
 
+extern insn_code maybe_code_for_aarch64_get_lane (machine_mode);
+inline insn_code
+code_for_aarch64_get_lane (machine_mode arg0)
+{
+  insn_code code = maybe_code_for_aarch64_get_lane (arg0);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_get_lane (machine_mode, rtx, rtx, rtx);
+inline rtx
+gen_aarch64_get_lane (machine_mode arg0, rtx x0, rtx x1, rtx x2)
+{
+  rtx res = maybe_gen_aarch64_get_lane (arg0, x0, x1, x2);
+  gcc_assert (res);
+  return res;
+}
+
 extern insn_code maybe_code_for_aarch64_vec_concat (machine_mode);
 inline insn_code
 code_for_aarch64_vec_concat (machine_mode arg0)
@@ -998,6 +1013,15 @@ gen_aarch64 (int arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2)
   return res;
 }
 
+extern rtx maybe_gen_aarch64 (int, machine_mode, rtx, rtx);
+inline rtx
+gen_aarch64 (int arg0, machine_mode arg1, rtx x0, rtx x1)
+{
+  rtx res = maybe_gen_aarch64 (arg0, arg1, x0, x1);
+  gcc_assert (res);
+  return res;
+}
+
 extern rtx maybe_gen_aarch64 (int, machine_mode, rtx, rtx, rtx, rtx);
 inline rtx
 gen_aarch64 (int arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2, rtx x3)
@@ -1021,6 +1045,60 @@ inline rtx
 gen_aarch64_lut (machine_mode arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2, rtx x3, rtx x4)
 {
   rtx res = maybe_gen_aarch64_lut (arg0, arg1, x0, x1, x2, x3, x4);
+  gcc_assert (res);
+  return res;
+}
+
+extern insn_code maybe_code_for_aarch64_high (int, machine_mode);
+inline insn_code
+code_for_aarch64_high (int arg0, machine_mode arg1)
+{
+  insn_code code = maybe_code_for_aarch64_high (arg0, arg1);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_high (int, machine_mode, rtx, rtx, rtx);
+inline rtx
+gen_aarch64_high (int arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2)
+{
+  rtx res = maybe_gen_aarch64_high (arg0, arg1, x0, x1, x2);
+  gcc_assert (res);
+  return res;
+}
+
+extern insn_code maybe_code_for_aarch64_high_le (int, machine_mode);
+inline insn_code
+code_for_aarch64_high_le (int arg0, machine_mode arg1)
+{
+  insn_code code = maybe_code_for_aarch64_high_le (arg0, arg1);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern insn_code maybe_code_for_aarch64_high_be (int, machine_mode);
+inline insn_code
+code_for_aarch64_high_be (int arg0, machine_mode arg1)
+{
+  insn_code code = maybe_code_for_aarch64_high_be (arg0, arg1);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern insn_code maybe_code_for_aarch64_lane (int, machine_mode, machine_mode);
+inline insn_code
+code_for_aarch64_lane (int arg0, machine_mode arg1, machine_mode arg2)
+{
+  insn_code code = maybe_code_for_aarch64_lane (arg0, arg1, arg2);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_lane (int, machine_mode, machine_mode, rtx, rtx, rtx, rtx, rtx);
+inline rtx
+gen_aarch64_lane (int arg0, machine_mode arg1, machine_mode arg2, rtx x0, rtx x1, rtx x2, rtx x3, rtx x4)
+{
+  rtx res = maybe_gen_aarch64_lane (arg0, arg1, arg2, x0, x1, x2, x3, x4);
   gcc_assert (res);
   return res;
 }
