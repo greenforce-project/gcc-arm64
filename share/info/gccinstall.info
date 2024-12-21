@@ -937,7 +937,7 @@ option.
      provide additional protection against Return Oriented Programming
      (ROP) attacks.
 
-     '--enable-host-pie') may be used with '--enable-host-shared'), in
+     '--enable-host-pie' may be used with '--enable-host-shared', in
      which case '-fPIC' is used when compiling, and '-pie' when linking.
 
 '--enable-host-bind-now'
@@ -4835,96 +4835,96 @@ Ref: GDC-prerequisite7370
 Ref: GM2-prerequisite8553
 Node: Downloading the source19268
 Node: Configuration20987
-Ref: with-gnu-as40247
-Ref: with-as41068
-Ref: with-gnu-ld42433
-Ref: with-multilib-list46039
-Ref: WithAixSoname73779
-Ref: AixLdCommand74440
-Ref: with-included-gettext90324
-Node: Building118677
-Node: Testing135235
-Node: Final install142766
-Node: Binaries145944
-Node: Specific146884
-Ref: aarch64-x-x147418
-Ref: amd64-x-solaris2149438
-Ref: amdgcn-x-amdhsa149520
-Ref: arc-x-elf32150324
-Ref: arc-linux-uclibc150500
-Ref: arm-x-eabi150641
-Ref: avr150894
-Ref: bfin151376
-Ref: cris151639
-Ref: dos151965
-Ref: epiphany-x-elf152290
-Ref: x-x-freebsd152395
-Ref: ft32-x-elf153023
-Ref: h8300-hms153121
-Ref: hppa64-hp-hpux11153180
-Ref: x-x-linux-gnu153937
-Ref: ix86-x-linux154130
-Ref: ix86-x-solaris2154332
-Ref: ia64-x-linux154571
-Ref: ia64-x-hpux154818
-Ref: x-ibm-aix155036
-Ref: TransferAixShobj158698
-Ref: iq2000-x-elf162508
-Ref: lm32-x-elf162648
-Ref: lm32-x-uclinux162752
-Ref: loongarch162880
-Ref: m32c-x-elf163517
-Ref: m32r-x-elf163619
-Ref: m68k-x-x163721
-Ref: m68k-x-uclinux164759
-Ref: microblaze-x-elf165004
-Ref: mips-x-x165123
-Ref: moxie-x-elf167033
-Ref: msp430-x-elf167080
-Ref: nds32le-x-elf167637
-Ref: nds32be-x-elf167709
-Ref: nvptx-x-none167778
-Ref: or1k-x-elf168735
-Ref: or1k-x-linux168866
-Ref: powerpc-x-x168947
-Ref: powerpc-x-darwin169138
-Ref: powerpc-x-elf169633
-Ref: powerpc-x-linux-gnu169718
-Ref: powerpc-x-netbsd169813
-Ref: powerpc-x-eabisim169901
-Ref: powerpc-x-eabi170027
-Ref: powerpcle-x-elf170103
-Ref: powerpcle-x-eabisim170195
-Ref: powerpcle-x-eabi170328
-Ref: rl78-x-elf170411
-Ref: riscv32-x-elf170517
-Ref: riscv32-x-linux170706
-Ref: riscv64-x-elf170863
-Ref: riscv64-x-linux171052
-Ref: rx-x-elf171209
-Ref: s390-x-linux171255
-Ref: s390x-x-linux171327
-Ref: s390x-ibm-tpf171414
-Ref: x-x-solaris2171545
-Ref: sparc-x-x174857
-Ref: sparc-sun-solaris2175359
-Ref: sparc-x-linux176258
-Ref: sparc64-x-solaris2176289
-Ref: sparcv9-x-solaris2176376
-Ref: c6x-x-x177097
-Ref: visium-x-elf177189
-Ref: x-x-vxworks177297
-Ref: x86-64-x-x178820
-Ref: x86-64-x-solaris2179148
-Ref: xtensa-x-elf179653
-Ref: xtensa-x-linux180324
-Ref: windows180665
-Ref: x-x-cygwin182251
-Ref: x-x-mingw32182804
-Ref: older183030
-Ref: elf184993
-Node: GNU Free Documentation License185247
-Node: Concept Index210385
+Ref: with-gnu-as40245
+Ref: with-as41066
+Ref: with-gnu-ld42431
+Ref: with-multilib-list46037
+Ref: WithAixSoname73777
+Ref: AixLdCommand74438
+Ref: with-included-gettext90322
+Node: Building118675
+Node: Testing135233
+Node: Final install142764
+Node: Binaries145942
+Node: Specific146882
+Ref: aarch64-x-x147416
+Ref: amd64-x-solaris2149436
+Ref: amdgcn-x-amdhsa149518
+Ref: arc-x-elf32150322
+Ref: arc-linux-uclibc150498
+Ref: arm-x-eabi150639
+Ref: avr150892
+Ref: bfin151374
+Ref: cris151637
+Ref: dos151963
+Ref: epiphany-x-elf152288
+Ref: x-x-freebsd152393
+Ref: ft32-x-elf153021
+Ref: h8300-hms153119
+Ref: hppa64-hp-hpux11153178
+Ref: x-x-linux-gnu153935
+Ref: ix86-x-linux154128
+Ref: ix86-x-solaris2154330
+Ref: ia64-x-linux154569
+Ref: ia64-x-hpux154816
+Ref: x-ibm-aix155034
+Ref: TransferAixShobj158696
+Ref: iq2000-x-elf162506
+Ref: lm32-x-elf162646
+Ref: lm32-x-uclinux162750
+Ref: loongarch162878
+Ref: m32c-x-elf163515
+Ref: m32r-x-elf163617
+Ref: m68k-x-x163719
+Ref: m68k-x-uclinux164757
+Ref: microblaze-x-elf165002
+Ref: mips-x-x165121
+Ref: moxie-x-elf167031
+Ref: msp430-x-elf167078
+Ref: nds32le-x-elf167635
+Ref: nds32be-x-elf167707
+Ref: nvptx-x-none167776
+Ref: or1k-x-elf168733
+Ref: or1k-x-linux168864
+Ref: powerpc-x-x168945
+Ref: powerpc-x-darwin169136
+Ref: powerpc-x-elf169631
+Ref: powerpc-x-linux-gnu169716
+Ref: powerpc-x-netbsd169811
+Ref: powerpc-x-eabisim169899
+Ref: powerpc-x-eabi170025
+Ref: powerpcle-x-elf170101
+Ref: powerpcle-x-eabisim170193
+Ref: powerpcle-x-eabi170326
+Ref: rl78-x-elf170409
+Ref: riscv32-x-elf170515
+Ref: riscv32-x-linux170704
+Ref: riscv64-x-elf170861
+Ref: riscv64-x-linux171050
+Ref: rx-x-elf171207
+Ref: s390-x-linux171253
+Ref: s390x-x-linux171325
+Ref: s390x-ibm-tpf171412
+Ref: x-x-solaris2171543
+Ref: sparc-x-x174855
+Ref: sparc-sun-solaris2175357
+Ref: sparc-x-linux176256
+Ref: sparc64-x-solaris2176287
+Ref: sparcv9-x-solaris2176374
+Ref: c6x-x-x177095
+Ref: visium-x-elf177187
+Ref: x-x-vxworks177295
+Ref: x86-64-x-x178818
+Ref: x86-64-x-solaris2179146
+Ref: xtensa-x-elf179651
+Ref: xtensa-x-linux180322
+Ref: windows180663
+Ref: x-x-cygwin182249
+Ref: x-x-mingw32182802
+Ref: older183028
+Ref: elf184991
+Node: GNU Free Documentation License185245
+Node: Concept Index210383
 
 End Tag Table
 

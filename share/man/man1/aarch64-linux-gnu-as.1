@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "AS 1"
-.TH AS 1 "2024-12-14" "binutils-2.43.50" "GNU Development Tools"
+.TH AS 1 "2024-12-21" "binutils-2.43.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -159,6 +159,7 @@ as [\fB\-a\fR[\fBcdghilns\fR][=\fIfile\fR]]
  [\fB\-\-gsframe\fR]
  [\fB\-\-hash\-size\fR=\fIN\fR]
  [\fB\-\-help\fR] [\fB\-\-target\-help\fR]
+ [\fB\-\-info\fR] [\fB\-\-no\-info\fR]
  [\fB\-I\fR \fIdir\fR]
  [\fB\-J\fR]
  [\fB\-K\fR]
@@ -752,6 +753,12 @@ Print a summary of the command-line options and exit.
 .IP "\fB\-\-target\-help\fR" 4
 .IX Item "--target-help"
 Print a summary of all target specific options and exit.
+.IP "\fB\-\-info\fR" 4
+.IX Item "--info"
+Don't suppress informational messages.
+.IP "\fB\-\-no\-info\fR" 4
+.IX Item "--no-info"
+Suppress informational messages.
 .IP "\fB\-I\fR \fIdir\fR" 4
 .IX Item "-I dir"
 Add directory \fIdir\fR to the search list for \f(CW\*(C`.include\*(C'\fR directives.

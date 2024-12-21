@@ -192,6 +192,7 @@ enum cp_tree_index
     CPTI_HEAP_VEC_UNINIT_IDENTIFIER,
     CPTI_HEAP_VEC_IDENTIFIER,
     CPTI_OMP_IDENTIFIER,
+    CPTI_INTERNAL_IDENTIFIER,
 
     CPTI_LANG_NAME_C,
     CPTI_LANG_NAME_CPLUSPLUS,
@@ -345,6 +346,7 @@ extern GTY(()) tree cp_global_trees[CPTI_MAX];
 #define heap_vec_uninit_identifier	cp_global_trees[CPTI_HEAP_VEC_UNINIT_IDENTIFIER]
 #define heap_vec_identifier		cp_global_trees[CPTI_HEAP_VEC_IDENTIFIER]
 #define omp_identifier			cp_global_trees[CPTI_OMP_IDENTIFIER]
+#define internal_identifier		cp_global_trees[CPTI_INTERNAL_IDENTIFIER]
 #define lang_name_c			cp_global_trees[CPTI_LANG_NAME_C]
 #define lang_name_cplusplus		cp_global_trees[CPTI_LANG_NAME_CPLUSPLUS]
 
@@ -1825,6 +1827,22 @@ check_constraint_info (tree t)
    it for unscoped enums.  */
 #define DECL_MODULE_EXPORT_P(NODE) TREE_LANG_FLAG_3 (NODE)
 
+/* Represents a streamed-in translation-unit-local entity.  Any use of
+   this node when instantiating a template should emit an error.  */
+struct GTY(()) tree_tu_local_entity {
+  struct tree_base base;
+  tree name;
+  location_t loc;
+};
+
+/* The name of a translation-unit-local entity.  */
+#define TU_LOCAL_ENTITY_NAME(NODE) \
+  (((struct tree_tu_local_entity *)TU_LOCAL_ENTITY_CHECK (NODE))->name)
+
+/* The source location of the translation-unit-local entity.  */
+#define TU_LOCAL_ENTITY_LOCATION(NODE) \
+  (((struct tree_tu_local_entity *)TU_LOCAL_ENTITY_CHECK (NODE))->loc)
+
 
 /* The list of local parameters introduced by this requires-expression,
    in the form of a chain of PARM_DECLs.  */
@@ -1858,7 +1876,8 @@ enum cp_tree_node_structure_enum {
   TS_CP_LAMBDA_EXPR,
   TS_CP_TEMPLATE_INFO,
   TS_CP_CONSTRAINT_INFO,
-  TS_CP_USERDEF_LITERAL
+  TS_CP_USERDEF_LITERAL,
+  TS_CP_TU_LOCAL_ENTITY
 };
 
 /* The resulting tree type.  */
@@ -1889,6 +1908,8 @@ union GTY((desc ("cp_tree_node_structure (&%h)"),
     constraint_info;
   struct tree_userdef_literal GTY ((tag ("TS_CP_USERDEF_LITERAL")))
     userdef_literal;
+  struct tree_tu_local_entity GTY ((tag ("TS_CP_TU_LOCAL_ENTITY")))
+    tu_local_entity;
 };
 
 
@@ -5139,18 +5160,19 @@ get_vec_init_expr (tree t)
    tree is converted to C++ class hiearchy.  */
 #define DECL_TEMPLATE_RESULT(NODE)      \
    ((struct tree_template_decl *)CONST_CAST_TREE(TEMPLATE_DECL_CHECK (NODE)))->result
-/* For a function template at namespace scope, DECL_TEMPLATE_INSTANTIATIONS
-   lists all instantiations and specializations of the function so that
-   tsubst_friend_function can reassign them to another template if we find
-   that the namespace-scope template is really a partial instantiation of a
-   friend template.
+/* For a forward-declared function template at namespace scope, or for any
+   function template in an exporting module, DECL_TEMPLATE_INSTANTIATIONS lists
+   all instantiations and specializations of the function so that
+   tsubst_friend_function can reassign them to another template if we find that
+   the namespace-scope template is really a partial instantiation of a friend
+   template.
 
-   For a class template the DECL_TEMPLATE_INSTANTIATIONS lists holds
-   all instantiations and specializations of the class type, including
-   partial instantiations and partial specializations, so that if we
-   explicitly specialize a partial instantiation we can walk the list
-   in maybe_process_partial_specialization and reassign them or complain
-   as appropriate.
+   For a class or variable template the DECL_TEMPLATE_INSTANTIATIONS lists
+   holds all instantiations and specializations, including partial
+   instantiations and partial specializations, so that if we explicitly
+   specialize a partial instantiation we can walk the list in
+   maybe_process_partial_specialization and reassign them or complain as
+   appropriate.
 
    In both cases, the TREE_PURPOSE of each node contains the arguments
    used; the TREE_VALUE contains the generated variable.  The template
@@ -7509,6 +7531,7 @@ extern void set_originating_module (tree, bool friend_p = false);
 extern tree get_originating_module_decl (tree) ATTRIBUTE_PURE;
 extern int get_originating_module (tree, bool for_mangle = false) ATTRIBUTE_PURE;
 extern unsigned get_importing_module (tree, bool = false) ATTRIBUTE_PURE;
+extern void check_module_decl_linkage (tree);
 
 /* Where current instance of the decl got declared/defined/instantiated.  */
 extern void set_instantiating_module (tree);
@@ -8215,6 +8238,7 @@ extern bool is_byte_access_type			(tree);
 extern bool is_byte_access_type_not_plain_char	(tree);
 extern const struct scoped_attribute_specs cxx_gnu_attribute_table;
 extern const struct scoped_attribute_specs std_attribute_table;
+extern const struct scoped_attribute_specs internal_attribute_table;
 extern tree make_ptrmem_cst			(tree, tree);
 extern tree cp_build_type_attribute_variant     (tree, tree);
 extern tree cp_build_reference_type		(tree, bool);
@@ -8711,27 +8735,6 @@ extern hashval_t hash_atomic_constraint         (tree);
 extern void diagnose_constraints                (location_t, tree, tree);
 
 extern void note_failed_type_completion_for_satisfaction (tree);
-
-/* A structural hasher for ATOMIC_CONSTRs.  */
-
-struct atom_hasher : default_hash_traits<tree>
-{
-  static hashval_t hash (tree t)
-  {
-    ++comparing_specializations;
-    hashval_t val = hash_atomic_constraint (t);
-    --comparing_specializations;
-    return val;
-  }
-
-  static bool equal (tree t1, tree t2)
-  {
-    ++comparing_specializations;
-    bool eq = atomic_constraints_identical_p (t1, t2);
-    --comparing_specializations;
-    return eq;
-  }
-};
 
 /* in logic.cc */
 extern bool subsumes                            (tree, tree);

@@ -138,6 +138,9 @@ class file_cache
   file_cache ();
   ~file_cache ();
 
+  void dump (FILE *out, int indent) const;
+  void DEBUG_FUNCTION dump () const;
+
   file_cache_slot *lookup_or_add_file (const char *file_path);
   void forcibly_evict_file (const char *file_path);
 
@@ -153,6 +156,10 @@ class file_cache
   char_span get_source_file_content (const char *file_path);
   char_span get_source_line (const char *file_path, int line);
   bool missing_trailing_newline_p (const char *file_path);
+
+  void add_buffered_content (const char *file_path,
+			     const char *buffer,
+			     size_t sz);
 
  private:
   file_cache_slot *evicted_cache_tab_entry (unsigned *highest_use_count);

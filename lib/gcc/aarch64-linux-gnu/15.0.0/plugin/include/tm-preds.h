@@ -383,6 +383,7 @@ enum constraint_num
   CONSTRAINT__g,
   CONSTRAINT_i,
   CONSTRAINT_s,
+  CONSTRAINT__c,
   CONSTRAINT_n,
   CONSTRAINT_E,
   CONSTRAINT_F,

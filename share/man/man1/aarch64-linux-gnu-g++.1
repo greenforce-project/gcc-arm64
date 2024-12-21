@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-12-14" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2024-12-21" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -231,10 +231,7 @@ in the following sections.
 \&\-fno\-builtin  \-fno\-builtin\-\fR\fIfunction\fR  \fB\-fcond\-mismatch
 \&\-ffreestanding  \-fgimple  \-fgnu\-tm  \-fgnu89\-inline  \-fhosted
 \&\-flax\-vector\-conversions  \-fms\-extensions
-\&\-foffload=\fR\fIarg\fR  \fB\-foffload\-options=\fR\fIarg\fR
-\&\fB\-fopenacc  \-fopenacc\-dim=\fR\fIgeom\fR
-\&\fB\-fopenmp  \-fopenmp\-simd  \-fopenmp\-target\-simd\-clone\fR[\fB=\fR\fIdevice-type\fR]
-\&\fB\-fpermitted\-flt\-eval\-methods=\fR\fIstandard\fR
+\&\-fpermitted\-flt\-eval\-methods=\fR\fIstandard\fR
 \&\fB\-fplan9\-extensions  \-fsigned\-bitfields  \-funsigned\-bitfields
 \&\-fsigned\-char  \-funsigned\-char  \-fstrict\-flex\-arrays[=\fR\fIn\fR\fB]
 \&\-fsso\-struct=\fR\fIendianness\fR
@@ -302,7 +299,7 @@ in the following sections.
 \&\-Woverloaded\-virtual  \-Wno\-pmf\-conversions \-Wself\-move \-Wsign\-promo
 \&\-Wsized\-deallocation  \-Wsuggest\-final\-methods
 \&\-Wsuggest\-final\-types  \-Wsuggest\-override  \-Wno\-template\-body
-\&\-Wno\-template\-id\-cdtor
+\&\-Wno\-template\-id\-cdtor  \-Wtemplate\-names\-tu\-local
 \&\-Wno\-terminate  \-Wno\-vexing\-parse  \-Wvirtual\-inheritance
 \&\-Wno\-virtual\-move\-assign  \-Wvolatile  \-Wzero\-as\-null\-pointer\-constant\fR
 .IP "\fIObjective-C and Objective\-\*(C+ Language Options\fR" 4
@@ -326,6 +323,11 @@ in the following sections.
 \&\-Wno\-protocol \-Wobjc\-root\-class \-Wselector
 \&\-Wstrict\-selector\-match
 \&\-Wundeclared\-selector\fR
+.IP "\fIOpenMP and OpenACC Options\fR" 4
+.IX Item "OpenMP and OpenACC Options"
+\&\fB\-foffload=\fR\fIarg\fR  \fB\-foffload\-options=\fR\fIarg\fR
+\&\fB\-fopenacc  \-fopenacc\-dim=\fR\fIgeom\fR
+\&\fB\-fopenmp  \-fopenmp\-simd  \-fopenmp\-target\-simd\-clone\fR[\fB=\fR\fIdevice-type\fR]
 .IP "\fIDiagnostic Message Formatting Options\fR" 4
 .IX Item "Diagnostic Message Formatting Options"
 \&\fB\-fmessage\-length=\fR\fIn\fR
@@ -2809,106 +2811,6 @@ accepted with this option.
 .Sp
 Note that this option is off for all targets except for x86
 targets using ms-abi.
-.IP "\fB\-foffload=disable\fR" 4
-.IX Item "-foffload=disable"
-.PD 0
-.IP "\fB\-foffload=default\fR" 4
-.IX Item "-foffload=default"
-.IP "\fB\-foffload=\fR\fItarget-list\fR" 4
-.IX Item "-foffload=target-list"
-.PD
-Specify for which OpenMP and OpenACC offload targets code should be generated.
-The default behavior, equivalent to \fB\-foffload=default\fR, is to generate
-code for all supported offload targets.  The \fB\-foffload=disable\fR form
-generates code only for the host fallback, while
-\&\fB\-foffload=\fR\fItarget-list\fR generates code only for the specified
-comma-separated list of offload targets.
-.Sp
-Offload targets are specified in \s-1GCC\s0's internal target-triplet format. You can
-run the compiler with \fB\-v\fR to show the list of configured offload targets
-under \f(CW\*(C`OFFLOAD_TARGET_NAMES\*(C'\fR.
-.IP "\fB\-foffload\-options=\fR\fIoptions\fR" 4
-.IX Item "-foffload-options=options"
-.PD 0
-.IP "\fB\-foffload\-options=\fR\fItarget-triplet-list\fR\fB=\fR\fIoptions\fR" 4
-.IX Item "-foffload-options=target-triplet-list=options"
-.PD
-With \fB\-foffload\-options=\fR\fIoptions\fR, \s-1GCC\s0 passes the specified
-\&\fIoptions\fR to the compilers for all enabled offloading targets.  You can
-specify options that apply only to a specific target or targets by using
-the \fB\-foffload\-options=\fR\fItarget-list\fR\fB=\fR\fIoptions\fR form.  The
-\&\fItarget-list\fR is a comma-separated list in the same format as for the
-\&\fB\-foffload=\fR option.
-.Sp
-Typical command lines are
-.Sp
-.Vb 2
-\&        \-foffload\-options=\*(Aq\-fno\-math\-errno \-ffinite\-math\-only\*(Aq \-foffload\-options=nvptx\-none=\-latomic
-\&        \-foffload\-options=amdgcn\-amdhsa=\-march=gfx906
-.Ve
-.IP "\fB\-fopenacc\fR" 4
-.IX Item "-fopenacc"
-Enable handling of OpenACC directives \fB#pragma acc\fR in C/\*(C+ and
-\&\fB!$acc\fR in free-form Fortran and \fB!$acc\fR, \fBc$acc\fR and
-\&\fB*$acc\fR in fixed-form Fortran.  When \fB\-fopenacc\fR is specified,
-the compiler generates accelerated code according to the OpenACC Application
-Programming Interface v2.6 <\fBhttps://www.openacc.org\fR>.  This option
-implies \fB\-pthread\fR, and thus is only supported on targets that
-have support for \fB\-pthread\fR.
-.IP "\fB\-fopenacc\-dim=\fR\fIgeom\fR" 4
-.IX Item "-fopenacc-dim=geom"
-Specify default compute dimensions for parallel offload regions that do
-not explicitly specify.  The \fIgeom\fR value is a triple of
-\&':'\-separated sizes, in order 'gang', 'worker' and, 'vector'.  A size
-can be omitted, to use a target-specific default value.
-.IP "\fB\-fopenmp\fR" 4
-.IX Item "-fopenmp"
-Enable handling of OpenMP directives \fB#pragma omp\fR,
-\&\fB[[omp::directive(...)]]\fR, \fB[[omp::sequence(...)]]\fR and
-\&\fB[[omp::decl(...)]]\fR in C/\*(C+ and \fB!$omp\fR in Fortran.  It
-additionally enables the conditional compilation sentinel \fB!$\fR in
-Fortran.  In fixed source form Fortran, the sentinels can also start with
-\&\fBc\fR or \fB*\fR.  When \fB\-fopenmp\fR is specified, the
-compiler generates parallel code according to the OpenMP Application
-Program Interface v4.5 <\fBhttps://www.openmp.org\fR>.  This option
-implies \fB\-pthread\fR, and thus is only supported on targets that
-have support for \fB\-pthread\fR. \fB\-fopenmp\fR implies
-\&\fB\-fopenmp\-simd\fR.
-.IP "\fB\-fopenmp\-simd\fR" 4
-.IX Item "-fopenmp-simd"
-Enable handling of OpenMP's \f(CW\*(C`simd\*(C'\fR, \f(CW\*(C`declare simd\*(C'\fR,
-\&\f(CW\*(C`declare reduction\*(C'\fR, \f(CW\*(C`assume\*(C'\fR, \f(CW\*(C`ordered\*(C'\fR, \f(CW\*(C`scan\*(C'\fR
-and \f(CW\*(C`loop\*(C'\fR directive, and of combined or composite directives with
-\&\f(CW\*(C`simd\*(C'\fR as constituent with \f(CW\*(C`#pragma omp\*(C'\fR,
-\&\f(CW\*(C`[[omp::directive(...)]]\*(C'\fR, \f(CW\*(C`[[omp::sequence(...)]]\*(C'\fR and
-\&\f(CW\*(C`[[omp::decl(...)]]\*(C'\fR in C/\*(C+ and \f(CW\*(C`!$omp\*(C'\fR in Fortran.  It
-additionally enables the conditional compilation sentinel \fB!$\fR in
-Fortran.  In fixed source form Fortran, the sentinels can also start with
-\&\fBc\fR or \fB*\fR.  Other OpenMP directives are ignored.  Unless
-\&\fB\-fopenmp\fR is additionally specified, the \f(CW\*(C`loop\*(C'\fR region binds
-to the current task region, independent of the specified \f(CW\*(C`bind\*(C'\fR clause.
-.IP "\fB\-fopenmp\-target\-simd\-clone\fR" 4
-.IX Item "-fopenmp-target-simd-clone"
-.PD 0
-.IP "\fB\-fopenmp\-target\-simd\-clone=\fR\fIdevice-type\fR" 4
-.IX Item "-fopenmp-target-simd-clone=device-type"
-.PD
-In addition to generating \s-1SIMD\s0 clones for functions marked with the
-\&\f(CW\*(C`declare simd\*(C'\fR directive, \s-1GCC\s0 also generates clones
-for functions marked with the OpenMP \f(CW\*(C`declare target\*(C'\fR directive
-that are suitable for vectorization when this option is in effect.  The
-\&\fIdevice-type\fR may be one of \f(CW\*(C`none\*(C'\fR, \f(CW\*(C`host\*(C'\fR, \f(CW\*(C`nohost\*(C'\fR,
-and \f(CW\*(C`any\*(C'\fR, which correspond to keywords for the \f(CW\*(C`device_type\*(C'\fR
-clause of the \f(CW\*(C`declare target\*(C'\fR directive; clones are generated for
-the intersection of devices specified.
-\&\fB\-fopenmp\-target\-simd\-clone\fR is equivalent to
-\&\fB\-fopenmp\-target\-simd\-clone=any\fR and
-\&\fB\-fno\-openmp\-target\-simd\-clone\fR is equivalent to
-\&\fB\-fopenmp\-target\-simd\-clone=none\fR.
-.Sp
-At \fB\-O2\fR and higher (but not \fB\-Os\fR or \fB\-Og\fR) this
-optimization defaults to \fB\-fopenmp\-target\-simd\-clone=nohost\fR; otherwise
-it is disabled by default.
 .IP "\fB\-fpermitted\-flt\-eval\-methods=\fR\fIstyle\fR" 4
 .IX Item "-fpermitted-flt-eval-methods=style"
 \&\s-1ISO/IEC TS 18661\-3\s0 defines new permissible values for
@@ -4603,6 +4505,22 @@ For example:
 .Sp
 \&\fB\-Wtemplate\-id\-cdtor\fR is enabled by default with
 \&\fB\-std=c++20\fR; it is also enabled by \fB\-Wc++20\-compat\fR.
+.IP "\fB\-Wtemplate\-names\-tu\-local\fR" 4
+.IX Item "-Wtemplate-names-tu-local"
+Warn when a template body hides an exposure of a translation-unit-local
+entity.  In most cases, referring to a translation-unit-local entity
+(such as an internal linkage declaration) within an entity that is
+emitted into a module's \s-1CMI\s0 is an error.  However, within the
+initializer of a variable, or in the body of a non-inline function,
+this is not an exposure and no error is emitted.
+.Sp
+This can cause variable or function templates to accidentally become
+unusable if they reference such an entity, because other translation
+units that import the template will never be able to instantiate it.
+This warning attempts to detect cases where this might occur.
+The presence of an explicit instantiation silences the warning.
+.Sp
+This flag is enabled by \fB\-Wextra\fR.
 .IP "\fB\-Wno\-terminate\fR (\*(C+ and Objective\-\*(C+ only)" 4
 .IX Item "-Wno-terminate ( and Objective- only)"
 Disable the warning about a throw-expression that will immediately
@@ -5077,6 +4995,109 @@ that methods and selectors must be declared before being used.
 .IX Item "-print-objc-runtime-info"
 Generate C header describing the largest structure that is passed by
 value, if any.
+.SS "Options Controlling OpenMP and OpenACC"
+.IX Subsection "Options Controlling OpenMP and OpenACC"
+\&\s-1GCC\s0 supports OpenMP extensions to the C, \*(C+, and Fortran languages
+with the \fB\-fopenmp\fR option.  Similarly, OpenACC extensions are
+supported in all three languages with \fB\-fopenacc\fR.
+.IP "\fB\-foffload=disable\fR" 4
+.IX Item "-foffload=disable"
+.PD 0
+.IP "\fB\-foffload=default\fR" 4
+.IX Item "-foffload=default"
+.IP "\fB\-foffload=\fR\fItarget-list\fR" 4
+.IX Item "-foffload=target-list"
+.PD
+Specify for which OpenMP and OpenACC offload targets code should be generated.
+The default behavior, equivalent to \fB\-foffload=default\fR, is to generate
+code for all supported offload targets.  The \fB\-foffload=disable\fR form
+generates code only for the host fallback, while
+\&\fB\-foffload=\fR\fItarget-list\fR generates code only for the specified
+comma-separated list of offload targets.
+.Sp
+Offload targets are specified in \s-1GCC\s0's internal target-triplet format. You can
+run the compiler with \fB\-v\fR to show the list of configured offload targets
+under \f(CW\*(C`OFFLOAD_TARGET_NAMES\*(C'\fR.
+.IP "\fB\-foffload\-options=\fR\fIoptions\fR" 4
+.IX Item "-foffload-options=options"
+.PD 0
+.IP "\fB\-foffload\-options=\fR\fItarget-triplet-list\fR\fB=\fR\fIoptions\fR" 4
+.IX Item "-foffload-options=target-triplet-list=options"
+.PD
+With \fB\-foffload\-options=\fR\fIoptions\fR, \s-1GCC\s0 passes the specified
+\&\fIoptions\fR to the compilers for all enabled offloading targets.  You can
+specify options that apply only to a specific target or targets by using
+the \fB\-foffload\-options=\fR\fItarget-list\fR\fB=\fR\fIoptions\fR form.  The
+\&\fItarget-list\fR is a comma-separated list in the same format as for the
+\&\fB\-foffload=\fR option.
+.Sp
+Typical command lines are
+.Sp
+.Vb 3
+\&        \-foffload\-options=\*(Aq\-fno\-math\-errno \-ffinite\-math\-only\*(Aq \e
+\&                \-foffload\-options=nvptx\-none=\-latomic
+\&        \-foffload\-options=amdgcn\-amdhsa=\-march=gfx906
+.Ve
+.IP "\fB\-fopenacc\fR" 4
+.IX Item "-fopenacc"
+Enable handling of OpenACC directives \fB#pragma acc\fR in C/\*(C+ and
+\&\fB!$acc\fR in free-form Fortran and \fB!$acc\fR, \fBc$acc\fR and
+\&\fB*$acc\fR in fixed-form Fortran.  This option
+implies \fB\-pthread\fR, and thus is only supported on targets that
+have support for \fB\-pthread\fR.
+.IP "\fB\-fopenacc\-dim=\fR\fIgeom\fR" 4
+.IX Item "-fopenacc-dim=geom"
+Specify default compute dimensions for parallel offload regions that do
+not explicitly specify them.  The \fIgeom\fR value is a triple of
+\&\fB:\fR\-separated sizes, in order \fIgang\fR, \fIworker\fR, and \fIvector\fR.
+A size can be omitted, to use a target-specific default value.
+.IP "\fB\-fopenmp\fR" 4
+.IX Item "-fopenmp"
+Enable handling of OpenMP directives \fB#pragma omp\fR,
+\&\fB[[omp::directive(...)]]\fR, \fB[[omp::decl(...)]]\fR,
+and \fB[[omp::sequence(...)]]\fR in C/\*(C+.  In Fortran, it enables
+\&\fB!$omp\fR and the conditional compilation sentinel \fB!$\fR.
+In fixed source form Fortran, the sentinels can also start with
+\&\fBc\fR or \fB*\fR.
+.Sp
+This option implies \fB\-pthread\fR, and thus is only supported on
+targets that have support for \fB\-pthread\fR. \fB\-fopenmp\fR
+implies \fB\-fopenmp\-simd\fR.
+.IP "\fB\-fopenmp\-simd\fR" 4
+.IX Item "-fopenmp-simd"
+Enable handling of OpenMP's \f(CW\*(C`simd\*(C'\fR, \f(CW\*(C`declare simd\*(C'\fR,
+\&\f(CW\*(C`declare reduction\*(C'\fR, \f(CW\*(C`assume\*(C'\fR, \f(CW\*(C`ordered\*(C'\fR, \f(CW\*(C`scan\*(C'\fR
+and \f(CW\*(C`loop\*(C'\fR directive, and of combined or composite directives with
+\&\f(CW\*(C`simd\*(C'\fR as constituent with \f(CW\*(C`#pragma omp\*(C'\fR,
+\&\f(CW\*(C`[[omp::directive(...)]]\*(C'\fR, \f(CW\*(C`[[omp::sequence(...)]]\*(C'\fR and
+\&\f(CW\*(C`[[omp::decl(...)]]\*(C'\fR in C/\*(C+ and \f(CW\*(C`!$omp\*(C'\fR in Fortran.  It
+additionally enables the conditional compilation sentinel \fB!$\fR in
+Fortran.  In fixed source form Fortran, the sentinels can also start with
+\&\fBc\fR or \fB*\fR.  Other OpenMP directives are ignored.  Unless
+\&\fB\-fopenmp\fR is additionally specified, the \f(CW\*(C`loop\*(C'\fR region binds
+to the current task region, independent of the specified \f(CW\*(C`bind\*(C'\fR clause.
+.IP "\fB\-fopenmp\-target\-simd\-clone\fR" 4
+.IX Item "-fopenmp-target-simd-clone"
+.PD 0
+.IP "\fB\-fopenmp\-target\-simd\-clone=\fR\fIdevice-type\fR" 4
+.IX Item "-fopenmp-target-simd-clone=device-type"
+.PD
+In addition to generating \s-1SIMD\s0 clones for functions marked with the
+\&\f(CW\*(C`declare simd\*(C'\fR directive, \s-1GCC\s0 also generates clones
+for functions marked with the OpenMP \f(CW\*(C`declare target\*(C'\fR directive
+that are suitable for vectorization when this option is in effect.  The
+\&\fIdevice-type\fR may be one of \f(CW\*(C`none\*(C'\fR, \f(CW\*(C`host\*(C'\fR, \f(CW\*(C`nohost\*(C'\fR,
+and \f(CW\*(C`any\*(C'\fR, which correspond to keywords for the \f(CW\*(C`device_type\*(C'\fR
+clause of the \f(CW\*(C`declare target\*(C'\fR directive; clones are generated for
+the intersection of devices specified.
+\&\fB\-fopenmp\-target\-simd\-clone\fR is equivalent to
+\&\fB\-fopenmp\-target\-simd\-clone=any\fR and
+\&\fB\-fno\-openmp\-target\-simd\-clone\fR is equivalent to
+\&\fB\-fopenmp\-target\-simd\-clone=none\fR.
+.Sp
+At \fB\-O2\fR and higher (but not \fB\-Os\fR or \fB\-Og\fR) this
+optimization defaults to \fB\-fopenmp\-target\-simd\-clone=nohost\fR; otherwise
+it is disabled by default.
 .SS "Options to Control Diagnostic Messages Formatting"
 .IX Subsection "Options to Control Diagnostic Messages Formatting"
 Traditionally, diagnostic messages have been formatted irrespective of
@@ -30106,16 +30127,18 @@ Permissible values for this option are: \fBsifive\-e20\fR, \fBsifive\-e21\fR,
 \&\fBsifive\-e24\fR, \fBsifive\-e31\fR, \fBsifive\-e34\fR, \fBsifive\-e76\fR,
 \&\fBsifive\-s21\fR, \fBsifive\-s51\fR, \fBsifive\-s54\fR, \fBsifive\-s76\fR,
 \&\fBsifive\-u54\fR, \fBsifive\-u74\fR, \fBsifive\-x280\fR, \fBsifive\-xp450\fR,
-\&\fBsifive\-x670\fR.
+\&\fBsifive\-x670\fR, \fBthead\-c906\fR, \fBtt\-ascalon\-d8\fR,
+\&\fBxiangshan-nanhu\fR.
 .Sp
 Note that \fB\-mcpu\fR does not override \fB\-march\fR or \fB\-mtune\fR.
 .IP "\fB\-mtune=\fR\fIprocessor-string\fR" 4
 .IX Item "-mtune=processor-string"
 Optimize the output for the given processor, specified by microarchitecture or
-particular \s-1CPU\s0 name.  Permissible values for this option are: \fBrocket\fR,
-\&\fBsifive\-3\-series\fR, \fBsifive\-5\-series\fR, \fBsifive\-7\-series\fR,
-\&\fBthead\-c906\fR, \fBsize\fR, \fBsifive\-p400\-series\fR,
-\&\fBsifive\-p600\-series\fR, and all valid options for \fB\-mcpu=\fR.
+particular \s-1CPU\s0 name.  Permissible values for this option are:
+\&\fBgeneric-ooo\fR, \fBrocket\fR, \fBsifive\-3\-series\fR,
+\&\fBsifive\-5\-series\fR, \fBsifive\-7\-series\fR, \fBsize\fR,
+\&\fBsifive\-p400\-series\fR, \fBsifive\-p600\-series\fR, and all valid options for
+\&\fB\-mcpu=\fR.
 .Sp
 When \fB\-mtune=\fR is not specified, use the setting from \fB\-mcpu\fR,
 the default is \fBrocket\fR if both are not specified.

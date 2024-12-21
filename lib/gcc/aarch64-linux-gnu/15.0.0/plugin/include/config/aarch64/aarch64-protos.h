@@ -1028,6 +1028,7 @@ rtx aarch64_replace_reg_mode (rtx, machine_mode);
 void aarch64_split_sve_subreg_move (rtx, rtx, rtx);
 void aarch64_expand_prologue (void);
 void aarch64_expand_vector_init (rtx, rtx);
+void aarch64_sve_expand_vector_init_subvector (rtx, rtx);
 void aarch64_sve_expand_vector_init (rtx, rtx);
 void aarch64_init_cumulative_args (CUMULATIVE_ARGS *, const_tree, rtx,
 				   const_tree, unsigned, bool = false);
@@ -1151,6 +1152,8 @@ namespace aarch64_sve {
 #ifdef GCC_TARGET_H
   bool verify_type_context (location_t, type_context_kind, const_tree, bool);
 #endif
+ void add_sve_type_attribute (tree, unsigned int, unsigned int,
+			      const char *, const char *);
 }
 
 extern void aarch64_split_combinev16qi (rtx operands[3]);

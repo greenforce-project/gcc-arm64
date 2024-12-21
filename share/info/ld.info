@@ -4975,15 +4975,15 @@ parentheses.  The following types are defined:
 
      Note - the TYPE only is used if some or all of the contents of the
      section do not have an implicit type of their own.  So for example:
-            .foo . TYPE = SHT_PROGBITS { *(.bar) }
+            .foo . (TYPE = SHT_PROGBITS) : { *(.bar) }
      will set the type of section '.foo' to the type of the section
      '.bar' in the input files, which may not be the SHT_PROGBITS type.
      Whereas:
-            .foo . TYPE = SHT_PROGBITS { BYTE(1) }
+            .foo . (TYPE = SHT_PROGBITS) : { BYTE(1) }
      will set the type of '.foo' to SHT_PROGBBITS. If it is necessary to
      override the type of incoming sections and force the output section
      type then an extra piece of untyped data will be needed:
-            .foo . TYPE = SHT_PROGBITS { BYTE(1); *(.bar) }
+            .foo . (TYPE = SHT_PROGBITS) : { BYTE(1); *(.bar) }
 
 'READONLY ( TYPE = TYPE )'
      This form of the syntax combines the READONLY type with the type
@@ -9894,58 +9894,58 @@ Node: Output Section Keywords213612
 Node: Output Section Discarding217179
 Node: Output Section Attributes219069
 Node: Output Section Type220188
-Node: Output Section LMA222491
-Node: Forced Output Alignment225562
-Node: Forced Input Alignment225991
-Node: Output Section Constraint226379
-Node: Output Section Region226807
-Node: Output Section Phdr227240
-Node: Output Section Fill227904
-Node: Overlay Description229267
-Node: MEMORY233712
-Node: PHDRS238318
-Node: VERSION243644
-Node: Expressions251735
-Node: Constants252748
-Node: Symbolic Constants253622
-Node: Symbols254173
-Node: Orphan Sections254920
-Node: Location Counter256505
-Node: Operators260939
-Node: Evaluation261969
-Node: Expression Section263333
-Node: Builtin Functions267303
-Node: Implicit Linker Scripts276082
-Node: Plugins276857
-Node: libdep Plugin277413
-Node: Special Sections279210
-Node: Machine Dependent281324
-Node: H8/300282379
-Node: M68HC11/68HC12284452
-Node: ARM285899
-Node: HPPA ELF32300263
-Node: M68K301886
-Node: MIPS302795
-Node: MMIX303911
-Node: MSP430305076
-Node: NDS32306989
-Node: PowerPC ELF32307959
-Node: PowerPC64 ELF64310788
-Node: S/390 ELF320546
-Node: SPU ELF320893
-Node: TI COFF323521
-Node: WIN32324047
-Node: Xtensa345266
-Node: BFD348709
-Node: BFD outline350167
-Node: BFD information loss351455
-Node: Canonical format353981
-Node: Reporting Bugs358309
-Node: Bug Criteria359003
-Node: Bug Reporting359702
-Node: MRI366737
-Node: GNU Free Documentation License371208
-Node: LD Index396345
+Node: Output Section LMA222503
+Node: Forced Output Alignment225574
+Node: Forced Input Alignment226003
+Node: Output Section Constraint226391
+Node: Output Section Region226819
+Node: Output Section Phdr227252
+Node: Output Section Fill227916
+Node: Overlay Description229279
+Node: MEMORY233724
+Node: PHDRS238330
+Node: VERSION243656
+Node: Expressions251747
+Node: Constants252760
+Node: Symbolic Constants253634
+Node: Symbols254185
+Node: Orphan Sections254932
+Node: Location Counter256517
+Node: Operators260951
+Node: Evaluation261981
+Node: Expression Section263345
+Node: Builtin Functions267315
+Node: Implicit Linker Scripts276094
+Node: Plugins276869
+Node: libdep Plugin277425
+Node: Special Sections279222
+Node: Machine Dependent281336
+Node: H8/300282391
+Node: M68HC11/68HC12284464
+Node: ARM285911
+Node: HPPA ELF32300275
+Node: M68K301898
+Node: MIPS302807
+Node: MMIX303923
+Node: MSP430305088
+Node: NDS32307001
+Node: PowerPC ELF32307971
+Node: PowerPC64 ELF64310800
+Node: S/390 ELF320558
+Node: SPU ELF320905
+Node: TI COFF323533
+Node: WIN32324059
+Node: Xtensa345278
+Node: BFD348721
+Node: BFD outline350179
+Node: BFD information loss351467
+Node: Canonical format353993
+Node: Reporting Bugs358321
+Node: Bug Criteria359015
+Node: Bug Reporting359714
+Node: MRI366749
+Node: GNU Free Documentation License371220
+Node: LD Index396357
 
 End Tag Table
 
