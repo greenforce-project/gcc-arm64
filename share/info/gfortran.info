@@ -5558,10 +5558,14 @@ File: gfortran.info,  Node: Function ABI Documentation,  Prev: Type and enum ABI
 * _gfortran_caf_stopped_images :: Get an array of the indexes of the stopped images
 * _gfortran_caf_register:: Registering coarrays
 * _gfortran_caf_deregister:: Deregistering coarrays
+* _gfortran_caf_register_accessor:: Register an accessor for remote access
+* _gfortran_caf_register_accessors_finish:: Finish registering accessor functions
+* _gfortran_caf_get_remote_function_index:: Get the index of an accessor
 * _gfortran_caf_is_present:: Query whether an allocatable or pointer component in a derived type coarray is allocated
 * _gfortran_caf_send:: Sending data from a local image to a remote image
 * _gfortran_caf_get:: Getting data from a remote image
 * _gfortran_caf_sendget:: Sending data between remote images
+* _gfortran_caf_get_by_ct:: Getting data from a remote image using a remote side accessor
 * _gfortran_caf_send_by_ref:: Sending data from a local image to a remote image using enhanced references
 * _gfortran_caf_get_by_ref:: Getting data from a remote image using enhanced references
 * _gfortran_caf_sendget_by_ref:: Sending data between remote images using enhanced references
@@ -5812,9 +5816,9 @@ _Description_:
      data-ptr is 'NULL'.
 
 _Syntax_:
-     'void caf_register (size_t size, caf_register_t type, caf_token_t
-     *token, gfc_descriptor_t *desc, int *stat, char *errmsg, size_t
-     errmsg_len)'
+     'void _gfortran_caf_register (size_t size, caf_register_t type,
+     caf_token_t *token, gfc_descriptor_t *desc, int *stat, char
+     *errmsg, size_t errmsg_len)'
 
 _Arguments_:
      SIZE        For normal coarrays, the byte size of the
@@ -5852,7 +5856,7 @@ _NOTES_
      event types, the initial state should be no event, e.g.  zero.
 
 
-File: gfortran.info,  Node: _gfortran_caf_deregister,  Next: _gfortran_caf_is_present,  Prev: _gfortran_caf_register,  Up: Function ABI Documentation
+File: gfortran.info,  Node: _gfortran_caf_deregister,  Next: _gfortran_caf_register_accessor,  Prev: _gfortran_caf_register,  Up: Function ABI Documentation
 
 7.2.9 '_gfortran_caf_deregister' -- Deregistering coarrays
 ----------------------------------------------------------
@@ -5866,8 +5870,8 @@ _Description_:
      '_gfortran_caf_register'.
 
 _Syntax_:
-     'void caf_deregister (caf_token_t *token, caf_deregister_t type,
-     int *stat, char *errmsg, size_t errmsg_len)'
+     'void _gfortran_caf_deregister (caf_token_t *token,
+     caf_deregister_t type, int *stat, char *errmsg, size_t errmsg_len)'
 
 _Arguments_:
      TOKEN       the token to free.
@@ -5888,9 +5892,118 @@ _NOTES_
      error stop functions, and via destructors.
 
 
-File: gfortran.info,  Node: _gfortran_caf_is_present,  Next: _gfortran_caf_send,  Prev: _gfortran_caf_deregister,  Up: Function ABI Documentation
+File: gfortran.info,  Node: _gfortran_caf_register_accessor,  Next: _gfortran_caf_register_accessors_finish,  Prev: _gfortran_caf_deregister,  Up: Function ABI Documentation
 
-7.2.10 '_gfortran_caf_is_present' -- Query whether an allocatable or pointer component in a derived type coarray is allocated
+7.2.10 '_gfortran_caf_register_accessor' -- Register an accessor for remote access
+----------------------------------------------------------------------------------
+
+_Description_:
+     Identification of access funtions across images is done using a
+     unique hash.  For each given hash an accessor has to be registered.
+     This routine is expected to register an accessor function pointer
+     for the given hash in nearly constant time.  I.e.  it is expected
+     to add the hash and accessor to a buffer and return.  Sorting shall
+     be done in '_gfortran_caf_register_accessors_finish'.
+
+_Syntax_:
+     'void _gfortran_caf_register_accessor (const int hash, void
+     (*accessor)(void **, int32_t *, void *, void *, size_t *, size_t
+     *))'
+
+_Arguments_:
+     HASH        intent(in) The unique hash value this accessor
+                 is to be identified by.
+     ACCESSOR    intent(in) A pointer to the function on this
+                 image.  The function has the signature 'void
+                 accessor (void **dst_ptr, int32_t *free_dst,
+                 void *src_ptr, void *get_data, size_t
+                 *opt_src_charlen, size_t *opt_dst_charlen)'.
+                 GFortran ensures that functions provided to
+                 '_gfortran_caf_register_accessor' adhere to this
+                 interface.
+
+_NOTES_
+     This function is required to have a nearly constant runtime
+     complexity, because it will be called to register multiple accessor
+     in a sequence.  GFortran ensures that before the first remote
+     accesses commences '_gfortran_caf_register_accessors_finish' is
+     called at least once.  It is valid to register further accessors
+     after a call to '_gfortran_caf_register_accessors_finish'.  It is
+     invalid to call '_gfortran_caf_register_accessor' after the first
+     remote access has been done.  See also *note
+     _gfortran_caf_register_accessors_finish:: and *note
+     _gfortran_caf_get_remote_function_index::
+
+
+File: gfortran.info,  Node: _gfortran_caf_register_accessors_finish,  Next: _gfortran_caf_get_remote_function_index,  Prev: _gfortran_caf_register_accessor,  Up: Function ABI Documentation
+
+7.2.11 '_gfortran_caf_register_accessors_finish' -- Finish registering accessor functions
+-----------------------------------------------------------------------------------------
+
+_Description_:
+     Called to finalize registering of accessor functions.  This
+     function is expected to prepare a lookup table that has fast lookup
+     time for the hash supplied to
+     '_gfortran_caf_get_remote_function_index' and constant access time
+     for indexing operations.
+
+_Syntax_:
+     'void _gfortran_caf_register_accessors_finish ()'
+
+_Arguments_:
+     No arguments.
+
+_NOTES_
+     This function may be called multiple times with and without new
+     hash-accessors- pairs being added.  The post-condition after each
+     call has to be, that hashes can be looked up quickly and indexing
+     on the lookup table of hash-accessor-pairs is a constant time
+     operation.
+
+
+File: gfortran.info,  Node: _gfortran_caf_get_remote_function_index,  Next: _gfortran_caf_is_present,  Prev: _gfortran_caf_register_accessors_finish,  Up: Function ABI Documentation
+
+7.2.12 '_gfortran_caf_get_remote_function_index' -- Get the index of an accessor
+--------------------------------------------------------------------------------
+
+_Description_:
+     Return the index of the accessor in the lookup table build by *note
+     _gfortran_caf_register_accessor:: and *note
+     _gfortran_caf_register_accessors_finish::.  This function is
+     expected to be fast, because it may be called often.  A log(N)
+     lookup time for a given hash is preferred.  The reference
+     implementation uses 'bsearch ()', for example.  The index returned
+     shall be an array index to be used by *note
+     _gfortran_caf_get_by_ct::, i.e.  a constant time operation is
+     mandatory for quick access.
+
+     The GFortran compiler ensures, that
+     '_gfortran_caf_get_remote_function_index' is called once only for
+     each hash and the result be stored in a static variable to prevent
+     future redundant lookups.
+
+_Syntax_:
+     'int _gfortran_caf_get_remote_function_index (const int hash)'
+
+_Arguments_:
+     HASH        intent(in) The hash of the accessor desired.
+
+_Result_:
+     The zero based index to access the accessor funtion in a lookup
+     table.  On error, '-1' can be returned.
+
+_NOTES_
+     The function's complexity is expected to be significantly smaller
+     than N, where N is the number of all accessors registered.
+     Although returning '-1' is valid, will this most likely crash the
+     Fortran program when accessing the -1-th accessor function.  It is
+     therefore advised to terminate with an error message, when the hash
+     could not be found.
+
+
+File: gfortran.info,  Node: _gfortran_caf_is_present,  Next: _gfortran_caf_send,  Prev: _gfortran_caf_get_remote_function_index,  Up: Function ABI Documentation
+
+7.2.13 '_gfortran_caf_is_present' -- Query whether an allocatable or pointer component in a derived type coarray is allocated
 -----------------------------------------------------------------------------------------------------------------------------
 
 _Description_:
@@ -5913,7 +6026,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: _gfortran_caf_send,  Next: _gfortran_caf_get,  Prev: _gfortran_caf_is_present,  Up: Function ABI Documentation
 
-7.2.11 '_gfortran_caf_send' -- Sending data from a local image to a remote image
+7.2.14 '_gfortran_caf_send' -- Sending data from a local image to a remote image
 --------------------------------------------------------------------------------
 
 _Description_:
@@ -5976,7 +6089,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_get,  Next: _gfortran_caf_sendget,  Prev: _gfortran_caf_send,  Up: Function ABI Documentation
 
-7.2.12 '_gfortran_caf_get' -- Getting data from a remote image
+7.2.15 '_gfortran_caf_get' -- Getting data from a remote image
 --------------------------------------------------------------
 
 _Description_:
@@ -6039,7 +6152,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_sendget,  Next: _gfortran_caf_send_by_ref,  Prev: _gfortran_caf_get,  Up: Function ABI Documentation
 
-7.2.13 '_gfortran_caf_sendget' -- Sending data between remote images
+7.2.16 '_gfortran_caf_sendget' -- Sending data between remote images
 --------------------------------------------------------------------
 
 _Description_:
@@ -6115,7 +6228,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_send_by_ref,  Next: _gfortran_caf_get_by_ref,  Prev: _gfortran_caf_sendget,  Up: Function ABI Documentation
 
-7.2.14 '_gfortran_caf_send_by_ref' -- Sending data from a local image to a remote image with enhanced referencing options
+7.2.17 '_gfortran_caf_send_by_ref' -- Sending data from a local image to a remote image with enhanced referencing options
 -------------------------------------------------------------------------------------------------------------------------
 
 _Description_:
@@ -6182,9 +6295,9 @@ _NOTES_
      permitted.
 
 
-File: gfortran.info,  Node: _gfortran_caf_get_by_ref,  Next: _gfortran_caf_sendget_by_ref,  Prev: _gfortran_caf_send_by_ref,  Up: Function ABI Documentation
+File: gfortran.info,  Node: _gfortran_caf_get_by_ref,  Next: _gfortran_caf_get_by_ct,  Prev: _gfortran_caf_send_by_ref,  Up: Function ABI Documentation
 
-7.2.15 '_gfortran_caf_get_by_ref' -- Getting data from a remote image using enhanced references
+7.2.18 '_gfortran_caf_get_by_ref' -- Getting data from a remote image using enhanced references
 -----------------------------------------------------------------------------------------------
 
 _Description_:
@@ -6251,9 +6364,99 @@ _NOTES_
      permitted.
 
 
-File: gfortran.info,  Node: _gfortran_caf_sendget_by_ref,  Next: _gfortran_caf_lock,  Prev: _gfortran_caf_get_by_ref,  Up: Function ABI Documentation
+File: gfortran.info,  Node: _gfortran_caf_get_by_ct,  Next: _gfortran_caf_sendget_by_ref,  Prev: _gfortran_caf_get_by_ref,  Up: Function ABI Documentation
 
-7.2.16 '_gfortran_caf_sendget_by_ref' -- Sending data between remote images using enhanced references on both sides
+7.2.19 '_gfortran_caf_get_by_ct' -- Getting data from a remote image using a remote side accessor
+-------------------------------------------------------------------------------------------------
+
+_Description_:
+     Called to get a scalar, an array section or a whole array from a
+     remote image identified by the IMAGE_INDEX.
+
+_Syntax_:
+     'void _gfortran_caf_get_by_ct (caf_token_t token, const
+     gfc_descriptor_t *opt_src_desc, const size_t *opt_src_charlen,
+     const int image_index, const size_t dst_size, void **dst_data,
+     size_t *opt_dst_charlen, gfc_descriptor_t *opt_dst_desc, const bool
+     may_realloc_dst, const int getter_index, void *get_data, const
+     size_t get_data_size, int *stat, caf_team_t *team, int
+     *team_number)'
+
+_Arguments_:
+     TOKEN       intent(in) An opaque pointer identifying the
+                 coarray.
+     OPT_SRC_DESCintent(in) A pointer to the descriptor when the
+                 object identified by TOKEN is an array with a
+                 descriptor.  The parameter needs to be set to
+                 'NULL', when TOKEN identifies a scalar.
+     OPT_SRC_CHARLENintent(in) When the object to get is a char
+                 array with deferred length, then this parameter
+                 needs to be set to point to its length.  Else
+                 the parameter needs to be set to 'NULL'.
+     IMAGE_INDEX intent(in) The ID of the remote image; must be a
+                 positive number.  'this_image ()' is valid.
+     DST_SIZE    intent(in) The size of data expected to be
+                 transferred from the remote image.  If the data
+                 type to get is a string or string array, then
+                 this needs to be set to the byte size of each
+                 character, i.e.  '4' for a 'CHARACTER (KIND=4)'
+                 string.  The length of the string is then
+                 returned in 'opt_dst_charlen' (also for string
+                 arrays).
+     DST_DATA    intent(inout) A pointer to the adress the data
+                 is stored.  To prevent copying of data into an
+                 output buffer the adress to the live data is
+                 returned here.  When a descriptor is provided
+                 also its data-member is set to that adress.
+                 When MAY_REALLOC_DST is set, then the memory may
+                 be reallocated by the remote function, which
+                 needs to be replicated by this function.
+     OPT_DST_CHARLENintent(inout) When a char array is returned,
+                 this parameter is set to the length where
+                 applicable.  The value can also be read to
+                 prevent reallocation in the accessor.
+     OPT_DST_DESCintent(inout) When a descriptor array is
+                 returned, it is stored in the memory pointed to
+                 by this optional parameter.  When
+                 MAY_REALLOC_DST is set, then the descriptor may
+                 be changed, i.e.  its bounds, but upto now not
+                 its rank.
+     MAY_REALLOC_DSTintent(in) Set when the returned data may
+                 require reallocation of the output buffer in
+                 DST_DATA or OPT_DST_DESC.
+     GETTER_INDEXintent(in) The index of the accessor to execute
+                 as returned by
+                 '_gfortran_caf_get_remote_function_index ()'.
+     GET_DATA    intent(inout) Additional data needed in the
+                 accessor.  I.e., when an array reference uses a
+                 local variable V, it is transported in this
+                 structure and all references in the accessor are
+                 rewritten to access the member.  The data in the
+                 structure of GET_DATA may be changed by the
+                 accessor, but these changes are lost to the
+                 calling Fortran program.
+     GET_DATA_SIZEintent(in) The size of the GET_DATA structure.
+     STAT        intent(out) When non-'NULL' give the result of
+                 the operation, i.e., zero on success and
+                 non-zero on error.  When 'NULL' and an error
+                 occurs, then an error message is printed and the
+                 program is terminated.
+     TEAM        intent(in) The opaque team handle as returned by
+                 'FORM TEAM'.  Unused at the moment.
+     TEAM_NUMBER intent(in) The number of the team this access is
+                 to be part of.  Unused at the moment.
+
+_NOTES_
+     It is permitted to have 'image_index' equal the current image; the
+     memory to get and the memory to store the data may (partially)
+     overlap.  The implementation has to take care that it handles this
+     case, e.g.  using 'memmove' which handles (partially) overlapping
+     memory.
+
+
+File: gfortran.info,  Node: _gfortran_caf_sendget_by_ref,  Next: _gfortran_caf_lock,  Prev: _gfortran_caf_get_by_ct,  Up: Function ABI Documentation
+
+7.2.20 '_gfortran_caf_sendget_by_ref' -- Sending data between remote images using enhanced references on both sides
 -------------------------------------------------------------------------------------------------------------------
 
 _Description_:
@@ -6334,7 +6537,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_lock,  Next: _gfortran_caf_unlock,  Prev: _gfortran_caf_sendget_by_ref,  Up: Function ABI Documentation
 
-7.2.17 '_gfortran_caf_lock' -- Locking a lock variable
+7.2.21 '_gfortran_caf_lock' -- Locking a lock variable
 ------------------------------------------------------
 
 _Description_:
@@ -6374,7 +6577,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_unlock,  Next: _gfortran_caf_event_post,  Prev: _gfortran_caf_lock,  Up: Function ABI Documentation
 
-7.2.18 '_gfortran_caf_lock' -- Unlocking a lock variable
+7.2.22 '_gfortran_caf_lock' -- Unlocking a lock variable
 --------------------------------------------------------
 
 _Description_:
@@ -6409,7 +6612,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_event_post,  Next: _gfortran_caf_event_wait,  Prev: _gfortran_caf_unlock,  Up: Function ABI Documentation
 
-7.2.19 '_gfortran_caf_event_post' -- Post an event
+7.2.23 '_gfortran_caf_event_post' -- Post an event
 --------------------------------------------------
 
 _Description_:
@@ -6442,7 +6645,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_event_wait,  Next: _gfortran_caf_event_query,  Prev: _gfortran_caf_event_post,  Up: Function ABI Documentation
 
-7.2.20 '_gfortran_caf_event_wait' -- Wait that an event occurred
+7.2.24 '_gfortran_caf_event_wait' -- Wait that an event occurred
 ----------------------------------------------------------------
 
 _Description_:
@@ -6486,7 +6689,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_event_query,  Next: _gfortran_caf_sync_all,  Prev: _gfortran_caf_event_wait,  Up: Function ABI Documentation
 
-7.2.21 '_gfortran_caf_event_query' -- Query event count
+7.2.25 '_gfortran_caf_event_query' -- Query event count
 -------------------------------------------------------
 
 _Description_:
@@ -6518,7 +6721,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_sync_all,  Next: _gfortran_caf_sync_images,  Prev: _gfortran_caf_event_query,  Up: Function ABI Documentation
 
-7.2.22 '_gfortran_caf_sync_all' -- All-image barrier
+7.2.26 '_gfortran_caf_sync_all' -- All-image barrier
 ----------------------------------------------------
 
 _Description_:
@@ -6541,7 +6744,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: _gfortran_caf_sync_images,  Next: _gfortran_caf_sync_memory,  Prev: _gfortran_caf_sync_all,  Up: Function ABI Documentation
 
-7.2.23 '_gfortran_caf_sync_images' -- Barrier for selected images
+7.2.27 '_gfortran_caf_sync_images' -- Barrier for selected images
 -----------------------------------------------------------------
 
 _Description_:
@@ -6574,7 +6777,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: _gfortran_caf_sync_memory,  Next: _gfortran_caf_error_stop,  Prev: _gfortran_caf_sync_images,  Up: Function ABI Documentation
 
-7.2.24 '_gfortran_caf_sync_memory' -- Wait for completion of segment-memory operations
+7.2.28 '_gfortran_caf_sync_memory' -- Wait for completion of segment-memory operations
 --------------------------------------------------------------------------------------
 
 _Description_:
@@ -6599,7 +6802,7 @@ _NOTE_ A simple implementation could be
 
 File: gfortran.info,  Node: _gfortran_caf_error_stop,  Next: _gfortran_caf_error_stop_str,  Prev: _gfortran_caf_sync_memory,  Up: Function ABI Documentation
 
-7.2.25 '_gfortran_caf_error_stop' -- Error termination with exit code
+7.2.29 '_gfortran_caf_error_stop' -- Error termination with exit code
 ---------------------------------------------------------------------
 
 _Description_:
@@ -6616,7 +6819,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: _gfortran_caf_error_stop_str,  Next: _gfortran_caf_fail_image,  Prev: _gfortran_caf_error_stop,  Up: Function ABI Documentation
 
-7.2.26 '_gfortran_caf_error_stop_str' -- Error termination with string
+7.2.30 '_gfortran_caf_error_stop_str' -- Error termination with string
 ----------------------------------------------------------------------
 
 _Description_:
@@ -6635,7 +6838,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: _gfortran_caf_fail_image,  Next: _gfortran_caf_atomic_define,  Prev: _gfortran_caf_error_stop_str,  Up: Function ABI Documentation
 
-7.2.27 '_gfortran_caf_fail_image' -- Mark the image failed and end its execution
+7.2.31 '_gfortran_caf_fail_image' -- Mark the image failed and end its execution
 --------------------------------------------------------------------------------
 
 _Description_:
@@ -6651,7 +6854,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_atomic_define,  Next: _gfortran_caf_atomic_ref,  Prev: _gfortran_caf_fail_image,  Up: Function ABI Documentation
 
-7.2.28 '_gfortran_caf_atomic_define' -- Atomic variable assignment
+7.2.32 '_gfortran_caf_atomic_define' -- Atomic variable assignment
 ------------------------------------------------------------------
 
 _Description_:
@@ -6682,7 +6885,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: _gfortran_caf_atomic_ref,  Next: _gfortran_caf_atomic_cas,  Prev: _gfortran_caf_atomic_define,  Up: Function ABI Documentation
 
-7.2.29 '_gfortran_caf_atomic_ref' -- Atomic variable reference
+7.2.33 '_gfortran_caf_atomic_ref' -- Atomic variable reference
 --------------------------------------------------------------
 
 _Description_:
@@ -6713,7 +6916,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: _gfortran_caf_atomic_cas,  Next: _gfortran_caf_atomic_op,  Prev: _gfortran_caf_atomic_ref,  Up: Function ABI Documentation
 
-7.2.30 '_gfortran_caf_atomic_cas' -- Atomic compare and swap
+7.2.34 '_gfortran_caf_atomic_cas' -- Atomic compare and swap
 ------------------------------------------------------------
 
 _Description_:
@@ -6751,7 +6954,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: _gfortran_caf_atomic_op,  Next: _gfortran_caf_co_broadcast,  Prev: _gfortran_caf_atomic_cas,  Up: Function ABI Documentation
 
-7.2.31 '_gfortran_caf_atomic_op' -- Atomic operation
+7.2.35 '_gfortran_caf_atomic_op' -- Atomic operation
 ----------------------------------------------------
 
 _Description_:
@@ -6795,7 +6998,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: _gfortran_caf_co_broadcast,  Next: _gfortran_caf_co_max,  Prev: _gfortran_caf_atomic_op,  Up: Function ABI Documentation
 
-7.2.32 '_gfortran_caf_co_broadcast' -- Sending data to all images
+7.2.36 '_gfortran_caf_co_broadcast' -- Sending data to all images
 -----------------------------------------------------------------
 
 _Description_:
@@ -6821,7 +7024,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: _gfortran_caf_co_max,  Next: _gfortran_caf_co_min,  Prev: _gfortran_caf_co_broadcast,  Up: Function ABI Documentation
 
-7.2.33 '_gfortran_caf_co_max' -- Collective maximum reduction
+7.2.37 '_gfortran_caf_co_max' -- Collective maximum reduction
 -------------------------------------------------------------
 
 _Description_:
@@ -6857,7 +7060,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_co_min,  Next: _gfortran_caf_co_sum,  Prev: _gfortran_caf_co_max,  Up: Function ABI Documentation
 
-7.2.34 '_gfortran_caf_co_min' -- Collective minimum reduction
+7.2.38 '_gfortran_caf_co_min' -- Collective minimum reduction
 -------------------------------------------------------------
 
 _Description_:
@@ -6893,7 +7096,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_co_sum,  Next: _gfortran_caf_co_reduce,  Prev: _gfortran_caf_co_min,  Up: Function ABI Documentation
 
-7.2.35 '_gfortran_caf_co_sum' -- Collective summing reduction
+7.2.39 '_gfortran_caf_co_sum' -- Collective summing reduction
 -------------------------------------------------------------
 
 _Description_:
@@ -6928,7 +7131,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_co_reduce,  Prev: _gfortran_caf_co_sum,  Up: Function ABI Documentation
 
-7.2.36 '_gfortran_caf_co_reduce' -- Generic collective reduction
+7.2.40 '_gfortran_caf_co_reduce' -- Generic collective reduction
 ----------------------------------------------------------------
 
 _Description_:
@@ -22438,7 +22641,11 @@ Keyword Index
 * Coarray, _gfortran_caf_finish:         _gfortran_caf_finish.
                                                               (line   6)
 * Coarray, _gfortran_caf_get:            _gfortran_caf_get.   (line   6)
+* Coarray, _gfortran_caf_get_by_ct:      _gfortran_caf_get_by_ct.
+                                                              (line   6)
 * Coarray, _gfortran_caf_get_by_ref:     _gfortran_caf_get_by_ref.
+                                                              (line   6)
+* Coarray, _gfortran_caf_get_remote_function_index: _gfortran_caf_get_remote_function_index.
                                                               (line   6)
 * Coarray, _gfortran_caf_image_status:   _gfortran_caf_image_status.
                                                               (line   6)
@@ -22449,6 +22656,10 @@ Keyword Index
 * Coarray, _gfortran_caf_num_images:     _gfortran_caf_num_images.
                                                               (line   6)
 * Coarray, _gfortran_caf_register:       _gfortran_caf_register.
+                                                              (line   6)
+* Coarray, _gfortran_caf_register_accessor: _gfortran_caf_register_accessor.
+                                                              (line   6)
+* Coarray, _gfortran_caf_register_accessors_finish: _gfortran_caf_register_accessors_finish.
                                                               (line   6)
 * Coarray, _gfortran_caf_send:           _gfortran_caf_send.  (line   6)
 * Coarray, _gfortran_caf_sendget:        _gfortran_caf_sendget.
@@ -23759,345 +23970,349 @@ Node: caf_deregister_t229971
 Node: caf_reference_t230497
 Node: caf_team_t235200
 Node: Function ABI Documentation235499
-Node: _gfortran_caf_init237950
-Node: _gfortran_caf_finish239378
-Node: _gfortran_caf_this_image240317
-Node: _gfortran_caf_num_images241071
-Node: _gfortran_caf_image_status242182
-Node: _gfortran_caf_failed_images243302
-Node: _gfortran_caf_stopped_images244472
-Node: _gfortran_caf_register245645
-Node: _gfortran_caf_deregister249820
-Node: _gfortran_caf_is_present251422
-Node: _gfortran_caf_send252501
-Node: _gfortran_caf_get255682
-Node: _gfortran_caf_sendget258754
-Node: _gfortran_caf_send_by_ref262656
-Node: _gfortran_caf_get_by_ref266251
-Node: _gfortran_caf_sendget_by_ref269761
-Node: _gfortran_caf_lock274047
-Node: _gfortran_caf_unlock275831
-Node: _gfortran_caf_event_post277307
-Node: _gfortran_caf_event_wait278750
-Node: _gfortran_caf_event_query280851
-Node: _gfortran_caf_sync_all282182
-Node: _gfortran_caf_sync_images283105
-Node: _gfortran_caf_sync_memory284635
-Node: _gfortran_caf_error_stop285622
-Node: _gfortran_caf_error_stop_str286226
-Node: _gfortran_caf_fail_image286931
-Node: _gfortran_caf_atomic_define287467
-Node: _gfortran_caf_atomic_ref288782
-Node: _gfortran_caf_atomic_cas290086
-Node: _gfortran_caf_atomic_op291846
-Node: _gfortran_caf_co_broadcast293948
-Node: _gfortran_caf_co_max295048
-Node: _gfortran_caf_co_min296669
-Node: _gfortran_caf_co_sum298284
-Node: _gfortran_caf_co_reduce299819
-Node: Intrinsic Procedures302458
-Node: Introduction to Intrinsics319990
-Node: ABORT322184
-Node: ABS322939
-Node: ACCESS324663
-Node: ACHAR326564
-Node: ACOS327778
-Node: ACOSD329067
-Node: ACOSH330279
-Node: ADJUSTL331365
-Node: ADJUSTR332312
-Node: AIMAG333267
-Node: AINT334717
-Node: ALARM336311
-Node: ALL337943
-Node: ALLOCATED339867
-Node: AND341006
-Node: ANINT342746
-Node: ANY344231
-Node: ASIN346157
-Node: ASIND347435
-Node: ASINH348625
-Node: ASSOCIATED349721
-Node: ATAN352732
-Node: ATAND354208
-Node: ATAN2355485
-Node: ATAN2D357354
-Node: ATANH359241
-Node: ATOMIC_ADD360337
-Node: ATOMIC_AND361886
-Node: ATOMIC_CAS363489
-Node: ATOMIC_DEFINE365358
-Node: ATOMIC_FETCH_ADD367097
-Node: ATOMIC_FETCH_AND368914
-Node: ATOMIC_FETCH_OR370719
-Node: ATOMIC_FETCH_XOR372511
-Node: ATOMIC_OR374309
-Node: ATOMIC_REF375909
-Node: ATOMIC_XOR377825
-Node: BACKTRACE379425
-Node: BESSEL_J0380005
-Node: BESSEL_J1381106
-Node: BESSEL_JN382208
-Node: BESSEL_Y0384113
-Node: BESSEL_Y1385153
-Node: BESSEL_YN386193
-Node: BGE388109
-Node: BGT388959
-Node: BIT_SIZE389766
-Node: BLE390675
-Node: BLT391515
-Node: BTEST392310
-Node: C_ASSOCIATED393828
-Node: C_F_POINTER395044
-Node: C_F_PROCPOINTER396484
-Node: C_FUNLOC397996
-Node: C_LOC399377
-Node: C_SIZEOF400666
-Node: CEILING402079
-Node: CHAR403092
-Node: CHDIR404406
-Node: CHMOD405580
-Node: CMPLX407495
-Node: CO_BROADCAST409037
-Node: CO_MAX410864
-Node: CO_MIN412772
-Node: CO_REDUCE414666
-Node: CO_SUM418242
-Node: COMMAND_ARGUMENT_COUNT420223
-Node: COMPILER_OPTIONS421145
-Node: COMPILER_VERSION422175
-Node: COMPLEX423143
-Node: CONJG424282
-Node: COS425338
-Node: COSD426709
-Node: COSH427942
-Node: COTAN429118
-Node: COTAND430360
-Node: COUNT431602
-Node: CPU_TIME433627
-Node: CSHIFT434989
-Node: CTIME436693
-Node: DATE_AND_TIME438216
-Node: DBLE440603
-Node: DCMPLX441398
-Node: DIGITS442580
-Node: DIM443618
-Node: DOT_PRODUCT445026
-Node: DPROD447044
-Node: DREAL448006
-Node: DSHIFTL448672
-Node: DSHIFTR450079
-Node: DTIME451487
-Node: EOSHIFT454193
-Node: EPSILON456369
-Node: ERF457096
-Node: ERFC457962
-Node: ERFC_SCALED458857
-Node: ETIME459550
-Node: EVENT_QUERY461720
-Node: EXECUTE_COMMAND_LINE463309
-Node: EXIT466089
-Node: EXP466972
-Node: EXPONENT468126
-Node: EXTENDS_TYPE_OF468890
-Node: FDATE469748
-Node: FGET471239
-Node: FGETC473076
-Node: FINDLOC474896
-Node: FLOOR477538
-Node: FLUSH478534
-Node: FNUM480413
-Node: FPUT481138
-Node: FPUTC482782
-Node: FRACTION484573
-Node: FREE485477
-Node: FSEEK486320
-Node: FSTAT488626
-Node: FTELL489727
-Node: GAMMA490709
-Node: GERROR491789
-Node: GETARG492542
-Node: GET_COMMAND494281
-Node: GET_COMMAND_ARGUMENT495660
-Node: GETCWD497712
-Node: GETENV498692
-Node: GET_ENVIRONMENT_VARIABLE500124
-Node: GETGID502287
-Node: GETLOG502829
-Node: GETPID503687
-Node: GETUID504422
-Node: GMTIME504943
-Node: HOSTNM506718
-Node: HUGE507639
-Node: HYPOT508449
-Node: IACHAR509275
-Node: IALL510453
-Node: IAND512038
-Node: IANY513923
-Node: IARGC515517
-Node: IBCLR516551
-Node: IBITS517825
-Node: IBSET519346
-Node: ICHAR520615
-Node: IDATE522830
-Node: IEOR524130
-Node: IERRNO525908
-Node: IMAGE_INDEX526456
-Node: INDEX intrinsic527483
-Node: INT529104
-Node: INT2531137
-Node: INT8531843
-Node: IOR532549
-Node: IPARITY534314
-Node: IRAND535969
-Node: IS_CONTIGUOUS537328
-Node: IS_IOSTAT_END538494
-Node: IS_IOSTAT_EOR539601
-Node: ISATTY540730
-Node: ISHFT541511
-Node: ISHFTC543077
-Node: ISNAN544890
-Node: ITIME545657
-Node: KILL546955
-Node: KIND548096
-Node: LBOUND548994
-Node: LCOBOUND550337
-Node: LEADZ551477
-Node: LEN552353
-Node: LEN_TRIM553694
-Node: LGE554692
-Node: LGT556305
-Node: LINK557883
-Node: LLE558927
-Node: LLT560527
-Node: LNBLNK562098
-Node: LOC562881
-Node: LOG563613
-Node: LOG10565049
-Node: LOG_GAMMA566027
-Node: LOGICAL567225
-Node: LSHIFT568049
-Node: LSTAT569181
-Node: LTIME570395
-Node: MALLOC572092
-Node: MASKL573554
-Node: MASKR574321
-Node: MATMUL575091
-Node: MAX576491
-Node: MAXEXPONENT577972
-Node: MAXLOC578789
-Node: MAXVAL581508
-Node: MCLOCK583312
-Node: MCLOCK8584350
-Node: MERGE585595
-Node: MERGE_BITS586347
-Node: MIN587461
-Node: MINEXPONENT588944
-Node: MINLOC589575
-Node: MINVAL592296
-Node: MOD594033
-Node: MODULO596376
-Node: MOVE_ALLOC598011
-Node: MVBITS599044
-Node: NEAREST600743
-Node: NEW_LINE601843
-Node: NINT602616
-Node: NORM2604030
-Node: NOT605169
-Node: NULL606387
-Node: NUM_IMAGES607295
-Node: OR609001
-Node: PACK610729
-Node: PARITY612773
-Node: PERROR613994
-Node: POPCNT614619
-Node: POPPAR615500
-Node: PRECISION616563
-Node: PRESENT617500
-Node: PRODUCT618612
-Node: RADIX620217
-Node: RAN621028
-Node: RAND621489
-Node: RANDOM_INIT622827
-Node: RANDOM_NUMBER624943
-Node: RANDOM_SEED626442
-Node: RANGE628917
-Node: RANK629690
-Node: REAL630471
-Node: RENAME632668
-Node: REPEAT633690
-Node: RESHAPE634418
-Node: RRSPACING635885
-Node: RSHIFT636578
-Node: SAME_TYPE_AS637766
-Node: SCALE638598
-Node: SCAN639379
-Node: SECNDS640942
-Node: SECOND642034
-Node: SELECTED_CHAR_KIND642910
-Node: SELECTED_INT_KIND644505
-Node: SELECTED_LOGICAL_KIND645685
-Node: SELECTED_REAL_KIND646785
-Node: SELECTED_UNSIGNED_KIND649485
-Node: SET_EXPONENT650568
-Node: SHAPE651559
-Node: SHIFTA652988
-Node: SHIFTL654044
-Node: SHIFTR654969
-Node: SIGN655835
-Node: SIGNAL657126
-Node: SIN659086
-Node: SIND660266
-Node: SINH661471
-Node: SIZE662424
-Node: SIZEOF663748
-Node: SLEEP665408
-Node: SPACING665969
-Node: SPREAD666983
-Node: SQRT668134
-Node: SRAND669367
-Node: STAT670611
-Node: STORAGE_SIZE673793
-Node: SUM674677
-Node: SYMLNK676240
-Node: SYSTEM677380
-Node: SYSTEM_CLOCK678635
-Node: TAN681488
-Node: TAND682562
-Node: TANH683545
-Node: THIS_IMAGE684708
-Node: TIME687013
-Node: TIME8688204
-Node: TINY689423
-Node: TRAILZ690024
-Node: TRANSFER690857
-Node: TRANSPOSE692893
-Node: TRIM693583
-Node: TTYNAM694446
-Node: UBOUND695362
-Node: UCOBOUND696757
-Node: UINT697898
-Node: UMASK698511
-Node: UMASKL699189
-Node: UMASKR700038
-Node: UNLINK700889
-Node: UNPACK701875
-Node: VERIFY703175
-Node: XOR704909
-Node: Intrinsic Modules706724
-Node: ISO_FORTRAN_ENV707011
-Node: ISO_C_BINDING711412
-Node: IEEE modules715357
-Node: OpenMP Modules OMP_LIB and OMP_LIB_KINDS716498
-Node: OpenACC Module OPENACC720714
-Node: Contributing721640
-Node: Contributors722470
-Node: Projects724124
-Node: Copying725302
-Node: GNU Free Documentation License762853
-Node: Funding787982
-Node: Option Index790508
-Node: Keyword Index810059
+Node: _gfortran_caf_init238270
+Node: _gfortran_caf_finish239698
+Node: _gfortran_caf_this_image240637
+Node: _gfortran_caf_num_images241391
+Node: _gfortran_caf_image_status242502
+Node: _gfortran_caf_failed_images243622
+Node: _gfortran_caf_stopped_images244792
+Node: _gfortran_caf_register245965
+Node: _gfortran_caf_deregister250150
+Node: _gfortran_caf_register_accessor251769
+Node: _gfortran_caf_register_accessors_finish253927
+Node: _gfortran_caf_get_remote_function_index254993
+Node: _gfortran_caf_is_present256778
+Node: _gfortran_caf_send257872
+Node: _gfortran_caf_get261053
+Node: _gfortran_caf_sendget264125
+Node: _gfortran_caf_send_by_ref268027
+Node: _gfortran_caf_get_by_ref271622
+Node: _gfortran_caf_get_by_ct275127
+Node: _gfortran_caf_sendget_by_ref280017
+Node: _gfortran_caf_lock284302
+Node: _gfortran_caf_unlock286086
+Node: _gfortran_caf_event_post287562
+Node: _gfortran_caf_event_wait289005
+Node: _gfortran_caf_event_query291106
+Node: _gfortran_caf_sync_all292437
+Node: _gfortran_caf_sync_images293360
+Node: _gfortran_caf_sync_memory294890
+Node: _gfortran_caf_error_stop295877
+Node: _gfortran_caf_error_stop_str296481
+Node: _gfortran_caf_fail_image297186
+Node: _gfortran_caf_atomic_define297722
+Node: _gfortran_caf_atomic_ref299037
+Node: _gfortran_caf_atomic_cas300341
+Node: _gfortran_caf_atomic_op302101
+Node: _gfortran_caf_co_broadcast304203
+Node: _gfortran_caf_co_max305303
+Node: _gfortran_caf_co_min306924
+Node: _gfortran_caf_co_sum308539
+Node: _gfortran_caf_co_reduce310074
+Node: Intrinsic Procedures312713
+Node: Introduction to Intrinsics330245
+Node: ABORT332439
+Node: ABS333194
+Node: ACCESS334918
+Node: ACHAR336819
+Node: ACOS338033
+Node: ACOSD339322
+Node: ACOSH340534
+Node: ADJUSTL341620
+Node: ADJUSTR342567
+Node: AIMAG343522
+Node: AINT344972
+Node: ALARM346566
+Node: ALL348198
+Node: ALLOCATED350122
+Node: AND351261
+Node: ANINT353001
+Node: ANY354486
+Node: ASIN356412
+Node: ASIND357690
+Node: ASINH358880
+Node: ASSOCIATED359976
+Node: ATAN362987
+Node: ATAND364463
+Node: ATAN2365740
+Node: ATAN2D367609
+Node: ATANH369496
+Node: ATOMIC_ADD370592
+Node: ATOMIC_AND372141
+Node: ATOMIC_CAS373744
+Node: ATOMIC_DEFINE375613
+Node: ATOMIC_FETCH_ADD377352
+Node: ATOMIC_FETCH_AND379169
+Node: ATOMIC_FETCH_OR380974
+Node: ATOMIC_FETCH_XOR382766
+Node: ATOMIC_OR384564
+Node: ATOMIC_REF386164
+Node: ATOMIC_XOR388080
+Node: BACKTRACE389680
+Node: BESSEL_J0390260
+Node: BESSEL_J1391361
+Node: BESSEL_JN392463
+Node: BESSEL_Y0394368
+Node: BESSEL_Y1395408
+Node: BESSEL_YN396448
+Node: BGE398364
+Node: BGT399214
+Node: BIT_SIZE400021
+Node: BLE400930
+Node: BLT401770
+Node: BTEST402565
+Node: C_ASSOCIATED404083
+Node: C_F_POINTER405299
+Node: C_F_PROCPOINTER406739
+Node: C_FUNLOC408251
+Node: C_LOC409632
+Node: C_SIZEOF410921
+Node: CEILING412334
+Node: CHAR413347
+Node: CHDIR414661
+Node: CHMOD415835
+Node: CMPLX417750
+Node: CO_BROADCAST419292
+Node: CO_MAX421119
+Node: CO_MIN423027
+Node: CO_REDUCE424921
+Node: CO_SUM428497
+Node: COMMAND_ARGUMENT_COUNT430478
+Node: COMPILER_OPTIONS431400
+Node: COMPILER_VERSION432430
+Node: COMPLEX433398
+Node: CONJG434537
+Node: COS435593
+Node: COSD436964
+Node: COSH438197
+Node: COTAN439373
+Node: COTAND440615
+Node: COUNT441857
+Node: CPU_TIME443882
+Node: CSHIFT445244
+Node: CTIME446948
+Node: DATE_AND_TIME448471
+Node: DBLE450858
+Node: DCMPLX451653
+Node: DIGITS452835
+Node: DIM453873
+Node: DOT_PRODUCT455281
+Node: DPROD457299
+Node: DREAL458261
+Node: DSHIFTL458927
+Node: DSHIFTR460334
+Node: DTIME461742
+Node: EOSHIFT464448
+Node: EPSILON466624
+Node: ERF467351
+Node: ERFC468217
+Node: ERFC_SCALED469112
+Node: ETIME469805
+Node: EVENT_QUERY471975
+Node: EXECUTE_COMMAND_LINE473564
+Node: EXIT476344
+Node: EXP477227
+Node: EXPONENT478381
+Node: EXTENDS_TYPE_OF479145
+Node: FDATE480003
+Node: FGET481494
+Node: FGETC483331
+Node: FINDLOC485151
+Node: FLOOR487793
+Node: FLUSH488789
+Node: FNUM490668
+Node: FPUT491393
+Node: FPUTC493037
+Node: FRACTION494828
+Node: FREE495732
+Node: FSEEK496575
+Node: FSTAT498881
+Node: FTELL499982
+Node: GAMMA500964
+Node: GERROR502044
+Node: GETARG502797
+Node: GET_COMMAND504536
+Node: GET_COMMAND_ARGUMENT505915
+Node: GETCWD507967
+Node: GETENV508947
+Node: GET_ENVIRONMENT_VARIABLE510379
+Node: GETGID512542
+Node: GETLOG513084
+Node: GETPID513942
+Node: GETUID514677
+Node: GMTIME515198
+Node: HOSTNM516973
+Node: HUGE517894
+Node: HYPOT518704
+Node: IACHAR519530
+Node: IALL520708
+Node: IAND522293
+Node: IANY524178
+Node: IARGC525772
+Node: IBCLR526806
+Node: IBITS528080
+Node: IBSET529601
+Node: ICHAR530870
+Node: IDATE533085
+Node: IEOR534385
+Node: IERRNO536163
+Node: IMAGE_INDEX536711
+Node: INDEX intrinsic537738
+Node: INT539359
+Node: INT2541392
+Node: INT8542098
+Node: IOR542804
+Node: IPARITY544569
+Node: IRAND546224
+Node: IS_CONTIGUOUS547583
+Node: IS_IOSTAT_END548749
+Node: IS_IOSTAT_EOR549856
+Node: ISATTY550985
+Node: ISHFT551766
+Node: ISHFTC553332
+Node: ISNAN555145
+Node: ITIME555912
+Node: KILL557210
+Node: KIND558351
+Node: LBOUND559249
+Node: LCOBOUND560592
+Node: LEADZ561732
+Node: LEN562608
+Node: LEN_TRIM563949
+Node: LGE564947
+Node: LGT566560
+Node: LINK568138
+Node: LLE569182
+Node: LLT570782
+Node: LNBLNK572353
+Node: LOC573136
+Node: LOG573868
+Node: LOG10575304
+Node: LOG_GAMMA576282
+Node: LOGICAL577480
+Node: LSHIFT578304
+Node: LSTAT579436
+Node: LTIME580650
+Node: MALLOC582347
+Node: MASKL583809
+Node: MASKR584576
+Node: MATMUL585346
+Node: MAX586746
+Node: MAXEXPONENT588227
+Node: MAXLOC589044
+Node: MAXVAL591763
+Node: MCLOCK593567
+Node: MCLOCK8594605
+Node: MERGE595850
+Node: MERGE_BITS596602
+Node: MIN597716
+Node: MINEXPONENT599199
+Node: MINLOC599830
+Node: MINVAL602551
+Node: MOD604288
+Node: MODULO606631
+Node: MOVE_ALLOC608266
+Node: MVBITS609299
+Node: NEAREST610998
+Node: NEW_LINE612098
+Node: NINT612871
+Node: NORM2614285
+Node: NOT615424
+Node: NULL616642
+Node: NUM_IMAGES617550
+Node: OR619256
+Node: PACK620984
+Node: PARITY623028
+Node: PERROR624249
+Node: POPCNT624874
+Node: POPPAR625755
+Node: PRECISION626818
+Node: PRESENT627755
+Node: PRODUCT628867
+Node: RADIX630472
+Node: RAN631283
+Node: RAND631744
+Node: RANDOM_INIT633082
+Node: RANDOM_NUMBER635198
+Node: RANDOM_SEED636697
+Node: RANGE639172
+Node: RANK639945
+Node: REAL640726
+Node: RENAME642923
+Node: REPEAT643945
+Node: RESHAPE644673
+Node: RRSPACING646140
+Node: RSHIFT646833
+Node: SAME_TYPE_AS648021
+Node: SCALE648853
+Node: SCAN649634
+Node: SECNDS651197
+Node: SECOND652289
+Node: SELECTED_CHAR_KIND653165
+Node: SELECTED_INT_KIND654760
+Node: SELECTED_LOGICAL_KIND655940
+Node: SELECTED_REAL_KIND657040
+Node: SELECTED_UNSIGNED_KIND659740
+Node: SET_EXPONENT660823
+Node: SHAPE661814
+Node: SHIFTA663243
+Node: SHIFTL664299
+Node: SHIFTR665224
+Node: SIGN666090
+Node: SIGNAL667381
+Node: SIN669341
+Node: SIND670521
+Node: SINH671726
+Node: SIZE672679
+Node: SIZEOF674003
+Node: SLEEP675663
+Node: SPACING676224
+Node: SPREAD677238
+Node: SQRT678389
+Node: SRAND679622
+Node: STAT680866
+Node: STORAGE_SIZE684048
+Node: SUM684932
+Node: SYMLNK686495
+Node: SYSTEM687635
+Node: SYSTEM_CLOCK688890
+Node: TAN691743
+Node: TAND692817
+Node: TANH693800
+Node: THIS_IMAGE694963
+Node: TIME697268
+Node: TIME8698459
+Node: TINY699678
+Node: TRAILZ700279
+Node: TRANSFER701112
+Node: TRANSPOSE703148
+Node: TRIM703838
+Node: TTYNAM704701
+Node: UBOUND705617
+Node: UCOBOUND707012
+Node: UINT708153
+Node: UMASK708766
+Node: UMASKL709444
+Node: UMASKR710293
+Node: UNLINK711144
+Node: UNPACK712130
+Node: VERIFY713430
+Node: XOR715164
+Node: Intrinsic Modules716979
+Node: ISO_FORTRAN_ENV717266
+Node: ISO_C_BINDING721667
+Node: IEEE modules725612
+Node: OpenMP Modules OMP_LIB and OMP_LIB_KINDS726753
+Node: OpenACC Module OPENACC730969
+Node: Contributing731895
+Node: Contributors732725
+Node: Projects734379
+Node: Copying735557
+Node: GNU Free Documentation License773108
+Node: Funding798237
+Node: Option Index800763
+Node: Keyword Index820314
 
 End Tag Table
 
