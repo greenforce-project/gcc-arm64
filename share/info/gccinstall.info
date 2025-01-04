@@ -1,7 +1,7 @@
 This is gccinstall.info, produced by makeinfo version 6.8 from
 install.texi.
 
-Copyright (C) 1988-2024 Free Software Foundation, Inc.
+Copyright (C) 1988-2025 Free Software Foundation, Inc.
 
    Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -24,7 +24,7 @@ START-INFO-DIR-ENTRY
 * gccinstall: (gccinstall).    Installing the GNU Compiler Collection.
 END-INFO-DIR-ENTRY
 
-   Copyright (C) 1988-2024 Free Software Foundation, Inc.
+   Copyright (C) 1988-2025 Free Software Foundation, Inc.
 
    Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -3347,9 +3347,8 @@ and copy 'bin/llvm-mc' to 'amdgcn-amdhsa/bin/as', 'bin/lld' to
 used by specifying a '--with-multilib-list=' that does not list
 'gfx1100' and 'gfx1103'.
 
-   Use Newlib (4.3.0 or newer; 4.4.0 contains some improvements and git
-commits 7dd4eb1db and ed50a50b9 (2024-04-04, post-4.4.0) fix device
-console output for GFX10 and GFX11 devices).
+   Use Newlib (4.3.0 or newer; 4.4.0 contains some improvements and
+4.5.0 fixes the device console output for GFX10 and GFX11 devices).
 
    To run the binaries, install the HSA Runtime from the ROCm Platform,
 and use 'libexec/gcc/amdhsa-amdhsa/VERSION/gcn-run' to launch them on
@@ -3642,20 +3641,17 @@ shipped with AIX 4.3.2 and above.
 overflow severe error when the '-bbigtoc' option is used to link
 GCC-produced object files into an executable that overflows the TOC.  A
 fix for APAR IX75823 (OVERFLOW DURING LINK WHEN USING GCC AND -BBIGTOC)
-is available from IBM Customer Support and from its
-techsupport.services.ibm.com website as PTF U455193.
+is available as PTF U455193.
 
    The AIX 4.3.2.1 linker (bos.rte.bind_cmds Level 4.3.2.1) will dump
 core with a segmentation fault when invoked by any version of GCC.  A
-fix for APAR IX87327 is available from IBM Customer Support and from its
-techsupport.services.ibm.com website as PTF U461879.  This fix is
+fix for APAR IX87327 is available as PTF U461879.  This fix is
 incorporated in AIX 4.3.3 and above.
 
    The initial assembler shipped with AIX 4.3.0 generates incorrect
 object files.  A fix for APAR IX74254 (64BIT DISASSEMBLED OUTPUT FROM
-COMPILER FAILS TO ASSEMBLE/BIND) is available from IBM Customer Support
-and from its techsupport.services.ibm.com website as PTF U453956.  This
-fix is incorporated in AIX 4.3.1 and above.
+COMPILER FAILS TO ASSEMBLE/BIND) is available as PTF U453956.  This fix
+is incorporated in AIX 4.3.1 and above.
 
    AIX provides National Language Support (NLS).  Compilers and
 assemblers use NLS to support locale-specific representations of various
@@ -4850,81 +4846,81 @@ Node: Specific146882
 Ref: aarch64-x-x147416
 Ref: amd64-x-solaris2149436
 Ref: amdgcn-x-amdhsa149518
-Ref: arc-x-elf32150322
-Ref: arc-linux-uclibc150498
-Ref: arm-x-eabi150639
-Ref: avr150892
-Ref: bfin151374
-Ref: cris151637
-Ref: dos151963
-Ref: epiphany-x-elf152288
-Ref: x-x-freebsd152393
-Ref: ft32-x-elf153021
-Ref: h8300-hms153119
-Ref: hppa64-hp-hpux11153178
-Ref: x-x-linux-gnu153935
-Ref: ix86-x-linux154128
-Ref: ix86-x-solaris2154330
-Ref: ia64-x-linux154569
-Ref: ia64-x-hpux154816
-Ref: x-ibm-aix155034
-Ref: TransferAixShobj158696
-Ref: iq2000-x-elf162506
-Ref: lm32-x-elf162646
-Ref: lm32-x-uclinux162750
-Ref: loongarch162878
-Ref: m32c-x-elf163515
-Ref: m32r-x-elf163617
-Ref: m68k-x-x163719
-Ref: m68k-x-uclinux164757
-Ref: microblaze-x-elf165002
-Ref: mips-x-x165121
-Ref: moxie-x-elf167031
-Ref: msp430-x-elf167078
-Ref: nds32le-x-elf167635
-Ref: nds32be-x-elf167707
-Ref: nvptx-x-none167776
-Ref: or1k-x-elf168733
-Ref: or1k-x-linux168864
-Ref: powerpc-x-x168945
-Ref: powerpc-x-darwin169136
-Ref: powerpc-x-elf169631
-Ref: powerpc-x-linux-gnu169716
-Ref: powerpc-x-netbsd169811
-Ref: powerpc-x-eabisim169899
-Ref: powerpc-x-eabi170025
-Ref: powerpcle-x-elf170101
-Ref: powerpcle-x-eabisim170193
-Ref: powerpcle-x-eabi170326
-Ref: rl78-x-elf170409
-Ref: riscv32-x-elf170515
-Ref: riscv32-x-linux170704
-Ref: riscv64-x-elf170861
-Ref: riscv64-x-linux171050
-Ref: rx-x-elf171207
-Ref: s390-x-linux171253
-Ref: s390x-x-linux171325
-Ref: s390x-ibm-tpf171412
-Ref: x-x-solaris2171543
-Ref: sparc-x-x174855
-Ref: sparc-sun-solaris2175357
-Ref: sparc-x-linux176256
-Ref: sparc64-x-solaris2176287
-Ref: sparcv9-x-solaris2176374
-Ref: c6x-x-x177095
-Ref: visium-x-elf177187
-Ref: x-x-vxworks177295
-Ref: x86-64-x-x178818
-Ref: x86-64-x-solaris2179146
-Ref: xtensa-x-elf179651
-Ref: xtensa-x-linux180322
-Ref: windows180663
-Ref: x-x-cygwin182249
-Ref: x-x-mingw32182802
-Ref: older183028
-Ref: elf184991
-Node: GNU Free Documentation License185245
-Node: Concept Index210383
+Ref: arc-x-elf32150273
+Ref: arc-linux-uclibc150449
+Ref: arm-x-eabi150590
+Ref: avr150843
+Ref: bfin151325
+Ref: cris151588
+Ref: dos151914
+Ref: epiphany-x-elf152239
+Ref: x-x-freebsd152344
+Ref: ft32-x-elf152972
+Ref: h8300-hms153070
+Ref: hppa64-hp-hpux11153129
+Ref: x-x-linux-gnu153886
+Ref: ix86-x-linux154079
+Ref: ix86-x-solaris2154281
+Ref: ia64-x-linux154520
+Ref: ia64-x-hpux154767
+Ref: x-ibm-aix154985
+Ref: TransferAixShobj158647
+Ref: iq2000-x-elf162229
+Ref: lm32-x-elf162369
+Ref: lm32-x-uclinux162473
+Ref: loongarch162601
+Ref: m32c-x-elf163238
+Ref: m32r-x-elf163340
+Ref: m68k-x-x163442
+Ref: m68k-x-uclinux164480
+Ref: microblaze-x-elf164725
+Ref: mips-x-x164844
+Ref: moxie-x-elf166754
+Ref: msp430-x-elf166801
+Ref: nds32le-x-elf167358
+Ref: nds32be-x-elf167430
+Ref: nvptx-x-none167499
+Ref: or1k-x-elf168456
+Ref: or1k-x-linux168587
+Ref: powerpc-x-x168668
+Ref: powerpc-x-darwin168859
+Ref: powerpc-x-elf169354
+Ref: powerpc-x-linux-gnu169439
+Ref: powerpc-x-netbsd169534
+Ref: powerpc-x-eabisim169622
+Ref: powerpc-x-eabi169748
+Ref: powerpcle-x-elf169824
+Ref: powerpcle-x-eabisim169916
+Ref: powerpcle-x-eabi170049
+Ref: rl78-x-elf170132
+Ref: riscv32-x-elf170238
+Ref: riscv32-x-linux170427
+Ref: riscv64-x-elf170584
+Ref: riscv64-x-linux170773
+Ref: rx-x-elf170930
+Ref: s390-x-linux170976
+Ref: s390x-x-linux171048
+Ref: s390x-ibm-tpf171135
+Ref: x-x-solaris2171266
+Ref: sparc-x-x174578
+Ref: sparc-sun-solaris2175080
+Ref: sparc-x-linux175979
+Ref: sparc64-x-solaris2176010
+Ref: sparcv9-x-solaris2176097
+Ref: c6x-x-x176818
+Ref: visium-x-elf176910
+Ref: x-x-vxworks177018
+Ref: x86-64-x-x178541
+Ref: x86-64-x-solaris2178869
+Ref: xtensa-x-elf179374
+Ref: xtensa-x-linux180045
+Ref: windows180386
+Ref: x-x-cygwin181972
+Ref: x-x-mingw32182525
+Ref: older182751
+Ref: elf184714
+Node: GNU Free Documentation License184968
+Node: Concept Index210106
 
 End Tag Table
 

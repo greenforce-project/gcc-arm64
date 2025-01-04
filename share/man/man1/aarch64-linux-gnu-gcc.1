@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2024-12-28" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2025-01-04" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -814,7 +814,7 @@ in the following sections.
 \&\-save\-temps  \-save\-temps=cwd  \-save\-temps=obj  \-time\fR[\fB=\fR\fIfile\fR]
 .IP "\fIMachine-Dependent Options\fR" 4
 .IX Item "Machine-Dependent Options"
-\&\fIAArch64 Options\fR
+\&\fIAArch64 Options\fR (\fBAArch64 Options\fR)
 \&\fB\-mabi=\fR\fIname\fR  \fB\-mbig\-endian  \-mlittle\-endian
 \&\-mgeneral\-regs\-only
 \&\-mcmodel=tiny  \-mcmodel=small  \-mcmodel=large
@@ -835,7 +835,7 @@ in the following sections.
 \&\fB\-mstack\-protector\-guard\-offset=\fR\fIoffset\fR \fB\-mtrack\-speculation
 \&\-moutline\-atomics \-mearly\-ldp\-fusion \-mlate\-ldp\-fusion\fR
 .Sp
-\&\fIAdapteva Epiphany Options\fR
+\&\fIAdapteva Epiphany Options\fR (\fBAdapteva Epiphany Options\fR)
 \&\fB\-mhalf\-reg\-file  \-mprefer\-short\-insn\-regs
 \&\-mbranch\-cost=\fR\fInum\fR  \fB\-mcmove  \-mnops=\fR\fInum\fR  \fB\-msoft\-cmpsf
 \&\-msplit\-lohi  \-mpost\-inc  \-mpost\-modify  \-mstack\-offset=\fR\fInum\fR
@@ -843,10 +843,10 @@ in the following sections.
 \&\-mfp\-mode=\fR\fImode\fR  \fB\-mvect\-double  \-max\-vect\-align=\fR\fInum\fR
 \&\fB\-msplit\-vecmove\-early  \-m1reg\-\fR\fIreg\fR
 .Sp
-\&\fI\s-1AMD GCN\s0 Options\fR
+\&\fI\s-1AMD GCN\s0 Options\fR (\fB\s-1AMD GCN\s0 Options\fR)
 \&\fB\-march=\fR\fIgpu\fR \fB\-mtune=\fR\fIgpu\fR \fB\-mstack\-size=\fR\fIbytes\fR
 .Sp
-\&\fI\s-1ARC\s0 Options\fR
+\&\fI\s-1ARC\s0 Options\fR (\fB\s-1ARC\s0 Options\fR)
 \&\fB\-mbarrel\-shifter  \-mjli\-always
 \&\-mcpu=\fR\fIcpu\fR  \fB\-mA6  \-mARC600  \-mA7  \-mARC700
 \&\-mdpfp  \-mdpfp\-compact  \-mdpfp\-fast  \-mno\-dpfp\-lrsr
@@ -866,7 +866,7 @@ in the following sections.
 \&\-munalign\-prob\-threshold=\fR\fIprobability\fR  \fB\-mmpy\-option=\fR\fImulto\fR
 \&\fB\-mdiv\-rem  \-mcode\-density  \-mll64  \-mfpu=\fR\fIfpu\fR  \fB\-mrf16  \-mbranch\-index\fR
 .Sp
-\&\fI\s-1ARM\s0 Options\fR
+\&\fI\s-1ARM\s0 Options\fR (\fB\s-1ARM\s0 Options\fR)
 \&\fB\-mapcs\-frame  \-mno\-apcs\-frame
 \&\-mabi=\fR\fIname\fR
 \&\fB\-mapcs\-stack\-check  \-mno\-apcs\-stack\-check
@@ -909,7 +909,7 @@ in the following sections.
 \&\-mbranch\-protection=\fR\fInone\fR\fB|\fR\fIstandard\fR\fB|\fR\fIpac-ret\fR\fB[+\fR\fIleaf\fR\fB]
 [+\fR\fIbti\fR\fB]|\fR\fIbti\fR\fB[+\fR\fIpac-ret\fR\fB[+\fR\fIleaf\fR\fB]]\fR
 .Sp
-\&\fI\s-1AVR\s0 Options\fR
+\&\fI\s-1AVR\s0 Options\fR (\fB\s-1AVR\s0 Options\fR)
 \&\fB\-mmcu=\fR\fImcu\fR  \fB\-mabsdata  \-maccumulate\-args
 \&\-mbranch\-cost=\fR\fIcost\fR  \fB\-mfuse\-add=\fR\fIlevel\fR  \fB\-mfuse\-move=\fR\fIlevel\fR
 \&\fB\-mcall\-prologues  \-mgas\-isr\-prologues  \-mint8  \-mflmap
@@ -920,7 +920,7 @@ in the following sections.
 \&\-mshort\-calls  \-mskip\-bug  \-nodevicelib  \-nodevicespecs
 \&\-Waddr\-space\-convert  \-Wmisspelled\-isr\fR
 .Sp
-\&\fIBlackfin Options\fR
+\&\fIBlackfin Options\fR (\fBBlackfin Options\fR)
 \&\fB\-mcpu=\fR\fIcpu\fR[\fB\-\fR\fIsirevision\fR]
 \&\fB\-msim  \-momit\-leaf\-frame\-pointer  \-mno\-omit\-leaf\-frame\-pointer
 \&\-mspecld\-anomaly  \-mno\-specld\-anomaly  \-mcsync\-anomaly  \-mno\-csync\-anomaly
@@ -931,11 +931,11 @@ in the following sections.
 \&\-mfast\-fp  \-minline\-plt  \-mmulticore  \-mcorea  \-mcoreb  \-msdram
 \&\-micplb\fR
 .Sp
-\&\fIC6X Options\fR
+\&\fIC6X Options\fR (\fBC6X Options\fR)
 \&\fB\-mbig\-endian  \-mlittle\-endian  \-march=\fR\fIcpu\fR
 \&\fB\-msim  \-msdata=\fR\fIsdata-type\fR
 .Sp
-\&\fI\s-1CRIS\s0 Options\fR
+\&\fI\s-1CRIS\s0 Options\fR (\fB\s-1CRIS\s0 Options\fR)
 \&\fB\-mcpu=\fR\fIcpu\fR  \fB\-march=\fR\fIcpu\fR
 \&\fB\-mtune=\fR\fIcpu\fR \fB\-mmax\-stack\-frame=\fR\fIn\fR
 \&\fB\-metrax4  \-metrax100  \-mpdebug  \-mcc\-init  \-mno\-side\-effects
@@ -944,7 +944,7 @@ in the following sections.
 \&\-melf  \-maout  \-sim  \-sim2
 \&\-mmul\-bug\-workaround  \-mno\-mul\-bug\-workaround\fR
 .Sp
-\&\fIC\-SKY Options\fR
+\&\fIC\-SKY Options\fR (\fBC\-SKY Options\fR)
 \&\fB\-march=\fR\fIarch\fR  \fB\-mcpu=\fR\fIcpu\fR
 \&\fB\-mbig\-endian  \-EB  \-mlittle\-endian  \-EL
 \&\-mhard\-float  \-msoft\-float  \-mfpu=\fR\fIfpu\fR  \fB\-mdouble\-float  \-mfdivdu
@@ -955,7 +955,12 @@ in the following sections.
 \&\-mpushpop  \-mmultiple\-stld  \-mconstpool  \-mstack\-size  \-mccrt
 \&\-mbranch\-cost=\fR\fIn\fR  \fB\-mcse\-cc  \-msched\-prolog \-msim\fR
 .Sp
-\&\fIDarwin Options\fR
+\&\fICygwin and MinGW Options\fR (\fBCygwin and MinGW Options\fR)
+\&\fB\-mconsole  \-mcrtdll=\fR\fIlibrary\fR  \fB\-mdll
+\&\-mnop\-fun\-dllimport  \-mthread
+\&\-municode  \-mwin32  \-mwindows  \-fno\-set\-stack\-executable\fR
+.Sp
+\&\fIDarwin Options\fR (\fBDarwin Options\fR)
 \&\fB\-all_load  \-allowable_client  \-arch  \-arch_errors_fatal
 \&\-arch_only  \-bind_at_load  \-bundle  \-bundle_loader
 \&\-client_name  \-compatibility_version  \-current_version
@@ -982,7 +987,7 @@ in the following sections.
 \&\-whatsloaded  \-F  \-gused  \-gfull  \-mmacosx\-version\-min=\fR\fIversion\fR
 \&\fB\-mkernel  \-mone\-byte\-bool\fR
 .Sp
-\&\fI\s-1DEC\s0 Alpha Options\fR
+\&\fI\s-1DEC\s0 Alpha Options\fR (\fB\s-1DEC\s0 Alpha Options\fR)
 \&\fB\-mno\-fp\-regs  \-msoft\-float
 \&\-mieee  \-mieee\-with\-inexact  \-mieee\-conformant
 \&\-mfp\-trap\-mode=\fR\fImode\fR  \fB\-mfp\-rounding\-mode=\fR\fImode\fR
@@ -994,19 +999,19 @@ in the following sections.
 \&\-msmall\-text  \-mlarge\-text
 \&\-mmemory\-latency=\fR\fItime\fR
 .Sp
-\&\fIeBPF Options\fR
+\&\fIeBPF Options\fR (\fBeBPF Options\fR)
 \&\fB\-mbig\-endian \-mlittle\-endian
 \&\-mframe\-limit=\fR\fIbytes\fR \fB\-mxbpf \-mco\-re \-mno\-co\-re \-mjmpext
 \&\-mjmp32 \-malu32 \-mv3\-atomics \-mbswap \-msdiv \-msmov \-mcpu=\fR\fIversion\fR
 \&\fB\-masm=\fR\fIdialect\fR \fB\-minline\-memops\-threshold=\fR\fIbytes\fR
 .Sp
-\&\fI\s-1FR30\s0 Options\fR
+\&\fI\s-1FR30\s0 Options\fR (\fB\s-1FR30\s0 Options\fR)
 \&\fB\-msmall\-model  \-mno\-lsim\fR
 .Sp
-\&\fI\s-1FT32\s0 Options\fR
+\&\fI\s-1FT32\s0 Options\fR (\fB\s-1FT32\s0 Options\fR)
 \&\fB\-msim  \-mlra  \-mnodiv  \-mft32b  \-mcompress  \-mnopm\fR
 .Sp
-\&\fI\s-1FRV\s0 Options\fR
+\&\fI\s-1FRV\s0 Options\fR (\fB\s-1FRV\s0 Options\fR)
 \&\fB\-mgpr\-32  \-mgpr\-64  \-mfpr\-32  \-mfpr\-64
 \&\-mhard\-float  \-msoft\-float
 \&\-malloc\-cc  \-mfixed\-cc  \-mdword  \-mno\-dword
@@ -1024,14 +1029,14 @@ in the following sections.
 \&\-mTLS  \-mtls
 \&\-mcpu=\fR\fIcpu\fR
 .Sp
-\&\fIGNU/Linux Options\fR
+\&\fIGNU/Linux Options\fR (\fBGNU/Linux Options\fR)
 \&\fB\-mglibc  \-muclibc  \-mmusl  \-mbionic  \-mandroid
 \&\-tno\-android\-cc  \-tno\-android\-ld\fR
 .Sp
-\&\fIH8/300 Options\fR
+\&\fIH8/300 Options\fR (\fBH8/300 Options\fR)
 \&\fB\-mrelax  \-mh  \-ms  \-mn  \-mexr  \-mno\-exr  \-mint32  \-malign\-300\fR
 .Sp
-\&\fI\s-1HPPA\s0 Options\fR
+\&\fI\s-1HPPA\s0 Options\fR (\fB\s-1HPPA\s0 Options\fR)
 \&\fB\-march=\fR\fIarchitecture-type\fR
 \&\fB\-matomic\-libcalls  \-mbig\-switch
 \&\-mcaller\-copies  \-mdisable\-fpregs  \-mdisable\-indexing
@@ -1047,7 +1052,7 @@ in the following sections.
 \&\-mschedule=\fR\fIcpu-type\fR  \fB\-mspace\-regs  \-msoft\-mult  \-msio  \-mwsio
 \&\-munix=\fR\fIunix-std\fR  \fB\-nolibdld  \-static  \-threads\fR
 .Sp
-\&\fI\s-1IA\-64\s0 Options\fR
+\&\fI\s-1IA\-64\s0 Options\fR (\fB\s-1IA\-64\s0 Options\fR)
 \&\fB\-mbig\-endian  \-mlittle\-endian  \-mgnu\-as  \-mgnu\-ld  \-mno\-pic
 \&\-mvolatile\-asm\-stop  \-mregister\-names  \-msdata  \-mno\-sdata
 \&\-mconstant\-gp  \-mauto\-pic  \-mfused\-madd
@@ -1070,11 +1075,11 @@ in the following sections.
 \&\-msel\-sched\-dont\-check\-control\-spec  \-msched\-fp\-mem\-deps\-zero\-cost
 \&\-msched\-max\-memory\-insns\-hard\-limit  \-msched\-max\-memory\-insns=\fR\fImax-insns\fR
 .Sp
-\&\fI\s-1LM32\s0 Options\fR
+\&\fI\s-1LM32\s0 Options\fR (\fB\s-1LM32\s0 Options\fR)
 \&\fB\-mbarrel\-shift\-enabled  \-mdivide\-enabled  \-mmultiply\-enabled
 \&\-msign\-extend\-enabled  \-muser\-enabled\fR
 .Sp
-\&\fILoongArch Options\fR
+\&\fILoongArch Options\fR (\fBLoongArch Options\fR)
 \&\fB\-march=\fR\fIarch-type\fR  \fB\-mtune=\fR\fItune-type\fR \fB\-mabi=\fR\fIbase-abi-type\fR
 \&\fB\-mfpu=\fR\fIfpu-type\fR \fB\-msimd=\fR\fIsimd-type\fR
 \&\fB\-msoft\-float \-msingle\-float \-mdouble\-float \-mlsx \-mno\-lsx \-mlasx \-mno\-lasx
@@ -1090,7 +1095,10 @@ in the following sections.
 \&\-mlam\-bh \-mno\-lam\-bh \-mlamcas \-mno\-lamcas \-mld\-seq\-sa \-mno\-ld\-seq\-sa
 \&\-mtls\-dialect=\fR\fIopt\fR \fB\-mannotate\-tablejump \-mno\-annotate\-tablejump\fR
 .Sp
-\&\fIM32R/D Options\fR
+\&\fIM32C Options\fR (\fBM32C Options\fR)
+\&\fB\-mcpu=\fR\fIcpu\fR  \fB\-msim  \-memregs=\fR\fInumber\fR
+.Sp
+\&\fIM32R/D Options\fR (\fBM32R/D Options\fR)
 \&\fB\-m32r2  \-m32rx  \-m32r
 \&\-mdebug
 \&\-malign\-loops  \-mno\-align\-loops
@@ -1102,10 +1110,7 @@ in the following sections.
 \&\fB\-mno\-flush\-trap  \-mflush\-trap=\fR\fInumber\fR
 \&\fB\-G\fR \fInum\fR
 .Sp
-\&\fIM32C Options\fR
-\&\fB\-mcpu=\fR\fIcpu\fR  \fB\-msim  \-memregs=\fR\fInumber\fR
-.Sp
-\&\fIM680x0 Options\fR
+\&\fIM680x0 Options\fR (\fBM680x0 Options\fR)
 \&\fB\-march=\fR\fIarch\fR  \fB\-mcpu=\fR\fIcpu\fR  \fB\-mtune=\fR\fItune\fR
 \&\fB\-m68000  \-m68020  \-m68020\-40  \-m68020\-60  \-m68030  \-m68040
 \&\-m68060  \-mcpu32  \-m5200  \-m5206e  \-m528x  \-m5307  \-m5407
@@ -1116,14 +1121,14 @@ in the following sections.
 \&\-mshared\-library\-id=n  \-mid\-shared\-library  \-mno\-id\-shared\-library
 \&\-mxgot  \-mno\-xgot  \-mlong\-jump\-table\-offsets\fR
 .Sp
-\&\fIMCore Options\fR
+\&\fIMCore Options\fR (\fBMCore Options\fR)
 \&\fB\-mhardlit  \-mno\-hardlit  \-mdiv  \-mno\-div  \-mrelax\-immediates
 \&\-mno\-relax\-immediates  \-mwide\-bitfields  \-mno\-wide\-bitfields
 \&\-m4byte\-functions  \-mno\-4byte\-functions  \-mcallgraph\-data
 \&\-mno\-callgraph\-data  \-mslow\-bytes  \-mno\-slow\-bytes  \-mno\-lsim
 \&\-mlittle\-endian  \-mbig\-endian  \-m210  \-m340  \-mstack\-increment\fR
 .Sp
-\&\fIMicroBlaze Options\fR
+\&\fIMicroBlaze Options\fR (\fBMicroBlaze Options\fR)
 \&\fB\-msoft\-float  \-mhard\-float  \-msmall\-divides  \-mcpu=\fR\fIcpu\fR
 \&\fB\-mmemcpy  \-mxl\-soft\-mul  \-mxl\-soft\-div  \-mxl\-barrel\-shift
 \&\-mxl\-pattern\-compare  \-mxl\-stack\-check  \-mxl\-gp\-opt  \-mno\-clearbss
@@ -1131,7 +1136,7 @@ in the following sections.
 \&\-mbig\-endian  \-mlittle\-endian  \-mxl\-reorder  \-mxl\-mode\-\fR\fIapp-model\fR
 \&\fB\-mpic\-data\-is\-text\-relative\fR
 .Sp
-\&\fI\s-1MIPS\s0 Options\fR
+\&\fI\s-1MIPS\s0 Options\fR (\fB\s-1MIPS\s0 Options\fR)
 \&\fB\-EL  \-EB  \-march=\fR\fIarch\fR  \fB\-mtune=\fR\fIarch\fR
 \&\fB\-mips1  \-mips2  \-mips3  \-mips4  \-mips32  \-mips32r2  \-mips32r3  \-mips32r5
 \&\-mips32r6  \-mips64  \-mips64r2  \-mips64r3  \-mips64r5  \-mips64r6
@@ -1191,30 +1196,30 @@ in the following sections.
 \&\-mrelax\-pic\-calls  \-mno\-relax\-pic\-calls  \-mmcount\-ra\-address
 \&\-mframe\-header\-opt  \-mno\-frame\-header\-opt\fR
 .Sp
-\&\fI\s-1MMIX\s0 Options\fR
+\&\fI\s-1MMIX\s0 Options\fR (\fB\s-1MMIX\s0 Options\fR)
 \&\fB\-mlibfuncs  \-mno\-libfuncs  \-mepsilon  \-mno\-epsilon  \-mabi=gnu
 \&\-mabi=mmixware  \-mzero\-extend  \-mknuthdiv  \-mtoplevel\-symbols
 \&\-melf  \-mbranch\-predict  \-mno\-branch\-predict  \-mbase\-addresses
 \&\-mno\-base\-addresses  \-msingle\-exit  \-mno\-single\-exit\fR
 .Sp
-\&\fI\s-1MN10300\s0 Options\fR
+\&\fI\s-1MN10300\s0 Options\fR (\fB\s-1MN10300\s0 Options\fR)
 \&\fB\-mmult\-bug  \-mno\-mult\-bug
 \&\-mno\-am33  \-mam33  \-mam33\-2  \-mam34
 \&\-mtune=\fR\fIcpu-type\fR
 \&\fB\-mreturn\-pointer\-on\-d0
 \&\-mno\-crt0  \-mrelax  \-mliw  \-msetlb\fR
 .Sp
-\&\fIMoxie Options\fR
+\&\fIMoxie Options\fR (\fBMoxie Options\fR)
 \&\fB\-meb  \-mel  \-mmul.x  \-mno\-crt0\fR
 .Sp
-\&\fI\s-1MSP430\s0 Options\fR
+\&\fI\s-1MSP430\s0 Options\fR (\fB\s-1MSP430\s0 Options\fR)
 \&\fB\-msim  \-masm\-hex  \-mmcu=  \-mcpu=  \-mlarge  \-msmall  \-mrelax
 \&\-mwarn\-mcu
 \&\-mcode\-region=  \-mdata\-region=
 \&\-msilicon\-errata=  \-msilicon\-errata\-warn=
 \&\-mhwmult=  \-minrt  \-mtiny\-printf  \-mmax\-inline\-shift=\fR
 .Sp
-\&\fI\s-1NDS32\s0 Options\fR
+\&\fI\s-1NDS32\s0 Options\fR (\fB\s-1NDS32\s0 Options\fR)
 \&\fB\-mbig\-endian  \-mlittle\-endian
 \&\-mreduced\-regs  \-mfull\-regs
 \&\-mcmov  \-mno\-cmov
@@ -1229,17 +1234,17 @@ in the following sections.
 \&\fB\-mcmodel=\fR\fIcode-model\fR
 \&\fB\-mctor\-dtor  \-mrelax\fR
 .Sp
-\&\fINvidia \s-1PTX\s0 Options\fR
+\&\fINvidia \s-1PTX\s0 Options\fR (\fBNvidia \s-1PTX\s0 Options\fR)
 \&\fB\-m64  \-mmainkernel  \-moptimize\fR
 .Sp
-\&\fIOpenRISC Options\fR
+\&\fIOpenRISC Options\fR (\fBOpenRISC Options\fR)
 \&\fB\-mboard=\fR\fIname\fR  \fB\-mnewlib  \-mhard\-mul  \-mhard\-div
 \&\-msoft\-mul  \-msoft\-div
 \&\-msoft\-float  \-mhard\-float  \-mdouble\-float \-munordered\-float
 \&\-mcmov  \-mror  \-mrori  \-msext  \-msfimm  \-mshftimm
 \&\-mcmodel=\fR\fIcode-model\fR
 .Sp
-\&\fI\s-1PDP\-11\s0 Options\fR
+\&\fI\s-1PDP\-11\s0 Options\fR (\fB\s-1PDP\-11\s0 Options\fR)
 \&\fB\-mfpu  \-msoft\-float  \-mac0  \-mno\-ac0  \-m40  \-m45  \-m10
 \&\-mint32  \-mno\-int16  \-mint16  \-mno\-int32
 \&\-msplit  \-munix\-asm  \-mdec\-asm  \-mgnu\-asm  \-mlra\fR
@@ -1247,11 +1252,11 @@ in the following sections.
 \&\fIPowerPC Options\fR
 See \s-1RS/6000\s0 and PowerPC Options.
 .Sp
-\&\fI\s-1PRU\s0 Options\fR
+\&\fI\s-1PRU\s0 Options\fR (\fB\s-1PRU\s0 Options\fR)
 \&\fB\-mmcu=\fR\fImcu\fR  \fB\-minrt  \-mno\-relax  \-mloop
 \&\-mabi=\fR\fIvariant\fR
 .Sp
-\&\fIRISC-V Options\fR
+\&\fIRISC-V Options\fR (\fBRISC-V Options\fR)
 \&\fB\-mbranch\-cost=\fR\fIN\-instruction\fR
 \&\fB\-mplt  \-mno\-plt
 \&\-mabi=\fR\fIABI-string\fR
@@ -1282,12 +1287,12 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-minline\-strncmp  \-mno\-inline\-strncmp
 \&\-mtls\-dialect=desc  \-mtls\-dialect=trad\fR
 .Sp
-\&\fI\s-1RL78\s0 Options\fR
+\&\fI\s-1RL78\s0 Options\fR (\fB\s-1RL78\s0 Options\fR)
 \&\fB\-msim  \-mmul=none  \-mmul=g13  \-mmul=g14  \-mallregs
 \&\-mcpu=g10  \-mcpu=g13  \-mcpu=g14  \-mg10  \-mg13  \-mg14
 \&\-m64bit\-doubles  \-m32bit\-doubles  \-msave\-mduc\-in\-interrupts\fR
 .Sp
-\&\fI\s-1RS/6000\s0 and PowerPC Options\fR
+\&\fI\s-1RS/6000\s0 and PowerPC Options\fR (\fB\s-1RS/6000\s0 and PowerPC Options\fR)
 \&\fB\-mcpu=\fR\fIcpu-type\fR
 \&\fB\-mtune=\fR\fIcpu-type\fR
 \&\fB\-mcmodel=\fR\fIcode-model\fR
@@ -1348,7 +1353,7 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mpcrel \-mno\-pcrel \-mmma \-mno\-mmma \-mrop\-protect \-mno\-rop\-protect
 \&\-mprivileged \-mno\-privileged\fR
 .Sp
-\&\fI\s-1RX\s0 Options\fR
+\&\fI\s-1RX\s0 Options\fR (\fB\s-1RX\s0 Options\fR)
 \&\fB\-m64bit\-doubles  \-m32bit\-doubles  \-fpu  \-nofpu
 \&\-mcpu=
 \&\-mbig\-endian\-data  \-mlittle\-endian\-data
@@ -1364,7 +1369,7 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mno\-warn\-multiple\-fast\-interrupts
 \&\-msave\-acc\-in\-interrupts\fR
 .Sp
-\&\fIS/390 and zSeries Options\fR
+\&\fIS/390 and zSeries Options\fR (\fBS/390 and zSeries Options\fR)
 \&\fB\-mtune=\fR\fIcpu-type\fR  \fB\-march=\fR\fIcpu-type\fR
 \&\fB\-mhard\-float  \-msoft\-float  \-mhard\-dfp  \-mno\-hard\-dfp
 \&\-mlong\-double\-64  \-mlong\-double\-128
@@ -1377,7 +1382,7 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mwarn\-framesize  \-mwarn\-dynamicstack  \-mstack\-size  \-mstack\-guard
 \&\-mhotpatch=\fR\fIhalfwords\fR\fB,\fR\fIhalfwords\fR
 .Sp
-\&\fI\s-1SH\s0 Options\fR
+\&\fI\s-1SH\s0 Options\fR (\fB\s-1SH\s0 Options\fR)
 \&\fB\-m1  \-m2  \-m2e
 \&\-m2a\-nofpu  \-m2a\-single\-only  \-m2a\-single  \-m2a
 \&\-m3  \-m3e
@@ -1395,11 +1400,11 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mfused\-madd  \-mno\-fused\-madd  \-mfsca  \-mno\-fsca  \-mfsrra  \-mno\-fsrra
 \&\-mpretend\-cmove  \-mtas\fR
 .Sp
-\&\fISolaris 2 Options\fR
+\&\fISolaris 2 Options\fR (\fBSolaris 2 Options\fR)
 \&\fB\-mclear\-hwcap  \-mno\-clear\-hwcap  \-mimpure\-text  \-mno\-impure\-text
 \&\-pthreads\fR
 .Sp
-\&\fI\s-1SPARC\s0 Options\fR
+\&\fI\s-1SPARC\s0 Options\fR (\fB\s-1SPARC\s0 Options\fR)
 \&\fB\-mcpu=\fR\fIcpu-type\fR
 \&\fB\-mtune=\fR\fIcpu-type\fR
 \&\fB\-mcmodel=\fR\fIcode-model\fR
@@ -1419,10 +1424,10 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mpopc  \-mno\-popc  \-msubxc  \-mno\-subxc
 \&\-mfix\-at697f  \-mfix\-ut699  \-mfix\-ut700  \-mfix\-gr712rc\fR
 .Sp
-\&\fISystem V Options\fR
+\&\fISystem V Options\fR (\fBSystem V Options\fR)
 \&\fB\-Qy  \-Qn  \-YP,\fR\fIpaths\fR  \fB\-Ym,\fR\fIdir\fR
 .Sp
-\&\fIV850 Options\fR
+\&\fIV850 Options\fR (\fBV850 Options\fR)
 \&\fB\-mlong\-calls  \-mno\-long\-calls  \-mep  \-mno\-ep
 \&\-mprolog\-function  \-mno\-prolog\-function  \-mspace
 \&\-mtda=\fR\fIn\fR  \fB\-msda=\fR\fIn\fR  \fB\-mzda=\fR\fIn\fR
@@ -1439,22 +1444,22 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mrh850\-abi
 \&\-mbig\-switch\fR
 .Sp
-\&\fI\s-1VAX\s0 Options\fR
+\&\fI\s-1VAX\s0 Options\fR (\fB\s-1VAX\s0 Options\fR)
 \&\fB\-munix  \-mgnu  \-md  \-md\-float  \-mg  \-mg\-float  \-mlra\fR
 .Sp
-\&\fIVisium Options\fR
+\&\fIVisium Options\fR (\fBVisium Options\fR)
 \&\fB\-mdebug  \-msim  \-mfpu  \-mno\-fpu  \-mhard\-float  \-msoft\-float
 \&\-mcpu=\fR\fIcpu-type\fR  \fB\-mtune=\fR\fIcpu-type\fR  \fB\-msv\-mode  \-muser\-mode\fR
 .Sp
-\&\fI\s-1VMS\s0 Options\fR
+\&\fI\s-1VMS\s0 Options\fR (\fB\s-1VMS\s0 Options\fR)
 \&\fB\-mvms\-return\-codes  \-mdebug\-main=\fR\fIprefix\fR  \fB\-mmalloc64
 \&\-mpointer\-size=\fR\fIsize\fR
 .Sp
-\&\fIVxWorks Options\fR
+\&\fIVxWorks Options\fR (\fBVxWorks Options\fR)
 \&\fB\-mrtp  \-msmp  \-non\-static  \-Bstatic  \-Bdynamic
 \&\-Xbind\-lazy  \-Xbind\-now\fR
 .Sp
-\&\fIx86 Options\fR
+\&\fIx86 Options\fR (\fBx86 Options\fR)
 \&\fB\-mtune=\fR\fIcpu-type\fR  \fB\-march=\fR\fIcpu-type\fR
 \&\fB\-mtune\-ctrl=\fR\fIfeature-list\fR  \fB\-mdump\-tune\-features  \-mno\-default
 \&\-mfpmath=\fR\fIunit\fR
@@ -1513,16 +1518,12 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-munroll\-only\-small\-loops \-mlam=\fR\fIchoice\fR
 .Sp
 \&\fIx86 Windows Options\fR
+See Cygwin and MinGW Options.
 .Sp
-\&\fICygwin and MinGW Options\fR
-\&\fB\-mconsole  \-mcrtdll=\fR\fIlibrary\fR  \fB\-mdll
-\&\-mnop\-fun\-dllimport  \-mthread
-\&\-municode  \-mwin32  \-mwindows  \-fno\-set\-stack\-executable\fR
-.Sp
-\&\fIXstormy16 Options\fR
+\&\fIXstormy16 Options\fR (\fBXstormy16 Options\fR)
 \&\fB\-msim\fR
 .Sp
-\&\fIXtensa Options\fR
+\&\fIXtensa Options\fR (\fBXtensa Options\fR)
 \&\fB\-mconst16  \-mno\-const16
 \&\-mfused\-madd  \-mno\-fused\-madd
 \&\-mforce\-no\-pic
@@ -24792,6 +24793,95 @@ It is disabled by default.
 Links the library libsemi.a which is in compatible with simulator. Applicable
 to \s-1ELF\s0 compiler only.
 .PP
+\fICygwin and MinGW Options\fR
+.IX Subsection "Cygwin and MinGW Options"
+.PP
+These additional options are available for Microsoft Windows targets:
+.IP "\fB\-mconsole\fR" 4
+.IX Item "-mconsole"
+This option
+specifies that a console application is to be generated, by
+instructing the linker to set the \s-1PE\s0 header subsystem type
+required for console applications.
+This option is available for Cygwin and MinGW targets and is
+enabled by default on those targets.
+.IP "\fB\-mcrtdll=\fR\fIlibrary\fR" 4
+.IX Item "-mcrtdll=library"
+Preprocess, compile or link with specified C RunTime \s-1DLL\s0 \fIlibrary\fR.
+This option adjust predefined macros \f(CW\*(C`_\|_CRTDLL_\|_\*(C'\fR, \f(CW\*(C`_\|_MSVCRT_\|_\*(C'\fR,
+\&\f(CW\*(C`_UCRT\*(C'\fR and \f(CW\*(C`_\|_MSVCRT_VERSION_\|_\*(C'\fR for specified \s-1CRT\s0 \fIlibrary\fR,
+choose start file for \s-1CRT\s0 \fIlibrary\fR and link with \s-1CRT\s0 \fIlibrary\fR.
+Recognized \s-1CRT\s0 library names for proprocessor are:
+\&\f(CW\*(C`crtdll*\*(C'\fR, \f(CW\*(C`msvcrt10*\*(C'\fR, \f(CW\*(C`msvcrt20*\*(C'\fR, \f(CW\*(C`msvcrt40*\*(C'\fR,
+\&\f(CW\*(C`msvcr40*\*(C'\fR, \f(CW\*(C`msvcrtd*\*(C'\fR, \f(CW\*(C`msvcrt\-os*\*(C'\fR,
+\&\f(CW\*(C`msvcr70*\*(C'\fR, \f(CW\*(C`msvcr71*\*(C'\fR, \f(CW\*(C`msvcr80*\*(C'\fR, \f(CW\*(C`msvcr90*\*(C'\fR,
+\&\f(CW\*(C`msvcr100*\*(C'\fR, \f(CW\*(C`msvcr110*\*(C'\fR, \f(CW\*(C`msvcr120*\*(C'\fR and \f(CW\*(C`ucrt*\*(C'\fR.
+If this options is not specified then the default MinGW import library
+\&\f(CW\*(C`msvcrt\*(C'\fR is used for linking and no other adjustment for
+preprocessor is done. MinGW import library \f(CW\*(C`msvcrt\*(C'\fR is just a
+symlink to (or a copy of) another MinGW \s-1CRT\s0 import library
+chosen during MinGW compilation. MinGW import library \f(CW\*(C`msvcrt\-os\*(C'\fR
+is for Windows system \s-1CRT DLL\s0 library \f(CW\*(C`msvcrt.dll\*(C'\fR and
+in most cases is the default MinGW import library.
+Generally speaking, changing the \s-1CRT DLL\s0 requires recompiling
+the entire MinGW \s-1CRT.\s0 This option is for experimental and testing
+purposes only.
+This option is available for MinGW targets.
+.IP "\fB\-mdll\fR" 4
+.IX Item "-mdll"
+This option is available for Cygwin and MinGW targets.  It
+specifies that a DLL\-\-\-a dynamic link library\-\-\-is to be
+generated, enabling the selection of the required runtime
+startup object and entry point.
+.IP "\fB\-mnop\-fun\-dllimport\fR" 4
+.IX Item "-mnop-fun-dllimport"
+This option is available for Cygwin and MinGW targets.  It
+specifies that the \f(CW\*(C`dllimport\*(C'\fR attribute should be ignored.
+.IP "\fB\-mthreads\fR" 4
+.IX Item "-mthreads"
+This option is available for MinGW targets. It specifies
+that MinGW-specific thread support is to be used.
+.IP "\fB\-municode\fR" 4
+.IX Item "-municode"
+This option is available for MinGW\-w64 targets.  It causes
+the \f(CW\*(C`UNICODE\*(C'\fR preprocessor macro to be predefined, and
+chooses Unicode-capable runtime startup code.
+.IP "\fB\-mwin32\fR" 4
+.IX Item "-mwin32"
+This option is available for Cygwin and MinGW targets.  It
+specifies that the typical Microsoft Windows predefined macros are to
+be set in the pre-processor, but does not influence the choice
+of runtime library/startup code.
+.IP "\fB\-mwindows\fR" 4
+.IX Item "-mwindows"
+This option is available for Cygwin and MinGW targets.  It
+specifies that a \s-1GUI\s0 application is to be generated by
+instructing the linker to set the \s-1PE\s0 header subsystem type
+appropriately.
+.IP "\fB\-fno\-set\-stack\-executable\fR" 4
+.IX Item "-fno-set-stack-executable"
+This option is available for MinGW targets. It specifies that
+the executable flag for the stack used by nested functions isn't
+set. This is necessary for binaries running in kernel mode of
+Microsoft Windows, as there the User32 \s-1API,\s0 which is used to set executable
+privileges, isn't available.
+.IP "\fB\-fwritable\-relocated\-rdata\fR" 4
+.IX Item "-fwritable-relocated-rdata"
+This option is available for MinGW and Cygwin targets.  It specifies
+that relocated-data in read-only section is put into the \f(CW\*(C`.data\*(C'\fR
+section.  This is a necessary for older runtimes not supporting
+modification of \f(CW\*(C`.rdata\*(C'\fR sections for pseudo-relocation.
+.IP "\fB\-mpe\-aligned\-commons\fR" 4
+.IX Item "-mpe-aligned-commons"
+This option is available for Cygwin and MinGW targets.  It
+specifies that the \s-1GNU\s0 extension to the \s-1PE\s0 file format that
+permits the correct alignment of \s-1COMMON\s0 variables should be
+used when generating code.  It is enabled by default if
+\&\s-1GCC\s0 detects that the target assembler found during configuration
+supports the feature.
+.PP
+See also under \fBx86 Options\fR for standard options.
+.PP
 \fIDarwin Options\fR
 .IX Subsection "Darwin Options"
 .PP
@@ -35454,95 +35544,6 @@ positions 62:57 can be used for metadata.
 \fIx86 Windows Options\fR
 .IX Subsection "x86 Windows Options"
 .PP
-\fICygwin and MinGW Options\fR
-.IX Subsection "Cygwin and MinGW Options"
-.PP
-These additional options are available for Microsoft Windows targets:
-.IP "\fB\-mconsole\fR" 4
-.IX Item "-mconsole"
-This option
-specifies that a console application is to be generated, by
-instructing the linker to set the \s-1PE\s0 header subsystem type
-required for console applications.
-This option is available for Cygwin and MinGW targets and is
-enabled by default on those targets.
-.IP "\fB\-mcrtdll=\fR\fIlibrary\fR" 4
-.IX Item "-mcrtdll=library"
-Preprocess, compile or link with specified C RunTime \s-1DLL\s0 \fIlibrary\fR.
-This option adjust predefined macros \f(CW\*(C`_\|_CRTDLL_\|_\*(C'\fR, \f(CW\*(C`_\|_MSVCRT_\|_\*(C'\fR,
-\&\f(CW\*(C`_UCRT\*(C'\fR and \f(CW\*(C`_\|_MSVCRT_VERSION_\|_\*(C'\fR for specified \s-1CRT\s0 \fIlibrary\fR,
-choose start file for \s-1CRT\s0 \fIlibrary\fR and link with \s-1CRT\s0 \fIlibrary\fR.
-Recognized \s-1CRT\s0 library names for proprocessor are:
-\&\f(CW\*(C`crtdll*\*(C'\fR, \f(CW\*(C`msvcrt10*\*(C'\fR, \f(CW\*(C`msvcrt20*\*(C'\fR, \f(CW\*(C`msvcrt40*\*(C'\fR,
-\&\f(CW\*(C`msvcr40*\*(C'\fR, \f(CW\*(C`msvcrtd*\*(C'\fR, \f(CW\*(C`msvcrt\-os*\*(C'\fR,
-\&\f(CW\*(C`msvcr70*\*(C'\fR, \f(CW\*(C`msvcr71*\*(C'\fR, \f(CW\*(C`msvcr80*\*(C'\fR, \f(CW\*(C`msvcr90*\*(C'\fR,
-\&\f(CW\*(C`msvcr100*\*(C'\fR, \f(CW\*(C`msvcr110*\*(C'\fR, \f(CW\*(C`msvcr120*\*(C'\fR and \f(CW\*(C`ucrt*\*(C'\fR.
-If this options is not specified then the default MinGW import library
-\&\f(CW\*(C`msvcrt\*(C'\fR is used for linking and no other adjustment for
-preprocessor is done. MinGW import library \f(CW\*(C`msvcrt\*(C'\fR is just a
-symlink to (or a copy of) another MinGW \s-1CRT\s0 import library
-chosen during MinGW compilation. MinGW import library \f(CW\*(C`msvcrt\-os\*(C'\fR
-is for Windows system \s-1CRT DLL\s0 library \f(CW\*(C`msvcrt.dll\*(C'\fR and
-in most cases is the default MinGW import library.
-Generally speaking, changing the \s-1CRT DLL\s0 requires recompiling
-the entire MinGW \s-1CRT.\s0 This option is for experimental and testing
-purposes only.
-This option is available for MinGW targets.
-.IP "\fB\-mdll\fR" 4
-.IX Item "-mdll"
-This option is available for Cygwin and MinGW targets.  It
-specifies that a DLL\-\-\-a dynamic link library\-\-\-is to be
-generated, enabling the selection of the required runtime
-startup object and entry point.
-.IP "\fB\-mnop\-fun\-dllimport\fR" 4
-.IX Item "-mnop-fun-dllimport"
-This option is available for Cygwin and MinGW targets.  It
-specifies that the \f(CW\*(C`dllimport\*(C'\fR attribute should be ignored.
-.IP "\fB\-mthreads\fR" 4
-.IX Item "-mthreads"
-This option is available for MinGW targets. It specifies
-that MinGW-specific thread support is to be used.
-.IP "\fB\-municode\fR" 4
-.IX Item "-municode"
-This option is available for MinGW\-w64 targets.  It causes
-the \f(CW\*(C`UNICODE\*(C'\fR preprocessor macro to be predefined, and
-chooses Unicode-capable runtime startup code.
-.IP "\fB\-mwin32\fR" 4
-.IX Item "-mwin32"
-This option is available for Cygwin and MinGW targets.  It
-specifies that the typical Microsoft Windows predefined macros are to
-be set in the pre-processor, but does not influence the choice
-of runtime library/startup code.
-.IP "\fB\-mwindows\fR" 4
-.IX Item "-mwindows"
-This option is available for Cygwin and MinGW targets.  It
-specifies that a \s-1GUI\s0 application is to be generated by
-instructing the linker to set the \s-1PE\s0 header subsystem type
-appropriately.
-.IP "\fB\-fno\-set\-stack\-executable\fR" 4
-.IX Item "-fno-set-stack-executable"
-This option is available for MinGW targets. It specifies that
-the executable flag for the stack used by nested functions isn't
-set. This is necessary for binaries running in kernel mode of
-Microsoft Windows, as there the User32 \s-1API,\s0 which is used to set executable
-privileges, isn't available.
-.IP "\fB\-fwritable\-relocated\-rdata\fR" 4
-.IX Item "-fwritable-relocated-rdata"
-This option is available for MinGW and Cygwin targets.  It specifies
-that relocated-data in read-only section is put into the \f(CW\*(C`.data\*(C'\fR
-section.  This is a necessary for older runtimes not supporting
-modification of \f(CW\*(C`.rdata\*(C'\fR sections for pseudo-relocation.
-.IP "\fB\-mpe\-aligned\-commons\fR" 4
-.IX Item "-mpe-aligned-commons"
-This option is available for Cygwin and MinGW targets.  It
-specifies that the \s-1GNU\s0 extension to the \s-1PE\s0 file format that
-permits the correct alignment of \s-1COMMON\s0 variables should be
-used when generating code.  It is enabled by default if
-\&\s-1GCC\s0 detects that the target assembler found during configuration
-supports the feature.
-.PP
-See also under \fBx86 Options\fR for standard options.
-.PP
 \fIXstormy16 Options\fR
 .IX Subsection "Xstormy16 Options"
 .PP
@@ -35958,7 +35959,7 @@ See the Info entry for \fBgcc\fR, or
 for contributors to \s-1GCC.\s0
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright (c) 1988\-2024 Free Software Foundation, Inc.
+Copyright (c) 1988\-2025 Free Software Foundation, Inc.
 .PP
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the \s-1GNU\s0 Free Documentation License, Version 1.3 or

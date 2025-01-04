@@ -1132,6 +1132,16 @@
 #define HAVE_aarch64_simd_vec_copy_lanev2sf (TARGET_SIMD && exact_log2 (INTVAL (operands[2])) >= 0)
 #define HAVE_aarch64_simd_vec_copy_lanev4sf (TARGET_SIMD && exact_log2 (INTVAL (operands[2])) >= 0)
 #define HAVE_aarch64_simd_vec_copy_lanev2df (TARGET_SIMD && exact_log2 (INTVAL (operands[2])) >= 0)
+#define HAVE_aarch64_simd_vec_copy_lane_to_128v8qi (TARGET_SIMD && exact_log2 (INTVAL (operands[2])) >= 0)
+#define HAVE_aarch64_simd_vec_copy_lane_to_64v16qi (TARGET_SIMD && exact_log2 (INTVAL (operands[2])) >= 0)
+#define HAVE_aarch64_simd_vec_copy_lane_to_128v4hi (TARGET_SIMD && exact_log2 (INTVAL (operands[2])) >= 0)
+#define HAVE_aarch64_simd_vec_copy_lane_to_64v8hi (TARGET_SIMD && exact_log2 (INTVAL (operands[2])) >= 0)
+#define HAVE_aarch64_simd_vec_copy_lane_to_128v2si (TARGET_SIMD && exact_log2 (INTVAL (operands[2])) >= 0)
+#define HAVE_aarch64_simd_vec_copy_lane_to_64v4si (TARGET_SIMD && exact_log2 (INTVAL (operands[2])) >= 0)
+#define HAVE_aarch64_simd_vec_copy_lane_to_128v4hf (TARGET_SIMD && exact_log2 (INTVAL (operands[2])) >= 0)
+#define HAVE_aarch64_simd_vec_copy_lane_to_64v8hf (TARGET_SIMD && exact_log2 (INTVAL (operands[2])) >= 0)
+#define HAVE_aarch64_simd_vec_copy_lane_to_128v2sf (TARGET_SIMD && exact_log2 (INTVAL (operands[2])) >= 0)
+#define HAVE_aarch64_simd_vec_copy_lane_to_64v4sf (TARGET_SIMD && exact_log2 (INTVAL (operands[2])) >= 0)
 #define HAVE_aarch64_simd_lshrv8qi (TARGET_SIMD)
 #define HAVE_aarch64_simd_lshrv8qi_vec_concatz_le ((!BYTES_BIG_ENDIAN) && (TARGET_SIMD))
 #define HAVE_aarch64_simd_lshrv8qi_vec_concatz_be ((BYTES_BIG_ENDIAN) && (TARGET_SIMD))
@@ -14321,6 +14331,16 @@ extern rtx        gen_aarch64_simd_vec_copy_lanev8bf                   (rtx, rtx
 extern rtx        gen_aarch64_simd_vec_copy_lanev2sf                   (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_simd_vec_copy_lanev4sf                   (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_simd_vec_copy_lanev2df                   (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_simd_vec_copy_lane_to_128v8qi            (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_simd_vec_copy_lane_to_64v16qi            (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_simd_vec_copy_lane_to_128v4hi            (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_simd_vec_copy_lane_to_64v8hi             (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_simd_vec_copy_lane_to_128v2si            (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_simd_vec_copy_lane_to_64v4si             (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_simd_vec_copy_lane_to_128v4hf            (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_simd_vec_copy_lane_to_64v8hf             (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_simd_vec_copy_lane_to_128v2sf            (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_simd_vec_copy_lane_to_64v4sf             (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_simd_lshrv8qi                            (rtx, rtx, rtx);
 extern rtx        gen_aarch64_simd_lshrv8qi_vec_concatz_le             (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_simd_lshrv8qi_vec_concatz_be             (rtx, rtx, rtx, rtx);

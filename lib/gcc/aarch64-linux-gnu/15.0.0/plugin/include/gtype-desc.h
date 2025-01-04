@@ -1,5 +1,5 @@
 /* Type information for GCC.
-   Copyright (C) 2004-2024 Free Software Foundation, Inc.
+   Copyright (C) 2004-2025 Free Software Foundation, Inc.
 
 This file is part of GCC.
 
@@ -1201,6 +1201,10 @@ extern void gt_ggc_mx_opt_stack (void *);
   if ((intptr_t)(X) != 0) gt_ggc_mx_c_parser (X);\
   } while (0)
 extern void gt_ggc_mx_c_parser (void *);
+#define gt_ggc_m_26omp_attribute_pragma_state(X) do { \
+  if ((intptr_t)(X) != 0) gt_ggc_mx_omp_attribute_pragma_state (X);\
+  } while (0)
+extern void gt_ggc_mx_omp_attribute_pragma_state (void *);
 #define gt_ggc_m_36vec_c_omp_declare_target_attr_va_gc_(X) do { \
   if ((intptr_t)(X) != 0) gt_ggc_mx_vec_c_omp_declare_target_attr_va_gc_ (X);\
   } while (0)
@@ -2802,6 +2806,10 @@ extern void gt_pch_nx_opt_stack (void *);
   if ((intptr_t)(X) != 0) gt_pch_nx_c_parser (X);\
   } while (0)
 extern void gt_pch_nx_c_parser (void *);
+#define gt_pch_n_26omp_attribute_pragma_state(X) do { \
+  if ((intptr_t)(X) != 0) gt_pch_nx_omp_attribute_pragma_state (X);\
+  } while (0)
+extern void gt_pch_nx_omp_attribute_pragma_state (void *);
 #define gt_pch_n_36vec_c_omp_declare_target_attr_va_gc_(X) do { \
   if ((intptr_t)(X) != 0) gt_pch_nx_vec_c_omp_declare_target_attr_va_gc_ (X);\
   } while (0)
@@ -3932,6 +3940,8 @@ extern void gt_pch_p_31vec_pending_redefinition_va_gc_
 extern void gt_pch_p_9opt_stack
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_8c_parser
+    (void *, void *, gt_pointer_operator, void *);
+extern void gt_pch_p_26omp_attribute_pragma_state
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_36vec_c_omp_declare_target_attr_va_gc_
     (void *, void *, gt_pointer_operator, void *);
