@@ -763,13 +763,7 @@ type 'bfd_error_type'.
      the error string printed is preceded by MESSAGE, a colon, and a
      space.  It is followed by a newline.
 
-2.2.1.6 '_bfd_clear_error_data'
-...............................
-
- -- Function: void _bfd_clear_error_data (void);
-     Free any data associated with the BFD error.
-
-2.2.1.7 'bfd_asprintf'
+2.2.1.6 'bfd_asprintf'
 ......................
 
  -- Function: char *bfd_asprintf (const char *fmt, ...);
@@ -7584,6 +7578,13 @@ to find an alternative output format that is suitable.
        return abfd->xvec->keep_unused_section_symbols;
      }
 
+     static inline bool
+     bfd_target_supports_archives (const bfd *abfd)
+     {
+       return (abfd->xvec->_bfd_check_format[bfd_archive]
+               != abfd->xvec->_bfd_check_format[bfd_unknown]);
+     }
+
 
 2.12.1.1 'bfd_set_default_target'
 .................................
@@ -11518,7 +11519,7 @@ BFD Index
 
 * *bfd_alloc:                            Internal.           (line   74)
 * *bfd_arch_default_fill:                Architectures.      (line  740)
-* *bfd_asprintf:                         Error reporting.    (line  102)
+* *bfd_asprintf:                         Error reporting.    (line   96)
 * *bfd_create:                           Opening and Closing.
                                                              (line  226)
 * *bfd_default_reloc_type_lookup:        howto manager.      (line 3604)
@@ -11579,10 +11580,8 @@ BFD Index
                                                              (line   12)
 * *_bfd_new_bfd_contained_in:            Opening and Closing.
                                                              (line   18)
-* _bfd_clear_error_data:                 Error reporting.    (line   92)
-* _bfd_clear_error_data <1>:             Error reporting.    (line   96)
-* _bfd_error_handler:                    Error reporting.    (line  135)
-* _bfd_error_handler <1>:                Error reporting.    (line  139)
+* _bfd_error_handler:                    Error reporting.    (line  129)
+* _bfd_error_handler <1>:                Error reporting.    (line  133)
 * _bfd_final_link_relocate:              Relocating the section contents.
                                                              (line   22)
 * _bfd_free_cached_info:                 Opening and Closing.
@@ -11609,7 +11608,7 @@ BFD Index
                                                              (line  151)
 * _bfd_generic_verify_endian_match <1>:  Writing the symbol table.
                                                              (line  155)
-* _bfd_get_error_program_name:           Error reporting.    (line  183)
+* _bfd_get_error_program_name:           Error reporting.    (line  177)
 * _bfd_link_add_symbols in target vector: Adding Symbols to the Hash Table.
                                                              (line    6)
 * _bfd_link_final_link in target vector: Performing the Final Link.
@@ -11622,9 +11621,9 @@ BFD Index
                                                              (line   14)
 * _bfd_relocate_contents:                Relocating the section contents.
                                                              (line   22)
-* _bfd_restore_error_handler_caching:    Error reporting.    (line  168)
-* _bfd_restore_error_handler_caching <1>: Error reporting.   (line  172)
-* _bfd_set_error_handler_caching:        Error reporting.    (line  157)
+* _bfd_restore_error_handler_caching:    Error reporting.    (line  162)
+* _bfd_restore_error_handler_caching <1>: Error reporting.   (line  166)
+* _bfd_set_error_handler_caching:        Error reporting.    (line  151)
 * _bfd_stringtab_add:                    Write Other Derived Routines.
                                                              (line  127)
 * _bfd_stringtab_add <1>:                Write Other Derived Routines.
@@ -11700,7 +11699,7 @@ BFD Index
 * BFD_ARELOC_BFIN_RSHIFT:                howto manager.      (line 1179)
 * BFD_ARELOC_BFIN_SUB:                   howto manager.      (line 1169)
 * BFD_ARELOC_BFIN_XOR:                   howto manager.      (line 1185)
-* bfd_asprintf:                          Error reporting.    (line   98)
+* bfd_asprintf:                          Error reporting.    (line   92)
 * bfd_cache_close:                       File Caching.       (line   23)
 * bfd_cache_close <1>:                   File Caching.       (line   27)
 * bfd_cache_close_all:                   File Caching.       (line   33)
@@ -11782,10 +11781,10 @@ BFD Index
                                                              (line  343)
 * bfd_fill_in_gnu_debuglink_section <1>: Opening and Closing.
                                                              (line  347)
-* bfd_find_target:                       bfd_target.         (line  545)
+* bfd_find_target:                       bfd_target.         (line  552)
 * bfd_find_version_for_sym:              Writing the symbol table.
                                                              (line   98)
-* bfd_flavour_name:                      bfd_target.         (line  600)
+* bfd_flavour_name:                      bfd_target.         (line  607)
 * bfd_flush:                             Miscellaneous.      (line  388)
 * bfd_flush <1>:                         Miscellaneous.      (line  392)
 * bfd_follow_build_id_debuglink:         Opening and Closing.
@@ -11855,7 +11854,7 @@ BFD Index
 * bfd_get_size <2>:                      Internal.           (line  102)
 * bfd_get_symtab_upper_bound:            symbol handling functions.
                                                              (line    5)
-* bfd_get_target_info:                   bfd_target.         (line  560)
+* bfd_get_target_info:                   bfd_target.         (line  567)
 * bfd_get_unique_section_name:           section prototypes. (line   56)
 * bfd_hash_allocate:                     Creating and Freeing a Hash Table.
                                                              (line   17)
@@ -11937,7 +11936,7 @@ BFD Index
                                                              (line  111)
 * bfd_is_undefined_symclass <1>:         symbol handling functions.
                                                              (line  115)
-* bfd_iterate_over_targets:              bfd_target.         (line  590)
+* bfd_iterate_over_targets:              bfd_target.         (line  597)
 * bfd_link_check_relocs:                 Writing the symbol table.
                                                              (line  117)
 * bfd_link_check_relocs <1>:             Writing the symbol table.
@@ -11997,8 +11996,8 @@ BFD Index
 * bfd_perror <1>:                        Error reporting.    (line   86)
 * bfd_printable_arch_mach:               Architectures.      (line  707)
 * bfd_printable_name:                    Architectures.      (line  590)
-* bfd_print_error:                       Error reporting.    (line  122)
-* bfd_print_error <1>:                   Error reporting.    (line  127)
+* bfd_print_error:                       Error reporting.    (line  116)
+* bfd_print_error <1>:                   Error reporting.    (line  121)
 * bfd_print_symbol_vandf:                symbol handling functions.
                                                              (line   65)
 * bfd_print_symbol_vandf <1>:            symbol handling functions.
@@ -14571,16 +14570,16 @@ BFD Index
 * bfd_set_archive_head <1>:              Archives.           (line   76)
 * bfd_set_arch_info:                     Architectures.      (line  634)
 * bfd_set_arch_info <1>:                 Architectures.      (line  638)
-* bfd_set_assert_handler:                Error reporting.    (line  204)
-* bfd_set_assert_handler <1>:            Error reporting.    (line  209)
-* bfd_set_default_target:                bfd_target.         (line  536)
-* bfd_set_default_target <1>:            bfd_target.         (line  541)
+* bfd_set_assert_handler:                Error reporting.    (line  198)
+* bfd_set_assert_handler <1>:            Error reporting.    (line  203)
+* bfd_set_default_target:                bfd_target.         (line  543)
+* bfd_set_default_target <1>:            bfd_target.         (line  548)
 * bfd_set_error:                         Error reporting.    (line   57)
 * bfd_set_error <1>:                     Error reporting.    (line   61)
-* bfd_set_error_handler:                 Error reporting.    (line  150)
-* bfd_set_error_handler <1>:             Error reporting.    (line  154)
-* bfd_set_error_program_name:            Error reporting.    (line  175)
-* bfd_set_error_program_name <1>:        Error reporting.    (line  179)
+* bfd_set_error_handler:                 Error reporting.    (line  144)
+* bfd_set_error_handler <1>:             Error reporting.    (line  148)
+* bfd_set_error_program_name:            Error reporting.    (line  169)
+* bfd_set_error_program_name <1>:        Error reporting.    (line  173)
 * bfd_set_filename:                      Opening and Closing.
                                                              (line  378)
 * bfd_set_file_flags:                    Miscellaneous.      (line   41)
@@ -14621,10 +14620,10 @@ BFD Index
                                                              (line  119)
 * bfd_symbol_info <1>:                   symbol handling functions.
                                                              (line  123)
-* bfd_target:                            bfd_target.         (line  549)
-* bfd_target <1>:                        bfd_target.         (line  564)
-* bfd_target <2>:                        bfd_target.         (line  594)
-* bfd_target_list:                       bfd_target.         (line  583)
+* bfd_target:                            bfd_target.         (line  556)
+* bfd_target <1>:                        bfd_target.         (line  571)
+* bfd_target <2>:                        bfd_target.         (line  601)
+* bfd_target_list:                       bfd_target.         (line  590)
 * bfd_tell:                              Miscellaneous.      (line  382)
 * bfd_tell <1>:                          Miscellaneous.      (line  386)
 * bfd_thread_cleanup:                    Threading.          (line   36)
@@ -14641,13 +14640,13 @@ BFD Index
 * bfd_zmalloc:                           Internal.           (line   58)
 * Byte swapping routines.:               Internal.           (line  256)
 * char:                                  Error reporting.    (line   79)
-* char <1>:                              Error reporting.    (line  187)
+* char <1>:                              Error reporting.    (line  181)
 * char <2>:                              section prototypes. (line  273)
 * char <3>:                              Formats.            (line   83)
 * char <4>:                              howto manager.      (line 3611)
 * char <5>:                              Core Files.         (line   14)
-* char <6>:                              bfd_target.         (line  587)
-* char <7>:                              bfd_target.         (line  604)
+* char <6>:                              bfd_target.         (line  594)
+* char <7>:                              bfd_target.         (line  611)
 * char <8>:                              Architectures.      (line  594)
 * char <9>:                              Architectures.      (line  610)
 * char <10>:                             Architectures.      (line  711)
@@ -14673,7 +14672,7 @@ BFD Index
 * long:                                  Architectures.      (line  661)
 * machine_type:                          aout.               (line  134)
 * Other functions:                       Miscellaneous.      (line  165)
-* per_xvec_messages:                     Error reporting.    (line  161)
+* per_xvec_messages:                     Error reporting.    (line  155)
 * struct bfd_iovec:                      Miscellaneous.      (line  327)
 * target vector (_bfd_final_link):       Performing the Final Link.
                                                              (line    6)
@@ -14697,62 +14696,62 @@ Node: Canonical format8785
 Node: BFD front end13128
 Node: typedef bfd13566
 Node: Error reporting27315
-Node: Initialization34811
-Node: Threading35342
-Node: Miscellaneous37539
-Node: Memory Usage56750
-Node: Sections57975
-Node: Section Input58456
-Node: Section Output59650
-Node: typedef asection62137
-Node: section prototypes79491
-Node: Symbols90761
-Node: Reading Symbols92364
-Node: Writing Symbols93472
-Node: Mini Symbols95216
-Node: typedef asymbol96190
-Node: symbol handling functions102396
-Node: Archives107611
-Node: Formats111759
-Node: Relocations115102
-Node: typedef arelent115829
-Node: howto manager129704
-Node: Core Files268894
-Node: Targets270895
-Node: bfd_target272856
-Node: Architectures298749
-Node: Opening and Closing331043
-Node: Internal346654
-Node: File Caching357989
-Node: Linker Functions360752
-Node: Creating a Linker Hash Table362426
-Node: Adding Symbols to the Hash Table364165
-Node: Differing file formats365065
-Node: Adding symbols from an object file366790
-Node: Adding symbols from an archive368940
-Node: Performing the Final Link371286
-Node: Information provided by the linker372527
-Node: Relocating the section contents373681
-Node: Writing the symbol table375433
-Node: Hash Tables382524
-Node: Creating and Freeing a Hash Table383722
-Node: Looking Up or Entering a String384972
-Node: Traversing a Hash Table386225
-Node: Deriving a New Hash Table Type387014
-Node: Define the Derived Structures388080
-Node: Write the Derived Creation Routine389161
-Node: Write Other Derived Routines391772
-Node: BFD back ends397197
-Node: What to Put Where397467
-Node: aout397647
-Node: coff403732
-Node: elf424875
-Node: mmo425276
-Node: File layout426146
-Node: Symbol-table432059
-Node: mmo section mapping435822
-Node: GNU Free Documentation License439476
-Node: BFD Index464540
+Node: Initialization34646
+Node: Threading35177
+Node: Miscellaneous37374
+Node: Memory Usage56585
+Node: Sections57810
+Node: Section Input58291
+Node: Section Output59485
+Node: typedef asection61972
+Node: section prototypes79326
+Node: Symbols90596
+Node: Reading Symbols92199
+Node: Writing Symbols93307
+Node: Mini Symbols95051
+Node: typedef asymbol96025
+Node: symbol handling functions102231
+Node: Archives107446
+Node: Formats111594
+Node: Relocations114937
+Node: typedef arelent115664
+Node: howto manager129539
+Node: Core Files268729
+Node: Targets270730
+Node: bfd_target272691
+Node: Architectures298796
+Node: Opening and Closing331090
+Node: Internal346701
+Node: File Caching358036
+Node: Linker Functions360799
+Node: Creating a Linker Hash Table362473
+Node: Adding Symbols to the Hash Table364212
+Node: Differing file formats365112
+Node: Adding symbols from an object file366837
+Node: Adding symbols from an archive368987
+Node: Performing the Final Link371333
+Node: Information provided by the linker372574
+Node: Relocating the section contents373728
+Node: Writing the symbol table375480
+Node: Hash Tables382571
+Node: Creating and Freeing a Hash Table383769
+Node: Looking Up or Entering a String385019
+Node: Traversing a Hash Table386272
+Node: Deriving a New Hash Table Type387061
+Node: Define the Derived Structures388127
+Node: Write the Derived Creation Routine389208
+Node: Write Other Derived Routines391819
+Node: BFD back ends397244
+Node: What to Put Where397514
+Node: aout397694
+Node: coff403779
+Node: elf424922
+Node: mmo425323
+Node: File layout426193
+Node: Symbol-table432106
+Node: mmo section mapping435869
+Node: GNU Free Documentation License439523
+Node: BFD Index464587
 
 End Tag Table
 

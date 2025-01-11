@@ -7026,12 +7026,12 @@
 #define HAVE_vec_pack_trunc_vnx2di (TARGET_SVE)
 #define HAVE_aarch64_pack_partialvnx16qi (TARGET_SVE)
 #define HAVE_aarch64_pack_partialvnx8qi (TARGET_SVE)
-#define HAVE_aarch64_pack_partialvnx4qi (TARGET_SVE)
 #define HAVE_aarch64_pack_partialvnx8hi (TARGET_SVE)
-#define HAVE_aarch64_pack_partialvnx4hi (TARGET_SVE)
 #define HAVE_aarch64_pack_partialvnx8hf (TARGET_SVE)
-#define HAVE_aarch64_pack_partialvnx4hf (TARGET_SVE)
 #define HAVE_aarch64_pack_partialvnx8bf (TARGET_SVE)
+#define HAVE_aarch64_pack_partialvnx4qi (TARGET_SVE)
+#define HAVE_aarch64_pack_partialvnx4hi (TARGET_SVE)
+#define HAVE_aarch64_pack_partialvnx4hf (TARGET_SVE)
 #define HAVE_aarch64_pack_partialvnx4bf (TARGET_SVE)
 #define HAVE_aarch64_pack_partialvnx4si (TARGET_SVE)
 #define HAVE_aarch64_pack_partialvnx4sf (TARGET_SVE)
@@ -11675,15 +11675,21 @@
 #define HAVE_vec_initvnx2dfdf (TARGET_SVE)
 #define HAVE_vec_initvnx16qivnx8qi (TARGET_SVE)
 #define HAVE_vec_initvnx8qivnx4qi (TARGET_SVE)
-#define HAVE_vec_initvnx4qivnx2qi (TARGET_SVE)
 #define HAVE_vec_initvnx8hivnx4hi (TARGET_SVE)
-#define HAVE_vec_initvnx4hivnx2hi (TARGET_SVE)
 #define HAVE_vec_initvnx8hfvnx4hf (TARGET_SVE)
-#define HAVE_vec_initvnx4hfvnx2hf (TARGET_SVE)
 #define HAVE_vec_initvnx8bfvnx4bf (TARGET_SVE)
+#define HAVE_vec_initvnx4qivnx2qi (TARGET_SVE)
+#define HAVE_vec_initvnx4hivnx2hi (TARGET_SVE)
+#define HAVE_vec_initvnx4hfvnx2hf (TARGET_SVE)
 #define HAVE_vec_initvnx4bfvnx2bf (TARGET_SVE)
 #define HAVE_vec_initvnx4sivnx2si (TARGET_SVE)
 #define HAVE_vec_initvnx4sfvnx2sf (TARGET_SVE)
+#define HAVE_vec_initvnx16qivnx4qi (TARGET_SVE)
+#define HAVE_vec_initvnx8qivnx2qi (TARGET_SVE)
+#define HAVE_vec_initvnx8hivnx2hi (TARGET_SVE)
+#define HAVE_vec_initvnx8hfvnx2hf (TARGET_SVE)
+#define HAVE_vec_initvnx8bfvnx2bf (TARGET_SVE)
+#define HAVE_vec_initvnx16qivnx2qi (TARGET_SVE)
 #define HAVE_vec_duplicatevnx16bi (TARGET_SVE)
 #define HAVE_vec_duplicatevnx8bi (TARGET_SVE)
 #define HAVE_vec_duplicatevnx4bi (TARGET_SVE)
@@ -19516,12 +19522,12 @@ extern rtx        gen_vec_pack_trunc_vnx4si                            (rtx, rtx
 extern rtx        gen_vec_pack_trunc_vnx2di                            (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pack_partialvnx16qi                      (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pack_partialvnx8qi                       (rtx, rtx, rtx);
-extern rtx        gen_aarch64_pack_partialvnx4qi                       (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pack_partialvnx8hi                       (rtx, rtx, rtx);
-extern rtx        gen_aarch64_pack_partialvnx4hi                       (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pack_partialvnx8hf                       (rtx, rtx, rtx);
-extern rtx        gen_aarch64_pack_partialvnx4hf                       (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pack_partialvnx8bf                       (rtx, rtx, rtx);
+extern rtx        gen_aarch64_pack_partialvnx4qi                       (rtx, rtx, rtx);
+extern rtx        gen_aarch64_pack_partialvnx4hi                       (rtx, rtx, rtx);
+extern rtx        gen_aarch64_pack_partialvnx4hf                       (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pack_partialvnx4bf                       (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pack_partialvnx4si                       (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pack_partialvnx4sf                       (rtx, rtx, rtx);
@@ -23653,15 +23659,21 @@ extern rtx        gen_vec_initvnx4sfsf                                 (rtx, rtx
 extern rtx        gen_vec_initvnx2dfdf                                 (rtx, rtx);
 extern rtx        gen_vec_initvnx16qivnx8qi                            (rtx, rtx);
 extern rtx        gen_vec_initvnx8qivnx4qi                             (rtx, rtx);
-extern rtx        gen_vec_initvnx4qivnx2qi                             (rtx, rtx);
 extern rtx        gen_vec_initvnx8hivnx4hi                             (rtx, rtx);
-extern rtx        gen_vec_initvnx4hivnx2hi                             (rtx, rtx);
 extern rtx        gen_vec_initvnx8hfvnx4hf                             (rtx, rtx);
-extern rtx        gen_vec_initvnx4hfvnx2hf                             (rtx, rtx);
 extern rtx        gen_vec_initvnx8bfvnx4bf                             (rtx, rtx);
+extern rtx        gen_vec_initvnx4qivnx2qi                             (rtx, rtx);
+extern rtx        gen_vec_initvnx4hivnx2hi                             (rtx, rtx);
+extern rtx        gen_vec_initvnx4hfvnx2hf                             (rtx, rtx);
 extern rtx        gen_vec_initvnx4bfvnx2bf                             (rtx, rtx);
 extern rtx        gen_vec_initvnx4sivnx2si                             (rtx, rtx);
 extern rtx        gen_vec_initvnx4sfvnx2sf                             (rtx, rtx);
+extern rtx        gen_vec_initvnx16qivnx4qi                            (rtx, rtx);
+extern rtx        gen_vec_initvnx8qivnx2qi                             (rtx, rtx);
+extern rtx        gen_vec_initvnx8hivnx2hi                             (rtx, rtx);
+extern rtx        gen_vec_initvnx8hfvnx2hf                             (rtx, rtx);
+extern rtx        gen_vec_initvnx8bfvnx2bf                             (rtx, rtx);
+extern rtx        gen_vec_initvnx16qivnx2qi                            (rtx, rtx);
 extern rtx        gen_vec_duplicatevnx16bi                             (rtx, rtx);
 extern rtx        gen_vec_duplicatevnx8bi                              (rtx, rtx);
 extern rtx        gen_vec_duplicatevnx4bi                              (rtx, rtx);

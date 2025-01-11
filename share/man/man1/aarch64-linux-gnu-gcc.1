@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-01-04" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2025-01-11" "gcc-15.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -20868,16 +20868,16 @@ and the features that they enable by default:
 .IX Item "armv8.1-a : Armv8.1-A : armv8-a, +crc, +lse, +rdma"
 .IP "\fBarmv8.2\-a\fR : Armv8.2\-A : \fBarmv8.1\-a\fR" 4
 .IX Item "armv8.2-a : Armv8.2-A : armv8.1-a"
-.IP "\fBarmv8.3\-a\fR : Armv8.3\-A : \fBarmv8.2\-a\fR, \fB+pauth\fR" 4
-.IX Item "armv8.3-a : Armv8.3-A : armv8.2-a, +pauth"
-.IP "\fBarmv8.4\-a\fR : Armv8.4\-A : \fBarmv8.3\-a\fR, \fB+flagm\fR, \fB+fp16fml\fR, \fB+dotprod\fR" 4
-.IX Item "armv8.4-a : Armv8.4-A : armv8.3-a, +flagm, +fp16fml, +dotprod"
-.IP "\fBarmv8.5\-a\fR : Armv8.5\-A : \fBarmv8.4\-a\fR, \fB+sb\fR, \fB+ssbs\fR, \fB+predres\fR" 4
-.IX Item "armv8.5-a : Armv8.5-A : armv8.4-a, +sb, +ssbs, +predres"
+.IP "\fBarmv8.3\-a\fR : Armv8.3\-A : \fBarmv8.2\-a\fR, \fB+pauth\fR, \fB+fcma\fR, \fB+jscvt\fR" 4
+.IX Item "armv8.3-a : Armv8.3-A : armv8.2-a, +pauth, +fcma, +jscvt"
+.IP "\fBarmv8.4\-a\fR : Armv8.4\-A : \fBarmv8.3\-a\fR, \fB+flagm\fR, \fB+fp16fml\fR, \fB+dotprod\fR, \fB+rcpc2\fR" 4
+.IX Item "armv8.4-a : Armv8.4-A : armv8.3-a, +flagm, +fp16fml, +dotprod, +rcpc2"
+.IP "\fBarmv8.5\-a\fR : Armv8.5\-A : \fBarmv8.4\-a\fR, \fB+sb\fR, \fB+ssbs\fR, \fB+predres\fR, \fB+frintts\fR, \fB+flagm2\fR" 4
+.IX Item "armv8.5-a : Armv8.5-A : armv8.4-a, +sb, +ssbs, +predres, +frintts, +flagm2"
 .IP "\fBarmv8.6\-a\fR : Armv8.6\-A : \fBarmv8.5\-a\fR, \fB+bf16\fR, \fB+i8mm\fR" 4
 .IX Item "armv8.6-a : Armv8.6-A : armv8.5-a, +bf16, +i8mm"
-.IP "\fBarmv8.7\-a\fR : Armv8.7\-A : \fBarmv8.6\-a\fR" 4
-.IX Item "armv8.7-a : Armv8.7-A : armv8.6-a"
+.IP "\fBarmv8.7\-a\fR : Armv8.7\-A : \fBarmv8.6\-a\fR, \fB+wfxt\fR, \fB+xs\fR" 4
+.IX Item "armv8.7-a : Armv8.7-A : armv8.6-a, +wfxt, +xs"
 .IP "\fBarmv8.8\-a\fR : Armv8.8\-a : \fBarmv8.7\-a\fR, \fB+mops\fR" 4
 .IX Item "armv8.8-a : Armv8.8-a : armv8.7-a, +mops"
 .IP "\fBarmv8.9\-a\fR : Armv8.9\-a : \fBarmv8.8\-a\fR" 4
@@ -21255,6 +21255,9 @@ Enable the instructions to accelerate memory operations like \f(CW\*(C`memcpy\*(
 .IP "\fBflagm\fR" 4
 .IX Item "flagm"
 Enable the Flag Manipulation instructions Extension.
+.IP "\fBflagm2\fR" 4
+.IX Item "flagm2"
+Enable the FlagM2 flag conversion instructions.
 .IP "\fBpauth\fR" 4
 .IX Item "pauth"
 Enable the Pointer Authentication Extension.
@@ -21287,6 +21290,21 @@ instructions.
 .IX Item "sme2p1"
 Enable the Scalable Matrix Extension version 2.1.  This also enables \s-1SME2\s0
 instructions.
+.IP "\fBfcma\fR" 4
+.IX Item "fcma"
+Enable the complex number \s-1SIMD\s0 extensions.
+.IP "\fBjscvt\fR" 4
+.IX Item "jscvt"
+Enable the \f(CW\*(C`fjcvtzs\*(C'\fR JavaScript conversion instruction.
+.IP "\fBfrintts\fR" 4
+.IX Item "frintts"
+Enable floating-point round to integral value instructions.
+.IP "\fBwfxt\fR" 4
+.IX Item "wfxt"
+Enable \f(CW\*(C`wfet\*(C'\fR and \f(CW\*(C`wfit\*(C'\fR instructions.
+.IP "\fBxs\fR" 4
+.IX Item "xs"
+Enable the \s-1XS\s0 memory attribute extension.
 .IP "\fBlse128\fR" 4
 .IX Item "lse128"
 Enable the \s-1LSE128\s0 128\-bit atomic instructions extension.  This also
@@ -21301,6 +21319,9 @@ Enable support for Armv9.4\-a Guarded Control Stack extension.
 .IP "\fBthe\fR" 4
 .IX Item "the"
 Enable support for Armv8.9\-a/9.4\-a translation hardening extension.
+.IP "\fBrcpc2\fR" 4
+.IX Item "rcpc2"
+Enable the RCpc2 extension.
 .IP "\fBrcpc3\fR" 4
 .IX Item "rcpc3"
 Enable the RCpc3 (Release Consistency) extension.
@@ -29322,7 +29343,7 @@ Alias of \fB\-march=\fR.
 .IX Item "-march-map=architecture-string"
 Select the closest available \fB\-march=\fR value that is not more
 capable.  For instance, for \fB\-march\-map=sm_50\fR select
-\&\fB\-march=sm_35\fR, and for \fB\-march\-map=sm_53\fR select
+\&\fB\-march=sm_37\fR, and for \fB\-march\-map=sm_53\fR select
 \&\fB\-march=sm_53\fR.
 .IP "\fB\-mptx=\fR\fIversion-string\fR" 4
 .IX Item "-mptx=version-string"
@@ -29331,10 +29352,10 @@ Valid version strings are
 \&\fB3.1\fR,
 \&\fB4.1\fR, \fB4.2\fR,
 \&\fB6.0\fR, \fB6.3\fR,
-\&\fB7.0\fR, and \fB7.8\fR.
-The default \s-1PTX ISA\s0 version is 6.0, unless a higher
-version is required for specified \s-1PTX ISA\s0 target architecture via
-option \fB\-march=\fR.
+\&\fB7.0\fR, \fB7.3\fR, and \fB7.8\fR.
+The default \s-1PTX ISA\s0 version is the one that added support for the
+selected \s-1PTX ISA\s0 target architecture, see \fB\-march=\fR, but at
+least \fB6.0\fR, or \fB7.3\fR for \fB\-march=sm_52\fR and higher.
 .Sp
 This option sets the values of the preprocessor macros
 \&\f(CW\*(C`_\|_PTX_ISA_VERSION_MAJOR_\|_\*(C'\fR and \f(CW\*(C`_\|_PTX_ISA_VERSION_MINOR_\|_\*(C'\fR;
@@ -29350,7 +29371,20 @@ Apply partitioned execution optimizations.  This is the default when any
 level of optimization is selected.
 .IP "\fB\-msoft\-stack\fR" 4
 .IX Item "-msoft-stack"
-Generate code that does not use \f(CW\*(C`.local\*(C'\fR memory
+.PD 0
+.IP "\fB\-mno\-soft\-stack\fR" 4
+.IX Item "-mno-soft-stack"
+.PD
+For \fB\-mno\-soft\-stack\fR (the default, unless \fB\-mgomp\fR has
+been specified), use \s-1PTX\s0 \*(L"native\*(R" stacks, that is,
+generate code that uses \f(CW\*(C`.local\*(C'\fR memory or \s-1PTX\s0 \f(CW\*(C`alloca\*(C'\fR
+directly for stack storage.
+Unless \fB\-mptx=7.3\fR or higher and \fB\-march=sm_52\fR or
+higher are active, variable-length arrays and dynamically allocating
+memory on the stack with \f(CW\*(C`alloca\*(C'\fR are not supported.
+.Sp
+For \fB\-msoft\-stack\fR (implied by \fB\-mgomp\fR),
+generate code that does not use \f(CW\*(C`.local\*(C'\fR memory or \s-1PTX\s0 \f(CW\*(C`alloca\*(C'\fR
 directly for stack storage. Instead, a per-warp stack pointer is
 maintained explicitly. This enables variable-length stack allocation (with
 variable-length arrays or \f(CW\*(C`alloca\*(C'\fR), and when global memory is used for

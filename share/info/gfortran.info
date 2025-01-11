@@ -20273,8 +20273,8 @@ default-integer named constants:
 
 'INT8', 'INT16', 'INT32', 'INT64':
      Kind type parameters to specify an INTEGER type with a storage size
-     of 16, 32, and 64 bits.  It is negative if a target platform does
-     not support the particular kind.  (Fortran 2008 or later.)
+     of 8, 16, 32, and 64 bits.  It is negative if a target platform
+     does not support the particular kind.  (Fortran 2008 or later.)
 
 'INTEGER_KINDS':
      Default-kind integer constant array of rank one containing the
@@ -20343,6 +20343,12 @@ default-integer named constants:
      Scalar default-integer constant used as 'STAT=' return value by
      'UNLOCK' to denote that the lock variable is unlocked.  (Fortran
      2008 or later.)
+
+'UINT8', 'UINT16', 'UINT32', 'UINT64':
+     Kind type parameters to specify an UNSIGNED type with a storage
+     size of 8, 16, 32, and 64 bits.  It is negative if a target
+     platform does not support the particular kind.  (Extension, *note
+     Unsigned integers::.)
 
    The module provides the following derived type:
 
@@ -20422,6 +20428,32 @@ Fortran Type   Named constant          C type                   Extension
 'COMPLEX'      'C_FLOAT128_COMPLEX'    '_Float128 _Complex'     Ext.
 'LOGICAL'      'C_BOOL'                '_Bool'
 'CHARACTER'    'C_CHAR'                'char'
+
+   GNU Fortran also provides as an extension, named constants for
+'UNSIGNED' integers *note Unsigned integers::.
+Fortran Type   Named constant                C type
+---------------------------------------------------------------------------
+'UNSIGNED'     'C_UNSIGNED'                  'unsigned int'
+'UNSIGNED'     'C_UNSIGNED_SHORT'            'unsigned short'
+'UNSIGNED'     'C_UNSIGNED_CHAR'             'unsigned char'
+'UNSINGED'     'C_UNSIGNED_LONG'             'unsigned long'
+'UNSINGED'     'C_UNSIGNED_LONG_LONG'        'unsigned long long'
+'UNSIGNED'     'C_UINTMAX_T'                 'uintmax_t'
+'UNSIGNED'     'C_UINT8_T'                   'uint8_t'
+'UNSIGNED'     'C_UINT16_T'                  'uint16_t'
+'UNSIGNED'     'C_UINT32_T'                  'uint32_t'
+'UNSIGNED'     'C_UINT64_T'                  'uint64_t'
+'UNSIGNED'     'C_UINT128_T'                 'uint128_t'
+'UNSIGNED'     'C_UINT_FAST8_T'              'uint_fast8_t'
+'UNSIGNED'     'C_UINT_FAST16_T'             'uint_fast16_t'
+'UNSIGNED'     'C_UINT_FAST32_T'             'uint_fast32_t'
+'UNSIGNED'     'C_UINT_FAST64_T'             'uint_fast64_t'
+'UNSIGNED'     'C_UINT_FAST128_T'            'uint_fast128_t'
+'UNSIGNED'     'C_UINT_LEAST8_T'             'uint_least8_t'
+'UNSIGNED'     'C_UINT_LEAST16_T'            'uint_least16_t'
+'UNSIGNED'     'C_UINT_LEAST32_T'            'uint_least32_t'
+'UNSIGNED'     'C_UINT_LEAST64_T'            'uint_least64_t'
+'UNSIGNED'     'C_UINT_LEAST128_T'           'uint_least128_t'
 
    Additionally, the following parameters of type
 'CHARACTER(KIND=C_CHAR)' are defined.
@@ -24320,18 +24352,18 @@ Node: VERIFY713976
 Node: XOR715710
 Node: Intrinsic Modules717525
 Node: ISO_FORTRAN_ENV717812
-Node: ISO_C_BINDING722194
-Node: IEEE modules726139
-Node: OpenMP Modules OMP_LIB and OMP_LIB_KINDS727279
-Node: OpenACC Module OPENACC731495
-Node: Contributing732421
-Node: Contributors733251
-Node: Projects734905
-Node: Copying736083
-Node: GNU Free Documentation License773634
-Node: Funding798763
-Node: Option Index801289
-Node: Keyword Index820840
+Node: ISO_C_BINDING722469
+Node: IEEE modules727918
+Node: OpenMP Modules OMP_LIB and OMP_LIB_KINDS729058
+Node: OpenACC Module OPENACC733274
+Node: Contributing734200
+Node: Contributors735030
+Node: Projects736684
+Node: Copying737862
+Node: GNU Free Documentation License775413
+Node: Funding800542
+Node: Option Index803068
+Node: Keyword Index822619
 
 End Tag Table
 
