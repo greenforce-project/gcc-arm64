@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-01-11" "gcc-15.0.0" "GNU"
+.TH GCC 1 "2025-01-18" "gcc-15.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -20681,6 +20681,8 @@ but long int and pointers are 64 bits.
 The default depends on the specific target configuration.  Note that
 the \s-1LP64\s0 and \s-1ILP32\s0 ABIs are not link-compatible; you must compile your
 entire program with the same \s-1ABI,\s0 and link with a compatible set of libraries.
+.Sp
+The \fBilp32\fR model is deprecated.
 .IP "\fB\-mbig\-endian\fR" 4
 .IX Item "-mbig-endian"
 Generate big-endian code.  This is the default when \s-1GCC\s0 is configured for an

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "LD 1"
-.TH LD 1 "2025-01-11" "binutils-2.43.50" "GNU Development Tools"
+.TH LD 1 "2025-01-18" "binutils-2.43.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -975,6 +975,18 @@ relocations.  Different output formats can have further restrictions; for
 example some \f(CW\*(C`a.out\*(C'\fR\-based formats do not support partial linking
 with input files in other formats at all.
 .Sp
+When the relocatable output contains both contents which require
+link-time optimization (\s-1LTO\s0) and contents which don't require \s-1LTO,\s0
+a .gnu_object_only section will be created to contain a relocatable
+object file, as if \fB\-r\fR is applied to all relocatable inputs
+which don't require \s-1LTO.\s0  When processing a relocatable input with
+a .gnu_object_only section, the linker will extract the .gnu_object_only
+section as a separate input.
+.Sp
+Note that since \fB\-r\fR groups some sections from different input files
+together, there may be negative impacts on code size and locality in
+final executable or shared library.
+.Sp
 This option does the same thing as \fB\-i\fR.
 .IP "\fB\-R\fR \fIfilename\fR" 4
 .IX Item "-R filename"
@@ -1470,6 +1482,17 @@ i386 and x86\-64.
 Disable relocation overflow check.  This can be used to disable
 relocation overflow check if there will be no dynamic relocation
 overflow at run-time.  Supported for x86_64.
+.IP "\fBmemory-seal\fR" 4
+.IX Item "memory-seal"
+.PD 0
+.IP "\fBnomemory-seal\fR" 4
+.IX Item "nomemory-seal"
+.PD
+Instruct the executable or shared library that the all \s-1PT_LOAD\s0 segments
+should be sealed to avoid further manipulation (such as changing the
+protection flags, the segment size, or remove the mapping).
+This is a security hardening that requires system support.  This
+generates \s-1GNU_PROPERTY_MEMORY_SEAL\s0 in .note.gnu.property section
 .IP "\fBnow\fR" 4
 .IX Item "now"
 When generating an executable or shared library, mark it to tell the
