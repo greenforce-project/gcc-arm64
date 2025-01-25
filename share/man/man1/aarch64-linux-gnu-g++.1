@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-01-18" "gcc-15.0.1" "GNU"
+.TH GCC 1 "2025-01-25" "gcc-15.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -833,7 +833,8 @@ in the following sections.
 \&\fB\-moverride=\fR\fIstring\fR  \fB\-mverbose\-cost\-dump
 \&\-mstack\-protector\-guard=\fR\fIguard\fR \fB\-mstack\-protector\-guard\-reg=\fR\fIsysreg\fR
 \&\fB\-mstack\-protector\-guard\-offset=\fR\fIoffset\fR \fB\-mtrack\-speculation
-\&\-moutline\-atomics \-mearly\-ldp\-fusion \-mlate\-ldp\-fusion\fR
+\&\-moutline\-atomics \-mearly\-ldp\-fusion \-mlate\-ldp\-fusion
+\&\-Wexperimental\-fmv\-target\fR
 .Sp
 \&\fIAdapteva Epiphany Options\fR (\fBAdapteva Epiphany Options\fR)
 \&\fB\-mhalf\-reg\-file  \-mprefer\-short\-insn\-regs
@@ -1418,7 +1419,8 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-munaligned\-doubles  \-mno\-unaligned\-doubles
 \&\-muser\-mode  \-mno\-user\-mode
 \&\-mv8plus  \-mno\-v8plus  \-mvis  \-mno\-vis
-\&\-mvis2  \-mno\-vis2  \-mvis3  \-mno\-vis3
+\&\-mvis2  \-mno\-vis2
+\&\-mvis3  \-mno\-vis3  \-mvis3b  \-mno\-vis3b
 \&\-mvis4  \-mno\-vis4  \-mvis4b  \-mno\-vis4b
 \&\-mcbcond  \-mno\-cbcond  \-mfmaf  \-mno\-fmaf  \-mfsmuld  \-mno\-fsmuld
 \&\-mpopc  \-mno\-popc  \-msubxc  \-mno\-subxc
@@ -3043,6 +3045,9 @@ that have additional context.
 .Sp
 Version 19, which first appeard in G++ 14, fixes manglings of structured
 bindings to include \s-1ABI\s0 tags.
+.Sp
+Version 20, which first appeared in G++ 15, fixes manglings of lambdas
+in static data member initializers.
 .Sp
 See also \fB\-Wabi\fR.
 .IP "\fB\-fabi\-compat\-version=\fR\fIn\fR" 4
@@ -20888,12 +20893,14 @@ and the features that they enable by default:
 .IX Item "armv9-a : Armv9-A : armv8.5-a, +sve, +sve2"
 .IP "\fBarmv9.1\-a\fR : Armv9.1\-A : \fBarmv9\-a\fR, \fB+bf16\fR, \fB+i8mm\fR" 4
 .IX Item "armv9.1-a : Armv9.1-A : armv9-a, +bf16, +i8mm"
-.IP "\fBarmv9.2\-a\fR : Armv9.2\-A : \fBarmv9.1\-a\fR" 4
-.IX Item "armv9.2-a : Armv9.2-A : armv9.1-a"
+.IP "\fBarmv9.2\-a\fR : Armv9.2\-A : \fBarmv9.1\-a\fR, \fB+wfxt\fR, \fB+xs\fR" 4
+.IX Item "armv9.2-a : Armv9.2-A : armv9.1-a, +wfxt, +xs"
 .IP "\fBarmv9.3\-a\fR : Armv9.3\-A : \fBarmv9.2\-a\fR, \fB+mops\fR" 4
 .IX Item "armv9.3-a : Armv9.3-A : armv9.2-a, +mops"
 .IP "\fBarmv9.4\-a\fR : Armv9.4\-A : \fBarmv9.3\-a\fR" 4
 .IX Item "armv9.4-a : Armv9.4-A : armv9.3-a"
+.IP "\fBarmv9.5\-a\fR : Armv9.4\-A : \fBarmv9.4\-a\fR, \fBcpa\fR, \fB+faminmax\fR, \fB+lut\fR" 4
+.IX Item "armv9.5-a : Armv9.4-A : armv9.4-a, cpa, +faminmax, +lut"
 .IP "\fBarmv8\-r\fR : Armv8\-R : \fBarmv8\-r\fR" 4
 .IX Item "armv8-r : Armv8-R : armv8-r"
 .RE
@@ -21108,6 +21115,12 @@ hardware \s-1SVE\s0 vector lengths.
 .Sp
 The default is \fB\-msve\-vector\-bits=scalable\fR, which produces
 vector-length agnostic code.
+.IP "\fB\-Wexperimental\-fmv\-target\fR" 4
+.IX Item "-Wexperimental-fmv-target"
+Warn about use of experimental Function Multi Versioning.
+The Arm C Language Extension specification for Function Multi Versioning
+is beta and subject to change. Any usage of \s-1FMV\s0 is caveated that future
+behavior change and incompatibility is likely.
 .PP
 \fB\-march\fR and \fB\-mcpu\fR Feature Modifiers
 .IX Subsection "-march and -mcpu Feature Modifiers"
@@ -21359,6 +21372,9 @@ Enable the Floating Point Absolute Maximum/Minimum extension.
 .IP "\fBlut\fR" 4
 .IX Item "lut"
 Enable the Lookup Table extension.
+.IP "\fBcpa\fR" 4
+.IX Item "cpa"
+Enable the Checked Pointer Arithmetic instructions.
 .IP "\fBsve\-b16b16\fR" 4
 .IX Item "sve-b16b16"
 Enable the \s-1SVE\s0 non-widening brain floating-point (\f(CW\*(C`bf16\*(C'\fR) extension.
@@ -32931,6 +32947,19 @@ version 3.0 of the UltraSPARC Visual Instruction Set extensions.  The
 default is \fB\-mvis3\fR when targeting a cpu that supports such
 instructions, such as niagara\-3 and later.  Setting \fB\-mvis3\fR
 also sets \fB\-mvis2\fR and \fB\-mvis\fR.
+.IP "\fB\-mvis3b\fR" 4
+.IX Item "-mvis3b"
+.PD 0
+.IP "\fB\-mno\-vis3b\fR" 4
+.IX Item "-mno-vis3b"
+.PD
+With \fB\-mvis3b\fR, \s-1GCC\s0 generates code that takes advantage of
+version 3.0 of the UltraSPARC Visual Instruction Set extensions, plus
+the additional \s-1VIS\s0 instructions introduced in the Oracle \s-1SPARC\s0
+Architecture 2011. The default is \fB\-mvis3b\fR when targeting
+a cpu that supports such instructions, such as niagara\-7 and later.
+Setting \fB\-mvis3b\fR also sets \fB\-mvis3\fR, \fB\-mvis2\fR
+and \fB\-mvis\fR.
 .IP "\fB\-mvis4\fR" 4
 .IX Item "-mvis4"
 .PD 0
@@ -32941,7 +32970,8 @@ With \fB\-mvis4\fR, \s-1GCC\s0 generates code that takes advantage of
 version 4.0 of the UltraSPARC Visual Instruction Set extensions.  The
 default is \fB\-mvis4\fR when targeting a cpu that supports such
 instructions, such as niagara\-7 and later.  Setting \fB\-mvis4\fR
-also sets \fB\-mvis3\fR, \fB\-mvis2\fR and \fB\-mvis\fR.
+also sets \fB\-mvis3b\fR, \fB\-mvis3\fR, \fB\-mvis2\fR and
+\&\fB\-mvis\fR.
 .IP "\fB\-mvis4b\fR" 4
 .IX Item "-mvis4b"
 .PD 0
@@ -32953,8 +32983,8 @@ version 4.0 of the UltraSPARC Visual Instruction Set extensions, plus
 the additional \s-1VIS\s0 instructions introduced in the Oracle \s-1SPARC\s0
 Architecture 2017.  The default is \fB\-mvis4b\fR when targeting a
 cpu that supports such instructions, such as m8 and later.  Setting
-\&\fB\-mvis4b\fR also sets \fB\-mvis4\fR, \fB\-mvis3\fR,
-\&\fB\-mvis2\fR and \fB\-mvis\fR.
+\&\fB\-mvis4b\fR also sets \fB\-mvis4\fR, \fB\-mvis3b\fR,
+\&\fB\-mvis3\fR, \fB\-mvis2\fR and \fB\-mvis\fR.
 .IP "\fB\-mcbcond\fR" 4
 .IX Item "-mcbcond"
 .PD 0

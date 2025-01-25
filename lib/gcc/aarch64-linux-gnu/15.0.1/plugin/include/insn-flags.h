@@ -56,6 +56,7 @@
 		       rtx_mode_t (operands[3], SImode)) >= 0)
 #define HAVE_aarch64_movkdi (aarch64_movk_shift (rtx_mode_t (operands[2], DImode), \
 		       rtx_mode_t (operands[3], DImode)) >= 0)
+#define HAVE_aarch64_write_fpmr (TARGET_FP8)
 #define HAVE_addsi3_compare0 1
 #define HAVE_adddi3_compare0 1
 #define HAVE_addsi3_compareC 1
@@ -5945,16 +5946,16 @@
 #define HAVE_aarch64_sve_frsqrtsvnx4sf (TARGET_SVE)
 #define HAVE_aarch64_sve_frecpsvnx2df (TARGET_SVE)
 #define HAVE_aarch64_sve_frsqrtsvnx2df (TARGET_SVE)
-#define HAVE_aarch64_pred_famaxvnx8hf ((TARGET_SVE) && (TARGET_SVE_FAMINMAX))
-#define HAVE_aarch64_pred_faminvnx8hf ((TARGET_SVE) && (TARGET_SVE_FAMINMAX))
+#define HAVE_aarch64_pred_famaxvnx8hf ((TARGET_SVE) && (TARGET_FAMINMAX && TARGET_SVE2_OR_SME2))
+#define HAVE_aarch64_pred_faminvnx8hf ((TARGET_SVE) && (TARGET_FAMINMAX && TARGET_SVE2_OR_SME2))
 #define HAVE_aarch64_pred_divvnx8hf (TARGET_SVE)
 #define HAVE_aarch64_pred_mulxvnx8hf (TARGET_SVE)
-#define HAVE_aarch64_pred_famaxvnx4sf ((TARGET_SVE) && (TARGET_SVE_FAMINMAX))
-#define HAVE_aarch64_pred_faminvnx4sf ((TARGET_SVE) && (TARGET_SVE_FAMINMAX))
+#define HAVE_aarch64_pred_famaxvnx4sf ((TARGET_SVE) && (TARGET_FAMINMAX && TARGET_SVE2_OR_SME2))
+#define HAVE_aarch64_pred_faminvnx4sf ((TARGET_SVE) && (TARGET_FAMINMAX && TARGET_SVE2_OR_SME2))
 #define HAVE_aarch64_pred_divvnx4sf (TARGET_SVE)
 #define HAVE_aarch64_pred_mulxvnx4sf (TARGET_SVE)
-#define HAVE_aarch64_pred_famaxvnx2df ((TARGET_SVE) && (TARGET_SVE_FAMINMAX))
-#define HAVE_aarch64_pred_faminvnx2df ((TARGET_SVE) && (TARGET_SVE_FAMINMAX))
+#define HAVE_aarch64_pred_famaxvnx2df ((TARGET_SVE) && (TARGET_FAMINMAX && TARGET_SVE2_OR_SME2))
+#define HAVE_aarch64_pred_faminvnx2df ((TARGET_SVE) && (TARGET_FAMINMAX && TARGET_SVE2_OR_SME2))
 #define HAVE_aarch64_pred_divvnx2df (TARGET_SVE)
 #define HAVE_aarch64_pred_mulxvnx2df (TARGET_SVE)
 #define HAVE_aarch64_pred_addvnx8hf (TARGET_SVE)
@@ -8787,6 +8788,20 @@
 #define HAVE_aarch64_pred_nmatchvnx16qi (TARGET_SVE2 && TARGET_NON_STREAMING)
 #define HAVE_aarch64_pred_matchvnx8hi (TARGET_SVE2 && TARGET_NON_STREAMING)
 #define HAVE_aarch64_pred_nmatchvnx8hi (TARGET_SVE2 && TARGET_NON_STREAMING)
+#define HAVE_aarch64_sve_luti2vnx16qi (TARGET_LUT && TARGET_SVE2_OR_SME2)
+#define HAVE_aarch64_sve_luti4vnx16qi (TARGET_LUT && TARGET_SVE2_OR_SME2)
+#define HAVE_aarch64_sve_luti2vnx8hi (TARGET_LUT && TARGET_SVE2_OR_SME2)
+#define HAVE_aarch64_sve_luti4vnx8hi (TARGET_LUT && TARGET_SVE2_OR_SME2)
+#define HAVE_aarch64_sve_luti2vnx8hf (TARGET_LUT && TARGET_SVE2_OR_SME2)
+#define HAVE_aarch64_sve_luti4vnx8hf (TARGET_LUT && TARGET_SVE2_OR_SME2)
+#define HAVE_aarch64_sve_luti2vnx8bf (TARGET_LUT && TARGET_SVE2_OR_SME2)
+#define HAVE_aarch64_sve_luti4vnx8bf (TARGET_LUT && TARGET_SVE2_OR_SME2)
+#define HAVE_aarch64_sve_luti2vnx16hi (TARGET_LUT && TARGET_SVE2_OR_SME2)
+#define HAVE_aarch64_sve_luti4vnx16hi (TARGET_LUT && TARGET_SVE2_OR_SME2)
+#define HAVE_aarch64_sve_luti2vnx16hf (TARGET_LUT && TARGET_SVE2_OR_SME2)
+#define HAVE_aarch64_sve_luti4vnx16hf (TARGET_LUT && TARGET_SVE2_OR_SME2)
+#define HAVE_aarch64_sve_luti2vnx16bf (TARGET_LUT && TARGET_SVE2_OR_SME2)
+#define HAVE_aarch64_sve_luti4vnx16bf (TARGET_LUT && TARGET_SVE2_OR_SME2)
 #define HAVE_aarch64_sve2_aese (TARGET_SVE2_AES)
 #define HAVE_aarch64_sve2_aesd (TARGET_SVE2_AES)
 #define HAVE_aarch64_sve2_aesmc (TARGET_SVE2_AES)
@@ -12527,8 +12542,8 @@
 #define HAVE_smaxvnx2df3 (TARGET_SVE && (true || !false))
 #define HAVE_sminvnx2df3 (TARGET_SVE && (true || !false))
 #define HAVE_cond_addvnx8bf ((TARGET_SVE && (true || !true)) && (TARGET_SSVE_B16B16))
-#define HAVE_cond_famaxvnx8bf ((TARGET_SVE && (false || !true)) && (((TARGET_SSVE_B16B16) && (TARGET_SVE_FAMINMAX)) && (TARGET_SSVE_B16B16)))
-#define HAVE_cond_faminvnx8bf ((TARGET_SVE && (false || !true)) && (((TARGET_SSVE_B16B16) && (TARGET_SVE_FAMINMAX)) && (TARGET_SSVE_B16B16)))
+#define HAVE_cond_famaxvnx8bf ((TARGET_SVE && (false || !true)) && (((TARGET_SSVE_B16B16) && (TARGET_FAMINMAX && TARGET_SVE2_OR_SME2)) && (TARGET_SSVE_B16B16)))
+#define HAVE_cond_faminvnx8bf ((TARGET_SVE && (false || !true)) && (((TARGET_SSVE_B16B16) && (TARGET_FAMINMAX && TARGET_SVE2_OR_SME2)) && (TARGET_SSVE_B16B16)))
 #define HAVE_cond_divvnx8bf ((TARGET_SVE && (false || !true)) && (TARGET_SSVE_B16B16))
 #define HAVE_cond_fmax_nanvnx8bf ((TARGET_SVE && (true || !true)) && (TARGET_SSVE_B16B16))
 #define HAVE_cond_fmaxvnx8bf ((TARGET_SVE && (true || !true)) && (TARGET_SSVE_B16B16))
@@ -12540,8 +12555,8 @@
 #define HAVE_cond_smaxvnx8bf ((TARGET_SVE && (true || !true)) && (TARGET_SSVE_B16B16))
 #define HAVE_cond_sminvnx8bf ((TARGET_SVE && (true || !true)) && (TARGET_SSVE_B16B16))
 #define HAVE_cond_addvnx8hf (TARGET_SVE && (true || !false))
-#define HAVE_cond_famaxvnx8hf ((TARGET_SVE && (false || !false)) && (TARGET_SVE_FAMINMAX))
-#define HAVE_cond_faminvnx8hf ((TARGET_SVE && (false || !false)) && (TARGET_SVE_FAMINMAX))
+#define HAVE_cond_famaxvnx8hf ((TARGET_SVE && (false || !false)) && (TARGET_FAMINMAX && TARGET_SVE2_OR_SME2))
+#define HAVE_cond_faminvnx8hf ((TARGET_SVE && (false || !false)) && (TARGET_FAMINMAX && TARGET_SVE2_OR_SME2))
 #define HAVE_cond_divvnx8hf (TARGET_SVE && (false || !false))
 #define HAVE_cond_fmax_nanvnx8hf (TARGET_SVE && (true || !false))
 #define HAVE_cond_fmaxvnx8hf (TARGET_SVE && (true || !false))
@@ -12553,8 +12568,8 @@
 #define HAVE_cond_smaxvnx8hf (TARGET_SVE && (true || !false))
 #define HAVE_cond_sminvnx8hf (TARGET_SVE && (true || !false))
 #define HAVE_cond_addvnx4sf (TARGET_SVE && (true || !false))
-#define HAVE_cond_famaxvnx4sf ((TARGET_SVE && (false || !false)) && (TARGET_SVE_FAMINMAX))
-#define HAVE_cond_faminvnx4sf ((TARGET_SVE && (false || !false)) && (TARGET_SVE_FAMINMAX))
+#define HAVE_cond_famaxvnx4sf ((TARGET_SVE && (false || !false)) && (TARGET_FAMINMAX && TARGET_SVE2_OR_SME2))
+#define HAVE_cond_faminvnx4sf ((TARGET_SVE && (false || !false)) && (TARGET_FAMINMAX && TARGET_SVE2_OR_SME2))
 #define HAVE_cond_divvnx4sf (TARGET_SVE && (false || !false))
 #define HAVE_cond_fmax_nanvnx4sf (TARGET_SVE && (true || !false))
 #define HAVE_cond_fmaxvnx4sf (TARGET_SVE && (true || !false))
@@ -12566,8 +12581,8 @@
 #define HAVE_cond_smaxvnx4sf (TARGET_SVE && (true || !false))
 #define HAVE_cond_sminvnx4sf (TARGET_SVE && (true || !false))
 #define HAVE_cond_addvnx2df (TARGET_SVE && (true || !false))
-#define HAVE_cond_famaxvnx2df ((TARGET_SVE && (false || !false)) && (TARGET_SVE_FAMINMAX))
-#define HAVE_cond_faminvnx2df ((TARGET_SVE && (false || !false)) && (TARGET_SVE_FAMINMAX))
+#define HAVE_cond_famaxvnx2df ((TARGET_SVE && (false || !false)) && (TARGET_FAMINMAX && TARGET_SVE2_OR_SME2))
+#define HAVE_cond_faminvnx2df ((TARGET_SVE && (false || !false)) && (TARGET_FAMINMAX && TARGET_SVE2_OR_SME2))
 #define HAVE_cond_divvnx2df (TARGET_SVE && (false || !false))
 #define HAVE_cond_fmax_nanvnx2df (TARGET_SVE && (true || !false))
 #define HAVE_cond_fmaxvnx2df (TARGET_SVE && (true || !false))
@@ -13293,6 +13308,7 @@ extern rtx        gen_insv_immsi                                       (rtx, rtx
 extern rtx        gen_insv_immdi                                       (rtx, rtx, rtx);
 extern rtx        gen_aarch64_movksi                                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_movkdi                                   (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_write_fpmr                               (rtx);
 extern rtx        gen_addsi3_compare0                                  (rtx, rtx, rtx);
 extern rtx        gen_adddi3_compare0                                  (rtx, rtx, rtx);
 extern rtx        gen_addsi3_compareC                                  (rtx, rtx, rtx);
@@ -21047,6 +21063,20 @@ extern rtx        gen_aarch64_pred_matchvnx16qi                        (rtx, rtx
 extern rtx        gen_aarch64_pred_nmatchvnx16qi                       (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_matchvnx8hi                         (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_nmatchvnx8hi                        (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_luti2vnx16qi                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_luti4vnx16qi                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_luti2vnx8hi                          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_luti4vnx8hi                          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_luti2vnx8hf                          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_luti4vnx8hf                          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_luti2vnx8bf                          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_luti4vnx8bf                          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_luti2vnx16hi                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_luti4vnx16hi                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_luti2vnx16hf                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_luti4vnx16hf                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_luti2vnx16bf                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_sve_luti4vnx16bf                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve2_aese                                (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve2_aesd                                (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve2_aesmc                               (rtx, rtx);

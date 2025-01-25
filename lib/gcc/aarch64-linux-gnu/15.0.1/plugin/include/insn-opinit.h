@@ -4370,6 +4370,24 @@ code_for_aarch64_sve2_histseg (machine_mode arg0)
   return code;
 }
 
+extern insn_code maybe_code_for_aarch64_sve_luti (int, machine_mode);
+inline insn_code
+code_for_aarch64_sve_luti (int arg0, machine_mode arg1)
+{
+  insn_code code = maybe_code_for_aarch64_sve_luti (arg0, arg1);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_sve_luti (int, machine_mode, rtx, rtx, rtx, rtx);
+inline rtx
+gen_aarch64_sve_luti (int arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2, rtx x3)
+{
+  rtx res = maybe_gen_aarch64_sve_luti (arg0, arg1, x0, x1, x2, x3);
+  gcc_assert (res);
+  return res;
+}
+
 extern insn_code maybe_code_for_aarch64_sme (int, machine_mode);
 inline insn_code
 code_for_aarch64_sme (int arg0, machine_mode arg1)
