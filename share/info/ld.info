@@ -6679,9 +6679,9 @@ erratum in certain ARM1176 processors.  The workaround is enabled by
 default if you are targeting ARM v6 (excluding ARM v6T2) or earlier.  It
 can be disabled unconditionally by specifying '--no-fix-arm1176'.
 
-   Further information is available in the "ARM1176JZ-S and ARM1176JZF-S
-Programmer Advice Notice" available on the ARM documentation website at:
-http://infocenter.arm.com/.
+   Further information is available in "ARM1176JZ-S and ARM1176JZF-S
+Programmer Advice Notice" (UAN0002) available on the Arm documentation
+website at <https://developer.arm.com/>.
 
    The '--fix-stm32l4xx-629360' switch enables a link-time workaround
 for a bug in the bus matrix / memory controller for some of the STM32
@@ -9963,29 +9963,29 @@ Node: Machine Dependent282424
 Node: H8/300283479
 Node: M68HC11/68HC12285552
 Node: ARM286999
-Node: HPPA ELF32302214
-Node: M68K303837
-Node: MIPS304746
-Node: MMIX305862
-Node: MSP430307027
-Node: NDS32308940
-Node: PowerPC ELF32309910
-Node: PowerPC64 ELF64312739
-Node: S/390 ELF322497
-Node: SPU ELF322844
-Node: TI COFF325472
-Node: WIN32325998
-Node: Xtensa347217
-Node: BFD350660
-Node: BFD outline352118
-Node: BFD information loss353406
-Node: Canonical format355932
-Node: Reporting Bugs360260
-Node: Bug Criteria360954
-Node: Bug Reporting361653
-Node: MRI368688
-Node: GNU Free Documentation License373159
-Node: LD Index398296
+Node: HPPA ELF32302221
+Node: M68K303844
+Node: MIPS304753
+Node: MMIX305869
+Node: MSP430307034
+Node: NDS32308947
+Node: PowerPC ELF32309917
+Node: PowerPC64 ELF64312746
+Node: S/390 ELF322504
+Node: SPU ELF322851
+Node: TI COFF325479
+Node: WIN32326005
+Node: Xtensa347224
+Node: BFD350667
+Node: BFD outline352125
+Node: BFD information loss353413
+Node: Canonical format355939
+Node: Reporting Bugs360267
+Node: Bug Criteria360961
+Node: Bug Reporting361660
+Node: MRI368695
+Node: GNU Free Documentation License373166
+Node: LD Index398303
 
 End Tag Table
 
