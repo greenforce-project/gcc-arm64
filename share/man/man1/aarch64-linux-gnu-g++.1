@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-02-01" "gcc-15.0.1" "GNU"
+.TH GCC 1 "2025-02-08" "gcc-15.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -911,7 +911,7 @@ in the following sections.
 [+\fR\fIbti\fR\fB]|\fR\fIbti\fR\fB[+\fR\fIpac-ret\fR\fB[+\fR\fIleaf\fR\fB]]\fR
 .Sp
 \&\fI\s-1AVR\s0 Options\fR (\fB\s-1AVR\s0 Options\fR)
-\&\fB\-mmcu=\fR\fImcu\fR  \fB\-mabsdata  \-maccumulate\-args
+\&\fB\-mmcu=\fR\fImcu\fR  \fB\-mabsdata  \-maccumulate\-args  \-mcvt
 \&\-mbranch\-cost=\fR\fIcost\fR  \fB\-mfuse\-add=\fR\fIlevel\fR  \fB\-mfuse\-move=\fR\fIlevel\fR
 \&\fB\-mcall\-prologues  \-mgas\-isr\-prologues  \-mint8  \-mflmap
 \&\-mdouble=\fR\fIbits\fR  \fB\-mlong\-double=\fR\fIbits\fR
@@ -12185,6 +12185,16 @@ makes profiling significantly cheaper and usually inlining faster on programs
 having large chains of nested wrapper functions.
 .Sp
 Enabled by default.
+.IP "\fB\-ffile\-cache\-files=\fR" 4
+.IX Item "-ffile-cache-files="
+Max number of files in the file cache.
+The file cache is used to print source lines in diagnostics and do some
+source checks like \fB\-Wmisleading\-indentation\fR.
+.IP "\fB\-ffile\-cache\-files=\fR" 4
+.IX Item "-ffile-cache-files="
+Max number of lines to index into file cache. When 0 this is automatically sized.
+The file cache is used to print source lines in diagnostics and do some
+source checks like \fB\-Wmisleading\-indentation\fR.
 .IP "\fB\-fipa\-sra\fR" 4
 .IX Item "-fipa-sra"
 Perform interprocedural scalar replacement of aggregates, removal of
@@ -21541,30 +21551,84 @@ are
 .IP "\fBgfx900\fR" 4
 .IX Item "gfx900"
 Compile for \s-1GCN5\s0 Vega 10 devices (gfx900).
+.IP "\fBgfx902\fR" 4
+.IX Item "gfx902"
+Compile for \s-1GCN5\s0 Vega gfx902 devices. (Experimental)
+.IP "\fBgfx904\fR" 4
+.IX Item "gfx904"
+Compile for \s-1GCN5\s0 Vega gfx904 devices. (Experimental)
 .IP "\fBgfx906\fR" 4
 .IX Item "gfx906"
 Compile for \s-1GCN5\s0 Vega 20 devices (gfx906).
 .IP "\fBgfx908\fR" 4
 .IX Item "gfx908"
 Compile for \s-1CDNA1\s0 Instinct \s-1MI100\s0 series devices (gfx908).
+.IP "\fBgfx909\fR" 4
+.IX Item "gfx909"
+Compile for \s-1GCN5\s0 Vega gfx909 devices. (Experimental)
 .IP "\fBgfx90a\fR" 4
 .IX Item "gfx90a"
 Compile for \s-1CDNA2\s0 Instinct \s-1MI200\s0 series devices (gfx90a).
 .IP "\fBgfx90c\fR" 4
 .IX Item "gfx90c"
 Compile for \s-1GCN5\s0 Vega 7 devices (gfx90c).
+.IP "\fBgfx9\-generic\fR" 4
+.IX Item "gfx9-generic"
+Compile generic code for Vega devices, executable on the following subset of
+\&\s-1GFX9\s0 devices: gfx900, gfx902, gfx904, gfx906, gfx909 and gfx90c. (Experimental)
 .IP "\fBgfx1030\fR" 4
 .IX Item "gfx1030"
 Compile for \s-1RDNA2\s0 gfx1030 devices (\s-1GFX10\s0 series).
+.IP "\fBgfx1031\fR" 4
+.IX Item "gfx1031"
+Compile for \s-1RDNA2\s0 gfx1031 devices (\s-1GFX10\s0 series). (Experimental)
+.IP "\fBgfx1032\fR" 4
+.IX Item "gfx1032"
+Compile for \s-1RDNA2\s0 gfx1032 devices (\s-1GFX10\s0 series). (Experimental)
+.IP "\fBgfx1033\fR" 4
+.IX Item "gfx1033"
+Compile for \s-1RDNA2\s0 gfx1033 devices (\s-1GFX10\s0 series). (Experimental)
+.IP "\fBgfx1034\fR" 4
+.IX Item "gfx1034"
+Compile for \s-1RDNA2\s0 gfx1034 devices (\s-1GFX10\s0 series). (Experimental)
+.IP "\fBgfx1035\fR" 4
+.IX Item "gfx1035"
+Compile for \s-1RDNA2\s0 gfx1035 devices (\s-1GFX10\s0 series). (Experimental)
 .IP "\fBgfx1036\fR" 4
 .IX Item "gfx1036"
 Compile for \s-1RDNA2\s0 gfx1036 devices (\s-1GFX10\s0 series).
+.IP "\fBgfx10\-3\-generic\fR" 4
+.IX Item "gfx10-3-generic"
+Compile generic code for \s-1GFX10\-3\s0 devices, executable on gfx1030,
+gfx1031, gfx1032, gfx1033, gfx1034, gfx1035, and gfx1036. (Experimental)
 .IP "\fBgfx1100\fR" 4
 .IX Item "gfx1100"
 Compile for \s-1RDNA3\s0 gfx1100 devices (\s-1GFX11\s0 series).
+.IP "\fBgfx1101\fR" 4
+.IX Item "gfx1101"
+Compile for \s-1RDNA3\s0 gfx1101 devices (\s-1GFX11\s0 series). (Experimental)
+.IP "\fBgfx1102\fR" 4
+.IX Item "gfx1102"
+Compile for \s-1RDNA3\s0 gfx1102 devices (\s-1GFX11\s0 series). (Experimental)
 .IP "\fBgfx1103\fR" 4
 .IX Item "gfx1103"
 Compile for \s-1RDNA3\s0 gfx1103 devices (\s-1GFX11\s0 series).
+.IP "\fBgfx1150\fR" 4
+.IX Item "gfx1150"
+Compile for \s-1RDNA3\s0 gfx1150 devices (\s-1GFX11\s0 series). (Experimental)
+.IP "\fBgfx1151\fR" 4
+.IX Item "gfx1151"
+Compile for \s-1RDNA3\s0 gfx1151 devices (\s-1GFX11\s0 series). (Experimental)
+.IP "\fBgfx1152\fR" 4
+.IX Item "gfx1152"
+Compile for \s-1RDNA3\s0 gfx1152 devices (\s-1GFX11\s0 series). (Experimental)
+.IP "\fBgfx1153\fR" 4
+.IX Item "gfx1153"
+Compile for \s-1RDNA3\s0 gfx1153 devices (\s-1GFX11\s0 series). (Experimental)
+.IP "\fBgfx11\-generic\fR" 4
+.IX Item "gfx11-generic"
+Compile generic code for \s-1GFX11\s0 devices, executable on gfx1100, gfx1101,
+gfx1102, gfx1103, gfx1150, gfx1151, gfx1152, and gfx1153. (Experimental)
 .RE
 .RS 4
 .RE
@@ -23619,6 +23683,22 @@ integers. The default branch cost is 0.
 .IX Item "-mcall-prologues"
 Functions prologues/epilogues are expanded as calls to appropriate
 subroutines.  Code size is smaller.
+.IP "\fB\-mcvt\fR" 4
+.IX Item "-mcvt"
+Use a \fIcompact vector table\fR.  Some devices support a \s-1CVT\s0
+with only four entries: 0=Reset, 1=NMI, 2=Prio1 \s-1IRQ,\s0 3=Prio0 IRQs.
+This option will link startup code from \f(CW\*(C`crt\f(CImcu\f(CW\-cvt.o\*(C'\fR
+instead of the usual \f(CW\*(C`crt\f(CImcu\f(CW.o\*(C'\fR.
+Apart from providing a compact vector table, the startup code will set bit
+\&\f(CW\*(C`CPUINT_CTRLA.CPUINT_CVT\*(C'\fR which enables the \s-1CVT\s0 on the device.
+.Sp
+When you do not want the startup code to set \f(CW\*(C`CPUINT_CTRLA.CPUINT_CVT\*(C'\fR,
+then you can satisfy symbol \f(CW\*(C`_\|_do_cvt_init\*(C'\fR so that the respective
+code is no more pulled in from \f(CW\*(C`lib\f(CImcu\f(CW.a\*(C'\fR.
+For example, you can link with \f(CW\*(C`\-Wl,\-\-defsym,_\|_do_cvt_init=0\*(C'\fR.
+.Sp
+The \s-1CVT\s0 startup code is available since
+AVR-LibC\ #1010 (\f(CW\*(C`https://github.com/avrdudes/avr\-libc/issues/1010\*(C'\fR).
 .IP "\fB\-mfuse\-add\fR" 4
 .IX Item "-mfuse-add"
 .PD 0

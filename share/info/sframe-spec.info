@@ -412,7 +412,11 @@ Offset   Type         Name                        Description
 ----------------------------------------------------------------------------------------------
 0x00     'int32_t'    'sfde_func_start_address'   Signed 32-bit integral field denoting the
                                                   virtual memory address of the described
-                                                  function.
+                                                  function, for which the SFrame FDE
+                                                  applies.  The value encoded in the
+                                                  'sfde_func_start_address' field is the
+                                                  offset in bytes of the function's start
+                                                  address, from the SFrame section.
                                                   
 0x04     'uint32_t'   'sfde_func_size'            Unsigned 32-bit integral field specifying
                                                   the size of the function in bytes.
@@ -605,10 +609,10 @@ necessary, by the serializing and deserializing entities, if unaligned
 accesses need to be avoided.
 
    'sfre_start_address' is an unsigned 8-bit/16-bit/32-bit integral
-field identifies the start address of the range of program counters, for
+field denoting the start address of a range of program counters, for
 which the SFrame FRE applies.  The value encoded in the
-'sfre_start_address' field is the offset in bytes of the start address
-of the SFrame FRE, from the start address of the function.
+'sfre_start_address' field is the offset in bytes of the range's start
+address, from the start address of the function.
 
    Further SFrame FRE types may be added in future.
 
@@ -877,7 +881,7 @@ Index
 * SFRAME_MAGIC:                          SFrame Preamble.      (line 24)
 * SFRAME_VERSION_1:                      SFrame Version.       (line  9)
 * The SFrame FDE Info Word:              SFrame Function Descriptor Entries.
-                                                               (line 85)
+                                                               (line 89)
 * The SFrame FRE Info Word:              SFrame Frame Row Entries.
                                                                (line 74)
 
@@ -896,16 +900,16 @@ Node: SFrame Flags7130
 Node: SFrame Header8145
 Node: SFrame ABI/arch Identifier13571
 Node: SFrame Function Descriptor Entries14599
-Node: The SFrame FDE Info Word19043
-Node: The SFrame FDE Types20257
-Node: The SFrame FRE Types22079
-Node: SFrame Frame Row Entries23567
-Node: The SFrame FRE Info Word26619
-Node: ABI/arch-specific Definition28697
-Node: AMD6429792
-Node: AArch6430892
-Node: Generating Stack Traces using SFrame32101
-Node: Index35122
+Node: The SFrame FDE Info Word19416
+Node: The SFrame FDE Types20630
+Node: The SFrame FRE Types22452
+Node: SFrame Frame Row Entries23940
+Node: The SFrame FRE Info Word26978
+Node: ABI/arch-specific Definition29056
+Node: AMD6430151
+Node: AArch6431251
+Node: Generating Stack Traces using SFrame32460
+Node: Index35481
 
 End Tag Table
 
