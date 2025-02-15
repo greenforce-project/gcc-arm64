@@ -2554,7 +2554,7 @@ given.
 '--disassembler-color=off'
 '--disassembler-color=terminal'
 '--disassembler-color=on|color|colour'
-'--disassembler-color=extened|extended-color|extened-colour'
+'--disassembler-color=extended|extended-color|extended-colour'
      Enables or disables the use of colored syntax highlighting in
      disassembly output.  The default behaviour is determined via a
      configure time option.  Note, not all architectures support colored
@@ -6269,29 +6269,29 @@ Node: ar scripts20421
 Node: nm26107
 Node: objcopy41817
 Node: objdump84416
-Node: ranlib123374
-Node: size124973
-Node: strings129117
-Node: strip134952
-Node: c++filt144973
-Ref: c++filt-Footnote-1150834
-Node: addr2line150940
-Node: windmc156895
-Node: windres160554
-Node: dlltool167124
-Node: def file format180577
-Node: readelf183107
-Node: elfedit204445
-Node: Common Options207871
-Node: Selecting the Target System208905
-Node: Target Selection209833
-Node: Architecture Selection211814
-Node: debuginfod212642
-Node: Reporting Bugs213644
-Node: Bug Criteria214406
-Node: Bug Reporting214959
-Node: GNU Free Documentation License221826
-Node: Binutils Index246986
+Node: ranlib123376
+Node: size124975
+Node: strings129119
+Node: strip134954
+Node: c++filt144975
+Ref: c++filt-Footnote-1150836
+Node: addr2line150942
+Node: windmc156897
+Node: windres160556
+Node: dlltool167126
+Node: def file format180579
+Node: readelf183109
+Node: elfedit204447
+Node: Common Options207873
+Node: Selecting the Target System208907
+Node: Target Selection209835
+Node: Architecture Selection211816
+Node: debuginfod212644
+Node: Reporting Bugs213646
+Node: Bug Criteria214408
+Node: Bug Reporting214961
+Node: GNU Free Documentation License221828
+Node: Binutils Index246988
 
 End Tag Table
 

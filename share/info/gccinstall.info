@@ -2016,7 +2016,7 @@ option.
      Note that this functionality requires either libintl (provided by
      GNU gettext) or C standard library that contains support for
      gettext (such as the GNU C Library).  *Note -with-included-gettext:
-     with-included-gettext. for more information on the conditions
+     with-included-gettext, for more information on the conditions
      required to get gettext support.
 
 '--with-libintl-prefix=DIR'
@@ -3339,13 +3339,35 @@ amdgcn-*-amdhsa
 
 AMD GCN GPU target.
 
-   Instead of GNU Binutils, you will need to install LLVM 15, or later,
-and copy 'bin/llvm-mc' to 'amdgcn-amdhsa/bin/as', 'bin/lld' to
+   Instead of GNU Binutils, you need to install LLVM and copy
+'bin/llvm-mc' to 'amdgcn-amdhsa/bin/as', 'bin/lld' to
 'amdgcn-amdhsa/bin/ld', 'bin/llvm-nm' to 'amdgcn-amdhsa/bin/nm', and
 'bin/llvm-ar' to both 'bin/amdgcn-amdhsa-ar' and
-'bin/amdgcn-amdhsa-ranlib'.  Note that LLVM 13.0.1 or LLVM 14 can be
-used by specifying a '--with-multilib-list=' that does not list
-'gfx1100' and 'gfx1103'.
+'bin/amdgcn-amdhsa-ranlib'.
+
+   The required version of LLVM depends on the devices that you want to
+support.  As the list of ISAs is long, GCC by default only builds a
+subset of the supported ISAs as multilib; use '--with-multilib-list=' to
+tailor the built multilibs.  Note that mixing ISAs in the same binary is
+not supported and gives a linker error.
+
+   By default, multilib support is built for 'gfx900', 'gfx906',
+'gfx908', 'gfx90a', 'gfx90c', 'gfx1030', 'gfx1036', 'gfx1100' and
+'gfx1103'.  The default multilib configuration requires LLVM 15 or
+newer.  LLVM 13.0.1 or LLVM 14 can be used by specifying a
+'--with-multilib-list=' that does not list any GFX 11 device nor
+'gfx1036'.  At least LLVM 16 is required for 'gfx1150' and 'gfx1151',
+LLVM 19 for the generic 'gfx9-generic', 'gfx10-3-generic', and
+'gfx11-generic' targets and for 'gfx1152', while LLVM 20 is required for
+'gfx1153'.
+
+   The supported ISA architectures are listed in the GCC manual.  The
+generic ISA targets 'gfx9-generic', 'gfx10-3-generic', and
+'gfx11-generic' reduce the number of required multilibs but note that
+'gfx9-generic' does not include 'gfx908' or 'gfx90a', that linking
+specific ISA code with generic code is currently not supported, and that
+only a future ROCm release (newer than 6.3.2) will be able to execute
+generic code.
 
    Use Newlib (4.3.0 or newer; 4.4.0 contains some improvements and
 4.5.0 fixes the device console output for GFX10 and GFX11 devices).
@@ -3982,7 +4004,8 @@ Support for Solaris 10 has been removed in GCC 10.  Support for Solaris
 9 has been removed in GCC 5.  Support for Solaris 8 has been removed in
 GCC 4.8.  Support for Solaris 7 has been removed in GCC 4.6.
 
-   Solaris 11.4 provides one or more of GCC 5, 7, 9, 10, 11, 12, and 13.
+   Solaris 11.4 provides one or more of GCC 5, 7, 9, 10, 11, 12, 13, and
+14.
 
    You need to install the 'system/header', 'system/linker', and
 'developer/assembler' packages.
@@ -4000,21 +4023,23 @@ in conjunction with the Solaris linker.
 
    The GNU 'as' versions included in Solaris 11.4, from GNU binutils
 2.30.1 or newer (in '/usr/bin/gas' and '/usr/gnu/bin/as'), are known to
-work.  The version from GNU binutils 2.42 is known to work as well.
+work.  The version from GNU binutils 2.44 is known to work as well.
 Recent versions of the Solaris assembler in '/usr/bin/as' work almost as
 well, though.  To use GNU 'as', configure with the options
 '--with-gnu-as --with-as=/usr/gnu/bin/as'.
 
    For linking, the Solaris linker is preferred.  If you want to use the
 GNU linker instead, the version in Solaris 11.4, from GNU binutils
-2.30.1 or newer (in '/usr/gnu/bin/ld' and '/usr/bin/gld'), works, as
-does the version from GNU binutils 2.42.  However, it generally lacks
-platform specific features, so better stay with Solaris 'ld'.  To use
-the LTO linker plugin ('-fuse-linker-plugin') with GNU 'ld', GNU
-binutils _must_ be configured with '--enable-largefile'.  To use Solaris
-'ld', we recommend to configure with '--without-gnu-ld
---with-ld=/usr/bin/ld' to guarantee the right linker is found
-irrespective of the user's 'PATH'.
+2.30.1 or newer (in '/usr/gnu/bin/ld' and '/usr/bin/gld'), works.
+However, it generally lacks platform specific features, so better stay
+with Solaris 'ld'.  When using the version from GNU binutils 2.44,
+there's an important caveat: binutils _must_ be configured with
+'CONFIG_SHELL=/bin/bash', otherwise the linker's built-in linker scripts
+get corrupted on x86.  To use the LTO linker plugin
+('-fuse-linker-plugin') with GNU 'ld', GNU binutils _must_ be configured
+with '--enable-largefile'.  To use Solaris 'ld', we recommend to
+configure with '--without-gnu-ld --with-ld=/usr/bin/ld' to guarantee the
+right linker is found irrespective of the user's 'PATH'.
 
    Note that your mileage may vary if you use a combination of the GNU
 tools and the Solaris tools: while the combination GNU 'as' and Solaris
@@ -4029,8 +4054,8 @@ disabled if no appropriate version is found.  Solaris 'c++filt' from the
 Solaris Studio compilers does _not_ work.
 
    In order to build the GNU Ada compiler, GNAT, a working GNAT is
-needed.  Since Solaris 11.4 SRU 39, GNAT 11, 12 or 13 is bundled in the
-'developer/gcc/gcc-gnat' package.
+needed.  Since Solaris 11.4 SRU 39, GNAT 11, 12, 13 or 14 is bundled in
+the 'developer/gcc/gcc-gnat' package.
 
    In order to build the GNU D compiler, GDC, a working 'libphobos' is
 needed.  That library wasn't built by default in GCC 9-11 on SPARC, or
@@ -4846,81 +4871,81 @@ Node: Specific146882
 Ref: aarch64-x-x147416
 Ref: amd64-x-solaris2149436
 Ref: amdgcn-x-amdhsa149518
-Ref: arc-x-elf32150273
-Ref: arc-linux-uclibc150449
-Ref: arm-x-eabi150590
-Ref: avr150843
-Ref: bfin151325
-Ref: cris151588
-Ref: dos151914
-Ref: epiphany-x-elf152239
-Ref: x-x-freebsd152344
-Ref: ft32-x-elf152972
-Ref: h8300-hms153070
-Ref: hppa64-hp-hpux11153129
-Ref: x-x-linux-gnu153886
-Ref: ix86-x-linux154079
-Ref: ix86-x-solaris2154281
-Ref: ia64-x-linux154520
-Ref: ia64-x-hpux154767
-Ref: x-ibm-aix154985
-Ref: TransferAixShobj158647
-Ref: iq2000-x-elf162229
-Ref: lm32-x-elf162369
-Ref: lm32-x-uclinux162473
-Ref: loongarch162601
-Ref: m32c-x-elf163238
-Ref: m32r-x-elf163340
-Ref: m68k-x-x163442
-Ref: m68k-x-uclinux164480
-Ref: microblaze-x-elf164725
-Ref: mips-x-x164844
-Ref: moxie-x-elf166754
-Ref: msp430-x-elf166801
-Ref: nds32le-x-elf167358
-Ref: nds32be-x-elf167430
-Ref: nvptx-x-none167499
-Ref: or1k-x-elf168456
-Ref: or1k-x-linux168587
-Ref: powerpc-x-x168668
-Ref: powerpc-x-darwin168859
-Ref: powerpc-x-elf169354
-Ref: powerpc-x-linux-gnu169439
-Ref: powerpc-x-netbsd169534
-Ref: powerpc-x-eabisim169622
-Ref: powerpc-x-eabi169748
-Ref: powerpcle-x-elf169824
-Ref: powerpcle-x-eabisim169916
-Ref: powerpcle-x-eabi170049
-Ref: rl78-x-elf170132
-Ref: riscv32-x-elf170238
-Ref: riscv32-x-linux170427
-Ref: riscv64-x-elf170584
-Ref: riscv64-x-linux170773
-Ref: rx-x-elf170930
-Ref: s390-x-linux170976
-Ref: s390x-x-linux171048
-Ref: s390x-ibm-tpf171135
-Ref: x-x-solaris2171266
-Ref: sparc-x-x174578
-Ref: sparc-sun-solaris2175080
-Ref: sparc-x-linux175979
-Ref: sparc64-x-solaris2176010
-Ref: sparcv9-x-solaris2176097
-Ref: c6x-x-x176818
-Ref: visium-x-elf176910
-Ref: x-x-vxworks177018
-Ref: x86-64-x-x178541
-Ref: x86-64-x-solaris2178869
-Ref: xtensa-x-elf179374
-Ref: xtensa-x-linux180045
-Ref: windows180386
-Ref: x-x-cygwin181972
-Ref: x-x-mingw32182525
-Ref: older182751
-Ref: elf184714
-Node: GNU Free Documentation License184968
-Node: Concept Index210106
+Ref: arc-x-elf32151415
+Ref: arc-linux-uclibc151591
+Ref: arm-x-eabi151732
+Ref: avr151985
+Ref: bfin152467
+Ref: cris152730
+Ref: dos153056
+Ref: epiphany-x-elf153381
+Ref: x-x-freebsd153486
+Ref: ft32-x-elf154114
+Ref: h8300-hms154212
+Ref: hppa64-hp-hpux11154271
+Ref: x-x-linux-gnu155028
+Ref: ix86-x-linux155221
+Ref: ix86-x-solaris2155423
+Ref: ia64-x-linux155662
+Ref: ia64-x-hpux155909
+Ref: x-ibm-aix156127
+Ref: TransferAixShobj159789
+Ref: iq2000-x-elf163371
+Ref: lm32-x-elf163511
+Ref: lm32-x-uclinux163615
+Ref: loongarch163743
+Ref: m32c-x-elf164380
+Ref: m32r-x-elf164482
+Ref: m68k-x-x164584
+Ref: m68k-x-uclinux165622
+Ref: microblaze-x-elf165867
+Ref: mips-x-x165986
+Ref: moxie-x-elf167896
+Ref: msp430-x-elf167943
+Ref: nds32le-x-elf168500
+Ref: nds32be-x-elf168572
+Ref: nvptx-x-none168641
+Ref: or1k-x-elf169598
+Ref: or1k-x-linux169729
+Ref: powerpc-x-x169810
+Ref: powerpc-x-darwin170001
+Ref: powerpc-x-elf170496
+Ref: powerpc-x-linux-gnu170581
+Ref: powerpc-x-netbsd170676
+Ref: powerpc-x-eabisim170764
+Ref: powerpc-x-eabi170890
+Ref: powerpcle-x-elf170966
+Ref: powerpcle-x-eabisim171058
+Ref: powerpcle-x-eabi171191
+Ref: rl78-x-elf171274
+Ref: riscv32-x-elf171380
+Ref: riscv32-x-linux171569
+Ref: riscv64-x-elf171726
+Ref: riscv64-x-linux171915
+Ref: rx-x-elf172072
+Ref: s390-x-linux172118
+Ref: s390x-x-linux172190
+Ref: s390x-ibm-tpf172277
+Ref: x-x-solaris2172408
+Ref: sparc-x-x175890
+Ref: sparc-sun-solaris2176392
+Ref: sparc-x-linux177291
+Ref: sparc64-x-solaris2177322
+Ref: sparcv9-x-solaris2177409
+Ref: c6x-x-x178130
+Ref: visium-x-elf178222
+Ref: x-x-vxworks178330
+Ref: x86-64-x-x179853
+Ref: x86-64-x-solaris2180181
+Ref: xtensa-x-elf180686
+Ref: xtensa-x-linux181357
+Ref: windows181698
+Ref: x-x-cygwin183284
+Ref: x-x-mingw32183837
+Ref: older184063
+Ref: elf186026
+Node: GNU Free Documentation License186280
+Node: Concept Index211418
 
 End Tag Table
 

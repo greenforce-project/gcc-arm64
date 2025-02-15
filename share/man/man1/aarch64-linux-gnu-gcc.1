@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-02-08" "gcc-15.0.1" "GNU"
+.TH GCC 1 "2025-02-15" "gcc-15.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -914,8 +914,8 @@ in the following sections.
 \&\fB\-mmcu=\fR\fImcu\fR  \fB\-mabsdata  \-maccumulate\-args  \-mcvt
 \&\-mbranch\-cost=\fR\fIcost\fR  \fB\-mfuse\-add=\fR\fIlevel\fR  \fB\-mfuse\-move=\fR\fIlevel\fR
 \&\fB\-mcall\-prologues  \-mgas\-isr\-prologues  \-mint8  \-mflmap
-\&\-mdouble=\fR\fIbits\fR  \fB\-mlong\-double=\fR\fIbits\fR
-\&\fB\-mn_flash=\fR\fIsize\fR  \fB\-mfract\-convert\-truncate  \-mno\-interrupts
+\&\-mdouble=\fR\fIbits\fR  \fB\-mlong\-double=\fR\fIbits\fR  \fB\-mno\-call\-main
+\&\-mn_flash=\fR\fIsize\fR  \fB\-mfract\-convert\-truncate  \-mno\-interrupts
 \&\-mmain\-is\-OS_task  \-mrelax  \-mrmw  \-mstrict\-X  \-mtiny\-stack
 \&\-mrodata\-in\-ram  \-msplit\-bit\-shift  \-msplit\-ldst
 \&\-mshort\-calls  \-mskip\-bug  \-nodevicelib  \-nodevicespecs
@@ -1084,7 +1084,8 @@ in the following sections.
 \&\fB\-march=\fR\fIarch-type\fR  \fB\-mtune=\fR\fItune-type\fR \fB\-mabi=\fR\fIbase-abi-type\fR
 \&\fB\-mfpu=\fR\fIfpu-type\fR \fB\-msimd=\fR\fIsimd-type\fR
 \&\fB\-msoft\-float \-msingle\-float \-mdouble\-float \-mlsx \-mno\-lsx \-mlasx \-mno\-lasx
-\&\-mbranch\-cost=\fR\fIn\fR  \fB\-mcheck\-zero\-division \-mno\-check\-zero\-division
+\&\-mbranch\-cost=\fR\fIn\fR \fB\-maddr\-reg\-reg\-cost=\fR\fIn\fR  \fB\-mcheck\-zero\-division
+\&\-mno\-check\-zero\-division
 \&\-mcond\-move\-int  \-mno\-cond\-move\-int
 \&\-mcond\-move\-float  \-mno\-cond\-move\-float
 \&\-memcpy  \-mno\-memcpy \-mstrict\-align \-mno\-strict\-align \-G\fR \fInum\fR
@@ -3040,10 +3041,10 @@ Version 17, which first appeared in G++ 12, fixes layout of classes
 that inherit from aggregate classes with default member initializers
 in \*(C+14 and up.
 .Sp
-Version 18, which first appeard in G++ 13, fixes manglings of lambdas
+Version 18, which first appeared in G++ 13, fixes manglings of lambdas
 that have additional context.
 .Sp
-Version 19, which first appeard in G++ 14, fixes manglings of structured
+Version 19, which first appeared in G++ 14, fixes manglings of structured
 bindings to include \s-1ABI\s0 tags.
 .Sp
 Version 20, which first appeared in G++ 15, fixes manglings of lambdas
@@ -3546,9 +3547,8 @@ easier, you can use \fB\-fno\-pretty\-templates\fR to disable them.
 Enable lifetime extension of \*(C+ range based for temporaries.
 With \fB\-std=c++23\fR and above this is part of the language standard,
 so lifetime of the temporaries is extended until the end of the loop
-regardless of this option.  This option allows enabling that behavior also
-in earlier versions of the standard and is enabled by default in the
-\&\s-1GNU\s0 dialects, from \fB\-std=gnu++11\fR until \fB\-std=gnu++20\fR.
+by default.  This option allows enabling that behavior also
+in earlier versions of the standard.
 .IP "\fB\-fno\-rtti\fR" 4
 .IX Item "-fno-rtti"
 Disable generation of information about every class with virtual
@@ -6721,8 +6721,8 @@ This warning is enabled by \fB\-Wall\fR.
 Warn when \fB\-fhardened\fR did not enable an option from its set (for
 which see \fB\-fhardened\fR).  For instance, using \fB\-fhardened\fR
 and \fB\-fstack\-protector\fR at the same time on the command line causes
-\&\fB\-Whardened\fR to warn because \fB\-fstack\-protector\-strong\fR is
-not enabled by \fB\-fhardened\fR.
+\&\fB\-Whardened\fR to warn because \fB\-fstack\-protector\-strong\fR will
+not be enabled by \fB\-fhardened\fR.
 .Sp
 This warning is enabled by default and has effect only when \fB\-fhardened\fR
 is enabled.
@@ -9566,7 +9566,7 @@ equivalent to \fB(void)\fR in that case, but is considered an
 old-style definition for older standards.
 .IP "\fB\-Wdeprecated\-non\-prototype\fR (C and Objective-C only)" 4
 .IX Item "-Wdeprecated-non-prototype (C and Objective-C only)"
-Warn if a function declarated with an empty parameter list \fB()\fR is
+Warn if a function declared with an empty parameter list \fB()\fR is
 called with one or more arguments, or if a function definition with one
 or more parameters is encountered after such a declaration.  Both cases
 are errors in C23 and later dialects  of C.
@@ -14188,12 +14188,12 @@ This option is enabled by \fB\-fauto\-profile\fR.
 .IP "\fB\-fprofile\-partial\-training\fR" 4
 .IX Item "-fprofile-partial-training"
 With \f(CW\*(C`\-fprofile\-use\*(C'\fR all portions of programs not executed during train
-run are optimized agressively for size rather than speed.  In some cases it is
+run are optimized aggressively for size rather than speed.  In some cases it is
 not practical to train all possible hot paths in the program. (For
 example, program may contain functions specific for a given hardware and
-trianing may not cover all hardware configurations program is run on.)  With
-\&\f(CW\*(C`\-fprofile\-partial\-training\*(C'\fR profile feedback will be ignored for all
-functions not executed during the train run leading them to be optimized as if
+training may not cover all hardware configurations program is run on.)  With
+\&\f(CW\*(C`\-fprofile\-partial\-training\*(C'\fR profile feedback is ignored for all
+functions not executed during the train run, leading them to be optimized as if
 they were compiled without profile feedback. This leads to better performance
 when train run is not representative but also leads to significantly bigger
 code.
@@ -14610,7 +14610,7 @@ Control whether \f(CW\*(C`malloc\*(C'\fR (and its variants such as \f(CW\*(C`cal
 \&\f(CW\*(C`strdup\*(C'\fR),  can be optimized away provided its return value is only used
 as a parameter of \f(CW\*(C`free\*(C'\fR call or compared with \f(CW\*(C`NULL\*(C'\fR.  If
 \&\fB\-fmalloc\-dce=1\fR is used, only calls to \f(CW\*(C`free\*(C'\fR are allowed while
-with \fB\-fmalloc\-dce=2\fR also comparsions with \f(CW\*(C`NULL\*(C'\fR pointer are
+with \fB\-fmalloc\-dce=2\fR also comparisons with \f(CW\*(C`NULL\*(C'\fR pointer are
 considered safe to remove.
 .Sp
 The default is \fB\-fmalloc\-dce=2\fR.  See also \fB\-fallocation\-dce\fR.
@@ -14869,12 +14869,12 @@ by the compiler are investigated.  To those functions, a different
 be applied (\fB\-\-param max-inline-insns-auto\fR).
 .IP "\fBmax-inline-insns-small\fR" 4
 .IX Item "max-inline-insns-small"
-This is bound applied to calls which are considered relevant with
+This is the bound applied to calls that are considered relevant with
 \&\fB\-finline\-small\-functions\fR.
 .IP "\fBmax-inline-insns-size\fR" 4
 .IX Item "max-inline-insns-size"
-This is bound applied to calls which are optimized for size. Small growth
-may be desirable to anticipate optimization oppurtunities exposed by inlining.
+This is the bound applied to calls that are optimized for size. Small growth
+may be desirable to anticipate optimization opportunities exposed by inlining.
 .IP "\fBuninlined-function-insns\fR" 4
 .IX Item "uninlined-function-insns"
 Number of instructions accounted by inliner for function overhead such as
@@ -14912,7 +14912,7 @@ to avoid extreme compilation time caused by non-linear algorithms used by the
 back end.
 .IP "\fBlarge-function-growth\fR" 4
 .IX Item "large-function-growth"
-Specifies maximal growth of large function caused by inlining in percents.
+Specifies maximal growth of large functions caused by inlining in percents.
 For example, parameter value 100 limits large function growth to 2.0 times
 the original size.
 .IP "\fBlarge-unit-insns\fR" 4
@@ -16274,12 +16274,12 @@ With \fB\-\-param=openacc\-privatization=noisy\fR, do diagnose.
 .IP "\fBcycle-accurate-model\fR" 4
 .IX Item "cycle-accurate-model"
 Specifies whether \s-1GCC\s0 should assume that the scheduling description is mostly
-a cycle-accurate model of the target processor, where the code is intended to
+a cycle-accurate model of the target processor the code is intended to
 run on, in the absence of cache misses.  Nonzero means that the selected
 scheduling model is accurate and likely describes an in-order processor,
-and that scheduling will aggressively spill to try and fill any pipeline
-bubbles.  This is the current default.  Zero could mean scheduling descrption
-might not be available/accurate or perhaps not applicale at all such as for
+and that scheduling should aggressively spill to try and fill any pipeline
+bubbles.  This is the current default.  Zero means the scheduling description
+might not be available/accurate or perhaps not applicable at all, such as for
 modern out-of-order processors.
 .RE
 .RS 4
@@ -16310,7 +16310,7 @@ approximation is enabled.  The default value is 1.
 .IP "\fBaarch64\-double\-recp\-precision\fR" 4
 .IX Item "aarch64-double-recp-precision"
 The number of Newton iterations for calculating the reciprocal for double type.
-The precision of division is propotional to this param when division
+The precision of division is proportional to this param when division
 approximation is enabled.  The default value is 2.
 .IP "\fBaarch64\-autovec\-preference\fR" 4
 .IX Item "aarch64-autovec-preference"
@@ -19416,7 +19416,7 @@ of the option is \fB\-fno\-sync\-libcalls\fR.  This option is used in
 the implementation of the \fIlibatomic\fR runtime library.
 .IP "\fB\-fzero\-init\-padding\-bits=\fR\fIvalue\fR" 4
 .IX Item "-fzero-init-padding-bits=value"
-Guarantee zero initalization of padding bits in automatic variable
+Guarantee zero initialization of padding bits in automatic variable
 initializers.
 Certain languages guarantee zero initialization of padding bits in
 certain cases, e.g. C23 when using empty initializers (\f(CW\*(C`{}\*(C'\fR),
@@ -23693,12 +23693,12 @@ Apart from providing a compact vector table, the startup code will set bit
 \&\f(CW\*(C`CPUINT_CTRLA.CPUINT_CVT\*(C'\fR which enables the \s-1CVT\s0 on the device.
 .Sp
 When you do not want the startup code to set \f(CW\*(C`CPUINT_CTRLA.CPUINT_CVT\*(C'\fR,
-then you can satisfy symbol \f(CW\*(C`_\|_do_cvt_init\*(C'\fR so that the respective
+then you can satisfy symbol \f(CW\*(C`_\|_init_cvt\*(C'\fR so that the respective
 code is no more pulled in from \f(CW\*(C`lib\f(CImcu\f(CW.a\*(C'\fR.
-For example, you can link with \f(CW\*(C`\-Wl,\-\-defsym,_\|_do_cvt_init=0\*(C'\fR.
+For example, you can link with \f(CW\*(C`\-Wl,\-\-defsym,_\|_init_cvt=0\*(C'\fR.
 .Sp
 The \s-1CVT\s0 startup code is available since
-AVR-LibC\ #1010 (\f(CW\*(C`https://github.com/avrdudes/avr\-libc/issues/1010\*(C'\fR).
+AVR-LibC\ v2.3 (\f(CW\*(C`https://github.com/avrdudes/avr\-libc/issues/1010\*(C'\fR).
 .IP "\fB\-mfuse\-add\fR" 4
 .IX Item "-mfuse-add"
 .PD 0
@@ -23759,6 +23759,24 @@ size.
 Do not save registers in \f(CW\*(C`main\*(C'\fR.  The effect is the same like
 attaching attribute \fB\s-1AVR\s0 Function Attributes,,\f(CB\*(C`OS_task\*(C'\fB\fR
 to \f(CW\*(C`main\*(C'\fR. It is activated per default if optimization is on.
+.IP "\fB\-mno\-call\-main\fR" 4
+.IX Item "-mno-call-main"
+Don't run \f(CW\*(C`main\*(C'\fR by means of
+.Sp
+.Vb 2
+\&        XCALL  main
+\&        XJMP   exit
+.Ve
+.Sp
+Instead, put \f(CW\*(C`main\*(C'\fR in section
+\&\f(CW\*(C`.init9\*(C'\fR (\f(CW\*(C`https://avrdudes.github.io/avr\-libc/avr\-libc\-user\-manual/mem_sections.html#sec_dot_init\*(C'\fR)
+so that no call is required.
+By setting this options the user asserts that \f(CW\*(C`main\*(C'\fR will not return.
+.Sp
+This option can be used for devices with very limited resources in order
+to save a few bytes of code and stack space.  It will work as expected since
+AVR-LibC\ v2.3 (\f(CW\*(C`https://github.com/avrdudes/avr\-libc/issues/1012\*(C'\fR).
+With older versions, there will be no performance gain.
 .IP "\fB\-mno\-interrupts\fR" 4
 .IX Item "-mno-interrupts"
 Generated code is not compatible with hardware interrupts.
@@ -23832,7 +23850,19 @@ Only change the lower 8 bits of the stack pointer.
 Allow to use truncation instead of rounding towards zero for fractional fixed-point types.
 .IP "\fB\-nodevicelib\fR" 4
 .IX Item "-nodevicelib"
-Don't link against AVR-LibC's device specific library \f(CW\*(C`lib<mcu>.a\*(C'\fR.
+Don't link against AVR-LibC's device specific library \f(CW\*(C`lib\f(CImcu\f(CW.a\*(C'\fR.
+.Sp
+Notice that since AVR-LibC v2.3, that library contains code that is
+essential for the correct functioning of a program.  In particular,
+it contains parts of the startup code like:
+\&\f(CW\*(C`_\|_init_sp\*(C'\fR (\f(CW\*(C`https://github.com/avrdudes/avr\-libc/issues/1011\*(C'\fR)
+to initialize the stack pointer with symbol \f(CW\*(C`_\|_stack\*(C'\fR,
+\&\f(CW\*(C`_\|_init_cvt\*(C'\fR (\f(CW\*(C`https://github.com/avrdudes/avr\-libc/issues/1010\*(C'\fR)
+to set up the hardware to use a compact vector table with \fB\-mcvt\fR,
+\&\f(CW\*(C`_\|_call_main\*(C'\fR (\f(CW\*(C`https://github.com/avrdudes/avr\-libc/issues/1012\*(C'\fR)
+to call \f(CW\*(C`main\*(C'\fR and \f(CW\*(C`exit\*(C'\fR, and
+\&\f(CW\*(C`_\|_do_flmap_init\*(C'\fR (\f(CW\*(C`https://github.com/avrdudes/avr\-libc/issues/931\*(C'\fR)
+to set up \s-1FLMAP\s0 according to symbol \f(CW\*(C`_\|_flmap\*(C'\fR.
 .IP "\fB\-nodevicespecs\fR" 4
 .IX Item "-nodevicespecs"
 Don't add \fB\-specs=device\-specs/specs\-\fR\fImcu\fR to the compiler driver's
@@ -26803,12 +26833,15 @@ Incrementally adjust the scope of the \s-1SIMD\s0 extensions (none / \s-1LSX / L
 that can be used by the compiler for code generation.  Enabling \s-1LASX\s0 with
 \&\fBmlasx\fR automatically enables \s-1LSX,\s0 and diabling \s-1LSX\s0 with \fBmno-lsx\fR
 automatically disables \s-1LASX.\s0  These driver-only options act upon the final
-\&\fBmsimd\fR configuration state and make incremental chagnes in the order
+\&\fBmsimd\fR configuration state and make incremental changes in the order
 they appear on the \s-1GCC\s0 driver's command line, deriving the final / canonicalized
 \&\fBmsimd\fR option that is passed to the compiler proper.
 .IP "\fB\-mbranch\-cost=\fR\fIn\fR" 4
 .IX Item "-mbranch-cost=n"
 Set the cost of branches to roughly \fIn\fR instructions.
+.IP "\fB\-maddr\-reg\-reg\-cost=\fR\fIn\fR" 4
+.IX Item "-maddr-reg-reg-cost=n"
+Set the cost of \s-1ADDRESS_REG_REG\s0 to the value calculated by \fIn\fR.
 .IP "\fB\-mcheck\-zero\-division\fR" 4
 .IX Item "-mcheck-zero-division"
 .PD 0
@@ -28494,8 +28527,8 @@ relocation operators.  This option has been superseded by
 These options control whether explicit relocs (such as \f(CW%gp_rel\fR) are used.
 The default value depends on the version of \s-1GAS\s0 when \s-1GCC\s0 itself was built.
 .Sp
-The \f(CW\*(C`base\*(C'\fR explicit-relocs support introdunced into \s-1GAS\s0 in 2001.
-The \f(CW\*(C`pcrel\*(C'\fR explicit-relocs support introdunced into \s-1GAS\s0 in 2014,
+The \f(CW\*(C`base\*(C'\fR explicit-relocs support was introduced into \s-1GAS\s0 in 2001.
+The \f(CW\*(C`pcrel\*(C'\fR explicit-relocs support was introduced into \s-1GAS\s0 in 2014,
 which supports \f(CW%pcrel_hi\fR and \f(CW%pcrel_lo\fR.
 .IP "\fB\-mcheck\-zero\-division\fR" 4
 .IX Item "-mcheck-zero-division"
@@ -28848,7 +28881,7 @@ If a compact branch instruction is not available (or pre\-R6),
 a delay slot form of the branch will be used instead.
 .Sp
 If it is used for MIPS16/microMIPS targets, it will be just ignored now.
-The behaviour for MIPS16/microMIPS may change in future,
+The behavior for MIPS16/microMIPS may change in future,
 since they do have some compact branch instructions.
 .Sp
 The \fB\-mcompact\-branches=optimal\fR option will cause a delay slot
@@ -29181,30 +29214,30 @@ into \s-1GCC.\s0  However, an external \fBdevices.csv\fR file can be used to
 extend device support beyond those that have been hard-coded.
 .Sp
 \&\s-1GCC\s0 searches for the \fBdevices.csv\fR file using the following methods in the
-given precedence order, where the first method takes precendence over the
+given precedence order, where the first method takes precedence over the
 second which takes precedence over the third.
 .RS 4
 .ie n .IP "Include path specified with ""\-I"" and ""\-L""" 4
 .el .IP "Include path specified with \f(CW\-I\fR and \f(CW\-L\fR" 4
 .IX Item "Include path specified with -I and -L"
-\&\fBdevices.csv\fR will be searched for in each of the directories specified by
+\&\fBdevices.csv\fR is searched for in each of the directories specified by
 include paths and linker library search paths.
 .IP "Path specified by the environment variable \fB\s-1MSP430_GCC_INCLUDE_DIR\s0\fR" 4
 .IX Item "Path specified by the environment variable MSP430_GCC_INCLUDE_DIR"
 Define the value of the global environment variable
 \&\fB\s-1MSP430_GCC_INCLUDE_DIR\s0\fR
 to the full path to the directory containing devices.csv, and \s-1GCC\s0 will search
-this directory for devices.csv.  If devices.csv is found, this directory will
-also be registered as an include path, and linker library path.  Header files
+this directory for devices.csv.  If devices.csv is found, this directory is
+also registered as an include path and linker library path.  Header files
 and linker scripts in this directory can therefore be used without manually
 specifying \f(CW\*(C`\-I\*(C'\fR and \f(CW\*(C`\-L\*(C'\fR on the command line.
 .IP "The \fBmsp430\-elf{,bare}/include/devices\fR directory" 4
 .IX Item "The msp430-elf{,bare}/include/devices directory"
-Finally, \s-1GCC\s0 will examine \fBmsp430\-elf{,bare}/include/devices\fR from the
+Finally, \s-1GCC\s0 examines \fBmsp430\-elf{,bare}/include/devices\fR from the
 toolchain root directory.  This directory does not exist in a default
 installation, but if the user has created it and copied \fBdevices.csv\fR
-there, then the \s-1MCU\s0 data will be read.  As above, this directory will
-also be registered as an include path, and linker library path.
+there, then the \s-1MCU\s0 data is read.  As above, this directory is
+also registered as an include path and linker library path.
 .RE
 .RS 4
 .Sp
@@ -29773,7 +29806,7 @@ is to use them if the specified architecture has these instructions.
 .PD
 Do or don't use the \fBfence.tso\fR instruction, which is unimplemented on
 some processors (including those from T\-Head).  If the \fBfence.tso\fR
-instruction is not availiable then a stronger fence will be used instead.
+instruction is not available then a stronger fence is used instead.
 .IP "\fB\-mdiv\fR" 4
 .IX Item "-mdiv"
 .PD 0

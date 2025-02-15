@@ -1774,12 +1774,6 @@
 #endif
 
 
-/* Define 0/1 if your linker supports CIE v3 in .eh_frame. */
-#ifndef USED_FOR_TARGET
-#define HAVE_LD_EH_FRAME_CIEV3 1
-#endif
-
-
 /* Define if your linker supports .eh_frame_hdr. */
 #define HAVE_LD_EH_FRAME_HDR 1
 
