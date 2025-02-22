@@ -9514,7 +9514,24 @@ global hash table with the function 'aout_link_write_other_symbol'.  It
 builds a string table while writing out the symbols, which is written to
 the output file at the end of 'NAME(aout,final_link)'.
 
-2.17.3.4 'bfd_link_split_section'
+2.17.3.4 'bfd_link_align_section'
+.................................
+
+ -- Function: bool bfd_link_align_section (asection *, unsigned int);
+     Increase section alignment if the current section alignment is less
+     than the requested value.  Adjust output section alignment too, so
+     that linker layout adjusts for alignment on the current
+     lang_size_sections pass.  This is important for
+     lang_size_relro_segment.  If the output section alignment isn't
+     adjusted, the linker will place the output section at an address
+     depending on its current alignment.  When sizing the output
+     section, input sections attached transfer any increase in alignment
+     to the output section, which will affect layout for the next sizing
+     pass.  Which is all well and good except that
+     lang_size_relro_segment for the current sizing pass uses that
+     possibly increased alignment with a layout that doesn't suit.
+
+2.17.3.5 'bfd_link_split_section'
 .................................
 
  -- Function: bool bfd_link_split_section (bfd *abfd, asection *sec);
@@ -9524,7 +9541,7 @@ the output file at the end of 'NAME(aout,final_link)'.
                  BFD_SEND (abfd, _bfd_link_split_section, (abfd, sec))
 
 
-2.17.3.5 'bfd_section_already_linked'
+2.17.3.6 'bfd_section_already_linked'
 .....................................
 
  -- Function: bool bfd_section_already_linked (bfd *abfd, asection *sec,
@@ -9535,7 +9552,7 @@ the output file at the end of 'NAME(aout,final_link)'.
                  BFD_SEND (abfd, _section_already_linked, (abfd, sec, info))
 
 
-2.17.3.6 'bfd_generic_define_common_symbol'
+2.17.3.7 'bfd_generic_define_common_symbol'
 ...........................................
 
  -- Function: bool bfd_generic_define_common_symbol (bfd *output_bfd,
@@ -9546,7 +9563,7 @@ the output file at the end of 'NAME(aout,final_link)'.
                  BFD_SEND (output_bfd, _bfd_define_common_symbol, (output_bfd, info, h))
 
 
-2.17.3.7 '_bfd_generic_link_hide_symbol'
+2.17.3.8 '_bfd_generic_link_hide_symbol'
 ........................................
 
  -- Function: void _bfd_generic_link_hide_symbol (bfd *output_bfd,
@@ -9557,7 +9574,7 @@ the output file at the end of 'NAME(aout,final_link)'.
                  BFD_SEND (output_bfd, _bfd_link_hide_symbol, (output_bfd, info, h))
 
 
-2.17.3.8 'bfd_generic_define_start_stop'
+2.17.3.9 'bfd_generic_define_start_stop'
 ........................................
 
  -- Function: struct bfd_link_hash_entry *bfd_generic_define_start_stop
@@ -9569,8 +9586,8 @@ the output file at the end of 'NAME(aout,final_link)'.
                  BFD_SEND (output_bfd, _bfd_define_start_stop, (info, symbol, sec))
 
 
-2.17.3.9 'bfd_find_version_for_sym'
-...................................
+2.17.3.10 'bfd_find_version_for_sym'
+....................................
 
  -- Function: struct bfd_elf_version_tree * bfd_find_version_for_sym
           (struct bfd_elf_version_tree *verdefs, const char *sym_name,
@@ -9580,7 +9597,7 @@ the output file at the end of 'NAME(aout,final_link)'.
      on success and NULL on failure; also sets the output 'hide' boolean
      parameter.
 
-2.17.3.10 'bfd_hide_sym_by_version'
+2.17.3.11 'bfd_hide_sym_by_version'
 ...................................
 
  -- Function: bool bfd_hide_sym_by_version (struct bfd_elf_version_tree
@@ -9588,7 +9605,7 @@ the output file at the end of 'NAME(aout,final_link)'.
      Search an elf version script tree for symbol versioning info for a
      given symbol.  Return TRUE if the symbol is hidden.
 
-2.17.3.11 'bfd_link_check_relocs'
+2.17.3.12 'bfd_link_check_relocs'
 .................................
 
  -- Function: bool bfd_link_check_relocs (bfd *abfd, struct
@@ -9597,7 +9614,7 @@ the output file at the end of 'NAME(aout,final_link)'.
      relocs.  Return TRUE if everything is OK, FALSE otherwise.  This is
      the external entry point to this code.
 
-2.17.3.12 '_bfd_generic_link_check_relocs'
+2.17.3.13 '_bfd_generic_link_check_relocs'
 ..........................................
 
  -- Function: bool _bfd_generic_link_check_relocs (bfd *abfd, struct
@@ -9606,7 +9623,7 @@ the output file at the end of 'NAME(aout,final_link)'.
      Return TRUE. This is an internal function.  It should not be called
      from outside the BFD library.
 
-2.17.3.13 'bfd_merge_private_bfd_data'
+2.17.3.14 'bfd_merge_private_bfd_data'
 ......................................
 
  -- Function: bool bfd_merge_private_bfd_data (bfd *ibfd, struct
@@ -9622,7 +9639,7 @@ the output file at the end of 'NAME(aout,final_link)'.
                            (ibfd, info))
 
 
-2.17.3.14 '_bfd_generic_verify_endian_match'
+2.17.3.15 '_bfd_generic_verify_endian_match'
 ............................................
 
  -- Function: bool _bfd_generic_verify_endian_match (bfd *ibfd, struct
@@ -11614,21 +11631,21 @@ BFD Index
 * _bfd_generic_link_add_one_symbol:      Adding symbols from an object file.
                                                              (line   19)
 * _bfd_generic_link_check_relocs:        Writing the symbol table.
-                                                             (line  126)
+                                                             (line  143)
 * _bfd_generic_link_check_relocs <1>:    Writing the symbol table.
-                                                             (line  130)
+                                                             (line  147)
 * _bfd_generic_link_hide_symbol:         Writing the symbol table.
-                                                             (line   75)
+                                                             (line   92)
 * _bfd_generic_link_hide_symbol <1>:     Writing the symbol table.
-                                                             (line   79)
+                                                             (line   96)
 * _bfd_generic_make_empty_symbol:        symbol handling functions.
                                                              (line   87)
 * _bfd_generic_set_reloc:                howto manager.      (line 3658)
 * _bfd_generic_set_reloc <1>:            howto manager.      (line 3662)
 * _bfd_generic_verify_endian_match:      Writing the symbol table.
-                                                             (line  151)
+                                                             (line  168)
 * _bfd_generic_verify_endian_match <1>:  Writing the symbol table.
-                                                             (line  155)
+                                                             (line  172)
 * _bfd_get_error_program_name:           Error reporting.    (line  177)
 * _bfd_link_add_symbols in target vector: Adding Symbols to the Hash Table.
                                                              (line    6)
@@ -11788,7 +11805,7 @@ BFD Index
 * bfd_elf_bfd_from_remote_memory:        Opening and Closing.
                                                              (line  168)
 * bfd_elf_version_tree:                  Writing the symbol table.
-                                                             (line  102)
+                                                             (line  119)
 * bfd_emul_get_commonpagesize:           Miscellaneous.      (line  311)
 * bfd_emul_get_commonpagesize <1>:       Miscellaneous.      (line  315)
 * bfd_emul_get_maxpagesize:              Miscellaneous.      (line  304)
@@ -11806,7 +11823,7 @@ BFD Index
                                                              (line  347)
 * bfd_find_target:                       bfd_target.         (line  552)
 * bfd_find_version_for_sym:              Writing the symbol table.
-                                                             (line   98)
+                                                             (line  115)
 * bfd_flavour_name:                      bfd_target.         (line  607)
 * bfd_flush:                             Miscellaneous.      (line  395)
 * bfd_flush <1>:                         Miscellaneous.      (line  399)
@@ -11820,11 +11837,11 @@ BFD Index
                                                              (line   26)
 * bfd_format_string:                     Formats.            (line   79)
 * bfd_generic_define_common_symbol:      Writing the symbol table.
-                                                             (line   64)
+                                                             (line   81)
 * bfd_generic_define_common_symbol <1>:  Writing the symbol table.
-                                                             (line   68)
+                                                             (line   85)
 * bfd_generic_define_start_stop:         Writing the symbol table.
-                                                             (line   86)
+                                                             (line  103)
 * bfd_generic_discard_group:             section prototypes. (line  276)
 * bfd_generic_discard_group <1>:         section prototypes. (line  280)
 * bfd_generic_gc_sections:               howto manager.      (line 3623)
@@ -11937,9 +11954,9 @@ BFD Index
 * bfd_hash_traverse <2>:                 Write Other Derived Routines.
                                                              (line   97)
 * bfd_hide_sym_by_version:               Writing the symbol table.
-                                                             (line  109)
+                                                             (line  126)
 * bfd_hide_sym_by_version <1>:           Writing the symbol table.
-                                                             (line  113)
+                                                             (line  130)
 * bfd_h_put_size:                        Internal.           (line  188)
 * bfd_init:                              Initialization.     (line    3)
 * bfd_install_relocation:                typedef arelent.    (line  331)
@@ -11961,16 +11978,20 @@ BFD Index
 * bfd_is_undefined_symclass <1>:         symbol handling functions.
                                                              (line  115)
 * bfd_iterate_over_targets:              bfd_target.         (line  597)
-* bfd_link_check_relocs:                 Writing the symbol table.
-                                                             (line  117)
-* bfd_link_check_relocs <1>:             Writing the symbol table.
-                                                             (line  121)
-* bfd_link_hash_entry:                   Writing the symbol table.
-                                                             (line   90)
-* bfd_link_split_section:                Writing the symbol table.
+* bfd_link_align_section:                Writing the symbol table.
                                                              (line   43)
-* bfd_link_split_section <1>:            Writing the symbol table.
+* bfd_link_align_section <1>:            Writing the symbol table.
                                                              (line   47)
+* bfd_link_check_relocs:                 Writing the symbol table.
+                                                             (line  134)
+* bfd_link_check_relocs <1>:             Writing the symbol table.
+                                                             (line  138)
+* bfd_link_hash_entry:                   Writing the symbol table.
+                                                             (line  107)
+* bfd_link_split_section:                Writing the symbol table.
+                                                             (line   60)
+* bfd_link_split_section <1>:            Writing the symbol table.
+                                                             (line   64)
 * bfd_lock:                              Threading.          (line   45)
 * bfd_lock <1>:                          Threading.          (line   49)
 * bfd_log2:                              Internal.           (line  280)
@@ -11998,9 +12019,9 @@ BFD Index
 * bfd_map_over_sections:                 section prototypes. (line  156)
 * bfd_map_over_sections <1>:             section prototypes. (line  160)
 * bfd_merge_private_bfd_data:            Writing the symbol table.
-                                                             (line  135)
+                                                             (line  152)
 * bfd_merge_private_bfd_data <1>:        Writing the symbol table.
-                                                             (line  139)
+                                                             (line  156)
 * bfd_mmap:                              Miscellaneous.      (line  462)
 * bfd_octets_per_byte:                   Architectures.      (line  717)
 * bfd_openr:                             Opening and Closing.
@@ -14581,9 +14602,9 @@ BFD Index
                                                              (line  335)
 * bfd_sections_find_if:                  section prototypes. (line  174)
 * bfd_section_already_linked:            Writing the symbol table.
-                                                             (line   53)
+                                                             (line   70)
 * bfd_section_already_linked <1>:        Writing the symbol table.
-                                                             (line   57)
+                                                             (line   74)
 * bfd_section_list_clear:                section prototypes. (line    7)
 * bfd_section_list_clear <1>:            section prototypes. (line   11)
 * bfd_section_size_insane:               section prototypes. (line  283)
@@ -14759,25 +14780,25 @@ Node: Performing the Final Link371978
 Node: Information provided by the linker373219
 Node: Relocating the section contents374373
 Node: Writing the symbol table376125
-Node: Hash Tables383216
-Node: Creating and Freeing a Hash Table384414
-Node: Looking Up or Entering a String385664
-Node: Traversing a Hash Table386917
-Node: Deriving a New Hash Table Type387706
-Node: Define the Derived Structures388772
-Node: Write the Derived Creation Routine389853
-Node: Write Other Derived Routines392464
-Node: BFD back ends397889
-Node: What to Put Where398159
-Node: aout398339
-Node: coff404424
-Node: elf425567
-Node: mmo425968
-Node: File layout426838
-Node: Symbol-table432751
-Node: mmo section mapping436514
-Node: GNU Free Documentation License440168
-Node: BFD Index465232
+Node: Hash Tables384152
+Node: Creating and Freeing a Hash Table385350
+Node: Looking Up or Entering a String386600
+Node: Traversing a Hash Table387853
+Node: Deriving a New Hash Table Type388642
+Node: Define the Derived Structures389708
+Node: Write the Derived Creation Routine390789
+Node: Write Other Derived Routines393400
+Node: BFD back ends398825
+Node: What to Put Where399095
+Node: aout399275
+Node: coff405360
+Node: elf426503
+Node: mmo426904
+Node: File layout427774
+Node: Symbol-table433687
+Node: mmo section mapping437450
+Node: GNU Free Documentation License441104
+Node: BFD Index466168
 
 End Tag Table
 

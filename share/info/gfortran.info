@@ -886,8 +886,7 @@ and '__GFC_REAL_16__'.
    While CPP is the de facto standard for preprocessing Fortran code,
 Part 3 of the Fortran 95 standard (ISO/IEC 1539-3:1998) defines
 Conditional Compilation, which is not widely used and not directly
-supported by the GNU Fortran compiler.  You can use the program coco to
-preprocess such files (<http://www.daniellnagle.com/coco.html>).
+supported by the GNU Fortran compiler.
 
    The following options control preprocessing of Fortran code:
 
@@ -5328,10 +5327,10 @@ according to the platform ABI and no hidden length argument is used for
 dummy arguments; with 'VALUE', those variables are passed by value.
 
    For 'OPTIONAL' dummy arguments, an absent argument is denoted by a
-NULL pointer, except for scalar dummy arguments of intrinsic type that
-have the 'VALUE' attribute.  For those, a hidden Boolean argument
-('logical(kind=C_bool),value') is used to indicate whether the argument
-is present.
+NULL pointer, except for scalar dummy arguments of intrinsic type or
+derived type (but not 'CLASS') and that have the 'VALUE' attribute.  For
+those, a hidden Boolean argument ('logical(kind=C_bool),value') is used
+to indicate whether the argument is present.
 
    Arguments that are assumed-shape, assumed-rank or deferred-rank
 arrays or, with '-fcoarray=lib', allocatable scalar coarrays use an
@@ -5575,13 +5574,10 @@ File: gfortran.info,  Node: Function ABI Documentation,  Prev: Type and enum ABI
 * _gfortran_caf_register_accessor:: Register an accessor for remote access
 * _gfortran_caf_register_accessors_finish:: Finish registering accessor functions
 * _gfortran_caf_get_remote_function_index:: Get the index of an accessor
-* _gfortran_caf_is_present:: Query whether an allocatable or pointer component in a derived type coarray is allocated
-* _gfortran_caf_send:: Sending data from a local image to a remote image
-* _gfortran_caf_get:: Getting data from a remote image
-* _gfortran_caf_sendget:: Sending data between remote images
-* _gfortran_caf_send_by_ref:: Sending data from a local image to a remote image using enhanced references
-* _gfortran_caf_get_by_ref:: Getting data from a remote image using enhanced references
-* _gfortran_caf_get_by_ct:: Getting data from a remote image using a remote side accessor
+* _gfortran_caf_get_from_remote:: Getting data from a remote image using a remote side accessor
+* _gfortran_caf_is_present_on_remote:: Check that a coarray or a part of it is allocated on the remote image
+* _gfortran_caf_send_to_remote:: Send data to a remote image using a remote side accessor to store it
+* _gfortran_caf_transfer_between_remotes:: Initiate data transfer between to remote images
 * _gfortran_caf_sendget_by_ref:: Sending data between remote images using enhanced references
 * _gfortran_caf_lock:: Locking a lock variable
 * _gfortran_caf_unlock:: Unlocking a lock variable
@@ -5975,7 +5971,7 @@ _NOTES_
      operation.
 
 
-File: gfortran.info,  Node: _gfortran_caf_get_remote_function_index,  Next: _gfortran_caf_is_present,  Prev: _gfortran_caf_register_accessors_finish,  Up: Function ABI Documentation
+File: gfortran.info,  Node: _gfortran_caf_get_remote_function_index,  Next: _gfortran_caf_get_from_remote,  Prev: _gfortran_caf_register_accessors_finish,  Up: Function ABI Documentation
 
 7.2.12 '_gfortran_caf_get_remote_function_index' -- Get the index of an accessor
 --------------------------------------------------------------------------------
@@ -5988,7 +5984,7 @@ _Description_:
      lookup time for a given hash is preferred.  The reference
      implementation uses 'bsearch ()', for example.  The index returned
      shall be an array index to be used by *note
-     _gfortran_caf_get_by_ct::, i.e.  a constant time operation is
+     _gfortran_caf_get_from_remote::, i.e.  a constant time operation is
      mandatory for quick access.
 
      The GFortran compiler ensures that
@@ -6015,380 +6011,17 @@ _NOTES_
      could not be found.
 
 
-File: gfortran.info,  Node: _gfortran_caf_is_present,  Next: _gfortran_caf_send,  Prev: _gfortran_caf_get_remote_function_index,  Up: Function ABI Documentation
+File: gfortran.info,  Node: _gfortran_caf_get_from_remote,  Next: _gfortran_caf_is_present_on_remote,  Prev: _gfortran_caf_get_remote_function_index,  Up: Function ABI Documentation
 
-7.2.13 '_gfortran_caf_is_present' -- Query whether an allocatable or pointer component in a derived type coarray is allocated
------------------------------------------------------------------------------------------------------------------------------
-
-_Description_:
-     Used to query the coarray library whether an allocatable component
-     in a derived type coarray is allocated on a remote image.
-
-_Syntax_:
-     'void _gfortran_caf_is_present (caf_token_t token, int image_index,
-     gfc_reference_t *ref)'
-
-_Arguments_:
-     TOKEN       An opaque pointer identifying the coarray.
-     IMAGE_INDEX The ID of the remote image; must be a positive
-                 number.
-     REF         A chain of references to address the allocatable
-                 or pointer component in the derived type
-                 coarray.  The object reference needs to be a
-                 scalar or a full array reference, respectively.
-
-
-File: gfortran.info,  Node: _gfortran_caf_send,  Next: _gfortran_caf_get,  Prev: _gfortran_caf_is_present,  Up: Function ABI Documentation
-
-7.2.14 '_gfortran_caf_send' -- Sending data from a local image to a remote image
---------------------------------------------------------------------------------
-
-_Description_:
-     Called to send a scalar, an array section or a whole array from a
-     local to a remote image identified by the image_index.
-
-_Syntax_:
-     'void _gfortran_caf_send (caf_token_t token, size_t offset, int
-     image_index, gfc_descriptor_t *dest, caf_vector_t *dst_vector,
-     gfc_descriptor_t *src, int dst_kind, int src_kind, bool
-     may_require_tmp, int *stat)'
-
-_Arguments_:
-     TOKEN       intent(in) An opaque pointer identifying the
-                 coarray.
-     OFFSET      intent(in) The number of bytes the actual data
-                 is shifted compared to the base address of the
-                 coarray.
-     IMAGE_INDEX intent(in) The ID of the remote image; must be a
-                 positive number.
-     DEST        intent(in) Array descriptor for the remote image
-                 for the bounds and the size.  The 'base_addr'
-                 shall not be accessed.
-     DST_VECTOR  intent(in) If not NULL, it contains the vector
-                 subscript of the destination array; the values
-                 are relative to the dimension triplet of the
-                 dest argument.
-     SRC         intent(in) Array descriptor of the local array
-                 to be transferred to the remote image
-     DST_KIND    intent(in) Kind of the destination argument
-     SRC_KIND    intent(in) Kind of the source argument
-     MAY_REQUIRE_TMPintent(in) The variable is 'false' when it is
-                 known at compile time that the DEST and SRC
-                 either cannot overlap or overlap (fully or
-                 partially) such that walking SRC and DEST in
-                 elementwise order (honoring the stride value)
-                 does not lead to wrong results.  Otherwise, the
-                 value is 'true'.
-     STAT        intent(out) when non-NULL give the result of the
-                 operation, i.e., zero on success and nonzero on
-                 error.  When NULL and an error occurs, then an
-                 error message is printed and the program is
-                 terminated.
-
-_NOTES_
-     It is permitted to have IMAGE_INDEX equal the current image; the
-     memory of the send-to and the send-from might (partially) overlap
-     in that case.  The implementation has to take care that it handles
-     this case, e.g.  using 'memmove' which handles (partially)
-     overlapping memory.  If MAY_REQUIRE_TMP is true, the library might
-     additionally create a temporary variable, unless additional checks
-     show that this is not required (e.g.  because walking backward is
-     possible or because both arrays are contiguous and 'memmove' takes
-     care of overlap issues).
-
-     Note that the assignment of a scalar to an array is permitted.  In
-     addition, the library has to handle numeric type conversion, and
-     padding and different character kinds for strings.
-
-
-File: gfortran.info,  Node: _gfortran_caf_get,  Next: _gfortran_caf_sendget,  Prev: _gfortran_caf_send,  Up: Function ABI Documentation
-
-7.2.15 '_gfortran_caf_get' -- Getting data from a remote image
---------------------------------------------------------------
-
-_Description_:
-     Called to get an array section or a whole array from a remote,
-     image identified by the image_index.
-
-_Syntax_:
-     'void _gfortran_caf_get (caf_token_t token, size_t offset, int
-     image_index, gfc_descriptor_t *src, caf_vector_t *src_vector,
-     gfc_descriptor_t *dest, int src_kind, int dst_kind, bool
-     may_require_tmp, int *stat)'
-
-_Arguments_:
-     TOKEN       intent(in) An opaque pointer identifying the
-                 coarray.
-     OFFSET      intent(in) The number of bytes the actual data
-                 is shifted compared to the base address of the
-                 coarray.
-     IMAGE_INDEX intent(in) The ID of the remote image; must be a
-                 positive number.
-     DEST        intent(out) Array descriptor of the local array
-                 to store the data retrieved from the remote
-                 image
-     SRC         intent(in) Array descriptor for the remote image
-                 for the bounds and the size.  The 'base_addr'
-                 shall not be accessed.
-     SRC_VECTOR  intent(in) If not NULL, it contains the vector
-                 subscript of the source array; the values are
-                 relative to the dimension triplet of the SRC
-                 argument.
-     DST_KIND    intent(in) Kind of the destination argument
-     SRC_KIND    intent(in) Kind of the source argument
-     MAY_REQUIRE_TMPintent(in) The variable is 'false' when it is
-                 known at compile time that the DEST and SRC
-                 either cannot overlap or overlap (fully or
-                 partially) such that walking SRC and DEST in
-                 elementwise order (honoring the stride value)
-                 does not lead to wrong results.  Otherwise, the
-                 value is 'true'.
-     STAT        intent(out) When non-NULL give the result of the
-                 operation, i.e., zero on success and nonzero on
-                 error.  When NULL and an error occurs, then an
-                 error message is printed and the program is
-                 terminated.
-
-_NOTES_
-     It is permitted to have IMAGE_INDEX equal the current image; the
-     memory of the send-to and the send-from might (partially) overlap
-     in that case.  The implementation has to take care that it handles
-     this case, e.g.  using 'memmove' which handles (partially)
-     overlapping memory.  If MAY_REQUIRE_TMP is true, the library might
-     additionally create a temporary variable, unless additional checks
-     show that this is not required (e.g.  because walking backward is
-     possible or because both arrays are contiguous and 'memmove' takes
-     care of overlap issues).
-
-     Note that the library has to handle numeric-type conversion and for
-     strings, padding and different character kinds.
-
-
-File: gfortran.info,  Node: _gfortran_caf_sendget,  Next: _gfortran_caf_send_by_ref,  Prev: _gfortran_caf_get,  Up: Function ABI Documentation
-
-7.2.16 '_gfortran_caf_sendget' -- Sending data between remote images
---------------------------------------------------------------------
-
-_Description_:
-     Called to send a scalar, an array section or a whole array from a
-     remote image identified by the SRC_IMAGE_INDEX to a remote image
-     identified by the DST_IMAGE_INDEX.
-
-_Syntax_:
-     'void _gfortran_caf_sendget (caf_token_t dst_token, size_t
-     dst_offset, int dst_image_index, gfc_descriptor_t *dest,
-     caf_vector_t *dst_vector, caf_token_t src_token, size_t src_offset,
-     int src_image_index, gfc_descriptor_t *src, caf_vector_t
-     *src_vector, int dst_kind, int src_kind, bool may_require_tmp, int
-     *stat)'
-
-_Arguments_:
-     DST_TOKEN   intent(in) An opaque pointer identifying the
-                 destination coarray.
-     DST_OFFSET  intent(in) The number of bytes the actual data
-                 is shifted compared to the base address of the
-                 destination coarray.
-     DST_IMAGE_INDEXintent(in) The ID of the destination remote
-                 image; must be a positive number.
-     DEST        intent(in) Array descriptor for the destination
-                 remote image for the bounds and the size.  The
-                 'base_addr' shall not be accessed.
-     DST_VECTOR  intent(int) If not NULL, it contains the vector
-                 subscript of the destination array; the values
-                 are relative to the dimension triplet of the
-                 DEST argument.
-     SRC_TOKEN   intent(in) An opaque pointer identifying the
-                 source coarray.
-     SRC_OFFSET  intent(in) The number of bytes the actual data
-                 is shifted compared to the base address of the
-                 source coarray.
-     SRC_IMAGE_INDEXintent(in) The ID of the source remote image;
-                 must be a positive number.
-     SRC         intent(in) Array descriptor of the local array
-                 to be transferred to the remote image.
-     SRC_VECTOR  intent(in) Array descriptor of the local array
-                 to be transferred to the remote image
-     DST_KIND    intent(in) Kind of the destination argument
-     SRC_KIND    intent(in) Kind of the source argument
-     MAY_REQUIRE_TMPintent(in) The variable is 'false' when it is
-                 known at compile time that the DEST and SRC
-                 either cannot overlap or overlap (fully or
-                 partially) such that walking SRC and DEST in
-                 elementwise order (honoring the stride value)
-                 does not lead to wrong results.  Otherwise, the
-                 value is 'true'.
-     STAT        intent(out) when non-NULL give the result of the
-                 operation, i.e., zero on success and nonzero on
-                 error.  When NULL and an error occurs, then an
-                 error message is printed and the program is
-                 terminated.
-
-_NOTES_
-     It is permitted to have the same image index for both
-     SRC_IMAGE_INDEX and DST_IMAGE_INDEX; the memory of the send-to and
-     the send-from might (partially) overlap in that case.  The
-     implementation has to take care that it handles this case, e.g.
-     using 'memmove' which handles (partially) overlapping memory.  If
-     MAY_REQUIRE_TMP is true, the library might additionally create a
-     temporary variable, unless additional checks show that this is not
-     required (e.g.  because walking backward is possible or because
-     both arrays are contiguous and 'memmove' takes care of overlap
-     issues).
-
-     Note that the assignment of a scalar to an array is permitted.  In
-     addition, the library has to handle numeric-type conversion and for
-     strings, padding and different character kinds.
-
-
-File: gfortran.info,  Node: _gfortran_caf_send_by_ref,  Next: _gfortran_caf_get_by_ref,  Prev: _gfortran_caf_sendget,  Up: Function ABI Documentation
-
-7.2.17 '_gfortran_caf_send_by_ref' -- Sending data from a local image to a remote image with enhanced referencing options
--------------------------------------------------------------------------------------------------------------------------
-
-_Description_:
-     Called to send a scalar, an array section or a whole array from a
-     local to a remote image identified by the IMAGE_INDEX.
-
-_Syntax_:
-     'void _gfortran_caf_send_by_ref (caf_token_t token, int
-     image_index, gfc_descriptor_t *src, caf_reference_t *refs, int
-     dst_kind, int src_kind, bool may_require_tmp, bool
-     dst_reallocatable, int *stat, int dst_type)'
-
-_Arguments_:
-     TOKEN       intent(in) An opaque pointer identifying the
-                 coarray.
-     IMAGE_INDEX intent(in) The ID of the remote image; must be a
-                 positive number.
-     SRC         intent(in) Array descriptor of the local array
-                 to be transferred to the remote image
-     REFS        intent(in) The references on the remote array to
-                 store the data given by src.  Guaranteed to have
-                 at least one entry.
-     DST_KIND    intent(in) Kind of the destination argument
-     SRC_KIND    intent(in) Kind of the source argument
-     MAY_REQUIRE_TMPintent(in) The variable is 'false' when it is
-                 known at compile time that the DEST and SRC
-                 either cannot overlap or overlap (fully or
-                 partially) such that walking SRC and DEST in
-                 elementwise order (honoring the stride value)
-                 does not lead to wrong results.  Otherwise, the
-                 value is 'true'.
-     DST_REALLOCATABLEintent(in) Set when the destination is of
-                 allocatable or pointer type and the refs allow
-                 reallocation, i.e., the ref is a full array or
-                 component ref.
-     STAT        intent(out) When non-'NULL' give the result of
-                 the operation, i.e., zero on success and nonzero
-                 on error.  When 'NULL' and an error occurs, then
-                 an error message is printed and the program is
-                 terminated.
-     DST_TYPE    intent(in) Give the type of the destination.
-                 When the destination is not an array, than the
-                 precise type, e.g.  of a component in a derived
-                 type, is not known, but provided here.
-
-_NOTES_
-     It is permitted to have IMAGE_INDEX equal the current image; the
-     memory of the send-to and the send-from might (partially) overlap
-     in that case.  The implementation has to take care that it handles
-     this case, e.g.  using 'memmove' which handles (partially)
-     overlapping memory.  If MAY_REQUIRE_TMP is true, the library might
-     additionally create a temporary variable, unless additional checks
-     show that this is not required (e.g.  because walking backward is
-     possible or because both arrays are contiguous and 'memmove' takes
-     care of overlap issues).
-
-     Note that the assignment of a scalar to an array is permitted.  In
-     addition, the library has to handle numeric-type conversion and for
-     strings, padding and different character kinds.
-
-     Because of the more complicated references possible some operations
-     may be unsupported by certain libraries.  The library is expected
-     to issue a precise error message why the operation is not
-     permitted.
-
-
-File: gfortran.info,  Node: _gfortran_caf_get_by_ref,  Next: _gfortran_caf_get_by_ct,  Prev: _gfortran_caf_send_by_ref,  Up: Function ABI Documentation
-
-7.2.18 '_gfortran_caf_get_by_ref' -- Getting data from a remote image using enhanced references
------------------------------------------------------------------------------------------------
+7.2.13 '_gfortran_caf_get_from_remote' -- Getting data from a remote image using a remote side accessor
+-------------------------------------------------------------------------------------------------------
 
 _Description_:
      Called to get a scalar, an array section or a whole array from a
      remote image identified by the IMAGE_INDEX.
 
 _Syntax_:
-     'void _gfortran_caf_get_by_ref (caf_token_t token, int image_index,
-     caf_reference_t *refs, gfc_descriptor_t *dst, int dst_kind, int
-     src_kind, bool may_require_tmp, bool dst_reallocatable, int *stat,
-     int src_type)'
-
-_Arguments_:
-     TOKEN       intent(in) An opaque pointer identifying the
-                 coarray.
-     IMAGE_INDEX intent(in) The ID of the remote image; must be a
-                 positive number.
-     REFS        intent(in) The references to apply to the remote
-                 structure to get the data.
-     DST         intent(in) Array descriptor of the local array
-                 to store the data transferred from the remote
-                 image.  May be reallocated where needed and when
-                 DST_REALLOCATABLE allows it.
-     DST_KIND    intent(in) Kind of the destination argument
-     SRC_KIND    intent(in) Kind of the source argument
-     MAY_REQUIRE_TMPintent(in) The variable is 'false' when it is
-                 known at compile time that the DEST and SRC
-                 either cannot overlap or overlap (fully or
-                 partially) such that walking SRC and DEST in
-                 elementwise order (honoring the stride value)
-                 does not lead to wrong results.  Otherwise, the
-                 value is 'true'.
-     DST_REALLOCATABLEintent(in) Set when DST is of allocatable or
-                 pointer type and its refs allow reallocation,
-                 i.e., the full array or a component is
-                 referenced.
-     STAT        intent(out) When non-'NULL' give the result of
-                 the operation, i.e., zero on success and nonzero
-                 on error.  When 'NULL' and an error occurs, then
-                 an error message is printed and the program is
-                 terminated.
-     SRC_TYPE    intent(in) Give the type of the source.  When
-                 the source is not an array, than the precise
-                 type, e.g.  of a component in a derived type, is
-                 not known, but provided here.
-
-_NOTES_
-     It is permitted to have 'image_index' equal the current image; the
-     memory of the send-to and the send-from might (partially) overlap
-     in that case.  The implementation has to take care that it handles
-     this case, e.g.  using 'memmove' which handles (partially)
-     overlapping memory.  If MAY_REQUIRE_TMP is true, the library might
-     additionally create a temporary variable, unless additional checks
-     show that this is not required (e.g.  because walking backward is
-     possible or because both arrays are contiguous and 'memmove' takes
-     care of overlap issues).
-
-     Note that the library has to handle numeric-type conversion and for
-     strings, padding and different character kinds.
-
-     Because of the more complicated references possible some operations
-     may be unsupported by certain libraries.  The library is expected
-     to issue a precise error message why the operation is not
-     permitted.
-
-
-File: gfortran.info,  Node: _gfortran_caf_get_by_ct,  Next: _gfortran_caf_sendget_by_ref,  Prev: _gfortran_caf_get_by_ref,  Up: Function ABI Documentation
-
-7.2.19 '_gfortran_caf_get_by_ct' -- Getting data from a remote image using a remote side accessor
--------------------------------------------------------------------------------------------------
-
-_Description_:
-     Called to get a scalar, an array section or a whole array from a
-     remote image identified by the IMAGE_INDEX.
-
-_Syntax_:
-     'void _gfortran_caf_get_by_ct (caf_token_t token, const
+     'void _gfortran_caf_get_from_remote (caf_token_t token, const
      gfc_descriptor_t *opt_src_desc, const size_t *opt_src_charlen,
      const int image_index, const size_t dst_size, void **dst_data,
      size_t *opt_dst_charlen, gfc_descriptor_t *opt_dst_desc, const bool
@@ -6468,9 +6101,244 @@ _NOTES_
      memory.
 
 
-File: gfortran.info,  Node: _gfortran_caf_sendget_by_ref,  Next: _gfortran_caf_lock,  Prev: _gfortran_caf_get_by_ct,  Up: Function ABI Documentation
+File: gfortran.info,  Node: _gfortran_caf_is_present_on_remote,  Next: _gfortran_caf_send_to_remote,  Prev: _gfortran_caf_get_from_remote,  Up: Function ABI Documentation
 
-7.2.20 '_gfortran_caf_sendget_by_ref' -- Sending data between remote images using enhanced references on both sides
+7.2.14 '_gfortran_caf_is_present_on_remote' -- Check that a coarray or a part of it is allocated on the remote image
+--------------------------------------------------------------------------------------------------------------------
+
+_Description_:
+     Check if an allocatable coarray or a component of a derived type
+     coarray is allocated on the remote image identified by the
+     IMAGE_INDEX.  The check is done by calling routine on the remote
+     side.
+
+_Syntax_:
+     'int32_t _gfortran_caf_is_present_on_remote (caf_token_t token,
+     const int image_index, const int is_present_index, void *add_data,
+     const size_t add_data_size)'
+
+_Arguments_:
+     TOKEN       intent(in) An opaque pointer identifying the
+                 coarray.
+     IMAGE_INDEX intent(in) The ID of the remote image; must be a
+                 positive number.  'this_image ()' is valid.
+     IS_PRESENT_INDEXintent(in) The index of the accessor to execute
+                 as returned by
+                 '_gfortran_caf_get_remote_function_index ()'.
+     ADD_DATA    intent(inout) Additional data needed in the
+                 accessor.  I.e., when an array reference uses a
+                 local variable V, it is transported in this
+                 structure and all references in the accessor are
+                 rewritten to access the member.  The data in the
+                 structure of ADD_DATA may be changed by the
+                 accessor, but these changes are lost to the
+                 calling Fortran program.
+     ADD_DATA_SIZEintent(in) The size of the ADD_DATA structure.
+
+
+File: gfortran.info,  Node: _gfortran_caf_send_to_remote,  Next: _gfortran_caf_transfer_between_remotes,  Prev: _gfortran_caf_is_present_on_remote,  Up: Function ABI Documentation
+
+7.2.15 '_gfortran_caf_send_to_remote' -- Send data to a remote image using a remote side accessor to store it
+-------------------------------------------------------------------------------------------------------------
+
+_Description_:
+     Called to send a scalar, an array section or a whole array to a
+     remote image identified by the IMAGE_INDEX.  The call modifies the
+     memory of the remote image.
+
+_Syntax_:
+     'void _gfortran_caf_send_to_remote (caf_token_t token,
+     gfc_descriptor_t *opt_dst_desc, const size_t *opt_dst_charlen,
+     const int image_index, const size_t src_size, const void *src_data,
+     size_t *opt_src_charlen, const gfc_descriptor_t *opt_src_desc,
+     const int setter_index, void *add_data, const size_t add_data_size,
+     int *stat, caf_team_t *team, int *team_number)'
+
+_Arguments_:
+     TOKEN       intent(in) An opaque pointer identifying the
+                 coarray.
+     OPT_DST_DESCintent(inout) A pointer to the descriptor when
+                 the object identified by TOKEN is an array with
+                 a descriptor.  The parameter needs to be set to
+                 'NULL', when TOKEN identifies a scalar or is an
+                 array without a descriptor.
+     OPT_DST_CHARLENintent(in) When the object to send is a char
+                 array with deferred length, then this parameter
+                 needs to be set to point to its length.  Else
+                 the parameter needs to be set to 'NULL'.
+     IMAGE_INDEX intent(in) The ID of the remote image; must be a
+                 positive number.  'this_image ()' is valid.
+     SRC_SIZE    intent(in) The size of data expected to be
+                 transferred to the remote image.  If the data
+                 type to get is a string or string array, then
+                 this needs to be set to the byte size of each
+                 character, i.e.  '4' for a 'CHARACTER (KIND=4)'
+                 string.  The length of the string is then given
+                 in 'opt_src_charlen' (also for string arrays).
+     SRC_DATA    intent(in) A pointer the data to be send to the
+                 remote image.  When a descriptor is provided in
+                 'opt_src_desc' then this parameter can be
+                 ignored by the library implementing the coarray
+                 functionality.
+     OPT_SRC_CHARLENintent(in) When a char array is send, this
+                 parameter is set to its length.
+     OPT_SRC_DESCintent(in) When a descriptor array is send, then
+                 this parameter gives the handle.
+     SETTER_INDEXintent(in) The index of the accessor to execute
+                 as returned by
+                 '_gfortran_caf_get_remote_function_index ()'.
+     ADD_DATA    intent(inout) Additional data needed in the
+                 accessor.  I.e., when an array reference uses a
+                 local variable V, it is transported in this
+                 structure and all references in the accessor are
+                 rewritten to access the member.  The data in the
+                 structure of ADD_DATA may be changed by the
+                 accessor, but these changes are lost to the
+                 calling Fortran program.
+     ADD_DATA_SIZEintent(in) The size of the ADD_DATA structure.
+     STAT        intent(out) When non-'NULL' give the result of
+                 the operation, i.e., zero on success and
+                 non-zero on error.  When 'NULL' and an error
+                 occurs, then an error message is printed and the
+                 program is terminated.
+     TEAM        intent(in) The opaque team handle as returned by
+                 'FORM TEAM'.  Unused at the moment.
+     TEAM_NUMBER intent(in) The number of the team this access is
+                 to be part of.  Unused at the moment.
+
+_NOTES_
+     It is permitted to have 'image_index' equal the current image; the
+     memory to send the data to and the memory to read for the data may
+     (partially) overlap.  The implementation has to take care that it
+     handles this case, e.g.  using 'memmove' which handles (partially)
+     overlapping memory.
+
+
+File: gfortran.info,  Node: _gfortran_caf_transfer_between_remotes,  Next: _gfortran_caf_sendget_by_ref,  Prev: _gfortran_caf_send_to_remote,  Up: Function ABI Documentation
+
+7.2.16 '_gfortran_caf_transfer_between_remotes' -- Initiate data transfer between to remote images
+--------------------------------------------------------------------------------------------------
+
+_Description_:
+     Initiates a transfer of data from one remote image to another
+     remote image.  The call modifies the memory of the receiving remote
+     image given by 'dst_image_index'.  The 'src_image_index''s memory
+     is not modified.  The call returns when the transfer has commenced.
+
+_Syntax_:
+     'void _gfortran_caf_transfer_between_remotes (caf_token_t
+     dst_token, gfc_descriptor_t *opt_dst_desc, size_t *opt_dst_charlen,
+     const int dst_image_index, const int dst_access_index, void
+     *dst_add_data, const size_t dst_add_data_size, caf_token_t
+     src_token, const gfc_descriptor_t *opt_src_desc, const size_t
+     *opt_src_charlen, const int src_image_index, const int
+     src_access_index, void *src_add_data, const size_t
+     src_add_data_size, const size_t src_size, const bool
+     scalar_transfer, int *dst_stat, int *src_stat, caf_team_t
+     *dst_team, int *dst_team_number, caf_team_t *src_team, int
+     *src_team_number) '
+
+_Arguments_:
+     DST_TOKEN   intent(in) An opaque pointer identifying the
+                 coarray on the receiving image.
+     OPT_DST_DESCintent(inout) A pointer to the descriptor when
+                 the object identified by DST_TOKEN is an array
+                 with a descriptor.  The parameter needs to be
+                 set to 'NULL', when DST_TOKEN identifies a
+                 scalar or is an array without a descriptor.
+     OPT_DST_CHARLENintent(in) When the object to modify on the
+                 receiving image is a char array with deferred
+                 length, then this parameter needs to be set to
+                 point to its length.  Else the parameter needs
+                 to be set to 'NULL'.
+     DST_IMAGE_INDEXintent(in) The ID of the receiving/destination
+                 remote image; must be a positive number.
+                 'this_image ()' is valid.
+     DST_ACCESS_INDEXintent(in) The index of the accessor to execute
+                 on the receiving image as returned by
+                 '_gfortran_caf_get_remote_function_index ()'.
+     DST_ADD_DATAintent(inout) Additional data needed in the
+                 accessor on the receiving side.  I.e., when an
+                 array reference uses a local variable V, it is
+                 transported in this structure and all references
+                 in the accessor are rewritten to access the
+                 member.  The data in the structure of
+                 DST_ADD_DATA may be changed by the accessor, but
+                 these changes are lost to the calling Fortran
+                 program.
+     DST_ADD_DATA_SIZEintent(in) The size of the DST_ADD_DATA
+                 structure.
+     SRC_TOKEN   intent(in) An opaque pointer identifying the
+                 coarray on the sending image.
+     OPT_SRC_DESCintent(inout) A pointer to the descriptor when
+                 the object identified by SRC_TOKEN is an array
+                 with a descriptor.  The parameter needs to be
+                 set to 'NULL', when SRC_TOKEN identifies a
+                 scalar or is an array without a descriptor.
+     OPT_SRC_CHARLENintent(in) When the object to get from the
+                 source image is a char array with deferred
+                 length, then this parameter needs to be set to
+                 point to its length.  Else the parameter needs
+                 to be set to 'NULL'.
+     SRC_IMAGE_INDEXintent(in) The ID of the sending/source remote
+                 image; must be a positive number.  'this_image
+                 ()' is valid.
+     SRC_ACCESS_INDEXintent(in) The index of the accessor to execute
+                 on the sending image as returned by
+                 '_gfortran_caf_get_remote_function_index ()'.
+     SRC_ADD_DATAintent(inout) Additional data needed in the
+                 accessor on the sending side.  I.e., when an
+                 array reference uses a local variable V, it is
+                 transported in this structure and all references
+                 in the accessor are rewritten to access the
+                 member.  The data in the structure of
+                 SRC_ADD_DATA may be changed by the accessor, but
+                 these changes are lost to the calling Fortran
+                 program.
+     SRC_ADD_DATA_SIZEintent(in) The size of the SRC_ADD_DATA
+                 structure.
+     SRC_SIZE    intent(in) The size of data expected to be
+                 transferred between the images.  If the data
+                 type to get is a string or string array, then
+                 this needs to be set to the byte size of each
+                 character, i.e.  '4' for a 'CHARACTER (KIND=4)'
+                 string.  The length of the string is then given
+                 in 'opt_src_charlen' and 'opt_dst_charlen' (also
+                 for string arrays).
+     SCALAR_TRANSFERintent(in) Is set to true when the data to be
+                 transfered between the two images is not an
+                 array with a descriptor.
+     DST_STAT    intent(out) When non-'NULL' give the result of
+                 the operation on the receiving side, i.e., zero
+                 on success and non-zero on error.  When 'NULL'
+                 and an error occurs, then an error message is
+                 printed and the program is terminated.
+     SRC_STAT    intent(out) When non-'NULL' give the result of
+                 the operation on the sending side, i.e., zero on
+                 success and non-zero on error.  When 'NULL' and
+                 an error occurs, then an error message is
+                 printed and the program is terminated.
+     DST_TEAM    intent(in) The opaque team handle as returned by
+                 'FORM TEAM'.  Unused at the moment.
+     DST_TEAM_NUMBERintent(in) The number of the team this access is
+                 to be part of.  Unused at the moment.
+     SRC_TEAM    intent(in) The opaque team handle as returned by
+                 'FORM TEAM'.  Unused at the moment.
+     SRC_TEAM_NUMBERintent(in) The number of the team this access is
+                 to be part of.  Unused at the moment.
+
+_NOTES_
+     It is permitted to have both 'dst_image_index' and
+     'src_image_index' equal the current image; the memory to send the
+     data to and the memory to read for the data may (partially)
+     overlap.  The implementation has to take care that it handles this
+     case, e.g.  using 'memmove' which handles (partially) overlapping
+     memory.
+
+
+File: gfortran.info,  Node: _gfortran_caf_sendget_by_ref,  Next: _gfortran_caf_lock,  Prev: _gfortran_caf_transfer_between_remotes,  Up: Function ABI Documentation
+
+7.2.17 '_gfortran_caf_sendget_by_ref' -- Sending data between remote images using enhanced references on both sides
 -------------------------------------------------------------------------------------------------------------------
 
 _Description_:
@@ -6551,7 +6419,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_lock,  Next: _gfortran_caf_unlock,  Prev: _gfortran_caf_sendget_by_ref,  Up: Function ABI Documentation
 
-7.2.21 '_gfortran_caf_lock' -- Locking a lock variable
+7.2.18 '_gfortran_caf_lock' -- Locking a lock variable
 ------------------------------------------------------
 
 _Description_:
@@ -6591,7 +6459,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_unlock,  Next: _gfortran_caf_event_post,  Prev: _gfortran_caf_lock,  Up: Function ABI Documentation
 
-7.2.22 '_gfortran_caf_lock' -- Unlocking a lock variable
+7.2.19 '_gfortran_caf_lock' -- Unlocking a lock variable
 --------------------------------------------------------
 
 _Description_:
@@ -6626,7 +6494,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_event_post,  Next: _gfortran_caf_event_wait,  Prev: _gfortran_caf_unlock,  Up: Function ABI Documentation
 
-7.2.23 '_gfortran_caf_event_post' -- Post an event
+7.2.20 '_gfortran_caf_event_post' -- Post an event
 --------------------------------------------------
 
 _Description_:
@@ -6659,7 +6527,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_event_wait,  Next: _gfortran_caf_event_query,  Prev: _gfortran_caf_event_post,  Up: Function ABI Documentation
 
-7.2.24 '_gfortran_caf_event_wait' -- Wait that an event occurred
+7.2.21 '_gfortran_caf_event_wait' -- Wait that an event occurred
 ----------------------------------------------------------------
 
 _Description_:
@@ -6703,7 +6571,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_event_query,  Next: _gfortran_caf_sync_all,  Prev: _gfortran_caf_event_wait,  Up: Function ABI Documentation
 
-7.2.25 '_gfortran_caf_event_query' -- Query event count
+7.2.22 '_gfortran_caf_event_query' -- Query event count
 -------------------------------------------------------
 
 _Description_:
@@ -6735,7 +6603,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_sync_all,  Next: _gfortran_caf_sync_images,  Prev: _gfortran_caf_event_query,  Up: Function ABI Documentation
 
-7.2.26 '_gfortran_caf_sync_all' -- All-image barrier
+7.2.23 '_gfortran_caf_sync_all' -- All-image barrier
 ----------------------------------------------------
 
 _Description_:
@@ -6758,7 +6626,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: _gfortran_caf_sync_images,  Next: _gfortran_caf_sync_memory,  Prev: _gfortran_caf_sync_all,  Up: Function ABI Documentation
 
-7.2.27 '_gfortran_caf_sync_images' -- Barrier for selected images
+7.2.24 '_gfortran_caf_sync_images' -- Barrier for selected images
 -----------------------------------------------------------------
 
 _Description_:
@@ -6791,7 +6659,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: _gfortran_caf_sync_memory,  Next: _gfortran_caf_error_stop,  Prev: _gfortran_caf_sync_images,  Up: Function ABI Documentation
 
-7.2.28 '_gfortran_caf_sync_memory' -- Wait for completion of segment-memory operations
+7.2.25 '_gfortran_caf_sync_memory' -- Wait for completion of segment-memory operations
 --------------------------------------------------------------------------------------
 
 _Description_:
@@ -6816,7 +6684,7 @@ _NOTE_ A simple implementation could be
 
 File: gfortran.info,  Node: _gfortran_caf_error_stop,  Next: _gfortran_caf_error_stop_str,  Prev: _gfortran_caf_sync_memory,  Up: Function ABI Documentation
 
-7.2.29 '_gfortran_caf_error_stop' -- Error termination with exit code
+7.2.26 '_gfortran_caf_error_stop' -- Error termination with exit code
 ---------------------------------------------------------------------
 
 _Description_:
@@ -6833,7 +6701,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: _gfortran_caf_error_stop_str,  Next: _gfortran_caf_fail_image,  Prev: _gfortran_caf_error_stop,  Up: Function ABI Documentation
 
-7.2.30 '_gfortran_caf_error_stop_str' -- Error termination with string
+7.2.27 '_gfortran_caf_error_stop_str' -- Error termination with string
 ----------------------------------------------------------------------
 
 _Description_:
@@ -6852,7 +6720,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: _gfortran_caf_fail_image,  Next: _gfortran_caf_atomic_define,  Prev: _gfortran_caf_error_stop_str,  Up: Function ABI Documentation
 
-7.2.31 '_gfortran_caf_fail_image' -- Mark the image failed and end its execution
+7.2.28 '_gfortran_caf_fail_image' -- Mark the image failed and end its execution
 --------------------------------------------------------------------------------
 
 _Description_:
@@ -6868,7 +6736,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_atomic_define,  Next: _gfortran_caf_atomic_ref,  Prev: _gfortran_caf_fail_image,  Up: Function ABI Documentation
 
-7.2.32 '_gfortran_caf_atomic_define' -- Atomic variable assignment
+7.2.29 '_gfortran_caf_atomic_define' -- Atomic variable assignment
 ------------------------------------------------------------------
 
 _Description_:
@@ -6899,7 +6767,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: _gfortran_caf_atomic_ref,  Next: _gfortran_caf_atomic_cas,  Prev: _gfortran_caf_atomic_define,  Up: Function ABI Documentation
 
-7.2.33 '_gfortran_caf_atomic_ref' -- Atomic variable reference
+7.2.30 '_gfortran_caf_atomic_ref' -- Atomic variable reference
 --------------------------------------------------------------
 
 _Description_:
@@ -6930,7 +6798,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: _gfortran_caf_atomic_cas,  Next: _gfortran_caf_atomic_op,  Prev: _gfortran_caf_atomic_ref,  Up: Function ABI Documentation
 
-7.2.34 '_gfortran_caf_atomic_cas' -- Atomic compare and swap
+7.2.31 '_gfortran_caf_atomic_cas' -- Atomic compare and swap
 ------------------------------------------------------------
 
 _Description_:
@@ -6968,7 +6836,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: _gfortran_caf_atomic_op,  Next: _gfortran_caf_co_broadcast,  Prev: _gfortran_caf_atomic_cas,  Up: Function ABI Documentation
 
-7.2.35 '_gfortran_caf_atomic_op' -- Atomic operation
+7.2.32 '_gfortran_caf_atomic_op' -- Atomic operation
 ----------------------------------------------------
 
 _Description_:
@@ -7012,7 +6880,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: _gfortran_caf_co_broadcast,  Next: _gfortran_caf_co_max,  Prev: _gfortran_caf_atomic_op,  Up: Function ABI Documentation
 
-7.2.36 '_gfortran_caf_co_broadcast' -- Sending data to all images
+7.2.33 '_gfortran_caf_co_broadcast' -- Sending data to all images
 -----------------------------------------------------------------
 
 _Description_:
@@ -7038,7 +6906,7 @@ _Arguments_:
 
 File: gfortran.info,  Node: _gfortran_caf_co_max,  Next: _gfortran_caf_co_min,  Prev: _gfortran_caf_co_broadcast,  Up: Function ABI Documentation
 
-7.2.37 '_gfortran_caf_co_max' -- Collective maximum reduction
+7.2.34 '_gfortran_caf_co_max' -- Collective maximum reduction
 -------------------------------------------------------------
 
 _Description_:
@@ -7074,7 +6942,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_co_min,  Next: _gfortran_caf_co_sum,  Prev: _gfortran_caf_co_max,  Up: Function ABI Documentation
 
-7.2.38 '_gfortran_caf_co_min' -- Collective minimum reduction
+7.2.35 '_gfortran_caf_co_min' -- Collective minimum reduction
 -------------------------------------------------------------
 
 _Description_:
@@ -7110,7 +6978,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_co_sum,  Next: _gfortran_caf_co_reduce,  Prev: _gfortran_caf_co_min,  Up: Function ABI Documentation
 
-7.2.39 '_gfortran_caf_co_sum' -- Collective summing reduction
+7.2.36 '_gfortran_caf_co_sum' -- Collective summing reduction
 -------------------------------------------------------------
 
 _Description_:
@@ -7145,7 +7013,7 @@ _NOTES_
 
 File: gfortran.info,  Node: _gfortran_caf_co_reduce,  Prev: _gfortran_caf_co_sum,  Up: Function ABI Documentation
 
-7.2.40 '_gfortran_caf_co_reduce' -- Generic collective reduction
+7.2.37 '_gfortran_caf_co_reduce' -- Generic collective reduction
 ----------------------------------------------------------------
 
 _Description_:
@@ -22116,37 +21984,37 @@ both forms.
 * Menu:
 
 * A-PREDICATE=ANSWER:                    Preprocessing Options.
-                                                              (line 150)
+                                                              (line 149)
 * allow-invalid-boz:                     Fortran Dialect Options.
                                                               (line  38)
 * APREDICATE=ANSWER:                     Preprocessing Options.
-                                                              (line 144)
+                                                              (line 143)
 * backslash:                             Fortran Dialect Options.
                                                               (line 113)
 * C:                                     Preprocessing Options.
-                                                              (line 153)
+                                                              (line 152)
 * c-prototypes:                          Interoperability Options.
                                                               (line   6)
 * c-prototypes-external:                 Interoperability Options.
                                                               (line  24)
 * CC:                                    Preprocessing Options.
-                                                              (line 168)
+                                                              (line 167)
 * cpp:                                   Preprocessing Options.
-                                                              (line  42)
+                                                              (line  41)
 * dD:                                    Preprocessing Options.
-                                                              (line  66)
+                                                              (line  65)
 * dI:                                    Preprocessing Options.
-                                                              (line  82)
+                                                              (line  81)
 * dM:                                    Preprocessing Options.
-                                                              (line  57)
+                                                              (line  56)
 * dN:                                    Preprocessing Options.
-                                                              (line  72)
+                                                              (line  71)
 * DNAME:                                 Preprocessing Options.
-                                                              (line 182)
+                                                              (line 181)
 * DNAME=DEFINITION:                      Preprocessing Options.
-                                                              (line 185)
+                                                              (line 184)
 * dU:                                    Preprocessing Options.
-                                                              (line  75)
+                                                              (line  74)
 * faggressive-function-elimination:      Code Gen Options.    (line 462)
 * falign-commons:                        Code Gen Options.    (line 435)
 * fall-intrinsics:                       Fortran Dialect Options.
@@ -22251,7 +22119,7 @@ both forms.
 * fpad-source:                           Fortran Dialect Options.
                                                               (line 144)
 * fpp:                                   Preprocessing Options.
-                                                              (line  42)
+                                                              (line  41)
 * frange-check:                          Fortran Dialect Options.
                                                               (line 221)
 * freal-4-real-10:                       Fortran Dialect Options.
@@ -22283,27 +22151,27 @@ both forms.
 * funsigned:                             Fortran Dialect Options.
                                                               (line 342)
 * fworking-directory:                    Preprocessing Options.
-                                                              (line  86)
+                                                              (line  85)
 * H:                                     Preprocessing Options.
-                                                              (line 205)
+                                                              (line 204)
 * IDIR:                                  Directory Options.   (line  13)
 * idirafter:                             Preprocessing Options.
-                                                              (line 100)
+                                                              (line  99)
 * imultilib:                             Preprocessing Options.
-                                                              (line 107)
+                                                              (line 106)
 * iprefix:                               Preprocessing Options.
-                                                              (line 111)
+                                                              (line 110)
 * iquote:                                Preprocessing Options.
-                                                              (line 120)
+                                                              (line 119)
 * isysroot:                              Preprocessing Options.
-                                                              (line 116)
+                                                              (line 115)
 * isystem:                               Preprocessing Options.
-                                                              (line 127)
+                                                              (line 126)
 * JDIR:                                  Directory Options.   (line  28)
 * nostdinc:                              Preprocessing Options.
-                                                              (line 135)
+                                                              (line 134)
 * P:                                     Preprocessing Options.
-                                                              (line 210)
+                                                              (line 209)
 * pedantic:                              Error and Warning Options.
                                                               (line  37)
 * pedantic-errors:                       Error and Warning Options.
@@ -22314,9 +22182,9 @@ both forms.
                                                               (line 315)
 * tail-call-workaround:                  Code Gen Options.    (line 207)
 * UNAME:                                 Preprocessing Options.
-                                                              (line 216)
+                                                              (line 215)
 * undef:                                 Preprocessing Options.
-                                                              (line 140)
+                                                              (line 139)
 * Waliasing:                             Error and Warning Options.
                                                               (line  70)
 * Walign-commons:                        Error and Warning Options.
@@ -22745,17 +22613,14 @@ Keyword Index
                                                               (line   6)
 * Coarray, _gfortran_caf_finish:         _gfortran_caf_finish.
                                                               (line   6)
-* Coarray, _gfortran_caf_get:            _gfortran_caf_get.   (line   6)
-* Coarray, _gfortran_caf_get_by_ct:      _gfortran_caf_get_by_ct.
-                                                              (line   6)
-* Coarray, _gfortran_caf_get_by_ref:     _gfortran_caf_get_by_ref.
+* Coarray, _gfortran_caf_get_from_remote: _gfortran_caf_get_from_remote.
                                                               (line   6)
 * Coarray, _gfortran_caf_get_remote_function_index: _gfortran_caf_get_remote_function_index.
                                                               (line   6)
 * Coarray, _gfortran_caf_image_status:   _gfortran_caf_image_status.
                                                               (line   6)
 * Coarray, _gfortran_caf_init:           _gfortran_caf_init.  (line   6)
-* Coarray, _gfortran_caf_is_present:     _gfortran_caf_is_present.
+* Coarray, _gfortran_caf_is_present_on_remote: _gfortran_caf_is_present_on_remote.
                                                               (line   6)
 * Coarray, _gfortran_caf_lock:           _gfortran_caf_lock.  (line   6)
 * Coarray, _gfortran_caf_num_images:     _gfortran_caf_num_images.
@@ -22766,12 +22631,9 @@ Keyword Index
                                                               (line   6)
 * Coarray, _gfortran_caf_register_accessors_finish: _gfortran_caf_register_accessors_finish.
                                                               (line   6)
-* Coarray, _gfortran_caf_send:           _gfortran_caf_send.  (line   6)
-* Coarray, _gfortran_caf_sendget:        _gfortran_caf_sendget.
-                                                              (line   6)
 * Coarray, _gfortran_caf_sendget_by_ref: _gfortran_caf_sendget_by_ref.
                                                               (line   6)
-* Coarray, _gfortran_caf_send_by_ref:    _gfortran_caf_send_by_ref.
+* Coarray, _gfortran_caf_send_to_remote: _gfortran_caf_send_to_remote.
                                                               (line   6)
 * Coarray, _gfortran_caf_stopped_images: _gfortran_caf_stopped_images.
                                                               (line   6)
@@ -22782,6 +22644,8 @@ Keyword Index
 * Coarray, _gfortran_caf_sync_memory:    _gfortran_caf_sync_memory.
                                                               (line   6)
 * Coarray, _gfortran_caf_this_image:     _gfortran_caf_this_image.
+                                                              (line   6)
+* Coarray, _gfortran_caf_transfer_between_remotes: _gfortran_caf_transfer_between_remotes.
                                                               (line   6)
 * Coarray, _gfortran_caf_unlock:         _gfortran_caf_unlock.
                                                               (line   6)
@@ -22937,15 +22801,15 @@ Keyword Index
 * DDIM:                                  DIM.                 (line   6)
 * debugging information options:         Debugging Options.   (line   6)
 * debugging, preprocessor:               Preprocessing Options.
-                                                              (line  57)
+                                                              (line  56)
 * debugging, preprocessor <1>:           Preprocessing Options.
-                                                              (line  66)
+                                                              (line  65)
 * debugging, preprocessor <2>:           Preprocessing Options.
-                                                              (line  72)
+                                                              (line  71)
 * debugging, preprocessor <3>:           Preprocessing Options.
-                                                              (line  75)
+                                                              (line  74)
 * debugging, preprocessor <4>:           Preprocessing Options.
-                                                              (line  82)
+                                                              (line  81)
 * DECODE:                                ENCODE and DECODE statements.
                                                               (line   6)
 * delayed execution:                     ALARM.               (line   6)
@@ -23520,53 +23384,53 @@ Keyword Index
 * Preprocessing:                         Preprocessing Options.
                                                               (line   6)
 * preprocessing, assertion:              Preprocessing Options.
-                                                              (line 144)
+                                                              (line 143)
 * preprocessing, assertion <1>:          Preprocessing Options.
-                                                              (line 150)
+                                                              (line 149)
 * preprocessing, define macros:          Preprocessing Options.
-                                                              (line 182)
+                                                              (line 181)
 * preprocessing, define macros <1>:      Preprocessing Options.
-                                                              (line 185)
+                                                              (line 184)
 * preprocessing, include path:           Preprocessing Options.
-                                                              (line 100)
+                                                              (line  99)
 * preprocessing, include path <1>:       Preprocessing Options.
-                                                              (line 107)
+                                                              (line 106)
 * preprocessing, include path <2>:       Preprocessing Options.
-                                                              (line 111)
+                                                              (line 110)
 * preprocessing, include path <3>:       Preprocessing Options.
-                                                              (line 116)
+                                                              (line 115)
 * preprocessing, include path <4>:       Preprocessing Options.
-                                                              (line 120)
+                                                              (line 119)
 * preprocessing, include path <5>:       Preprocessing Options.
-                                                              (line 127)
+                                                              (line 126)
 * preprocessing, keep comments:          Preprocessing Options.
-                                                              (line 153)
+                                                              (line 152)
 * preprocessing, keep comments <1>:      Preprocessing Options.
-                                                              (line 168)
+                                                              (line 167)
 * preprocessing, no linemarkers:         Preprocessing Options.
-                                                              (line 210)
+                                                              (line 209)
 * preprocessing, undefine macros:        Preprocessing Options.
-                                                              (line 216)
+                                                              (line 215)
 * preprocessor:                          Preprocessing Options.
                                                               (line   6)
 * preprocessor, debugging:               Preprocessing Options.
-                                                              (line  57)
+                                                              (line  56)
 * preprocessor, debugging <1>:           Preprocessing Options.
-                                                              (line  66)
+                                                              (line  65)
 * preprocessor, debugging <2>:           Preprocessing Options.
-                                                              (line  72)
+                                                              (line  71)
 * preprocessor, debugging <3>:           Preprocessing Options.
-                                                              (line  75)
+                                                              (line  74)
 * preprocessor, debugging <4>:           Preprocessing Options.
-                                                              (line  82)
+                                                              (line  81)
 * preprocessor, disable:                 Preprocessing Options.
-                                                              (line  42)
+                                                              (line  41)
 * preprocessor, enable:                  Preprocessing Options.
-                                                              (line  42)
+                                                              (line  41)
 * preprocessor, include file handling:   Preprocessing Options.
                                                               (line   6)
 * preprocessor, working directory:       Preprocessing Options.
-                                                              (line  86)
+                                                              (line  85)
 * PRESENT:                               PRESENT.             (line   6)
 * private:                               Fortran Dialect Options.
                                                               (line 125)
@@ -23967,463 +23831,460 @@ Node: Option Summary17694
 Node: Fortran Dialect Options22097
 Ref: -funsigned39276
 Node: Preprocessing Options39325
-Node: Error and Warning Options49275
-Node: Debugging Options61497
-Node: Directory Options65172
-Node: Link Options66607
-Node: Runtime Options67738
-Node: Developer Options69994
-Node: Code Gen Options72402
-Node: Interoperability Options95050
-Node: Environment Variables97120
-Node: Runtime97733
-Node: TMPDIR98904
-Node: GFORTRAN_STDIN_UNIT99574
-Node: GFORTRAN_STDOUT_UNIT99956
-Node: GFORTRAN_STDERR_UNIT100357
-Node: GFORTRAN_UNBUFFERED_ALL100759
-Node: GFORTRAN_UNBUFFERED_PRECONNECTED101286
-Node: GFORTRAN_SHOW_LOCUS101926
-Node: GFORTRAN_OPTIONAL_PLUS102422
-Node: GFORTRAN_LIST_SEPARATOR102900
-Node: GFORTRAN_CONVERT_UNIT103505
-Node: GFORTRAN_ERROR_BACKTRACE106788
-Node: GFORTRAN_FORMATTED_BUFFER_SIZE107384
-Node: GFORTRAN_UNFORMATTED_BUFFER_SIZE107832
-Node: Compiler Characteristics108261
-Node: KIND Type Parameters109059
-Node: Internal representation of LOGICAL variables110522
-Node: Evaluation of logical expressions111383
-Node: MAX and MIN intrinsics with REAL NaN arguments112230
-Node: Thread-safety of the runtime library113063
-Node: Data consistency and durability115468
-Node: Files opened without an explicit ACTION= specifier118565
-Node: File operations on symbolic links119260
-Node: File format of unformatted sequential files120365
-Node: Asynchronous I/O122743
-Node: Behavior on integer overflow123479
-Node: Extensions124251
-Node: Extensions implemented in GNU Fortran124910
-Node: Old-style kind specifications126850
-Node: Old-style variable initialization127973
-Node: Extensions to namelist129284
-Node: X format descriptor without count field131765
-Node: Commas in FORMAT specifications132292
-Node: Missing period in FORMAT specifications133045
-Node: Default widths for F/G/I format descriptors133636
-Node: I/O item lists134332
-Node: Q exponent-letter134721
-Node: BOZ literal constants135310
-Node: Real array indices136887
-Node: Unary operators137186
-Node: Implicitly convert LOGICAL and INTEGER values137600
-Node: Hollerith constants support138559
-Node: Character conversion140768
-Node: Cray pointers141645
-Node: CONVERT specifier147117
-Node: OpenMP149427
-Node: OpenACC151902
-Node: Argument list functions153116
-Node: Read/Write after EOF marker154759
-Node: STRUCTURE and RECORD155362
-Node: UNION and MAP160439
-Node: Type variants for integer intrinsics163406
-Node: AUTOMATIC and STATIC attributes165301
-Node: Form feed as whitespace166824
-Node: TYPE as an alias for PRINT167377
-Node: %LOC as an rvalue167846
-Node: .XOR. operator168493
-Node: Bitwise logical operators168897
-Node: Extended I/O specifiers170401
-Node: Legacy PARAMETER statements174121
-Node: Default exponents174732
-Node: Extensions not implemented in GNU Fortran175084
-Node: ENCODE and DECODE statements176109
-Node: Variable FORMAT expressions177440
-Node: Alternate complex function syntax178544
-Node: Volatile COMMON blocks179092
-Node: OPEN( ... NAME=)179594
-Node: Q edit descriptor180022
-Node: Experimental features for future Fortran versions180974
-Node: Unsigned integers181736
-Node: Mixed-Language Programming186298
-Node: Interoperability with C187531
-Node: Intrinsic Types188907
-Node: Derived Types and struct189928
-Node: Interoperable Global Variables191270
-Node: Interoperable Subroutines and Functions192545
-Node: Working with C Pointers196036
-Node: Further Interoperability of Fortran with C200699
-Node: Generating C prototypes from Fortran202088
-Node: GNU Fortran Compiler Directives202786
-Node: ATTRIBUTES directive203162
-Node: UNROLL directive206988
-Node: BUILTIN directive207637
-Node: IVDEP directive208479
-Node: VECTOR directive209396
-Node: NOVECTOR directive209906
-Node: Non-Fortran Main Program210403
-Node: _gfortran_set_args212590
-Node: _gfortran_set_options213528
-Node: _gfortran_set_convert217255
-Node: _gfortran_set_record_marker218123
-Node: _gfortran_set_fpe218933
-Node: _gfortran_set_max_subrecord_length220129
-Node: Naming and argument-passing conventions221052
-Node: Naming conventions221771
-Node: Argument passing conventions223239
-Node: Coarray Programming228574
-Node: Type and enum ABI Documentation228821
-Node: caf_token_t229119
-Node: caf_register_t229355
-Node: caf_deregister_t230628
-Node: caf_reference_t231154
-Node: caf_team_t235857
-Node: Function ABI Documentation236156
-Node: _gfortran_caf_init238927
-Node: _gfortran_caf_finish240355
-Node: _gfortran_caf_this_image241294
-Node: _gfortran_caf_num_images242048
-Node: _gfortran_caf_image_status243159
-Node: _gfortran_caf_failed_images244279
-Node: _gfortran_caf_stopped_images245449
-Node: _gfortran_caf_register246622
-Node: _gfortran_caf_deregister250807
-Node: _gfortran_caf_register_accessor252426
-Node: _gfortran_caf_register_accessors_finish254584
-Node: _gfortran_caf_get_remote_function_index255649
-Node: _gfortran_caf_is_present257433
-Node: _gfortran_caf_send258527
-Node: _gfortran_caf_get261703
-Node: _gfortran_caf_sendget264770
-Node: _gfortran_caf_send_by_ref268662
-Node: _gfortran_caf_get_by_ref272257
-Node: _gfortran_caf_get_by_ct275762
-Node: _gfortran_caf_sendget_by_ref280652
-Node: _gfortran_caf_lock284937
-Node: _gfortran_caf_unlock286720
-Node: _gfortran_caf_event_post288195
-Node: _gfortran_caf_event_wait289638
-Node: _gfortran_caf_event_query291738
-Node: _gfortran_caf_sync_all293069
-Node: _gfortran_caf_sync_images293992
-Node: _gfortran_caf_sync_memory295521
-Node: _gfortran_caf_error_stop296508
-Node: _gfortran_caf_error_stop_str297110
-Node: _gfortran_caf_fail_image297814
-Node: _gfortran_caf_atomic_define298350
-Node: _gfortran_caf_atomic_ref299660
-Node: _gfortran_caf_atomic_cas300959
-Node: _gfortran_caf_atomic_op302708
-Node: _gfortran_caf_co_broadcast304799
-Node: _gfortran_caf_co_max305899
-Node: _gfortran_caf_co_min307520
-Node: _gfortran_caf_co_sum309135
-Node: _gfortran_caf_co_reduce310670
-Node: Intrinsic Procedures313309
-Node: Introduction to Intrinsics330911
-Node: ABORT333088
-Node: ABS333836
-Node: ACCESS335560
-Node: ACHAR337461
-Node: ACOS338675
-Node: ACOSD339964
-Node: ACOSH341176
-Node: ADJUSTL342262
-Node: ADJUSTR343204
-Node: AIMAG344155
-Node: AINT345605
-Node: ALARM347189
-Node: ALL348812
-Node: ALLOCATED350736
-Node: AND351875
-Node: ANINT353615
-Node: ANY355095
-Node: ASIN357021
-Node: ASIND358299
-Node: ASINH359489
-Node: ASSOCIATED360585
-Node: ATAN363596
-Node: ATAND365072
-Node: ATAN2366349
-Node: ATAN2D368218
-Node: ATANH370105
-Node: ATOMIC_ADD371201
-Node: ATOMIC_AND372750
-Node: ATOMIC_CAS374353
-Node: ATOMIC_DEFINE376222
-Node: ATOMIC_FETCH_ADD377961
-Node: ATOMIC_FETCH_AND379778
-Node: ATOMIC_FETCH_OR381583
-Node: ATOMIC_FETCH_XOR383375
-Node: ATOMIC_OR385173
-Node: ATOMIC_REF386773
-Node: ATOMIC_XOR388689
-Node: BACKTRACE390289
-Node: BESSEL_J0390869
-Node: BESSEL_J1391970
-Node: BESSEL_JN393072
-Node: BESSEL_Y0394977
-Node: BESSEL_Y1396017
-Node: BESSEL_YN397057
-Node: BGE398973
-Node: BGT399823
-Node: BIT_SIZE400630
-Node: BLE401539
-Node: BLT402379
-Node: BTEST403174
-Node: C_ASSOCIATED404692
-Node: C_F_POINTER405908
-Node: C_F_PROCPOINTER407348
-Node: C_FUNLOC408860
-Node: C_LOC410241
-Node: C_SIZEOF411530
-Node: CEILING412939
-Node: CHAR413952
-Node: CHDIR415266
-Node: CHMOD416440
-Node: CMPLX418355
-Node: CO_BROADCAST419897
-Node: CO_MAX421724
-Node: CO_MIN423632
-Node: CO_REDUCE425526
-Node: CO_SUM429102
-Node: COMMAND_ARGUMENT_COUNT431083
-Node: COMPILER_OPTIONS432005
-Node: COMPILER_VERSION433033
-Node: COMPLEX434001
-Node: CONJG435140
-Node: COS436196
-Node: COSD437567
-Node: COSH438800
-Node: COTAN439976
-Node: COTAND441218
-Node: COUNT442460
-Node: CPU_TIME444485
-Node: CSHIFT445835
-Node: CTIME447539
-Node: DATE_AND_TIME449052
-Node: DBLE451439
-Node: DCMPLX452234
-Node: DIGITS453416
-Node: DIM454454
-Node: DOT_PRODUCT455862
-Node: DPROD457880
-Node: DREAL458842
-Node: DSHIFTL459508
-Node: DSHIFTR460915
-Node: DTIME462323
-Node: EOSHIFT465023
-Node: EPSILON467199
-Node: ERF467926
-Node: ERFC468792
-Node: ERFC_SCALED469687
-Node: ETIME470380
-Node: EVENT_QUERY472550
-Node: EXECUTE_COMMAND_LINE474131
-Node: EXIT476904
-Node: EXP477787
-Node: EXPONENT478941
-Node: EXTENDS_TYPE_OF479705
-Node: FDATE480563
-Node: FGET482049
-Node: FGETC483886
-Node: FINDLOC485706
-Node: FLOOR488347
-Node: FLUSH489343
-Node: FNUM491222
-Node: FPUT491947
-Node: FPUTC493591
-Node: FRACTION495382
-Node: FREE496286
-Node: FSEEK497129
-Node: FSTAT499435
-Node: FTELL500536
-Node: GAMMA501518
-Node: GERROR502598
-Node: GETARG503351
-Node: GET_COMMAND505086
-Node: GET_COMMAND_ARGUMENT506465
-Node: GETCWD508512
-Node: GETENV509492
-Node: GET_ENVIRONMENT_VARIABLE510919
-Node: GETGID513077
-Node: GETLOG513619
-Node: GETPID514473
-Node: GETUID515208
-Node: GMTIME515729
-Node: HOSTNM517504
-Node: HUGE518425
-Node: HYPOT519235
-Node: IACHAR520061
-Node: IALL521239
-Node: IAND522824
-Node: IANY524709
-Node: IARGC526303
-Node: IBCLR527337
-Node: IBITS528611
-Node: IBSET530132
-Node: ICHAR531401
-Node: IDATE533616
-Node: IEOR534916
-Node: IERRNO536694
-Node: IMAGE_INDEX537242
-Node: INDEX intrinsic538268
-Node: INT539889
-Node: INT2541922
-Node: INT8542628
-Node: IOR543334
-Node: IPARITY545099
-Node: IRAND546754
-Node: IS_CONTIGUOUS548113
-Node: IS_IOSTAT_END549282
-Node: IS_IOSTAT_EOR550391
-Node: ISATTY551522
-Node: ISHFT552303
-Node: ISHFTC553869
-Node: ISNAN555682
-Node: ITIME556449
-Node: KILL557747
-Node: KIND558888
-Node: LBOUND559786
-Node: LCOBOUND561129
-Node: LEADZ562269
-Node: LEN563145
-Node: LEN_TRIM564486
-Node: LGE565484
-Node: LGT567097
-Node: LINK568675
-Node: LLE569719
-Node: LLT571319
-Node: LNBLNK572890
-Node: LOC573673
-Node: LOG574405
-Node: LOG10575837
-Node: LOG_GAMMA576815
-Node: LOGICAL578013
-Node: LSHIFT578837
-Node: LSTAT579969
-Node: LTIME581202
-Node: MALLOC582899
-Node: MASKL584361
-Node: MASKR585128
-Node: MATMUL585898
-Node: MAX587298
-Node: MAXEXPONENT588779
-Node: MAXLOC589596
-Node: MAXVAL592315
-Node: MCLOCK594119
-Node: MCLOCK8595157
-Node: MERGE596398
-Node: MERGE_BITS597150
-Node: MIN598264
-Node: MINEXPONENT599747
-Node: MINLOC600378
-Node: MINVAL603099
-Node: MOD604836
-Node: MODULO607179
-Node: MOVE_ALLOC608814
-Node: MVBITS609843
-Node: NEAREST611542
-Node: NEW_LINE612642
-Node: NINT613415
-Node: NORM2614829
-Node: NOT615968
-Node: NULL617186
-Node: NUM_IMAGES618094
-Node: OR619798
-Node: OUT_OF_RANGE621534
-Node: PACK623893
-Node: PARITY625947
-Node: PERROR627168
-Node: POPCNT627793
-Node: POPPAR628674
-Node: PRECISION629737
-Node: PRESENT630674
-Node: PRODUCT631786
-Node: RADIX633391
-Node: RAN634202
-Node: RAND634663
-Node: RANDOM_INIT636001
-Node: RANDOM_NUMBER638117
-Node: RANDOM_SEED639611
-Node: RANGE642086
-Node: RANK642859
-Node: REAL643640
-Node: RENAME645837
-Node: REPEAT646859
-Node: RESHAPE647587
-Node: RRSPACING649054
-Node: RSHIFT649747
-Node: SAME_TYPE_AS650935
-Node: SCALE651767
-Node: SCAN652548
-Node: SECNDS654111
-Node: SECOND655203
-Node: SELECTED_CHAR_KIND656079
-Node: SELECTED_INT_KIND657674
-Node: SELECTED_LOGICAL_KIND658854
-Node: SELECTED_REAL_KIND659954
-Node: SELECTED_UNSIGNED_KIND662654
-Node: SET_EXPONENT663737
-Node: SHAPE664728
-Node: SHIFTA666157
-Node: SHIFTL667213
-Node: SHIFTR668138
-Node: SIGN669004
-Node: SIGNAL670295
-Node: SIN672255
-Node: SIND673435
-Node: SINH674640
-Node: SIZE675593
-Node: SIZEOF676917
-Node: SLEEP678573
-Node: SPACING679134
-Node: SPREAD680148
-Node: SQRT681299
-Node: SRAND682532
-Node: STAT683776
-Node: STORAGE_SIZE686958
-Node: SUM687842
-Node: SYMLNK689405
-Node: SYSTEM690545
-Node: SYSTEM_CLOCK691800
-Node: TAN694649
-Node: TAND695723
-Node: TANH696706
-Node: THIS_IMAGE697869
-Node: TIME700173
-Node: TIME8701364
-Node: TINY702579
-Node: TRAILZ703180
-Node: TRANSFER704013
-Node: TRANSPOSE706049
-Node: TRIM706739
-Node: TTYNAM707600
-Node: UBOUND708516
-Node: UCOBOUND709911
-Node: UINT711052
-Node: UMASK711665
-Node: UMASKL712343
-Node: UMASKR713192
-Node: UNLINK714043
-Node: UNPACK715029
-Node: VERIFY716329
-Node: XOR718063
-Node: Intrinsic Modules719878
-Node: ISO_FORTRAN_ENV720165
-Node: ISO_C_BINDING724822
-Node: IEEE modules730271
-Node: OpenMP Modules OMP_LIB and OMP_LIB_KINDS731411
-Node: OpenACC Module OPENACC735627
-Node: Contributing736553
-Node: Contributors737383
-Node: Projects739037
-Node: Copying740215
-Node: GNU Free Documentation License777766
-Node: Funding802895
-Node: Option Index805421
-Node: Keyword Index824972
+Node: Error and Warning Options49177
+Node: Debugging Options61399
+Node: Directory Options65074
+Node: Link Options66509
+Node: Runtime Options67640
+Node: Developer Options69896
+Node: Code Gen Options72304
+Node: Interoperability Options94952
+Node: Environment Variables97022
+Node: Runtime97635
+Node: TMPDIR98806
+Node: GFORTRAN_STDIN_UNIT99476
+Node: GFORTRAN_STDOUT_UNIT99858
+Node: GFORTRAN_STDERR_UNIT100259
+Node: GFORTRAN_UNBUFFERED_ALL100661
+Node: GFORTRAN_UNBUFFERED_PRECONNECTED101188
+Node: GFORTRAN_SHOW_LOCUS101828
+Node: GFORTRAN_OPTIONAL_PLUS102324
+Node: GFORTRAN_LIST_SEPARATOR102802
+Node: GFORTRAN_CONVERT_UNIT103407
+Node: GFORTRAN_ERROR_BACKTRACE106690
+Node: GFORTRAN_FORMATTED_BUFFER_SIZE107286
+Node: GFORTRAN_UNFORMATTED_BUFFER_SIZE107734
+Node: Compiler Characteristics108163
+Node: KIND Type Parameters108961
+Node: Internal representation of LOGICAL variables110424
+Node: Evaluation of logical expressions111285
+Node: MAX and MIN intrinsics with REAL NaN arguments112132
+Node: Thread-safety of the runtime library112965
+Node: Data consistency and durability115370
+Node: Files opened without an explicit ACTION= specifier118467
+Node: File operations on symbolic links119162
+Node: File format of unformatted sequential files120267
+Node: Asynchronous I/O122645
+Node: Behavior on integer overflow123381
+Node: Extensions124153
+Node: Extensions implemented in GNU Fortran124812
+Node: Old-style kind specifications126752
+Node: Old-style variable initialization127875
+Node: Extensions to namelist129186
+Node: X format descriptor without count field131667
+Node: Commas in FORMAT specifications132194
+Node: Missing period in FORMAT specifications132947
+Node: Default widths for F/G/I format descriptors133538
+Node: I/O item lists134234
+Node: Q exponent-letter134623
+Node: BOZ literal constants135212
+Node: Real array indices136789
+Node: Unary operators137088
+Node: Implicitly convert LOGICAL and INTEGER values137502
+Node: Hollerith constants support138461
+Node: Character conversion140670
+Node: Cray pointers141547
+Node: CONVERT specifier147019
+Node: OpenMP149329
+Node: OpenACC151804
+Node: Argument list functions153018
+Node: Read/Write after EOF marker154661
+Node: STRUCTURE and RECORD155264
+Node: UNION and MAP160341
+Node: Type variants for integer intrinsics163308
+Node: AUTOMATIC and STATIC attributes165203
+Node: Form feed as whitespace166726
+Node: TYPE as an alias for PRINT167279
+Node: %LOC as an rvalue167748
+Node: .XOR. operator168395
+Node: Bitwise logical operators168799
+Node: Extended I/O specifiers170303
+Node: Legacy PARAMETER statements174023
+Node: Default exponents174634
+Node: Extensions not implemented in GNU Fortran174986
+Node: ENCODE and DECODE statements176011
+Node: Variable FORMAT expressions177342
+Node: Alternate complex function syntax178446
+Node: Volatile COMMON blocks178994
+Node: OPEN( ... NAME=)179496
+Node: Q edit descriptor179924
+Node: Experimental features for future Fortran versions180876
+Node: Unsigned integers181638
+Node: Mixed-Language Programming186200
+Node: Interoperability with C187433
+Node: Intrinsic Types188809
+Node: Derived Types and struct189830
+Node: Interoperable Global Variables191172
+Node: Interoperable Subroutines and Functions192447
+Node: Working with C Pointers195938
+Node: Further Interoperability of Fortran with C200601
+Node: Generating C prototypes from Fortran201990
+Node: GNU Fortran Compiler Directives202688
+Node: ATTRIBUTES directive203064
+Node: UNROLL directive206890
+Node: BUILTIN directive207539
+Node: IVDEP directive208381
+Node: VECTOR directive209298
+Node: NOVECTOR directive209808
+Node: Non-Fortran Main Program210305
+Node: _gfortran_set_args212492
+Node: _gfortran_set_options213430
+Node: _gfortran_set_convert217157
+Node: _gfortran_set_record_marker218025
+Node: _gfortran_set_fpe218835
+Node: _gfortran_set_max_subrecord_length220031
+Node: Naming and argument-passing conventions220954
+Node: Naming conventions221673
+Node: Argument passing conventions223141
+Node: Coarray Programming228514
+Node: Type and enum ABI Documentation228761
+Node: caf_token_t229059
+Node: caf_register_t229295
+Node: caf_deregister_t230568
+Node: caf_reference_t231094
+Node: caf_team_t235797
+Node: Function ABI Documentation236096
+Node: _gfortran_caf_init238674
+Node: _gfortran_caf_finish240102
+Node: _gfortran_caf_this_image241041
+Node: _gfortran_caf_num_images241795
+Node: _gfortran_caf_image_status242906
+Node: _gfortran_caf_failed_images244026
+Node: _gfortran_caf_stopped_images245196
+Node: _gfortran_caf_register246369
+Node: _gfortran_caf_deregister250554
+Node: _gfortran_caf_register_accessor252173
+Node: _gfortran_caf_register_accessors_finish254331
+Node: _gfortran_caf_get_remote_function_index255396
+Node: _gfortran_caf_get_from_remote257191
+Node: _gfortran_caf_is_present_on_remote262126
+Node: _gfortran_caf_send_to_remote263893
+Node: _gfortran_caf_transfer_between_remotes268193
+Node: _gfortran_caf_sendget_by_ref275025
+Node: _gfortran_caf_lock279325
+Node: _gfortran_caf_unlock281108
+Node: _gfortran_caf_event_post282583
+Node: _gfortran_caf_event_wait284026
+Node: _gfortran_caf_event_query286126
+Node: _gfortran_caf_sync_all287457
+Node: _gfortran_caf_sync_images288380
+Node: _gfortran_caf_sync_memory289909
+Node: _gfortran_caf_error_stop290896
+Node: _gfortran_caf_error_stop_str291498
+Node: _gfortran_caf_fail_image292202
+Node: _gfortran_caf_atomic_define292738
+Node: _gfortran_caf_atomic_ref294048
+Node: _gfortran_caf_atomic_cas295347
+Node: _gfortran_caf_atomic_op297096
+Node: _gfortran_caf_co_broadcast299187
+Node: _gfortran_caf_co_max300287
+Node: _gfortran_caf_co_min301908
+Node: _gfortran_caf_co_sum303523
+Node: _gfortran_caf_co_reduce305058
+Node: Intrinsic Procedures307697
+Node: Introduction to Intrinsics325299
+Node: ABORT327476
+Node: ABS328224
+Node: ACCESS329948
+Node: ACHAR331849
+Node: ACOS333063
+Node: ACOSD334352
+Node: ACOSH335564
+Node: ADJUSTL336650
+Node: ADJUSTR337592
+Node: AIMAG338543
+Node: AINT339993
+Node: ALARM341577
+Node: ALL343200
+Node: ALLOCATED345124
+Node: AND346263
+Node: ANINT348003
+Node: ANY349483
+Node: ASIN351409
+Node: ASIND352687
+Node: ASINH353877
+Node: ASSOCIATED354973
+Node: ATAN357984
+Node: ATAND359460
+Node: ATAN2360737
+Node: ATAN2D362606
+Node: ATANH364493
+Node: ATOMIC_ADD365589
+Node: ATOMIC_AND367138
+Node: ATOMIC_CAS368741
+Node: ATOMIC_DEFINE370610
+Node: ATOMIC_FETCH_ADD372349
+Node: ATOMIC_FETCH_AND374166
+Node: ATOMIC_FETCH_OR375971
+Node: ATOMIC_FETCH_XOR377763
+Node: ATOMIC_OR379561
+Node: ATOMIC_REF381161
+Node: ATOMIC_XOR383077
+Node: BACKTRACE384677
+Node: BESSEL_J0385257
+Node: BESSEL_J1386358
+Node: BESSEL_JN387460
+Node: BESSEL_Y0389365
+Node: BESSEL_Y1390405
+Node: BESSEL_YN391445
+Node: BGE393361
+Node: BGT394211
+Node: BIT_SIZE395018
+Node: BLE395927
+Node: BLT396767
+Node: BTEST397562
+Node: C_ASSOCIATED399080
+Node: C_F_POINTER400296
+Node: C_F_PROCPOINTER401736
+Node: C_FUNLOC403248
+Node: C_LOC404629
+Node: C_SIZEOF405918
+Node: CEILING407327
+Node: CHAR408340
+Node: CHDIR409654
+Node: CHMOD410828
+Node: CMPLX412743
+Node: CO_BROADCAST414285
+Node: CO_MAX416112
+Node: CO_MIN418020
+Node: CO_REDUCE419914
+Node: CO_SUM423490
+Node: COMMAND_ARGUMENT_COUNT425471
+Node: COMPILER_OPTIONS426393
+Node: COMPILER_VERSION427421
+Node: COMPLEX428389
+Node: CONJG429528
+Node: COS430584
+Node: COSD431955
+Node: COSH433188
+Node: COTAN434364
+Node: COTAND435606
+Node: COUNT436848
+Node: CPU_TIME438873
+Node: CSHIFT440223
+Node: CTIME441927
+Node: DATE_AND_TIME443440
+Node: DBLE445827
+Node: DCMPLX446622
+Node: DIGITS447804
+Node: DIM448842
+Node: DOT_PRODUCT450250
+Node: DPROD452268
+Node: DREAL453230
+Node: DSHIFTL453896
+Node: DSHIFTR455303
+Node: DTIME456711
+Node: EOSHIFT459411
+Node: EPSILON461587
+Node: ERF462314
+Node: ERFC463180
+Node: ERFC_SCALED464075
+Node: ETIME464768
+Node: EVENT_QUERY466938
+Node: EXECUTE_COMMAND_LINE468519
+Node: EXIT471292
+Node: EXP472175
+Node: EXPONENT473329
+Node: EXTENDS_TYPE_OF474093
+Node: FDATE474951
+Node: FGET476437
+Node: FGETC478274
+Node: FINDLOC480094
+Node: FLOOR482735
+Node: FLUSH483731
+Node: FNUM485610
+Node: FPUT486335
+Node: FPUTC487979
+Node: FRACTION489770
+Node: FREE490674
+Node: FSEEK491517
+Node: FSTAT493823
+Node: FTELL494924
+Node: GAMMA495906
+Node: GERROR496986
+Node: GETARG497739
+Node: GET_COMMAND499474
+Node: GET_COMMAND_ARGUMENT500853
+Node: GETCWD502900
+Node: GETENV503880
+Node: GET_ENVIRONMENT_VARIABLE505307
+Node: GETGID507465
+Node: GETLOG508007
+Node: GETPID508861
+Node: GETUID509596
+Node: GMTIME510117
+Node: HOSTNM511892
+Node: HUGE512813
+Node: HYPOT513623
+Node: IACHAR514449
+Node: IALL515627
+Node: IAND517212
+Node: IANY519097
+Node: IARGC520691
+Node: IBCLR521725
+Node: IBITS522999
+Node: IBSET524520
+Node: ICHAR525789
+Node: IDATE528004
+Node: IEOR529304
+Node: IERRNO531082
+Node: IMAGE_INDEX531630
+Node: INDEX intrinsic532656
+Node: INT534277
+Node: INT2536310
+Node: INT8537016
+Node: IOR537722
+Node: IPARITY539487
+Node: IRAND541142
+Node: IS_CONTIGUOUS542501
+Node: IS_IOSTAT_END543670
+Node: IS_IOSTAT_EOR544779
+Node: ISATTY545910
+Node: ISHFT546691
+Node: ISHFTC548257
+Node: ISNAN550070
+Node: ITIME550837
+Node: KILL552135
+Node: KIND553276
+Node: LBOUND554174
+Node: LCOBOUND555517
+Node: LEADZ556657
+Node: LEN557533
+Node: LEN_TRIM558874
+Node: LGE559872
+Node: LGT561485
+Node: LINK563063
+Node: LLE564107
+Node: LLT565707
+Node: LNBLNK567278
+Node: LOC568061
+Node: LOG568793
+Node: LOG10570225
+Node: LOG_GAMMA571203
+Node: LOGICAL572401
+Node: LSHIFT573225
+Node: LSTAT574357
+Node: LTIME575590
+Node: MALLOC577287
+Node: MASKL578749
+Node: MASKR579516
+Node: MATMUL580286
+Node: MAX581686
+Node: MAXEXPONENT583167
+Node: MAXLOC583984
+Node: MAXVAL586703
+Node: MCLOCK588507
+Node: MCLOCK8589545
+Node: MERGE590786
+Node: MERGE_BITS591538
+Node: MIN592652
+Node: MINEXPONENT594135
+Node: MINLOC594766
+Node: MINVAL597487
+Node: MOD599224
+Node: MODULO601567
+Node: MOVE_ALLOC603202
+Node: MVBITS604231
+Node: NEAREST605930
+Node: NEW_LINE607030
+Node: NINT607803
+Node: NORM2609217
+Node: NOT610356
+Node: NULL611574
+Node: NUM_IMAGES612482
+Node: OR614186
+Node: OUT_OF_RANGE615922
+Node: PACK618281
+Node: PARITY620335
+Node: PERROR621556
+Node: POPCNT622181
+Node: POPPAR623062
+Node: PRECISION624125
+Node: PRESENT625062
+Node: PRODUCT626174
+Node: RADIX627779
+Node: RAN628590
+Node: RAND629051
+Node: RANDOM_INIT630389
+Node: RANDOM_NUMBER632505
+Node: RANDOM_SEED633999
+Node: RANGE636474
+Node: RANK637247
+Node: REAL638028
+Node: RENAME640225
+Node: REPEAT641247
+Node: RESHAPE641975
+Node: RRSPACING643442
+Node: RSHIFT644135
+Node: SAME_TYPE_AS645323
+Node: SCALE646155
+Node: SCAN646936
+Node: SECNDS648499
+Node: SECOND649591
+Node: SELECTED_CHAR_KIND650467
+Node: SELECTED_INT_KIND652062
+Node: SELECTED_LOGICAL_KIND653242
+Node: SELECTED_REAL_KIND654342
+Node: SELECTED_UNSIGNED_KIND657042
+Node: SET_EXPONENT658125
+Node: SHAPE659116
+Node: SHIFTA660545
+Node: SHIFTL661601
+Node: SHIFTR662526
+Node: SIGN663392
+Node: SIGNAL664683
+Node: SIN666643
+Node: SIND667823
+Node: SINH669028
+Node: SIZE669981
+Node: SIZEOF671305
+Node: SLEEP672961
+Node: SPACING673522
+Node: SPREAD674536
+Node: SQRT675687
+Node: SRAND676920
+Node: STAT678164
+Node: STORAGE_SIZE681346
+Node: SUM682230
+Node: SYMLNK683793
+Node: SYSTEM684933
+Node: SYSTEM_CLOCK686188
+Node: TAN689037
+Node: TAND690111
+Node: TANH691094
+Node: THIS_IMAGE692257
+Node: TIME694561
+Node: TIME8695752
+Node: TINY696967
+Node: TRAILZ697568
+Node: TRANSFER698401
+Node: TRANSPOSE700437
+Node: TRIM701127
+Node: TTYNAM701988
+Node: UBOUND702904
+Node: UCOBOUND704299
+Node: UINT705440
+Node: UMASK706053
+Node: UMASKL706731
+Node: UMASKR707580
+Node: UNLINK708431
+Node: UNPACK709417
+Node: VERIFY710717
+Node: XOR712451
+Node: Intrinsic Modules714266
+Node: ISO_FORTRAN_ENV714553
+Node: ISO_C_BINDING719210
+Node: IEEE modules724659
+Node: OpenMP Modules OMP_LIB and OMP_LIB_KINDS725799
+Node: OpenACC Module OPENACC730015
+Node: Contributing730941
+Node: Contributors731771
+Node: Projects733425
+Node: Copying734603
+Node: GNU Free Documentation License772154
+Node: Funding797283
+Node: Option Index799809
+Node: Keyword Index819360
 
 End Tag Table
 

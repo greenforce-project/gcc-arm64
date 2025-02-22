@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-02-15" "gcc-15.0.1" "GNU"
+.TH GCC 1 "2025-02-22" "gcc-15.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -12185,16 +12185,6 @@ makes profiling significantly cheaper and usually inlining faster on programs
 having large chains of nested wrapper functions.
 .Sp
 Enabled by default.
-.IP "\fB\-ffile\-cache\-files=\fR" 4
-.IX Item "-ffile-cache-files="
-Max number of files in the file cache.
-The file cache is used to print source lines in diagnostics and do some
-source checks like \fB\-Wmisleading\-indentation\fR.
-.IP "\fB\-ffile\-cache\-files=\fR" 4
-.IX Item "-ffile-cache-files="
-Max number of lines to index into file cache. When 0 this is automatically sized.
-The file cache is used to print source lines in diagnostics and do some
-source checks like \fB\-Wmisleading\-indentation\fR.
 .IP "\fB\-fipa\-sra\fR" 4
 .IX Item "-fipa-sra"
 Perform interprocedural scalar replacement of aggregates, removal of
@@ -14772,6 +14762,16 @@ gives the maximum number of instructions in a block which should be
 considered for if-conversion.  The compiler will
 also use other heuristics to decide whether if-conversion is likely to be
 profitable.
+.IP "\fBfile-cache-files\fR" 4
+.IX Item "file-cache-files"
+Max number of files in the file cache.
+The file cache is used to print source lines in diagnostics and do some
+source checks like \fB\-Wmisleading\-indentation\fR.
+.IP "\fBfile-cache-lines\fR" 4
+.IX Item "file-cache-lines"
+Max number of lines to index into file cache. When 0 this is automatically sized.
+The file cache is used to print source lines in diagnostics and do some
+source checks like \fB\-Wmisleading\-indentation\fR.
 .IP "\fBmax-rtl-if-conversion-predictable-cost\fR" 4
 .IX Item "max-rtl-if-conversion-predictable-cost"
 \&\s-1RTL\s0 if-conversion will try to remove conditional branches around a block
@@ -19679,9 +19679,6 @@ Dump after common sequence discovery.
 .IP "\fB\-fdump\-rtl\-shorten\fR" 4
 .IX Item "-fdump-rtl-shorten"
 Dump after shortening branches.
-.IP "\fB\-fdump\-rtl\-sibling\fR" 4
-.IX Item "-fdump-rtl-sibling"
-Dump after sibling call optimizations.
 .IP "\fB\-fdump\-rtl\-split1\fR" 4
 .IX Item "-fdump-rtl-split1"
 .PD 0
@@ -19712,9 +19709,6 @@ x87's stack-like registers.  This pass is only run on x86 variants.
 .PD
 \&\fB\-fdump\-rtl\-subreg1\fR and \fB\-fdump\-rtl\-subreg2\fR enable dumping after
 the two subreg expansion passes.
-.IP "\fB\-fdump\-rtl\-unshare\fR" 4
-.IX Item "-fdump-rtl-unshare"
-Dump after all rtl has been unshared.
 .IP "\fB\-fdump\-rtl\-vartrack\fR" 4
 .IX Item "-fdump-rtl-vartrack"
 Dump after variable tracking.
@@ -23771,7 +23765,7 @@ Don't run \f(CW\*(C`main\*(C'\fR by means of
 Instead, put \f(CW\*(C`main\*(C'\fR in section
 \&\f(CW\*(C`.init9\*(C'\fR (\f(CW\*(C`https://avrdudes.github.io/avr\-libc/avr\-libc\-user\-manual/mem_sections.html#sec_dot_init\*(C'\fR)
 so that no call is required.
-By setting this options the user asserts that \f(CW\*(C`main\*(C'\fR will not return.
+By setting this option the user asserts that \f(CW\*(C`main\*(C'\fR will not return.
 .Sp
 This option can be used for devices with very limited resources in order
 to save a few bytes of code and stack space.  It will work as expected since
@@ -24118,6 +24112,11 @@ is defined to \f(CW\*(C`atmega8\*(C'\fR.
 .Sp
 If \fIdevice\fR is not a device but only a core architecture like
 \&\fBavr51\fR, this macro is not defined.
+.ie n .IP """_\|_AVR_CVT_\|_""" 4
+.el .IP "\f(CW_\|_AVR_CVT_\|_\fR" 4
+.IX Item "__AVR_CVT__"
+The code is being compiled with option \f(CW\*(C`\-mcvt\*(C'\fR to use a
+\&\fIcompact vector table\fR.
 .ie n .IP """_\|_AVR_XMEGA_\|_""" 4
 .el .IP "\f(CW_\|_AVR_XMEGA_\|_\fR" 4
 .IX Item "__AVR_XMEGA__"
