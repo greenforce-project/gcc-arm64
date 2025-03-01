@@ -116,7 +116,7 @@ ISO C++14 compiler
      for used C++14 features.
 
      Versions of GCC prior to 15 allow bootstrapping with an ISO C++11
-     compiler, versions prior to 11 allow bootstrapping with an ISO
+     compiler, versions prior to 10.5 allow bootstrapping with an ISO
      C++98 compiler, and versions prior to 4.8 allow bootstrapping with
      an ISO C89 compiler.
 
@@ -4847,101 +4847,101 @@ Tag Table:
 Node: Top1696
 Node: Installing GCC2201
 Node: Prerequisites3659
-Ref: GNAT-prerequisite5973
-Ref: GDC-prerequisite7370
-Ref: GM2-prerequisite8553
-Node: Downloading the source19268
-Node: Configuration20987
-Ref: with-gnu-as40245
-Ref: with-as41066
-Ref: with-gnu-ld42431
-Ref: with-multilib-list46037
-Ref: WithAixSoname73777
-Ref: AixLdCommand74438
-Ref: with-included-gettext90322
-Node: Building118675
-Node: Testing135233
-Node: Final install142764
-Node: Binaries145942
-Node: Specific146882
-Ref: aarch64-x-x147416
-Ref: amd64-x-solaris2149257
-Ref: amdgcn-x-amdhsa149339
-Ref: arc-x-elf32151236
-Ref: arc-linux-uclibc151412
-Ref: arm-x-eabi151553
-Ref: avr151806
-Ref: bfin152288
-Ref: cris152551
-Ref: dos152877
-Ref: epiphany-x-elf153202
-Ref: x-x-freebsd153307
-Ref: ft32-x-elf153935
-Ref: h8300-hms154033
-Ref: hppa64-hp-hpux11154092
-Ref: x-x-linux-gnu154849
-Ref: ix86-x-linux155042
-Ref: ix86-x-solaris2155244
-Ref: ia64-x-linux155483
-Ref: ia64-x-hpux155730
-Ref: x-ibm-aix155948
-Ref: TransferAixShobj159610
-Ref: iq2000-x-elf163192
-Ref: lm32-x-elf163332
-Ref: lm32-x-uclinux163436
-Ref: loongarch163564
-Ref: m32c-x-elf164201
-Ref: m32r-x-elf164303
-Ref: m68k-x-x164405
-Ref: m68k-x-uclinux165443
-Ref: microblaze-x-elf165688
-Ref: mips-x-x165807
-Ref: moxie-x-elf167717
-Ref: msp430-x-elf167764
-Ref: nds32le-x-elf168321
-Ref: nds32be-x-elf168393
-Ref: nvptx-x-none168462
-Ref: or1k-x-elf169419
-Ref: or1k-x-linux169550
-Ref: powerpc-x-x169631
-Ref: powerpc-x-darwin169822
-Ref: powerpc-x-elf170317
-Ref: powerpc-x-linux-gnu170402
-Ref: powerpc-x-netbsd170497
-Ref: powerpc-x-eabisim170585
-Ref: powerpc-x-eabi170711
-Ref: powerpcle-x-elf170787
-Ref: powerpcle-x-eabisim170879
-Ref: powerpcle-x-eabi171012
-Ref: rl78-x-elf171095
-Ref: riscv32-x-elf171201
-Ref: riscv32-x-linux171390
-Ref: riscv64-x-elf171547
-Ref: riscv64-x-linux171736
-Ref: rx-x-elf171893
-Ref: s390-x-linux171939
-Ref: s390x-x-linux172011
-Ref: s390x-ibm-tpf172098
-Ref: x-x-solaris2172229
-Ref: sparc-x-x175711
-Ref: sparc-sun-solaris2176213
-Ref: sparc-x-linux177112
-Ref: sparc64-x-solaris2177143
-Ref: sparcv9-x-solaris2177230
-Ref: c6x-x-x177951
-Ref: visium-x-elf178043
-Ref: x-x-vxworks178151
-Ref: x86-64-x-x179674
-Ref: x86-64-x-solaris2180002
-Ref: xtensa-x-elf180507
-Ref: xtensa-x-linux181178
-Ref: windows181519
-Ref: x-x-cygwin183105
-Ref: x-x-mingw32183658
-Ref: older183884
-Ref: elf185847
-Node: GNU Free Documentation License186101
-Node: Concept Index211239
+Ref: GNAT-prerequisite5975
+Ref: GDC-prerequisite7372
+Ref: GM2-prerequisite8555
+Node: Downloading the source19270
+Node: Configuration20989
+Ref: with-gnu-as40247
+Ref: with-as41068
+Ref: with-gnu-ld42433
+Ref: with-multilib-list46039
+Ref: WithAixSoname73779
+Ref: AixLdCommand74440
+Ref: with-included-gettext90324
+Node: Building118677
+Node: Testing135235
+Node: Final install142766
+Node: Binaries145944
+Node: Specific146884
+Ref: aarch64-x-x147418
+Ref: amd64-x-solaris2149259
+Ref: amdgcn-x-amdhsa149341
+Ref: arc-x-elf32151238
+Ref: arc-linux-uclibc151414
+Ref: arm-x-eabi151555
+Ref: avr151808
+Ref: bfin152290
+Ref: cris152553
+Ref: dos152879
+Ref: epiphany-x-elf153204
+Ref: x-x-freebsd153309
+Ref: ft32-x-elf153937
+Ref: h8300-hms154035
+Ref: hppa64-hp-hpux11154094
+Ref: x-x-linux-gnu154851
+Ref: ix86-x-linux155044
+Ref: ix86-x-solaris2155246
+Ref: ia64-x-linux155485
+Ref: ia64-x-hpux155732
+Ref: x-ibm-aix155950
+Ref: TransferAixShobj159612
+Ref: iq2000-x-elf163194
+Ref: lm32-x-elf163334
+Ref: lm32-x-uclinux163438
+Ref: loongarch163566
+Ref: m32c-x-elf164203
+Ref: m32r-x-elf164305
+Ref: m68k-x-x164407
+Ref: m68k-x-uclinux165445
+Ref: microblaze-x-elf165690
+Ref: mips-x-x165809
+Ref: moxie-x-elf167719
+Ref: msp430-x-elf167766
+Ref: nds32le-x-elf168323
+Ref: nds32be-x-elf168395
+Ref: nvptx-x-none168464
+Ref: or1k-x-elf169421
+Ref: or1k-x-linux169552
+Ref: powerpc-x-x169633
+Ref: powerpc-x-darwin169824
+Ref: powerpc-x-elf170319
+Ref: powerpc-x-linux-gnu170404
+Ref: powerpc-x-netbsd170499
+Ref: powerpc-x-eabisim170587
+Ref: powerpc-x-eabi170713
+Ref: powerpcle-x-elf170789
+Ref: powerpcle-x-eabisim170881
+Ref: powerpcle-x-eabi171014
+Ref: rl78-x-elf171097
+Ref: riscv32-x-elf171203
+Ref: riscv32-x-linux171392
+Ref: riscv64-x-elf171549
+Ref: riscv64-x-linux171738
+Ref: rx-x-elf171895
+Ref: s390-x-linux171941
+Ref: s390x-x-linux172013
+Ref: s390x-ibm-tpf172100
+Ref: x-x-solaris2172231
+Ref: sparc-x-x175713
+Ref: sparc-sun-solaris2176215
+Ref: sparc-x-linux177114
+Ref: sparc64-x-solaris2177145
+Ref: sparcv9-x-solaris2177232
+Ref: c6x-x-x177953
+Ref: visium-x-elf178045
+Ref: x-x-vxworks178153
+Ref: x86-64-x-x179676
+Ref: x86-64-x-solaris2180004
+Ref: xtensa-x-elf180509
+Ref: xtensa-x-linux181180
+Ref: windows181521
+Ref: x-x-cygwin183107
+Ref: x-x-mingw32183660
+Ref: older183886
+Ref: elf185849
+Node: GNU Free Documentation License186103
+Node: Concept Index211241
 
 End Tag Table
 

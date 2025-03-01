@@ -12007,6 +12007,7 @@ static const struct cpp_reason_option_codes_t cpp_reason_option_codes[] = {
   {CPP_W_CXX20_COMPAT,                      OPT_Wc__20_compat},
   {CPP_W_CXX20_EXTENSIONS,                  OPT_Wc__20_extensions},
   {CPP_W_CXX23_EXTENSIONS,                  OPT_Wc__23_extensions},
+  {CPP_W_CXX26_EXTENSIONS,                  OPT_Wc__26_extensions},
   {CPP_W_C11_C23_COMPAT,                    OPT_Wc11_c23_compat},
   {CPP_W_C23_C2Y_COMPAT,                    OPT_Wc23_c2y_compat},
   {CPP_W_C90_C99_COMPAT,                    OPT_Wc90_c99_compat},

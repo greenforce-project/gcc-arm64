@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-02-22" "gcc-15.0.1" "GNU"
+.TH GCC 1 "2025-02-28" "gcc-15.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -1741,10 +1741,14 @@ the next \fB\-x\fR option.  Possible values for \fIlanguage\fR are:
 \&        f77  f77\-cpp\-input f95  f95\-cpp\-input
 \&        go
 .Ve
+.Sp
+Note that \fB\-x\fR does not imply a particular language standard.
+For example \fB\-x f77\fR may also require \fB\-std=legacy\fR for some older
+source codes.
 .IP "\fB\-x none\fR" 4
 .IX Item "-x none"
 Turn off any specification of a language, so that subsequent files are
-handled according to their file name suffixes (as they are if \fB\-x\fR
+handled according to their file name suffixes (as if \fB\-x\fR
 has not been used at all).
 .PP
 If you only want some of the stages of compilation, you can use

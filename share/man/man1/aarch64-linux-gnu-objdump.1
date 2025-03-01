@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OBJDUMP 1"
-.TH OBJDUMP 1 "2025-02-22" "binutils-2.44.50" "GNU Development Tools"
+.TH OBJDUMP 1 "2025-03-01" "binutils-2.44.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -819,6 +819,9 @@ meaningful for dynamic objects, such as certain types of shared
 libraries.  As for \fB\-r\fR, if used with \fB\-d\fR or
 \&\fB\-D\fR, the relocations are printed interspersed with the
 disassembly.
+.Sp
+Note: \fBobjdump\fR does not support displaying \s-1RELR\s0 type
+relocations.  These can be displayed by the \fBreadelf\fR program.
 .IP "\fB\-s\fR" 4
 .IX Item "-s"
 .PD 0
