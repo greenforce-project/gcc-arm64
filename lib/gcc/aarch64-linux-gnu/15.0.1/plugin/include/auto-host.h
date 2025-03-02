@@ -852,6 +852,12 @@
 #endif
 
 
+/* Define to 1 if the host/build supports __attribute__((alias(...))). */
+#ifndef USED_FOR_TARGET
+#define HAVE_ATTRIBUTE_ALIAS 1
+#endif
+
+
 /* Define to 1 if you have the Mac OS X function
    CFLocaleCopyPreferredLanguages in the CoreFoundation framework. */
 #ifndef USED_FOR_TARGET

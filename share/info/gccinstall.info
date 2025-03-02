@@ -3450,8 +3450,7 @@ Adapteva Epiphany.  This configuration is intended for embedded systems.
 *-*-freebsd*
 ============
 
-We support FreeBSD using the ELF file format with DWARF 2 debugging for
-all CPU architectures.
+FreeBSD using the ELF file format with DWARF 2 debugging.
 
    We recommend bootstrapping against the latest GNU binutils or the
 version found in the 'devel/binutils' port.  This also has been known to
@@ -4876,72 +4875,72 @@ Ref: cris152553
 Ref: dos152879
 Ref: epiphany-x-elf153204
 Ref: x-x-freebsd153309
-Ref: ft32-x-elf153937
-Ref: h8300-hms154035
-Ref: hppa64-hp-hpux11154094
-Ref: x-x-linux-gnu154851
-Ref: ix86-x-linux155044
-Ref: ix86-x-solaris2155246
-Ref: ia64-x-linux155485
-Ref: ia64-x-hpux155732
-Ref: x-ibm-aix155950
-Ref: TransferAixShobj159612
-Ref: iq2000-x-elf163194
-Ref: lm32-x-elf163334
-Ref: lm32-x-uclinux163438
-Ref: loongarch163566
-Ref: m32c-x-elf164203
-Ref: m32r-x-elf164305
-Ref: m68k-x-x164407
-Ref: m68k-x-uclinux165445
-Ref: microblaze-x-elf165690
-Ref: mips-x-x165809
-Ref: moxie-x-elf167719
-Ref: msp430-x-elf167766
-Ref: nds32le-x-elf168323
-Ref: nds32be-x-elf168395
-Ref: nvptx-x-none168464
-Ref: or1k-x-elf169421
-Ref: or1k-x-linux169552
-Ref: powerpc-x-x169633
-Ref: powerpc-x-darwin169824
-Ref: powerpc-x-elf170319
-Ref: powerpc-x-linux-gnu170404
-Ref: powerpc-x-netbsd170499
-Ref: powerpc-x-eabisim170587
-Ref: powerpc-x-eabi170713
-Ref: powerpcle-x-elf170789
-Ref: powerpcle-x-eabisim170881
-Ref: powerpcle-x-eabi171014
-Ref: rl78-x-elf171097
-Ref: riscv32-x-elf171203
-Ref: riscv32-x-linux171392
-Ref: riscv64-x-elf171549
-Ref: riscv64-x-linux171738
-Ref: rx-x-elf171895
-Ref: s390-x-linux171941
-Ref: s390x-x-linux172013
-Ref: s390x-ibm-tpf172100
-Ref: x-x-solaris2172231
-Ref: sparc-x-x175713
-Ref: sparc-sun-solaris2176215
-Ref: sparc-x-linux177114
-Ref: sparc64-x-solaris2177145
-Ref: sparcv9-x-solaris2177232
-Ref: c6x-x-x177953
-Ref: visium-x-elf178045
-Ref: x-x-vxworks178153
-Ref: x86-64-x-x179676
-Ref: x86-64-x-solaris2180004
-Ref: xtensa-x-elf180509
-Ref: xtensa-x-linux181180
-Ref: windows181521
-Ref: x-x-cygwin183107
-Ref: x-x-mingw32183660
-Ref: older183886
-Ref: elf185849
-Node: GNU Free Documentation License186103
-Node: Concept Index211241
+Ref: ft32-x-elf153900
+Ref: h8300-hms153998
+Ref: hppa64-hp-hpux11154057
+Ref: x-x-linux-gnu154814
+Ref: ix86-x-linux155007
+Ref: ix86-x-solaris2155209
+Ref: ia64-x-linux155448
+Ref: ia64-x-hpux155695
+Ref: x-ibm-aix155913
+Ref: TransferAixShobj159575
+Ref: iq2000-x-elf163157
+Ref: lm32-x-elf163297
+Ref: lm32-x-uclinux163401
+Ref: loongarch163529
+Ref: m32c-x-elf164166
+Ref: m32r-x-elf164268
+Ref: m68k-x-x164370
+Ref: m68k-x-uclinux165408
+Ref: microblaze-x-elf165653
+Ref: mips-x-x165772
+Ref: moxie-x-elf167682
+Ref: msp430-x-elf167729
+Ref: nds32le-x-elf168286
+Ref: nds32be-x-elf168358
+Ref: nvptx-x-none168427
+Ref: or1k-x-elf169384
+Ref: or1k-x-linux169515
+Ref: powerpc-x-x169596
+Ref: powerpc-x-darwin169787
+Ref: powerpc-x-elf170282
+Ref: powerpc-x-linux-gnu170367
+Ref: powerpc-x-netbsd170462
+Ref: powerpc-x-eabisim170550
+Ref: powerpc-x-eabi170676
+Ref: powerpcle-x-elf170752
+Ref: powerpcle-x-eabisim170844
+Ref: powerpcle-x-eabi170977
+Ref: rl78-x-elf171060
+Ref: riscv32-x-elf171166
+Ref: riscv32-x-linux171355
+Ref: riscv64-x-elf171512
+Ref: riscv64-x-linux171701
+Ref: rx-x-elf171858
+Ref: s390-x-linux171904
+Ref: s390x-x-linux171976
+Ref: s390x-ibm-tpf172063
+Ref: x-x-solaris2172194
+Ref: sparc-x-x175676
+Ref: sparc-sun-solaris2176178
+Ref: sparc-x-linux177077
+Ref: sparc64-x-solaris2177108
+Ref: sparcv9-x-solaris2177195
+Ref: c6x-x-x177916
+Ref: visium-x-elf178008
+Ref: x-x-vxworks178116
+Ref: x86-64-x-x179639
+Ref: x86-64-x-solaris2179967
+Ref: xtensa-x-elf180472
+Ref: xtensa-x-linux181143
+Ref: windows181484
+Ref: x-x-cygwin183070
+Ref: x-x-mingw32183623
+Ref: older183849
+Ref: elf185812
+Node: GNU Free Documentation License186066
+Node: Concept Index211204
 
 End Tag Table
 
