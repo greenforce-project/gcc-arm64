@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OBJDUMP 1"
-.TH OBJDUMP 1 "2025-03-02" "binutils-2.44.50" "GNU Development Tools"
+.TH OBJDUMP 1 "2025-03-08" "binutils-2.44.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -318,11 +318,11 @@ with ctags tool.
 Display the assembler mnemonics for the machine instructions from the
 input file.  This option only disassembles those sections which are 
 expected to contain instructions.  If the optional \fIsymbol\fR
-argument is given, then display the assembler mnemonics starting at
-\&\fIsymbol\fR.  If \fIsymbol\fR is a function name then disassembly
-will stop at the end of the function, otherwise it will stop when the
-next symbol is encountered.  If there are no matches for \fIsymbol\fR
-then nothing will be displayed.
+argument is given (perhaps multiple times), then display the assembler
+mnemonics starting at (all the) \fIsymbol\fR.  If \fIsymbol\fR is a
+function name then disassembly will stop at the end of the function,
+otherwise it will stop when the next symbol is encountered.  If there
+are no matches for any \fIsymbol\fR then nothing will be displayed.
 .Sp
 Note if the \fB\-\-dwarf=follow\-links\fR option is enabled
 then any symbol tables in linked debug info files will be read in and

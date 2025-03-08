@@ -5311,18 +5311,40 @@
 #define HAVE_vec_seriesvnx2di (TARGET_SVE)
 #define HAVE_extract_after_last_vnx16qi (TARGET_SVE)
 #define HAVE_extract_last_vnx16qi (TARGET_SVE)
+#define HAVE_extract_after_last_vnx8qi (TARGET_SVE)
+#define HAVE_extract_last_vnx8qi (TARGET_SVE)
+#define HAVE_extract_after_last_vnx4qi (TARGET_SVE)
+#define HAVE_extract_last_vnx4qi (TARGET_SVE)
+#define HAVE_extract_after_last_vnx2qi (TARGET_SVE)
+#define HAVE_extract_last_vnx2qi (TARGET_SVE)
 #define HAVE_extract_after_last_vnx8hi (TARGET_SVE)
 #define HAVE_extract_last_vnx8hi (TARGET_SVE)
+#define HAVE_extract_after_last_vnx4hi (TARGET_SVE)
+#define HAVE_extract_last_vnx4hi (TARGET_SVE)
+#define HAVE_extract_after_last_vnx2hi (TARGET_SVE)
+#define HAVE_extract_last_vnx2hi (TARGET_SVE)
 #define HAVE_extract_after_last_vnx4si (TARGET_SVE)
 #define HAVE_extract_last_vnx4si (TARGET_SVE)
+#define HAVE_extract_after_last_vnx2si (TARGET_SVE)
+#define HAVE_extract_last_vnx2si (TARGET_SVE)
 #define HAVE_extract_after_last_vnx2di (TARGET_SVE)
 #define HAVE_extract_last_vnx2di (TARGET_SVE)
-#define HAVE_extract_after_last_vnx8bf (TARGET_SVE)
-#define HAVE_extract_last_vnx8bf (TARGET_SVE)
 #define HAVE_extract_after_last_vnx8hf (TARGET_SVE)
 #define HAVE_extract_last_vnx8hf (TARGET_SVE)
+#define HAVE_extract_after_last_vnx4hf (TARGET_SVE)
+#define HAVE_extract_last_vnx4hf (TARGET_SVE)
+#define HAVE_extract_after_last_vnx2hf (TARGET_SVE)
+#define HAVE_extract_last_vnx2hf (TARGET_SVE)
+#define HAVE_extract_after_last_vnx8bf (TARGET_SVE)
+#define HAVE_extract_last_vnx8bf (TARGET_SVE)
+#define HAVE_extract_after_last_vnx4bf (TARGET_SVE)
+#define HAVE_extract_last_vnx4bf (TARGET_SVE)
+#define HAVE_extract_after_last_vnx2bf (TARGET_SVE)
+#define HAVE_extract_last_vnx2bf (TARGET_SVE)
 #define HAVE_extract_after_last_vnx4sf (TARGET_SVE)
 #define HAVE_extract_last_vnx4sf (TARGET_SVE)
+#define HAVE_extract_after_last_vnx2sf (TARGET_SVE)
+#define HAVE_extract_last_vnx2sf (TARGET_SVE)
 #define HAVE_extract_after_last_vnx2df (TARGET_SVE)
 #define HAVE_extract_last_vnx2df (TARGET_SVE)
 #define HAVE_aarch64_pred_absvnx16qi (TARGET_SVE)
@@ -6497,34 +6519,78 @@
 #define HAVE_aarch64_ptestvnx2bi (TARGET_SVE)
 #define HAVE_fold_extract_after_last_vnx16qi (TARGET_SVE)
 #define HAVE_fold_extract_last_vnx16qi (TARGET_SVE)
+#define HAVE_fold_extract_after_last_vnx8qi (TARGET_SVE)
+#define HAVE_fold_extract_last_vnx8qi (TARGET_SVE)
+#define HAVE_fold_extract_after_last_vnx4qi (TARGET_SVE)
+#define HAVE_fold_extract_last_vnx4qi (TARGET_SVE)
+#define HAVE_fold_extract_after_last_vnx2qi (TARGET_SVE)
+#define HAVE_fold_extract_last_vnx2qi (TARGET_SVE)
 #define HAVE_fold_extract_after_last_vnx8hi (TARGET_SVE)
 #define HAVE_fold_extract_last_vnx8hi (TARGET_SVE)
+#define HAVE_fold_extract_after_last_vnx4hi (TARGET_SVE)
+#define HAVE_fold_extract_last_vnx4hi (TARGET_SVE)
+#define HAVE_fold_extract_after_last_vnx2hi (TARGET_SVE)
+#define HAVE_fold_extract_last_vnx2hi (TARGET_SVE)
 #define HAVE_fold_extract_after_last_vnx4si (TARGET_SVE)
 #define HAVE_fold_extract_last_vnx4si (TARGET_SVE)
+#define HAVE_fold_extract_after_last_vnx2si (TARGET_SVE)
+#define HAVE_fold_extract_last_vnx2si (TARGET_SVE)
 #define HAVE_fold_extract_after_last_vnx2di (TARGET_SVE)
 #define HAVE_fold_extract_last_vnx2di (TARGET_SVE)
-#define HAVE_fold_extract_after_last_vnx8bf (TARGET_SVE)
-#define HAVE_fold_extract_last_vnx8bf (TARGET_SVE)
 #define HAVE_fold_extract_after_last_vnx8hf (TARGET_SVE)
 #define HAVE_fold_extract_last_vnx8hf (TARGET_SVE)
+#define HAVE_fold_extract_after_last_vnx4hf (TARGET_SVE)
+#define HAVE_fold_extract_last_vnx4hf (TARGET_SVE)
+#define HAVE_fold_extract_after_last_vnx2hf (TARGET_SVE)
+#define HAVE_fold_extract_last_vnx2hf (TARGET_SVE)
+#define HAVE_fold_extract_after_last_vnx8bf (TARGET_SVE)
+#define HAVE_fold_extract_last_vnx8bf (TARGET_SVE)
+#define HAVE_fold_extract_after_last_vnx4bf (TARGET_SVE)
+#define HAVE_fold_extract_last_vnx4bf (TARGET_SVE)
+#define HAVE_fold_extract_after_last_vnx2bf (TARGET_SVE)
+#define HAVE_fold_extract_last_vnx2bf (TARGET_SVE)
 #define HAVE_fold_extract_after_last_vnx4sf (TARGET_SVE)
 #define HAVE_fold_extract_last_vnx4sf (TARGET_SVE)
+#define HAVE_fold_extract_after_last_vnx2sf (TARGET_SVE)
+#define HAVE_fold_extract_last_vnx2sf (TARGET_SVE)
 #define HAVE_fold_extract_after_last_vnx2df (TARGET_SVE)
 #define HAVE_fold_extract_last_vnx2df (TARGET_SVE)
 #define HAVE_aarch64_fold_extract_vector_after_last_vnx16qi (TARGET_SVE)
 #define HAVE_aarch64_fold_extract_vector_last_vnx16qi (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_after_last_vnx8qi (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_last_vnx8qi (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_after_last_vnx4qi (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_last_vnx4qi (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_after_last_vnx2qi (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_last_vnx2qi (TARGET_SVE)
 #define HAVE_aarch64_fold_extract_vector_after_last_vnx8hi (TARGET_SVE)
 #define HAVE_aarch64_fold_extract_vector_last_vnx8hi (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_after_last_vnx4hi (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_last_vnx4hi (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_after_last_vnx2hi (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_last_vnx2hi (TARGET_SVE)
 #define HAVE_aarch64_fold_extract_vector_after_last_vnx4si (TARGET_SVE)
 #define HAVE_aarch64_fold_extract_vector_last_vnx4si (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_after_last_vnx2si (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_last_vnx2si (TARGET_SVE)
 #define HAVE_aarch64_fold_extract_vector_after_last_vnx2di (TARGET_SVE)
 #define HAVE_aarch64_fold_extract_vector_last_vnx2di (TARGET_SVE)
-#define HAVE_aarch64_fold_extract_vector_after_last_vnx8bf (TARGET_SVE)
-#define HAVE_aarch64_fold_extract_vector_last_vnx8bf (TARGET_SVE)
 #define HAVE_aarch64_fold_extract_vector_after_last_vnx8hf (TARGET_SVE)
 #define HAVE_aarch64_fold_extract_vector_last_vnx8hf (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_after_last_vnx4hf (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_last_vnx4hf (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_after_last_vnx2hf (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_last_vnx2hf (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_after_last_vnx8bf (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_last_vnx8bf (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_after_last_vnx4bf (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_last_vnx4bf (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_after_last_vnx2bf (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_last_vnx2bf (TARGET_SVE)
 #define HAVE_aarch64_fold_extract_vector_after_last_vnx4sf (TARGET_SVE)
 #define HAVE_aarch64_fold_extract_vector_last_vnx4sf (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_after_last_vnx2sf (TARGET_SVE)
+#define HAVE_aarch64_fold_extract_vector_last_vnx2sf (TARGET_SVE)
 #define HAVE_aarch64_fold_extract_vector_after_last_vnx2df (TARGET_SVE)
 #define HAVE_aarch64_fold_extract_vector_last_vnx2df (TARGET_SVE)
 #define HAVE_aarch64_pred_reduc_sadd_vnx16qi (TARGET_SVE && 32 >= 8)
@@ -17956,18 +18022,40 @@ extern rtx        gen_vec_seriesvnx2si                                 (rtx, rtx
 extern rtx        gen_vec_seriesvnx2di                                 (rtx, rtx, rtx);
 extern rtx        gen_extract_after_last_vnx16qi                       (rtx, rtx, rtx);
 extern rtx        gen_extract_last_vnx16qi                             (rtx, rtx, rtx);
+extern rtx        gen_extract_after_last_vnx8qi                        (rtx, rtx, rtx);
+extern rtx        gen_extract_last_vnx8qi                              (rtx, rtx, rtx);
+extern rtx        gen_extract_after_last_vnx4qi                        (rtx, rtx, rtx);
+extern rtx        gen_extract_last_vnx4qi                              (rtx, rtx, rtx);
+extern rtx        gen_extract_after_last_vnx2qi                        (rtx, rtx, rtx);
+extern rtx        gen_extract_last_vnx2qi                              (rtx, rtx, rtx);
 extern rtx        gen_extract_after_last_vnx8hi                        (rtx, rtx, rtx);
 extern rtx        gen_extract_last_vnx8hi                              (rtx, rtx, rtx);
+extern rtx        gen_extract_after_last_vnx4hi                        (rtx, rtx, rtx);
+extern rtx        gen_extract_last_vnx4hi                              (rtx, rtx, rtx);
+extern rtx        gen_extract_after_last_vnx2hi                        (rtx, rtx, rtx);
+extern rtx        gen_extract_last_vnx2hi                              (rtx, rtx, rtx);
 extern rtx        gen_extract_after_last_vnx4si                        (rtx, rtx, rtx);
 extern rtx        gen_extract_last_vnx4si                              (rtx, rtx, rtx);
+extern rtx        gen_extract_after_last_vnx2si                        (rtx, rtx, rtx);
+extern rtx        gen_extract_last_vnx2si                              (rtx, rtx, rtx);
 extern rtx        gen_extract_after_last_vnx2di                        (rtx, rtx, rtx);
 extern rtx        gen_extract_last_vnx2di                              (rtx, rtx, rtx);
-extern rtx        gen_extract_after_last_vnx8bf                        (rtx, rtx, rtx);
-extern rtx        gen_extract_last_vnx8bf                              (rtx, rtx, rtx);
 extern rtx        gen_extract_after_last_vnx8hf                        (rtx, rtx, rtx);
 extern rtx        gen_extract_last_vnx8hf                              (rtx, rtx, rtx);
+extern rtx        gen_extract_after_last_vnx4hf                        (rtx, rtx, rtx);
+extern rtx        gen_extract_last_vnx4hf                              (rtx, rtx, rtx);
+extern rtx        gen_extract_after_last_vnx2hf                        (rtx, rtx, rtx);
+extern rtx        gen_extract_last_vnx2hf                              (rtx, rtx, rtx);
+extern rtx        gen_extract_after_last_vnx8bf                        (rtx, rtx, rtx);
+extern rtx        gen_extract_last_vnx8bf                              (rtx, rtx, rtx);
+extern rtx        gen_extract_after_last_vnx4bf                        (rtx, rtx, rtx);
+extern rtx        gen_extract_last_vnx4bf                              (rtx, rtx, rtx);
+extern rtx        gen_extract_after_last_vnx2bf                        (rtx, rtx, rtx);
+extern rtx        gen_extract_last_vnx2bf                              (rtx, rtx, rtx);
 extern rtx        gen_extract_after_last_vnx4sf                        (rtx, rtx, rtx);
 extern rtx        gen_extract_last_vnx4sf                              (rtx, rtx, rtx);
+extern rtx        gen_extract_after_last_vnx2sf                        (rtx, rtx, rtx);
+extern rtx        gen_extract_last_vnx2sf                              (rtx, rtx, rtx);
 extern rtx        gen_extract_after_last_vnx2df                        (rtx, rtx, rtx);
 extern rtx        gen_extract_last_vnx2df                              (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_absvnx16qi                          (rtx, rtx, rtx);
@@ -19074,34 +19162,78 @@ extern rtx        gen_aarch64_ptestvnx4bi                              (rtx, rtx
 extern rtx        gen_aarch64_ptestvnx2bi                              (rtx, rtx, rtx, rtx);
 extern rtx        gen_fold_extract_after_last_vnx16qi                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_fold_extract_last_vnx16qi                        (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_after_last_vnx8qi                   (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_last_vnx8qi                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_after_last_vnx4qi                   (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_last_vnx4qi                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_after_last_vnx2qi                   (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_last_vnx2qi                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_fold_extract_after_last_vnx8hi                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_fold_extract_last_vnx8hi                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_after_last_vnx4hi                   (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_last_vnx4hi                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_after_last_vnx2hi                   (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_last_vnx2hi                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_fold_extract_after_last_vnx4si                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_fold_extract_last_vnx4si                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_after_last_vnx2si                   (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_last_vnx2si                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_fold_extract_after_last_vnx2di                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_fold_extract_last_vnx2di                         (rtx, rtx, rtx, rtx);
-extern rtx        gen_fold_extract_after_last_vnx8bf                   (rtx, rtx, rtx, rtx);
-extern rtx        gen_fold_extract_last_vnx8bf                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_fold_extract_after_last_vnx8hf                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_fold_extract_last_vnx8hf                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_after_last_vnx4hf                   (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_last_vnx4hf                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_after_last_vnx2hf                   (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_last_vnx2hf                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_after_last_vnx8bf                   (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_last_vnx8bf                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_after_last_vnx4bf                   (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_last_vnx4bf                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_after_last_vnx2bf                   (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_last_vnx2bf                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_fold_extract_after_last_vnx4sf                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_fold_extract_last_vnx4sf                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_after_last_vnx2sf                   (rtx, rtx, rtx, rtx);
+extern rtx        gen_fold_extract_last_vnx2sf                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_fold_extract_after_last_vnx2df                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_fold_extract_last_vnx2df                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx16qi   (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_fold_extract_vector_last_vnx16qi         (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx8qi    (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_last_vnx8qi          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx4qi    (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_last_vnx4qi          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx2qi    (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_last_vnx2qi          (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx8hi    (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_fold_extract_vector_last_vnx8hi          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx4hi    (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_last_vnx4hi          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx2hi    (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_last_vnx2hi          (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx4si    (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_fold_extract_vector_last_vnx4si          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx2si    (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_last_vnx2si          (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx2di    (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_fold_extract_vector_last_vnx2di          (rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx8bf    (rtx, rtx, rtx, rtx);
-extern rtx        gen_aarch64_fold_extract_vector_last_vnx8bf          (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx8hf    (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_fold_extract_vector_last_vnx8hf          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx4hf    (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_last_vnx4hf          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx2hf    (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_last_vnx2hf          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx8bf    (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_last_vnx8bf          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx4bf    (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_last_vnx4bf          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx2bf    (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_last_vnx2bf          (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx4sf    (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_fold_extract_vector_last_vnx4sf          (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx2sf    (rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_fold_extract_vector_last_vnx2sf          (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_fold_extract_vector_after_last_vnx2df    (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_fold_extract_vector_last_vnx2df          (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_reduc_sadd_vnx16qi                  (rtx, rtx, rtx);

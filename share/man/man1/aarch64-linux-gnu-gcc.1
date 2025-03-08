@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-03-02" "gcc-15.0.1" "GNU"
+.TH GCC 1 "2025-03-08" "gcc-15.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -7790,20 +7790,28 @@ necessarily non-zero irrespective of the contents of the array \f(CW\*(C`a\*(C'\
 .IP "\fB\-Wstringop\-overflow=\fR\fItype\fR" 4
 .IX Item "-Wstringop-overflow=type"
 .PD
-Warn for calls to string manipulation functions such as \f(CW\*(C`memcpy\*(C'\fR and
-\&\f(CW\*(C`strcpy\*(C'\fR that are determined to overflow the destination buffer.  The
+Warn for code that can be statically determined to cause buffer overflows or
+memory overruns, such as calls to \f(CW\*(C`memcpy\*(C'\fR and
+\&\f(CW\*(C`strcpy\*(C'\fR that overflow the destination buffer.  The
 optional argument is one greater than the type of Object Size Checking to
 perform to determine the size of the destination.  
-The argument is meaningful only for functions that operate on character arrays
-but not for raw memory functions like \f(CW\*(C`memcpy\*(C'\fR which always make use
-of Object Size type\-0.  The option also warns for calls that specify a size
+The argument is meaningful only for string functions
+that operate on character arrays; raw memory functions like \f(CW\*(C`memcpy\*(C'\fR
+always use type-zero Object Size Checking.
+.Sp
+The option also warns for calls that specify a size
 in excess of the largest possible object or at most \f(CW\*(C`SIZE_MAX / 2\*(C'\fR bytes.
+.Sp
 The option produces the best results with optimization enabled but can detect
 a small subset of simple buffer overflows even without optimization in
 calls to the \s-1GCC\s0 built-in functions like \f(CW\*(C`_\|_builtin_memcpy\*(C'\fR that
 correspond to the standard functions.  In any case, the option warns about
 just a subset of buffer overflows detected by the corresponding overflow
-checking built-ins.  For example, the option issues a warning for
+checking built-ins, such as \f(CW\*(C`_\|_builtin_\|_\|_memcpy_chk\*(C'\fR, which can perform
+run-time checking if the access cannot be identified as safe
+at compile time.
+.Sp
+For example, the option issues a warning for
 the \f(CW\*(C`strcpy\*(C'\fR call below because it copies at least 5 characters
 (the string \f(CW"blue"\fR including the terminating \s-1NUL\s0) into the buffer
 of size 4.
@@ -7822,6 +7830,21 @@ of size 4.
 \&            }
 \&        
 \&          return strcpy (buf, str);   // warning here
+\&        }
+.Ve
+.Sp
+The effect of this option is not limited to string or memory
+manipulation functions.  In this example, a warning is diagnosed
+because a 1\-element array is passed to a function requiring at least a
+4\-element array argument:
+.Sp
+.Vb 1
+\&        void f (int[static 4]);
+\&        
+\&        void g (void)
+\&        {
+\&          int *p = (int *) malloc (1 * sizeof(int));
+\&          f (p);   // warning here
 \&        }
 .Ve
 .Sp
@@ -8191,17 +8214,20 @@ give a larger number of false positives and is deactivated by default.
 .RE
 .IP "\fB\-Wunterminated\-string\-initialization\fR (C and Objective-C only)" 4
 .IX Item "-Wunterminated-string-initialization (C and Objective-C only)"
-Warn about character arrays
-initialized as unterminated character sequences
-with a string literal.
+Warn about character arrays initialized as unterminated character sequences
+with a string literal, unless the declaration being initialized has
+the \f(CW\*(C`nonstring\*(C'\fR attribute.
 For example:
 .Sp
-.Vb 1
-\&        char arr[3] = "foo";
+.Vb 2
+\&        char arr[3] = "foo"; /* Warning.  */
+\&        char arr2[3] _\|_attribute_\|_((nonstring)) = "bar"; /* No warning.  */
 .Ve
 .Sp
-This warning is enabled by \fB\-Wextra\fR and \fB\-Wc++\-compat\fR.
-In \*(C+, such initializations are an error.
+This warning is enabled by \fB\-Wextra\fR.  If \fB\-Wc++\-compat\fR
+is enabled, the warning has slightly different wording and warns even
+if the declaration being initialized has the \f(CW\*(C`nonstring\*(C'\fR warning,
+as in \*(C+ such initializations are an error.
 .IP "\fB\-Warray\-compare\fR" 4
 .IX Item "-Warray-compare"
 Warn about equality and relational comparisons between two operands of array
@@ -12628,7 +12654,9 @@ helps machines that have slow floating point or memory load instructions
 by allowing other instructions to be issued until the result of the load
 or floating-point instruction is required.
 .Sp
-Enabled at levels \fB\-O2\fR, \fB\-O3\fR.
+Conventionally enabled at optimization levels \fB\-O2\fR and \fB\-O3\fR.
+However, many targets override this behavior.  For example, on x86, it is
+disabled at all levels, while on AArch64, it is enabled only at \fB\-O3\fR.
 .IP "\fB\-fschedule\-insns2\fR" 4
 .IX Item "-fschedule-insns2"
 Similar to \fB\-fschedule\-insns\fR, but requests an additional pass of
@@ -16257,7 +16285,7 @@ Maximum number of relations the oracle will register in a basic block.
 Work bound when discovering transitive relations from existing relations.
 .IP "\fBmin-pagesize\fR" 4
 .IX Item "min-pagesize"
-Minimum page size for warning purposes.
+Minimum page size for warning and early break vectorization purposes.
 .IP "\fBopenacc-kernels\fR" 4
 .IX Item "openacc-kernels"
 Specify mode of OpenACC `kernels' constructs handling.
@@ -16792,12 +16820,16 @@ The option cannot be combined with \fB\-fsanitize=thread\fR or
 (only with \f(CW\*(C`\-mlam=u48\*(C'\fR or \f(CW\*(C`\-mlam=u57\*(C'\fR options) and AArch64,
 in both cases only in ABIs with 64\-bit pointers.
 .Sp
+When compiling with \fB\-fsanitize=address\fR, you should also also
+use \fB\-g\fR to produce more meaningful output.
 To get more accurate stack traces, it is possible to use options such as
 \&\fB\-O0\fR, \fB\-O1\fR, or \fB\-Og\fR (which, for instance, prevent
 most function inlining), \fB\-fno\-optimize\-sibling\-calls\fR (which prevents
 optimizing sibling and tail recursive calls; this option is implicit for
 \&\fB\-O0\fR, \fB\-O1\fR, or \fB\-Og\fR), or \fB\-fno\-ipa\-icf\fR (which
-disables Identical Code Folding for functions).  Since multiple runs of the
+disables Identical Code Folding for functions).
+Using \fB\-fno\-omit\-frame\-pointer\fR also improves stack traces.
+Since multiple runs of the
 program may yield backtraces with different addresses due to \s-1ASLR\s0 (Address
 Space Layout Randomization), it may be desirable to turn \s-1ASLR\s0 off.  On Linux,
 this can be achieved with \fBsetarch `uname \-m` \-R ./prog\fR.
@@ -16895,6 +16927,9 @@ environment variable; see
 supported options.
 The option cannot be combined with \fB\-fsanitize=address\fR,
 \&\fB\-fsanitize=leak\fR.
+.Sp
+When compiling with \fB\-fsanitize=thread\fR, you should also use
+\&\fB\-g\fR to produce more meaningful output.
 .Sp
 Note that sanitized atomic builtins cannot throw exceptions when
 operating on invalid memory addresses with non-call exceptions
@@ -23657,30 +23692,6 @@ Assume that all data in static storage can be accessed by \s-1LDS / STS\s0
 instructions.  This option has only an effect on reduced Tiny devices like
 ATtiny40.  See also the \f(CW\*(C`absdata\*(C'\fR
 \&\fB\s-1AVR\s0 Variable Attributes,variable attribute\fR.
-.IP "\fB\-maccumulate\-args\fR" 4
-.IX Item "-maccumulate-args"
-Accumulate outgoing function arguments and acquire/release the needed
-stack space for outgoing function arguments once in function
-prologue/epilogue.  Without this option, outgoing arguments are pushed
-before calling a function and popped afterwards.
-.Sp
-Popping the arguments after the function call can be expensive on
-\&\s-1AVR\s0 so that accumulating the stack space might lead to smaller
-executables because arguments need not be removed from the
-stack after such a function call.
-.Sp
-This option can lead to reduced code size for functions that perform
-several calls to functions that get their arguments on the stack like
-calls to printf-like functions.
-.IP "\fB\-mbranch\-cost=\fR\fIcost\fR" 4
-.IX Item "-mbranch-cost=cost"
-Set the branch costs for conditional branch instructions to
-\&\fIcost\fR.  Reasonable values for \fIcost\fR are small, non-negative
-integers. The default branch cost is 0.
-.IP "\fB\-mcall\-prologues\fR" 4
-.IX Item "-mcall-prologues"
-Functions prologues/epilogues are expanded as calls to appropriate
-subroutines.  Code size is smaller.
 .IP "\fB\-mcvt\fR" 4
 .IX Item "-mcvt"
 Use a \fIcompact vector table\fR.  Some devices support a \s-1CVT\s0
@@ -23697,33 +23708,6 @@ For example, you can link with \f(CW\*(C`\-Wl,\-\-defsym,_\|_init_cvt=0\*(C'\fR.
 .Sp
 The \s-1CVT\s0 startup code is available since
 AVR-LibC\ v2.3 (\f(CW\*(C`https://github.com/avrdudes/avr\-libc/issues/1010\*(C'\fR).
-.IP "\fB\-mfuse\-add\fR" 4
-.IX Item "-mfuse-add"
-.PD 0
-.IP "\fB\-mno\-fuse\-add\fR" 4
-.IX Item "-mno-fuse-add"
-.IP "\fB\-mfuse\-add=\fR\fIlevel\fR" 4
-.IX Item "-mfuse-add=level"
-.PD
-Optimize indirect memory accesses on reduced Tiny devices.
-The default uses \f(CW\*(C`\f(CIlevel\f(CW=1\*(C'\fR for optimizations \fB\-Og\fR
-and \fB\-O1\fR, and \f(CW\*(C`\f(CIlevel\f(CW=2\*(C'\fR for higher optimizations.
-Valid values for \fIlevel\fR are \f(CW0\fR, \f(CW1\fR and \f(CW2\fR.
-.IP "\fB\-mfuse\-move\fR" 4
-.IX Item "-mfuse-move"
-.PD 0
-.IP "\fB\-mno\-fuse\-move\fR" 4
-.IX Item "-mno-fuse-move"
-.IP "\fB\-mfuse\-move=\fR\fIlevel\fR" 4
-.IX Item "-mfuse-move=level"
-.PD
-Run a post reload optimization pass that tries to fuse move instructions
-and to split multi-byte instructions into 8\-bit operations.
-The default uses \f(CW\*(C`\f(CIlevel\f(CW=3\*(C'\fR for optimization \fB\-O1\fR,
-and \f(CW\*(C`\f(CIlevel\f(CW=23\*(C'\fR for higher optimizations.
-Valid values for \fIlevel\fR are in the range \f(CW0\fR ... \f(CW23\fR
-which is a 3:2:2:2 mixed radix value.  Each digit controls some
-aspect of the optimization.
 .IP "\fB\-mdouble=\fR\fIbits\fR" 4
 .IX Item "-mdouble=bits"
 .PD 0
@@ -23810,36 +23794,6 @@ is located in flash memory per default, provided the required \s-1GNU\s0 Binutil
 support (\s-1PR31124\s0 (\f(CW\*(C`https://sourceware.org/PR31124\*(C'\fR)) is available.
 In that case, \fB\-mrodata\-in\-ram\fR can be used to return to the old
 layout with \f(CW\*(C`.rodata\*(C'\fR in \s-1RAM.\s0
-.IP "\fB\-mstrict\-X\fR" 4
-.IX Item "-mstrict-X"
-Use address register \f(CW\*(C`X\*(C'\fR in a way proposed by the hardware.  This means
-that \f(CW\*(C`X\*(C'\fR is only used in indirect, post-increment or
-pre-decrement addressing.
-.Sp
-Without this option, the \f(CW\*(C`X\*(C'\fR register may be used in the same way
-as \f(CW\*(C`Y\*(C'\fR or \f(CW\*(C`Z\*(C'\fR which then is emulated by additional
-instructions.
-For example, loading a value with \f(CW\*(C`X+const\*(C'\fR addressing with a
-small non-negative \f(CW\*(C`const < 64\*(C'\fR to a register \fIRn\fR is
-performed as
-.Sp
-.Vb 3
-\&        adiw r26, const   ; X += const
-\&        ld   <Rn>, X        ; <Rn> = *X
-\&        sbiw r26, const   ; X \-= const
-.Ve
-.IP "\fB\-msplit\-bit\-shift\fR" 4
-.IX Item "-msplit-bit-shift"
-Split multi-byte shifts with a constant offset into a shift with
-a byte offset and a residual shift with a non-byte offset.
-This optimization is turned on per default for \fB\-O2\fR and higher,
-including \fB\-Os\fR but excluding \fB\-Oz\fR.
-Splitting of shifts with a constant offset that is
-a multiple of 8 is controlled by \fB\-mfuse\-move\fR.
-.IP "\fB\-msplit\-ldst\fR" 4
-.IX Item "-msplit-ldst"
-Split multi-byte loads and stores into several byte loads and stores.
-This optimization is turned on per default for \fB\-O2\fR and higher.
 .IP "\fB\-mtiny\-stack\fR" 4
 .IX Item "-mtiny-stack"
 Only change the lower 8 bits of the stack pointer.
@@ -23882,6 +23836,96 @@ resulting address space is not contained in the incoming address space.
 .IX Item "-Wmisspelled-isr"
 Warn if the \s-1ISR\s0 is misspelled, i.e. without _\|_vector prefix.
 Enabled by default.
+.PP
+\s-1AVR\s0 Optimization Options
+.IX Subsection "AVR Optimization Options"
+.PP
+The following options are pure optimization options.
+Options \fB\-mgas\-isr\-prologues\fR, \fB\-mmain\-is\-OS_task\fR,
+\&\fB\-mno\-call\-main\fR and \fB\-mrelax\fR from above are only
+\&\fIalmost\fR optimization options, since there are rare occasions
+where their different code generation matters.
+.IP "\fB\-maccumulate\-args\fR" 4
+.IX Item "-maccumulate-args"
+Accumulate outgoing function arguments and acquire/release the needed
+stack space for outgoing function arguments once in function
+prologue/epilogue.  Without this option, outgoing arguments are pushed
+before calling a function and popped afterwards.
+.Sp
+Popping the arguments after the function call can be expensive on
+\&\s-1AVR\s0 so that accumulating the stack space might lead to smaller
+executables because arguments need not be removed from the
+stack after such a function call.
+.Sp
+This option can lead to reduced code size for functions that perform
+several calls to functions that get their arguments on the stack like
+calls to printf-like functions.
+.IP "\fB\-mbranch\-cost=\fR\fIcost\fR" 4
+.IX Item "-mbranch-cost=cost"
+Set the branch costs for conditional branch instructions to
+\&\fIcost\fR.  Reasonable values for \fIcost\fR are small, non-negative
+integers. The default branch cost is 0.
+.IP "\fB\-mcall\-prologues\fR" 4
+.IX Item "-mcall-prologues"
+Functions prologues/epilogues are expanded as calls to appropriate
+subroutines.  Code size is smaller.
+.IP "\fB\-mfuse\-add\fR" 4
+.IX Item "-mfuse-add"
+.PD 0
+.IP "\fB\-mno\-fuse\-add\fR" 4
+.IX Item "-mno-fuse-add"
+.IP "\fB\-mfuse\-add=\fR\fIlevel\fR" 4
+.IX Item "-mfuse-add=level"
+.PD
+Optimize indirect memory accesses on reduced Tiny devices.
+The default uses \f(CW\*(C`\f(CIlevel\f(CW=1\*(C'\fR for optimizations \fB\-Og\fR
+and \fB\-O1\fR, and \f(CW\*(C`\f(CIlevel\f(CW=2\*(C'\fR for higher optimizations.
+Valid values for \fIlevel\fR are \f(CW0\fR, \f(CW1\fR and \f(CW2\fR.
+.IP "\fB\-mfuse\-move\fR" 4
+.IX Item "-mfuse-move"
+.PD 0
+.IP "\fB\-mno\-fuse\-move\fR" 4
+.IX Item "-mno-fuse-move"
+.IP "\fB\-mfuse\-move=\fR\fIlevel\fR" 4
+.IX Item "-mfuse-move=level"
+.PD
+Run a post reload optimization pass that tries to fuse move instructions
+and to split multi-byte instructions into 8\-bit operations.
+The default uses \f(CW\*(C`\f(CIlevel\f(CW=3\*(C'\fR for optimization \fB\-O1\fR,
+and \f(CW\*(C`\f(CIlevel\f(CW=23\*(C'\fR for higher optimizations.
+Valid values for \fIlevel\fR are in the range \f(CW0\fR ... \f(CW23\fR
+which is a 3:2:2:2 mixed radix value.  Each digit controls some
+aspect of the optimization.
+.IP "\fB\-mstrict\-X\fR" 4
+.IX Item "-mstrict-X"
+Use address register \f(CW\*(C`X\*(C'\fR in a way proposed by the hardware.  This means
+that \f(CW\*(C`X\*(C'\fR is only used in indirect, post-increment or
+pre-decrement addressing.
+.Sp
+Without this option, the \f(CW\*(C`X\*(C'\fR register may be used in the same way
+as \f(CW\*(C`Y\*(C'\fR or \f(CW\*(C`Z\*(C'\fR which then is emulated by additional
+instructions.
+For example, loading a value with \f(CW\*(C`X+const\*(C'\fR addressing with a
+small non-negative \f(CW\*(C`const < 64\*(C'\fR to a register \fIRn\fR is
+performed as
+.Sp
+.Vb 3
+\&        adiw r26, const   ; X += const
+\&        ld   <Rn>, X        ; <Rn> = *X
+\&        sbiw r26, const   ; X \-= const
+.Ve
+.IP "\fB\-msplit\-bit\-shift\fR" 4
+.IX Item "-msplit-bit-shift"
+Split multi-byte shifts with a constant offset into a shift with
+a byte offset and a residual shift with a non-byte offset.
+This optimization is turned on per default for \fB\-O2\fR and higher,
+including \fB\-Os\fR but excluding \fB\-Oz\fR.
+Splitting of shifts with a constant offset that is
+a multiple of 8 is controlled by \fB\-mfuse\-move\fR.
+.IP "\fB\-msplit\-ldst\fR" 4
+.IX Item "-msplit-ldst"
+Split multi-byte loads and stores into several byte loads and stores.
+This optimization is turned on per default for \fB\-O2\fR and higher.
 .PP
 \f(CW\*(C`EIND\*(C'\fR and Devices with More Than 128 Ki Bytes of Flash
 .IX Subsection "EIND and Devices with More Than 128 Ki Bytes of Flash"
@@ -24290,7 +24334,7 @@ and defined to 0, otherwise.
 .ie n .IP """_\|_WITH_AVRLIBC_\|_""" 4
 .el .IP "\f(CW_\|_WITH_AVRLIBC_\|_\fR" 4
 .IX Item "__WITH_AVRLIBC__"
-The compiler is configured to be used together with AVR-Libc.
+The compiler is configured to be used together with AVR-LibC.
 See the \fB\-\-with\-avrlibc\fR configure option.
 .ie n .IP """_\|_HAVE_SIGNAL_N_\|_""" 4
 .el .IP "\f(CW_\|_HAVE_SIGNAL_N_\|_\fR" 4
@@ -34884,6 +34928,11 @@ corresponding \fB\-mno\-\fR option to disable use of these instructions.
 These extensions are also available as built-in functions: see
 \&\fBx86 Built-in Functions\fR, for details of the functions enabled and
 disabled by these switches.
+.Sp
+Note that \fB\-msse4\fR enables both \s-1SSE4.1\s0 and \s-1SSE4.2\s0 support,
+while \fB\-mno\-sse4\fR turns off those features; neither form of the
+option affects \s-1SSE4A\s0 support, controlled separately by
+\&\fB\-msse4a\fR.
 .Sp
 To generate \s-1SSE/SSE2\s0 instructions automatically from floating-point
 code (as opposed to 387 instructions), see \fB\-mfpmath=sse\fR.
