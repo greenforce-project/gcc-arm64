@@ -4972,7 +4972,13 @@ parentheses.  The following types are defined:
 
 'NOLOAD'
      The section should be marked as not loadable, so that it will not
-     be loaded into memory when the program is run.
+     be loaded into memory when the program is run.  When generating an
+     ELF output file, the memory space is allocated for the section at
+     run-time, except for SHT_NOTE sections.  For other output files, no
+     memory space is allocated at run-time.
+
+     Note - the ELF behaviour is a bug that may change to be consistent
+     with non-ELF targets.
 
 'READONLY'
      The section should be marked as read-only.
@@ -9581,7 +9587,7 @@ LD Index
 * load address:                          Output Section LMA. (line    6)
 * LOADADDR(SECTION):                     Builtin Functions.  (line  147)
 * loading, preventing:                   Output Section Type.
-                                                             (line   49)
+                                                             (line   55)
 * local symbols, deleting:               Options.            (line  902)
 * location counter:                      Location Counter.   (line    6)
 * LOG2CEIL(EXP):                         Builtin Functions.  (line  151)
@@ -9622,7 +9628,7 @@ LD Index
 * NOCROSSREFS_TO(TOSECTION FROMSECTIONS): Miscellaneous Commands.
                                                              (line  110)
 * NOLOAD:                                Output Section Type.
-                                                             (line   49)
+                                                             (line   55)
 * not enough room for program headers:   Builtin Functions.  (line  202)
 * NO_ENUM_SIZE_WARNING:                  ARM.                (line  155)
 * NO_WCHAR_SIZE_WARNING:                 ARM.                (line  162)
@@ -9703,7 +9709,7 @@ LD Index
 * PowerPC64 __tls_get_addr optimization: PowerPC64 ELF64.    (line   56)
 * precedence in expressions:             Operators.          (line    6)
 * prevent unnecessary loading:           Output Section Type.
-                                                             (line   49)
+                                                             (line   55)
 * program headers:                       PHDRS.              (line    6)
 * program headers and sections:          Output Section Phdr.
                                                              (line    6)
@@ -9934,58 +9940,58 @@ Node: Output Section Keywords214700
 Node: Output Section Discarding218267
 Node: Output Section Attributes220157
 Node: Output Section Type221276
-Node: Output Section LMA223591
-Node: Forced Output Alignment226662
-Node: Forced Input Alignment227091
-Node: Output Section Constraint227479
-Node: Output Section Region227907
-Node: Output Section Phdr228340
-Node: Output Section Fill229004
-Node: Overlay Description230367
-Node: MEMORY234812
-Node: PHDRS239418
-Node: VERSION244744
-Node: Expressions252835
-Node: Constants253848
-Node: Symbolic Constants254722
-Node: Symbols255273
-Node: Orphan Sections256020
-Node: Location Counter257605
-Node: Operators262039
-Node: Evaluation263069
-Node: Expression Section264433
-Node: Builtin Functions268403
-Node: Implicit Linker Scripts277182
-Node: Plugins277957
-Node: libdep Plugin278513
-Node: Special Sections280310
-Node: Machine Dependent282424
-Node: H8/300283479
-Node: M68HC11/68HC12285552
-Node: ARM286999
-Node: HPPA ELF32302221
-Node: M68K303844
-Node: MIPS304753
-Node: MMIX305869
-Node: MSP430307034
-Node: NDS32308947
-Node: PowerPC ELF32309917
-Node: PowerPC64 ELF64312746
-Node: S/390 ELF322504
-Node: SPU ELF322851
-Node: TI COFF325479
-Node: WIN32326005
-Node: Xtensa347224
-Node: BFD350667
-Node: BFD outline352125
-Node: BFD information loss353413
-Node: Canonical format355939
-Node: Reporting Bugs360267
-Node: Bug Criteria360961
-Node: Bug Reporting361660
-Node: MRI368695
-Node: GNU Free Documentation License373166
-Node: LD Index398303
+Node: Output Section LMA223899
+Node: Forced Output Alignment226970
+Node: Forced Input Alignment227399
+Node: Output Section Constraint227787
+Node: Output Section Region228215
+Node: Output Section Phdr228648
+Node: Output Section Fill229312
+Node: Overlay Description230675
+Node: MEMORY235120
+Node: PHDRS239726
+Node: VERSION245052
+Node: Expressions253143
+Node: Constants254156
+Node: Symbolic Constants255030
+Node: Symbols255581
+Node: Orphan Sections256328
+Node: Location Counter257913
+Node: Operators262347
+Node: Evaluation263377
+Node: Expression Section264741
+Node: Builtin Functions268711
+Node: Implicit Linker Scripts277490
+Node: Plugins278265
+Node: libdep Plugin278821
+Node: Special Sections280618
+Node: Machine Dependent282732
+Node: H8/300283787
+Node: M68HC11/68HC12285860
+Node: ARM287307
+Node: HPPA ELF32302529
+Node: M68K304152
+Node: MIPS305061
+Node: MMIX306177
+Node: MSP430307342
+Node: NDS32309255
+Node: PowerPC ELF32310225
+Node: PowerPC64 ELF64313054
+Node: S/390 ELF322812
+Node: SPU ELF323159
+Node: TI COFF325787
+Node: WIN32326313
+Node: Xtensa347532
+Node: BFD350975
+Node: BFD outline352433
+Node: BFD information loss353721
+Node: Canonical format356247
+Node: Reporting Bugs360575
+Node: Bug Criteria361269
+Node: Bug Reporting361968
+Node: MRI369003
+Node: GNU Free Documentation License373474
+Node: LD Index398611
 
 End Tag Table
 

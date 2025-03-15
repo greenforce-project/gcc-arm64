@@ -182,6 +182,32 @@ GNAT
      is clean by verifying that 'gnatls -v' lists only one explicit path
      in each section.
 
+GCOBOL
+
+     The COBOL compiler, gcobol, first appeared in GCC 15.  To build the
+     COBOL parser, you need GNU Bison 3.5.1 or later (but not 3.8.0).
+     To build the lexer requires GNU Flex 2.6.4, the current version as
+     of this writing, released on 2017-05-06.
+
+     The gcobol documentation is maintained as manpages using troff
+     mdoc.  GNU groff is required to convert them to PDF format.
+     Conversion to HTML is done with mandoc, available at
+     <http://mdocml.bsd.lv/>.
+
+     Because ISO COBOL defines strict requirements for numerical
+     precision, gcobol requires hardware with 128-bit computation
+     instructions.  This requirement applies to both host and target.
+     For integer and fixed-point computation, gcobol uses
+      -- Data type: __int128
+     meaning '16 == sizeof(long long int)'.  For floating point, gcobol
+     uses
+      -- Data type: _Float128
+     (On some architectures, GCC supports 128-bit floating point in
+     software.)
+
+     gcobol has so far been tested on two architectures only: x86_64 and
+     aarch64 with little-endian encoding.
+
 GDC
 
      In order to build GDC, the D compiler, you need a working GDC
@@ -445,6 +471,14 @@ Flex version 2.5.4 (or later)
      output files are not included in the version-controlled source
      repository.  They are included in releases.
 
+Bison version 3.5.1 or later (but not 3.8.0)
+
+     Necessary when modifying '*.y' files in the COBOL front end.
+
+     Necessary to build GCC during development because the generated
+     output files are not included in the version-controlled source
+     repository.  They are included in releases.
+
 Texinfo version 4.7 (or later)
 
      Necessary for running 'makeinfo' when modifying '*.texi' files to
@@ -505,13 +539,14 @@ GCC is distributed via git and via HTTPS as tarballs compressed with
    Please refer to the releases web page for information on how to
 obtain GCC.
 
-   The source distribution includes the Ada, C, C++, Objective-C, D (GCC
-9 and later), Fortran, Go, and Modula-2 (GCC 13 and later) compilers, as
-well as runtime libraries for C++, Objective-C, and Fortran.  For
-previous versions these were downloadable as separate components such as
-the core GCC distribution, which included the C language front end and
-shared components, and language-specific distributions including the
-language front end and the language runtime (where appropriate).
+   The source distribution includes the Ada, C, C++, Objective-C, COBOL
+(GCC 15 and later), D (GCC 9 and later), Fortran, Go, and Modula-2 (GCC
+13 and later) compilers, as well as runtime libraries for C++,
+Objective-C, COBOL, and Fortran.  For previous versions these were
+downloadable as separate components such as the core GCC distribution,
+which included the C language front end and shared components, and
+language-specific distributions including the language front end and the
+language runtime (where appropriate).
 
    If you also intend to build binutils (either to upgrade an existing
 installation or for use in place of the corresponding tools of your OS),
@@ -927,6 +962,10 @@ option.
      This option is required when building the libgccjit.so library.
 
      Contrast with '--enable-shared', which affects _target_ libraries.
+
+'--enable-versioned-jit'
+     Specify that the 'libgccjit' library is built with a soname
+     matching the GCC major version.
 
 '--enable-host-pie'
      Specify that the _host_ executables should be built into
@@ -1782,17 +1821,17 @@ option.
      your GCC source tree:
           grep ^language= */config-lang.in
      Currently, you can use any of the following: 'all', 'default',
-     'ada', 'c', 'c++', 'd', 'fortran', 'go', 'jit', 'lto', 'm2',
-     'objc', 'obj-c++'.  Building the Ada compiler has special
+     'ada', 'c', 'c++', 'cobol', 'd', 'fortran', 'go', 'jit', 'lto',
+     'm2', 'objc', 'obj-c++'.  Building the Ada compiler has special
      requirements, see below.  If you do not pass this flag, or specify
      the option 'default', then the default languages available in the
-     'gcc' sub-tree will be configured.  Ada, D, Go, Jit, Objective-C++
-     and Modula-2 are not default languages.  LTO is not a default
-     language, but is built by default because '--enable-lto' is enabled
-     by default.  The other languages are default languages.  If 'all'
-     is specified, then all available languages are built.  An exception
-     is 'jit' language, which requires '--enable-host-shared' to be
-     included with 'all'.
+     'gcc' sub-tree will be configured.  Ada, COBOL, D, Go, Jit,
+     Objective-C++ and Modula-2 are not default languages.  LTO is not a
+     default language, but is built by default because '--enable-lto' is
+     enabled by default.  The other languages are default languages.  If
+     'all' is specified, then all available languages are built.  An
+     exception is 'jit' language, which requires '--enable-host-shared'
+     to be included with 'all'.
 
 '--enable-stage1-languages=LANG1,LANG2,...'
      Specify that a particular subset of compilers and their runtime
@@ -4817,7 +4856,8 @@ Concept Index
 * Menu:
 
 * Binaries:                              Binaries.           (line    6)
-* build_configargs:                      Configuration.      (line 2001)
+* build_configargs:                      Configuration.      (line 2005)
+* cobol:                                 Prerequisites.      (line   84)
 * Configuration:                         Configuration.      (line    6)
 * Downloading GCC:                       Downloading the source.
                                                              (line    6)
@@ -4826,7 +4866,7 @@ Concept Index
 * FDL, GNU Free Documentation License:   GNU Free Documentation License.
                                                              (line    6)
 * Host specific installation:            Specific.           (line    6)
-* host_configargs:                       Configuration.      (line 2005)
+* host_configargs:                       Configuration.      (line 2009)
 * Installing GCC: Binaries:              Binaries.           (line    6)
 * Installing GCC: Building:              Building.           (line    6)
 * Installing GCC: Configuration:         Configuration.      (line    6)
@@ -4836,7 +4876,7 @@ Concept Index
 * Specific installation notes:           Specific.           (line    6)
 * Target specific installation:          Specific.           (line    6)
 * Target specific installation notes:    Specific.           (line    6)
-* target_configargs:                     Configuration.      (line 2009)
+* target_configargs:                     Configuration.      (line 2013)
 * Testing:                               Testing.            (line    6)
 * Testsuite:                             Testing.            (line    6)
 
@@ -4847,100 +4887,101 @@ Node: Top1696
 Node: Installing GCC2201
 Node: Prerequisites3659
 Ref: GNAT-prerequisite5975
-Ref: GDC-prerequisite7372
-Ref: GM2-prerequisite8555
-Node: Downloading the source19270
-Node: Configuration20989
-Ref: with-gnu-as40247
-Ref: with-as41068
-Ref: with-gnu-ld42433
-Ref: with-multilib-list46039
-Ref: WithAixSoname73779
-Ref: AixLdCommand74440
-Ref: with-included-gettext90324
-Node: Building118677
-Node: Testing135235
-Node: Final install142766
-Node: Binaries145944
-Node: Specific146884
-Ref: aarch64-x-x147418
-Ref: amd64-x-solaris2149259
-Ref: amdgcn-x-amdhsa149341
-Ref: arc-x-elf32151238
-Ref: arc-linux-uclibc151414
-Ref: arm-x-eabi151555
-Ref: avr151808
-Ref: bfin152290
-Ref: cris152553
-Ref: dos152879
-Ref: epiphany-x-elf153204
-Ref: x-x-freebsd153309
-Ref: ft32-x-elf153900
-Ref: h8300-hms153998
-Ref: hppa64-hp-hpux11154057
-Ref: x-x-linux-gnu154814
-Ref: ix86-x-linux155007
-Ref: ix86-x-solaris2155209
-Ref: ia64-x-linux155448
-Ref: ia64-x-hpux155695
-Ref: x-ibm-aix155913
-Ref: TransferAixShobj159575
-Ref: iq2000-x-elf163157
-Ref: lm32-x-elf163297
-Ref: lm32-x-uclinux163401
-Ref: loongarch163529
-Ref: m32c-x-elf164166
-Ref: m32r-x-elf164268
-Ref: m68k-x-x164370
-Ref: m68k-x-uclinux165408
-Ref: microblaze-x-elf165653
-Ref: mips-x-x165772
-Ref: moxie-x-elf167682
-Ref: msp430-x-elf167729
-Ref: nds32le-x-elf168286
-Ref: nds32be-x-elf168358
-Ref: nvptx-x-none168427
-Ref: or1k-x-elf169384
-Ref: or1k-x-linux169515
-Ref: powerpc-x-x169596
-Ref: powerpc-x-darwin169787
-Ref: powerpc-x-elf170282
-Ref: powerpc-x-linux-gnu170367
-Ref: powerpc-x-netbsd170462
-Ref: powerpc-x-eabisim170550
-Ref: powerpc-x-eabi170676
-Ref: powerpcle-x-elf170752
-Ref: powerpcle-x-eabisim170844
-Ref: powerpcle-x-eabi170977
-Ref: rl78-x-elf171060
-Ref: riscv32-x-elf171166
-Ref: riscv32-x-linux171355
-Ref: riscv64-x-elf171512
-Ref: riscv64-x-linux171701
-Ref: rx-x-elf171858
-Ref: s390-x-linux171904
-Ref: s390x-x-linux171976
-Ref: s390x-ibm-tpf172063
-Ref: x-x-solaris2172194
-Ref: sparc-x-x175676
-Ref: sparc-sun-solaris2176178
-Ref: sparc-x-linux177077
-Ref: sparc64-x-solaris2177108
-Ref: sparcv9-x-solaris2177195
-Ref: c6x-x-x177916
-Ref: visium-x-elf178008
-Ref: x-x-vxworks178116
-Ref: x86-64-x-x179639
-Ref: x86-64-x-solaris2179967
-Ref: xtensa-x-elf180472
-Ref: xtensa-x-linux181143
-Ref: windows181484
-Ref: x-x-cygwin183070
-Ref: x-x-mingw32183623
-Ref: older183849
-Ref: elf185812
-Node: GNU Free Documentation License186066
-Node: Concept Index211204
+Ref: GCOBOL-prerequisite7372
+Ref: GDC-prerequisite8465
+Ref: GM2-prerequisite9648
+Node: Downloading the source20663
+Node: Configuration22415
+Ref: with-gnu-as41801
+Ref: with-as42622
+Ref: with-gnu-ld43987
+Ref: with-multilib-list47593
+Ref: WithAixSoname75333
+Ref: AixLdCommand75994
+Ref: with-included-gettext91894
+Node: Building120247
+Node: Testing136805
+Node: Final install144336
+Node: Binaries147514
+Node: Specific148454
+Ref: aarch64-x-x148988
+Ref: amd64-x-solaris2150829
+Ref: amdgcn-x-amdhsa150911
+Ref: arc-x-elf32152808
+Ref: arc-linux-uclibc152984
+Ref: arm-x-eabi153125
+Ref: avr153378
+Ref: bfin153860
+Ref: cris154123
+Ref: dos154449
+Ref: epiphany-x-elf154774
+Ref: x-x-freebsd154879
+Ref: ft32-x-elf155470
+Ref: h8300-hms155568
+Ref: hppa64-hp-hpux11155627
+Ref: x-x-linux-gnu156384
+Ref: ix86-x-linux156577
+Ref: ix86-x-solaris2156779
+Ref: ia64-x-linux157018
+Ref: ia64-x-hpux157265
+Ref: x-ibm-aix157483
+Ref: TransferAixShobj161145
+Ref: iq2000-x-elf164727
+Ref: lm32-x-elf164867
+Ref: lm32-x-uclinux164971
+Ref: loongarch165099
+Ref: m32c-x-elf165736
+Ref: m32r-x-elf165838
+Ref: m68k-x-x165940
+Ref: m68k-x-uclinux166978
+Ref: microblaze-x-elf167223
+Ref: mips-x-x167342
+Ref: moxie-x-elf169252
+Ref: msp430-x-elf169299
+Ref: nds32le-x-elf169856
+Ref: nds32be-x-elf169928
+Ref: nvptx-x-none169997
+Ref: or1k-x-elf170954
+Ref: or1k-x-linux171085
+Ref: powerpc-x-x171166
+Ref: powerpc-x-darwin171357
+Ref: powerpc-x-elf171852
+Ref: powerpc-x-linux-gnu171937
+Ref: powerpc-x-netbsd172032
+Ref: powerpc-x-eabisim172120
+Ref: powerpc-x-eabi172246
+Ref: powerpcle-x-elf172322
+Ref: powerpcle-x-eabisim172414
+Ref: powerpcle-x-eabi172547
+Ref: rl78-x-elf172630
+Ref: riscv32-x-elf172736
+Ref: riscv32-x-linux172925
+Ref: riscv64-x-elf173082
+Ref: riscv64-x-linux173271
+Ref: rx-x-elf173428
+Ref: s390-x-linux173474
+Ref: s390x-x-linux173546
+Ref: s390x-ibm-tpf173633
+Ref: x-x-solaris2173764
+Ref: sparc-x-x177246
+Ref: sparc-sun-solaris2177748
+Ref: sparc-x-linux178647
+Ref: sparc64-x-solaris2178678
+Ref: sparcv9-x-solaris2178765
+Ref: c6x-x-x179486
+Ref: visium-x-elf179578
+Ref: x-x-vxworks179686
+Ref: x86-64-x-x181209
+Ref: x86-64-x-solaris2181537
+Ref: xtensa-x-elf182042
+Ref: xtensa-x-linux182713
+Ref: windows183054
+Ref: x-x-cygwin184640
+Ref: x-x-mingw32185193
+Ref: older185419
+Ref: elf187382
+Node: GNU Free Documentation License187636
+Node: Concept Index212774
 
 End Tag Table
 

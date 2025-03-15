@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-03-08" "gcc-15.0.1" "GNU"
+.TH GCC 1 "2025-03-15" "gcc-15.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -1684,6 +1684,17 @@ Free form Fortran source code that should not be preprocessed.
 .PD
 Free form Fortran source code that must be preprocessed (with the
 traditional preprocessor).
+.IP "\fIfile\fR\fB.cob\fR" 4
+.IX Item "file.cob"
+.PD 0
+.IP "\fIfile\fR\fB.COB\fR" 4
+.IX Item "file.COB"
+.IP "\fIfile\fR\fB.cbl\fR" 4
+.IX Item "file.cbl"
+.IP "\fIfile\fR\fB.CBL\fR" 4
+.IX Item "file.CBL"
+.PD
+\&\s-1COBOL\s0 source code.
 .IP "\fIfile\fR\fB.go\fR" 4
 .IX Item "file.go"
 Go source code.
@@ -1730,13 +1741,14 @@ Specify explicitly the \fIlanguage\fR for the following input files
 name suffix).  This option applies to all following input files until
 the next \fB\-x\fR option.  Possible values for \fIlanguage\fR are:
 .Sp
-.Vb 9
+.Vb 10
 \&        c  c\-header  cpp\-output
 \&        c++  c++\-header  c++\-system\-header c++\-user\-header c++\-cpp\-output
 \&        objective\-c  objective\-c\-header  objective\-c\-cpp\-output
 \&        objective\-c++ objective\-c++\-header objective\-c++\-cpp\-output
 \&        assembler  assembler\-with\-cpp
 \&        ada
+\&        cobol
 \&        d
 \&        f77  f77\-cpp\-input f95  f95\-cpp\-input
 \&        go
@@ -2379,37 +2391,6 @@ accepts:
 .IX Item "-ansi"
 In C mode, this is equivalent to \fB\-std=c90\fR. In \*(C+ mode, it is
 equivalent to \fB\-std=c++98\fR.
-.Sp
-This turns off certain features of \s-1GCC\s0 that are incompatible with \s-1ISO
-C90\s0 (when compiling C code), or of standard \*(C+ (when compiling \*(C+ code),
-such as the \f(CW\*(C`asm\*(C'\fR and \f(CW\*(C`typeof\*(C'\fR keywords, and
-predefined macros such as \f(CW\*(C`unix\*(C'\fR and \f(CW\*(C`vax\*(C'\fR that identify the
-type of system you are using.  It also enables the undesirable and
-rarely used \s-1ISO\s0 trigraph feature.  For the C compiler,
-it disables recognition of \*(C+ style \fB//\fR comments as well as
-the \f(CW\*(C`inline\*(C'\fR keyword.
-.Sp
-The alternate keywords \f(CW\*(C`_\|_asm_\|_\*(C'\fR, \f(CW\*(C`_\|_extension_\|_\*(C'\fR,
-\&\f(CW\*(C`_\|_inline_\|_\*(C'\fR and \f(CW\*(C`_\|_typeof_\|_\*(C'\fR continue to work despite
-\&\fB\-ansi\fR.  You would not want to use them in an \s-1ISO C\s0 program, of
-course, but it is useful to put them in header files that might be included
-in compilations done with \fB\-ansi\fR.  Alternate predefined macros
-such as \f(CW\*(C`_\|_unix_\|_\*(C'\fR and \f(CW\*(C`_\|_vax_\|_\*(C'\fR are also available, with or
-without \fB\-ansi\fR.
-.Sp
-The \fB\-ansi\fR option does not cause non-ISO programs to be
-rejected gratuitously.  For that, \fB\-Wpedantic\fR is required in
-addition to \fB\-ansi\fR.
-.Sp
-The macro \f(CW\*(C`_\|_STRICT_ANSI_\|_\*(C'\fR is predefined when the \fB\-ansi\fR
-option is used.  Some header files may notice this macro and refrain
-from declaring certain functions or defining certain macros that the
-\&\s-1ISO\s0 standard doesn't call for; this is to avoid interfering with any
-programs that might use these names for other things.
-.Sp
-Functions that are normally built in but do not have semantics
-defined by \s-1ISO C\s0 (such as \f(CW\*(C`alloca\*(C'\fR and \f(CW\*(C`ffs\*(C'\fR) are not built-in
-functions when \fB\-ansi\fR is used.
 .IP "\fB\-std=\fR" 4
 .IX Item "-std="
 Determine the language standard.   This option
@@ -16820,7 +16801,7 @@ The option cannot be combined with \fB\-fsanitize=thread\fR or
 (only with \f(CW\*(C`\-mlam=u48\*(C'\fR or \f(CW\*(C`\-mlam=u57\*(C'\fR options) and AArch64,
 in both cases only in ABIs with 64\-bit pointers.
 .Sp
-When compiling with \fB\-fsanitize=address\fR, you should also also
+When compiling with \fB\-fsanitize=address\fR, you should also
 use \fB\-g\fR to produce more meaningful output.
 To get more accurate stack traces, it is possible to use options such as
 \&\fB\-O0\fR, \fB\-O1\fR, or \fB\-Og\fR (which, for instance, prevent
@@ -32246,7 +32227,10 @@ GNU/Linux for S/390 \s-1ABI.\s0  When \fB\-m64\fR is specified, generate
 code compliant to the GNU/Linux for zSeries \s-1ABI.\s0  This allows \s-1GCC\s0 in
 particular to generate 64\-bit instructions.  For the \fBs390\fR
 targets, the default is \fB\-m31\fR, while the \fBs390x\fR
-targets default to \fB\-m64\fR.
+targets default to \fB\-m64\fR.  Note, previously, \fB\-m31\fR defaulted to
+\&\fB\-mesa\fR unless \fB\-mzarch\fR was explicitely specified.  Now,
+\&\fB\-m31\fR defaults to \fB\-mzarch\fR unless \fB\-mesa\fR is explicitely
+specified since \s-1ESA/390\s0 support is deprecated and will be removed.
 .IP "\fB\-mzarch\fR" 4
 .IX Item "-mzarch"
 .PD 0
@@ -32261,6 +32245,7 @@ not possible with \fB\-m64\fR.
 When generating code compliant to the GNU/Linux for S/390 \s-1ABI,\s0
 the default is \fB\-mesa\fR.  When generating code compliant
 to the GNU/Linux for zSeries \s-1ABI,\s0 the default is \fB\-mzarch\fR.
+Option \fB\-mesa\fR is deprecated and support for \s-1ESA/390\s0 will be removed.
 .IP "\fB\-mhtm\fR" 4
 .IX Item "-mhtm"
 .PD 0
