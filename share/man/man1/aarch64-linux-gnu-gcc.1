@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-03-15" "gcc-15.0.1" "GNU"
+.TH GCC 1 "2025-03-21" "gcc-15.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -619,7 +619,8 @@ in the following sections.
 \&\-floop\-block  \-floop\-interchange  \-floop\-strip\-mine
 \&\-floop\-unroll\-and\-jam  \-floop\-nest\-optimize
 \&\-floop\-parallelize\-all  \-flra\-remat  \-flto  \-flto\-compression\-level
-\&\-flto\-partition=\fR\fIalg\fR  \fB\-fmalloc\-dce \-fmerge\-all\-constants
+\&\-flto\-partition=\fR\fIalg\fR \fB\-flto\-incremental=\fR\fIpath\fR
+\&\fB\-flto\-incremental\-cache\-size=\fR\fIn\fR \fB\-fmalloc\-dce \-fmerge\-all\-constants
 \&\-fmerge\-constants  \-fmodulo\-sched  \-fmodulo\-sched\-allow\-regmoves
 \&\-fmove\-loop\-invariants  \-fmove\-loop\-stores  \-fno\-branch\-count\-reg
 \&\-fno\-defer\-pop  \-fno\-fp\-int\-builtin\-inexact  \-fno\-function\-cse
@@ -1325,6 +1326,7 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mtraceback=\fR\fItraceback_type\fR
 \&\fB\-maix\-struct\-return  \-msvr4\-struct\-return
 \&\-mabi=\fR\fIabi-type\fR  \fB\-msecure\-plt  \-mbss\-plt
+\&\-msplit\-patch\-nops
 \&\-mlongcall  \-mno\-longcall  \-mpltseq  \-mno\-pltseq
 \&\-mblock\-move\-inline\-limit=\fR\fInum\fR
 \&\fB\-mblock\-compare\-inline\-limit=\fR\fInum\fR
@@ -14094,14 +14096,31 @@ Specify the partitioning algorithm used by the link-time optimizer.
 The value is either \fB1to1\fR to specify a partitioning mirroring
 the original source files or \fBbalanced\fR to specify partitioning
 into equally sized chunks (whenever possible) or \fBmax\fR to create
-new partition for every symbol where possible.  Specifying \fBnone\fR
-as an algorithm disables partitioning and streaming completely.
+new partition for every symbol where possible or \fBcache\fR to
+balance chunk sizes while keeping related symbols together for better
+caching in incremental \s-1LTO.\s0  Specifying \fBnone\fR as an algorithm
+disables partitioning and streaming completely.
 The default value is \fBbalanced\fR. While \fB1to1\fR can be used
 as an workaround for various code ordering issues, the \fBmax\fR
 partitioning is intended for internal testing only.
 The value \fBone\fR specifies that exactly one partition should be
 used while the value \fBnone\fR bypasses partitioning and executes
 the link-time optimization step directly from the \s-1WPA\s0 phase.
+.IP "\fB\-flto\-incremental=\fR\fIpath\fR" 4
+.IX Item "-flto-incremental=path"
+Enable incremental \s-1LTO,\s0 with its cache in given existing directory.
+Can significantly shorten edit-compile cycles with \s-1LTO.\s0
+.Sp
+When used with \s-1LTO\s0 (\fB\-flto\fR), the output of translation units
+inside \s-1LTO\s0 is cached. Cached translation units are likely to be
+encountered again when recompiling with small code changes, leading to
+recompile time reduction.
+.Sp
+Multiple \s-1GCC\s0 instances can use the same cache in parallel.
+.IP "\fB\-flto\-incremental\-cache\-size=\fR\fIn\fR" 4
+.IX Item "-flto-incremental-cache-size=n"
+Specifies number of cache entries in incremental \s-1LTO\s0 after which to prune
+old entries. This is a soft limit, temporarily there may be more entries.
 .IP "\fB\-flto\-compression\-level=\fR\fIn\fR" 4
 .IX Item "-flto-compression-level=n"
 This option specifies the level of compression used for intermediate
@@ -17661,11 +17680,12 @@ If \f(CW\*(C`N=0\*(C'\fR, no pad location is recorded.
 The \s-1NOP\s0 instructions are inserted at\-\-\-and maybe before, depending on
 \&\fIM\fR\-\-\-the function entry address, even before the prologue.  On
 PowerPC with the ELFv2 \s-1ABI,\s0 for a function with dual entry points,
-the local entry point is this function entry address.
+the local entry point is this function entry address by default.  See
+the \fB\-msplit\-patch\-nops\fR option to change this.
 .Sp
 The maximum value of \fIN\fR and \fIM\fR is 65535.  On PowerPC with the
 ELFv2 \s-1ABI,\s0 for a function with dual entry points, the supported values
-for \fIM\fR are 0, 2, 6 and 14.
+for \fIM\fR are 0, 2, 6 and 14 when not using \fB\-msplit\-patch\-nops\fR.
 .SS "Options Controlling the Preprocessor"
 .IX Subsection "Options Controlling the Preprocessor"
 These options control the C preprocessor, which is run on each C source
@@ -20921,8 +20941,8 @@ and the features that they enable by default:
 .IX Item "armv9.2-a : Armv9.2-A : armv9.1-a, +wfxt, +xs"
 .IP "\fBarmv9.3\-a\fR : Armv9.3\-A : \fBarmv9.2\-a\fR, \fB+mops\fR" 4
 .IX Item "armv9.3-a : Armv9.3-A : armv9.2-a, +mops"
-.IP "\fBarmv9.4\-a\fR : Armv9.4\-A : \fBarmv9.3\-a\fR" 4
-.IX Item "armv9.4-a : Armv9.4-A : armv9.3-a"
+.IP "\fBarmv9.4\-a\fR : Armv9.4\-A : \fBarmv9.3\-a\fR, \fB+sve2p1\fR" 4
+.IX Item "armv9.4-a : Armv9.4-A : armv9.3-a, +sve2p1"
 .IP "\fBarmv9.5\-a\fR : Armv9.4\-A : \fBarmv9.4\-a\fR, \fBcpa\fR, \fB+faminmax\fR, \fB+lut\fR" 4
 .IX Item "armv9.5-a : Armv9.4-A : armv9.4-a, cpa, +faminmax, +lut"
 .IP "\fBarmv8\-r\fR : Armv8\-R : \fBarmv8\-r\fR" 4
@@ -20963,7 +20983,7 @@ performance of the code.  Permissible values for this option are:
 \&\fBoryon\-1\fR,
 \&\fBneoverse\-512tvb\fR, \fBneoverse\-e1\fR, \fBneoverse\-n1\fR,
 \&\fBneoverse\-n2\fR, \fBneoverse\-v1\fR, \fBneoverse\-v2\fR, \fBgrace\fR,
-\&\fBneoverse\-v3\fR, \fBneoverse\-v3ae\fR, \fBneoverse\-n3\fR,
+\&\fBneoverse\-v3\fR, \fBneoverse\-v3ae\fR, \fBneoverse\-n3\fR, \fBolympus\fR,
 \&\fBcortex\-a725\fR, \fBcortex\-x925\fR,
 \&\fBqdf24xx\fR, \fBsaphira\fR, \fBphecda\fR, \fBxgene1\fR, \fBvulcan\fR,
 \&\fBocteontx\fR, \fBocteontx81\fR,  \fBocteontx83\fR,
@@ -30951,6 +30971,16 @@ fills in, and
 requires \f(CW\*(C`.plt\*(C'\fR and \f(CW\*(C`.got\*(C'\fR
 sections that are both writable and executable.
 This is a PowerPC 32\-bit \s-1SYSV ABI\s0 option.
+.IP "\fB\-msplit\-patch\-nops\fR" 4
+.IX Item "-msplit-patch-nops"
+When adding NOPs for a patchable area via the
+\&\fB\-fpatchable\-function\-entry\fR option emit the \*(L"before\*(R" NOPs in front
+of the global entry point and the \*(L"after\*(R" NOPs after the local entry point.
+This makes the sequence of NOPs not consecutive when a global entry point
+is generated.  Without this option the NOPs are emitted directly before and
+after the local entry point, making them consecutive but moving global and
+local entry point further apart.  If only a single entry point is generated
+this option has no effect.
 .IP "\fB\-misel\fR" 4
 .IX Item "-misel"
 .PD 0
@@ -32227,10 +32257,7 @@ GNU/Linux for S/390 \s-1ABI.\s0  When \fB\-m64\fR is specified, generate
 code compliant to the GNU/Linux for zSeries \s-1ABI.\s0  This allows \s-1GCC\s0 in
 particular to generate 64\-bit instructions.  For the \fBs390\fR
 targets, the default is \fB\-m31\fR, while the \fBs390x\fR
-targets default to \fB\-m64\fR.  Note, previously, \fB\-m31\fR defaulted to
-\&\fB\-mesa\fR unless \fB\-mzarch\fR was explicitely specified.  Now,
-\&\fB\-m31\fR defaults to \fB\-mzarch\fR unless \fB\-mesa\fR is explicitely
-specified since \s-1ESA/390\s0 support is deprecated and will be removed.
+targets default to \fB\-m64\fR.
 .IP "\fB\-mzarch\fR" 4
 .IX Item "-mzarch"
 .PD 0
@@ -32245,7 +32272,6 @@ not possible with \fB\-m64\fR.
 When generating code compliant to the GNU/Linux for S/390 \s-1ABI,\s0
 the default is \fB\-mesa\fR.  When generating code compliant
 to the GNU/Linux for zSeries \s-1ABI,\s0 the default is \fB\-mzarch\fR.
-Option \fB\-mesa\fR is deprecated and support for \s-1ESA/390\s0 will be removed.
 .IP "\fB\-mhtm\fR" 4
 .IX Item "-mhtm"
 .PD 0

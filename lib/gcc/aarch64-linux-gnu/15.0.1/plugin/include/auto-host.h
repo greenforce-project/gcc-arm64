@@ -1625,6 +1625,12 @@
 #endif
 
 
+/* Define to 1 if you have the `get_current_dir_name' function. */
+#ifndef USED_FOR_TARGET
+#define HAVE_GET_CURRENT_DIR_NAME 1
+#endif
+
+
 /* Define to 1 if using GNU as. */
 #ifndef USED_FOR_TARGET
 #define HAVE_GNU_AS 1
@@ -2330,6 +2336,12 @@
 /* Define to 1 if ld64 supports '-export_dynamic'. */
 #ifndef USED_FOR_TARGET
 /* #undef LD64_HAS_EXPORT_DYNAMIC */
+#endif
+
+
+/* Define to 1 if ld64 supports '-macos_version_min'. */
+#ifndef USED_FOR_TARGET
+/* #undef LD64_HAS_MACOS_VERSION_MIN */
 #endif
 
 
