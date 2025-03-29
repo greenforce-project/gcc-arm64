@@ -942,8 +942,8 @@
 #endif
 
 
-/* Define to 1 if you have the declaration of `basename(const char*)', and to
-   0 if you don't. */
+/* Define to 1 if you have the declaration of `basename(char*)', and to 0 if
+   you don't. */
 #ifndef USED_FOR_TARGET
 #define HAVE_DECL_BASENAME 1
 #endif
@@ -1886,6 +1886,12 @@
 /* Define if your linker supports --sysroot. */
 #ifndef USED_FOR_TARGET
 #define HAVE_LD_SYSROOT 1
+#endif
+
+
+/* Define to 1 if you have the <libgen.h> header file. */
+#ifndef USED_FOR_TARGET
+#define HAVE_LIBGEN_H 1
 #endif
 
 

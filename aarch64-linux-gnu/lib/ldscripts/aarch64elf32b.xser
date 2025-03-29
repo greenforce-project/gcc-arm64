@@ -94,7 +94,7 @@ SECTIONS
   /* Start of the Read Write Data region.  */
   /* Adjust the address for the data segment.  We want to adjust up to
      the same address within the page on the next page up.  */
-  . = ALIGN(CONSTANT (MAXPAGESIZE)) + (. & (CONSTANT (MAXPAGESIZE) - 1));
+  . = DATA_SEGMENT_ALIGN (CONSTANT (MAXPAGESIZE), CONSTANT (COMMONPAGESIZE));
   /* Exception handling.  */
   .eh_frame       : ONLY_IF_RW { KEEP (*(.eh_frame)) *(.eh_frame.*) }
   .sframe         : ONLY_IF_RW { *(.sframe) *(.sframe.*) }
@@ -154,6 +154,7 @@ SECTIONS
   .data.rel.ro : { *(.data.rel.ro.local* .gnu.linkonce.d.rel.ro.local.*) *(.data.rel.ro .data.rel.ro.* .gnu.linkonce.d.rel.ro.*) }
   .dynamic        : { *(.dynamic) }
   .got            : { *(.got) *(.igot) }
+  . = DATA_SEGMENT_RELRO_END (12, .);
   .got.plt        : { *(.got.plt) *(.igot.plt) }
   .data           :
   {
@@ -188,6 +189,7 @@ SECTIONS
   PROVIDE (__end__ = .);
   PROVIDE (_end = .);
   PROVIDE (end = .);
+  . = DATA_SEGMENT_END (.);
   /* Start of the Tiny Data region.  */
   /* Stack.  */
   .stack         0x80000 :

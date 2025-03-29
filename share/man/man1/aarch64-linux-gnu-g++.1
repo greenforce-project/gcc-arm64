@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-03-21" "gcc-15.0.1" "GNU"
+.TH GCC 1 "2025-03-29" "gcc-15.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -677,6 +677,7 @@ in the following sections.
 .IX Item "Program Instrumentation Options"
 \&\fB\-p  \-pg  \-fprofile\-arcs  \-\-coverage  \-ftest\-coverage
 \&\-fcondition\-coverage
+\&\-fpath\-coverage
 \&\-fprofile\-abs\-path
 \&\-fprofile\-dir=\fR\fIpath\fR  \fB\-fprofile\-generate  \-fprofile\-generate=\fR\fIpath\fR
 \&\fB\-fprofile\-info\-section  \-fprofile\-info\-section=\fR\fIname\fR
@@ -918,8 +919,8 @@ in the following sections.
 \&\-mdouble=\fR\fIbits\fR  \fB\-mlong\-double=\fR\fIbits\fR  \fB\-mno\-call\-main
 \&\-mn_flash=\fR\fIsize\fR  \fB\-mfract\-convert\-truncate  \-mno\-interrupts
 \&\-mmain\-is\-OS_task  \-mrelax  \-mrmw  \-mstrict\-X  \-mtiny\-stack
-\&\-mrodata\-in\-ram  \-msplit\-bit\-shift  \-msplit\-ldst
-\&\-mshort\-calls  \-mskip\-bug  \-nodevicelib  \-nodevicespecs
+\&\-mrodata\-in\-ram  \-msplit\-bit\-shift  \-msplit\-ldst  \-mshort\-calls
+\&\-mskip\-bug  \-muse\-nonzero\-bits  \-nodevicelib  \-nodevicespecs
 \&\-Waddr\-space\-convert  \-Wmisspelled\-isr\fR
 .Sp
 \&\fIBlackfin Options\fR (\fBBlackfin Options\fR)
@@ -1495,8 +1496,8 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mamx\-tile  \-mamx\-int8  \-mamx\-bf16 \-muintr \-mhreset \-mavxvnni \-mamx\-fp8
 \&\-mavx512fp16 \-mavxifma \-mavxvnniint8 \-mavxneconvert \-mcmpccxadd \-mamx\-fp16
 \&\-mprefetchi \-mraoint \-mamx\-complex \-mavxvnniint16 \-msm3 \-msha512 \-msm4 \-mapxf
-\&\-musermsr \-mavx10.1 \-mavx10.1\-256 \-mavx10.1\-512 \-mevex512 \-mavx10.2 \-mavx10.2\-256
-\&\-mavx10.2\-512 \-mamx\-avx512 \-mamx\-tf32 \-mamx\-transpose \-mmovrs \-mamx\-movrs
+\&\-musermsr \-mavx10.1 \-mavx10.1\-256 \-mavx10.1\-512 \-mevex512 \-mavx10.2
+\&\-mamx\-avx512 \-mamx\-tf32 \-mamx\-transpose \-mmovrs \-mamx\-movrs
 \&\-mcldemote  \-mms\-bitfields  \-mno\-align\-stringops  \-minline\-all\-stringops
 \&\-minline\-stringops\-dynamically  \-mstringop\-strategy=\fR\fIalg\fR
 \&\fB\-mkl \-mwidekl
@@ -6364,6 +6365,11 @@ Warn if \fB\-fcondition\-coverage\fR is used and an expression have too many
 terms and \s-1GCC\s0 gives up coverage.  Coverage is given up when there are more
 terms in the conditional than there are bits in a \f(CW\*(C`gcov_type_unsigned\*(C'\fR.
 This warning is enabled by default.
+.IP "\fB\-Wno\-coverage\-too\-many\-paths\fR" 4
+.IX Item "-Wno-coverage-too-many-paths"
+Warn if \fB\-fpath\-coverage\fR is used and a function has too many
+paths and \s-1GCC\s0 gives up coverage.  Giving up is controlled by
+\&\fB\-fpath\-coverage\-limit\fR.  This warning is enabled by default.
 .IP "\fB\-Wno\-coverage\-invalid\-line\-number\fR" 4
 .IX Item "-Wno-coverage-invalid-line-number"
 Warn in case a function ends earlier than it begins due
@@ -16495,6 +16501,24 @@ program records what terms in a conditional contributes to a decision, which
 can be used to verify that all terms in a Boolean function are tested and have
 an independent effect on the outcome of a decision.  The result can be read
 with \f(CW\*(C`gcov \-\-conditions\*(C'\fR.
+.IP "\fB\-fpath\-coverage\fR" 4
+.IX Item "-fpath-coverage"
+Add code so that the paths taken are tracked.  During execution the
+program records the prime paths taken.  The number of paths grows very
+fast with complexity, and to avoid exploding compile times \s-1GCC\s0 will give
+up instrumentation if the approximate number of paths exceeds the limit
+controlled by \fB\-fpath\-coverage\-limit\fR.  The result can be read
+with \f(CW\*(C`gcov \-\-prime\-paths \-\-prime\-paths\-lines \-\-prime\-paths\-source\*(C'\fR,
+.IP "\fB\-fpath\-coverage\-limit=\fR\fIlimit\fR" 4
+.IX Item "-fpath-coverage-limit=limit"
+The threshold at which point \fB\-fpath\-coverage\fR gives up on
+instrumenting a function.  This limit is approximate and conservative,
+as \s-1GCC\s0 uses a pessimistic heuristic which slightly overcounts the
+running number of paths, and gives up if the threshold is reached before
+finding all the paths.  This option is not for fine grained control over
+which functions to instrument \- rather it is intended to limit the
+effect of path explosion and keep compile times reasonable.  The default
+is \fI250000\fR.
 .IP "\fB\-\-coverage\fR" 4
 .IX Item "--coverage"
 This option is used to compile and link code instrumented for coverage
@@ -16548,6 +16572,14 @@ block must be created to hold the instrumentation code.
 With \fB\-fcondition\-coverage\fR, for each conditional in your program \s-1GCC\s0
 creates a bitset and records the exercised boolean values that have an
 independent effect on the outcome of that expression.
+.Sp
+With \fB\-fpath\-coverage\fR, \s-1GCC\s0 finds and enumerates and records the
+taken prime paths of each function, unless the number of paths would
+exceed the limit controlled by \fB\-fpath\-coverage\-limit\fR.  If the
+limit is exceeded the function is not instrumented as if
+\&\fB\-fpath\-coverage\fR was not used.  A prime path is the longest
+sequence of unique blocks, except possibly the first and last, which is
+not a subpath of any other path.
 .RE
 .IP "\fB\-ftest\-coverage\fR" 4
 .IX Item "-ftest-coverage"
@@ -23648,12 +23680,12 @@ from the hardware manufacturer.
 .el .IP "\f(CWavrxmega2\fR" 4
 .IX Item "avrxmega2"
 \&\*(L"\s-1XMEGA\*(R"\s0 devices with more than 8 KiB and up to 64 KiB of program memory.
-\&\fImcu\fR = \f(CW\*(C`atxmega8e5\*(C'\fR, \f(CW\*(C`atxmega16a4\*(C'\fR, \f(CW\*(C`atxmega16a4u\*(C'\fR, \f(CW\*(C`atxmega16c4\*(C'\fR, \f(CW\*(C`atxmega16d4\*(C'\fR, \f(CW\*(C`atxmega16e5\*(C'\fR, \f(CW\*(C`atxmega32a4\*(C'\fR, \f(CW\*(C`atxmega32a4u\*(C'\fR, \f(CW\*(C`atxmega32c3\*(C'\fR, \f(CW\*(C`atxmega32c4\*(C'\fR, \f(CW\*(C`atxmega32d3\*(C'\fR, \f(CW\*(C`atxmega32d4\*(C'\fR, \f(CW\*(C`atxmega32e5\*(C'\fR, \f(CW\*(C`avr64da28\*(C'\fR, \f(CW\*(C`avr64da32\*(C'\fR, \f(CW\*(C`avr64da48\*(C'\fR, \f(CW\*(C`avr64da64\*(C'\fR, \f(CW\*(C`avr64db28\*(C'\fR, \f(CW\*(C`avr64db32\*(C'\fR, \f(CW\*(C`avr64db48\*(C'\fR, \f(CW\*(C`avr64db64\*(C'\fR, \f(CW\*(C`avr64dd14\*(C'\fR, \f(CW\*(C`avr64dd20\*(C'\fR, \f(CW\*(C`avr64dd28\*(C'\fR, \f(CW\*(C`avr64dd32\*(C'\fR, \f(CW\*(C`avr64du28\*(C'\fR, \f(CW\*(C`avr64du32\*(C'\fR, \f(CW\*(C`avr64ea28\*(C'\fR, \f(CW\*(C`avr64ea32\*(C'\fR, \f(CW\*(C`avr64ea48\*(C'\fR.
+\&\fImcu\fR = \f(CW\*(C`atxmega8e5\*(C'\fR, \f(CW\*(C`atxmega16a4\*(C'\fR, \f(CW\*(C`atxmega16a4u\*(C'\fR, \f(CW\*(C`atxmega16c4\*(C'\fR, \f(CW\*(C`atxmega16d4\*(C'\fR, \f(CW\*(C`atxmega16e5\*(C'\fR, \f(CW\*(C`atxmega32a4\*(C'\fR, \f(CW\*(C`atxmega32a4u\*(C'\fR, \f(CW\*(C`atxmega32c3\*(C'\fR, \f(CW\*(C`atxmega32c4\*(C'\fR, \f(CW\*(C`atxmega32d3\*(C'\fR, \f(CW\*(C`atxmega32d4\*(C'\fR, \f(CW\*(C`atxmega32e5\*(C'\fR, \f(CW\*(C`avr64da28\*(C'\fR, \f(CW\*(C`avr64da32\*(C'\fR, \f(CW\*(C`avr64da48\*(C'\fR, \f(CW\*(C`avr64da64\*(C'\fR, \f(CW\*(C`avr64db28\*(C'\fR, \f(CW\*(C`avr64db32\*(C'\fR, \f(CW\*(C`avr64db48\*(C'\fR, \f(CW\*(C`avr64db64\*(C'\fR, \f(CW\*(C`avr64dd14\*(C'\fR, \f(CW\*(C`avr64dd20\*(C'\fR, \f(CW\*(C`avr64dd28\*(C'\fR, \f(CW\*(C`avr64dd32\*(C'\fR, \f(CW\*(C`avr64du28\*(C'\fR, \f(CW\*(C`avr64du32\*(C'\fR, \f(CW\*(C`avr64ea28\*(C'\fR, \f(CW\*(C`avr64ea32\*(C'\fR, \f(CW\*(C`avr64ea48\*(C'\fR, \f(CW\*(C`avr64sd28\*(C'\fR, \f(CW\*(C`avr64sd32\*(C'\fR, \f(CW\*(C`avr64sd48\*(C'\fR.
 .ie n .IP """avrxmega3""" 4
 .el .IP "\f(CWavrxmega3\fR" 4
 .IX Item "avrxmega3"
 \&\*(L"\s-1XMEGA\*(R"\s0 devices with up to 64 KiB of combined program memory and \s-1RAM,\s0 and with program memory visible in the \s-1RAM\s0 address space.
-\&\fImcu\fR = \f(CW\*(C`attiny202\*(C'\fR, \f(CW\*(C`attiny204\*(C'\fR, \f(CW\*(C`attiny212\*(C'\fR, \f(CW\*(C`attiny214\*(C'\fR, \f(CW\*(C`attiny402\*(C'\fR, \f(CW\*(C`attiny404\*(C'\fR, \f(CW\*(C`attiny406\*(C'\fR, \f(CW\*(C`attiny412\*(C'\fR, \f(CW\*(C`attiny414\*(C'\fR, \f(CW\*(C`attiny416\*(C'\fR, \f(CW\*(C`attiny416auto\*(C'\fR, \f(CW\*(C`attiny417\*(C'\fR, \f(CW\*(C`attiny424\*(C'\fR, \f(CW\*(C`attiny426\*(C'\fR, \f(CW\*(C`attiny427\*(C'\fR, \f(CW\*(C`attiny804\*(C'\fR, \f(CW\*(C`attiny806\*(C'\fR, \f(CW\*(C`attiny807\*(C'\fR, \f(CW\*(C`attiny814\*(C'\fR, \f(CW\*(C`attiny816\*(C'\fR, \f(CW\*(C`attiny817\*(C'\fR, \f(CW\*(C`attiny824\*(C'\fR, \f(CW\*(C`attiny826\*(C'\fR, \f(CW\*(C`attiny827\*(C'\fR, \f(CW\*(C`attiny1604\*(C'\fR, \f(CW\*(C`attiny1606\*(C'\fR, \f(CW\*(C`attiny1607\*(C'\fR, \f(CW\*(C`attiny1614\*(C'\fR, \f(CW\*(C`attiny1616\*(C'\fR, \f(CW\*(C`attiny1617\*(C'\fR, \f(CW\*(C`attiny1624\*(C'\fR, \f(CW\*(C`attiny1626\*(C'\fR, \f(CW\*(C`attiny1627\*(C'\fR, \f(CW\*(C`attiny3214\*(C'\fR, \f(CW\*(C`attiny3216\*(C'\fR, \f(CW\*(C`attiny3217\*(C'\fR, \f(CW\*(C`attiny3224\*(C'\fR, \f(CW\*(C`attiny3226\*(C'\fR, \f(CW\*(C`attiny3227\*(C'\fR, \f(CW\*(C`atmega808\*(C'\fR, \f(CW\*(C`atmega809\*(C'\fR, \f(CW\*(C`atmega1608\*(C'\fR, \f(CW\*(C`atmega1609\*(C'\fR, \f(CW\*(C`atmega3208\*(C'\fR, \f(CW\*(C`atmega3209\*(C'\fR, \f(CW\*(C`atmega4808\*(C'\fR, \f(CW\*(C`atmega4809\*(C'\fR, \f(CW\*(C`avr16dd14\*(C'\fR, \f(CW\*(C`avr16dd20\*(C'\fR, \f(CW\*(C`avr16dd28\*(C'\fR, \f(CW\*(C`avr16dd32\*(C'\fR, \f(CW\*(C`avr16du14\*(C'\fR, \f(CW\*(C`avr16du20\*(C'\fR, \f(CW\*(C`avr16du28\*(C'\fR, \f(CW\*(C`avr16du32\*(C'\fR, \f(CW\*(C`avr16ea28\*(C'\fR, \f(CW\*(C`avr16ea32\*(C'\fR, \f(CW\*(C`avr16ea48\*(C'\fR, \f(CW\*(C`avr16eb14\*(C'\fR, \f(CW\*(C`avr16eb20\*(C'\fR, \f(CW\*(C`avr16eb28\*(C'\fR, \f(CW\*(C`avr16eb32\*(C'\fR, \f(CW\*(C`avr32da28\*(C'\fR, \f(CW\*(C`avr32da32\*(C'\fR, \f(CW\*(C`avr32da48\*(C'\fR, \f(CW\*(C`avr32db28\*(C'\fR, \f(CW\*(C`avr32db32\*(C'\fR, \f(CW\*(C`avr32db48\*(C'\fR, \f(CW\*(C`avr32dd14\*(C'\fR, \f(CW\*(C`avr32dd20\*(C'\fR, \f(CW\*(C`avr32dd28\*(C'\fR, \f(CW\*(C`avr32dd32\*(C'\fR, \f(CW\*(C`avr32du14\*(C'\fR, \f(CW\*(C`avr32du20\*(C'\fR, \f(CW\*(C`avr32du28\*(C'\fR, \f(CW\*(C`avr32du32\*(C'\fR, \f(CW\*(C`avr32ea28\*(C'\fR, \f(CW\*(C`avr32ea32\*(C'\fR, \f(CW\*(C`avr32ea48\*(C'\fR.
+\&\fImcu\fR = \f(CW\*(C`attiny202\*(C'\fR, \f(CW\*(C`attiny204\*(C'\fR, \f(CW\*(C`attiny212\*(C'\fR, \f(CW\*(C`attiny214\*(C'\fR, \f(CW\*(C`attiny402\*(C'\fR, \f(CW\*(C`attiny404\*(C'\fR, \f(CW\*(C`attiny406\*(C'\fR, \f(CW\*(C`attiny412\*(C'\fR, \f(CW\*(C`attiny414\*(C'\fR, \f(CW\*(C`attiny416\*(C'\fR, \f(CW\*(C`attiny416auto\*(C'\fR, \f(CW\*(C`attiny417\*(C'\fR, \f(CW\*(C`attiny424\*(C'\fR, \f(CW\*(C`attiny426\*(C'\fR, \f(CW\*(C`attiny427\*(C'\fR, \f(CW\*(C`attiny804\*(C'\fR, \f(CW\*(C`attiny806\*(C'\fR, \f(CW\*(C`attiny807\*(C'\fR, \f(CW\*(C`attiny814\*(C'\fR, \f(CW\*(C`attiny816\*(C'\fR, \f(CW\*(C`attiny817\*(C'\fR, \f(CW\*(C`attiny824\*(C'\fR, \f(CW\*(C`attiny826\*(C'\fR, \f(CW\*(C`attiny827\*(C'\fR, \f(CW\*(C`attiny1604\*(C'\fR, \f(CW\*(C`attiny1606\*(C'\fR, \f(CW\*(C`attiny1607\*(C'\fR, \f(CW\*(C`attiny1614\*(C'\fR, \f(CW\*(C`attiny1616\*(C'\fR, \f(CW\*(C`attiny1617\*(C'\fR, \f(CW\*(C`attiny1624\*(C'\fR, \f(CW\*(C`attiny1626\*(C'\fR, \f(CW\*(C`attiny1627\*(C'\fR, \f(CW\*(C`attiny3214\*(C'\fR, \f(CW\*(C`attiny3216\*(C'\fR, \f(CW\*(C`attiny3217\*(C'\fR, \f(CW\*(C`attiny3224\*(C'\fR, \f(CW\*(C`attiny3226\*(C'\fR, \f(CW\*(C`attiny3227\*(C'\fR, \f(CW\*(C`atmega808\*(C'\fR, \f(CW\*(C`atmega809\*(C'\fR, \f(CW\*(C`atmega1608\*(C'\fR, \f(CW\*(C`atmega1609\*(C'\fR, \f(CW\*(C`atmega3208\*(C'\fR, \f(CW\*(C`atmega3209\*(C'\fR, \f(CW\*(C`atmega4808\*(C'\fR, \f(CW\*(C`atmega4809\*(C'\fR, \f(CW\*(C`avr16dd14\*(C'\fR, \f(CW\*(C`avr16dd20\*(C'\fR, \f(CW\*(C`avr16dd28\*(C'\fR, \f(CW\*(C`avr16dd32\*(C'\fR, \f(CW\*(C`avr16du14\*(C'\fR, \f(CW\*(C`avr16du20\*(C'\fR, \f(CW\*(C`avr16du28\*(C'\fR, \f(CW\*(C`avr16du32\*(C'\fR, \f(CW\*(C`avr16ea28\*(C'\fR, \f(CW\*(C`avr16ea32\*(C'\fR, \f(CW\*(C`avr16ea48\*(C'\fR, \f(CW\*(C`avr16eb14\*(C'\fR, \f(CW\*(C`avr16eb20\*(C'\fR, \f(CW\*(C`avr16eb28\*(C'\fR, \f(CW\*(C`avr16eb32\*(C'\fR, \f(CW\*(C`avr32da28\*(C'\fR, \f(CW\*(C`avr32da32\*(C'\fR, \f(CW\*(C`avr32da48\*(C'\fR, \f(CW\*(C`avr32db28\*(C'\fR, \f(CW\*(C`avr32db32\*(C'\fR, \f(CW\*(C`avr32db48\*(C'\fR, \f(CW\*(C`avr32dd14\*(C'\fR, \f(CW\*(C`avr32dd20\*(C'\fR, \f(CW\*(C`avr32dd28\*(C'\fR, \f(CW\*(C`avr32dd32\*(C'\fR, \f(CW\*(C`avr32du14\*(C'\fR, \f(CW\*(C`avr32du20\*(C'\fR, \f(CW\*(C`avr32du28\*(C'\fR, \f(CW\*(C`avr32du32\*(C'\fR, \f(CW\*(C`avr32ea28\*(C'\fR, \f(CW\*(C`avr32ea32\*(C'\fR, \f(CW\*(C`avr32ea48\*(C'\fR, \f(CW\*(C`avr32sd20\*(C'\fR, \f(CW\*(C`avr32sd28\*(C'\fR, \f(CW\*(C`avr32sd32\*(C'\fR.
 .ie n .IP """avrxmega4""" 4
 .el .IP "\f(CWavrxmega4\fR" 4
 .IX Item "avrxmega4"
@@ -23852,6 +23884,8 @@ Accumulate outgoing function arguments and acquire/release the needed
 stack space for outgoing function arguments once in function
 prologue/epilogue.  Without this option, outgoing arguments are pushed
 before calling a function and popped afterwards.
+See also the \fB\-fdefer\-pop\fR
+\&\fBOptimize Options,,optimization option\fR.
 .Sp
 Popping the arguments after the function call can be expensive on
 \&\s-1AVR\s0 so that accumulating the stack space might lead to smaller
@@ -23926,6 +23960,11 @@ a multiple of 8 is controlled by \fB\-mfuse\-move\fR.
 .IP "\fB\-msplit\-ldst\fR" 4
 .IX Item "-msplit-ldst"
 Split multi-byte loads and stores into several byte loads and stores.
+This optimization is turned on per default for \fB\-O2\fR and higher.
+.IP "\fB\-muse\-nonzero\-bits\fR" 4
+.IX Item "-muse-nonzero-bits"
+Enable optimizations that are only possible when some bits in a
+register are always zero.
 This optimization is turned on per default for \fB\-O2\fR and higher.
 .PP
 \f(CW\*(C`EIND\*(C'\fR and Devices with More Than 128 Ki Bytes of Flash
@@ -29534,7 +29573,7 @@ Valid version strings are
 \&\fB7.0\fR, \fB7.3\fR, and \fB7.8\fR.
 The default \s-1PTX ISA\s0 version is the one that added support for the
 selected \s-1PTX ISA\s0 target architecture, see \fB\-march=\fR, but at
-least \fB6.0\fR, or \fB7.3\fR for \fB\-march=sm_52\fR and higher.
+least \fB6.3\fR, or \fB7.3\fR for \fB\-march=sm_52\fR and higher.
 .Sp
 This option sets the values of the preprocessor macros
 \&\f(CW\*(C`_\|_PTX_ISA_VERSION_MAJOR_\|_\*(C'\fR and \f(CW\*(C`_\|_PTX_ISA_VERSION_MINOR_\|_\*(C'\fR;
@@ -34905,10 +34944,6 @@ preferred alignment to \fB\-mpreferred\-stack\-boundary=2\fR.
 .IX Item "-mavx10.1-512"
 .IP "\fB\-mavx10.2\fR" 4
 .IX Item "-mavx10.2"
-.IP "\fB\-mavx10.2\-256\fR" 4
-.IX Item "-mavx10.2-256"
-.IP "\fB\-mavx10.2\-512\fR" 4
-.IX Item "-mavx10.2-512"
 .IP "\fB\-mamx\-avx512\fR" 4
 .IX Item "-mamx-avx512"
 .IP "\fB\-mamx\-tf32\fR" 4

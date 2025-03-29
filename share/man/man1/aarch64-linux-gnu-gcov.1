@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCOV 1"
-.TH GCOV 1 "2025-03-21" "gcc-15.0.1" "GNU"
+.TH GCOV 1 "2025-03-29" "gcc-15.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -147,6 +147,9 @@ gcov [\fB\-v\fR|\fB\-\-version\fR] [\fB\-h\fR|\fB\-\-help\fR]
      [\fB\-b\fR|\fB\-\-branch\-probabilities\fR]
      [\fB\-c\fR|\fB\-\-branch\-counts\fR]
      [\fB\-g\fR|\fB\-\-conditions\fR]
+     [\fB\-e\fR|\fB\-\-prime\-paths\fR]
+     [\fB\-\-prime\-paths\-lines[=\fR\fItype\fR\fB]\fR]
+     [\fB\-\-prime\-paths\-source[=\fR\fItype\fR\fB]\fR]
      [\fB\-d\fR|\fB\-\-display\-progress\fR]
      [\fB\-f\fR|\fB\-\-function\-summaries\fR]
      [\fB\-\-include\fR \fIregex\fR]
@@ -262,6 +265,98 @@ to the standard output.  This option allows you to see if the conditions in
 your program at least once had an independent effect on the outcome of the
 boolean expression (modified condition/decision coverage).  This requires you
 to compile the source with \fB\-fcondition\-coverage\fR.
+.IP "\fB\-e\fR" 4
+.IX Item "-e"
+.PD 0
+.IP "\fB\-\-prime\-paths\fR" 4
+.IX Item "--prime-paths"
+.PD
+Write path coverage to the output file, and write path summary info to
+the standard output.  This option allows you to see how many prime paths
+were taken at least once.  A path is a sequence of basic blocks.  A path
+is simple if it has no repeated blocks (no loops) except maybe the first
+and last block, and prime if it is a simple path of maximal length.  For
+the regular output this option only includes the number of paths
+covered.  For more fine grained information on paths you can use
+\&\fB\-\-prime\-paths\-lines\fR or \fB\-\-prime\-paths\-source\fR.  With
+\&\fB\-\-json\-format\fR all path details are included in the output.
+This requires you to compile the
+source with \fB\-fpath\-coverage\fR.
+.IP "\fB\-\-prime\-paths\-lines [=\fR\fItype\fR\fB]\fR" 4
+.IX Item "--prime-paths-lines [=type]"
+Write path coverage to the output file, and write path summary info to
+the standard output.  This option allows you to see how many prime paths
+were taken at least once, and dense report on the covered or uncovered
+paths and how to cover them.  This mode is useful for automated
+reporting and progress tracking. \fItype\fR may be omitted, or one of:
+.RS 4
+.IP "*" 4
+\&\fIuncovered\fR
+\&\- Include the uncovered (not taken) paths.  This is the default.
+.IP "*" 4
+\&\fIcovered\fR
+\&\- Include the covered (taken) paths.
+.IP "*" 4
+\&\fIboth\fR
+\&\- Include all paths.  This is equivalent to using both \fIcovered\fR and
+\&\fIuncovered\fR.
+.RE
+.RS 4
+.Sp
+This is an example of \fB\-\-prime\-paths\-lines\fR output:
+.Sp
+.Vb 4
+\&        paths covered 12 of 15
+\&        path  2 not covered: lines 8 8(false) 11(true) 11 13(true) 13(true) 14 17
+\&        path  3 not covered: lines 8 8(false) 11(true) 11 13(true) 13(false) 16 17
+\&        path  4 not covered: lines 8 8(false) 11(true) 11 13(false) 16 17
+.Ve
+.Sp
+This means to cover path 2 you must run lines 8, 11, 13, 14, and 17,
+evaluting the decision at 8 false and the decisions at 11 and 13 to
+\&\f(CW\*(C`false\*(C'\fR.
+.RE
+.IP "\fB\-\-prime\-paths\-source [=\fR\fItype\fR\fB]\fR" 4
+.IX Item "--prime-paths-source [=type]"
+Write path coverage to the output file, and write path summary info to
+the standard output.  This option allows you to see how many prime paths
+were taken at least once, and detailed report on the uncovered paths an
+how to cover them.  This mode is useful for understanding paths and
+interactions between sections of your program. \fItype\fR may be
+omitted, or one of:
+.RS 4
+.IP "*" 4
+\&\fIuncovered\fR
+\&\- Include the uncovered (not taken) paths.  This is the default.
+.IP "*" 4
+\&\fIcovered\fR
+\&\- Include the covered (taken) paths.
+.IP "*" 4
+\&\fIboth\fR
+\&\- Include all paths.  This is equivalent to using both \fIcovered\fR and
+\&\fIuncovered\fR.
+.RE
+.RS 4
+.Sp
+This is an example of \fB\-\-prime\-paths\-source\fR output:
+.Sp
+.Vb 9
+\&        path 10 not covered:
+\&        BB  3:           8:  for (i = 0; i < 10; i++)
+\&        BB  3:           9:    total += i;
+\&        BB  4: (false)   8:  for (i = 0; i < 10; i++)
+\&        BB  5: (true)   11:  int v = total > 100 ? 1 : 2;
+\&        BB  6:          11:  int v = total > 100 ? 1 : 2;
+\&        BB  8: (false)  13:  if (total != 45 && v == 1)
+\&        BB 11:          16:    printf ("Success\en");
+\&        BB 12:          17:  return 0;
+.Ve
+.Sp
+The first (\s-1BB\s0) column is the sequence of basic blocks (see \fB\-w\fR).
+The middle column (true/false) is the decision for that line.  The third
+column is the line number.  The fourth column is the line itself.  These
+lines must be run in this order to cover path 10.
+.RE
 .IP "\fB\-d\fR" 4
 .IX Item "-d"
 .PD 0
@@ -1098,6 +1193,106 @@ value for the decision to change.
 \&                1:   11:    printf ("Failure!\en");
 \&                \-:   12:}
 .Ve
+.PP
+\&\f(CW@anchor\fR {gcov prime paths example}
+When you compile with \fB\-\-coverage \-fpath\-coverage\fR and use the
+option \fB\-e\fR your output looks like this:
+.PP
+.Vb 10
+\&        $ gcov \-t \-e tmp
+\&                \-:    0:Source:tmp.cpp
+\&                \-:    0:Graph:tmp.gcno
+\&                \-:    0:Data:tmp.gcda
+\&                \-:    0:Runs:1
+\&                \-:    1:#include <stdio.h>
+\&                \-:    2:
+\&        paths covered 4 of 15
+\&                1:    3:int main ()
+\&                \-:    4:{
+\&                \-:    5:  int i, total;
+\&                1:    6:  total = 0;
+\&                \-:    7:
+\&               11:    8:  for (i = 0; i < 10; i++)
+\&               10:    9:    total += i;
+\&                \-:   10:
+\&               1*:   11:  int v = total > 100 ? 1 : 2;
+\&                \-:   12:
+\&               1*:   13:  if (total != 45 && v == 1)
+\&            #####:   14:    printf ("Failure\en");
+\&                \-:   15:  else
+\&                1:   16:    printf ("Success\en");
+\&                1:   17:  return 0;
+\&                \-:   18:}
+.Ve
+.PP
+This output is useful to figure out roughly where coverage is missing
+and testing how different inputs change the coverage.  The
+\&\fB\-\-prime\-paths\-source\fR is a useful tool for understanding paths.
+.PP
+.Vb 10
+\&        $ gcov \-t \-\-prime\-paths\-source tmp
+\&                \-:    0:Source:tmp.cpp
+\&                \-:    0:Graph:tmp.gcno
+\&                \-:    0:Data:tmp.gcda
+\&                \-:    0:Runs:1
+\&                \-:    1:#include <stdio.h>
+\&                \-:    2:
+\&        paths covered 4 of 15
+\&        path 1:
+\&        BB  2:           3:int main ()
+\&        BB  2:           6:  total = 0;
+\&        BB  2:           8:  for (i = 0; i < 10; i++)
+\&        BB  4: (false)   8:  for (i = 0; i < 10; i++)
+\&        BB  5: (true)   11:  int v = total > 100 ? 1 : 2;
+\&        BB  6:          11:  int v = total > 100 ? 1 : 2;
+\&        BB  8: (true)   13:  if (total != 45 && v == 1)
+\&        BB  9: (true)   13:  if (total != 45 && v == 1)
+\&        BB 10:          14:    printf ("Failure\en");
+\&        BB 12:          17:  return 0;
+.Ve
+.PP
+In this mode, gcov will print details on the missing paths.  The first
+column lists the sequence of basic blocks (\s-1BB\s0).  The second column is
+the decision to take at that line if there is one.  The final columns
+are the line number and the line itself.  This is useful for
+understanding the paths, in particular those that are hard to cover or
+even unreachable.  Lines may be repeated, for example the \f(CW\*(C`for\*(C'\fR
+loop, if the same line is a part of multiple basic blocks.  This mode is
+intended for humans and good at understanding what code is exercised
+under testing or for given inputs.  This output is quite verbose, and
+for focusing on specific functions it can be combined with the filters
+\&\fB\-\-include\fR and \fB\-\-exclude\fR.
+.PP
+A denser output is available with \fB\-\-prime\-paths\-lines\fR, which
+looks like this:
+.PP
+.Vb 10
+\&                \-:    0:Source:tmp.cpp
+\&                \-:    0:Graph:tmp.gcno
+\&                \-:    0:Data:tmp.gcda
+\&                \-:    0:Runs:1
+\&                \-:    1:#include <stdio.h>
+\&                \-:    2:
+\&        paths covered 4 of 15
+\&        path  1 not covered: lines 8 8(false) 11(true) 11 13(true) 13(true) 14 17
+\&        path  2 not covered: lines 8 8(false) 11(true) 11 13(true) 13(false) 16 17
+\&        path  3 not covered: lines 8 8(false) 11(true) 11 13(false) 16 17
+\&        path  4 not covered: lines 8 8(false) 11(false) 11 13(true) 13(true) 14 17
+\&        path  5 not covered: lines 8 8(false) 11(false) 11 13(true) 13(false) 16 17
+\&        path  6 not covered: lines 8 8(false) 11(false) 11 13(false) 16 17
+\&        path  8 not covered: lines 9 8(false) 11(true) 11 13(true) 13(true) 14 17
+\&        path  9 not covered: lines 9 8(false) 11(true) 11 13(true) 13(false) 16 17
+\&        path 10 not covered: lines 9 8(false) 11(true) 11 13(false) 16 17
+\&        path 11 not covered: lines 9 8(false) 11(false) 11 13(true) 13(true) 14 17
+\&        path 12 not covered: lines 9 8(false) 11(false) 11 13(true) 13(false) 16 17
+\&                1:    3:int main ()
+\&                \-:    4:{
+.Ve
+.PP
+In this mode, every missing path is expanded using the lines and
+decisions like \fB\-\-prime\-paths\-source\fR but printed on a single
+line.  This mode provides a good overview over the paths and for
+tracking how different tests and inputs exercises the code.
 .PP
 The execution counts are cumulative.  If the example program were
 executed again without removing the \fI.gcda\fR file, the count for the
