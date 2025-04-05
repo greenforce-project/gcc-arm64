@@ -1884,9 +1884,6 @@ the '--reverse-bytes' option.)
      present in the binary.  Sections in memory will always begin at
      addresses which are a multiple of this number.  Defaults to 0x1000.
 
-     Note - this option will also set the alignment field in each
-     section's flags.
-
      Note - if a section's LMA or VMA addresses are no longer aligned,
      and those addresses have not been set via the '--set-section-lma'
      or '--set-section-vma' options, and the file has been fully
@@ -6287,30 +6284,30 @@ Node: ar cmdline6910
 Node: ar scripts20421
 Node: nm26107
 Node: objcopy41817
-Node: objdump84416
-Node: ranlib124073
-Node: size125672
-Node: strings129816
-Node: strip135651
-Node: c++filt145672
-Ref: c++filt-Footnote-1151533
-Node: addr2line151639
-Node: windmc157594
-Node: windres161253
-Node: dlltool167823
-Node: def file format181276
-Node: readelf183806
-Node: elfedit205144
-Node: Common Options208570
-Node: Selecting the Target System209604
-Node: Target Selection210532
-Node: Architecture Selection212513
-Node: debuginfod213341
-Node: Reporting Bugs214343
-Node: Bug Criteria215105
-Node: Bug Reporting215658
-Node: GNU Free Documentation License222525
-Node: Binutils Index247685
+Node: objdump84327
+Node: ranlib123984
+Node: size125583
+Node: strings129727
+Node: strip135562
+Node: c++filt145583
+Ref: c++filt-Footnote-1151444
+Node: addr2line151550
+Node: windmc157505
+Node: windres161164
+Node: dlltool167734
+Node: def file format181187
+Node: readelf183717
+Node: elfedit205055
+Node: Common Options208481
+Node: Selecting the Target System209515
+Node: Target Selection210443
+Node: Architecture Selection212424
+Node: debuginfod213252
+Node: Reporting Bugs214254
+Node: Bug Criteria215016
+Node: Bug Reporting215569
+Node: GNU Free Documentation License222436
+Node: Binutils Index247596
 
 End Tag Table
 

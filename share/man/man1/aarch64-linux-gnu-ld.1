@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "LD 1"
-.TH LD 1 "2025-03-29" "binutils-2.44.50" "GNU Development Tools"
+.TH LD 1 "2025-04-05" "binutils-2.44.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -2076,6 +2076,9 @@ parsable by tools.  Here is an example of an output:
 \&                     ROM:        256 KB         1 MB     25.00%
 \&                     RAM:          32 B         2 GB      0.00%
 .Ve
+.Sp
+Note: if you want to find out about the memory usage of the linker
+itself, then the \fB\-\-stats\fR option will do this.
 .IP "\fB\-\-help\fR" 4
 .IX Item "--help"
 Print a summary of the command-line options on the standard output and exit.
@@ -2540,10 +2543,75 @@ support arbitrary sections.  The linker will not split up individual
 input sections for redistribution, so if a single input section contains
 more than \fIcount\fR relocations one output section will contain that
 many relocations.  \fIcount\fR defaults to a value of 32768.
-.IP "\fB\-\-stats\fR" 4
-.IX Item "--stats"
+.IP "\fB\-\-stats[=\fR\fIfilename\fR\fB]\fR" 4
+.IX Item "--stats[=filename]"
 Compute and display statistics about the operation of the linker, such
 as execution time and memory usage.
+.Sp
+If the optional \fIfilename\fR argument is not supplied then only
+basic information is reported, and it is sent to the standard error
+output stream.  If the \fIfilename\fR argument is supplied then
+extended information is written to the named file.  If \fIfilename\fR
+is set to just the \fI\-\fR symbol, then the extended information is
+sent to the standard output stream.  If the \fIfilename\fR starts with
+\&\fI+\fR then the file is opened in append mode rather than overwrite
+mode.
+.Sp
+If the \fB\-Map\fR option has been enabled then the information is
+also recorded in the map file as well.  Note: if both the
+\&\fB\-\-stats\fR option and the \fB\-Map\fR options have been given
+\&\fIfilename\fR arguments and they match, then the information will
+only be written out once not twice.
+.Sp
+If the \f(CW\*(C`LD_STATS\*(C'\fR environment variable is defined then this
+behaves likes the \fB\-\-stats\fR option.  If the variable's value is
+a string then this will used as the name of a file into which the
+information should be recorded.  Otherwise the information
+will be sent to the standard output stream.  Using the environment
+variable allows stats to be recorded without having to alter the
+linker's command line.  Note: if both the environment variable and the
+\&\fB\-\-stats\fR option are used then the \fB\-\-stats\fR option
+takes precedence.
+.Sp
+The extended information reported includes the cpu time used and, if
+the \fI\f(BIgetrusage()\fI\fR system library call is available then memory use
+is recorded as well.  This information is reported for individual
+parts of the linking process which are referred to as \fIphases\fR.
+In addition the information is also reported for a special phase
+called \fI\s-1ALL\s0\fR which covers the entire linking process.  Note that
+individual phases can contain or overlap with each other so it should
+not be assumed that the overall resources used by the linker is the
+sum of the resources used by the individual phases.
+.Sp
+In addition when extended information is being reported the linker
+version, command line arguments and linker start time are also
+included.  This makes it easier to handle the situation where multiple
+links are being invoked by a build system and to indentify exactly
+which arguments were responsible for producing the statistics that are
+reported.
+.Sp
+The extended output looks something like this:
+.Sp
+.Vb 3
+\&        Stats: linker version: (GNU Binutils) 2.44.50.20250401
+\&        Stats: linker started: Wed Apr  2 09:36:41 2025
+\&        Stats: args: ld \-z norelro \-z nomemory\-seal \-z no\-separate\-code \-o a.out [...]
+\&        
+\&        Stats: phase               cpu time    memory      user time    system time    
+\&        Stats: name                (microsec)   (KiB)      (seconds)      (seconds)    
+\&        Stats: ALL                   390082    217740              0              0    
+\&        Stats: ctf processing            12         0              0              0    
+\&        Stats: string merge            1324         0              0              0    
+\&        Stats: parsing                  349       288              0              0    
+\&        Stats: plugins                    1         0              0              0    
+\&        Stats: processing files      259616    214524              0              0    
+\&        Stats: write                 116493         0              0              0
+.Ve
+.IP "\fB\-\-no\-stats\fR" 4
+.IX Item "--no-stats"
+Disables the reporting of usage statistics, should it have been
+enabled via the \fB\-\-stats\fR command line option or the
+\&\fI\s-1LD_STATS\s0\fR environment variable.
 .IP "\fB\-\-sysroot=\fR\fIdirectory\fR" 4
 .IX Item "--sysroot=directory"
 Use \fIdirectory\fR as the location of the sysroot, overriding the
@@ -3781,6 +3849,13 @@ If the \s-1PE/COFF\s0 specific \fB\-\-insert\-timestamp\fR is active and the
 \&\fB\s-1SOURCE_DATE_EPOCH\s0\fR environment variable is defined, then the
 timestamp value in this variable will be inserted into the \s-1COFF\s0 header
 instead of the current time.
+.PP
+If the \f(CW\*(C`LD_STATS\*(C'\fR environment variable is defined then linker
+resource use information will be recorded, just as if the
+\&\fB\-\-stats\fR option had been used.  If the \f(CW\*(C`LD_STATS\*(C'\fR
+variable has a string value then this will used as the name of a file
+into which the information should be stored.  Otherwise the information
+will be sent to the standard output stream.
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
 \&\fBar\fR\|(1), \fBnm\fR\|(1), \fBobjcopy\fR\|(1), \fBobjdump\fR\|(1), \fBreadelf\fR\|(1) and
