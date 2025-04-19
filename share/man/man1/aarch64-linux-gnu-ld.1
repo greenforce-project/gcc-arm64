@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "LD 1"
-.TH LD 1 "2025-04-05" "binutils-2.44.50" "GNU Development Tools"
+.TH LD 1 "2025-04-19" "binutils-2.44.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -3565,7 +3565,8 @@ of the \s-1PE\s0 file header:
 .IX Item "--disable-high-entropy-va"
 .PD
 Image is compatible with 64\-bit address space layout randomization
-(\s-1ASLR\s0).  This option is enabled by default for 64\-bit \s-1PE\s0 images.
+(\s-1ASLR\s0).  This option is enabled by default for 64\-bit \s-1PE\s0 images in
+MinGW targets.
 .Sp
 This option also implies \fB\-\-dynamicbase\fR and
 \&\fB\-\-enable\-reloc\-section\fR.
@@ -3577,9 +3578,9 @@ This option also implies \fB\-\-dynamicbase\fR and
 .PD
 The image base address may be relocated using address space layout
 randomization (\s-1ASLR\s0).  This feature was introduced with \s-1MS\s0 Windows
-Vista for i386 \s-1PE\s0 targets.  This option is enabled by default but
-can be disabled via the \fB\-\-disable\-dynamicbase\fR option.
-This option also implies \fB\-\-enable\-reloc\-section\fR.
+Vista for i386 \s-1PE\s0 targets.  This option is enabled by default for MinGW
+targets but can be disabled via the \fB\-\-disable\-dynamicbase\fR
+option. This option also implies \fB\-\-enable\-reloc\-section\fR.
 .IP "\fB\-\-forceinteg\fR" 4
 .IX Item "--forceinteg"
 .PD 0
@@ -3596,7 +3597,7 @@ default.
 .PD
 The image is compatible with the Data Execution Prevention.
 This feature was introduced with \s-1MS\s0 Windows \s-1XP SP2\s0 for i386 \s-1PE\s0
-targets.  The option is enabled by default.
+targets.  The option is enabled by default for MinGW targets.
 .IP "\fB\-\-no\-isolation\fR" 4
 .IX Item "--no-isolation"
 .PD 0

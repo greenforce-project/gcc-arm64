@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-04-05" "gcc-15.0.1" "GNU"
+.TH GCC 1 "2025-04-19" "gcc-16.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -238,8 +238,7 @@ in the following sections.
 .IP "\fI\*(C+ Language Options\fR" 4
 .IX Item " Language Options"
 \&\fB\-fabi\-version=\fR\fIn\fR  \fB\-fno\-access\-control
-\&\-faligned\-new=\fR\fIn\fR  \fB\-fargs\-in\-order=\fR\fIn\fR
-\&\fB\-fno\-assume\-sane\-operators\-new\-delete
+\&\-faligned\-new=\fR\fIn\fR  \fB\-fno\-assume\-sane\-operators\-new\-delete
 \&\-fchar8_t  \-fcheck\-new
 \&\-fconcepts  \-fconstexpr\-depth=\fR\fIn\fR  \fB\-fconstexpr\-cache\-depth=\fR\fIn\fR
 \&\fB\-fconstexpr\-loop\-limit=\fR\fIn\fR  \fB\-fconstexpr\-ops\-limit=\fR\fIn\fR
@@ -262,7 +261,8 @@ in the following sections.
 \&\-fno\-optional\-diags
 \&\-fno\-pretty\-templates  \-frange\-for\-ext\-temps
 \&\-fno\-rtti  \-fsized\-deallocation
-\&\-ftemplate\-backtrace\-limit=\fR\fIn\fR
+\&\-fstrong\-eval\-order\fR[\fB=\fR\fIkind\fR]
+\&\fB\-ftemplate\-backtrace\-limit=\fR\fIn\fR
 \&\fB\-ftemplate\-depth=\fR\fIn\fR
 \&\fB\-fno\-threadsafe\-statics  \-fuse\-cxa\-atexit
 \&\-fno\-weak  \-nostdinc++
@@ -428,7 +428,9 @@ in the following sections.
 \&\-Wparentheses  \-Wno\-pedantic\-ms\-format
 \&\-Wpointer\-arith  \-Wno\-pointer\-compare  \-Wno\-pointer\-to\-int\-cast
 \&\-Wno\-pragmas  \-Wno\-pragma\-once\-outside\-header  \-Wno\-prio\-ctor\-dtor
-\&\-Wredundant\-decls  \-Wrestrict  \-Wno\-return\-local\-addr  \-Wreturn\-type
+\&\-Wno\-psabi
+\&\-Wredundant\-decls  \-Wrestrict
+\&\-Wno\-return\-local\-addr  \-Wreturn\-type
 \&\-Wno\-scalar\-storage\-order  \-Wsequence\-point
 \&\-Wshadow  \-Wshadow=global  \-Wshadow=local  \-Wshadow=compatible\-local
 \&\-Wno\-shadow\-ivar
@@ -609,7 +611,7 @@ in the following sections.
 \&\-finline\-functions  \-finline\-functions\-called\-once  \-finline\-limit=\fR\fIn\fR
 \&\fB\-finline\-small\-functions \-fipa\-modref \-fipa\-cp  \-fipa\-cp\-clone
 \&\-fipa\-bit\-cp  \-fipa\-vrp  \-fipa\-pta  \-fipa\-profile  \-fipa\-pure\-const
-\&\-fipa\-reference  \-fipa\-reference\-addressable
+\&\-fipa\-reference  \-fipa\-reference\-addressable \-fipa\-reorder\-for\-locality
 \&\-fipa\-stack\-alignment  \-fipa\-icf  \-fira\-algorithm=\fR\fIalgorithm\fR
 \&\fB\-flate\-combine\-instructions \-flifetime\-dse \-flive\-patching=\fR\fIlevel\fR
 \&\fB\-fira\-region=\fR\fIregion\fR  \fB\-fira\-hoist\-pressure
@@ -658,8 +660,8 @@ in the following sections.
 \&\-fsplit\-wide\-types  \-fsplit\-wide\-types\-early  \-fssa\-backprop  \-fssa\-phiopt
 \&\-fstdarg\-opt  \-fstore\-merging  \-fstrict\-aliasing \-fipa\-strict\-aliasing
 \&\-fthread\-jumps  \-ftracer  \-ftree\-bit\-ccp
-\&\-ftree\-builtin\-call\-dce  \-ftree\-ccp  \-ftree\-ch
-\&\-ftree\-coalesce\-vars  \-ftree\-copy\-prop  \-ftree\-dce  \-ftree\-dominator\-opts
+\&\-ftree\-builtin\-call\-dce  \-ftree\-ccp  \-ftree\-ch  \-ftree\-coalesce\-vars
+\&\-ftree\-copy\-prop  \-ftree\-cselim  \-ftree\-dce  \-ftree\-dominator\-opts
 \&\-ftree\-dse  \-ftree\-forwprop  \-ftree\-fre  \-fcode\-hoisting
 \&\-ftree\-loop\-if\-convert  \-ftree\-loop\-im
 \&\-ftree\-phiprop  \-ftree\-loop\-distribution  \-ftree\-loop\-distribute\-patterns
@@ -690,7 +692,7 @@ in the following sections.
 \&\fB\-fsanitize=\fR\fIstyle\fR  \fB\-fsanitize\-recover  \-fsanitize\-recover=\fR\fIstyle\fR
 \&\fB\-fsanitize\-trap   \-fsanitize\-trap=\fR\fIstyle\fR
 \&\fB\-fasan\-shadow\-offset=\fR\fInumber\fR  \fB\-fsanitize\-sections=\fR\fIs1\fR\fB,\fR\fIs2\fR\fB,...
-\&\-fsanitize\-undefined\-trap\-on\-error  \-fbounds\-check
+\&\-fsanitize\-undefined\-trap\-on\-error  \-fbounds\-check  \-fcf\-protection
 \&\-fcf\-protection=\fR[\fBfull\fR|\fBbranch\fR|\fBreturn\fR|\fBnone\fR|\fBcheck\fR]
 \&\fB\-fharden\-compares \-fharden\-conditional\-branches  \-fhardened
 \&\-fharden\-control\-flow\-redundancy  \-fhardcfr\-skip\-leaf
@@ -3581,12 +3583,22 @@ This option has no effect for an enumeration type with a fixed underlying
 type.
 .IP "\fB\-fstrong\-eval\-order\fR" 4
 .IX Item "-fstrong-eval-order"
+.PD 0
+.IP "\fB\-fstrong\-eval\-order=\fR\fIkind\fR" 4
+.IX Item "-fstrong-eval-order=kind"
+.PD
 Evaluate member access, array subscripting, and shift expressions in
 left-to-right order, and evaluate assignment in right-to-left order,
-as adopted for \*(C+17.  Enabled by default with \fB\-std=c++17\fR.
+as adopted for \*(C+17.  \fB\-fstrong\-eval\-order\fR is equivalent to
+\&\fB\-fstrong\-eval\-order=all\fR,
+and is enabled by default with \fB\-std=c++17\fR or later.
+.Sp
 \&\fB\-fstrong\-eval\-order=some\fR enables just the ordering of member
-access and shift expressions, and is the default without
-\&\fB\-std=c++17\fR.
+access and shift expressions, and is the default for \*(C+ dialects prior to
+\&\*(C+17.
+.Sp
+\&\fB\-fstrong\-eval\-order=none\fR is equivalent to
+\&\fB\-fno\-strong\-eval\-order\fR.
 .IP "\fB\-ftemplate\-backtrace\-limit=\fR\fIn\fR" 4
 .IX Item "-ftemplate-backtrace-limit=n"
 Set the maximum number of template instantiation notes for a single
@@ -5911,10 +5923,11 @@ occurred rather than trying to keep going and printing further error
 messages.
 .PP
 You can request many specific warnings with options beginning with
-\&\fB\-W\fR, for example \fB\-Wimplicit\fR to request warnings on
-implicit declarations.  Each of these specific warning options also
-has a negative form beginning \fB\-Wno\-\fR to turn off warnings; for
-example, \fB\-Wno\-implicit\fR.  This manual lists only one of the
+\&\fB\-W\fR, for example \fB\-Wunused\-variable\fR to request warnings on
+declarations of variables that are never used.
+Each of these specific warning options also
+has a negative form beginning with \fB\-Wno\-\fR to turn off warnings; for
+example, \fB\-Wno\-unused\-variable\fR.  This manual lists only one of the
 two forms, whichever is not the default.  For further
 language-specific options also refer to \fB\*(C+ Dialect Options\fR and
 \&\fBObjective-C and Objective\-\*(C+ Dialect Options\fR.
@@ -5922,15 +5935,15 @@ Additional warnings can be produced by enabling the static analyzer;
 .PP
 Some options, such as \fB\-Wall\fR and \fB\-Wextra\fR, turn on other
 options, such as \fB\-Wunused\fR, which may turn on further options,
-such as \fB\-Wunused\-value\fR. The combined effect of positive and
+such as \fB\-Wunused\-variable\fR. The combined effect of positive and
 negative forms is that more specific options have priority over less
-specific ones, independently of their position in the command-line. For
+specific ones, independently of their position in the command line. For
 options of the same specificity, the last one takes effect. Options
 enabled or disabled via pragmas take effect
-as if they appeared at the end of the command-line.
+as if they appeared at the end of the command line.
 .PP
 When an unrecognized warning option is requested (e.g.,
-\&\fB\-Wunknown\-warning\fR), \s-1GCC\s0 emits a diagnostic stating
+\&\fB\-Wunknown\-warning\fR), \s-1GCC\s0 gives an error stating
 that the option is not recognized.  However, if the \fB\-Wno\-\fR form
 is used, the behavior is slightly different: no diagnostic is
 produced for \fB\-Wno\-unknown\-warning\fR unless other diagnostics
@@ -5939,11 +5952,11 @@ with old compilers, but if something goes wrong, the compiler
 warns that an unrecognized option is present.
 .PP
 The effectiveness of some warnings depends on optimizations also being
-enabled. For example \fB\-Wsuggest\-final\-types\fR is more effective
-with link-time optimization and some instances of other warnings may
+enabled. For example, \fB\-Wsuggest\-final\-types\fR is more effective
+with link-time optimization.  Some other warnings may
 not be issued at all unless optimization is enabled.  While optimization
-in general improves the efficacy of control and data flow sensitive
-warnings, in some cases it may also cause false positives.
+in general improves the efficacy of warnings about control and data-flow
+problems, in some cases it may also cause false positives.
 .IP "\fB\-Wpedantic\fR" 4
 .IX Item "-Wpedantic"
 .PD 0
@@ -6207,7 +6220,8 @@ of a derived class.
 .IX Item "-Wabi (C, Objective-C, and Objective- only)"
 Warn about code affected by \s-1ABI\s0 changes.  This includes code that may
 not be compatible with the vendor-neutral \*(C+ \s-1ABI\s0 as well as the psABI
-for the particular target.
+for the particular target.  The latter warnings are also controlled
+separately by \fB\-Wpsabi\fR, which is implied by \fB\-Wabi\fR.
 .Sp
 Since G++ now defaults to updating the \s-1ABI\s0 with each major release,
 normally \fB\-Wabi\fR warns only about \*(C+ \s-1ABI\s0 compatibility
@@ -6301,25 +6315,20 @@ function pointers were used as template arguments.
 This was fixed in \fB\-fabi\-version=10\fR, the default for \s-1GCC 6.1.\s0
 .RE
 .RS 4
-.Sp
-This option also enables warnings about psABI-related changes.
-The known psABI changes at this point include:
-.IP "*" 4
-For SysV/x86\-64, unions with \f(CW\*(C`long double\*(C'\fR members are
-passed in memory as specified in psABI.  Prior to \s-1GCC 4.4,\s0 this was not
-the case.  For example:
-.Sp
-.Vb 4
-\&        union U {
-\&          long double ld;
-\&          int i;
-\&        };
-.Ve
-.Sp
-\&\f(CW\*(C`union U\*(C'\fR is now always passed in memory.
 .RE
-.RS 4
-.RE
+.IP "\fB\-Wpsabi\fR (C, Objective-C, \*(C+ and Objective\-\*(C+ only)" 4
+.IX Item "-Wpsabi (C, Objective-C, and Objective- only)"
+\&\fB\-Wpsabi\fR enables warnings about processor-specific \s-1ABI\s0
+changes, such as changes in alignment requirements or how function
+arguments are passed.  On several targets, including AArch64, \s-1ARM,\s0
+x86, \s-1MIPS,\s0 RS6000/PowerPC, and S/390, these details have changed
+between different versions of \s-1GCC\s0 and/or different versions of the C
+or \*(C+ language standards in ways that affect binary compatibility of
+compiled code.  With \fB\-Wpsabi\fR, \s-1GCC\s0 can detect potentially
+incompatible usages and warn you about them.
+.Sp
+\&\fB\-Wpsabi\fR is enabled by default, and is also implied by
+\&\fB\-Wabi\fR.
 .IP "\fB\-Wno\-changes\-meaning\fR (\*(C+ and Objective\-\*(C+ only)" 4
 .IX Item "-Wno-changes-meaning ( and Objective- only)"
 \&\*(C+ requires that unqualified uses of a name within a class have the
@@ -9532,8 +9541,9 @@ called.  (In languages where you can return an array, this also elicits
 a warning.)
 .IP "\fB\-Wno\-aggressive\-loop\-optimizations\fR" 4
 .IX Item "-Wno-aggressive-loop-optimizations"
-Warn if in a loop with constant number of iterations the compiler detects
-undefined behavior in some statement during one or more of the iterations.
+Do not warn if the compiler detects undefined behavior in a loop with
+a constant number of iterations.  \fB\-Waggressive\-loop\-optimizations\fR
+is enabled by default.
 .IP "\fB\-Wno\-attributes\fR" 4
 .IX Item "-Wno-attributes"
 Do not warn if an unexpected \f(CW\*(C`_\|_attribute_\|_\*(C'\fR is used, such as
@@ -11943,6 +11953,7 @@ complexity than at \fB\-O\fR.
 \&\-fipa\-pure\-const
 \&\-fipa\-reference
 \&\-fipa\-reference\-addressable
+\&\-fivopts
 \&\-fmerge\-constants
 \&\-fmove\-loop\-invariants
 \&\-fmove\-loop\-stores
@@ -12045,6 +12056,13 @@ by \fB\-O2\fR and also turns on the following optimization flags:
 .IX Item "-O0"
 Reduce compilation time and make debugging produce the expected
 results.  This is the default.
+.Sp
+At \fB\-O0\fR, \s-1GCC\s0 completely disables most optimization passes;
+they are not run even if you explicitly enable them on the command
+line, or are listed by \fB\-Q \-\-help=optimizers\fR as being enabled by
+default.  Many optimizations performed by \s-1GCC\s0 depend on code analysis
+or canonicalization passes that are enabled by \fB\-O\fR, and it would
+not be useful to run individual optimization passes in isolation.
 .IP "\fB\-Os\fR" 4
 .IX Item "-Os"
 Optimize for size.  \fB\-Os\fR enables all \fB\-O2\fR optimizations
@@ -12951,6 +12969,20 @@ Enabled by default at \fB\-O1\fR and higher.
 .IX Item "-fipa-reference-addressable"
 Discover read-only, write-only and non-addressable static variables.
 Enabled by default at \fB\-O1\fR and higher.
+.IP "\fB\-fipa\-reorder\-for\-locality\fR" 4
+.IX Item "-fipa-reorder-for-locality"
+Group call chains close together in the binary layout to improve code
+locality and minimize jump distances between frequently called functions.
+Unlike \fB\-freorder\-functions\fR this pass considers the call
+chains between functions and groups them together, rather than grouping all
+hot/normal/cold/never\-executed functions into separate sections.
+Unlike \fB\-fprofile\-reorder\-functions\fR it aims to improve code locality
+throughout the runtime of the program rather than focusing on program startup.
+This option is incompatible with an explicit
+\&\fB\-flto\-partition=\fR option since it enforces a custom partitioning
+scheme.
+If using this option it is recommended to also use profile feedback, but this
+option is not enabled by default otherwise.
 .IP "\fB\-fipa\-stack\-alignment\fR" 4
 .IX Item "-fipa-stack-alignment"
 Reduce stack alignment on call sites if possible.
@@ -13137,6 +13169,11 @@ is enabled by default at \fB\-O2\fR and higher.  The compilation time
 in this pass can
 be limited using \fBmax-tail-merge-comparisons\fR parameter and
 \&\fBmax-tail-merge-iterations\fR parameter.
+.IP "\fB\-ftree\-cselim\fR" 4
+.IX Item "-ftree-cselim"
+Perform conditional store elimination on trees.  This flag is enabled by
+default at \fB\-O1\fR and higher on targets that have conditional
+move instructions.
 .IP "\fB\-ftree\-dce\fR" 4
 .IX Item "-ftree-dce"
 Perform dead code elimination (\s-1DCE\s0) on trees.  This flag is enabled by
@@ -13336,6 +13373,7 @@ Enabled by default at \fB\-O1\fR and higher.
 .IX Item "-fivopts"
 Perform induction variable optimizations (strength reduction, induction
 variable merging and induction variable elimination) on trees.
+Enabled by default at \fB\-O1\fR and higher.
 .IP "\fB\-ftree\-parallelize\-loops=n\fR" 4
 .IX Item "-ftree-parallelize-loops=n"
 Parallelize loops, i.e., split their iteration space to run in n threads.
@@ -13621,11 +13659,13 @@ Enabled for x86 at levels \fB\-O2\fR, \fB\-O3\fR, \fB\-Os\fR.
 .IP "\fB\-freorder\-functions\fR" 4
 .IX Item "-freorder-functions"
 Reorder functions in the object file in order to
-improve code locality.  This is implemented by using special
-subsections \f(CW\*(C`.text.hot\*(C'\fR for most frequently executed functions and
-\&\f(CW\*(C`.text.unlikely\*(C'\fR for unlikely executed functions.  Reordering is done by
-the linker so object file format must support named sections and linker must
-place them in a reasonable way.
+improve code locality.  Unlike \fB\-fipa\-reorder\-for\-locality\fR this option
+prioritises grouping all functions within a category
+(hot/normal/cold/never\-executed) together.
+This is implemented by using special subsections \f(CW\*(C`.text.hot\*(C'\fR for most
+frequently executed functions and \f(CW\*(C`.text.unlikely\*(C'\fR for unlikely executed
+functions.  Reordering is done by the linker so object file format must support
+named sections and linker must place them in a reasonable way.
 .Sp
 This option isn't effective unless you either provide profile feedback
 (see \fB\-fprofile\-arcs\fR for details) or manually annotate functions with
@@ -13636,12 +13676,14 @@ Enabled at levels \fB\-O2\fR, \fB\-O3\fR, \fB\-Os\fR.
 .IX Item "-fstrict-aliasing"
 Allow the compiler to assume the strictest aliasing rules applicable to
 the language being compiled.  For C (and \*(C+), this activates
-optimizations based on the type of expressions.  In particular, an
-object of one type is assumed never to reside at the same address as an
-object of a different type, unless the types are almost the same.  For
-example, an \f(CW\*(C`unsigned int\*(C'\fR can alias an \f(CW\*(C`int\*(C'\fR, but not a
-\&\f(CW\*(C`void*\*(C'\fR or a \f(CW\*(C`double\*(C'\fR.  A character type may alias any other
-type.
+optimizations based on the type of expressions.  In particular, accessing
+an object of one type via an expression of a different type is not allowed,
+unless the types are \fIcompatible types\fR, differ only in signedness or
+qualifiers, or the expression has a character type.  Accessing scalar
+objects via a corresponding vector type is also allowed.
+.Sp
+For example, an \f(CW\*(C`unsigned int\*(C'\fR can alias an \f(CW\*(C`int\*(C'\fR, but not a
+\&\f(CW\*(C`void*\*(C'\fR or a \f(CW\*(C`double\*(C'\fR.  A character type may alias any other type.
 .Sp
 Pay special attention to code like this:
 .Sp
@@ -14348,30 +14390,24 @@ E.g.
 The following options control compiler behavior regarding floating-point
 arithmetic.  These options trade off between speed and
 correctness.  All must be specifically enabled.
-.IP "\fB\-ffloat\-store\fR" 4
-.IX Item "-ffloat-store"
-Do not store floating-point variables in registers, and inhibit other
-options that might change whether a floating-point value is taken from a
-register or memory.
-.Sp
-This option prevents undesirable excess precision on machines such as
-the 68000 where the floating registers (of the 68881) keep more
-precision than a \f(CW\*(C`double\*(C'\fR is supposed to have.  Similarly for the
-x86 architecture.  For most programs, the excess precision does only
-good, but a few programs rely on the precise definition of \s-1IEEE\s0 floating
-point.  Use \fB\-ffloat\-store\fR for such programs, after modifying
-them to store all pertinent intermediate computations into variables.
 .IP "\fB\-fexcess\-precision=\fR\fIstyle\fR" 4
 .IX Item "-fexcess-precision=style"
-This option allows further control over excess precision on machines
+This option allows control over excess precision on machines
 where floating-point operations occur in a format with more precision or
-range than the \s-1IEEE\s0 standard and interchange floating-point types.  By
-default, \fB\-fexcess\-precision=fast\fR is in effect; this means that
+range than the \s-1IEEE\s0 standard and interchange floating-point types.
+An example of such a target is x87 floating point on x86 processors,
+which uses an 80\-bit representation internally instead of the 64\-bit
+\&\s-1IEEE\s0 format.  For most programs, the excess precision is harmless,
+but some programs may rely on the
+requirements of the C or \*(C+ language standards for handling \s-1IEEE\s0 values.
+.Sp
+By default, \fB\-fexcess\-precision=fast\fR is in effect; this means that
 operations may be carried out in a wider precision than the types specified
 in the source if that would result in faster code, and it is unpredictable
 when rounding to the types specified in the source code takes place.
 When compiling C or \*(C+, if \fB\-fexcess\-precision=standard\fR is specified
-then excess precision follows the rules specified in \s-1ISO C99\s0 or \*(C+; in particular,
+then excess precision follows the rules specified in \s-1ISO C99\s0 or \*(C+;
+in particular,
 both casts and assignments cause values to be rounded to their
 semantic types (whereas \fB\-ffloat\-store\fR only affects
 assignments).  This option is enabled by default for C or \*(C+ if a strict
@@ -14387,6 +14423,17 @@ other than C or \*(C+.  On the x86, it has no effect if \fB\-mfpmath=sse\fR
 or \fB\-mfpmath=sse+387\fR is specified; in the former case, \s-1IEEE\s0
 semantics apply without excess precision, and in the latter, rounding
 is unpredictable.
+.IP "\fB\-ffloat\-store\fR" 4
+.IX Item "-ffloat-store"
+Do not store floating-point variables in registers, and inhibit other
+options that might change whether a floating-point value is taken from a
+register or memory.  This option has generally been subsumed by
+\&\fB\-fexcess\-precision=standard\fR, which is more general.  If you do use
+\&\fB\-ffloat\-store\fR, you may need to modify your program to explicitly
+store intermediate computations in temporary variables since
+\&\fB\-ffloat\-store\fR handles rounding to \s-1IEEE\s0 format
+only on assignments and not casts as \fB\-fexcess\-precision=standard\fR
+does.
 .IP "\fB\-ffast\-math\fR" 4
 .IX Item "-ffast-math"
 Sets the options \fB\-fno\-math\-errno\fR, \fB\-funsafe\-math\-optimizations\fR,
@@ -14507,9 +14554,8 @@ default state for \f(CW\*(C`FENV_ACCESS\*(C'\fR.
 .IP "\fB\-frounding\-math\fR" 4
 .IX Item "-frounding-math"
 Disable transformations and optimizations that assume default floating-point
-rounding behavior.  This is round-to-zero for all floating point
-to integer conversions, and round-to-nearest for all other arithmetic
-truncations.  This option should be specified for programs that change
+rounding behavior (round-to-nearest).
+This option should be specified for programs that change
 the \s-1FP\s0 rounding mode dynamically, or that may be executed with a
 non-default rounding mode.  This option disables constant folding of
 floating-point expressions at compile time (which may be affected by
@@ -14618,7 +14664,8 @@ Enabled by \fB\-fprofile\-generate\fR, \fB\-fprofile\-use\fR, and
 .IX Item "-fprofile-reorder-functions"
 Function reordering based on profile instrumentation collects
 first time of execution of a function and orders these functions
-in ascending order.
+in ascending order, aiming to optimize program startup through more
+efficient loading of text segments.
 .Sp
 Enabled with \fB\-fprofile\-use\fR.
 .IP "\fB\-fvpt\fR" 4
@@ -15507,6 +15554,15 @@ in combiner for a pseudo register as last known value of that register.
 .IP "\fBmax-combine-insns\fR" 4
 .IX Item "max-combine-insns"
 The maximum number of instructions the \s-1RTL\s0 combiner tries to combine.
+.IP "\fBmax-combine-search-insns\fR" 4
+.IX Item "max-combine-search-insns"
+The maximum number of instructions that the \s-1RTL\s0 combiner searches in order
+to find the next use of a given register definition.  If this limit is reached
+without finding such a use, the combiner will stop trying to optimize the
+definition.
+.Sp
+Currently this limit only applies after certain successful combination
+attempts, but it could be extended to other cases in future.
 .IP "\fBinteger-share-limit\fR" 4
 .IX Item "integer-share-limit"
 Small integer constants can use a shared data structure, reducing the
@@ -17274,7 +17330,11 @@ operand constant, \f(CW\*(C`_\|_sanitizer_cov_trace_cmpf\*(C'\fR or
 \&\f(CW\*(C`_\|_sanitizer_cov_trace_switch\*(C'\fR for switch statements.
 .IP "\fB\-fcf\-protection=\fR[\fBfull\fR|\fBbranch\fR|\fBreturn\fR|\fBnone\fR|\fBcheck\fR]" 4
 .IX Item "-fcf-protection=[full|branch|return|none|check]"
-Enable code instrumentation of control-flow transfers to increase
+.PD 0
+.IP "\fB\-fcf\-protection\fR" 4
+.IX Item "-fcf-protection"
+.PD
+Enable code instrumentation to increase
 program security by checking that target addresses of control-flow
 transfer instructions (such as indirect function call, function return,
 indirect jump) are valid.  This prevents diverting the flow of control
@@ -17282,21 +17342,29 @@ to an unexpected target.  This is intended to protect against such
 threats as Return-oriented Programming (\s-1ROP\s0), and similarly
 call/jmp\-oriented programming (\s-1COP/JOP\s0).
 .Sp
+The \fB\-fcf\-protection=\fR keywords are interpreted as follows.
+.Sp
 The value \f(CW\*(C`branch\*(C'\fR tells the compiler to implement checking of
 validity of control-flow transfer at the point of indirect branch
-instructions, i.e. call/jmp instructions.  The value \f(CW\*(C`return\*(C'\fR
-implements checking of validity at the point of returning from a
-function.  The value \f(CW\*(C`full\*(C'\fR is an alias for specifying both
-\&\f(CW\*(C`branch\*(C'\fR and \f(CW\*(C`return\*(C'\fR. The value \f(CW\*(C`none\*(C'\fR turns off
-instrumentation.
+instructions, i.e. call/jmp instructions.
 .Sp
-To override \fB\-fcf\-protection\fR, \fB\-fcf\-protection=none\fR
-needs to be added and then with \fB\-fcf\-protection=xxx\fR.
+The value \f(CW\*(C`return\*(C'\fR implements checking of validity at the point of
+returning from a function.
+.Sp
+The value \f(CW\*(C`full\*(C'\fR is an alias for specifying both
+\&\f(CW\*(C`branch\*(C'\fR and \f(CW\*(C`return\*(C'\fR.
 .Sp
 The value \f(CW\*(C`check\*(C'\fR is used for the final link with link-time
 optimization (\s-1LTO\s0).  An error is issued if \s-1LTO\s0 object files are
 compiled with different \fB\-fcf\-protection\fR values.  The
 value \f(CW\*(C`check\*(C'\fR is ignored at the compile time.
+.Sp
+The value \f(CW\*(C`none\*(C'\fR turns off instrumentation.
+.Sp
+\&\fB\-fcf\-protection\fR is an alias for \fB\-fcf\-protection=full\fR.
+To override a previous \fB\-fcf\-protection\fR option on the command
+line, add \fB\-fcf\-protection=none\fR and then
+\&\fB\-fcf\-protection=\fR\fIkind\fR.
 .Sp
 The macro \f(CW\*(C`_\|_CET_\|_\*(C'\fR is defined when \fB\-fcf\-protection\fR is
 used.  The first bit of \f(CW\*(C`_\|_CET_\|_\*(C'\fR is set to 1 for the value
@@ -20564,8 +20632,12 @@ Toggle \fB\-fvar\-tracking\-assignments\fR, in the same way that
 \&\fB\-gtoggle\fR toggles \fB\-g\fR.
 .IP "\fB\-Q\fR" 4
 .IX Item "-Q"
-Makes the compiler print out each function name as it is compiled, and
-print some statistics about each pass when it finishes.
+When used on the command line prior to \fB\-\-help=\fR, \fB\-Q\fR
+acts as a modifier to the help output.
+.Sp
+Otherwise, this option makes the compiler print out each function name
+as it is compiled, and print some statistics about each pass when it
+finishes.
 .IP "\fB\-ftime\-report\fR" 4
 .IX Item "-ftime-report"
 Makes the compiler print some statistics to stderr about the time consumed
@@ -21081,11 +21153,13 @@ performance of the code.  Permissible values for this option are:
 \&\fBcortex\-x2\fR, \fBcortex\-x3\fR, \fBcortex\-x4\fR, \fBcortex\-a510\fR,
 \&\fBcortex\-a520\fR, \fBcortex\-a520ae\fR, \fBcortex\-a710\fR, \fBcortex\-a715\fR,
 \&\fBcortex\-a720\fR, \fBcortex\-a720ae\fR, \fBampere1\fR, \fBampere1a\fR,
-\&\fBampere1b\fR, \fBcobalt\-100\fR and \fBnative\fR.
+\&\fBampere1b\fR, \fBcobalt\-100\fR, \fBapple\-m1\fR, \fBapple\-m2\fR,
+\&\fBapple\-m3\fR and \fBnative\fR.
 .Sp
 The values \fBcortex\-a57.cortex\-a53\fR, \fBcortex\-a72.cortex\-a53\fR,
 \&\fBcortex\-a73.cortex\-a35\fR, \fBcortex\-a73.cortex\-a53\fR,
-\&\fBcortex\-a75.cortex\-a55\fR, \fBcortex\-a76.cortex\-a55\fR specify that \s-1GCC\s0
+\&\fBcortex\-a75.cortex\-a55\fR, \fBcortex\-a76.cortex\-a55\fR,
+\&\fBapple\-m1\fR, \fBapple\-m2\fR, \fBapple\-m3\fR specify that \s-1GCC\s0
 should tune for a big.LITTLE system.
 .Sp
 The value \fBneoverse\-512tvb\fR specifies that \s-1GCC\s0 should tune
@@ -31570,17 +31644,17 @@ and for \s-1AIX:\s0 \fBvec-extabi\fR, \fBvec-default\fR.
 Change the current \s-1ABI\s0 to use \s-1IBM\s0 extended-precision long double.
 This is not likely to work if your system defaults to using \s-1IEEE\s0
 extended-precision long double.  If you change the long double type
-from \s-1IEEE\s0 extended-precision, the compiler will issue a warning unless
-you use the \fB\-Wno\-psabi\fR option.  Requires \fB\-mlong\-double\-128\fR
-to be enabled.
+from \s-1IEEE\s0 extended-precision, the compiler issues a warning unless
+you use the \fB\-Wno\-psabi\fR option.
+Requires \fB\-mlong\-double\-128\fR to be enabled.
 .IP "\fB\-mabi=ieeelongdouble\fR" 4
 .IX Item "-mabi=ieeelongdouble"
 Change the current \s-1ABI\s0 to use \s-1IEEE\s0 extended-precision long double.
 This is not likely to work if your system defaults to using \s-1IBM\s0
 extended-precision long double.  If you change the long double type
-from \s-1IBM\s0 extended-precision, the compiler will issue a warning unless
-you use the \fB\-Wno\-psabi\fR option.  Requires \fB\-mlong\-double\-128\fR
-to be enabled.
+from \s-1IBM\s0 extended-precision, the compiler issues a warning unless
+you use the \fB\-Wno\-psabi\fR option.
+Requires \fB\-mlong\-double\-128\fR to be enabled.
 .IP "\fB\-mabi=elfv1\fR" 4
 .IX Item "-mabi=elfv1"
 Change the current \s-1ABI\s0 to use the ELFv1 \s-1ABI.\s0
@@ -32449,7 +32523,7 @@ system representing a certain processor type.  Possible values for
 \&\fBz9\-109\fR, \fBz9\-ec\fR/\fBarch7\fR, \fBz10\fR/\fBarch8\fR,
 \&\fBz196\fR/\fBarch9\fR, \fBzEC12\fR, \fBz13\fR/\fBarch11\fR,
 \&\fBz14\fR/\fBarch12\fR, \fBz15\fR/\fBarch13\fR,
-\&\fBz16\fR/\fBarch14\fR, and \fBnative\fR.
+\&\fBz16\fR/\fBarch14\fR, \fBz17\fR/\fBarch15\fR, and \fBnative\fR.
 .Sp
 The default is \fB\-march=z900\fR.
 .Sp
@@ -33839,7 +33913,8 @@ produces code optimized for the local machine under the constraints
 of the selected instruction set.
 .IP "\fBx86\-64\fR" 4
 .IX Item "x86-64"
-A generic \s-1CPU\s0 with 64\-bit extensions.
+A generic \s-1CPU\s0 with 64\-bit extensions, \s-1MMX, SSE, SSE2,\s0 and \s-1FXSR\s0 instruction set
+support.
 .IP "\fBx86\-64\-v2\fR" 4
 .IX Item "x86-64-v2"
 .PD 0
@@ -33879,7 +33954,7 @@ Intel Lakemont \s-1MCU,\s0 based on Intel Pentium \s-1CPU.\s0
 Intel Pentium \s-1MMX CPU,\s0 based on Pentium core with \s-1MMX\s0 instruction set support.
 .IP "\fBpentiumpro\fR" 4
 .IX Item "pentiumpro"
-Intel Pentium Pro \s-1CPU.\s0
+Intel Pentium Pro \s-1CPU\s0 with no \s-1MMX\s0 support.
 .IP "\fBi686\fR" 4
 .IX Item "i686"
 When used with \fB\-march\fR, the Pentium Pro

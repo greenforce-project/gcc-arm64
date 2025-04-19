@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OBJDUMP 1"
-.TH OBJDUMP 1 "2025-04-05" "binutils-2.44.50" "GNU Development Tools"
+.TH OBJDUMP 1 "2025-04-19" "binutils-2.44.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -650,6 +650,15 @@ chosen from information gleaned by \s-1BFD\s0 from the object files headers,
 but the result again may not be as you expect.
 .Sp
 For RISC-V, the following options are supported:
+.ie n .IP """max""" 4
+.el .IP "\f(CWmax\fR" 4
+.IX Item "max"
+Disassemble without checking architecture string. This is a best effort mode, so
+for overlapping \s-1ISA\s0 extensions the first match (possibly incorrect in a given
+context) will be used to decode the instruction. It's useful, if the \s-1ELF\s0 file
+doesn't expose \s-1ISA\s0 string, preventing automatic \s-1ISA\s0 subset deduction, and the
+default fallback \s-1ISA\s0 string (\f(CW\*(C`rv64gc\*(C'\fR) doesn't cover all instructions in
+the binary.
 .ie n .IP """numeric""" 4
 .el .IP "\f(CWnumeric\fR" 4
 .IX Item "numeric"
