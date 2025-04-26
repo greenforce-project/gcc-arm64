@@ -228,9 +228,9 @@ requested information.
      used and the profile measures the behaviour of exactly the same
      executable that is used in production runs.
 
-     With sampling, one inherently profiles a different executable,
-     because the calls to the instrumentation library may affect the
-     compiler optimizations and run time behaviour.
+     With tracing, one inherently profiles a different executable,
+     because the calls to the instrumentation library may affect runtime
+     behaviour.
 
    * With sampling, there are very few restrictions on what can be
      profiled and even without access to the source code, a basic
@@ -5419,67 +5419,67 @@ Node: Introduction4326
 Node: Overview5603
 Node: Main Features6244
 Node: Sampling versus Tracing8086
-Node: Steps Needed to Create a Profile10482
-Node: A Mini Tutorial12666
-Node: Getting Started13406
-Node: The Example Program15056
-Node: A First Profile16374
-Node: The Source Code View21707
-Node: The Disassembly View27526
-Node: Display and Define the Metrics33204
-Node: Customization of the Output35120
-Node: Name the Experiment Directory37256
-Node: Control the Number of Lines in the Output38381
-Node: Sorting the Performance Data39147
-Node: Scripting40107
-Node: A More Elaborate Example41040
-Node: The Call Tree44169
-Node: More Information on the Experiment48216
-Node: Control the Sampling Frequency51634
-Node: Information on Load Objects54256
-Node: Support for Multithreading58114
-Node: Creating a Multithreading Experiment58757
-Node: Commands Specific to Multithreading60104
-Node: View Multiple Experiments70213
-Node: Aggregation of Experiments70983
-Node: Comparison of Experiments73800
-Node: Profile Hardware Event Counters78274
-Node: Getting Information on the Counters Supported78979
-Node: Examples Using Hardware Event Counters86378
-Node: Java Profiling104083
-Node: The gprofng Tools106452
-Node: Tools Overview106939
-Node: The gprofng.rc file with default settings109010
-Node: Filters112940
-Node: Supported Environment Variables115592
-Node: Performance Data Collection115918
-Node: The gprofng collect app Tool116554
-Node: View the Performance Information117100
-Node: The gprofng display text Tool117503
-Node: The gprofng display text Commands118495
-Node: Commands that List Experiment Details119044
-Node: Commands that Affect Listings and Output122600
-Node: Predefined Filters124279
-Node: Commands to Set and Change Search Paths125164
-Node: Terminology127347
-Node: The Program Counter128385
-Node: Inclusive and Exclusive Metrics128877
-Node: Metric Definitions130330
-Node: The Viewmode131976
-Node: The Selection List133115
-Node: Load Objects and Functions135239
-Node: The Concept of a CPU in gprofng137253
-Node: Hardware Event Counters Explained138116
-Node: apath141933
-Node: Other Document Formats142468
-Node: The gprofng Man Pages145329
-Node: Man page for gprofng145795
-Node: Man page for gprofng collect app151787
-Node: Man page for gprofng display text160349
-Node: Man page for gprofng display html169752
-Node: Man page for gprofng display src175822
-Node: Man page for gprofng archive179735
-Node: Index189309
+Node: Steps Needed to Create a Profile10449
+Node: A Mini Tutorial12633
+Node: Getting Started13373
+Node: The Example Program15023
+Node: A First Profile16341
+Node: The Source Code View21674
+Node: The Disassembly View27493
+Node: Display and Define the Metrics33171
+Node: Customization of the Output35087
+Node: Name the Experiment Directory37223
+Node: Control the Number of Lines in the Output38348
+Node: Sorting the Performance Data39114
+Node: Scripting40074
+Node: A More Elaborate Example41007
+Node: The Call Tree44136
+Node: More Information on the Experiment48183
+Node: Control the Sampling Frequency51601
+Node: Information on Load Objects54223
+Node: Support for Multithreading58081
+Node: Creating a Multithreading Experiment58724
+Node: Commands Specific to Multithreading60071
+Node: View Multiple Experiments70180
+Node: Aggregation of Experiments70950
+Node: Comparison of Experiments73767
+Node: Profile Hardware Event Counters78241
+Node: Getting Information on the Counters Supported78946
+Node: Examples Using Hardware Event Counters86345
+Node: Java Profiling104050
+Node: The gprofng Tools106419
+Node: Tools Overview106906
+Node: The gprofng.rc file with default settings108977
+Node: Filters112907
+Node: Supported Environment Variables115559
+Node: Performance Data Collection115885
+Node: The gprofng collect app Tool116521
+Node: View the Performance Information117067
+Node: The gprofng display text Tool117470
+Node: The gprofng display text Commands118462
+Node: Commands that List Experiment Details119011
+Node: Commands that Affect Listings and Output122567
+Node: Predefined Filters124246
+Node: Commands to Set and Change Search Paths125131
+Node: Terminology127314
+Node: The Program Counter128352
+Node: Inclusive and Exclusive Metrics128844
+Node: Metric Definitions130297
+Node: The Viewmode131943
+Node: The Selection List133082
+Node: Load Objects and Functions135206
+Node: The Concept of a CPU in gprofng137220
+Node: Hardware Event Counters Explained138083
+Node: apath141900
+Node: Other Document Formats142435
+Node: The gprofng Man Pages145296
+Node: Man page for gprofng145762
+Node: Man page for gprofng collect app151754
+Node: Man page for gprofng display text160316
+Node: Man page for gprofng display html169719
+Node: Man page for gprofng display src175789
+Node: Man page for gprofng archive179702
+Node: Index189276
 
 End Tag Table
 

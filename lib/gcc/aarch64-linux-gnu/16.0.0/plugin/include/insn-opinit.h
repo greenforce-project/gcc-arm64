@@ -468,7 +468,7 @@ enum optab_tag {
 #define NUM_OPTABS          453
 #define NUM_CONVLIB_OPTABS  17
 #define NUM_NORMLIB_OPTABS  80
-#define NUM_OPTAB_PATTERNS  2726
+#define NUM_OPTAB_PATTERNS  2732
 typedef enum optab_tag optab;
 typedef enum optab_tag convert_optab;
 typedef enum optab_tag direct_optab;

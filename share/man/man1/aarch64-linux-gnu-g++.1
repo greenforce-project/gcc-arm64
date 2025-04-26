@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-04-19" "gcc-16.0.0" "GNU"
+.TH GCC 1 "2025-04-26" "gcc-16.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -15894,11 +15894,6 @@ Maximum depth of recursive cloning for self-recursive function.
 .IX Item "ipa-cp-min-recursive-probability"
 Recursive cloning only when the probability of call being executed exceeds
 the parameter.
-.IP "\fBipa-cp-profile-count-base\fR" 4
-.IX Item "ipa-cp-profile-count-base"
-When using \fB\-fprofile\-use\fR option, IPA-CP will consider the measured
-execution count of a call graph edge at this percentage position in their
-histogram as the basis for its heuristics calculation.
 .IP "\fBipa-cp-recursive-freq-factor\fR" 4
 .IX Item "ipa-cp-recursive-freq-factor"
 The number of times interprocedural copy propagation expects recursive
@@ -15960,6 +15955,19 @@ partitions.
 Size of max partition for \s-1WHOPR\s0 (in estimated instructions).
 to provide an upper bound for individual size of partition.
 Meant to be used only with balanced partitioning.
+.IP "\fBlto-partition-locality-frequency-cutoff\fR" 4
+.IX Item "lto-partition-locality-frequency-cutoff"
+The denominator n of fraction 1/n of the execution frequency of callee to be
+cloned for a particular caller. Special value of 0 dictates to always clone
+without a cut-off.
+.IP "\fBlto-partition-locality-size-cutoff\fR" 4
+.IX Item "lto-partition-locality-size-cutoff"
+Size cut-off for callee including inlined calls to be cloned for a particular
+caller.
+.IP "\fBlto-max-locality-partition\fR" 4
+.IX Item "lto-max-locality-partition"
+Maximal size of a locality partition for \s-1LTO\s0 (in estimated instructions).
+Value of 0 results in default value being used.
 .IP "\fBlto-max-streaming-parallelism\fR" 4
 .IX Item "lto-max-streaming-parallelism"
 Maximal number of parallel processes used for \s-1LTO\s0 streaming.
@@ -30611,8 +30619,9 @@ Permissible values for this option are: \fBsifive\-e20\fR, \fBsifive\-e21\fR,
 \&\fBsifive\-e24\fR, \fBsifive\-e31\fR, \fBsifive\-e34\fR, \fBsifive\-e76\fR,
 \&\fBsifive\-s21\fR, \fBsifive\-s51\fR, \fBsifive\-s54\fR, \fBsifive\-s76\fR,
 \&\fBsifive\-u54\fR, \fBsifive\-u74\fR, \fBsifive\-x280\fR, \fBsifive\-xp450\fR,
-\&\fBsifive\-x670\fR, \fBthead\-c906\fR, \fBtt\-ascalon\-d8\fR,
-\&\fBxiangshan-nanhu\fR.
+\&\fBsifive\-x670\fR, \fBthead\-c906\fR, \fBtt\-ascalon\-d8\fR, \fBxiangshan-nanhu\fR,
+\&\fBxt\-c908\fR, \fBxt\-c908v\fR, \fBxt\-c910\fR, \fBxt\-c910v2\fR,
+\&\fBxt\-c920\fR, \fBxt\-c920v2\fR.
 .Sp
 Note that \fB\-mcpu\fR does not override \fB\-march\fR or \fB\-mtune\fR.
 .IP "\fB\-mtune=\fR\fIprocessor-string\fR" 4

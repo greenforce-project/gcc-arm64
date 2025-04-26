@@ -105,8 +105,10 @@
 #define HAVE_udivdi3 1
 #define HAVE_cmpsi 1
 #define HAVE_cmpdi 1
+#define HAVE_fcmphf ((TARGET_FLOAT) && (TARGET_FP_F16INST))
 #define HAVE_fcmpsf (TARGET_FLOAT)
 #define HAVE_fcmpdf (TARGET_FLOAT)
+#define HAVE_fcmpehf ((TARGET_FLOAT) && (TARGET_FP_F16INST))
 #define HAVE_fcmpesf (TARGET_FLOAT)
 #define HAVE_fcmpedf (TARGET_FLOAT)
 #define HAVE_aarch64_cstoreqi 1
@@ -9848,6 +9850,7 @@
    && !(4 == 4 && 4 == 4 && 32 == 8))
 #define HAVE_cbranchsi4 1
 #define HAVE_cbranchdi4 1
+#define HAVE_cbranchhf4 (TARGET_FP_F16INST)
 #define HAVE_cbranchsf4 1
 #define HAVE_cbranchdf4 1
 #define HAVE_cbranchcc4 1
@@ -9936,9 +9939,14 @@
 #define HAVE_mulditi3 1
 #define HAVE_umulditi3 1
 #define HAVE_multi3 1
+#define HAVE_spaceshipsi4 1
+#define HAVE_spaceshipdi4 1
+#define HAVE_spaceshipsf4 (TARGET_FLOAT)
+#define HAVE_spaceshipdf4 (TARGET_FLOAT)
 #define HAVE_cstoresi4 1
 #define HAVE_cstoredi4 1
 #define HAVE_cstorecc4 1
+#define HAVE_cstorehf4 (TARGET_FP_F16INST)
 #define HAVE_cstoresf4 1
 #define HAVE_cstoredf4 1
 #define HAVE_cmovsi6 1
@@ -13423,8 +13431,10 @@ extern rtx        gen_divdi3                                           (rtx, rtx
 extern rtx        gen_udivdi3                                          (rtx, rtx, rtx);
 extern rtx        gen_cmpsi                                            (rtx, rtx);
 extern rtx        gen_cmpdi                                            (rtx, rtx);
+extern rtx        gen_fcmphf                                           (rtx, rtx);
 extern rtx        gen_fcmpsf                                           (rtx, rtx);
 extern rtx        gen_fcmpdf                                           (rtx, rtx);
+extern rtx        gen_fcmpehf                                          (rtx, rtx);
 extern rtx        gen_fcmpesf                                          (rtx, rtx);
 extern rtx        gen_fcmpedf                                          (rtx, rtx);
 extern rtx        gen_aarch64_cstoreqi                                 (rtx, rtx, rtx);
@@ -21917,6 +21927,7 @@ extern rtx        gen_aarch64_sme_lut2vnx16sf                          (rtx, rtx
 extern rtx        gen_aarch64_sme_lut4vnx16sf                          (rtx, rtx, rtx);
 extern rtx        gen_cbranchsi4                                       (rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchdi4                                       (rtx, rtx, rtx, rtx);
+extern rtx        gen_cbranchhf4                                       (rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchsf4                                       (rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchdf4                                       (rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchcc4                                       (rtx, rtx, rtx, rtx);
@@ -22005,9 +22016,14 @@ extern rtx        gen_absdi2                                           (rtx, rtx
 extern rtx        gen_mulditi3                                         (rtx, rtx, rtx);
 extern rtx        gen_umulditi3                                        (rtx, rtx, rtx);
 extern rtx        gen_multi3                                           (rtx, rtx, rtx);
+extern rtx        gen_spaceshipsi4                                     (rtx, rtx, rtx, rtx);
+extern rtx        gen_spaceshipdi4                                     (rtx, rtx, rtx, rtx);
+extern rtx        gen_spaceshipsf4                                     (rtx, rtx, rtx, rtx);
+extern rtx        gen_spaceshipdf4                                     (rtx, rtx, rtx, rtx);
 extern rtx        gen_cstoresi4                                        (rtx, rtx, rtx, rtx);
 extern rtx        gen_cstoredi4                                        (rtx, rtx, rtx, rtx);
 extern rtx        gen_cstorecc4                                        (rtx, rtx, rtx, rtx);
+extern rtx        gen_cstorehf4                                        (rtx, rtx, rtx, rtx);
 extern rtx        gen_cstoresf4                                        (rtx, rtx, rtx, rtx);
 extern rtx        gen_cstoredf4                                        (rtx, rtx, rtx, rtx);
 extern rtx        gen_cmovsi6                                          (rtx, rtx, rtx, rtx, rtx, rtx);
