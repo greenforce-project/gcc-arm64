@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-04-26" "gcc-16.0.0" "GNU"
+.TH GCC 1 "2025-05-03" "gcc-16.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -534,6 +534,7 @@ in the following sections.
 \&\-Wno\-analyzer\-tainted\-divisor
 \&\-Wno\-analyzer\-tainted\-offset
 \&\-Wno\-analyzer\-tainted\-size
+\&\-Wno\-analyzer\-throw\-of\-unexpected\-type
 \&\-Wanalyzer\-symbol\-too\-complex
 \&\-Wanalyzer\-too\-complex
 \&\-Wno\-analyzer\-undefined\-behavior\-ptrdiff
@@ -596,7 +597,7 @@ in the following sections.
 \&\-ffold\-mem\-offsets
 \&\-fcompare\-elim  \-fcprop\-registers  \-fcrossjumping
 \&\-fcse\-follow\-jumps  \-fcse\-skip\-blocks  \-fcx\-fortran\-rules
-\&\-fcx\-limited\-range
+\&\-fcx\-limited\-range \-fcx\-method
 \&\-fdata\-sections  \-fdce  \-fdelayed\-branch
 \&\-fdelete\-null\-pointer\-checks  \-fdevirtualize  \-fdevirtualize\-speculatively
 \&\-fdevirtualize\-at\-ltrans  \-fdse
@@ -3037,11 +3038,17 @@ in \*(C+14 and up.
 Version 18, which first appeared in G++ 13, fixes manglings of lambdas
 that have additional context.
 .Sp
-Version 19, which first appeared in G++ 14, fixes manglings of structured
-bindings to include \s-1ABI\s0 tags.
+Version 19, which first appeared in G++ 14, fixes manglings of
+structured bindings to include \s-1ABI\s0 tags, handling of cv-qualified
+[[no_unique_address]] members, and adds mangling of \*(C+20 constraints
+on function templates.
 .Sp
 Version 20, which first appeared in G++ 15, fixes manglings of lambdas
 in static data member initializers.
+.Sp
+Version 21, which first appeared in G++ 16, fixes unnecessary captures
+in noexcept lambdas (c++/119764) and layout of a base class
+with all explicitly defaulted constructors (c++/120012).
 .Sp
 See also \fB\-Wabi\fR.
 .IP "\fB\-fabi\-compat\-version=\fR\fIn\fR" 4
@@ -5810,6 +5817,11 @@ Supported keys are:
 Specify the filename to write the \s-1SARIF\s0 output to, potentially with a
 leading absolute or relative path.  If not specified, it defaults to
 \&\fI\fIsource\fI.sarif\fR.
+.IP "\fBserialization=\fR[\fBjson\fR]" 4
+.IX Item "serialization=[json]"
+Specify the serialization format to use when writing out the \s-1SARIF.\s0
+Currently this can only be \f(CW\*(C`json\*(C'\fR, but is present as an
+extension point for experimenting with other serializations.
 .IP "\fBversion=\fR[\fB2.1\fR|\fB2.2\-prerelease\fR]" 4
 .IX Item "version=[2.1|2.2-prerelease]"
 Specify the version of \s-1SARIF\s0 to use for the output.  If not specified,
@@ -10280,6 +10292,7 @@ Enabling this option effectively enables the following warnings:
 \&\-Wanalyzer\-tainted\-divisor
 \&\-Wanalyzer\-tainted\-offset
 \&\-Wanalyzer\-tainted\-size
+\&\-Wanalyzer\-throw\-of\-unexpected\-type
 \&\-Wanalyzer\-undefined\-behavior\-ptrdiff
 \&\-Wanalyzer\-undefined\-behavior\-strtok
 \&\-Wanalyzer\-unsafe\-call\-within\-signal\-handler
@@ -10862,6 +10875,15 @@ an operation such as \f(CW\*(C`memset\*(C'\fR without being sanitized, so that a
 attacker could inject an out-of-bounds access.
 .Sp
 See  \s-1CWE\-129:\s0 Improper Validation of Array Index (\f(CW\*(C`https://cwe.mitre.org/data/definitions/129.html\*(C'\fR).
+.IP "\fB\-Wno\-analyzer\-throw\-of\-unexpected\-type\fR" 4
+.IX Item "-Wno-analyzer-throw-of-unexpected-type"
+This warning requires \fB\-fanalyzer\fR which enables it;
+use \fB\-Wno\-analyzer\-throw\-of\-unexpected\-type\fR to disable it.
+Dynamic exception specifications are only available in \*(C+14 and earlier.
+.Sp
+This diagnostic warns for paths through the code in which a an exception
+is thrown from a function with a dynamic exception specification where
+the exception does not comply with the specification.
 .IP "\fB\-Wno\-analyzer\-undefined\-behavior\-ptrdiff\fR" 4
 .IX Item "-Wno-analyzer-undefined-behavior-ptrdiff"
 This warning requires \fB\-fanalyzer\fR, which enables it; use
@@ -12086,17 +12108,19 @@ and the Fortran-specific \fB\-fstack\-arrays\fR, unless
 It turns off \fB\-fsemantic\-interposition\fR.
 .IP "\fB\-Og\fR" 4
 .IX Item "-Og"
-Optimize debugging experience.  \fB\-Og\fR should be the optimization
+Optimize while keeping in mind debugging experience.
+\&\fB\-Og\fR should be the optimization
 level of choice for the standard edit-compile-debug cycle, offering
-a reasonable level of optimization while maintaining fast compilation
-and a good debugging experience.  It is a better choice than \fB\-O0\fR
-for producing debuggable code because some compiler passes
-that collect debug information are disabled at \fB\-O0\fR.
+a reasonable blend of optimization, fast compilation and debugging experience
+especially for code with a high abstraction penalty.  In contrast to
+\&\fB\-O0\fR, this enables \fB\-fvar\-tracking\-assignments\fR and
+\&\fB\-fvar\-tracking\fR which handle debug information in the prologue
+and epilogue of functions better than \fB\-O0\fR.
 .Sp
-Like \fB\-O0\fR, \fB\-Og\fR completely disables a number of
+Like \fB\-O0\fR, \fB\-Og\fR completely skips a number of
 optimization passes so that individual options controlling them have
 no effect.  Otherwise \fB\-Og\fR enables all \fB\-O1\fR
-optimization flags except for those that may interfere with debugging:
+optimization flags except for those known to greatly interfere with debugging:
 .Sp
 \&\fB\-fbranch\-count\-reg  \-fdelayed\-branch
 \&\-fdse  \-fif\-conversion  \-fif\-conversion2
@@ -14611,8 +14635,7 @@ When enabled, this option states that a range reduction step is not
 needed when performing complex division.  Also, there is no checking
 whether the result of a complex multiplication or division is \f(CW\*(C`NaN
 + I*NaN\*(C'\fR, with an attempt to rescue the situation in that case.  The
-default is \fB\-fno\-cx\-limited\-range\fR, but is enabled by
-\&\fB\-ffast\-math\fR.
+option is enabled by \fB\-ffast\-math\fR.
 .Sp
 This option controls the default setting of the \s-1ISO C99\s0
 \&\f(CW\*(C`CX_LIMITED_RANGE\*(C'\fR pragma.  Nevertheless, the option applies to
@@ -14623,8 +14646,14 @@ Complex multiplication and division follow Fortran rules.  Range
 reduction is done as part of complex division, but there is no checking
 whether the result of a complex multiplication or division is \f(CW\*(C`NaN
 + I*NaN\*(C'\fR, with an attempt to rescue the situation in that case.
+.IP "\fB\-fcx\-method=\fR\fImethod\fR" 4
+.IX Item "-fcx-method=method"
+Complex multiplication and division follow the stated \fImethod\fR.  The
+\&\fImethod\fR argument should be one of \fBlimited-range\fR, \fBfortran\fR
+or \fBstdc\fR.
 .Sp
-The default is \fB\-fno\-cx\-fortran\-rules\fR.
+The default is to honor language specific constraints which means
+\&\fBfortran\fR for Fortran and \fBstdc\fR otherwise.
 .PP
 The following options control optimizations that may improve
 performance, but are not enabled by any \fB\-O\fR options.  This
@@ -16222,9 +16251,6 @@ this parameter.  The default value of this parameter is 50.
 .IP "\fBvect-induction-float\fR" 4
 .IX Item "vect-induction-float"
 Enable loop vectorization of floating point inductions.
-.IP "\fBvect-force-slp\fR" 4
-.IX Item "vect-force-slp"
-Force the use of \s-1SLP\s0 when vectorizing, fail if not possible.
 .IP "\fBvrp-block-limit\fR" 4
 .IX Item "vrp-block-limit"
 Maximum number of basic blocks before \s-1VRP\s0 switches to a lower memory algorithm.

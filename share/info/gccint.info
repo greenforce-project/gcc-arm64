@@ -38047,10 +38047,6 @@ values--values that can fit in registers.
      m68k port uses this type of 'parallel' to return pointers in both
      '%a0' (the canonical location) and '%d0'.
 
-     If 'TARGET_PROMOTE_FUNCTION_RETURN' returns true, you must apply
-     the same promotion rules specified in 'PROMOTE_MODE' if VALTYPE is
-     a scalar type.
-
      If the precise function being called is known, FUNC is a tree node
      ('FUNCTION_DECL') for it; otherwise, FUNC is a null pointer.  This
      makes it possible to use a different value-returning convention for
@@ -55935,7 +55931,7 @@ Concept Index
 * ANNOTATE_EXPR:                         Unary and Binary Expressions.
                                                              (line    6)
 * annotations:                           Annotations.        (line    6)
-* APPLY_RESULT_SIZE:                     Scalar Return.      (line  112)
+* APPLY_RESULT_SIZE:                     Scalar Return.      (line  108)
 * ARGS_GROW_DOWNWARD:                    Frame Layout.       (line   30)
 * arguments in registers:                Register Arguments. (line    6)
 * arguments on stack:                    Stack Arguments.    (line    6)
@@ -57068,8 +57064,8 @@ Concept Index
 * FUNCTION_MODE:                         Misc.               (line  377)
 * FUNCTION_PROFILER:                     Profiling.          (line    8)
 * FUNCTION_TYPE:                         Types.              (line    6)
-* FUNCTION_VALUE:                        Scalar Return.      (line   52)
-* FUNCTION_VALUE_REGNO_P:                Scalar Return.      (line   78)
+* FUNCTION_VALUE:                        Scalar Return.      (line   48)
+* FUNCTION_VALUE_REGNO_P:                Scalar Return.      (line   74)
 * fundamental type:                      Types.              (line    6)
 * fused multiply-add:                    Arithmetic.         (line  118)
 * G in constraint:                       Simple Constraints. (line   96)
@@ -57924,7 +57920,7 @@ Concept Index
                                                              (line    6)
 * lfloorMN2:                             Standard Names.     (line 1531)
 * LIB2FUNCS_EXTRA:                       Target Fragment.    (line   11)
-* LIBCALL_VALUE:                         Scalar Return.      (line   56)
+* LIBCALL_VALUE:                         Scalar Return.      (line   52)
 * libgcc.a:                              Library Calls.      (line    6)
 * LIBGCC2_CFLAGS:                        Target Fragment.    (line    8)
 * LIBGCC2_GNU_PREFIX:                    Type Layout.        (line   88)
@@ -59442,7 +59438,7 @@ Concept Index
 * TARGET_FUNCTION_INCOMING_ARG:          Register Arguments. (line   58)
 * TARGET_FUNCTION_OK_FOR_SIBCALL:        Tail Calls.         (line    6)
 * TARGET_FUNCTION_VALUE:                 Scalar Return.      (line    9)
-* TARGET_FUNCTION_VALUE_REGNO_P:         Scalar Return.      (line   96)
+* TARGET_FUNCTION_VALUE_REGNO_P:         Scalar Return.      (line   92)
 * TARGET_GENERATE_VERSION_DISPATCHER_BODY: Misc.             (line  756)
 * TARGET_GEN_CCMP_FIRST:                 Misc.               (line  937)
 * TARGET_GEN_CCMP_NEXT:                  Misc.               (line  948)
@@ -59515,7 +59511,7 @@ Concept Index
 * TARGET_LEGITIMATE_CONSTANT_P:          Addressing Modes.   (line  221)
 * TARGET_LEGITIMIZE_ADDRESS:             Addressing Modes.   (line  137)
 * TARGET_LEGITIMIZE_ADDRESS_DISPLACEMENT: Register Classes.  (line  647)
-* TARGET_LIBCALL_VALUE:                  Scalar Return.      (line   65)
+* TARGET_LIBCALL_VALUE:                  Scalar Return.      (line   61)
 * TARGET_LIBC_HAS_FAST_FUNCTION:         Library Calls.      (line   85)
 * TARGET_LIBC_HAS_FUNCTION:              Library Calls.      (line   77)
 * TARGET_LIBFUNC_GNU_PREFIX:             Library Calls.      (line   24)
@@ -59586,7 +59582,7 @@ Concept Index
 * TARGET_OBJECT_SUFFIX:                  Misc.               (line  900)
 * TARGET_OBJFMT_CPP_BUILTINS:            Run-time Target.    (line   45)
 * TARGET_OFFLOAD_OPTIONS:                Misc.               (line 1224)
-* TARGET_OMIT_STRUCT_RETURN_REG:         Scalar Return.      (line  117)
+* TARGET_OMIT_STRUCT_RETURN_REG:         Scalar Return.      (line  113)
 * TARGET_OMP_DEVICE_KIND_ARCH_ISA:       Addressing Modes.   (line  541)
 * TARGET_OPTAB_SUPPORTED_P:              Costs.              (line  371)
 * TARGET_OPTF:                           Misc.               (line 1006)
@@ -59638,7 +59634,7 @@ Concept Index
 * TARGET_RESET_LOCATION_VIEW:            DWARF.              (line   56)
 * TARGET_RESOLVE_OVERLOADED_BUILTIN:     Misc.               (line  691)
 * TARGET_RETURN_IN_MEMORY:               Aggregate Return.   (line   15)
-* TARGET_RETURN_IN_MSB:                  Scalar Return.      (line  124)
+* TARGET_RETURN_IN_MSB:                  Scalar Return.      (line  120)
 * TARGET_RETURN_POPS_ARGS:               Stack Arguments.    (line  101)
 * TARGET_RTX_COSTS:                      Costs.              (line  385)
 * TARGET_RUN_TARGET_SELFTESTS:           Misc.               (line 1310)
@@ -60727,107 +60723,107 @@ Node: Elimination1577174
 Node: Stack Arguments1581396
 Node: Register Arguments1588849
 Node: Scalar Return1614757
-Node: Aggregate Return1621213
-Node: Caller Saves1625943
-Node: Function Entry1626685
-Node: Profiling1638237
-Node: Tail Calls1640347
-Node: Shrink-wrapping separate components1642257
-Node: Stack Smashing Protection1645298
-Node: Miscellaneous Register Hooks1647787
-Node: Varargs1648652
-Node: Trampolines1658604
-Node: Library Calls1668297
-Node: Addressing Modes1674608
-Node: Anchored Addresses1707033
-Node: Condition Code1709676
-Node: MODE_CC Condition Codes1711521
-Node: Costs1718284
-Node: Scheduling1744333
-Node: Sections1768255
-Node: PIC1784625
-Node: Assembler Format1786684
-Node: File Framework1787822
-Ref: TARGET_HAVE_SWITCHABLE_BSS_SECTIONS1795421
-Node: Data Output1797096
-Node: Uninitialized Data1805384
-Node: Label Output1810399
-Node: Initialization1835012
-Node: Macros for Initialization1840973
-Node: Instruction Output1848124
-Node: Dispatch Tables1858754
-Node: Exception Region Output1864505
-Node: Alignment Output1872238
-Node: Debugging Info1875925
-Node: All Debuggers1876475
-Node: DWARF1879408
-Node: VMS Debug1885183
-Node: CTF Debug1885780
-Node: BTF Debug1886141
-Node: Floating Point1886484
-Node: Mode Switching1889239
-Node: Target Attributes1897255
-Node: Emulated TLS1910566
-Node: MIPS Coprocessors1913956
-Node: PCH Target1915115
-Node: C++ ABI1916957
-Node: D Language and ABI1922183
-Node: Rust Language and ABI1925408
-Node: Named Address Spaces1926147
-Node: Misc1932189
-Ref: TARGET_SHIFT_TRUNCATION_MASK1940060
-Node: Host Config2003220
-Node: Host Common2004289
-Node: Filesystem2006663
-Node: Host Misc2010778
-Node: Fragments2013227
-Node: Target Fragment2014422
-Node: Host Fragment2025234
-Node: Collect22025474
-Node: Header Dirs2028110
-Node: Type Information2029533
-Node: GTY Options2033064
-Node: Inheritance and GTY2046484
-Ref: Inheritance and GTY-Footnote-12048049
-Node: User GC2048319
-Node: GGC Roots2052070
-Node: Files2052783
-Node: Invoking the garbage collector2055414
-Node: Troubleshooting2057056
-Node: Plugins2058131
-Node: Plugins loading2059260
-Node: Plugin API2060356
-Node: Plugins pass2068223
-Node: Plugins GC2070194
-Node: Plugins description2071911
-Node: Plugins attr2072447
-Node: Plugins recording2074727
-Node: Plugins gate2075577
-Node: Plugins tracking2076168
-Node: Plugins building2076756
-Node: LTO2080259
-Node: LTO Overview2081131
-Node: LTO object file layout2086887
-Node: IPA2091386
-Node: WHOPR2100438
-Node: Internal flags2104998
-Node: Match and Simplify2106409
-Node: GIMPLE API2107379
-Node: The Language2110181
-Node: Static Analyzer2123393
-Node: Analyzer Internals2123658
-Node: Debugging the Analyzer2143724
-Node: User Experience Guidelines2151382
-Node: Guidelines for Diagnostics2152318
-Ref: input_location_example2160493
-Node: Guidelines for Options2173035
-Node: Funding2173212
-Node: GNU Project2175719
-Node: Copying2176370
-Node: GNU Free Documentation License2213887
-Node: Contributors2239013
-Node: Option Index2280443
-Node: Concept Index2281320
+Node: Aggregate Return1621050
+Node: Caller Saves1625780
+Node: Function Entry1626522
+Node: Profiling1638074
+Node: Tail Calls1640184
+Node: Shrink-wrapping separate components1642094
+Node: Stack Smashing Protection1645135
+Node: Miscellaneous Register Hooks1647624
+Node: Varargs1648489
+Node: Trampolines1658441
+Node: Library Calls1668134
+Node: Addressing Modes1674445
+Node: Anchored Addresses1706870
+Node: Condition Code1709513
+Node: MODE_CC Condition Codes1711358
+Node: Costs1718121
+Node: Scheduling1744170
+Node: Sections1768092
+Node: PIC1784462
+Node: Assembler Format1786521
+Node: File Framework1787659
+Ref: TARGET_HAVE_SWITCHABLE_BSS_SECTIONS1795258
+Node: Data Output1796933
+Node: Uninitialized Data1805221
+Node: Label Output1810236
+Node: Initialization1834849
+Node: Macros for Initialization1840810
+Node: Instruction Output1847961
+Node: Dispatch Tables1858591
+Node: Exception Region Output1864342
+Node: Alignment Output1872075
+Node: Debugging Info1875762
+Node: All Debuggers1876312
+Node: DWARF1879245
+Node: VMS Debug1885020
+Node: CTF Debug1885617
+Node: BTF Debug1885978
+Node: Floating Point1886321
+Node: Mode Switching1889076
+Node: Target Attributes1897092
+Node: Emulated TLS1910403
+Node: MIPS Coprocessors1913793
+Node: PCH Target1914952
+Node: C++ ABI1916794
+Node: D Language and ABI1922020
+Node: Rust Language and ABI1925245
+Node: Named Address Spaces1925984
+Node: Misc1932026
+Ref: TARGET_SHIFT_TRUNCATION_MASK1939897
+Node: Host Config2003057
+Node: Host Common2004126
+Node: Filesystem2006500
+Node: Host Misc2010615
+Node: Fragments2013064
+Node: Target Fragment2014259
+Node: Host Fragment2025071
+Node: Collect22025311
+Node: Header Dirs2027947
+Node: Type Information2029370
+Node: GTY Options2032901
+Node: Inheritance and GTY2046321
+Ref: Inheritance and GTY-Footnote-12047886
+Node: User GC2048156
+Node: GGC Roots2051907
+Node: Files2052620
+Node: Invoking the garbage collector2055251
+Node: Troubleshooting2056893
+Node: Plugins2057968
+Node: Plugins loading2059097
+Node: Plugin API2060193
+Node: Plugins pass2068060
+Node: Plugins GC2070031
+Node: Plugins description2071748
+Node: Plugins attr2072284
+Node: Plugins recording2074564
+Node: Plugins gate2075414
+Node: Plugins tracking2076005
+Node: Plugins building2076593
+Node: LTO2080096
+Node: LTO Overview2080968
+Node: LTO object file layout2086724
+Node: IPA2091223
+Node: WHOPR2100275
+Node: Internal flags2104835
+Node: Match and Simplify2106246
+Node: GIMPLE API2107216
+Node: The Language2110018
+Node: Static Analyzer2123230
+Node: Analyzer Internals2123495
+Node: Debugging the Analyzer2143561
+Node: User Experience Guidelines2151219
+Node: Guidelines for Diagnostics2152155
+Ref: input_location_example2160330
+Node: Guidelines for Options2172872
+Node: Funding2173049
+Node: GNU Project2175556
+Node: Copying2176207
+Node: GNU Free Documentation License2213724
+Node: Contributors2238850
+Node: Option Index2280280
+Node: Concept Index2281157
 
 End Tag Table
 
