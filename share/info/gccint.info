@@ -49601,7 +49601,10 @@ subsystem that all diagnostics issued within the lifetime of the
 'auto_diagnostic_group' are related.  For example,
 '-fdiagnostics-format=json' will treat the first diagnostic emitted
 within the group as a top-level diagnostic, and all subsequent
-diagnostics within the group as its children.
+diagnostics within the group as its children.  Also, if a warning in the
+group is inhibited at nesting depth D, all subsequent notes at that
+depth or deeper will be inhibited as well, until an error or another
+warning is emitted, the depth decreases below D, or the group is popped.
 
 27.1.11 Quoting
 ---------------
@@ -56744,7 +56747,7 @@ Concept Index
                                                              (line  304)
 * DFmode:                                Machine Modes.      (line   76)
 * diagnostics guidelines, fix-it hints:  Guidelines for Diagnostics.
-                                                             (line  409)
+                                                             (line  412)
 * diagnostics, actionable:               Guidelines for Diagnostics.
                                                              (line   15)
 * diagnostics, false positive:           Guidelines for Diagnostics.
@@ -56960,7 +56963,7 @@ Concept Index
 * FIRST_VIRTUAL_REGISTER:                Regs and Memory.    (line   51)
 * fix:                                   Conversions.        (line   66)
 * fix-it hints:                          Guidelines for Diagnostics.
-                                                             (line  409)
+                                                             (line  412)
 * fixed register:                        Register Basics.    (line   15)
 * fixed-point fractional library:        Fixed-point fractional library routines.
                                                              (line    6)
@@ -60816,14 +60819,14 @@ Node: Debugging the Analyzer2143561
 Node: User Experience Guidelines2151219
 Node: Guidelines for Diagnostics2152155
 Ref: input_location_example2160330
-Node: Guidelines for Options2172872
-Node: Funding2173049
-Node: GNU Project2175556
-Node: Copying2176207
-Node: GNU Free Documentation License2213724
-Node: Contributors2238850
-Node: Option Index2280280
-Node: Concept Index2281157
+Node: Guidelines for Options2173109
+Node: Funding2173286
+Node: GNU Project2175793
+Node: Copying2176444
+Node: GNU Free Documentation License2213961
+Node: Contributors2239087
+Node: Option Index2280517
+Node: Concept Index2281394
 
 End Tag Table
 

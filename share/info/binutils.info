@@ -2408,7 +2408,7 @@ given.
 
      'priv-spec=SPEC'
           Print the CSR according to the chosen privilege spec version
-          (e.g., '1.10', '1.11', '1.12').
+          (e.g., '1.10', '1.11', '1.12', '1.13').
 
      For MIPS, this option controls the printing of instruction mnemonic
      names and register names in disassembled instructions.  Multiple
@@ -6294,29 +6294,29 @@ Node: ar scripts20421
 Node: nm26107
 Node: objcopy41817
 Node: objdump84327
-Node: ranlib124468
-Node: size126067
-Node: strings130211
-Node: strip136046
-Node: c++filt146067
-Ref: c++filt-Footnote-1151928
-Node: addr2line152034
-Node: windmc157989
-Node: windres161648
-Node: dlltool168218
-Node: def file format181671
-Node: readelf184201
-Node: elfedit205539
-Node: Common Options208965
-Node: Selecting the Target System209999
-Node: Target Selection210927
-Node: Architecture Selection212908
-Node: debuginfod213736
-Node: Reporting Bugs214738
-Node: Bug Criteria215500
-Node: Bug Reporting216053
-Node: GNU Free Documentation License222920
-Node: Binutils Index248080
+Node: ranlib124476
+Node: size126075
+Node: strings130219
+Node: strip136054
+Node: c++filt146075
+Ref: c++filt-Footnote-1151936
+Node: addr2line152042
+Node: windmc157997
+Node: windres161656
+Node: dlltool168226
+Node: def file format181679
+Node: readelf184209
+Node: elfedit205547
+Node: Common Options208973
+Node: Selecting the Target System210007
+Node: Target Selection210935
+Node: Architecture Selection212916
+Node: debuginfod213744
+Node: Reporting Bugs214746
+Node: Bug Criteria215508
+Node: Bug Reporting216061
+Node: GNU Free Documentation License222928
+Node: Binutils Index248088
 
 End Tag Table
 

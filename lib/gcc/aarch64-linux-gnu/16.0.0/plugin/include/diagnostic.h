@@ -217,7 +217,7 @@ public:
 
 class edit_context;
 class diagnostic_client_data_hooks;
-class logical_location;
+class logical_location_manager;
 class diagnostic_diagram;
 class diagnostic_source_effect_info;
 class diagnostic_output_format;
@@ -671,6 +671,9 @@ public:
     return m_client_data_hooks;
   }
 
+  const logical_location_manager *
+  get_logical_location_manager () const;
+
   const urlifier *get_urlifier () const;
 
   text_art::theme *get_diagram_theme () const { return m_diagrams.m_theme; }
@@ -966,7 +969,13 @@ private:
     /* How many diagnostics have been emitted since the bottommost
        diagnostic_group was pushed.  */
     int m_emission_count;
+
+    /* The "group+diagnostic" nesting depth from which to inhibit notes.  */
+    int m_inhibiting_notes_from;
   } m_diagnostic_groups;
+
+  void inhibit_notes_in_group (bool inhibit = true);
+  bool notes_inhibited_in_group () const;
 
   /* The various sinks to which diagnostics are to be outputted
      (text vs structured formats such as SARIF).

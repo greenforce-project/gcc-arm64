@@ -266,6 +266,9 @@ struct _slp_tree {
   /* Whether uses of this load or feeders of this store are suitable
      for load/store-lanes.  */
   bool ldst_lanes;
+  /* For BB vect, flag to indicate this load node should be vectorized
+     as to avoid STLF fails because of related stores.  */
+  bool avoid_stlf_fail;
 
   int vertex;
 
@@ -2622,12 +2625,11 @@ extern bool vectorizable_induction (loop_vec_info, stmt_vec_info,
 				    stmt_vector_for_cost *);
 extern bool vect_transform_reduction (loop_vec_info, stmt_vec_info,
 				      gimple_stmt_iterator *,
-				      gimple **, slp_tree);
+				      slp_tree);
 extern bool vect_transform_cycle_phi (loop_vec_info, stmt_vec_info,
-				      gimple **,
 				      slp_tree, slp_instance);
-extern bool vectorizable_lc_phi (loop_vec_info, stmt_vec_info,
-				 gimple **, slp_tree);
+extern bool vectorizable_lc_phi (loop_vec_info, stmt_vec_info, slp_tree);
+extern bool vect_transform_lc_phi (loop_vec_info, stmt_vec_info, slp_tree);
 extern bool vectorizable_phi (vec_info *, stmt_vec_info, gimple **, slp_tree,
 			      stmt_vector_for_cost *);
 extern bool vectorizable_recurr (loop_vec_info, stmt_vec_info,
