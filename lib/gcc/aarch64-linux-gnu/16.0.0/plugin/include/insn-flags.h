@@ -9911,10 +9911,6 @@
 #define HAVE_cstorehf4 (TARGET_FP_F16INST)
 #define HAVE_cstoresf4 1
 #define HAVE_cstoredf4 1
-#define HAVE_cmovsi6 1
-#define HAVE_cmovdi6 1
-#define HAVE_cmovsf6 1
-#define HAVE_cmovdf6 1
 #define HAVE_movqicc 1
 #define HAVE_movhicc 1
 #define HAVE_movsicc 1
@@ -21988,10 +21984,6 @@ extern rtx        gen_cstorecc4                                        (rtx, rtx
 extern rtx        gen_cstorehf4                                        (rtx, rtx, rtx, rtx);
 extern rtx        gen_cstoresf4                                        (rtx, rtx, rtx, rtx);
 extern rtx        gen_cstoredf4                                        (rtx, rtx, rtx, rtx);
-extern rtx        gen_cmovsi6                                          (rtx, rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_cmovdi6                                          (rtx, rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_cmovsf6                                          (rtx, rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_cmovdf6                                          (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_movqicc                                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_movhicc                                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_movsicc                                          (rtx, rtx, rtx, rtx);

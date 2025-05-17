@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-05-10" "gcc-16.0.0" "GNU"
+.TH GCC 1 "2025-05-17" "gcc-16.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -1274,7 +1274,7 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mfence\-tso  \-mno\-fence\-tso
 \&\-mdiv  \-mno\-div
 \&\-misa\-spec=\fR\fIISA-spec-string\fR
-\&\fB\-march=\fR\fIISA-string\fR
+\&\fB\-march=\fR\fIISA\-string|Profiles|Profiles_ISA\-string\fR
 \&\fB\-mtune=\fR\fIprocessor-string\fR
 \&\fB\-mpreferred\-stack\-boundary=\fR\fInum\fR
 \&\fB\-msmall\-data\-limit=\fR\fIN\-bytes\fR
@@ -3372,7 +3372,8 @@ aliases, the default is \fB\-fno\-extern\-tls\-init\fR.
 .IX Item "-fno-fold-simple-inlines"
 .PD
 Permit the \*(C+ frontend to fold calls to \f(CW\*(C`std::move\*(C'\fR, \f(CW\*(C`std::forward\*(C'\fR,
-\&\f(CW\*(C`std::addressof\*(C'\fR and \f(CW\*(C`std::as_const\*(C'\fR.  In contrast to inlining, this
+\&\f(CW\*(C`std::addressof\*(C'\fR, \f(CW\*(C`std::to_underlying\*(C'\fR
+and \f(CW\*(C`std::as_const\*(C'\fR.  In contrast to inlining, this
 means no debug information will be generated for such calls.  Since these
 functions are rarely interesting to debug, this flag is enabled by default
 unless \fB\-fno\-inline\fR is active.
@@ -22698,7 +22699,7 @@ These \fB\-m\fR options are defined for the \s-1ARM\s0 port:
 .IP "\fB\-mabi=\fR\fIname\fR" 4
 .IX Item "-mabi=name"
 Generate code for the specified \s-1ABI.\s0  Permissible values are: \fBapcs-gnu\fR,
-\&\fBatpcs\fR, \fBaapcs\fR, \fBaapcs-linux\fR and \fBiwmmxt\fR.
+\&\fBatpcs\fR, \fBaapcs\fR and \fBaapcs-linux\fR.
 .IP "\fB\-mapcs\-frame\fR" 4
 .IX Item "-mapcs-frame"
 Generate a stack frame that is compliant with the \s-1ARM\s0 Procedure Call
@@ -29824,6 +29825,7 @@ Generate code for the specified \s-1PTX ISA\s0 target architecture.
 Valid architecture strings are
 \&\fBsm_30\fR, \fBsm_35\fR, \fBsm_37\fR,
 \&\fBsm_52\fR, \fBsm_53\fR,
+\&\fBsm_61\fR,
 \&\fBsm_70\fR, \fBsm_75\fR,
 \&\fBsm_80\fR, and \fBsm_89\fR.
 The default depends on how the compiler has been configured, see
@@ -29847,6 +29849,7 @@ Generate code for the specified \s-1PTX ISA\s0 version.
 Valid version strings are
 \&\fB3.1\fR,
 \&\fB4.1\fR, \fB4.2\fR,
+\&\fB5.0\fR,
 \&\fB6.0\fR, \fB6.3\fR,
 \&\fB7.0\fR, \fB7.3\fR, and \fB7.8\fR.
 The default \s-1PTX ISA\s0 version is the one that added support for the
@@ -30205,12 +30208,17 @@ Produce code conforming to version 20191213.
 The default is \fB\-misa\-spec=20191213\fR unless \s-1GCC\s0 has been configured
 with \fB\-\-with\-isa\-spec=\fR specifying a different default version.
 .RE
-.IP "\fB\-march=\fR\fIISA-string\fR" 4
-.IX Item "-march=ISA-string"
-Generate code for given RISC-V \s-1ISA\s0 (e.g. \fBrv64im\fR).  \s-1ISA\s0 strings must be
-lower-case.  Examples include \fBrv64i\fR, \fBrv32g\fR, \fBrv32e\fR, and
-\&\fBrv32imaf\fR. Additionally, a special value \fBhelp\fR
-(\fB\-march=help\fR) is accepted to list all supported extensions.
+.IP "\fB\-march=\fR\fIISA\-string|Profiles|Profile_ISA\-string\fR" 4
+.IX Item "-march=ISA-string|Profiles|Profile_ISA-string"
+Generate code for given RISC-V \s-1ISA\s0 or Profiles or a combination of them
+(e.g. \fBrv64im\fR \fBrvi20u64\fR \fBrvi20u64_zbb\fR).  \s-1ISA\s0 strings and
+Profiles must be lower-case.  Examples include \fBrv64i\fR, \fBrv32g\fR,
+\&\fBrv32e\fR, \fBrv32imaf\fR, \fBrva22u64\fR and \fBrva23u64\fR.
+To combine Profiles and optional RISC-V \s-1ISA\s0 extention, the profile should start
+at the beginning of the option, then use underline connect ISA-string (e.g.
+\&\fBrvi20u64_zca_zcb\fR \fBrva23u64_zacas\fR).  Additionally, a special value
+\&\fBhelp\fR (\fB\-march=help\fR) is accepted to list all supported
+extensions.
 .Sp
 The syntax of the \s-1ISA\s0 string is defined as follows:
 .RS 4
@@ -30240,499 +30248,657 @@ Supported extension are listed below:
 .IP "\fIExtension Name\fR : \fISupported Version\fR : \fIDescription\fR" 4
 .IX Item "Extension Name : Supported Version : Description"
 .PD 0
-.IP "i" 4
-.IX Item "i"
-.PD
-\&\f(CW@tab\fR 2.0, 2.1
-\&\f(CW@tab\fR Base integer extension.
-.IP "e" 4
-.IX Item "e"
-\&\f(CW@tab\fR 2.0
-\&\f(CW@tab\fR Reduced base integer extension.
 .IP "g" 4
 .IX Item "g"
+.PD
 \&\f(CW@tab\fR \-
 \&\f(CW@tab\fR General-purpose computing base extension, \fBg\fR will expand to
 \&\fBi\fR, \fBm\fR, \fBa\fR, \fBf\fR, \fBd\fR, \fBzicsr\fR and
 \&\fBzifencei\fR.
+.IP "e" 4
+.IX Item "e"
+\&\f(CW@tab\fR 2.0
+\&\f(CW@tab\fR Reduced base integer extension
+.IP "i" 4
+.IX Item "i"
+\&\f(CW@tab\fR 2.0 2.1
+\&\f(CW@tab\fR Base integer extension
 .IP "m" 4
 .IX Item "m"
 \&\f(CW@tab\fR 2.0
-\&\f(CW@tab\fR Integer multiplication and division extension.
+\&\f(CW@tab\fR Integer multiplication and division extension
 .IP "a" 4
 .IX Item "a"
-\&\f(CW@tab\fR 2.0, 2.1
-\&\f(CW@tab\fR Atomic extension.
+\&\f(CW@tab\fR 2.0 2.1
+\&\f(CW@tab\fR Atomic extension
 .IP "f" 4
 .IX Item "f"
-\&\f(CW@tab\fR 2.0, 2.2
-\&\f(CW@tab\fR Single-precision floating-point extension.
+\&\f(CW@tab\fR 2.0 2.2
+\&\f(CW@tab\fR Single-precision floating-point extension
 .IP "d" 4
 .IX Item "d"
-\&\f(CW@tab\fR 2.0, 2.2
-\&\f(CW@tab\fR Double-precision floating-point extension.
+\&\f(CW@tab\fR 2.0 2.2
+\&\f(CW@tab\fR Double-precision floating-point extension
 .IP "c" 4
 .IX Item "c"
 \&\f(CW@tab\fR 2.0
-\&\f(CW@tab\fR Compressed extension.
-.IP "h" 4
-.IX Item "h"
+\&\f(CW@tab\fR Compressed extension
+.IP "b" 4
+.IX Item "b"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Hypervisor extension.
+\&\f(CW@tab\fR b extension
 .IP "v" 4
 .IX Item "v"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector extension.
-.IP "zicsr" 4
-.IX Item "zicsr"
-\&\f(CW@tab\fR 2.0
-\&\f(CW@tab\fR Control and status register access extension.
-.IP "zifencei" 4
-.IX Item "zifencei"
-\&\f(CW@tab\fR 2.0
-\&\f(CW@tab\fR Instruction-fetch fence extension.
-.IP "zicond" 4
-.IX Item "zicond"
+\&\f(CW@tab\fR Vector extension
+.IP "h" 4
+.IX Item "h"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Integer conditional operations extension.
-.IP "za64rs" 4
-.IX Item "za64rs"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Reservation set size of 64 bytes.
-.IP "za128rs" 4
-.IX Item "za128rs"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Reservation set size of 128 bytes.
-.IP "zawrs" 4
-.IX Item "zawrs"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Wait-on-reservation-set extension.
-.IP "zba" 4
-.IX Item "zba"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Address calculation extension.
-.IP "zbb" 4
-.IX Item "zbb"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Basic bit manipulation extension.
-.IP "zbc" 4
-.IX Item "zbc"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Carry-less multiplication extension.
-.IP "zbs" 4
-.IX Item "zbs"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Single-bit operation extension.
-.IP "zfinx" 4
-.IX Item "zfinx"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Single-precision floating-point in integer registers extension.
-.IP "zdinx" 4
-.IX Item "zdinx"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Double-precision floating-point in integer registers extension.
-.IP "zhinx" 4
-.IX Item "zhinx"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Half-precision floating-point in integer registers extension.
-.IP "zhinxmin" 4
-.IX Item "zhinxmin"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Minimal half-precision floating-point in integer registers extension.
-.IP "zbkb" 4
-.IX Item "zbkb"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Cryptography bit-manipulation extension.
-.IP "zbkc" 4
-.IX Item "zbkc"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Cryptography carry-less multiply extension.
-.IP "zbkx" 4
-.IX Item "zbkx"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Cryptography crossbar permutation extension.
-.IP "zkne" 4
-.IX Item "zkne"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR \s-1AES\s0 Encryption extension.
-.IP "zknd" 4
-.IX Item "zknd"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR \s-1AES\s0 Decryption extension.
-.IP "zknh" 4
-.IX Item "zknh"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Hash function extension.
-.IP "zkr" 4
-.IX Item "zkr"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Entropy source extension.
-.IP "zksed" 4
-.IX Item "zksed"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR \s-1SM4\s0 block cipher extension.
-.IP "zksh" 4
-.IX Item "zksh"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR \s-1SM3\s0 hash function extension.
-.IP "zkt" 4
-.IX Item "zkt"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Data independent execution latency extension.
-.IP "zk" 4
-.IX Item "zk"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Standard scalar cryptography extension.
-.IP "zkn" 4
-.IX Item "zkn"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR \s-1NIST\s0 algorithm suite extension.
-.IP "zks" 4
-.IX Item "zks"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR ShangMi algorithm suite extension.
-.IP "zihintntl" 4
-.IX Item "zihintntl"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Non-temporal locality hints extension.
-.IP "zihintpause" 4
-.IX Item "zihintpause"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Pause hint extension.
-.IP "zicboz" 4
-.IX Item "zicboz"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Cache-block zero extension.
-.IP "zicbom" 4
-.IX Item "zicbom"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Cache-block management extension.
-.IP "zicbop" 4
-.IX Item "zicbop"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Cache-block prefetch extension.
+\&\f(CW@tab\fR Hypervisor extension
 .IP "zic64b" 4
 .IX Item "zic64b"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Cache block size isf 64 bytes.
+\&\f(CW@tab\fR Cache block size isf 64 bytes
+.IP "zicbom" 4
+.IX Item "zicbom"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Cache-block management extension
+.IP "zicbop" 4
+.IX Item "zicbop"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Cache-block prefetch extension
+.IP "zicboz" 4
+.IX Item "zicboz"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Cache-block zero extension
 .IP "ziccamoa" 4
 .IX Item "ziccamoa"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Main memory supports all atomics in A.
+\&\f(CW@tab\fR Main memory supports all atomics in A
 .IP "ziccif" 4
 .IX Item "ziccif"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Main memory supports instruction fetch with atomicity requirement.
+\&\f(CW@tab\fR Main memory supports instruction fetch with atomicity requirement
 .IP "zicclsm" 4
 .IX Item "zicclsm"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Main memory supports misaligned loads/stores.
+\&\f(CW@tab\fR Main memory supports misaligned loads/stores
 .IP "ziccrse" 4
 .IX Item "ziccrse"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Main memory supports forward progress on \s-1LR/SC\s0 sequences.
+\&\f(CW@tab\fR Main memory supports forward progress on \s-1LR/SC\s0 sequences
+.IP "zicfilp" 4
+.IX Item "zicfilp"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR zicfilp extension
+.IP "zicfiss" 4
+.IX Item "zicfiss"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR zicfiss extension
 .IP "zicntr" 4
 .IX Item "zicntr"
 \&\f(CW@tab\fR 2.0
-\&\f(CW@tab\fR Standard extension for base counters and timers.
+\&\f(CW@tab\fR Standard extension for base counters and timers
+.IP "zicond" 4
+.IX Item "zicond"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Integer conditional operations extension
+.IP "zicsr" 4
+.IX Item "zicsr"
+\&\f(CW@tab\fR 2.0
+\&\f(CW@tab\fR Control and status register access extension
+.IP "zifencei" 4
+.IX Item "zifencei"
+\&\f(CW@tab\fR 2.0
+\&\f(CW@tab\fR Instruction-fetch fence extension
+.IP "zihintntl" 4
+.IX Item "zihintntl"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Non-temporal locality hints extension
+.IP "zihintpause" 4
+.IX Item "zihintpause"
+\&\f(CW@tab\fR 2.0
+\&\f(CW@tab\fR Pause hint extension
 .IP "zihpm" 4
 .IX Item "zihpm"
 \&\f(CW@tab\fR 2.0
-\&\f(CW@tab\fR Standard extension for hardware performance counters.
+\&\f(CW@tab\fR Standard extension for hardware performance counters
+.IP "zimop" 4
+.IX Item "zimop"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR zimop extension
+.IP "zilsd" 4
+.IX Item "zilsd"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Load/Store pair instructions extension
+.IP "zmmul" 4
+.IX Item "zmmul"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Integer multiplication extension
+.IP "za128rs" 4
+.IX Item "za128rs"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Reservation set size of 128 bytes
+.IP "za64rs" 4
+.IX Item "za64rs"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Reservation set size of 64 bytes
+.IP "zaamo" 4
+.IX Item "zaamo"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR zaamo extension
+.IP "zabha" 4
+.IX Item "zabha"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR zabha extension
+.IP "zacas" 4
+.IX Item "zacas"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR zacas extension
+.IP "zalrsc" 4
+.IX Item "zalrsc"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR zalrsc extension
+.IP "zawrs" 4
+.IX Item "zawrs"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Wait-on-reservation-set extension
+.IP "zama16b" 4
+.IX Item "zama16b"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Zama16b extension, Misaligned loads, stores, and AMOs to main memory regions that do not cross a naturally aligned 16\-byte boundary are atomic.
+.IP "zfa" 4
+.IX Item "zfa"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Additional floating-point extension
+.IP "zfbfmin" 4
+.IX Item "zfbfmin"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR zfbfmin extension
+.IP "zfh" 4
+.IX Item "zfh"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Half-precision floating-point extension
+.IP "zfhmin" 4
+.IX Item "zfhmin"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Minimal half-precision floating-point extension
+.IP "zfinx" 4
+.IX Item "zfinx"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Single-precision floating-point in integer registers extension
+.IP "zdinx" 4
+.IX Item "zdinx"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Double-precision floating-point in integer registers extension
+.IP "zca" 4
+.IX Item "zca"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Integer compressed instruction extension
+.IP "zcb" 4
+.IX Item "zcb"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Simple compressed instruction extension
+.IP "zcd" 4
+.IX Item "zcd"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Compressed double-precision floating point loads and stores extension
+.IP "zce" 4
+.IX Item "zce"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Compressed instruction extensions for embedded processors
+.IP "zcf" 4
+.IX Item "zcf"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Compressed single-precision floating point loads and stores extension
+.IP "zcmop" 4
+.IX Item "zcmop"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR zcmop extension
+.IP "zcmp" 4
+.IX Item "zcmp"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Compressed push pop extension
+.IP "zcmt" 4
+.IX Item "zcmt"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Table jump instruction extension
+.IP "zclsd" 4
+.IX Item "zclsd"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Compressed load/store pair instructions extension
+.IP "zba" 4
+.IX Item "zba"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Address calculation extension
+.IP "zbb" 4
+.IX Item "zbb"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Basic bit manipulation extension
+.IP "zbc" 4
+.IX Item "zbc"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Carry-less multiplication extension
+.IP "zbkb" 4
+.IX Item "zbkb"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Cryptography bit-manipulation extension
+.IP "zbkc" 4
+.IX Item "zbkc"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Cryptography carry-less multiply extension
+.IP "zbkx" 4
+.IX Item "zbkx"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Cryptography crossbar permutation extension
+.IP "zbs" 4
+.IX Item "zbs"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Single-bit operation extension
+.IP "zk" 4
+.IX Item "zk"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Standard scalar cryptography extension
+.IP "zkn" 4
+.IX Item "zkn"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR \s-1NIST\s0 algorithm suite extension
+.IP "zknd" 4
+.IX Item "zknd"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR \s-1AES\s0 Decryption extension
+.IP "zkne" 4
+.IX Item "zkne"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR \s-1AES\s0 Encryption extension
+.IP "zknh" 4
+.IX Item "zknh"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Hash function extension
+.IP "zkr" 4
+.IX Item "zkr"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Entropy source extension
+.IP "zks" 4
+.IX Item "zks"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR ShangMi algorithm suite extension
+.IP "zksed" 4
+.IX Item "zksed"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR \s-1SM4\s0 block cipher extension
+.IP "zksh" 4
+.IX Item "zksh"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR \s-1SM3\s0 hash function extension
+.IP "zkt" 4
+.IX Item "zkt"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Data independent execution latency extension
 .IP "ztso" 4
 .IX Item "ztso"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Total store ordering extension.
-.IP "zve32x" 4
-.IX Item "zve32x"
+\&\f(CW@tab\fR Total store ordering extension
+.IP "zvbb" 4
+.IX Item "zvbb"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector extensions for embedded processors.
+\&\f(CW@tab\fR Vector basic bit-manipulation extension
+.IP "zvbc" 4
+.IX Item "zvbc"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Vector carryless multiplication extension
 .IP "zve32f" 4
 .IX Item "zve32f"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector extensions for embedded processors.
-.IP "zve64x" 4
-.IX Item "zve64x"
+\&\f(CW@tab\fR Vector extensions for embedded processors
+.IP "zve32x" 4
+.IX Item "zve32x"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector extensions for embedded processors.
-.IP "zve64f" 4
-.IX Item "zve64f"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector extensions for embedded processors.
+\&\f(CW@tab\fR Vector extensions for embedded processors
 .IP "zve64d" 4
 .IX Item "zve64d"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector extensions for embedded processors.
-.IP "zvl32b" 4
-.IX Item "zvl32b"
+\&\f(CW@tab\fR Vector extensions for embedded processors
+.IP "zve64f" 4
+.IX Item "zve64f"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Minimum vector length standard extensions
-.IP "zvl64b" 4
-.IX Item "zvl64b"
+\&\f(CW@tab\fR Vector extensions for embedded processors
+.IP "zve64x" 4
+.IX Item "zve64x"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Vector extensions for embedded processors
+.IP "zvfbfmin" 4
+.IX Item "zvfbfmin"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Vector \s-1BF16\s0 converts extension
+.IP "zvfbfwma" 4
+.IX Item "zvfbfwma"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR zvfbfwma extension
+.IP "zvfh" 4
+.IX Item "zvfh"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Vector half-precision floating-point extension
+.IP "zvfhmin" 4
+.IX Item "zvfhmin"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Vector minimal half-precision floating-point extension
+.IP "zvkb" 4
+.IX Item "zvkb"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Vector cryptography bit-manipulation extension
+.IP "zvkg" 4
+.IX Item "zvkg"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Vector \s-1GCM/GMAC\s0 extension
+.IP "zvkn" 4
+.IX Item "zvkn"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Vector \s-1NIST\s0 Algorithm Suite extension, \fBzvkn\fR will expand to
+.IP "zvknc" 4
+.IX Item "zvknc"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Vector \s-1NIST\s0 Algorithm Suite with carryless multiply extension, \fBzvknc\fR
+.IP "zvkned" 4
+.IX Item "zvkned"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Vector \s-1AES\s0 block cipher extension
+.IP "zvkng" 4
+.IX Item "zvkng"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Vector \s-1NIST\s0 Algorithm Suite with \s-1GCM\s0 extension, \fBzvkng\fR will expand
+.IP "zvknha" 4
+.IX Item "zvknha"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Vector \s-1SHA\-2\s0 secure hash extension
+.IP "zvknhb" 4
+.IX Item "zvknhb"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Vector \s-1SHA\-2\s0 secure hash extension
+.IP "zvks" 4
+.IX Item "zvks"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Vector ShangMi algorithm suite extension, \fBzvks\fR will expand
+.IP "zvksc" 4
+.IX Item "zvksc"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Vector ShangMi algorithm suite with carryless multiplication extension,
+.IP "zvksed" 4
+.IX Item "zvksed"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Vector \s-1SM4\s0 Block Cipher extension
+.IP "zvksg" 4
+.IX Item "zvksg"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Vector ShangMi algorithm suite with \s-1GCM\s0 extension, \fBzvksg\fR will expand
+.IP "zvksh" 4
+.IX Item "zvksh"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Vector \s-1SM3\s0 Secure Hash extension
+.IP "zvkt" 4
+.IX Item "zvkt"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Vector data independent execution latency extension
+.IP "zvl1024b" 4
+.IX Item "zvl1024b"
 \&\f(CW@tab\fR 1.0
 \&\f(CW@tab\fR Minimum vector length standard extensions
 .IP "zvl128b" 4
 .IX Item "zvl128b"
 \&\f(CW@tab\fR 1.0
 \&\f(CW@tab\fR Minimum vector length standard extensions
+.IP "zvl16384b" 4
+.IX Item "zvl16384b"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR zvl16384b extension
+.IP "zvl2048b" 4
+.IX Item "zvl2048b"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Minimum vector length standard extensions
 .IP "zvl256b" 4
 .IX Item "zvl256b"
 \&\f(CW@tab\fR 1.0
 \&\f(CW@tab\fR Minimum vector length standard extensions
-.IP "zvl512b" 4
-.IX Item "zvl512b"
+.IP "zvl32768b" 4
+.IX Item "zvl32768b"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Minimum vector length standard extensions
-.IP "zvl1024b" 4
-.IX Item "zvl1024b"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Minimum vector length standard extensions
-.IP "zvl2048b" 4
-.IX Item "zvl2048b"
+\&\f(CW@tab\fR zvl32768b extension
+.IP "zvl32b" 4
+.IX Item "zvl32b"
 \&\f(CW@tab\fR 1.0
 \&\f(CW@tab\fR Minimum vector length standard extensions
 .IP "zvl4096b" 4
 .IX Item "zvl4096b"
 \&\f(CW@tab\fR 1.0
 \&\f(CW@tab\fR Minimum vector length standard extensions
-.IP "zvbb" 4
-.IX Item "zvbb"
+.IP "zvl512b" 4
+.IX Item "zvl512b"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector basic bit-manipulation extension.
-.IP "zvbc" 4
-.IX Item "zvbc"
+\&\f(CW@tab\fR Minimum vector length standard extensions
+.IP "zvl64b" 4
+.IX Item "zvl64b"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector carryless multiplication extension.
-.IP "zvkb" 4
-.IX Item "zvkb"
+\&\f(CW@tab\fR Minimum vector length standard extensions
+.IP "zvl65536b" 4
+.IX Item "zvl65536b"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector cryptography bit-manipulation extension.
-.IP "zvkg" 4
-.IX Item "zvkg"
+\&\f(CW@tab\fR zvl65536b extension
+.IP "zvl8192b" 4
+.IX Item "zvl8192b"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector \s-1GCM/GMAC\s0 extension.
-.IP "zvkned" 4
-.IX Item "zvkned"
+\&\f(CW@tab\fR zvl8192b extension
+.IP "zhinx" 4
+.IX Item "zhinx"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector \s-1AES\s0 block cipher extension.
-.IP "zvknha" 4
-.IX Item "zvknha"
+\&\f(CW@tab\fR Half-precision floating-point in integer registers extension
+.IP "zhinxmin" 4
+.IX Item "zhinxmin"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector \s-1SHA\-2\s0 secure hash extension.
-.IP "zvknhb" 4
-.IX Item "zvknhb"
+\&\f(CW@tab\fR Minimal half-precision floating-point in integer registers extension
+.IP "sdtrig" 4
+.IX Item "sdtrig"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector \s-1SHA\-2\s0 secure hash extension.
-.IP "zvksed" 4
-.IX Item "zvksed"
+\&\f(CW@tab\fR sdtrig extension
+.IP "sha" 4
+.IX Item "sha"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector \s-1SM4\s0 Block Cipher extension.
-.IP "zvksh" 4
-.IX Item "zvksh"
+\&\f(CW@tab\fR The augmented hypervisor extension
+.IP "shcounterenw" 4
+.IX Item "shcounterenw"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector \s-1SM3\s0 Secure Hash extension.
-.IP "zvkn" 4
-.IX Item "zvkn"
+\&\f(CW@tab\fR Support writeable enables for any supported counter
+.IP "shgatpa" 4
+.IX Item "shgatpa"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector \s-1NIST\s0 Algorithm Suite extension, \fBzvkn\fR will expand to
-\&\fBzvkned\fR, \fBzvknhb\fR, \fBzvkb\fR and \fBzvkt\fR.
-.IP "zvknc" 4
-.IX Item "zvknc"
+\&\f(CW@tab\fR SvNNx4 mode supported for all modes supported by satp
+.IP "shtvala" 4
+.IX Item "shtvala"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector \s-1NIST\s0 Algorithm Suite with carryless multiply extension, \fBzvknc\fR
-will expand to \fBzvkn\fR and \fBzvbc\fR.
-.IP "zvkng" 4
-.IX Item "zvkng"
+\&\f(CW@tab\fR The htval register provides all needed values
+.IP "shvstvala" 4
+.IX Item "shvstvala"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector \s-1NIST\s0 Algorithm Suite with \s-1GCM\s0 extension, \fBzvkng\fR will expand
-to \fBzvkn\fR and \fBzvkg\fR.
-.IP "zvks" 4
-.IX Item "zvks"
+\&\f(CW@tab\fR The vstval register provides all needed values
+.IP "shvstvecd" 4
+.IX Item "shvstvecd"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector ShangMi algorithm suite extension, \fBzvks\fR will expand
-to \fBzvksed\fR, \fBzvksh\fR, \fBzvkb\fR and \fBzvkt\fR.
-.IP "zvksc" 4
-.IX Item "zvksc"
+\&\f(CW@tab\fR The vstvec register supports Direct mode
+.IP "shvsatpa" 4
+.IX Item "shvsatpa"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector ShangMi algorithm suite with carryless multiplication extension,
-\&\fBzvksc\fR will expand to \fBzvks\fR and \fBzvbc\fR.
-.IP "zvksg" 4
-.IX Item "zvksg"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector ShangMi algorithm suite with \s-1GCM\s0 extension, \fBzvksg\fR will expand
-to \fBzvks\fR and \fBzvkg\fR.
-.IP "zvkt" 4
-.IX Item "zvkt"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector data independent execution latency extension.
-.IP "zfh" 4
-.IX Item "zfh"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Half-precision floating-point extension.
-.IP "zfhmin" 4
-.IX Item "zfhmin"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Minimal half-precision floating-point extension.
-.IP "zvfh" 4
-.IX Item "zvfh"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector half-precision floating-point extension.
-.IP "zvfhmin" 4
-.IX Item "zvfhmin"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector minimal half-precision floating-point extension.
-.IP "zvfbfmin" 4
-.IX Item "zvfbfmin"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Vector \s-1BF16\s0 converts extension.
-.IP "zfa" 4
-.IX Item "zfa"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Additional floating-point extension.
-.IP "zmmul" 4
-.IX Item "zmmul"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Integer multiplication extension.
-.IP "zca" 4
-.IX Item "zca"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Integer compressed instruction extension.
-.IP "zcf" 4
-.IX Item "zcf"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Compressed single-precision floating point loads and stores extension.
-.IP "zcd" 4
-.IX Item "zcd"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Compressed double-precision floating point loads and stores extension.
-.IP "zcb" 4
-.IX Item "zcb"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Simple compressed instruction extension.
-.IP "zce" 4
-.IX Item "zce"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Compressed instruction extensions for embedded processors.
-.IP "zcmp" 4
-.IX Item "zcmp"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Compressed push pop extension.
-.IP "zcmt" 4
-.IX Item "zcmt"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Table jump instruction extension.
+\&\f(CW@tab\fR The vsatp register supports all modes supported by satp
 .IP "smaia" 4
 .IX Item "smaia"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Advanced interrupt architecture extension.
+\&\f(CW@tab\fR Advanced interrupt architecture extension
 .IP "smepmp" 4
 .IX Item "smepmp"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR \s-1PMP\s0 Enhancements for memory access and execution prevention on Machine mode.
+\&\f(CW@tab\fR \s-1PMP\s0 Enhancements for memory access and execution prevention on Machine mode
+.IP "smmpm" 4
+.IX Item "smmpm"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR smmpm extension
+.IP "smnpm" 4
+.IX Item "smnpm"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR smnpm extension
 .IP "smstateen" 4
 .IX Item "smstateen"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR State enable extension.
+\&\f(CW@tab\fR State enable extension
 .IP "ssaia" 4
 .IX Item "ssaia"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Advanced interrupt architecture extension for supervisor-mode.
+\&\f(CW@tab\fR Advanced interrupt architecture extension for supervisor-mode
 .IP "sscofpmf" 4
 .IX Item "sscofpmf"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Count overflow & filtering extension.
+\&\f(CW@tab\fR Count overflow & filtering extension
+.IP "ssnpm" 4
+.IX Item "ssnpm"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR ssnpm extension
+.IP "sspm" 4
+.IX Item "sspm"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR sspm extension
 .IP "ssstateen" 4
 .IX Item "ssstateen"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR State-enable extension for supervisor-mode.
+\&\f(CW@tab\fR State-enable extension for supervisor-mode
 .IP "sstc" 4
 .IX Item "sstc"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Supervisor-mode timer interrupts extension.
+\&\f(CW@tab\fR Supervisor-mode timer interrupts extension
+.IP "ssstrict" 4
+.IX Item "ssstrict"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR ssstrict extension
+.IP "supm" 4
+.IX Item "supm"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR supm extension
+.IP "svinval" 4
+.IX Item "svinval"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Fine-grained address-translation cache invalidation extension
+.IP "svnapot" 4
+.IX Item "svnapot"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR \s-1NAPOT\s0 translation contiguity extension
+.IP "svpbmt" 4
+.IX Item "svpbmt"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Page-based memory types extension
+.IP "svvptc" 4
+.IX Item "svvptc"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR svvptc extension
+.IP "svadu" 4
+.IX Item "svadu"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Hardware Updating of A/D Bits extension
 .IP "svade" 4
 .IX Item "svade"
 \&\f(CW@tab\fR 1.0
 \&\f(CW@tab\fR Cause exception when hardware updating of A/D bits is disabled
-.IP "svadu" 4
-.IX Item "svadu"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Hardware Updating of A/D Bits extension.
-.IP "svinval" 4
-.IX Item "svinval"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Fine-grained address-translation cache invalidation extension.
-.IP "svnapot" 4
-.IX Item "svnapot"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR \s-1NAPOT\s0 translation contiguity extension.
-.IP "svpbmt" 4
-.IX Item "svpbmt"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Page-based memory types extension.
-.IP "xcvmac" 4
-.IX Item "xcvmac"
-\&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Core-V multiply-accumulate extension.
 .IP "xcvalu" 4
 .IX Item "xcvalu"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Core-V miscellaneous \s-1ALU\s0 extension.
+\&\f(CW@tab\fR Core-V miscellaneous \s-1ALU\s0 extension
+.IP "xcvbi" 4
+.IX Item "xcvbi"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR xcvbi extension
 .IP "xcvelw" 4
 .IX Item "xcvelw"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Core-V event load word extension.
+\&\f(CW@tab\fR Core-V event load word extension
+.IP "xcvmac" 4
+.IX Item "xcvmac"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Core-V multiply-accumulate extension
+.IP "xcvsimd" 4
+.IX Item "xcvsimd"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR xcvsimd extension
+.IP "xsfcease" 4
+.IX Item "xsfcease"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR xsfcease extension
+.IP "xsfvcp" 4
+.IX Item "xsfvcp"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR xsfvcp extension
+.IP "xsfvfnrclipxfqf" 4
+.IX Item "xsfvfnrclipxfqf"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR xsfvfnrclipxfqf extension
+.IP "xsfvqmaccdod" 4
+.IX Item "xsfvqmaccdod"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR xsfvqmaccdod extension
+.IP "xsfvqmaccqoq" 4
+.IX Item "xsfvqmaccqoq"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR xsfvqmaccqoq extension
 .IP "xtheadba" 4
 .IX Item "xtheadba"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR T\-head address calculation extension.
+\&\f(CW@tab\fR T\-head address calculation extension
 .IP "xtheadbb" 4
 .IX Item "xtheadbb"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR T\-head basic bit-manipulation extension.
+\&\f(CW@tab\fR T\-head basic bit-manipulation extension
 .IP "xtheadbs" 4
 .IX Item "xtheadbs"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR T\-head single-bit instructions extension.
+\&\f(CW@tab\fR T\-head single-bit instructions extension
 .IP "xtheadcmo" 4
 .IX Item "xtheadcmo"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR T\-head cache management operations extension.
+\&\f(CW@tab\fR T\-head cache management operations extension
 .IP "xtheadcondmov" 4
 .IX Item "xtheadcondmov"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR T\-head conditional move extension.
+\&\f(CW@tab\fR T\-head conditional move extension
 .IP "xtheadfmemidx" 4
 .IX Item "xtheadfmemidx"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR T\-head indexed memory operations for floating-point registers extension.
+\&\f(CW@tab\fR T\-head indexed memory operations for floating-point registers extension
 .IP "xtheadfmv" 4
 .IX Item "xtheadfmv"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR T\-head double floating-point high-bit data transmission extension.
+\&\f(CW@tab\fR T\-head double floating-point high-bit data transmission extension
 .IP "xtheadint" 4
 .IX Item "xtheadint"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR T\-head acceleration interruption extension.
+\&\f(CW@tab\fR T\-head acceleration interruption extension
 .IP "xtheadmac" 4
 .IX Item "xtheadmac"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR T\-head multiply-accumulate extension.
+\&\f(CW@tab\fR T\-head multiply-accumulate extension
 .IP "xtheadmemidx" 4
 .IX Item "xtheadmemidx"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR T\-head indexed memory operation extension.
+\&\f(CW@tab\fR T\-head indexed memory operation extension
 .IP "xtheadmempair" 4
 .IX Item "xtheadmempair"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR T\-head two-GPR memory operation extension.
+\&\f(CW@tab\fR T\-head two-GPR memory operation extension
 .IP "xtheadsync" 4
 .IX Item "xtheadsync"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR T\-head multi-core synchronization extension.
+\&\f(CW@tab\fR T\-head multi-core synchronization extension
+.IP "xtheadvector" 4
+.IX Item "xtheadvector"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR xtheadvector extension
 .IP "xventanacondops" 4
 .IX Item "xventanacondops"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Ventana integer conditional operations extension.
+\&\f(CW@tab\fR Ventana integer conditional operations extension
 .RE
 .RS 4
 .Sp

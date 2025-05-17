@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "STRIP 1"
-.TH STRIP 1 "2025-05-10" "binutils-2.44.50" "GNU Development Tools"
+.TH STRIP 1 "2025-05-17" "binutils-2.44.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -163,6 +163,7 @@ strip [\fB\-F\fR \fIbfdname\fR |\fB\-\-target=\fR\fIbfdname\fR]
       [\fB\-\-keep\-section\-symbols\fR]
       [\fB\-\-keep\-file\-symbols\fR]
       [\fB\-\-only\-keep\-debug\fR]
+      [\fB\-\-plugin\fR \fIname\fR]
       [\fB\-v\fR |\fB\-\-verbose\fR] [\fB\-V\fR|\fB\-\-version\fR]
       [\fB\-\-help\fR] [\fB\-\-info\fR]
       \fIobjfile\fR...
@@ -472,6 +473,25 @@ currently only supports the presence of one filename containing
 debugging information, not multiple filenames on a one-per-object-file
 basis.
 .RE
+.IP "\fB\-\-plugin\fR \fIname\fR" 4
+.IX Item "--plugin name"
+Load the plugin called \fIname\fR to add support for extra target
+types.  This option is only available if the toolchain has been built
+with plugin support enabled.
+.Sp
+If \fB\-\-plugin\fR is not provided, but plugin support has been
+enabled then \fBstrip\fR iterates over the files in
+\&\fI${libdir}/bfd\-plugins\fR in alphabetic order and the first
+plugin that claims the object in question is used.
+.Sp
+Please note that this plugin search directory is \fInot\fR the one
+used by \fBld\fR's \fB\-plugin\fR option.  In order to make
+\&\fBstrip\fR use the  linker plugin it must be copied into the
+\&\fI${libdir}/bfd\-plugins\fR directory.  For \s-1GCC\s0 based compilations
+the linker plugin is called \fIliblto_plugin.so.0.0.0\fR.  For Clang
+based compilations it is called \fILLVMgold.so\fR.  The \s-1GCC\s0 plugin
+is always backwards compatible with earlier versions, so it is
+sufficient to just copy the newest one.
 .IP "\fB\-V\fR" 4
 .IX Item "-V"
 .PD 0

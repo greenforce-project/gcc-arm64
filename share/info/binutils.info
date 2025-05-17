@@ -683,8 +683,8 @@ object files are listed as arguments, 'nm' assumes the file 'a.out'.
           name.  If the symbol is defined anywhere, the common symbols
           are treated as undefined references.  For more details on
           common symbols, see the discussion of -warn-common in *note
-          Linker options: (ld.info)Options.  The lower case C character
-          is used when the symbol is in a special section for small
+          Linker options: (ld)Options.  The lower case C character is
+          used when the symbol is in a special section for small
           commons.
 
      'D'
@@ -1134,7 +1134,7 @@ not work as expected.
 them afterward.  'objcopy' uses BFD to do all its translation work; it
 has access to all the formats described in BFD and thus is able to
 recognize most formats without being told explicitly.  *Note BFD:
-(ld.info)BFD.
+(ld)BFD.
 
    'objcopy' can be used to generate S-records by using an output target
 of 'srec' (e.g., use '-O srec').
@@ -3313,6 +3313,7 @@ File: binutils.info,  Node: strip,  Next: c++filt,  Prev: strings,  Up: Top
            [--keep-section-symbols]
            [--keep-file-symbols]
            [--only-keep-debug]
+           [--plugin NAME]
            [-v |--verbose] [-V|--version]
            [--help] [--info]
            OBJFILE...
@@ -3547,6 +3548,25 @@ modified copies under different names.
      feature currently only supports the presence of one filename
      containing debugging information, not multiple filenames on a
      one-per-object-file basis.
+
+'--plugin NAME'
+     Load the plugin called NAME to add support for extra target types.
+     This option is only available if the toolchain has been built with
+     plugin support enabled.
+
+     If '--plugin' is not provided, but plugin support has been enabled
+     then 'strip' iterates over the files in '${libdir}/bfd-plugins' in
+     alphabetic order and the first plugin that claims the object in
+     question is used.
+
+     Please note that this plugin search directory is _not_ the one used
+     by 'ld''s '-plugin' option.  In order to make 'strip' use the
+     linker plugin it must be copied into the '${libdir}/bfd-plugins'
+     directory.  For GCC based compilations the linker plugin is called
+     'liblto_plugin.so.0.0.0'.  For Clang based compilations it is
+     called 'LLVMgold.so'.  The GCC plugin is always backwards
+     compatible with earlier versions, so it is sufficient to just copy
+     the newest one.
 
 '-V'
 '--version'
@@ -6101,8 +6121,8 @@ Binutils Index
 * -enable-deterministic-archives <3>:    objcopy.             (line 380)
 * -enable-deterministic-archives <4>:    ranlib.              (line  32)
 * -enable-deterministic-archives <5>:    ranlib.              (line  44)
-* -enable-deterministic-archives <6>:    strip.               (line 163)
-* -enable-deterministic-archives <7>:    strip.               (line 173)
+* -enable-deterministic-archives <6>:    strip.               (line 164)
+* -enable-deterministic-archives <7>:    strip.               (line 174)
 * .stab:                                 objdump.             (line 837)
 * Add prefix to absolute paths:          objdump.             (line 571)
 * addr2line:                             addr2line.           (line   6)
@@ -6154,8 +6174,8 @@ Binutils Index
 * deterministic archives <3>:            objcopy.             (line 380)
 * deterministic archives <4>:            ranlib.              (line  32)
 * deterministic archives <5>:            ranlib.              (line  44)
-* deterministic archives <6>:            strip.               (line 163)
-* deterministic archives <7>:            strip.               (line 173)
+* deterministic archives <6>:            strip.               (line 164)
+* deterministic archives <7>:            strip.               (line 174)
 * disassembling object code:             objdump.             (line 154)
 * disassembly architecture:              objdump.             (line 277)
 * disassembly endianness:                objdump.             (line 204)
@@ -6225,6 +6245,7 @@ Binutils Index
 * operations on archive:                 ar cmdline.          (line  22)
 * plugins:                               ar cmdline.          (line 276)
 * plugins <1>:                           nm.                  (line 336)
+* plugins <2>:                           strip.               (line 264)
 * printing from archive:                 ar cmdline.          (line  46)
 * printing strings:                      strings.             (line   6)
 * quick append to archive:               ar cmdline.          (line  54)
@@ -6292,31 +6313,31 @@ Node: ar3576
 Node: ar cmdline6910
 Node: ar scripts20421
 Node: nm26107
-Node: objcopy41817
-Node: objdump84327
-Node: ranlib124476
-Node: size126075
-Node: strings130219
-Node: strip136054
-Node: c++filt146075
-Ref: c++filt-Footnote-1151936
-Node: addr2line152042
-Node: windmc157997
-Node: windres161656
-Node: dlltool168226
-Node: def file format181679
-Node: readelf184209
-Node: elfedit205547
-Node: Common Options208973
-Node: Selecting the Target System210007
-Node: Target Selection210935
-Node: Architecture Selection212916
-Node: debuginfod213744
-Node: Reporting Bugs214746
-Node: Bug Criteria215508
-Node: Bug Reporting216061
-Node: GNU Free Documentation License222928
-Node: Binutils Index248088
+Node: objcopy41812
+Node: objdump84317
+Node: ranlib124466
+Node: size126065
+Node: strings130209
+Node: strip136044
+Node: c++filt147025
+Ref: c++filt-Footnote-1152886
+Node: addr2line152992
+Node: windmc158947
+Node: windres162606
+Node: dlltool169176
+Node: def file format182629
+Node: readelf185159
+Node: elfedit206497
+Node: Common Options209923
+Node: Selecting the Target System210957
+Node: Target Selection211885
+Node: Architecture Selection213866
+Node: debuginfod214694
+Node: Reporting Bugs215696
+Node: Bug Criteria216458
+Node: Bug Reporting217011
+Node: GNU Free Documentation License223878
+Node: Binutils Index249038
 
 End Tag Table
 

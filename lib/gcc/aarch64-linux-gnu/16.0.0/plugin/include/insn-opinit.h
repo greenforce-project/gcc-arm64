@@ -216,7 +216,6 @@ enum optab_tag {
   cond_len_neg_optab,
   cond_len_one_cmpl_optab,
   vcond_mask_len_optab,
-  cmov_optab,
   cstore_optab,
   ctrap_optab,
   addv4_optab,
@@ -465,10 +464,10 @@ enum optab_tag {
   LAST_NORM_OPTAB = iorn_optab
 };
 
-#define NUM_OPTABS          453
+#define NUM_OPTABS          452
 #define NUM_CONVLIB_OPTABS  17
 #define NUM_NORMLIB_OPTABS  80
-#define NUM_OPTAB_PATTERNS  2732
+#define NUM_OPTAB_PATTERNS  2728
 typedef enum optab_tag optab;
 typedef enum optab_tag convert_optab;
 typedef enum optab_tag direct_optab;
