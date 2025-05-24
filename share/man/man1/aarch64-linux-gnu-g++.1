@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-05-17" "gcc-16.0.0" "GNU"
+.TH GCC 1 "2025-05-24" "gcc-16.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -1274,7 +1274,7 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mfence\-tso  \-mno\-fence\-tso
 \&\-mdiv  \-mno\-div
 \&\-misa\-spec=\fR\fIISA-spec-string\fR
-\&\fB\-march=\fR\fIISA\-string|Profiles|Profiles_ISA\-string\fR
+\&\fB\-march=\fR\fIISA\-string|Profiles|Profiles_ISA\-string|CPU/processor string\fR
 \&\fB\-mtune=\fR\fIprocessor-string\fR
 \&\fB\-mpreferred\-stack\-boundary=\fR\fInum\fR
 \&\fB\-msmall\-data\-limit=\fR\fIN\-bytes\fR
@@ -1502,8 +1502,8 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mamx\-tile  \-mamx\-int8  \-mamx\-bf16 \-muintr \-mhreset \-mavxvnni \-mamx\-fp8
 \&\-mavx512fp16 \-mavxifma \-mavxvnniint8 \-mavxneconvert \-mcmpccxadd \-mamx\-fp16
 \&\-mprefetchi \-mraoint \-mamx\-complex \-mavxvnniint16 \-msm3 \-msha512 \-msm4 \-mapxf
-\&\-musermsr \-mavx10.1 \-mavx10.1\-256 \-mavx10.1\-512 \-mevex512 \-mavx10.2
-\&\-mamx\-avx512 \-mamx\-tf32 \-mamx\-transpose \-mmovrs \-mamx\-movrs
+\&\-musermsr \-mavx10.1 \-mavx10.2 \-mamx\-avx512 \-mamx\-tf32 \-mamx\-transpose \-mmovrs
+\&\-mamx\-movrs
 \&\-mcldemote  \-mms\-bitfields  \-mno\-align\-stringops  \-minline\-all\-stringops
 \&\-minline\-stringops\-dynamically  \-mstringop\-strategy=\fR\fIalg\fR
 \&\fB\-mkl \-mwidekl
@@ -30916,12 +30916,12 @@ extension set if they weren't added explicitly.
 .IX Item "-mcpu=processor-string"
 Use architecture of and optimize the output for the given processor, specified
 by particular \s-1CPU\s0 name.
-Permissible values for this option are: \fBsifive\-e20\fR, \fBsifive\-e21\fR,
-\&\fBsifive\-e24\fR, \fBsifive\-e31\fR, \fBsifive\-e34\fR, \fBsifive\-e76\fR,
-\&\fBsifive\-s21\fR, \fBsifive\-s51\fR, \fBsifive\-s54\fR, \fBsifive\-s76\fR,
-\&\fBsifive\-u54\fR, \fBsifive\-u74\fR, \fBsifive\-x280\fR, \fBsifive\-xp450\fR,
-\&\fBsifive\-x670\fR, \fBthead\-c906\fR, \fBtt\-ascalon\-d8\fR, \fBxiangshan-nanhu\fR,
-\&\fBxt\-c908\fR, \fBxt\-c908v\fR, \fBxt\-c910\fR, \fBxt\-c910v2\fR,
+Permissible values for this option are: \fBmips\-p8700\fR, \fBsifive\-e20\fR,
+\&\fBsifive\-e21\fR, \fBsifive\-e24\fR, \fBsifive\-e31\fR, \fBsifive\-e34\fR,
+\&\fBsifive\-e76\fR, \fBsifive\-s21\fR, \fBsifive\-s51\fR, \fBsifive\-s54\fR,
+\&\fBsifive\-s76\fR, \fBsifive\-u54\fR, \fBsifive\-u74\fR, \fBsifive\-x280\fR,
+\&\fBsifive\-xp450\fR, \fBsifive\-x670\fR, \fBthead\-c906\fR, \fBtt\-ascalon\-d8\fR,
+\&\fBxiangshan-nanhu\fR, \fBxt\-c908\fR, \fBxt\-c908v\fR, \fBxt\-c910\fR, \fBxt\-c910v2\fR,
 \&\fBxt\-c920\fR, \fBxt\-c920v2\fR.
 .Sp
 Note that \fB\-mcpu\fR does not override \fB\-march\fR or \fB\-mtune\fR.
@@ -30929,7 +30929,7 @@ Note that \fB\-mcpu\fR does not override \fB\-march\fR or \fB\-mtune\fR.
 .IX Item "-mtune=processor-string"
 Optimize the output for the given processor, specified by microarchitecture or
 particular \s-1CPU\s0 name.  Permissible values for this option are:
-\&\fBgeneric-ooo\fR, \fBrocket\fR, \fBsifive\-3\-series\fR,
+\&\fBgeneric-ooo\fR, \fBmips\-p8700\fR, \fBrocket\fR, \fBsifive\-3\-series\fR,
 \&\fBsifive\-5\-series\fR, \fBsifive\-7\-series\fR, \fBsize\fR,
 \&\fBsifive\-p400\-series\fR, \fBsifive\-p600\-series\fR, and all valid options for
 \&\fB\-mcpu=\fR.
@@ -35392,10 +35392,6 @@ preferred alignment to \fB\-mpreferred\-stack\-boundary=2\fR.
 .IX Item "-musermsr"
 .IP "\fB\-mavx10.1\fR" 4
 .IX Item "-mavx10.1"
-.IP "\fB\-mavx10.1\-256\fR" 4
-.IX Item "-mavx10.1-256"
-.IP "\fB\-mavx10.1\-512\fR" 4
-.IX Item "-mavx10.1-512"
 .IP "\fB\-mavx10.2\fR" 4
 .IX Item "-mavx10.2"
 .IP "\fB\-mamx\-avx512\fR" 4
@@ -36159,13 +36155,6 @@ disabled to prevent potential illegal instruction with \s-1EGPR\s0 occurs.
 To invoke egpr usage in inline asm, use new compiler option
 \&\-mapx\-inline\-asm\-use\-gpr32 and user should ensure the instruction
 supports \s-1EGPR.\s0
-.IP "\fB\-mevex512\fR" 4
-.IX Item "-mevex512"
-.PD 0
-.IP "\fB\-mno\-evex512\fR" 4
-.IX Item "-mno-evex512"
-.PD
-Enables/disables 512\-bit vector. It will be default on if \s-1AVX512F\s0 is enabled.
 .PP
 These \fB\-m\fR switches are supported in addition to the above
 on x86\-64 processors in 64\-bit environments.
