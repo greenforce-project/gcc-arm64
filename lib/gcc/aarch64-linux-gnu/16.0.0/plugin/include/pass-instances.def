@@ -142,9 +142,12 @@ along with GCC; see the file COPYING3.  If not see
 
   NEXT_PASS (pass_target_clone, 1);
   NEXT_PASS (pass_ipa_auto_profile, 1);
+  PUSH_INSERT_PASSES_WITHIN (pass_ipa_auto_profile, 1)
+      NEXT_PASS (pass_feedback_split_functions, 1);
+  POP_INSERT_PASSES ()
   NEXT_PASS (pass_ipa_tree_profile, 1);
   PUSH_INSERT_PASSES_WITHIN (pass_ipa_tree_profile, 1)
-      NEXT_PASS (pass_feedback_split_functions, 1);
+      NEXT_PASS (pass_feedback_split_functions, 2);
   POP_INSERT_PASSES ()
   NEXT_PASS_WITH_ARG (pass_ipa_free_fn_summary, 1, true /* small_p */);
   NEXT_PASS (pass_ipa_increase_alignment, 1);

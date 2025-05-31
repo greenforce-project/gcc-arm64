@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-05-24" "gcc-16.0.0" "GNU"
+.TH GCC 1 "2025-05-31" "gcc-16.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -3322,6 +3322,52 @@ Enable support for the \*(C+ coroutines extension (experimental).
 .IX Item "-fdiagnostics-all-candidates"
 Permit the \*(C+ front end to note all candidates during overload resolution
 failure, including when a deleted function is selected.
+.IP "\fB\-fdump\-lang\-\fR" 4
+.IX Item "-fdump-lang-"
+.PD 0
+.IP "\fB\-fdump\-lang\-\fR\fIswitch\fR" 4
+.IX Item "-fdump-lang-switch"
+.IP "\fB\-fdump\-lang\-\fR\fIswitch\fR\fB\-\fR\fIoptions\fR" 4
+.IX Item "-fdump-lang-switch-options"
+.IP "\fB\-fdump\-lang\-\fR\fIswitch\fR\fB\-\fR\fIoptions\fR\fB=\fR\fIfilename\fR" 4
+.IX Item "-fdump-lang-switch-options=filename"
+.PD
+Control the dumping of \*(C+\-specific information.  The \fIoptions\fR
+and \fIfilename\fR portions behave as described in the
+\&\fB\-fdump\-tree\fR option.  The following \fIswitch\fR values are
+accepted:
+.RS 4
+.IP "\fBall\fR" 4
+.IX Item "all"
+Enable all of the below.
+.IP "\fBclass\fR" 4
+.IX Item "class"
+Dump class hierarchy information.  Virtual table information is emitted
+unless '\fBslim\fR' is specified.
+.IP "\fBmodule\fR" 4
+.IX Item "module"
+Dump module information.  Options \fBlineno\fR (locations),
+\&\fBgraph\fR (reachability), \fBblocks\fR (clusters),
+\&\fBuid\fR (serialization), \fBalias\fR (mergeable),
+\&\fBasmname\fR (Elrond), \fBeh\fR (mapper) & \fBvops\fR
+(macros) may provide additional information.
+.IP "\fBraw\fR" 4
+.IX Item "raw"
+Dump the raw internal tree data.
+.IP "\fBtinst\fR" 4
+.IX Item "tinst"
+Dump the sequence of template instantiations, indented to show the
+depth of recursion.  The \fBlineno\fR option adds the source
+location where the instantiation was triggered, and the
+\&\fBdetails\fR option also dumps pre-instantiation substitutions
+such as those performed during template argument deduction.
+.Sp
+Lines in the .tinst dump start with \fBI\fR for an instantiation,
+\&\fBS\fR for another substitution, and \fBR[\s-1IS\s0]\fR for the reopened
+context of a deferred instantiation.
+.RE
+.RS 4
+.RE
 .IP "\fB\-fno\-elide\-constructors\fR" 4
 .IX Item "-fno-elide-constructors"
 The \*(C+ standard allows an implementation to omit creating a temporary
@@ -5835,16 +5881,23 @@ in this release.
 .IP "\fBexperimental-html\fR" 4
 .IX Item "experimental-html"
 Emit diagnostics to a file in \s-1HTML\s0 format.  This scheme is experimental,
-and may go away in future \s-1GCC\s0 releases.  The details of the output are
-also subject to change.
+and may go away in future \s-1GCC\s0 releases.  The keys and details of the output
+are also subject to change.
 .Sp
 Supported keys are:
 .RS 4
+.IP "\fBcss=\fR[\fByes\fR|\fBno\fR]" 4
+.IX Item "css=[yes|no]"
+Add an embedded <style> to the generated \s-1HTML.\s0  Defaults to yes.
 .IP "\fBfile=\fR\fI\s-1FILENAME\s0\fR" 4
 .IX Item "file=FILENAME"
 Specify the filename to write the \s-1HTML\s0 output to, potentially with a
 leading absolute or relative path.  If not specified, it defaults to
 \&\fI\fIsource\fI.html\fR.
+.IP "\fBjavascript=\fR[\fByes\fR|\fBno\fR]" 4
+.IX Item "javascript=[yes|no]"
+Add an embedded <script> to the generated \s-1HTML\s0 providing a barebones \s-1UI\s0
+for viewing results.  Defaults to yes.
 .RE
 .RS 4
 .RE
@@ -20178,30 +20231,9 @@ Dump language-specific information.  The file name is made by appending
 .PD
 Control the dumping of language-specific information.  The \fIoptions\fR
 and \fIfilename\fR portions behave as described in the
-\&\fB\-fdump\-tree\fR option.  The following \fIswitch\fR values are
-accepted:
-.RS 4
-.IP "\fBall\fR" 4
-.IX Item "all"
-Enable all language-specific dumps.
-.IP "\fBclass\fR" 4
-.IX Item "class"
-Dump class hierarchy information.  Virtual table information is emitted
-unless '\fBslim\fR' is specified.  This option is applicable to \*(C+ only.
-.IP "\fBmodule\fR" 4
-.IX Item "module"
-Dump module information.  Options \fBlineno\fR (locations),
-\&\fBgraph\fR (reachability), \fBblocks\fR (clusters),
-\&\fBuid\fR (serialization), \fBalias\fR (mergeable),
-\&\fBasmname\fR (Elrond), \fBeh\fR (mapper) & \fBvops\fR
-(macros) may provide additional information.  This option is
-applicable to \*(C+ only.
-.IP "\fBraw\fR" 4
-.IX Item "raw"
-Dump the raw internal tree data.  This option is applicable to \*(C+ only.
-.RE
-.RS 4
-.RE
+\&\fB\-fdump\-tree\fR option.  \fB\-fdump\-tree\-all\fR enables all
+language-specific dumps; other options vary with the language.  For
+instance, see
 .IP "\fB\-fdump\-passes\fR" 4
 .IX Item "-fdump-passes"
 Print on \fIstderr\fR the list of optimization passes that are turned
@@ -30747,6 +30779,10 @@ Supported extension are listed below:
 .IX Item "smstateen"
 \&\f(CW@tab\fR 1.0
 \&\f(CW@tab\fR State enable extension
+.IP "smdbltrp" 4
+.IX Item "smdbltrp"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Double Trap Extensions
 .IP "ssaia" 4
 .IX Item "ssaia"
 \&\f(CW@tab\fR 1.0
@@ -30775,6 +30811,10 @@ Supported extension are listed below:
 .IX Item "ssstrict"
 \&\f(CW@tab\fR 1.0
 \&\f(CW@tab\fR ssstrict extension
+.IP "ssdbltrp" 4
+.IX Item "ssdbltrp"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Double Trap Extensions
 .IP "supm" 4
 .IX Item "supm"
 \&\f(CW@tab\fR 1.0
