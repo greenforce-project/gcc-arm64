@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-05-31" "gcc-16.0.0" "GNU"
+.TH GCC 1 "2025-06-07" "gcc-16.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -2452,8 +2452,8 @@ with \s-1ISO C90\s0 are disabled). Same as \fB\-ansi\fR for C code.
 bugs and floating-point issues
 (mainly but not entirely relating to optional C99 features from
 Annexes F and G).  See
-<\fBhttps://gcc.gnu.org/c99status.html\fR> for more information.  The
-names \fBc9x\fR and \fBiso9899:199x\fR are deprecated.
+<\fBhttps://gcc.gnu.org/projects/c\-status.html\fR> for more information.
+The names \fBc9x\fR and \fBiso9899:199x\fR are deprecated.
 .IP "\fBc11\fR" 4
 .IX Item "c11"
 .PD 0
@@ -30018,11 +30018,12 @@ Enable generation of shift with immediate (\f(CW\*(C`l.srai\*(C'\fR, \f(CW\*(C`l
 to store the immediate to a register first.
 .IP "\fB\-mcmodel=small\fR" 4
 .IX Item "-mcmodel=small"
-Generate OpenRISC code for the small model: The \s-1GOT\s0 is limited to 64k. This is
-the default model.
+Generate OpenRISC code for the small model: The \s-1GOT\s0 is limited to 64k and
+function call jumps are limited to 64M offsets. This is the default model.
 .IP "\fB\-mcmodel=large\fR" 4
 .IX Item "-mcmodel=large"
-Generate OpenRISC code for the large model: The \s-1GOT\s0 may grow up to 4G in size.
+Generate OpenRISC code for the large model: The \s-1GOT\s0 may grow up to 4G in size
+and function call jumps can target the full 4G address space.
 .PP
 \fI\s-1PDP\-11\s0 Options\fR
 .IX Subsection "PDP-11 Options"
@@ -30743,6 +30744,10 @@ Supported extension are listed below:
 .IX Item "shgatpa"
 \&\f(CW@tab\fR 1.0
 \&\f(CW@tab\fR SvNNx4 mode supported for all modes supported by satp
+.IP "shlcofideleg" 4
+.IX Item "shlcofideleg"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Delegating \s-1LCOFI\s0 interrupts to VS-mode
 .IP "shtvala" 4
 .IX Item "shtvala"
 \&\f(CW@tab\fR 1.0
@@ -30763,6 +30768,14 @@ Supported extension are listed below:
 .IX Item "smaia"
 \&\f(CW@tab\fR 1.0
 \&\f(CW@tab\fR Advanced interrupt architecture extension
+.IP "smcntrpmf" 4
+.IX Item "smcntrpmf"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Cycle and instret privilege mode filtering
+.IP "smcsrind" 4
+.IX Item "smcsrind"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Machine-Level Indirect \s-1CSR\s0 Access
 .IP "smepmp" 4
 .IX Item "smepmp"
 \&\f(CW@tab\fR 1.0
@@ -30775,6 +30788,10 @@ Supported extension are listed below:
 .IX Item "smnpm"
 \&\f(CW@tab\fR 1.0
 \&\f(CW@tab\fR smnpm extension
+.IP "smrnmi" 4
+.IX Item "smrnmi"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Resumable Non-Maskable Interrupts
 .IP "smstateen" 4
 .IX Item "smstateen"
 \&\f(CW@tab\fR 1.0
@@ -30787,10 +30804,22 @@ Supported extension are listed below:
 .IX Item "ssaia"
 \&\f(CW@tab\fR 1.0
 \&\f(CW@tab\fR Advanced interrupt architecture extension for supervisor-mode
+.IP "ssccptr" 4
+.IX Item "ssccptr"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Main memory supports page table reads
 .IP "sscofpmf" 4
 .IX Item "sscofpmf"
 \&\f(CW@tab\fR 1.0
 \&\f(CW@tab\fR Count overflow & filtering extension
+.IP "sscounterenw" 4
+.IX Item "sscounterenw"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Support writeable enables for any supported counter
+.IP "sscsrind" 4
+.IX Item "sscsrind"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Supervisor-Level Indirect \s-1CSR\s0 Access
 .IP "ssnpm" 4
 .IX Item "ssnpm"
 \&\f(CW@tab\fR 1.0
@@ -30807,6 +30836,14 @@ Supported extension are listed below:
 .IX Item "sstc"
 \&\f(CW@tab\fR 1.0
 \&\f(CW@tab\fR Supervisor-mode timer interrupts extension
+.IP "sstvala" 4
+.IX Item "sstvala"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Stval provides all needed values
+.IP "sstvecd" 4
+.IX Item "sstvecd"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Stvec supports Direct mode
 .IP "ssstrict" 4
 .IX Item "ssstrict"
 \&\f(CW@tab\fR 1.0
@@ -30815,6 +30852,10 @@ Supported extension are listed below:
 .IX Item "ssdbltrp"
 \&\f(CW@tab\fR 1.0
 \&\f(CW@tab\fR Double Trap Extensions
+.IP "ssu64xl" 4
+.IX Item "ssu64xl"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR UXLEN=64 must be supported
 .IP "supm" 4
 .IX Item "supm"
 \&\f(CW@tab\fR 1.0
@@ -30843,6 +30884,10 @@ Supported extension are listed below:
 .IX Item "svade"
 \&\f(CW@tab\fR 1.0
 \&\f(CW@tab\fR Cause exception when hardware updating of A/D bits is disabled
+.IP "svbare" 4
+.IX Item "svbare"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Satp mode bare is supported
 .IP "xcvalu" 4
 .IX Item "xcvalu"
 \&\f(CW@tab\fR 1.0
@@ -30961,8 +31006,8 @@ Permissible values for this option are: \fBmips\-p8700\fR, \fBsifive\-e20\fR,
 \&\fBsifive\-e76\fR, \fBsifive\-s21\fR, \fBsifive\-s51\fR, \fBsifive\-s54\fR,
 \&\fBsifive\-s76\fR, \fBsifive\-u54\fR, \fBsifive\-u74\fR, \fBsifive\-x280\fR,
 \&\fBsifive\-xp450\fR, \fBsifive\-x670\fR, \fBthead\-c906\fR, \fBtt\-ascalon\-d8\fR,
-\&\fBxiangshan-nanhu\fR, \fBxt\-c908\fR, \fBxt\-c908v\fR, \fBxt\-c910\fR, \fBxt\-c910v2\fR,
-\&\fBxt\-c920\fR, \fBxt\-c920v2\fR.
+\&\fBxiangshan-nanhu\fR, \fBxiangshan-kunminghu\fR, \fBxt\-c908\fR, \fBxt\-c908v\fR,
+\&\fBxt\-c910\fR, \fBxt\-c910v2\fR, \fBxt\-c920\fR, \fBxt\-c920v2\fR.
 .Sp
 Note that \fB\-mcpu\fR does not override \fB\-march\fR or \fB\-mtune\fR.
 .IP "\fB\-mtune=\fR\fIprocessor-string\fR" 4

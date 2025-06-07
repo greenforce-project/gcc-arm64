@@ -927,9 +927,10 @@ different threads to work on different BFD objects at the same time.
      Initialize BFD threading.  The functions passed in will be used to
      lock and unlock global data structures.  This may only be called a
      single time in a given process.  Returns true on success and false
-     on error.  DATA is passed verbatim to the lock and unlock
-     functions.  The lock and unlock functions should return true on
-     success, or set the BFD error and return false on failure.  Note
+     on error.  On error, the caller should assume that BFD cannot be
+     used by multiple threads.  DATA is passed verbatim to the lock and
+     unlock functions.  The lock and unlock functions should return true
+     on success, or set the BFD error and return false on failure.  Note
      also that the lock must be a recursive lock: BFD may attempt to
      acquire the lock when it is already held by the current thread.
 
@@ -12013,8 +12014,8 @@ BFD Index
                                                              (line   82)
 * bfd_link_split_section <1>:            Writing the symbol table.
                                                              (line   86)
-* bfd_lock:                              Threading.          (line   45)
-* bfd_lock <1>:                          Threading.          (line   49)
+* bfd_lock:                              Threading.          (line   46)
+* bfd_lock <1>:                          Threading.          (line   50)
 * bfd_log2:                              Internal.           (line  280)
 * bfd_lookup_arch:                       Architectures.      (line  698)
 * bfd_make_debug_symbol:                 symbol handling functions.
@@ -14692,12 +14693,12 @@ BFD Index
 * bfd_target_list:                       bfd_target.         (line  590)
 * bfd_tell:                              Miscellaneous.      (line  389)
 * bfd_tell <1>:                          Miscellaneous.      (line  393)
-* bfd_thread_cleanup:                    Threading.          (line   36)
-* bfd_thread_cleanup <1>:                Threading.          (line   40)
+* bfd_thread_cleanup:                    Threading.          (line   37)
+* bfd_thread_cleanup <1>:                Threading.          (line   41)
 * bfd_thread_init:                       Threading.          (line   22)
 * bfd_thread_init <1>:                   Threading.          (line   26)
-* bfd_unlock:                            Threading.          (line   52)
-* bfd_unlock <1>:                        Threading.          (line   56)
+* bfd_unlock:                            Threading.          (line   53)
+* bfd_unlock <1>:                        Threading.          (line   57)
 * bfd_write:                             Miscellaneous.      (line  381)
 * bfd_write <1>:                         Miscellaneous.      (line  385)
 * bfd_write_bigendian_4byte_int:         Internal.           (line   91)
@@ -14766,60 +14767,60 @@ Node: typedef bfd13566
 Node: Error reporting27423
 Node: Initialization34754
 Node: Threading35285
-Node: Miscellaneous37482
-Node: Memory Usage56914
-Node: Sections58139
-Node: Section Input58620
-Node: Section Output59814
-Node: typedef asection62301
-Node: section prototypes79723
-Node: Symbols90993
-Node: Reading Symbols92596
-Node: Writing Symbols93704
-Node: Mini Symbols95448
-Node: typedef asymbol96422
-Node: symbol handling functions102628
-Node: Archives107843
-Node: Formats111991
-Node: Relocations115334
-Node: typedef arelent116061
-Node: howto manager129936
-Node: Core Files269126
-Node: Targets271127
-Node: bfd_target273088
-Node: Architectures299193
-Node: Opening and Closing331487
-Node: Internal347346
-Node: File Caching358681
-Node: Linker Functions361444
-Node: Creating a Linker Hash Table363118
-Node: Adding Symbols to the Hash Table364857
-Node: Differing file formats365757
-Node: Adding symbols from an object file367482
-Node: Adding symbols from an archive369632
-Node: Performing the Final Link371978
-Node: Information provided by the linker373219
-Node: Relocating the section contents374373
-Node: Writing the symbol table376125
-Node: Hash Tables385473
-Node: Creating and Freeing a Hash Table386671
-Node: Looking Up or Entering a String387921
-Node: Traversing a Hash Table389174
-Node: Deriving a New Hash Table Type389963
-Node: Define the Derived Structures391029
-Node: Write the Derived Creation Routine392110
-Node: Write Other Derived Routines394721
-Node: BFD back ends400146
-Node: What to Put Where400416
-Node: aout400596
-Node: coff406681
-Node: elf427614
-Node: mmo428015
-Node: File layout428885
-Node: Symbol-table434798
-Node: mmo section mapping438561
-Node: GNU Free Documentation License442215
-Node: BFD Index467279
+Node: Miscellaneous37568
+Node: Memory Usage57000
+Node: Sections58225
+Node: Section Input58706
+Node: Section Output59900
+Node: typedef asection62387
+Node: section prototypes79809
+Node: Symbols91079
+Node: Reading Symbols92682
+Node: Writing Symbols93790
+Node: Mini Symbols95534
+Node: typedef asymbol96508
+Node: symbol handling functions102714
+Node: Archives107929
+Node: Formats112077
+Node: Relocations115420
+Node: typedef arelent116147
+Node: howto manager130022
+Node: Core Files269212
+Node: Targets271213
+Node: bfd_target273174
+Node: Architectures299279
+Node: Opening and Closing331573
+Node: Internal347432
+Node: File Caching358767
+Node: Linker Functions361530
+Node: Creating a Linker Hash Table363204
+Node: Adding Symbols to the Hash Table364943
+Node: Differing file formats365843
+Node: Adding symbols from an object file367568
+Node: Adding symbols from an archive369718
+Node: Performing the Final Link372064
+Node: Information provided by the linker373305
+Node: Relocating the section contents374459
+Node: Writing the symbol table376211
+Node: Hash Tables385559
+Node: Creating and Freeing a Hash Table386757
+Node: Looking Up or Entering a String388007
+Node: Traversing a Hash Table389260
+Node: Deriving a New Hash Table Type390049
+Node: Define the Derived Structures391115
+Node: Write the Derived Creation Routine392196
+Node: Write Other Derived Routines394807
+Node: BFD back ends400232
+Node: What to Put Where400502
+Node: aout400682
+Node: coff406767
+Node: elf427700
+Node: mmo428101
+Node: File layout428971
+Node: Symbol-table434884
+Node: mmo section mapping438647
+Node: GNU Free Documentation License442301
+Node: BFD Index467365
 
 End Tag Table
 
