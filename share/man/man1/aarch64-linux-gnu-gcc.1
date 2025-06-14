@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-06-07" "gcc-16.0.0" "GNU"
+.TH GCC 1 "2025-06-14" "gcc-16.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -16321,6 +16321,10 @@ this parameter.  The default value of this parameter is 50.
 .IP "\fBvect-induction-float\fR" 4
 .IX Item "vect-induction-float"
 Enable loop vectorization of floating point inductions.
+.IP "\fBvect-scalar-cost-multiplier\fR" 4
+.IX Item "vect-scalar-cost-multiplier"
+Apply the given multiplier % to scalar loop costing during vectorization.
+Increasing the cost multiplier will make vector loops more profitable.
 .IP "\fBvrp-block-limit\fR" 4
 .IX Item "vrp-block-limit"
 Maximum number of basic blocks before \s-1VRP\s0 switches to a lower memory algorithm.
@@ -21929,10 +21933,20 @@ Compile for \s-1CDNA2\s0 Instinct \s-1MI200\s0 series devices (gfx90a).
 .IP "\fBgfx90c\fR" 4
 .IX Item "gfx90c"
 Compile for \s-1GCN5\s0 Vega 7 devices (gfx90c).
+.IP "\fBgfx942\fR" 4
+.IX Item "gfx942"
+Compile for \s-1CDNA3\s0 Instinct \s-1MI300\s0 series devices (gfx942). (Experimental)
+.IP "\fBgfx950\fR" 4
+.IX Item "gfx950"
+Compile for the \s-1CDNA3\s0 gfx950 devices. (Experimental)
 .IP "\fBgfx9\-generic\fR" 4
 .IX Item "gfx9-generic"
 Compile generic code for Vega devices, executable on the following subset of
 \&\s-1GFX9\s0 devices: gfx900, gfx902, gfx904, gfx906, gfx909 and gfx90c. (Experimental)
+.IP "\fBgfx9\-4\-generic\fR" 4
+.IX Item "gfx9-4-generic"
+Compile generic code for \s-1CDNA3\s0 devices, executable on the following subset of
+\&\s-1GFX9\s0 devices: gfx942 and gfx950. (Experimental)
 .IP "\fBgfx1030\fR" 4
 .IX Item "gfx1030"
 Compile for \s-1RDNA2\s0 gfx1030 devices (\s-1GFX10\s0 series).
@@ -30791,7 +30805,7 @@ Supported extension are listed below:
 .IP "smrnmi" 4
 .IX Item "smrnmi"
 \&\f(CW@tab\fR 1.0
-\&\f(CW@tab\fR Resumable Non-Maskable Interrupts
+\&\f(CW@tab\fR Resumable non-maskable interrupts
 .IP "smstateen" 4
 .IX Item "smstateen"
 \&\f(CW@tab\fR 1.0

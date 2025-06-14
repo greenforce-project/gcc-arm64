@@ -1144,15 +1144,16 @@ option.
      'amdgcn*-*-*'
           LIST is a comma separated list of ISA names (allowed values:
           'gfx900', 'gfx902', 'gfx904', 'gfx906', 'gfx908', 'gfx909',
-          'gfx90a', 'gfx90c', 'gfx9-generic', 'gfx1030', 'gfx1031',
-          'gfx1032', 'gfx1033', 'gfx1034', 'gfx1035', 'gfx1036',
-          'gfx10-3-generic', 'gfx1100', 'gfx1101', 'gfx1102', 'gfx1103',
-          'gfx1150', 'gfx1151', 'gfx1152', 'gfx1153', 'gfx11-generic').
-          It ought not include the name of the default ISA, specified
-          via '--with-arch'.  If LIST is empty, then there will be no
-          multilibs and only the default run-time library will be built.
-          If LIST is 'default' or '--with-multilib-list=' is not
-          specified, then the default set of libraries is selected.
+          'gfx90a', 'gfx90c', 'gfx942', 'gfx950', 'gfx9-generic',
+          'gfx9-4-generic', 'gfx1030', 'gfx1031', 'gfx1032', 'gfx1033',
+          'gfx1034', 'gfx1035', 'gfx1036', 'gfx10-3-generic', 'gfx1100',
+          'gfx1101', 'gfx1102', 'gfx1103', 'gfx1150', 'gfx1151',
+          'gfx1152', 'gfx1153', 'gfx11-generic').  It ought not include
+          the name of the default ISA, specified via '--with-arch'.  If
+          LIST is empty, then there will be no multilibs and only the
+          default run-time library will be built.  If LIST is 'default'
+          or '--with-multilib-list=' is not specified, then the default
+          set of libraries is selected.
 
      'arm*-*-*'
           LIST is a comma separated list of 'aprofile' and 'rmprofile'
@@ -3410,9 +3411,9 @@ not supported and gives a linker error.
 newer.  LLVM 13.0.1 or LLVM 14 can be used by specifying a
 '--with-multilib-list=' that does not list any GFX 11 device nor
 'gfx1036'.  At least LLVM 16 is required for 'gfx1150' and 'gfx1151',
-LLVM 19 for the generic 'gfx9-generic', 'gfx10-3-generic', and
-'gfx11-generic' targets and for 'gfx1152', while LLVM 20 is required for
-'gfx1153'.
+LLVM 18 for 'gfx942', LLVM 19 for the generic 'gfx9-generic',
+'gfx9-4-generic', 'gfx10-3-generic', and 'gfx11-generic' targets and for
+'gfx1152', while LLVM 20 is required for 'gfx950' and 'gfx1153'.
 
    The supported ISA architectures are listed in the GCC manual.  The
 generic ISA targets 'gfx9-generic', 'gfx10-3-generic', and
@@ -4875,7 +4876,7 @@ Concept Index
 * Menu:
 
 * Binaries:                              Binaries.           (line    6)
-* build_configargs:                      Configuration.      (line 2008)
+* build_configargs:                      Configuration.      (line 2009)
 * cobol:                                 Prerequisites.      (line   84)
 * Configuration:                         Configuration.      (line    6)
 * Downloading GCC:                       Downloading the source.
@@ -4885,7 +4886,7 @@ Concept Index
 * FDL, GNU Free Documentation License:   GNU Free Documentation License.
                                                              (line    6)
 * Host specific installation:            Specific.           (line    6)
-* host_configargs:                       Configuration.      (line 2012)
+* host_configargs:                       Configuration.      (line 2013)
 * Installing GCC: Binaries:              Binaries.           (line    6)
 * Installing GCC: Building:              Building.           (line    6)
 * Installing GCC: Configuration:         Configuration.      (line    6)
@@ -4895,7 +4896,7 @@ Concept Index
 * Specific installation notes:           Specific.           (line    6)
 * Target specific installation:          Specific.           (line    6)
 * Target specific installation notes:    Specific.           (line    6)
-* target_configargs:                     Configuration.      (line 2016)
+* target_configargs:                     Configuration.      (line 2017)
 * Testing:                               Testing.            (line    6)
 * Testsuite:                             Testing.            (line    6)
 
@@ -4916,92 +4917,92 @@ Ref: with-gnu-as42034
 Ref: with-as42855
 Ref: with-gnu-ld44220
 Ref: with-multilib-list47826
-Ref: WithAixSoname75797
-Ref: AixLdCommand76458
-Ref: with-included-gettext92358
-Node: Building120711
-Node: Testing137616
-Node: Final install145147
-Node: Binaries148325
-Node: Specific149265
-Ref: aarch64-x-x149799
-Ref: amd64-x-solaris2151640
-Ref: amdgcn-x-amdhsa151722
-Ref: arc-x-elf32153687
-Ref: arc-linux-uclibc153863
-Ref: arm-x-eabi154004
-Ref: avr154257
-Ref: bfin154739
-Ref: cris155002
-Ref: dos155328
-Ref: epiphany-x-elf155653
-Ref: x-x-freebsd155758
-Ref: ft32-x-elf156349
-Ref: h8300-hms156447
-Ref: hppa64-hp-hpux11156506
-Ref: x-x-linux-gnu157263
-Ref: ix86-x-linux157456
-Ref: ix86-x-solaris2157658
-Ref: ia64-x-linux157897
-Ref: ia64-x-hpux158144
-Ref: x-ibm-aix158362
-Ref: TransferAixShobj162024
-Ref: iq2000-x-elf165606
-Ref: lm32-x-elf165746
-Ref: lm32-x-uclinux165850
-Ref: loongarch165978
-Ref: m32c-x-elf166615
-Ref: m32r-x-elf166717
-Ref: m68k-x-x166819
-Ref: m68k-x-uclinux167857
-Ref: microblaze-x-elf168102
-Ref: mips-x-x168221
-Ref: moxie-x-elf170131
-Ref: msp430-x-elf170178
-Ref: nds32le-x-elf170735
-Ref: nds32be-x-elf170807
-Ref: nvptx-x-none170876
-Ref: or1k-x-elf171833
-Ref: or1k-x-linux171964
-Ref: powerpc-x-x172045
-Ref: powerpc-x-darwin172236
-Ref: powerpc-x-elf172731
-Ref: powerpc-x-linux-gnu172816
-Ref: powerpc-x-netbsd172911
-Ref: powerpc-x-eabisim172999
-Ref: powerpc-x-eabi173125
-Ref: powerpcle-x-elf173201
-Ref: powerpcle-x-eabisim173293
-Ref: powerpcle-x-eabi173426
-Ref: rl78-x-elf173509
-Ref: riscv32-x-elf173615
-Ref: riscv32-x-linux173804
-Ref: riscv64-x-elf173961
-Ref: riscv64-x-linux174150
-Ref: rx-x-elf174307
-Ref: s390-x-linux174353
-Ref: s390x-x-linux174425
-Ref: s390x-ibm-tpf174512
-Ref: x-x-solaris2174643
-Ref: sparc-x-x178125
-Ref: sparc-sun-solaris2178627
-Ref: sparc-x-linux179526
-Ref: sparc64-x-solaris2179557
-Ref: sparcv9-x-solaris2179644
-Ref: c6x-x-x180365
-Ref: visium-x-elf180457
-Ref: x-x-vxworks180565
-Ref: x86-64-x-x182088
-Ref: x86-64-x-solaris2182416
-Ref: xtensa-x-elf182921
-Ref: xtensa-x-linux183592
-Ref: windows183933
-Ref: x-x-cygwin185519
-Ref: x-x-mingw32186072
-Ref: older186298
-Ref: elf188261
-Node: GNU Free Documentation License188515
-Node: Concept Index213653
+Ref: WithAixSoname75847
+Ref: AixLdCommand76508
+Ref: with-included-gettext92408
+Node: Building120761
+Node: Testing137666
+Node: Final install145197
+Node: Binaries148375
+Node: Specific149315
+Ref: aarch64-x-x149849
+Ref: amd64-x-solaris2151690
+Ref: amdgcn-x-amdhsa151772
+Ref: arc-x-elf32153790
+Ref: arc-linux-uclibc153966
+Ref: arm-x-eabi154107
+Ref: avr154360
+Ref: bfin154842
+Ref: cris155105
+Ref: dos155431
+Ref: epiphany-x-elf155756
+Ref: x-x-freebsd155861
+Ref: ft32-x-elf156452
+Ref: h8300-hms156550
+Ref: hppa64-hp-hpux11156609
+Ref: x-x-linux-gnu157366
+Ref: ix86-x-linux157559
+Ref: ix86-x-solaris2157761
+Ref: ia64-x-linux158000
+Ref: ia64-x-hpux158247
+Ref: x-ibm-aix158465
+Ref: TransferAixShobj162127
+Ref: iq2000-x-elf165709
+Ref: lm32-x-elf165849
+Ref: lm32-x-uclinux165953
+Ref: loongarch166081
+Ref: m32c-x-elf166718
+Ref: m32r-x-elf166820
+Ref: m68k-x-x166922
+Ref: m68k-x-uclinux167960
+Ref: microblaze-x-elf168205
+Ref: mips-x-x168324
+Ref: moxie-x-elf170234
+Ref: msp430-x-elf170281
+Ref: nds32le-x-elf170838
+Ref: nds32be-x-elf170910
+Ref: nvptx-x-none170979
+Ref: or1k-x-elf171936
+Ref: or1k-x-linux172067
+Ref: powerpc-x-x172148
+Ref: powerpc-x-darwin172339
+Ref: powerpc-x-elf172834
+Ref: powerpc-x-linux-gnu172919
+Ref: powerpc-x-netbsd173014
+Ref: powerpc-x-eabisim173102
+Ref: powerpc-x-eabi173228
+Ref: powerpcle-x-elf173304
+Ref: powerpcle-x-eabisim173396
+Ref: powerpcle-x-eabi173529
+Ref: rl78-x-elf173612
+Ref: riscv32-x-elf173718
+Ref: riscv32-x-linux173907
+Ref: riscv64-x-elf174064
+Ref: riscv64-x-linux174253
+Ref: rx-x-elf174410
+Ref: s390-x-linux174456
+Ref: s390x-x-linux174528
+Ref: s390x-ibm-tpf174615
+Ref: x-x-solaris2174746
+Ref: sparc-x-x178228
+Ref: sparc-sun-solaris2178730
+Ref: sparc-x-linux179629
+Ref: sparc64-x-solaris2179660
+Ref: sparcv9-x-solaris2179747
+Ref: c6x-x-x180468
+Ref: visium-x-elf180560
+Ref: x-x-vxworks180668
+Ref: x86-64-x-x182191
+Ref: x86-64-x-solaris2182519
+Ref: xtensa-x-elf183024
+Ref: xtensa-x-linux183695
+Ref: windows184036
+Ref: x-x-cygwin185622
+Ref: x-x-mingw32186175
+Ref: older186401
+Ref: elf188364
+Node: GNU Free Documentation License188618
+Node: Concept Index213756
 
 End Tag Table
 
