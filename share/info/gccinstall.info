@@ -507,6 +507,9 @@ Texinfo version 4.7 (or later)
      you may still want to install a newer release to get the best
      appearance and usability of the generated manuals.
 
+     Also note that Texinfo older than version 7.1 may throw incorrect
+     build warnings, though the generated documentation is correct.
+
 TeX (any working version)
 
      Necessary for running 'texi2dvi' and 'texi2pdf', which are used
@@ -4911,98 +4914,98 @@ Ref: GCOBOL-prerequisite7372
 Ref: GDC-prerequisite8465
 Ref: GM2-prerequisite9648
 Ref: gccrs-prerequisite9915
-Node: Downloading the source20896
-Node: Configuration22648
-Ref: with-gnu-as42034
-Ref: with-as42855
-Ref: with-gnu-ld44220
-Ref: with-multilib-list47826
-Ref: WithAixSoname75847
-Ref: AixLdCommand76508
-Ref: with-included-gettext92408
-Node: Building120761
-Node: Testing137666
-Node: Final install145197
-Node: Binaries148375
-Node: Specific149315
-Ref: aarch64-x-x149849
-Ref: amd64-x-solaris2151690
-Ref: amdgcn-x-amdhsa151772
-Ref: arc-x-elf32153790
-Ref: arc-linux-uclibc153966
-Ref: arm-x-eabi154107
-Ref: avr154360
-Ref: bfin154842
-Ref: cris155105
-Ref: dos155431
-Ref: epiphany-x-elf155756
-Ref: x-x-freebsd155861
-Ref: ft32-x-elf156452
-Ref: h8300-hms156550
-Ref: hppa64-hp-hpux11156609
-Ref: x-x-linux-gnu157366
-Ref: ix86-x-linux157559
-Ref: ix86-x-solaris2157761
-Ref: ia64-x-linux158000
-Ref: ia64-x-hpux158247
-Ref: x-ibm-aix158465
-Ref: TransferAixShobj162127
-Ref: iq2000-x-elf165709
-Ref: lm32-x-elf165849
-Ref: lm32-x-uclinux165953
-Ref: loongarch166081
-Ref: m32c-x-elf166718
-Ref: m32r-x-elf166820
-Ref: m68k-x-x166922
-Ref: m68k-x-uclinux167960
-Ref: microblaze-x-elf168205
-Ref: mips-x-x168324
-Ref: moxie-x-elf170234
-Ref: msp430-x-elf170281
-Ref: nds32le-x-elf170838
-Ref: nds32be-x-elf170910
-Ref: nvptx-x-none170979
-Ref: or1k-x-elf171936
-Ref: or1k-x-linux172067
-Ref: powerpc-x-x172148
-Ref: powerpc-x-darwin172339
-Ref: powerpc-x-elf172834
-Ref: powerpc-x-linux-gnu172919
-Ref: powerpc-x-netbsd173014
-Ref: powerpc-x-eabisim173102
-Ref: powerpc-x-eabi173228
-Ref: powerpcle-x-elf173304
-Ref: powerpcle-x-eabisim173396
-Ref: powerpcle-x-eabi173529
-Ref: rl78-x-elf173612
-Ref: riscv32-x-elf173718
-Ref: riscv32-x-linux173907
-Ref: riscv64-x-elf174064
-Ref: riscv64-x-linux174253
-Ref: rx-x-elf174410
-Ref: s390-x-linux174456
-Ref: s390x-x-linux174528
-Ref: s390x-ibm-tpf174615
-Ref: x-x-solaris2174746
-Ref: sparc-x-x178228
-Ref: sparc-sun-solaris2178730
-Ref: sparc-x-linux179629
-Ref: sparc64-x-solaris2179660
-Ref: sparcv9-x-solaris2179747
-Ref: c6x-x-x180468
-Ref: visium-x-elf180560
-Ref: x-x-vxworks180668
-Ref: x86-64-x-x182191
-Ref: x86-64-x-solaris2182519
-Ref: xtensa-x-elf183024
-Ref: xtensa-x-linux183695
-Ref: windows184036
-Ref: x-x-cygwin185622
-Ref: x-x-mingw32186175
-Ref: older186401
-Ref: elf188364
-Node: GNU Free Documentation License188618
-Node: Concept Index213756
+Node: Downloading the source21036
+Node: Configuration22788
+Ref: with-gnu-as42174
+Ref: with-as42995
+Ref: with-gnu-ld44360
+Ref: with-multilib-list47966
+Ref: WithAixSoname75987
+Ref: AixLdCommand76648
+Ref: with-included-gettext92548
+Node: Building120901
+Node: Testing137806
+Node: Final install145337
+Node: Binaries148515
+Node: Specific149455
+Ref: aarch64-x-x149989
+Ref: amd64-x-solaris2151830
+Ref: amdgcn-x-amdhsa151912
+Ref: arc-x-elf32153930
+Ref: arc-linux-uclibc154106
+Ref: arm-x-eabi154247
+Ref: avr154500
+Ref: bfin154982
+Ref: cris155245
+Ref: dos155571
+Ref: epiphany-x-elf155896
+Ref: x-x-freebsd156001
+Ref: ft32-x-elf156592
+Ref: h8300-hms156690
+Ref: hppa64-hp-hpux11156749
+Ref: x-x-linux-gnu157506
+Ref: ix86-x-linux157699
+Ref: ix86-x-solaris2157901
+Ref: ia64-x-linux158140
+Ref: ia64-x-hpux158387
+Ref: x-ibm-aix158605
+Ref: TransferAixShobj162267
+Ref: iq2000-x-elf165849
+Ref: lm32-x-elf165989
+Ref: lm32-x-uclinux166093
+Ref: loongarch166221
+Ref: m32c-x-elf166858
+Ref: m32r-x-elf166960
+Ref: m68k-x-x167062
+Ref: m68k-x-uclinux168100
+Ref: microblaze-x-elf168345
+Ref: mips-x-x168464
+Ref: moxie-x-elf170374
+Ref: msp430-x-elf170421
+Ref: nds32le-x-elf170978
+Ref: nds32be-x-elf171050
+Ref: nvptx-x-none171119
+Ref: or1k-x-elf172076
+Ref: or1k-x-linux172207
+Ref: powerpc-x-x172288
+Ref: powerpc-x-darwin172479
+Ref: powerpc-x-elf172974
+Ref: powerpc-x-linux-gnu173059
+Ref: powerpc-x-netbsd173154
+Ref: powerpc-x-eabisim173242
+Ref: powerpc-x-eabi173368
+Ref: powerpcle-x-elf173444
+Ref: powerpcle-x-eabisim173536
+Ref: powerpcle-x-eabi173669
+Ref: rl78-x-elf173752
+Ref: riscv32-x-elf173858
+Ref: riscv32-x-linux174047
+Ref: riscv64-x-elf174204
+Ref: riscv64-x-linux174393
+Ref: rx-x-elf174550
+Ref: s390-x-linux174596
+Ref: s390x-x-linux174668
+Ref: s390x-ibm-tpf174755
+Ref: x-x-solaris2174886
+Ref: sparc-x-x178368
+Ref: sparc-sun-solaris2178870
+Ref: sparc-x-linux179769
+Ref: sparc64-x-solaris2179800
+Ref: sparcv9-x-solaris2179887
+Ref: c6x-x-x180608
+Ref: visium-x-elf180700
+Ref: x-x-vxworks180808
+Ref: x86-64-x-x182331
+Ref: x86-64-x-solaris2182659
+Ref: xtensa-x-elf183164
+Ref: xtensa-x-linux183835
+Ref: windows184176
+Ref: x-x-cygwin185762
+Ref: x-x-mingw32186315
+Ref: older186541
+Ref: elf188504
+Node: GNU Free Documentation License188758
+Node: Concept Index213896
 
 End Tag Table
 

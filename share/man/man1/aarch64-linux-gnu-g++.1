@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-06-14" "gcc-16.0.0" "GNU"
+.TH GCC 1 "2025-06-21" "gcc-16.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -293,7 +293,7 @@ in the following sections.
 \&\-Wnoexcept  \-Wnoexcept\-type  \-Wnon\-virtual\-dtor
 \&\-Wpessimizing\-move  \-Wno\-placement\-new  \-Wplacement\-new=\fR\fIn\fR
 \&\fB\-Wrange\-loop\-construct \-Wredundant\-move \-Wredundant\-tags
-\&\-Wreorder  \-Wregister
+\&\-Wreorder  \-Wregister \-Wno\-sfinae\-incomplete
 \&\-Wstrict\-null\-sentinel  \-Wno\-subobject\-linkage  \-Wtemplates
 \&\-Wno\-non\-template\-friend  \-Wold\-style\-cast
 \&\-Woverloaded\-virtual  \-Wno\-pmf\-conversions \-Wself\-move \-Wsign\-promo
@@ -4368,6 +4368,18 @@ to filter out those warnings.
 .IX Item "-Wno-exceptions ( and Objective- only)"
 Disable the warning about the case when an exception handler is shadowed by
 another handler, which can point out a wrong ordering of exception handlers.
+.Sp
+Warn about a class that is found to be incomplete, or a function with
+auto return type that has not yet been deduced, in a context where
+that causes substitution failure rather than an error, and then the
+class or function is defined later in the translation unit.  This is
+problematic because template instantiations or concept checks could
+have different results if they first occur either before or after the
+definition.
+.Sp
+This warning is enabled by default.  \fB\-Wsfinae\-incomplete=2\fR
+adds a warning at the point of substitution failure, to make it easier
+to track down problems flagged by the default mode.
 .IP "\fB\-Wstrict\-null\-sentinel\fR (\*(C+ and Objective\-\*(C+ only)" 4
 .IX Item "-Wstrict-null-sentinel ( and Objective- only)"
 Warn about the use of an uncasted \f(CW\*(C`NULL\*(C'\fR as sentinel.  When

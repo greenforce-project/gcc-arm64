@@ -118,6 +118,7 @@ extern bool descending_int_parallel (rtx, machine_mode);
 extern bool ascending_int_parallel (rtx, machine_mode);
 extern bool aarch64_simd_lshift_imm (rtx, machine_mode);
 extern bool aarch64_simd_rshift_imm (rtx, machine_mode);
+extern bool aarch64_predicate_operand (rtx, machine_mode);
 extern bool aarch64_simd_imm_zero (rtx, machine_mode);
 extern bool aarch64_simd_imm_one (rtx, machine_mode);
 extern bool aarch64_simd_or_scalar_imm_zero (rtx, machine_mode);
