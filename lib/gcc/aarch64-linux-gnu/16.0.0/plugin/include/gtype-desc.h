@@ -893,6 +893,10 @@ extern void gt_ggc_mx_hash_table_tree_decl_map_cache_hasher_ (void *);
   if ((intptr_t)(X) != 0) gt_ggc_mx_hash_table_tree_vec_map_cache_hasher_ (X);\
   } while (0)
 extern void gt_ggc_mx_hash_table_tree_vec_map_cache_hasher_ (void *);
+#define gt_ggc_m_43hash_map_tree_long_identifier_count_traits_(X) do { \
+  if ((intptr_t)(X) != 0) gt_ggc_mx_hash_map_tree_long_identifier_count_traits_ (X);\
+  } while (0)
+extern void gt_ggc_mx_hash_map_tree_long_identifier_count_traits_ (void *);
 #define gt_ggc_m_26hash_table_section_hasher_(X) do { \
   if ((intptr_t)(X) != 0) gt_ggc_mx_hash_table_section_hasher_ (X);\
   } while (0)
@@ -2482,6 +2486,10 @@ extern void gt_pch_nx_hash_table_tree_decl_map_cache_hasher_ (void *);
   if ((intptr_t)(X) != 0) gt_pch_nx_hash_table_tree_vec_map_cache_hasher_ (X);\
   } while (0)
 extern void gt_pch_nx_hash_table_tree_vec_map_cache_hasher_ (void *);
+#define gt_pch_n_43hash_map_tree_long_identifier_count_traits_(X) do { \
+  if ((intptr_t)(X) != 0) gt_pch_nx_hash_map_tree_long_identifier_count_traits_ (X);\
+  } while (0)
+extern void gt_pch_nx_hash_map_tree_long_identifier_count_traits_ (void *);
 #define gt_pch_n_26hash_table_section_hasher_(X) do { \
   if ((intptr_t)(X) != 0) gt_pch_nx_hash_table_section_hasher_ (X);\
   } while (0)
@@ -3726,6 +3734,8 @@ extern void gt_pch_p_28hash_table_cl_option_hasher_
 extern void gt_pch_p_38hash_table_tree_decl_map_cache_hasher_
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_37hash_table_tree_vec_map_cache_hasher_
+    (void *, void *, gt_pointer_operator, void *);
+extern void gt_pch_p_43hash_map_tree_long_identifier_count_traits_
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_26hash_table_section_hasher_
     (void *, void *, gt_pointer_operator, void *);

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-06-21" "gcc-16.0.0" "GNU"
+.TH GCC 1 "2025-06-28" "gcc-16.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -591,7 +591,7 @@ in the following sections.
 \&\-fmin\-function\-alignment=[\fR\fIn\fR\fB]
 \&\-fno\-allocation\-dce \-fallow\-store\-data\-races
 \&\-fassociative\-math  \-fauto\-profile  \-fauto\-profile[=\fR\fIpath\fR\fB]
-\&\-fauto\-inc\-dec  \-fbranch\-probabilities
+\&\-fauto\-profile\-inlining \-fauto\-inc\-dec  \-fbranch\-probabilities
 \&\-fcaller\-saves
 \&\-fcombine\-stack\-adjustments  \-fconserve\-stack
 \&\-ffold\-mem\-offsets
@@ -5889,6 +5889,16 @@ future \s-1SARIF 2.2\s0 specification and should only be used for experimentatio
 in this release.
 .RE
 .RS 4
+.Sp
+There is also this key intended for use by \s-1GCC\s0 developers, rather than
+end-users, and subject to change or removal without notice:
+.IP "\fBxml\-state=\fR[\fByes\fR|\fBno\fR]" 4
+.IX Item "xml-state=[yes|no]"
+This is a debugging feature and defaults to \f(CW\*(C`no\*(C'\fR.
+If \f(CW\*(C`xml\-state=yes\*(C'\fR, then attempt to capture detailed state information
+from \fB\-fanalyzer\fR in the generated \s-1SARIF.\s0
+.RE
+.RS 4
 .RE
 .IP "\fBexperimental-html\fR" 4
 .IX Item "experimental-html"
@@ -5910,6 +5920,33 @@ leading absolute or relative path.  If not specified, it defaults to
 .IX Item "javascript=[yes|no]"
 Add an embedded <script> to the generated \s-1HTML\s0 providing a barebones \s-1UI\s0
 for viewing results.  Defaults to yes.
+.RE
+.RS 4
+.Sp
+There are also these keys intended for use by \s-1GCC\s0 developers, rather than
+end-users, and subject to change or removal without notice:
+.IP "\fBshow\-state\-diagrams=\fR[\fByes\fR|\fBno\fR]" 4
+.IX Item "show-state-diagrams=[yes|no]"
+This is a debugging feature and defaults to \f(CW\*(C`no\*(C'\fR.
+If \f(CW\*(C`show\-state\-diagrams=yes\*(C'\fR, then attempt to use \fBdot\fR to
+generate \s-1SVG\s0 diagrams in the generated \s-1HTML,\s0 visualizing the state at each
+event in a diagnostic path.
+These are visible by pressing \*(L"j\*(R" and \*(L"k\*(R" to single-step forward and
+backward through events.  Enabling this option will slow down
+\&\s-1HTML\s0 generation.
+.IP "\fBshow\-state\-diagrams\-dot\-src=\fR[\fByes\fR|\fBno\fR]" 4
+.IX Item "show-state-diagrams-dot-src=[yes|no]"
+This is a debugging feature and defaults to \f(CW\*(C`no\*(C'\fR.
+If \f(CW\*(C`show\-state\-diagrams\-dot\-src=yes\*(C'\fR
+then if \f(CW\*(C`show\-state\-diagrams=yes\*(C'\fR,
+the generated state diagrams will also show the .dot source input to
+GraphViz used for the diagram.
+.IP "\fBshow\-state\-diagrams\-xml=\fR[\fByes\fR|\fBno\fR]" 4
+.IX Item "show-state-diagrams-xml=[yes|no]"
+This is a debugging feature and defaults to \f(CW\*(C`no\*(C'\fR.
+If \f(CW\*(C`show\-state\-diagrams\-xml=yes\*(C'\fR
+then if \f(CW\*(C`show\-state\-diagrams=yes\*(C'\fR, the generated state diagrams will
+also show an \s-1XML\s0 representation of the state.
 .RE
 .RS 4
 .RE
@@ -14492,6 +14529,11 @@ E.g.
 \&        create_gcov \-\-binary=your_program.unstripped \-\-profile=perf.data \e
 \&            \-\-gcov=profile.afdo
 .Ve
+.IP "\fB\-fauto\-profile\-inlining\fR" 4
+.IX Item "-fauto-profile-inlining"
+When auto-profile is available inline all relevant functions which was
+inlined in the tran run before reading the profile feedback.  This improves
+context sensitivity of the profile.  Enabled by default.
 .PP
 The following options control compiler behavior regarding floating-point
 arithmetic.  These options trade off between speed and
@@ -16414,6 +16456,9 @@ predicate chain.
 .IP "\fBuninit-max-num-chains\fR" 4
 .IX Item "uninit-max-num-chains"
 Maximum number of predicates ored in the normalized predicate chain.
+.IP "\fBuninit-max-prune-work\fR" 4
+.IX Item "uninit-max-prune-work"
+Maximum amount of work done to prune paths where the variable is always initialized.
 .IP "\fBsched-autopref-queue-depth\fR" 4
 .IX Item "sched-autopref-queue-depth"
 Hardware autoprefetcher scheduler model control flag.
@@ -16576,27 +16621,9 @@ The precision of division is proportional to this param when division
 approximation is enabled.  The default value is 2.
 .IP "\fBaarch64\-autovec\-preference\fR" 4
 .IX Item "aarch64-autovec-preference"
-Force an \s-1ISA\s0 selection strategy for auto-vectorization.
-.RS 4
-.IP "\fBdefault\fR" 4
-.IX Item "default"
-Use the default heuristics.
-.IP "\fBasimd-only\fR" 4
-.IX Item "asimd-only"
-Use only Advanced \s-1SIMD\s0 for auto-vectorization.
-.IP "\fBsve-only\fR" 4
-.IX Item "sve-only"
-Use only \s-1SVE\s0 for auto-vectorization.
-.IP "\fBprefer-asimd\fR" 4
-.IX Item "prefer-asimd"
-Use both Advanced \s-1SIMD\s0 and \s-1SVE.\s0  Prefer Advanced \s-1SIMD\s0 when the costs are
-deemed equal.
-.IP "\fBprefer-sve\fR" 4
-.IX Item "prefer-sve"
-Use both Advanced \s-1SIMD\s0 and \s-1SVE.\s0  Prefer \s-1SVE\s0 when the costs are deemed equal.
-.RE
-.RS 4
-.RE
+An old alias for \fB\-mautovec\-preference\fR.  If both
+\&\fB\-mautovec\-preference\fR and \fB\-\-param=aarch64\-autovec\-preference\fR
+are passed, the \fB\-\-param\fR value will be used.
 .IP "\fBaarch64\-ldp\-policy\fR" 4
 .IX Item "aarch64-ldp-policy"
 Fine-grained policy for load pairs.
@@ -21237,6 +21264,46 @@ or \fB\-march=armv8\-a+lse\fR, the ARMv8.1\-Atomics instructions will be
 used directly.  The same applies when using \fB\-mcpu=\fR when the
 selected cpu supports the \fBlse\fR feature.
 This option is on by default.
+.IP "\fB\-mmax\-vectorization\fR" 4
+.IX Item "-mmax-vectorization"
+.PD 0
+.IP "\fB\-mno\-max\-vectorization\fR" 4
+.IX Item "-mno-max-vectorization"
+.PD
+Enable or disable an override to vectorizer cost model making vectorization
+always appear profitable.  This option can be combined with
+\&\fB\-mautovec\-preference\fR allowing precise control over which \s-1ISA\s0 will be
+used for auto-vectorization.  Unlike \fB\-fno\-vect\-cost\-model\fR or
+\&\fB\-fvect\-cost\-model=unlimited\fR this option does not turn off cost
+comparison between different vector modes.
+.IP "\fB\-mautovec\-preference=\fR\fIname\fR" 4
+.IX Item "-mautovec-preference=name"
+Force an \s-1ISA\s0 selection strategy for auto-vectorization.  The possible
+values of \fIname\fR are:
+.RS 4
+.IP "\fBdefault\fR" 4
+.IX Item "default"
+Use the default heuristics.
+.IP "\fBasimd-only\fR" 4
+.IX Item "asimd-only"
+Use only Advanced \s-1SIMD\s0 for auto-vectorization.
+.IP "\fBsve-only\fR" 4
+.IX Item "sve-only"
+Use only \s-1SVE\s0 for auto-vectorization.
+.IP "\fBprefer-asimd\fR" 4
+.IX Item "prefer-asimd"
+Use both Advanced \s-1SIMD\s0 and \s-1SVE.\s0  Prefer Advanced \s-1SIMD\s0 when the costs are
+deemed equal.
+.IP "\fBprefer-sve\fR" 4
+.IX Item "prefer-sve"
+Use both Advanced \s-1SIMD\s0 and \s-1SVE.\s0  Prefer \s-1SVE\s0 when the costs are deemed equal.
+.RE
+.RS 4
+.Sp
+For best performance it is highly recommended to use \fB\-mcpu\fR or
+\&\fB\-mtune\fR instead.  This parameter should only be used for code
+exploration.
+.RE
 .IP "\fB\-march=\fR\fIname\fR" 4
 .IX Item "-march=name"
 Specify the name of the target architecture and, optionally, one or
@@ -34544,18 +34611,17 @@ VPCLMULQDQ, AVX512BITALG, RDPID\s0 and \s-1AVX512VPOPCNTDQ\s0 instruction set su
 Intel Alder Lake/Raptor Lake/Meteor Lake/Gracemont \s-1CPU\s0 with 64\-bit extensions,
 \&\s-1MOVBE, MMX, SSE, SSE2, SSE3, SSSE3, SSE4.1, SSE4.2, POPCNT, AES, PREFETCHW,
 PCLMUL, RDRND, XSAVE, XSAVEC, XSAVES, XSAVEOPT, FSGSBASE, PTWRITE, RDPID, SGX,\s0
-GFNI-SSE, \s-1CLWB, MOVDIRI, MOVDIR64B, CLDEMOTE, WAITPKG, ADCX, AVX, AVX2, BMI,
-BMI2, F16C, FMA, LZCNT, PCONFIG, PKU, VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL,
-WIDEKL\s0 and AVX-VNNI instruction set support.
+GFNI-SSE, \s-1CLWB, MOVDIRI, MOVDIR64B, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C,
+FMA, LZCNT, PCONFIG, PKU, VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL\s0 and
+AVX-VNNI instruction set support.
 .IP "\fBarrowlake\fR" 4
 .IX Item "arrowlake"
 Intel Arrow Lake \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3,
 SSSE3, SSE4.1, SSE4.2, POPCNT, AES, PREFETCHW, PCLMUL, RDRND, XSAVE, XSAVEC,
 XSAVES, XSAVEOPT, FSGSBASE, PTWRITE, RDPID, SGX,\s0 GFNI-SSE, \s-1CLWB, MOVDIRI,
-MOVDIR64B, CLDEMOTE, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C, FMA, LZCNT,
-PCONFIG, PKU, VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL,\s0 AVX-VNNI,
-\&\s-1UINTR, AVXIFMA, AVXVNNIINT8, AVXNECONVERT\s0 and \s-1CMPCCXADD\s0 instruction set
-support.
+MOVDIR64B, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C, FMA, LZCNT, PCONFIG, PKU,
+VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL,\s0 AVX-VNNI, \s-1UINTR, AVXIFMA,
+AVXVNNIINT8, AVXNECONVERT\s0 and \s-1CMPCCXADD\s0 instruction set support.
 .IP "\fBarrowlake-s\fR" 4
 .IX Item "arrowlake-s"
 .PD 0
@@ -34565,19 +34631,19 @@ support.
 Intel Arrow Lake S/Lunar Lake \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE,
 SSE2, SSE3, SSSE3, SSE4.1, SSE4.2, POPCNT, AES, PREFETCHW, PCLMUL, RDRND,
 XSAVE, XSAVEC, XSAVES, XSAVEOPT, FSGSBASE, PTWRITE, RDPID, SGX,\s0 GFNI-SSE, \s-1CLWB,
-MOVDIRI, MOVDIR64B, CLDEMOTE, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C, FMA,
-LZCNT, PCONFIG, PKU, VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL,\s0 AVX-VNNI,
-\&\s-1UINTR, AVXIFMA, AVXVNNIINT8, AVXNECONVERT, CMPCCXADD, AVXVNNIINT16, SHA512,
-SM3\s0 and \s-1SM4\s0 instruction set support.
+MOVDIRI, MOVDIR64B, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C, FMA, LZCNT,
+PCONFIG, PKU, VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL,\s0 AVX-VNNI, \s-1UINTR,
+AVXIFMA, AVXVNNIINT8, AVXNECONVERT, CMPCCXADD, AVXVNNIINT16, SHA512, SM3\s0 and
+\&\s-1SM4\s0 instruction set support.
 .IP "\fBpantherlake\fR" 4
 .IX Item "pantherlake"
 Intel Panther Lake \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3,
 SSSE3, SSE4.1, SSE4.2, POPCNT, AES, PREFETCHW, PCLMUL, RDRND, XSAVE, XSAVEC,
 XSAVES, XSAVEOPT, FSGSBASE, PTWRITE, RDPID, SGX,\s0 GFNI-SSE, \s-1CLWB, MOVDIRI,
-MOVDIR64B, CLDEMOTE, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C, FMA, LZCNT,
-PCONFIG, PKU, VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL,\s0 AVX-VNNI,
-\&\s-1UINTR, AVXIFMA, AVXVNNIINT8, AVXNECONVERT, CMPCCXADD, AVXVNNIINT16, SHA512,
-SM3, SM4\s0 and \s-1PREFETCHI\s0 instruction set support.
+MOVDIR64B, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C, FMA, LZCNT, PCONFIG, PKU,
+VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL,\s0 AVX-VNNI, \s-1UINTR, AVXIFMA,
+AVXVNNIINT8, AVXNECONVERT, CMPCCXADD, AVXVNNIINT16, SHA512, SM3, SM4\s0 and
+\&\s-1PREFETCHI\s0 instruction set support.
 .IP "\fBsapphirerapids\fR" 4
 .IX Item "sapphirerapids"
 .PD 0
@@ -34961,8 +35027,8 @@ Produce code optimized for the most current Intel processors, which are
 Haswell and Silvermont for this version of \s-1GCC.\s0  If you know the \s-1CPU\s0
 on which your code will run, then you should use the corresponding
 \&\fB\-mtune\fR or \fB\-march\fR option instead of \fB\-mtune=intel\fR.
-But, if you want your application performs better on both Haswell and
-Silvermont, then you should use this option.
+But, if you want your application performs better on both Diamond Rapids
+and Clearwater Forest, then you should use this option.
 .Sp
 As new Intel processors are deployed in the marketplace, the behavior of
 this option will change.  Therefore, if you upgrade to a newer version of

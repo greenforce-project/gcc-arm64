@@ -49104,6 +49104,27 @@ together:
    * '-fdump-analyzer-exploded-nodes-2' which dumps a 'SRC.eg.txt' file
      containing the full 'exploded_graph'.
 
+   * 
+     '-fdiagnostics-add-output=experimental-html:show-state-diagrams=yes'
+     which writes out the diagnostics in HTML form, and generates SVG
+     state diagrams visualizing the state of memory at each event
+     (inspired by the "ddd" debugger).  These can be seen by pressing
+     'j' and 'k' to single-step forward and backward through events.
+     Note that these SVG diagrams are created from an intermediate XML
+     representation generated from 'program_state' objects.  The XML
+     representation can be easier to read - for example, rather than
+     storing the contents of memory via byte offsets, it uses fields for
+     structs and element indexes for arrays, recursively.  However it is
+     a different representation, and thus bugs could be hidden by this
+     transformation.  Generating the SVG diagrams requires an invocation
+     of "dot" per event, so it noticeably slows down diagnostic
+     emission, hence the opt-in command-line flag.  The XML and "dot"
+     representations can be seen by '__analyzer_dump_xml' and
+     '__analyzer_dump_dot' below (writing them to stderr), or by adding
+     'show-state-diagrams-xml=yes' and 'show-state-diagrams-dot-src=yes'
+     to the html sink, which shows them within the generated HTML next
+     to the generated SVG.
+
  Assuming that you have the python support scripts for gdb installed
 (which you should do, it makes debugging GCC much easier), you can use:
 
@@ -49157,6 +49178,13 @@ terms of code, merely as 'known_function' subclasses (in
 
      will emit a warning describing the capacity of the base region of
      the region pointed to by the 1st argument.
+
+'__analyzer_dump_dot'
+          __analyzer_dump_dot ();
+
+     will dump GraphViz .dot source to stderr reaches the call in its
+     traversal of the source.  This .dot source implements a diagram
+     describing the analyzer’s state.
 
 '__analyzer_dump_escaped'
           extern void __analyzer_dump_escaped (void);
@@ -49216,6 +49244,12 @@ terms of code, merely as 'known_function' subclasses (in
      can be of any type) with respect to the state machine with a name
      matching the 1st argument (which must be a string literal).  This
      is for use when debugging, and may be of use in DejaGnu tests.
+
+'__analyzer_dump_xml'
+          __analyzer_dump_xml ();
+
+     will dump the copious information about the analyzer's state each
+     time it reaches the call in its traversal of the source.
 
 '__analyzer_eval'
           __analyzer_eval (expr);
@@ -60805,17 +60839,17 @@ Node: The Language2109833
 Node: Static Analyzer2123045
 Node: Analyzer Internals2123310
 Node: Debugging the Analyzer2143376
-Node: User Experience Guidelines2151034
-Node: Guidelines for Diagnostics2151970
-Ref: input_location_example2160145
-Node: Guidelines for Options2172924
-Node: Funding2173101
-Node: GNU Project2175608
-Node: Copying2176259
-Node: GNU Free Documentation License2213776
-Node: Contributors2238902
-Node: Option Index2280332
-Node: Concept Index2281209
+Node: User Experience Guidelines2152756
+Node: Guidelines for Diagnostics2153692
+Ref: input_location_example2161867
+Node: Guidelines for Options2174646
+Node: Funding2174823
+Node: GNU Project2177330
+Node: Copying2177981
+Node: GNU Free Documentation License2215498
+Node: Contributors2240624
+Node: Option Index2282054
+Node: Concept Index2282931
 
 End Tag Table
 
