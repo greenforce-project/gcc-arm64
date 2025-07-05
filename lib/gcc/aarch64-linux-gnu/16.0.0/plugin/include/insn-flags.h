@@ -10,6 +10,67 @@
 #define HAVE_aarch64_write_sysregti (TARGET_D128)
 #define HAVE_indirect_jump 1
 #define HAVE_jump 1
+#define HAVE_aarch64_cbzeqsi1 (!aarch64_track_speculation)
+#define HAVE_aarch64_cbznesi1 (!aarch64_track_speculation)
+#define HAVE_aarch64_cbzeqdi1 (!aarch64_track_speculation)
+#define HAVE_aarch64_cbznedi1 (!aarch64_track_speculation)
+#define HAVE_aarch64_cbltsi (TARGET_CMPBR && aarch64_cb_rhs (LT, operands[1]))
+#define HAVE_aarch64_cblesi (TARGET_CMPBR && aarch64_cb_rhs (LE, operands[1]))
+#define HAVE_aarch64_cbeqsi (TARGET_CMPBR && aarch64_cb_rhs (EQ, operands[1]))
+#define HAVE_aarch64_cbnesi (TARGET_CMPBR && aarch64_cb_rhs (NE, operands[1]))
+#define HAVE_aarch64_cbgesi (TARGET_CMPBR && aarch64_cb_rhs (GE, operands[1]))
+#define HAVE_aarch64_cbgtsi (TARGET_CMPBR && aarch64_cb_rhs (GT, operands[1]))
+#define HAVE_aarch64_cbltusi (TARGET_CMPBR && aarch64_cb_rhs (LTU, operands[1]))
+#define HAVE_aarch64_cbleusi (TARGET_CMPBR && aarch64_cb_rhs (LEU, operands[1]))
+#define HAVE_aarch64_cbgeusi (TARGET_CMPBR && aarch64_cb_rhs (GEU, operands[1]))
+#define HAVE_aarch64_cbgtusi (TARGET_CMPBR && aarch64_cb_rhs (GTU, operands[1]))
+#define HAVE_aarch64_cbltdi (TARGET_CMPBR && aarch64_cb_rhs (LT, operands[1]))
+#define HAVE_aarch64_cbledi (TARGET_CMPBR && aarch64_cb_rhs (LE, operands[1]))
+#define HAVE_aarch64_cbeqdi (TARGET_CMPBR && aarch64_cb_rhs (EQ, operands[1]))
+#define HAVE_aarch64_cbnedi (TARGET_CMPBR && aarch64_cb_rhs (NE, operands[1]))
+#define HAVE_aarch64_cbgedi (TARGET_CMPBR && aarch64_cb_rhs (GE, operands[1]))
+#define HAVE_aarch64_cbgtdi (TARGET_CMPBR && aarch64_cb_rhs (GT, operands[1]))
+#define HAVE_aarch64_cbltudi (TARGET_CMPBR && aarch64_cb_rhs (LTU, operands[1]))
+#define HAVE_aarch64_cbleudi (TARGET_CMPBR && aarch64_cb_rhs (LEU, operands[1]))
+#define HAVE_aarch64_cbgeudi (TARGET_CMPBR && aarch64_cb_rhs (GEU, operands[1]))
+#define HAVE_aarch64_cbgtudi (TARGET_CMPBR && aarch64_cb_rhs (GTU, operands[1]))
+#define HAVE_aarch64_cbltqi (TARGET_CMPBR)
+#define HAVE_aarch64_cbleqi (TARGET_CMPBR)
+#define HAVE_aarch64_cbeqqi (TARGET_CMPBR)
+#define HAVE_aarch64_cbneqi (TARGET_CMPBR)
+#define HAVE_aarch64_cbgeqi (TARGET_CMPBR)
+#define HAVE_aarch64_cbgtqi (TARGET_CMPBR)
+#define HAVE_aarch64_cbltuqi (TARGET_CMPBR)
+#define HAVE_aarch64_cbleuqi (TARGET_CMPBR)
+#define HAVE_aarch64_cbgeuqi (TARGET_CMPBR)
+#define HAVE_aarch64_cbgtuqi (TARGET_CMPBR)
+#define HAVE_aarch64_cblthi (TARGET_CMPBR)
+#define HAVE_aarch64_cblehi (TARGET_CMPBR)
+#define HAVE_aarch64_cbeqhi (TARGET_CMPBR)
+#define HAVE_aarch64_cbnehi (TARGET_CMPBR)
+#define HAVE_aarch64_cbgehi (TARGET_CMPBR)
+#define HAVE_aarch64_cbgthi (TARGET_CMPBR)
+#define HAVE_aarch64_cbltuhi (TARGET_CMPBR)
+#define HAVE_aarch64_cbleuhi (TARGET_CMPBR)
+#define HAVE_aarch64_cbgeuhi (TARGET_CMPBR)
+#define HAVE_aarch64_cbgtuhi (TARGET_CMPBR)
+#define HAVE_aarch64_bcond 1
+#define HAVE_aarch64_tbzeqqisi (!aarch64_track_speculation)
+#define HAVE_aarch64_tbzneqisi (!aarch64_track_speculation)
+#define HAVE_aarch64_tbzeqqidi (!aarch64_track_speculation)
+#define HAVE_aarch64_tbzneqidi (!aarch64_track_speculation)
+#define HAVE_aarch64_tbzeqhisi (!aarch64_track_speculation)
+#define HAVE_aarch64_tbznehisi (!aarch64_track_speculation)
+#define HAVE_aarch64_tbzeqhidi (!aarch64_track_speculation)
+#define HAVE_aarch64_tbznehidi (!aarch64_track_speculation)
+#define HAVE_aarch64_tbzeqsisi (!aarch64_track_speculation)
+#define HAVE_aarch64_tbznesisi (!aarch64_track_speculation)
+#define HAVE_aarch64_tbzeqsidi (!aarch64_track_speculation)
+#define HAVE_aarch64_tbznesidi (!aarch64_track_speculation)
+#define HAVE_aarch64_tbzeqdisi (!aarch64_track_speculation)
+#define HAVE_aarch64_tbznedisi (!aarch64_track_speculation)
+#define HAVE_aarch64_tbzeqdidi (!aarch64_track_speculation)
+#define HAVE_aarch64_tbznedidi (!aarch64_track_speculation)
 #define HAVE_ccmpccsi 1
 #define HAVE_ccmpccdi 1
 #define HAVE_ccmpccfpsf (TARGET_FLOAT)
@@ -22,32 +83,11 @@
 #define HAVE_ccmpccfpdf_rev (TARGET_FLOAT)
 #define HAVE_ccmpccfpesf_rev (TARGET_FLOAT)
 #define HAVE_ccmpccfpedf_rev (TARGET_FLOAT)
-#define HAVE_condjump 1
 #define HAVE_nop 1
 #define HAVE_prefetch 1
 #define HAVE_aarch64_pldx 1
 #define HAVE_trap 1
 #define HAVE_simple_return 1
-#define HAVE_aarch64_cbeqsi1 (!aarch64_track_speculation)
-#define HAVE_aarch64_cbnesi1 (!aarch64_track_speculation)
-#define HAVE_aarch64_cbeqdi1 (!aarch64_track_speculation)
-#define HAVE_aarch64_cbnedi1 (!aarch64_track_speculation)
-#define HAVE_aarch64_tbeqqisi (!aarch64_track_speculation)
-#define HAVE_aarch64_tbneqisi (!aarch64_track_speculation)
-#define HAVE_aarch64_tbeqqidi (!aarch64_track_speculation)
-#define HAVE_aarch64_tbneqidi (!aarch64_track_speculation)
-#define HAVE_aarch64_tbeqhisi (!aarch64_track_speculation)
-#define HAVE_aarch64_tbnehisi (!aarch64_track_speculation)
-#define HAVE_aarch64_tbeqhidi (!aarch64_track_speculation)
-#define HAVE_aarch64_tbnehidi (!aarch64_track_speculation)
-#define HAVE_aarch64_tbeqsisi (!aarch64_track_speculation)
-#define HAVE_aarch64_tbnesisi (!aarch64_track_speculation)
-#define HAVE_aarch64_tbeqsidi (!aarch64_track_speculation)
-#define HAVE_aarch64_tbnesidi (!aarch64_track_speculation)
-#define HAVE_aarch64_tbeqdisi (!aarch64_track_speculation)
-#define HAVE_aarch64_tbnedisi (!aarch64_track_speculation)
-#define HAVE_aarch64_tbeqdidi (!aarch64_track_speculation)
-#define HAVE_aarch64_tbnedidi (!aarch64_track_speculation)
 #define HAVE_insv_immsi (UINTVAL (operands[1]) < GET_MODE_BITSIZE (SImode) \
    && UINTVAL (operands[1]) % 16 == 0)
 #define HAVE_insv_immdi (UINTVAL (operands[1]) < GET_MODE_BITSIZE (DImode) \
@@ -9814,10 +9854,16 @@
    && !(4 == 4 && 4 == 4 && 32 == 8))
 #define HAVE_cbranchsi4 1
 #define HAVE_cbranchdi4 1
+#define HAVE_cbranchqi4 (TARGET_CMPBR)
+#define HAVE_cbranchhi4 (TARGET_CMPBR)
 #define HAVE_cbranchhf4 (TARGET_FP_F16INST)
 #define HAVE_cbranchsf4 1
 #define HAVE_cbranchdf4 1
 #define HAVE_cbranchcc4 1
+#define HAVE_tbranch_eqqi3 1
+#define HAVE_tbranch_neqi3 1
+#define HAVE_tbranch_eqhi3 1
+#define HAVE_tbranch_nehi3 1
 #define HAVE_modsi3 1
 #define HAVE_moddi3 1
 #define HAVE_casesi 1
@@ -9825,10 +9871,6 @@
 #define HAVE_prologue 1
 #define HAVE_epilogue 1
 #define HAVE_return (aarch64_use_return_insn_p ())
-#define HAVE_tbranch_eqqi3 1
-#define HAVE_tbranch_neqi3 1
-#define HAVE_tbranch_eqhi3 1
-#define HAVE_tbranch_nehi3 1
 #define HAVE_save_stack_nonlocal 1
 #define HAVE_restore_stack_nonlocal 1
 #define HAVE_call 1
@@ -13738,6 +13780,67 @@ extern rtx        gen_aarch64_write_sysregdi                           (rtx, rtx
 extern rtx        gen_aarch64_write_sysregti                           (rtx, rtx);
 extern rtx        gen_indirect_jump                                    (rtx);
 extern rtx        gen_jump                                             (rtx);
+extern rtx        gen_aarch64_cbzeqsi1                                 (rtx, rtx);
+extern rtx        gen_aarch64_cbznesi1                                 (rtx, rtx);
+extern rtx        gen_aarch64_cbzeqdi1                                 (rtx, rtx);
+extern rtx        gen_aarch64_cbznedi1                                 (rtx, rtx);
+extern rtx        gen_aarch64_cbltsi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cblesi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbeqsi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbnesi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbgesi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbgtsi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbltusi                                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbleusi                                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbgeusi                                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbgtusi                                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbltdi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbledi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbeqdi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbnedi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbgedi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbgtdi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbltudi                                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbleudi                                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbgeudi                                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbgtudi                                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbltqi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbleqi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbeqqi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbneqi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbgeqi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbgtqi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbltuqi                                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbleuqi                                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbgeuqi                                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbgtuqi                                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cblthi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cblehi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbeqhi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbnehi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbgehi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbgthi                                   (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbltuhi                                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbleuhi                                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbgeuhi                                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_cbgtuhi                                  (rtx, rtx, rtx);
+extern rtx        gen_aarch64_bcond                                    (rtx, rtx, rtx);
+extern rtx        gen_aarch64_tbzeqqisi                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_tbzneqisi                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_tbzeqqidi                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_tbzneqidi                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_tbzeqhisi                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_tbznehisi                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_tbzeqhidi                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_tbznehidi                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_tbzeqsisi                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_tbznesisi                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_tbzeqsidi                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_tbznesidi                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_tbzeqdisi                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_tbznedisi                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_tbzeqdidi                                (rtx, rtx, rtx);
+extern rtx        gen_aarch64_tbznedidi                                (rtx, rtx, rtx);
 extern rtx        gen_ccmpccsi                                         (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_ccmpccdi                                         (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_ccmpccfpsf                                       (rtx, rtx, rtx, rtx, rtx, rtx);
@@ -13750,32 +13853,11 @@ extern rtx        gen_ccmpccfpsf_rev                                   (rtx, rtx
 extern rtx        gen_ccmpccfpdf_rev                                   (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_ccmpccfpesf_rev                                  (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_ccmpccfpedf_rev                                  (rtx, rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_condjump                                         (rtx, rtx, rtx);
 extern rtx        gen_nop                                              (void);
 extern rtx        gen_prefetch                                         (rtx, rtx, rtx);
 extern rtx        gen_aarch64_pldx                                     (rtx, rtx);
 extern rtx        gen_trap                                             (void);
 extern rtx        gen_simple_return                                    (void);
-extern rtx        gen_aarch64_cbeqsi1                                  (rtx, rtx);
-extern rtx        gen_aarch64_cbnesi1                                  (rtx, rtx);
-extern rtx        gen_aarch64_cbeqdi1                                  (rtx, rtx);
-extern rtx        gen_aarch64_cbnedi1                                  (rtx, rtx);
-extern rtx        gen_aarch64_tbeqqisi                                 (rtx, rtx, rtx);
-extern rtx        gen_aarch64_tbneqisi                                 (rtx, rtx, rtx);
-extern rtx        gen_aarch64_tbeqqidi                                 (rtx, rtx, rtx);
-extern rtx        gen_aarch64_tbneqidi                                 (rtx, rtx, rtx);
-extern rtx        gen_aarch64_tbeqhisi                                 (rtx, rtx, rtx);
-extern rtx        gen_aarch64_tbnehisi                                 (rtx, rtx, rtx);
-extern rtx        gen_aarch64_tbeqhidi                                 (rtx, rtx, rtx);
-extern rtx        gen_aarch64_tbnehidi                                 (rtx, rtx, rtx);
-extern rtx        gen_aarch64_tbeqsisi                                 (rtx, rtx, rtx);
-extern rtx        gen_aarch64_tbnesisi                                 (rtx, rtx, rtx);
-extern rtx        gen_aarch64_tbeqsidi                                 (rtx, rtx, rtx);
-extern rtx        gen_aarch64_tbnesidi                                 (rtx, rtx, rtx);
-extern rtx        gen_aarch64_tbeqdisi                                 (rtx, rtx, rtx);
-extern rtx        gen_aarch64_tbnedisi                                 (rtx, rtx, rtx);
-extern rtx        gen_aarch64_tbeqdidi                                 (rtx, rtx, rtx);
-extern rtx        gen_aarch64_tbnedidi                                 (rtx, rtx, rtx);
 extern rtx        gen_insv_immsi                                       (rtx, rtx, rtx);
 extern rtx        gen_insv_immdi                                       (rtx, rtx, rtx);
 extern rtx        gen_aarch64_movksi                                   (rtx, rtx, rtx, rtx);
@@ -22289,10 +22371,16 @@ extern rtx        gen_aarch64_sme_lut2vnx16sf                          (rtx, rtx
 extern rtx        gen_aarch64_sme_lut4vnx16sf                          (rtx, rtx, rtx);
 extern rtx        gen_cbranchsi4                                       (rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchdi4                                       (rtx, rtx, rtx, rtx);
+extern rtx        gen_cbranchqi4                                       (rtx, rtx, rtx, rtx);
+extern rtx        gen_cbranchhi4                                       (rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchhf4                                       (rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchsf4                                       (rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchdf4                                       (rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchcc4                                       (rtx, rtx, rtx, rtx);
+extern rtx        gen_tbranch_eqqi3                                    (rtx, rtx, rtx);
+extern rtx        gen_tbranch_neqi3                                    (rtx, rtx, rtx);
+extern rtx        gen_tbranch_eqhi3                                    (rtx, rtx, rtx);
+extern rtx        gen_tbranch_nehi3                                    (rtx, rtx, rtx);
 extern rtx        gen_modsi3                                           (rtx, rtx, rtx);
 extern rtx        gen_moddi3                                           (rtx, rtx, rtx);
 extern rtx        gen_casesi                                           (rtx, rtx, rtx, rtx, rtx);
@@ -22300,10 +22388,6 @@ extern rtx        gen_casesi_dispatch                                  (rtx, rtx
 extern rtx        gen_prologue                                         (void);
 extern rtx        gen_epilogue                                         (void);
 extern rtx        gen_return                                           (void);
-extern rtx        gen_tbranch_eqqi3                                    (rtx, rtx, rtx);
-extern rtx        gen_tbranch_neqi3                                    (rtx, rtx, rtx);
-extern rtx        gen_tbranch_eqhi3                                    (rtx, rtx, rtx);
-extern rtx        gen_tbranch_nehi3                                    (rtx, rtx, rtx);
 extern rtx        gen_save_stack_nonlocal                              (rtx, rtx);
 extern rtx        gen_restore_stack_nonlocal                           (rtx, rtx);
 extern rtx        gen_call                                             (rtx, rtx, rtx);

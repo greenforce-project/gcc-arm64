@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-06-28" "gcc-16.0.0" "GNU"
+.TH GCC 1 "2025-07-05" "gcc-16.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -335,7 +335,7 @@ in the following sections.
 \&\-fdiagnostics\-show\-location=\fR[\fBonce\fR|\fBevery-line\fR]
 \&\fB\-fdiagnostics\-color=\fR[\fBauto\fR|\fBnever\fR|\fBalways\fR]
 \&\fB\-fdiagnostics\-urls=\fR[\fBauto\fR|\fBnever\fR|\fBalways\fR]
-\&\fB\-fdiagnostics\-format=\fR[\fBtext\fR|\fBsarif-stderr\fR|\fBsarif-file\fR|\fBjson\fR|\fBjson-stderr\fR|\fBjson-file\fR]
+\&\fB\-fdiagnostics\-format=\fR[\fBtext\fR|\fBsarif-stderr\fR|\fBsarif-file\fR]
 \&\fB\-fdiagnostics\-add\-output=\fR\fIDIAGNOSTICS-OUTPUT-SPEC\fR
 \&\fB\-fdiagnostics\-set\-output=\fR\fIDIAGNOSTICS-OUTPUT-SPEC\fR
 \&\fB\-fno\-diagnostics\-json\-formatting
@@ -362,8 +362,8 @@ in the following sections.
 \&\-w  \-Wextra  \-Wall  \-Wabi=\fR\fIn\fR
 \&\fB\-Waddress  \-Wno\-address\-of\-packed\-member  \-Waggregate\-return
 \&\-Walloc\-size  \-Walloc\-size\-larger\-than=\fR\fIbyte-size\fR  \fB\-Walloc\-zero
-\&\-Walloca  \-Walloca\-larger\-than=\fR\fIbyte-size\fR
-\&\fB\-Wno\-aggressive\-loop\-optimizations
+\&\-Walloca  \-Walloca\-larger\-than=\fR\fIbyte-size\fR  \fB\-Wauto\-profile
+\&\-Wno\-aggressive\-loop\-optimizations
 \&\-Warith\-conversion
 \&\-Warray\-bounds  \-Warray\-bounds=\fR\fIn\fR  \fB\-Warray\-compare
 \&\-Warray\-parameter  \-Warray\-parameter=\fR\fIn\fR
@@ -5724,8 +5724,7 @@ column numbers, such as \fBdejagnu\fR.
 .IP "\fB\-fdiagnostics\-column\-unit=\fR\fI\s-1UNIT\s0\fR" 4
 .IX Item "-fdiagnostics-column-unit=UNIT"
 Select the units for the column number.  This affects traditional diagnostics
-(in the absence of \fB\-fno\-show\-column\fR), as well as \s-1JSON\s0 format
-diagnostics if requested.
+(in the absence of \fB\-fno\-show\-column\fR).
 .Sp
 The default \fI\s-1UNIT\s0\fR, \fBdisplay\fR, considers the number of display
 columns occupied by each character.  This may be larger than the number
@@ -5797,8 +5796,7 @@ is set to \fBC\fR, in which case the default is \fBascii\fR.
 .IP "\fB\-fdiagnostics\-format=\fR\fI\s-1FORMAT\s0\fR" 4
 .IX Item "-fdiagnostics-format=FORMAT"
 Select a different format for printing diagnostics.
-\&\fI\s-1FORMAT\s0\fR is \fBtext\fR, \fBsarif-stderr\fR, \fBsarif-file\fR,
-\&\fBjson\fR, \fBjson-stderr\fR, or \fBjson-file\fR.
+\&\fI\s-1FORMAT\s0\fR is \fBtext\fR, \fBsarif-stderr\fR or \fBsarif-file\fR.
 .Sp
 Using this option replaces any additional \*(L"output sinks\*(R" added by
 \&\fB\-fdiagnostics\-add\-output=\fR, or that set by
@@ -5809,14 +5807,6 @@ The default is \fBtext\fR.
 The \fBsarif-stderr\fR and \fBsarif-file\fR formats both emit
 diagnostics in \s-1SARIF\s0 Version 2.1.0 format, either to stderr, or to a file
 named \fI\fIsource\fI.sarif\fR, respectively.
-.Sp
-The various \fBjson\fR, \fBjson-stderr\fR, and \fBjson-file\fR values
-are deprecated and refer to a legacy JSON-based output format.
-The \fBjson\fR format is a synonym for \fBjson-stderr\fR.
-The \fBjson-stderr\fR and \fBjson-file\fR formats are identical, apart from
-where the \s-1JSON\s0 is emitted to.  With \fBjson-stderr\fR, the \s-1JSON\s0 is emitted
-to stderr, whereas with \fBjson-file\fR it is written to
-\&\fI\fIsource\fI.gcc.json\fR.
 .IP "\fB\-fdiagnostics\-add\-output=\fR\fIDIAGNOSTICS-OUTPUT-SPEC\fR" 4
 .IX Item "-fdiagnostics-add-output=DIAGNOSTICS-OUTPUT-SPEC"
 Add an additional \*(L"output sink\*(R" for emitting diagnostics.
@@ -5990,11 +5980,8 @@ replaces all existing output sinks, such as from \fB\-fdiagnostics\-format=\fR,
 .IP "\fB\-fno\-diagnostics\-json\-formatting\fR" 4
 .IX Item "-fno-diagnostics-json-formatting"
 By default, when \s-1JSON\s0 is emitted for diagnostics (via
-\&\fB\-fdiagnostics\-format=sarif\-stderr\fR,
-\&\fB\-fdiagnostics\-format=sarif\-file\fR,
-\&\fB\-fdiagnostics\-format=json\fR,
-\&\fB\-fdiagnostics\-format=json\-stderr\fR,
-\&\fB\-fdiagnostics\-format=json\-file\fR),
+\&\fB\-fdiagnostics\-format=sarif\-stderr\fR or
+\&\fB\-fdiagnostics\-format=sarif\-file\fR),
 \&\s-1GCC\s0 will add newlines and indentation to visually emphasize the
 hierarchical structure of the \s-1JSON.\s0
 .Sp
@@ -8260,6 +8247,9 @@ larger.
 .IP "\fB\-Walloca\fR" 4
 .IX Item "-Walloca"
 This option warns on all uses of \f(CW\*(C`alloca\*(C'\fR in the source.
+.IP "\fB\-Wauto\-profile\fR" 4
+.IX Item "-Wauto-profile"
+Output warnings about auto-profile inconsistencies.
 .IP "\fB\-Walloca\-larger\-than=\fR\fIbyte-size\fR" 4
 .IX Item "-Walloca-larger-than=byte-size"
 This option warns on calls to \f(CW\*(C`alloca\*(C'\fR with an integer argument whose
@@ -21410,7 +21400,7 @@ performance of the code.  Permissible values for this option are:
 The values \fBcortex\-a57.cortex\-a53\fR, \fBcortex\-a72.cortex\-a53\fR,
 \&\fBcortex\-a73.cortex\-a35\fR, \fBcortex\-a73.cortex\-a53\fR,
 \&\fBcortex\-a75.cortex\-a55\fR, \fBcortex\-a76.cortex\-a55\fR,
-\&\fBapple\-m1\fR, \fBapple\-m2\fR, \fBapple\-m3\fR specify that \s-1GCC\s0
+\&\fBapple\-m1\fR, \fBapple\-m2\fR, \fBapple\-m3\fR, \fBgb10\fR specify that \s-1GCC\s0
 should tune for a big.LITTLE system.
 .Sp
 The value \fBneoverse\-512tvb\fR specifies that \s-1GCC\s0 should tune
@@ -21728,6 +21718,10 @@ Enable the Pointer Authentication Extension.
 .IP "\fBcssc\fR" 4
 .IX Item "cssc"
 Enable the Common Short Sequence Compression instructions.
+.IP "\fBcmpbr\fR" 4
+.IX Item "cmpbr"
+Enable the shorter compare and branch instructions, \f(CW\*(C`cbb\*(C'\fR, \f(CW\*(C`cbh\*(C'\fR and
+\&\f(CW\*(C`cb\*(C'\fR.
 .IP "\fBsme\fR" 4
 .IX Item "sme"
 Enable the Scalable Matrix Extension.  This is only supported when \s-1SVE2\s0 is also

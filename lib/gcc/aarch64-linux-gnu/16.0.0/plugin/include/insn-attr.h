@@ -55,7 +55,8 @@ extern enum attr_mode_enabled get_attr_mode_enabled (rtx_insn *);
 extern enum attr_enabled get_attr_enabled (rtx_insn *);
 
 #define HAVE_ATTR_far_branch 1
-extern int get_attr_far_branch (rtx_insn *);
+extern enum attr_far_branch get_attr_far_branch (rtx_insn *);
+
 #define HAVE_ATTR_movprfx 1
 extern enum attr_movprfx get_attr_movprfx (rtx_insn *);
 

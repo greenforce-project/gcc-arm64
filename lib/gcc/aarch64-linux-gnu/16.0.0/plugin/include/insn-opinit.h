@@ -467,7 +467,7 @@ enum optab_tag {
 #define NUM_OPTABS          452
 #define NUM_CONVLIB_OPTABS  17
 #define NUM_NORMLIB_OPTABS  80
-#define NUM_OPTAB_PATTERNS  2966
+#define NUM_OPTAB_PATTERNS  2968
 typedef enum optab_tag optab;
 typedef enum optab_tag convert_optab;
 typedef enum optab_tag direct_optab;
@@ -508,6 +508,24 @@ optab_to_code (optab op)
   return optab_to_code_[op];
 }
 
+extern insn_code maybe_code_for_aarch64_tbz (rtx_code, machine_mode, machine_mode);
+inline insn_code
+code_for_aarch64_tbz (rtx_code arg0, machine_mode arg1, machine_mode arg2)
+{
+  insn_code code = maybe_code_for_aarch64_tbz (arg0, arg1, arg2);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_tbz (rtx_code, machine_mode, machine_mode, rtx, rtx, rtx);
+inline rtx
+gen_aarch64_tbz (rtx_code arg0, machine_mode arg1, machine_mode arg2, rtx x0, rtx x1, rtx x2)
+{
+  rtx res = maybe_gen_aarch64_tbz (arg0, arg1, arg2, x0, x1, x2);
+  gcc_assert (res);
+  return res;
+}
+
 extern insn_code maybe_code_for_ccmp (machine_mode, machine_mode);
 inline insn_code
 code_for_ccmp (machine_mode arg0, machine_mode arg1)
@@ -540,24 +558,6 @@ inline rtx
 gen_ccmp_rev (machine_mode arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2, rtx x3, rtx x4, rtx x5)
 {
   rtx res = maybe_gen_ccmp_rev (arg0, arg1, x0, x1, x2, x3, x4, x5);
-  gcc_assert (res);
-  return res;
-}
-
-extern insn_code maybe_code_for_aarch64_tb (rtx_code, machine_mode, machine_mode);
-inline insn_code
-code_for_aarch64_tb (rtx_code arg0, machine_mode arg1, machine_mode arg2)
-{
-  insn_code code = maybe_code_for_aarch64_tb (arg0, arg1, arg2);
-  gcc_assert (code != CODE_FOR_nothing);
-  return code;
-}
-
-extern rtx maybe_gen_aarch64_tb (rtx_code, machine_mode, machine_mode, rtx, rtx, rtx);
-inline rtx
-gen_aarch64_tb (rtx_code arg0, machine_mode arg1, machine_mode arg2, rtx x0, rtx x1, rtx x2)
-{
-  rtx res = maybe_gen_aarch64_tb (arg0, arg1, arg2, x0, x1, x2);
   gcc_assert (res);
   return res;
 }
