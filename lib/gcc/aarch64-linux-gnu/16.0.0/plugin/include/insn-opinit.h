@@ -467,7 +467,7 @@ enum optab_tag {
 #define NUM_OPTABS          452
 #define NUM_CONVLIB_OPTABS  17
 #define NUM_NORMLIB_OPTABS  80
-#define NUM_OPTAB_PATTERNS  2968
+#define NUM_OPTAB_PATTERNS  2971
 typedef enum optab_tag optab;
 typedef enum optab_tag convert_optab;
 typedef enum optab_tag direct_optab;
@@ -2245,6 +2245,24 @@ gen_aarch64_sve (int arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2, rtx x3)
   return res;
 }
 
+extern insn_code maybe_code_for_aarch64_pred_one_cmpl_z (machine_mode);
+inline insn_code
+code_for_aarch64_pred_one_cmpl_z (machine_mode arg0)
+{
+  insn_code code = maybe_code_for_aarch64_pred_one_cmpl_z (arg0);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_pred_one_cmpl_z (machine_mode, rtx, rtx, rtx);
+inline rtx
+gen_aarch64_pred_one_cmpl_z (machine_mode arg0, rtx x0, rtx x1, rtx x2)
+{
+  rtx res = maybe_gen_aarch64_pred_one_cmpl_z (arg0, x0, x1, x2);
+  gcc_assert (res);
+  return res;
+}
+
 extern insn_code maybe_code_for_aarch64_adr (machine_mode);
 inline insn_code
 code_for_aarch64_adr (machine_mode arg0)
@@ -3411,6 +3429,24 @@ inline rtx
 gen_aarch64_strided4 (int arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2, rtx x3, rtx x4, rtx x5)
 {
   rtx res = maybe_gen_aarch64_strided4 (arg0, arg1, x0, x1, x2, x3, x4, x5);
+  gcc_assert (res);
+  return res;
+}
+
+extern insn_code maybe_code_for_aarch64_gather_ld1q (machine_mode);
+inline insn_code
+code_for_aarch64_gather_ld1q (machine_mode arg0)
+{
+  insn_code code = maybe_code_for_aarch64_gather_ld1q (arg0);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_gather_ld1q (machine_mode, rtx, rtx, rtx, rtx);
+inline rtx
+gen_aarch64_gather_ld1q (machine_mode arg0, rtx x0, rtx x1, rtx x2, rtx x3)
+{
+  rtx res = maybe_gen_aarch64_gather_ld1q (arg0, x0, x1, x2, x3);
   gcc_assert (res);
   return res;
 }

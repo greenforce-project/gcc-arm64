@@ -27,6 +27,7 @@
 #ifdef IN_GCC
 # include "options.h"
 # include "insn-constants.h"
+# include "config/vxworks-dummy.h"
 # include "config/aarch64/biarchlp64.h"
 # include "config/aarch64/aarch64.h"
 # include "config/elfos.h"
