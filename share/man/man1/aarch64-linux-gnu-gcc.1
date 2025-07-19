@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2025-07-12" "gcc-16.0.0" "GNU"
+.TH GCC 1 "2025-07-19" "gcc-16.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -455,8 +455,9 @@ in the following sections.
 \&\-Wunsuffixed\-float\-constants
 \&\-Wunterminated\-string\-initialization
 \&\-Wunused
-\&\-Wunused\-but\-set\-parameter  \-Wunused\-but\-set\-variable
-\&\-Wunused\-const\-variable  \-Wunused\-const\-variable=\fR\fIn\fR
+\&\-Wunused\-but\-set\-parameter  \-Wunused\-but\-set\-parameter=\fR\fIn\fR
+\&\fB\-Wunused\-but\-set\-variable  \-Wunused\-but\-set\-variable=\fR\fIn\fR
+\&\fB\-Wunused\-const\-variable  \-Wunused\-const\-variable=\fR\fIn\fR
 \&\fB\-Wunused\-function  \-Wunused\-label  \-Wunused\-local\-typedefs
 \&\-Wunused\-macros
 \&\-Wunused\-parameter  \-Wno\-unused\-result
@@ -7519,23 +7520,83 @@ between the controlling expression and the first case label of a \f(CW\*(C`switc
 statement.
 .IP "\fB\-Wunused\-but\-set\-parameter\fR" 4
 .IX Item "-Wunused-but-set-parameter"
+\&\fB\-Wunused\-but\-set\-parameter\fR is the same as
+\&\fB\-Wunused\-but\-set\-parameter=3\fR and
+\&\fB\-Wno\-unused\-but\-set\-parameter\fR is the same as
+\&\fB\-Wunused\-but\-set\-parameter=0\fR.
+.IP "\fB\-Wunused\-but\-set\-parameter=\fR\fIn\fR" 4
+.IX Item "-Wunused-but-set-parameter=n"
 Warn whenever a function parameter is assigned to, but otherwise unused
 (aside from its declaration).
 .Sp
 To suppress this warning use the \f(CW\*(C`unused\*(C'\fR attribute.
 .Sp
-This warning is also enabled by \fB\-Wunused\fR together with
-\&\fB\-Wextra\fR.
+\&\fB\-Wunused\-but\-set\-parameter=0\fR disables the warning.
+With \fB\-Wunused\-but\-set\-parameter=1\fR all uses except initialization
+and left hand side of assignment which is not further used disable the
+warning.
+With \fB\-Wunused\-but\-set\-parameter=2\fR additionally uses of parameter
+in \f(CW\*(C`++\*(C'\fR and \f(CW\*(C`\-\-\*(C'\fR operators don't count as uses.
+And finally with \fB\-Wunused\-but\-set\-parameter=3\fR additionally
+uses in \fIparm\fR \f(CW\*(C`\f(CI@\f(CW=\*(C'\fR \fIrhs\fR outside of \fIrhs\fR don't
+count as uses.  See \fB\-Wunused\-but\-set\-variable=\fR\fIn\fR option for
+examples.
+.Sp
+This \fB\-Wunused\-but\-set\-parameter=3\fR warning is also enabled by
+\&\fB\-Wunused\fR together with \fB\-Wextra\fR.
 .IP "\fB\-Wunused\-but\-set\-variable\fR" 4
 .IX Item "-Wunused-but-set-variable"
+\&\fB\-Wunused\-but\-set\-variable\fR is the same as
+\&\fB\-Wunused\-but\-set\-variable=3\fR and
+\&\fB\-Wno\-unused\-but\-set\-variable\fR is the same as
+\&\fB\-Wunused\-but\-set\-variable=0\fR.
+.IP "\fB\-Wunused\-but\-set\-variable=\fR\fIn\fR" 4
+.IX Item "-Wunused-but-set-variable=n"
 Warn whenever a local variable is assigned to, but otherwise unused
 (aside from its declaration).
-This warning is enabled by \fB\-Wall\fR.
+This \fB\-Wunused\-but\-set\-variable=3\fR warning is enabled by \fB\-Wall\fR.
 .Sp
 To suppress this warning use the \f(CW\*(C`unused\*(C'\fR attribute.
 .Sp
-This warning is also enabled by \fB\-Wunused\fR, which is enabled
-by \fB\-Wall\fR.
+\&\fB\-Wunused\-but\-set\-variable=0\fR disables the warning.
+With \fB\-Wunused\-but\-set\-variable=1\fR all uses except initialization
+and left hand side of assignment which is not further used disable the
+warning.
+With \fB\-Wunused\-but\-set\-variable=2\fR additionally uses of variable
+in \f(CW\*(C`++\*(C'\fR and \f(CW\*(C`\-\-\*(C'\fR operators don't count as uses.
+And finally with \fB\-Wunused\-but\-set\-variable=3\fR additionally
+uses in \fIparm\fR \f(CW\*(C`\f(CI@\f(CW=\*(C'\fR \fIrhs\fR outside of \fIrhs\fR don't
+count as uses.
+.Sp
+This \fB\-Wunused\-but\-set\-variable=3\fR warning is also enabled by
+\&\fB\-Wunused\fR, which is enabled by \fB\-Wall\fR.
+.Sp
+.Vb 10
+\&        void foo (void)
+\&        {
+\&          int a = 1; // B<\-Wunused\-variable> warning
+\&          int b = 0; // Warning for <n> >= 1
+\&          b = 1; b = 2;
+\&          int c = 0; // Warning for <n> >= 2
+\&          ++c; c\-\-; \-\-c; c++;
+\&          int d = 0; // Warning for <n> >= 3
+\&          d += 4;
+\&          int e = 0; // No warning, cast to void
+\&          (void) e;
+\&          int f = 0; // No warning, f used
+\&          int g = f = 5;
+\&          (void) g;
+\&          int h = 0; // No warning, preincrement used
+\&          int i = ++h;
+\&          (void) i;
+\&          int j = 0; // No warning, postdecrement used
+\&          int k = j\-\-;
+\&          (void) k;
+\&          int l = 0; // No warning, l used
+\&          int m = l |= 2;
+\&          (void) m;
+\&        }
+.Ve
 .IP "\fB\-Wunused\-function\fR" 4
 .IX Item "-Wunused-function"
 Warn whenever a static function is declared but not defined or a
@@ -31091,6 +31152,10 @@ Supported extension are listed below:
 .IX Item "xventanacondops"
 \&\f(CW@tab\fR 1.0
 \&\f(CW@tab\fR Ventana integer conditional operations extension
+.IP "xmipscmov" 4
+.IX Item "xmipscmov"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Mips conditional move extension
 .RE
 .RS 4
 .Sp
@@ -34655,9 +34720,9 @@ Intel Panther Lake \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2
 SSSE3, SSE4.1, SSE4.2, POPCNT, AES, PREFETCHW, PCLMUL, RDRND, XSAVE, XSAVEC,
 XSAVES, XSAVEOPT, FSGSBASE, PTWRITE, RDPID, SGX,\s0 GFNI-SSE, \s-1CLWB, MOVDIRI,
 MOVDIR64B, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C, FMA, LZCNT, PCONFIG, PKU,
-VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL,\s0 AVX-VNNI, \s-1UINTR, AVXIFMA,
-AVXVNNIINT8, AVXNECONVERT, CMPCCXADD, AVXVNNIINT16, SHA512, SM3, SM4\s0 and
-\&\s-1PREFETCHI\s0 instruction set support.
+VAES, VPCLMULQDQ, SERIALIZE, HRESET,\s0 AVX-VNNI, \s-1UINTR, AVXIFMA, AVXVNNIINT8,
+AVXNECONVERT, CMPCCXADD, AVXVNNIINT16, SHA512, SM3, SM4\s0 and \s-1PREFETCHI\s0
+instruction set support.
 .IP "\fBsapphirerapids\fR" 4
 .IX Item "sapphirerapids"
 .PD 0
@@ -34769,9 +34834,9 @@ Intel Clearwater Forest \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE,
 SSE3, SSSE3, SSE4.1, SSE4.2, POPCNT, AES, PREFETCHW, PCLMUL, RDRND, XSAVE,
 XSAVEC, XSAVES, XSAVEOPT, FSGSBASE, PTWRITE, RDPID, SGX,\s0 GFNI-SSE, \s-1CLWB,
 MOVDIRI, MOVDIR64B, CLDEMOTE, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C, FMA,
-LZCNT, PCONFIG, PKU, VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL,\s0 AVX-VNNI,
-\&\s-1ENQCMD, UINTR, AVXIFMA, AVXVNNIINT8, AVXNECONVERT, CMPCCXADD, AVXVNNIINT16,
-SHA512, SM3, SM4, USER_MSR\s0 and \s-1PREFETCHI\s0 instruction set support.
+LZCNT, PCONFIG, PKU, VAES, VPCLMULQDQ, SERIALIZE, HRESET,\s0 AVX-VNNI, \s-1ENQCMD,
+UINTR, AVXIFMA, AVXVNNIINT8, AVXNECONVERT, CMPCCXADD, AVXVNNIINT16, SHA512,
+SM3, SM4, USER_MSR\s0 and \s-1PREFETCHI\s0 instruction set support.
 .IP "\fBk6\fR" 4
 .IX Item "k6"
 \&\s-1AMD K6 CPU\s0 with \s-1MMX\s0 instruction set support.

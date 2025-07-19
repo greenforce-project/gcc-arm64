@@ -1,7 +1,7 @@
 This is ld.info, produced by makeinfo version 6.8 from ld.texi.
 
 This file documents the GNU linker LD (Gf Cross Binutils) version
-2.44.50.
+2.45.50.
 
    Copyright (C) 1991-2025 Free Software Foundation, Inc.
 
@@ -23,7 +23,7 @@ LD
 **
 
 This file documents the GNU linker ld (Gf Cross Binutils) version
-2.44.50.
+2.45.50.
 
    This document is distributed under the terms of the GNU Free
 Documentation License version 1.3.  A copy of the license is included in
@@ -6953,6 +6953,16 @@ issues in the shared libraries.
 then a summary with the total number of issues will be displayed at the
 end.
 
+   The '-z memtag-mode=mode' specifies the MTE mode of operation.  The
+value of 'mode' can be one of 'none', 'sync' or 'async'.  The specified
+modes determine the value of the 'DT_AARCH64_MEMTAG_MODE' dynamic tag.
+The 'sync' mode implies precise exceptions, with the runtime providing
+the exact instruction where the fault occurred, and the exact faulting
+address.  The 'async' mode implies imprecise exceptions.
+
+   The '-z memtag-stack' specifies that output object uses MTE
+instructions for stack memory usage.
+
 
 File: ld.info,  Node: HPPA ELF32,  Next: M68K,  Prev: ARM,  Up: Machine Dependent
 
@@ -9372,6 +9382,8 @@ LD Index
 * -z gcs-report[=none|warning|error]:    ARM.                (line  277)
 * -z gcs=[always|never|implicit]:        ARM.                (line  267)
 * -z KEYWORD:                            Options.            (line  923)
+* -z memtag-mode=MODE:                   ARM.                (line  306)
+* -z memtag-stack:                       ARM.                (line  313)
 * -z muldefs:                            Options.            (line 1736)
 * -z pac-plt:                            ARM.                (line  264)
 * -z undefs:                             Options.            (line 1726)
@@ -9677,6 +9689,7 @@ LD Index
                                                              (line  127)
 * machine dependencies:                  Machine Dependent.  (line    6)
 * mapping input sections to output sections: Input Section.  (line    6)
+* Mark program stack for MTE protection: ARM.                (line  313)
 * MAX:                                   Builtin Functions.  (line  154)
 * MAXPAGESIZE:                           Symbolic Constants. (line   10)
 * MEMORY:                                MEMORY.             (line    6)
@@ -9694,6 +9707,7 @@ LD Index
 * MRI compatibility:                     MRI.                (line    6)
 * MSP430 extra sections:                 MSP430.             (line   11)
 * MSP430 Options:                        MSP430.             (line   34)
+* MTE modes of operation:                ARM.                (line  306)
 * NAME (MRI):                            MRI.                (line   82)
 * name, section:                         Output Section Name.
                                                              (line    6)
@@ -10047,29 +10061,29 @@ Node: Machine Dependent287018
 Node: H8/300288073
 Node: M68HC11/68HC12290146
 Node: ARM291593
-Node: HPPA ELF32306815
-Node: M68K308438
-Node: MIPS309347
-Node: MMIX310463
-Node: MSP430311628
-Node: NDS32313541
-Node: PowerPC ELF32314511
-Node: PowerPC64 ELF64317340
-Node: S/390 ELF327098
-Node: SPU ELF327445
-Node: TI COFF330073
-Node: WIN32330599
-Node: Xtensa351818
-Node: BFD355261
-Node: BFD outline356714
-Node: BFD information loss358002
-Node: Canonical format360528
-Node: Reporting Bugs364856
-Node: Bug Criteria365550
-Node: Bug Reporting366249
-Node: MRI373284
-Node: GNU Free Documentation License377755
-Node: LD Index402892
+Node: HPPA ELF32307330
+Node: M68K308953
+Node: MIPS309862
+Node: MMIX310978
+Node: MSP430312143
+Node: NDS32314056
+Node: PowerPC ELF32315026
+Node: PowerPC64 ELF64317855
+Node: S/390 ELF327613
+Node: SPU ELF327960
+Node: TI COFF330588
+Node: WIN32331114
+Node: Xtensa352333
+Node: BFD355776
+Node: BFD outline357229
+Node: BFD information loss358517
+Node: Canonical format361043
+Node: Reporting Bugs365371
+Node: Bug Criteria366065
+Node: Bug Reporting366764
+Node: MRI373799
+Node: GNU Free Documentation License378270
+Node: LD Index403407
 
 End Tag Table
 

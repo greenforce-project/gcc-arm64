@@ -319,6 +319,12 @@
 #endif
 
 
+/* Define to enable -mfentry by default on x86-64. */
+#ifndef USED_FOR_TARGET
+#define ENABLE_X86_64_MFENTRY 0
+#endif
+
+
 /* Define to the name of a file containing a list of extra machine modes for
    this architecture. */
 #ifndef USED_FOR_TARGET

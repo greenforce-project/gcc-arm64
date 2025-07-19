@@ -9266,6 +9266,22 @@
 #define HAVE_aarch64_sme_single_sub_writevnx16si (TARGET_STREAMING_SME2)
 #define HAVE_aarch64_sme_single_add_writevnx8di ((TARGET_STREAMING_SME2) && (TARGET_SME_I16I64))
 #define HAVE_aarch64_sme_single_sub_writevnx8di ((TARGET_STREAMING_SME2) && (TARGET_SME_I16I64))
+#define HAVE_aarch64_sme_famaxvnx16bf ((TARGET_STREAMING_SME2 && TARGET_FAMINMAX) && (TARGET_SSVE_B16B16))
+#define HAVE_aarch64_sme_faminvnx16bf ((TARGET_STREAMING_SME2 && TARGET_FAMINMAX) && (TARGET_SSVE_B16B16))
+#define HAVE_aarch64_sme_famaxvnx32bf ((TARGET_STREAMING_SME2 && TARGET_FAMINMAX) && (TARGET_SSVE_B16B16))
+#define HAVE_aarch64_sme_faminvnx32bf ((TARGET_STREAMING_SME2 && TARGET_FAMINMAX) && (TARGET_SSVE_B16B16))
+#define HAVE_aarch64_sme_famaxvnx16hf (TARGET_STREAMING_SME2 && TARGET_FAMINMAX)
+#define HAVE_aarch64_sme_faminvnx16hf (TARGET_STREAMING_SME2 && TARGET_FAMINMAX)
+#define HAVE_aarch64_sme_famaxvnx8sf (TARGET_STREAMING_SME2 && TARGET_FAMINMAX)
+#define HAVE_aarch64_sme_faminvnx8sf (TARGET_STREAMING_SME2 && TARGET_FAMINMAX)
+#define HAVE_aarch64_sme_famaxvnx4df (TARGET_STREAMING_SME2 && TARGET_FAMINMAX)
+#define HAVE_aarch64_sme_faminvnx4df (TARGET_STREAMING_SME2 && TARGET_FAMINMAX)
+#define HAVE_aarch64_sme_famaxvnx32hf (TARGET_STREAMING_SME2 && TARGET_FAMINMAX)
+#define HAVE_aarch64_sme_faminvnx32hf (TARGET_STREAMING_SME2 && TARGET_FAMINMAX)
+#define HAVE_aarch64_sme_famaxvnx16sf (TARGET_STREAMING_SME2 && TARGET_FAMINMAX)
+#define HAVE_aarch64_sme_faminvnx16sf (TARGET_STREAMING_SME2 && TARGET_FAMINMAX)
+#define HAVE_aarch64_sme_famaxvnx8df (TARGET_STREAMING_SME2 && TARGET_FAMINMAX)
+#define HAVE_aarch64_sme_faminvnx8df (TARGET_STREAMING_SME2 && TARGET_FAMINMAX)
 #define HAVE_aarch64_sme_sdotvnx4sivnx32qi (TARGET_STREAMING_SME2 \
    && (32 == 32 || 8 == 16) \
    && (8 == 8 || true))
@@ -22072,6 +22088,22 @@ extern rtx        gen_aarch64_sme_single_add_writevnx16si              (rtx, rtx
 extern rtx        gen_aarch64_sme_single_sub_writevnx16si              (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_add_writevnx8di               (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_single_sub_writevnx8di               (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_famaxvnx16bf                         (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_faminvnx16bf                         (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_famaxvnx32bf                         (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_faminvnx32bf                         (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_famaxvnx16hf                         (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_faminvnx16hf                         (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_famaxvnx8sf                          (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_faminvnx8sf                          (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_famaxvnx4df                          (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_faminvnx4df                          (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_famaxvnx32hf                         (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_faminvnx32hf                         (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_famaxvnx16sf                         (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_faminvnx16sf                         (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_famaxvnx8df                          (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_faminvnx8df                          (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_sdotvnx4sivnx32qi                    (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_udotvnx4sivnx32qi                    (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_usdotvnx4sivnx32qi                   (rtx, rtx, rtx);

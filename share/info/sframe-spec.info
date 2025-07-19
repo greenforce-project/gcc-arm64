@@ -61,7 +61,8 @@ File: sframe-spec.info,  Node: Overview,  Next: Changes from Version 1 to Versio
 
 The SFrame stack trace information is provided in a loaded section,
 known as the '.sframe' section.  When available, the '.sframe' section
-appears in a new segment of its own, PT_GNU_SFRAME.
+appears in segment of type PT_GNU_SFRAME. An ELF SFrame section will
+have the type SHT_GNU_SFRAME.
 
    The SFrame format is currently supported only for select ABIs,
 namely, AMD64, AAPCS64, and s390x.
@@ -1018,26 +1019,26 @@ Tag Table:
 Node: Top564
 Node: Introduction1232
 Node: Overview1418
-Node: Changes from Version 1 to Version 22992
-Node: SFrame Section6033
-Node: SFrame Preamble6532
-Node: SFrame Magic Number and Endianness8099
-Node: SFrame Version8631
-Node: SFrame Flags9208
-Node: SFrame Header10906
-Node: SFrame ABI/arch Identifier16332
-Node: SFrame Function Descriptor Entries17464
-Node: The SFrame FDE Info Word22601
-Node: The SFrame FDE Types23815
-Node: The SFrame FRE Types25637
-Node: SFrame Frame Row Entries27125
-Node: The SFrame FRE Info Word30163
-Node: ABI/arch-specific Definition32241
-Node: AMD6433429
-Node: AArch6434529
-Node: s390x35752
-Node: Generating Stack Traces using SFrame39684
-Node: Index42745
+Node: Changes from Version 1 to Version 23039
+Node: SFrame Section6080
+Node: SFrame Preamble6579
+Node: SFrame Magic Number and Endianness8146
+Node: SFrame Version8678
+Node: SFrame Flags9255
+Node: SFrame Header10953
+Node: SFrame ABI/arch Identifier16379
+Node: SFrame Function Descriptor Entries17511
+Node: The SFrame FDE Info Word22648
+Node: The SFrame FDE Types23862
+Node: The SFrame FRE Types25684
+Node: SFrame Frame Row Entries27172
+Node: The SFrame FRE Info Word30210
+Node: ABI/arch-specific Definition32288
+Node: AMD6433476
+Node: AArch6434576
+Node: s390x35799
+Node: Generating Stack Traces using SFrame39731
+Node: Index42792
 
 End Tag Table
 
