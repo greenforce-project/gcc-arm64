@@ -467,7 +467,7 @@ enum optab_tag {
 #define NUM_OPTABS          452
 #define NUM_CONVLIB_OPTABS  17
 #define NUM_NORMLIB_OPTABS  80
-#define NUM_OPTAB_PATTERNS  2971
+#define NUM_OPTAB_PATTERNS  3113
 typedef enum optab_tag optab;
 typedef enum optab_tag convert_optab;
 typedef enum optab_tag direct_optab;
@@ -2421,6 +2421,24 @@ inline rtx
 gen_aarch64_mul_lane (machine_mode arg0, rtx x0, rtx x1, rtx x2, rtx x3)
 {
   rtx res = maybe_gen_aarch64_mul_lane (arg0, x0, x1, x2, x3);
+  gcc_assert (res);
+  return res;
+}
+
+extern insn_code maybe_code_for_and3 (machine_mode);
+inline insn_code
+code_for_and3 (machine_mode arg0)
+{
+  insn_code code = maybe_code_for_and3 (arg0);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_and3 (machine_mode, rtx, rtx, rtx);
+inline rtx
+gen_and3 (machine_mode arg0, rtx x0, rtx x1, rtx x2)
+{
+  rtx res = maybe_gen_and3 (arg0, x0, x1, x2);
   gcc_assert (res);
   return res;
 }

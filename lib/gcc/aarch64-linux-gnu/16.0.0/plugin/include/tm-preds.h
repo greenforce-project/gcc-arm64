@@ -478,7 +478,7 @@ insn_extra_constraint_allows_reg_mem (enum constraint_num c,
 }
 
 static inline size_t
-insn_constraint_len (char fc, const char *str ATTRIBUTE_UNUSED)
+insn_constraint_len (char fc, const char *str)
 {
   switch (fc)
     {
@@ -486,6 +486,13 @@ insn_constraint_len (char fc, const char *str ATTRIBUTE_UNUSED)
     case 'U': return 3;
     case 'v': return 3;
     default: break;
+    }
+  if (str[0] == '{')
+    {
+      size_t len = 1;
+      while (str[len] != '}' && str[len] != '\0')
+        ++len;
+      return len + 1;
     }
   return 1;
 }
