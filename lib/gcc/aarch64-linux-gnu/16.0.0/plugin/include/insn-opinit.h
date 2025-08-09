@@ -2668,6 +2668,24 @@ gen_aarch64_pred_cmp (rtx_code arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2, 
   return res;
 }
 
+extern insn_code maybe_code_for_aarch64_pred_cmp_acle (rtx_code, machine_mode);
+inline insn_code
+code_for_aarch64_pred_cmp_acle (rtx_code arg0, machine_mode arg1)
+{
+  insn_code code = maybe_code_for_aarch64_pred_cmp_acle (arg0, arg1);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_pred_cmp_acle (rtx_code, machine_mode, rtx, rtx, rtx, rtx, rtx);
+inline rtx
+gen_aarch64_pred_cmp_acle (rtx_code arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2, rtx x3, rtx x4)
+{
+  rtx res = maybe_gen_aarch64_pred_cmp_acle (arg0, arg1, x0, x1, x2, x3, x4);
+  gcc_assert (res);
+  return res;
+}
+
 extern insn_code maybe_code_for_aarch64_pred_cmp_wide (int, machine_mode);
 inline insn_code
 code_for_aarch64_pred_cmp_wide (int arg0, machine_mode arg1)
@@ -2700,6 +2718,24 @@ inline rtx
 gen_while (int arg0, machine_mode arg1, machine_mode arg2, rtx x0, rtx x1, rtx x2)
 {
   rtx res = maybe_gen_while (arg0, arg1, arg2, x0, x1, x2);
+  gcc_assert (res);
+  return res;
+}
+
+extern insn_code maybe_code_for_aarch64_sve_while_acle (int, machine_mode, machine_mode);
+inline insn_code
+code_for_aarch64_sve_while_acle (int arg0, machine_mode arg1, machine_mode arg2)
+{
+  insn_code code = maybe_code_for_aarch64_sve_while_acle (arg0, arg1, arg2);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_sve_while_acle (int, machine_mode, machine_mode, rtx, rtx, rtx);
+inline rtx
+gen_aarch64_sve_while_acle (int arg0, machine_mode arg1, machine_mode arg2, rtx x0, rtx x1, rtx x2)
+{
+  rtx res = maybe_gen_aarch64_sve_while_acle (arg0, arg1, arg2, x0, x1, x2);
   gcc_assert (res);
   return res;
 }
@@ -2740,6 +2776,24 @@ gen_aarch64_pred_fcm (int arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2, rtx x
   return res;
 }
 
+extern insn_code maybe_code_for_aarch64_pred_fcm_acle (int, machine_mode);
+inline insn_code
+code_for_aarch64_pred_fcm_acle (int arg0, machine_mode arg1)
+{
+  insn_code code = maybe_code_for_aarch64_pred_fcm_acle (arg0, arg1);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_pred_fcm_acle (int, machine_mode, rtx, rtx, rtx, rtx, rtx);
+inline rtx
+gen_aarch64_pred_fcm_acle (int arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2, rtx x3, rtx x4)
+{
+  rtx res = maybe_gen_aarch64_pred_fcm_acle (arg0, arg1, x0, x1, x2, x3, x4);
+  gcc_assert (res);
+  return res;
+}
+
 extern insn_code maybe_code_for_aarch64_pred_fcmuo (machine_mode);
 inline insn_code
 code_for_aarch64_pred_fcmuo (machine_mode arg0)
@@ -2758,20 +2812,38 @@ gen_aarch64_pred_fcmuo (machine_mode arg0, rtx x0, rtx x1, rtx x2, rtx x3, rtx x
   return res;
 }
 
-extern insn_code maybe_code_for_aarch64_pred_fac (int, machine_mode);
+extern insn_code maybe_code_for_aarch64_pred_fcmuo_acle (machine_mode);
 inline insn_code
-code_for_aarch64_pred_fac (int arg0, machine_mode arg1)
+code_for_aarch64_pred_fcmuo_acle (machine_mode arg0)
 {
-  insn_code code = maybe_code_for_aarch64_pred_fac (arg0, arg1);
+  insn_code code = maybe_code_for_aarch64_pred_fcmuo_acle (arg0);
   gcc_assert (code != CODE_FOR_nothing);
   return code;
 }
 
-extern rtx maybe_gen_aarch64_pred_fac (int, machine_mode, rtx, rtx, rtx, rtx, rtx);
+extern rtx maybe_gen_aarch64_pred_fcmuo_acle (machine_mode, rtx, rtx, rtx, rtx, rtx);
 inline rtx
-gen_aarch64_pred_fac (int arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2, rtx x3, rtx x4)
+gen_aarch64_pred_fcmuo_acle (machine_mode arg0, rtx x0, rtx x1, rtx x2, rtx x3, rtx x4)
 {
-  rtx res = maybe_gen_aarch64_pred_fac (arg0, arg1, x0, x1, x2, x3, x4);
+  rtx res = maybe_gen_aarch64_pred_fcmuo_acle (arg0, x0, x1, x2, x3, x4);
+  gcc_assert (res);
+  return res;
+}
+
+extern insn_code maybe_code_for_aarch64_pred_fac_acle (int, machine_mode);
+inline insn_code
+code_for_aarch64_pred_fac_acle (int arg0, machine_mode arg1)
+{
+  insn_code code = maybe_code_for_aarch64_pred_fac_acle (arg0, arg1);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_pred_fac_acle (int, machine_mode, rtx, rtx, rtx, rtx, rtx);
+inline rtx
+gen_aarch64_pred_fac_acle (int arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2, rtx x3, rtx x4)
+{
+  rtx res = maybe_gen_aarch64_pred_fac_acle (arg0, arg1, x0, x1, x2, x3, x4);
   gcc_assert (res);
   return res;
 }
@@ -2938,20 +3010,38 @@ gen_aarch64_sve_ext (machine_mode arg0, rtx x0, rtx x1, rtx x2, rtx x3)
   return res;
 }
 
-extern insn_code maybe_code_for_aarch64_sve_trn1_conv (machine_mode);
+extern insn_code maybe_code_for_aarch64_sve_rev_acle (machine_mode);
 inline insn_code
-code_for_aarch64_sve_trn1_conv (machine_mode arg0)
+code_for_aarch64_sve_rev_acle (machine_mode arg0)
 {
-  insn_code code = maybe_code_for_aarch64_sve_trn1_conv (arg0);
+  insn_code code = maybe_code_for_aarch64_sve_rev_acle (arg0);
   gcc_assert (code != CODE_FOR_nothing);
   return code;
 }
 
-extern rtx maybe_gen_aarch64_sve_trn1_conv (machine_mode, rtx, rtx, rtx, rtx);
+extern rtx maybe_gen_aarch64_sve_rev_acle (machine_mode, rtx, rtx);
 inline rtx
-gen_aarch64_sve_trn1_conv (machine_mode arg0, rtx x0, rtx x1, rtx x2, rtx x3)
+gen_aarch64_sve_rev_acle (machine_mode arg0, rtx x0, rtx x1)
 {
-  rtx res = maybe_gen_aarch64_sve_trn1_conv (arg0, x0, x1, x2, x3);
+  rtx res = maybe_gen_aarch64_sve_rev_acle (arg0, x0, x1);
+  gcc_assert (res);
+  return res;
+}
+
+extern insn_code maybe_code_for_aarch64_sve_acle (int, machine_mode);
+inline insn_code
+code_for_aarch64_sve_acle (int arg0, machine_mode arg1)
+{
+  insn_code code = maybe_code_for_aarch64_sve_acle (arg0, arg1);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_sve_acle (int, machine_mode, rtx, rtx, rtx);
+inline rtx
+gen_aarch64_sve_acle (int arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2)
+{
+  rtx res = maybe_gen_aarch64_sve_acle (arg0, arg1, x0, x1, x2);
   gcc_assert (res);
   return res;
 }
@@ -3177,6 +3267,24 @@ inline rtx
 gen_aarch64_sve_punpk (int arg0, machine_mode arg1, rtx x0, rtx x1)
 {
   rtx res = maybe_gen_aarch64_sve_punpk (arg0, arg1, x0, x1);
+  gcc_assert (res);
+  return res;
+}
+
+extern insn_code maybe_code_for_aarch64_sve_punpk_acle (int);
+inline insn_code
+code_for_aarch64_sve_punpk_acle (int arg0)
+{
+  insn_code code = maybe_code_for_aarch64_sve_punpk_acle (arg0);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_sve_punpk_acle (int, rtx, rtx);
+inline rtx
+gen_aarch64_sve_punpk_acle (int arg0, rtx x0, rtx x1)
+{
+  rtx res = maybe_gen_aarch64_sve_punpk_acle (arg0, x0, x1);
   gcc_assert (res);
   return res;
 }
