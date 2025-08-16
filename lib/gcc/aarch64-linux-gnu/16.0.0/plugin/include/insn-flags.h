@@ -10,30 +10,6 @@
 #define HAVE_aarch64_write_sysregti (TARGET_D128)
 #define HAVE_indirect_jump 1
 #define HAVE_jump 1
-#define HAVE_aarch64_cbzeqsi1 (!aarch64_track_speculation)
-#define HAVE_aarch64_cbznesi1 (!aarch64_track_speculation)
-#define HAVE_aarch64_cbzeqdi1 (!aarch64_track_speculation)
-#define HAVE_aarch64_cbznedi1 (!aarch64_track_speculation)
-#define HAVE_aarch64_cbltsi (TARGET_CMPBR && aarch64_cb_rhs (LT, operands[1]))
-#define HAVE_aarch64_cblesi (TARGET_CMPBR && aarch64_cb_rhs (LE, operands[1]))
-#define HAVE_aarch64_cbeqsi (TARGET_CMPBR && aarch64_cb_rhs (EQ, operands[1]))
-#define HAVE_aarch64_cbnesi (TARGET_CMPBR && aarch64_cb_rhs (NE, operands[1]))
-#define HAVE_aarch64_cbgesi (TARGET_CMPBR && aarch64_cb_rhs (GE, operands[1]))
-#define HAVE_aarch64_cbgtsi (TARGET_CMPBR && aarch64_cb_rhs (GT, operands[1]))
-#define HAVE_aarch64_cbltusi (TARGET_CMPBR && aarch64_cb_rhs (LTU, operands[1]))
-#define HAVE_aarch64_cbleusi (TARGET_CMPBR && aarch64_cb_rhs (LEU, operands[1]))
-#define HAVE_aarch64_cbgeusi (TARGET_CMPBR && aarch64_cb_rhs (GEU, operands[1]))
-#define HAVE_aarch64_cbgtusi (TARGET_CMPBR && aarch64_cb_rhs (GTU, operands[1]))
-#define HAVE_aarch64_cbltdi (TARGET_CMPBR && aarch64_cb_rhs (LT, operands[1]))
-#define HAVE_aarch64_cbledi (TARGET_CMPBR && aarch64_cb_rhs (LE, operands[1]))
-#define HAVE_aarch64_cbeqdi (TARGET_CMPBR && aarch64_cb_rhs (EQ, operands[1]))
-#define HAVE_aarch64_cbnedi (TARGET_CMPBR && aarch64_cb_rhs (NE, operands[1]))
-#define HAVE_aarch64_cbgedi (TARGET_CMPBR && aarch64_cb_rhs (GE, operands[1]))
-#define HAVE_aarch64_cbgtdi (TARGET_CMPBR && aarch64_cb_rhs (GT, operands[1]))
-#define HAVE_aarch64_cbltudi (TARGET_CMPBR && aarch64_cb_rhs (LTU, operands[1]))
-#define HAVE_aarch64_cbleudi (TARGET_CMPBR && aarch64_cb_rhs (LEU, operands[1]))
-#define HAVE_aarch64_cbgeudi (TARGET_CMPBR && aarch64_cb_rhs (GEU, operands[1]))
-#define HAVE_aarch64_cbgtudi (TARGET_CMPBR && aarch64_cb_rhs (GTU, operands[1]))
 #define HAVE_aarch64_cbltqi (TARGET_CMPBR)
 #define HAVE_aarch64_cbleqi (TARGET_CMPBR)
 #define HAVE_aarch64_cbeqqi (TARGET_CMPBR)
@@ -14354,30 +14330,6 @@ extern rtx        gen_aarch64_write_sysregdi                           (rtx, rtx
 extern rtx        gen_aarch64_write_sysregti                           (rtx, rtx);
 extern rtx        gen_indirect_jump                                    (rtx);
 extern rtx        gen_jump                                             (rtx);
-extern rtx        gen_aarch64_cbzeqsi1                                 (rtx, rtx);
-extern rtx        gen_aarch64_cbznesi1                                 (rtx, rtx);
-extern rtx        gen_aarch64_cbzeqdi1                                 (rtx, rtx);
-extern rtx        gen_aarch64_cbznedi1                                 (rtx, rtx);
-extern rtx        gen_aarch64_cbltsi                                   (rtx, rtx, rtx);
-extern rtx        gen_aarch64_cblesi                                   (rtx, rtx, rtx);
-extern rtx        gen_aarch64_cbeqsi                                   (rtx, rtx, rtx);
-extern rtx        gen_aarch64_cbnesi                                   (rtx, rtx, rtx);
-extern rtx        gen_aarch64_cbgesi                                   (rtx, rtx, rtx);
-extern rtx        gen_aarch64_cbgtsi                                   (rtx, rtx, rtx);
-extern rtx        gen_aarch64_cbltusi                                  (rtx, rtx, rtx);
-extern rtx        gen_aarch64_cbleusi                                  (rtx, rtx, rtx);
-extern rtx        gen_aarch64_cbgeusi                                  (rtx, rtx, rtx);
-extern rtx        gen_aarch64_cbgtusi                                  (rtx, rtx, rtx);
-extern rtx        gen_aarch64_cbltdi                                   (rtx, rtx, rtx);
-extern rtx        gen_aarch64_cbledi                                   (rtx, rtx, rtx);
-extern rtx        gen_aarch64_cbeqdi                                   (rtx, rtx, rtx);
-extern rtx        gen_aarch64_cbnedi                                   (rtx, rtx, rtx);
-extern rtx        gen_aarch64_cbgedi                                   (rtx, rtx, rtx);
-extern rtx        gen_aarch64_cbgtdi                                   (rtx, rtx, rtx);
-extern rtx        gen_aarch64_cbltudi                                  (rtx, rtx, rtx);
-extern rtx        gen_aarch64_cbleudi                                  (rtx, rtx, rtx);
-extern rtx        gen_aarch64_cbgeudi                                  (rtx, rtx, rtx);
-extern rtx        gen_aarch64_cbgtudi                                  (rtx, rtx, rtx);
 extern rtx        gen_aarch64_cbltqi                                   (rtx, rtx, rtx);
 extern rtx        gen_aarch64_cbleqi                                   (rtx, rtx, rtx);
 extern rtx        gen_aarch64_cbeqqi                                   (rtx, rtx, rtx);

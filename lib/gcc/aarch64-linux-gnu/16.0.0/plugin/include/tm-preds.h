@@ -84,7 +84,7 @@ extern bool aarch64_reg_or_shift_imm_di (rtx, machine_mode);
 extern bool aarch64_imm3 (rtx, machine_mode);
 extern bool aarch64_imm2 (rtx, machine_mode);
 extern bool aarch64_lane_imm3 (rtx, machine_mode);
-extern bool aarch64_imm24 (rtx, machine_mode);
+extern bool aarch64_split_imm24 (rtx, machine_mode);
 extern bool aarch64_mem_pair_offset (rtx, machine_mode);
 extern bool aarch64_mem_pair_operator (rtx, machine_mode);
 extern bool aarch64_mem_pair_operand (rtx, machine_mode);
@@ -229,6 +229,8 @@ extern bool aarch64_granule16_uimm6 (rtx, machine_mode);
 extern bool aarch64_granule16_simm9 (rtx, machine_mode);
 extern bool aarch64_maskload_else_operand (rtx, machine_mode);
 extern bool aarch64_ptrue_all_operand (rtx, machine_mode);
+extern bool aarch64_reg_Uc0_operand (rtx, machine_mode);
+extern bool aarch64_reg_Uc1_operand (rtx, machine_mode);
 #endif /* HAVE_MACHINE_MODES */
 
 #ifdef GCC_HARD_REG_SET_H
@@ -340,7 +342,6 @@ enum constraint_num
   CONSTRAINT_Ui7,
   CONSTRAINT_Uc0,
   CONSTRAINT_Uc1,
-  CONSTRAINT_Uc2,
   CONSTRAINT_Up3,
   CONSTRAINT_Uih,
   CONSTRAINT_Ufc,

@@ -85,7 +85,7 @@ along with GCC; see the file COPYING3.  If not see
 	  NEXT_PASS_WITH_ARG (pass_ccp, 1, false /* nonzero_p */);
 	  /* After CCP we rewrite no longer addressed locals into SSA
 	     form if possible.  */
-	  NEXT_PASS_WITH_ARG (pass_forwprop, 1, /*last=*/false);
+	  NEXT_PASS_WITH_ARG (pass_forwprop, 1, /*full_walk=*/true);
           NEXT_PASS_WITH_ARG (pass_early_thread_jumps, 1, /*first=*/true);
 	  NEXT_PASS (pass_sra_early, 1);
 	  /* pass_build_ealias is a dummy pass that ensures that we
@@ -223,7 +223,7 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS (pass_complete_unrolli, 1);
       NEXT_PASS (pass_backprop, 1);
       NEXT_PASS (pass_phiprop, 2);
-      NEXT_PASS_WITH_ARG (pass_forwprop, 2, /*last=*/false);
+      NEXT_PASS_WITH_ARG (pass_forwprop, 2, /*full_walk=*/true);
       /* pass_build_alias is a dummy pass that ensures that we
 	 execute TODO_rebuild_alias at this point.  */
       NEXT_PASS (pass_build_alias, 1);
@@ -263,7 +263,7 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS (pass_isolate_erroneous_paths, 1);
       NEXT_PASS_WITH_ARG (pass_reassoc, 1, true /* early_p */);
       NEXT_PASS (pass_dce, 3);
-      NEXT_PASS_WITH_ARG (pass_forwprop, 3, /*last=*/false);
+      NEXT_PASS (pass_forwprop, 3);
       NEXT_PASS_WITH_ARG (pass_phiopt, 3, false /* early_p */);
       NEXT_PASS_WITH_ARG (pass_ccp, 3, true /* nonzero_p */);
       /* After CCP we rewrite no longer addressed locals into SSA
@@ -365,7 +365,7 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS_WITH_ARGS (pass_dce, 7, true /* update_address_taken_p */, true /* remove_unused_locals */);
       /* After late DCE we rewrite no longer addressed locals into SSA
 	 form if possible.  */
-      NEXT_PASS_WITH_ARG (pass_forwprop, 4, /*last=*/true);
+      NEXT_PASS_WITH_ARGS (pass_forwprop, 4, /*full_walk=*/false, /*last=*/true);
       NEXT_PASS_WITH_ARG (pass_sink_code, 2, true /* unsplit edges */);
       NEXT_PASS_WITH_ARG (pass_phiopt, 4, false /* early_p */);
       NEXT_PASS (pass_fold_builtins, 1);

@@ -5,7 +5,6 @@
 #define GCC_INSN_CONSTANTS_H
 
 #define IP0_REGNUM 16
-#define BRANCH_LEN_N_1Kib -1024
 #define ZA_FREE_REGNUM 91
 #define SVE_WHILE_C 2
 #define R22_REGNUM 22
@@ -72,6 +71,7 @@
 #define P6_REGNUM 74
 #define V19_REGNUM 51
 #define R2_REGNUM 2
+#define BRANCH_LEN_P_1KiB 1020
 #define V31_REGNUM 63
 #define V8_REGNUM 40
 #define R26_REGNUM 26
@@ -83,7 +83,6 @@
 #define R18_REGNUM 18
 #define V16_REGNUM 48
 #define LAST_FAKE_REGNUM ZT0_REGNUM
-#define BRANCH_LEN_P_1Kib 1020
 #define V21_REGNUM 53
 #define IP1_REGNUM 17
 #define R23_REGNUM 23
@@ -126,6 +125,7 @@
 #define V22_REGNUM 54
 #define R17_REGNUM 17
 #define V15_REGNUM 47
+#define BRANCH_LEN_N_1KiB -1024
 
 enum arches {
   ARCHES_ANY = 0,
