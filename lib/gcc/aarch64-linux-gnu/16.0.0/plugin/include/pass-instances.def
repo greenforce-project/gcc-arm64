@@ -502,7 +502,6 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS (pass_combine, 1);
       NEXT_PASS (pass_late_combine, 1);
       NEXT_PASS (pass_if_after_combine, 1);
-NEXT_PASS (pass_cc_fusion, 1);
       NEXT_PASS (pass_jump_after_combine, 1);
       NEXT_PASS (pass_partition_blocks, 1);
       NEXT_PASS (pass_outof_cfg_layout_mode, 1);
