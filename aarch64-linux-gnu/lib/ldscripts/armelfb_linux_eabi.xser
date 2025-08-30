@@ -115,7 +115,7 @@ SECTIONS
      data, but this is not guaranteed to always be the case.  */
   .note.build-id :      { *(.note.build-id) }
   .note.GNU-stack :     { *(.note.GNU-stack) }
-  .note.gnu-property :  { *(.note.gnu-property) }
+  .note.gnu.property :  { *(.note.gnu.property) }
   .note.ABI-tag :       { *(.note.ABI-tag) }
   .note.package :       { *(.note.package) }
   .note.dlopen :        { *(.note.dlopen) }

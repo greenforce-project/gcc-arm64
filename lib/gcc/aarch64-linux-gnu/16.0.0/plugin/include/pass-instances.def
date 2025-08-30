@@ -99,10 +99,12 @@ along with GCC; see the file COPYING3.  If not see
           NEXT_PASS (pass_dse, 1);
 	  NEXT_PASS_WITH_ARGS (pass_cd_dce, 1, false /* update_address_taken_p */, true /* remove_unused_locals */);
 	  NEXT_PASS_WITH_ARG (pass_phiopt, 1, true /* early_p */);
+	  /* Cleanup eh is done before tail recusision to remove empty (only clobbers)
+	     finally blocks which would block tail recursion.  */
+	  NEXT_PASS (pass_cleanup_eh, 1);
 	  NEXT_PASS (pass_tail_recursion, 1);
 	  NEXT_PASS (pass_if_to_switch, 1);
 	  NEXT_PASS (pass_convert_switch, 1);
-	  NEXT_PASS (pass_cleanup_eh, 1);
 	  NEXT_PASS (pass_sccopy, 1);
 	  NEXT_PASS (pass_profile, 1);
 	  NEXT_PASS (pass_local_pure_const, 1);

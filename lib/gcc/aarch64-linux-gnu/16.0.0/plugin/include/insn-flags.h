@@ -127,6 +127,12 @@
 #define HAVE_fcmpehf ((TARGET_FLOAT) && (TARGET_FP_F16INST))
 #define HAVE_fcmpesf (TARGET_FLOAT)
 #define HAVE_fcmpedf (TARGET_FLOAT)
+#define HAVE_cmp_swp_lsl_regsi 1
+#define HAVE_cmp_swp_asr_regsi 1
+#define HAVE_cmp_swp_lsr_regsi 1
+#define HAVE_cmp_swp_lsl_regdi 1
+#define HAVE_cmp_swp_asr_regdi 1
+#define HAVE_cmp_swp_lsr_regdi 1
 #define HAVE_aarch64_cstoreqi 1
 #define HAVE_aarch64_cstorehi 1
 #define HAVE_aarch64_cstoresi 1
@@ -10198,6 +10204,8 @@
 #define HAVE_copysigndf3 (TARGET_SIMD)
 #define HAVE_xorsignsf3 (TARGET_SIMD)
 #define HAVE_xorsigndf3 (TARGET_SIMD)
+#define HAVE_isinfsf2 (TARGET_FLOAT)
+#define HAVE_isinfdf2 (TARGET_FLOAT)
 #define HAVE_aarch64_reload_movcpsfsi ((TARGET_FLOAT) && (ptr_mode == SImode || Pmode == SImode))
 #define HAVE_aarch64_reload_movcpdfsi ((TARGET_FLOAT) && (ptr_mode == SImode || Pmode == SImode))
 #define HAVE_aarch64_reload_movcptfsi ((TARGET_FLOAT) && (ptr_mode == SImode || Pmode == SImode))
@@ -14443,6 +14451,12 @@ extern rtx        gen_fcmpdf                                           (rtx, rtx
 extern rtx        gen_fcmpehf                                          (rtx, rtx);
 extern rtx        gen_fcmpesf                                          (rtx, rtx);
 extern rtx        gen_fcmpedf                                          (rtx, rtx);
+extern rtx        gen_cmp_swp_lsl_regsi                                (rtx, rtx, rtx);
+extern rtx        gen_cmp_swp_asr_regsi                                (rtx, rtx, rtx);
+extern rtx        gen_cmp_swp_lsr_regsi                                (rtx, rtx, rtx);
+extern rtx        gen_cmp_swp_lsl_regdi                                (rtx, rtx, rtx);
+extern rtx        gen_cmp_swp_asr_regdi                                (rtx, rtx, rtx);
+extern rtx        gen_cmp_swp_lsr_regdi                                (rtx, rtx, rtx);
 extern rtx        gen_aarch64_cstoreqi                                 (rtx, rtx, rtx);
 extern rtx        gen_aarch64_cstorehi                                 (rtx, rtx, rtx);
 extern rtx        gen_aarch64_cstoresi                                 (rtx, rtx, rtx);
@@ -23243,6 +23257,8 @@ extern rtx        gen_copysignsf3                                      (rtx, rtx
 extern rtx        gen_copysigndf3                                      (rtx, rtx, rtx);
 extern rtx        gen_xorsignsf3                                       (rtx, rtx, rtx);
 extern rtx        gen_xorsigndf3                                       (rtx, rtx, rtx);
+extern rtx        gen_isinfsf2                                         (rtx, rtx);
+extern rtx        gen_isinfdf2                                         (rtx, rtx);
 extern rtx        gen_aarch64_reload_movcpsfsi                         (rtx, rtx, rtx);
 extern rtx        gen_aarch64_reload_movcpdfsi                         (rtx, rtx, rtx);
 extern rtx        gen_aarch64_reload_movcptfsi                         (rtx, rtx, rtx);
