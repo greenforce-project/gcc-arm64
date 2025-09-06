@@ -280,6 +280,7 @@ enum optab_tag {
   isfinite_optab,
   isnormal_optab,
   issignaling_optab,
+  isnan_optab,
   ldexp_optab,
   log10_optab,
   log1p_optab,
@@ -464,7 +465,7 @@ enum optab_tag {
   LAST_NORM_OPTAB = iorn_optab
 };
 
-#define NUM_OPTABS          452
+#define NUM_OPTABS          453
 #define NUM_CONVLIB_OPTABS  17
 #define NUM_NORMLIB_OPTABS  80
 #define NUM_OPTAB_PATTERNS  3115

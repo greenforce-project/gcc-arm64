@@ -12487,6 +12487,10 @@
 #define HAVE_sminvnx2di3 (TARGET_SVE)
 #define HAVE_umaxvnx2di3 (TARGET_SVE)
 #define HAVE_uminvnx2di3 (TARGET_SVE)
+#define HAVE_smaxv2di3_as_sve (TARGET_SVE)
+#define HAVE_sminv2di3_as_sve (TARGET_SVE)
+#define HAVE_umaxv2di3_as_sve (TARGET_SVE)
+#define HAVE_uminv2di3_as_sve (TARGET_SVE)
 #define HAVE_mulvnx16qi3 (TARGET_SVE)
 #define HAVE_mulvnx8qi3 (TARGET_SVE)
 #define HAVE_mulvnx4qi3 (TARGET_SVE)
@@ -25540,6 +25544,10 @@ extern rtx        gen_smaxvnx2di3                                      (rtx, rtx
 extern rtx        gen_sminvnx2di3                                      (rtx, rtx, rtx);
 extern rtx        gen_umaxvnx2di3                                      (rtx, rtx, rtx);
 extern rtx        gen_uminvnx2di3                                      (rtx, rtx, rtx);
+extern rtx        gen_smaxv2di3_as_sve                                 (rtx, rtx, rtx);
+extern rtx        gen_sminv2di3_as_sve                                 (rtx, rtx, rtx);
+extern rtx        gen_umaxv2di3_as_sve                                 (rtx, rtx, rtx);
+extern rtx        gen_uminv2di3_as_sve                                 (rtx, rtx, rtx);
 extern rtx        gen_mulvnx16qi3                                      (rtx, rtx, rtx);
 extern rtx        gen_mulvnx8qi3                                       (rtx, rtx, rtx);
 extern rtx        gen_mulvnx4qi3                                       (rtx, rtx, rtx);
