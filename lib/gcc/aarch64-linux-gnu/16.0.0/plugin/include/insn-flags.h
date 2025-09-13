@@ -10206,6 +10206,8 @@
 #define HAVE_xorsigndf3 (TARGET_SIMD)
 #define HAVE_isinfsf2 (TARGET_FLOAT)
 #define HAVE_isinfdf2 (TARGET_FLOAT)
+#define HAVE_isfinitesf2 (TARGET_FLOAT)
+#define HAVE_isfinitedf2 (TARGET_FLOAT)
 #define HAVE_aarch64_reload_movcpsfsi ((TARGET_FLOAT) && (ptr_mode == SImode || Pmode == SImode))
 #define HAVE_aarch64_reload_movcpdfsi ((TARGET_FLOAT) && (ptr_mode == SImode || Pmode == SImode))
 #define HAVE_aarch64_reload_movcptfsi ((TARGET_FLOAT) && (ptr_mode == SImode || Pmode == SImode))
@@ -10398,6 +10400,9 @@
 #define HAVE_vec_widen_uabd_lo_v8hi (TARGET_SIMD)
 #define HAVE_vec_widen_sabd_lo_v4si (TARGET_SIMD)
 #define HAVE_vec_widen_uabd_lo_v4si (TARGET_SIMD)
+#define HAVE_vec_trunc_add_highv8hi (TARGET_SIMD)
+#define HAVE_vec_trunc_add_highv4si (TARGET_SIMD)
+#define HAVE_vec_trunc_add_highv2di (TARGET_SIMD)
 #define HAVE_aarch64_sabal2v16qi (TARGET_SIMD)
 #define HAVE_aarch64_uabal2v16qi (TARGET_SIMD)
 #define HAVE_aarch64_sabal2v8hi (TARGET_SIMD)
@@ -23263,6 +23268,8 @@ extern rtx        gen_xorsignsf3                                       (rtx, rtx
 extern rtx        gen_xorsigndf3                                       (rtx, rtx, rtx);
 extern rtx        gen_isinfsf2                                         (rtx, rtx);
 extern rtx        gen_isinfdf2                                         (rtx, rtx);
+extern rtx        gen_isfinitesf2                                      (rtx, rtx);
+extern rtx        gen_isfinitedf2                                      (rtx, rtx);
 extern rtx        gen_aarch64_reload_movcpsfsi                         (rtx, rtx, rtx);
 extern rtx        gen_aarch64_reload_movcpdfsi                         (rtx, rtx, rtx);
 extern rtx        gen_aarch64_reload_movcptfsi                         (rtx, rtx, rtx);
@@ -23455,6 +23462,9 @@ extern rtx        gen_vec_widen_sabd_lo_v8hi                           (rtx, rtx
 extern rtx        gen_vec_widen_uabd_lo_v8hi                           (rtx, rtx, rtx);
 extern rtx        gen_vec_widen_sabd_lo_v4si                           (rtx, rtx, rtx);
 extern rtx        gen_vec_widen_uabd_lo_v4si                           (rtx, rtx, rtx);
+extern rtx        gen_vec_trunc_add_highv8hi                           (rtx, rtx, rtx);
+extern rtx        gen_vec_trunc_add_highv4si                           (rtx, rtx, rtx);
+extern rtx        gen_vec_trunc_add_highv2di                           (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sabal2v16qi                              (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_uabal2v16qi                              (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sabal2v8hi                               (rtx, rtx, rtx, rtx);

@@ -520,6 +520,7 @@ NEXT_PASS (pass_aarch64_early_ra, 1);
       NEXT_PASS (pass_rtl_avoid_store_forwarding, 1);
 NEXT_PASS (pass_ldp_fusion, 1);
       NEXT_PASS (pass_early_remat, 1);
+      NEXT_PASS (pass_dep_fusion, 1);
       NEXT_PASS (pass_ira, 1);
       NEXT_PASS (pass_reload, 1);
       /* In the following, some passes are tied to 'pass_postreload' and others
@@ -542,6 +543,7 @@ NEXT_PASS (pass_ldp_fusion, 1);
 NEXT_PASS (pass_ldp_fusion, 2);
 	  NEXT_PASS (pass_peephole2, 1);
 	  NEXT_PASS (pass_if_after_reload, 1);
+	  NEXT_PASS (pass_dep_fusion, 2);
 	  NEXT_PASS (pass_regrename, 1);
 NEXT_PASS (pass_fma_steering, 1);
 	  NEXT_PASS (pass_fold_mem_offsets, 1);
