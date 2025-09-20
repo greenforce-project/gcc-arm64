@@ -851,9 +851,10 @@ enum unspec {
   UNSPEC_SME_STR = 702,
   UNSPEC_SME_ZERO = 703,
   UNSPEC_SME_ZERO_SLICES = 704,
-  UNSPEC_SME_LUTI = 705
+  UNSPEC_SME_LUTI = 705,
+  UNSPEC_SME_LUTI_ZT = 706
 };
-#define NUM_UNSPEC_VALUES 706
+#define NUM_UNSPEC_VALUES 707
 extern const char *const unspec_strings[];
 
 enum unspecv {

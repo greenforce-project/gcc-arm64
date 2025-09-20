@@ -469,7 +469,7 @@ enum optab_tag {
 #define NUM_OPTABS          454
 #define NUM_CONVLIB_OPTABS  17
 #define NUM_NORMLIB_OPTABS  80
-#define NUM_OPTAB_PATTERNS  3120
+#define NUM_OPTAB_PATTERNS  3122
 typedef enum optab_tag optab;
 typedef enum optab_tag convert_optab;
 typedef enum optab_tag direct_optab;
@@ -4727,6 +4727,24 @@ inline rtx
 gen_aarch64_sme_write (machine_mode arg0, rtx x0, rtx x1)
 {
   rtx res = maybe_gen_aarch64_sme_write (arg0, x0, x1);
+  gcc_assert (res);
+  return res;
+}
+
+extern insn_code maybe_code_for_aarch64_sme_write_zt (machine_mode);
+inline insn_code
+code_for_aarch64_sme_write_zt (machine_mode arg0)
+{
+  insn_code code = maybe_code_for_aarch64_sme_write_zt (arg0);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_sme_write_zt (machine_mode, rtx, rtx);
+inline rtx
+gen_aarch64_sme_write_zt (machine_mode arg0, rtx x0, rtx x1)
+{
+  rtx res = maybe_gen_aarch64_sme_write_zt (arg0, x0, x1);
   gcc_assert (res);
   return res;
 }

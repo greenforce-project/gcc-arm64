@@ -9298,6 +9298,14 @@
 #define HAVE_aarch64_sme_write_vervnx8dfvnx8df (TARGET_STREAMING_SME2)
 #define HAVE_aarch64_sme_writevnx4di (TARGET_STREAMING_SME2)
 #define HAVE_aarch64_sme_writevnx8di (TARGET_STREAMING_SME2)
+#define HAVE_aarch64_sme_write_ztvnx16qi (TARGET_SME_LUTv2)
+#define HAVE_aarch64_sme_write_ztvnx8hi (TARGET_SME_LUTv2)
+#define HAVE_aarch64_sme_write_ztvnx4si (TARGET_SME_LUTv2)
+#define HAVE_aarch64_sme_write_ztvnx2di (TARGET_SME_LUTv2)
+#define HAVE_aarch64_sme_write_ztvnx8bf (TARGET_SME_LUTv2)
+#define HAVE_aarch64_sme_write_ztvnx8hf (TARGET_SME_LUTv2)
+#define HAVE_aarch64_sme_write_ztvnx4sf (TARGET_SME_LUTv2)
+#define HAVE_aarch64_sme_write_ztvnx2df (TARGET_SME_LUTv2)
 #define HAVE_aarch64_sme_zero_za (TARGET_SME)
 #define HAVE_aarch64_sme_zero_za_slicesvnx8si (TARGET_STREAMING_SME2p1)
 #define HAVE_aarch64_sme_zero_za_slicesvnx4di ((TARGET_STREAMING_SME2p1) && (TARGET_SME_I16I64))
@@ -9994,6 +10002,7 @@
    && !(2 == 4 && 4 == 4 && 32 == 8))
 #define HAVE_aarch64_sme_lut4vnx16sf (TARGET_STREAMING_SME2 \
    && !(4 == 4 && 4 == 4 && 32 == 8))
+#define HAVE_aarch64_sme_lut_zt (TARGET_SME_LUTv2)
 #define HAVE_cbranchsi4 1
 #define HAVE_cbranchdi4 1
 #define HAVE_cbranchqi4 (TARGET_CMPBR)
@@ -10208,6 +10217,8 @@
 #define HAVE_isinfdf2 (TARGET_FLOAT)
 #define HAVE_isfinitesf2 (TARGET_FLOAT)
 #define HAVE_isfinitedf2 (TARGET_FLOAT)
+#define HAVE_isnansf2 (TARGET_FLOAT && flag_signaling_nans)
+#define HAVE_isnandf2 (TARGET_FLOAT && flag_signaling_nans)
 #define HAVE_aarch64_reload_movcpsfsi ((TARGET_FLOAT) && (ptr_mode == SImode || Pmode == SImode))
 #define HAVE_aarch64_reload_movcpdfsi ((TARGET_FLOAT) && (ptr_mode == SImode || Pmode == SImode))
 #define HAVE_aarch64_reload_movcptfsi ((TARGET_FLOAT) && (ptr_mode == SImode || Pmode == SImode))
@@ -22616,6 +22627,14 @@ extern rtx        gen_aarch64_sme_write_horvnx8dfvnx8df                (rtx, rtx
 extern rtx        gen_aarch64_sme_write_vervnx8dfvnx8df                (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_writevnx4di                          (rtx, rtx);
 extern rtx        gen_aarch64_sme_writevnx8di                          (rtx, rtx);
+extern rtx        gen_aarch64_sme_write_ztvnx16qi                      (rtx, rtx);
+extern rtx        gen_aarch64_sme_write_ztvnx8hi                       (rtx, rtx);
+extern rtx        gen_aarch64_sme_write_ztvnx4si                       (rtx, rtx);
+extern rtx        gen_aarch64_sme_write_ztvnx2di                       (rtx, rtx);
+extern rtx        gen_aarch64_sme_write_ztvnx8bf                       (rtx, rtx);
+extern rtx        gen_aarch64_sme_write_ztvnx8hf                       (rtx, rtx);
+extern rtx        gen_aarch64_sme_write_ztvnx4sf                       (rtx, rtx);
+extern rtx        gen_aarch64_sme_write_ztvnx2df                       (rtx, rtx);
 extern rtx        gen_aarch64_sme_zero_za                              (rtx);
 extern rtx        gen_aarch64_sme_zero_za_slicesvnx8si                 (rtx);
 extern rtx        gen_aarch64_sme_zero_za_slicesvnx4di                 (rtx);
@@ -23064,6 +23083,7 @@ extern rtx        gen_aarch64_sme_lut2vnx32hf                          (rtx, rtx
 extern rtx        gen_aarch64_sme_lut4vnx32hf                          (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lut2vnx16sf                          (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sme_lut4vnx16sf                          (rtx, rtx, rtx);
+extern rtx        gen_aarch64_sme_lut_zt                               (rtx, rtx);
 extern rtx        gen_cbranchsi4                                       (rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchdi4                                       (rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchqi4                                       (rtx, rtx, rtx, rtx);
@@ -23270,6 +23290,8 @@ extern rtx        gen_isinfsf2                                         (rtx, rtx
 extern rtx        gen_isinfdf2                                         (rtx, rtx);
 extern rtx        gen_isfinitesf2                                      (rtx, rtx);
 extern rtx        gen_isfinitedf2                                      (rtx, rtx);
+extern rtx        gen_isnansf2                                         (rtx, rtx);
+extern rtx        gen_isnandf2                                         (rtx, rtx);
 extern rtx        gen_aarch64_reload_movcpsfsi                         (rtx, rtx, rtx);
 extern rtx        gen_aarch64_reload_movcpdfsi                         (rtx, rtx, rtx);
 extern rtx        gen_aarch64_reload_movcptfsi                         (rtx, rtx, rtx);
