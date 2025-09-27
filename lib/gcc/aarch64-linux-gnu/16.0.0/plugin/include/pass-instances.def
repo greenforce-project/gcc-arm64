@@ -68,6 +68,7 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS (pass_nothrow, 1);
       NEXT_PASS (pass_rebuild_cgraph_edges, 1);
   POP_INSERT_PASSES ()
+  NEXT_PASS_WITH_ARG (pass_target_clone, 1, true);
 
   NEXT_PASS (pass_local_optimization_passes, 1);
   PUSH_INSERT_PASSES_WITHIN (pass_local_optimization_passes, 1)
@@ -145,7 +146,7 @@ along with GCC; see the file COPYING3.  If not see
       POP_INSERT_PASSES ()
   POP_INSERT_PASSES ()
 
-  NEXT_PASS (pass_target_clone, 1);
+  NEXT_PASS_WITH_ARG (pass_target_clone, 2, false);
   NEXT_PASS (pass_ipa_auto_profile, 1);
   PUSH_INSERT_PASSES_WITHIN (pass_ipa_auto_profile, 1)
       NEXT_PASS (pass_feedback_split_functions, 1);

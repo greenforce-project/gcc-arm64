@@ -88,6 +88,9 @@ extern enum attr_stride_type get_attr_stride_type (rtx_insn *);
 #define HAVE_ATTR_ldpstp 1
 extern enum attr_ldpstp get_attr_ldpstp (rtx_insn *);
 
+#define HAVE_ATTR_sve_type 1
+extern enum attr_sve_type get_attr_sve_type (rtx_insn *);
+
 #define HAVE_ATTR_tune 1
 extern enum attr_tune get_attr_tune (void);
 
@@ -102,6 +105,9 @@ extern enum attr_exynos_m1_neon_type get_attr_exynos_m1_neon_type (rtx_insn *);
 
 #define HAVE_ATTR_tsv110_neon_type 1
 extern enum attr_tsv110_neon_type get_attr_tsv110_neon_type (rtx_insn *);
+
+#define HAVE_ATTR_neoversev2_dispatch 1
+extern enum attr_neoversev2_dispatch get_attr_neoversev2_dispatch (rtx_insn *);
 
 #define HAVE_ATTR_add_vec_concat_subst_le 1
 extern enum attr_add_vec_concat_subst_le get_attr_add_vec_concat_subst_le (rtx_insn *);
