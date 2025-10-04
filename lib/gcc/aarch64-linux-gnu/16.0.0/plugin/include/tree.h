@@ -5960,7 +5960,7 @@ tree_code_for_canonical_type_merging (enum tree_code code)
   return code;
 }
 
-/* Return ture if get_alias_set care about TYPE_CANONICAL of given type.
+/* Return true if get_alias_set care about TYPE_CANONICAL of given type.
    We don't define the types for pointers, arrays and vectors.  The reason is
    that pointers are handled specially: ptr_type_node accesses conflict with
    accesses to all other pointers.  This is done by alias.cc.
@@ -7003,6 +7003,15 @@ fndecl_built_in_p (const_tree node, built_in_function name1, F... names)
   return (fndecl_built_in_p (node, BUILT_IN_NORMAL)
 	  && built_in_function_equal_p (DECL_FUNCTION_CODE (node),
 					name1, names...));
+}
+
+/* Returns true if the function decl NODE is an alloca. */
+inline bool
+fndecl_builtin_alloc_p (const_tree node)
+{
+  if (!fndecl_built_in_p (node, BUILT_IN_NORMAL))
+    return false;
+  return ALLOCA_FUNCTION_CODE_P (DECL_FUNCTION_CODE (node));
 }
 
 /* A struct for encapsulating location information about an operator

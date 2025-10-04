@@ -371,7 +371,6 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS_WITH_ARGS (pass_forwprop, 4, /*full_walk=*/false, /*last=*/true);
       NEXT_PASS_WITH_ARG (pass_sink_code, 2, true /* unsplit edges */);
       NEXT_PASS_WITH_ARG (pass_phiopt, 4, false /* early_p */);
-      NEXT_PASS (pass_fold_builtins, 1);
       NEXT_PASS (pass_optimize_widening_mul, 1);
       NEXT_PASS (pass_store_merging, 1);
       /* If DCE is not run before checking for uninitialized uses,
@@ -407,12 +406,9 @@ along with GCC; see the file COPYING3.  If not see
       NEXT_PASS_WITH_ARG (pass_ccp, 5, true /* nonzero_p */);
       NEXT_PASS (pass_post_ipa_warn, 2);
       NEXT_PASS (pass_object_sizes, 2);
-      /* Fold remaining builtins.  */
-      NEXT_PASS (pass_fold_builtins, 2);
       NEXT_PASS (pass_strlen, 2);
-      /* Copy propagation also copy-propagates constants, this is necessary
-         to forward object-size and builtin folding results properly.  */
-      NEXT_PASS (pass_copy_prop, 5);
+      /* Fold remaining builtins.  */
+      NEXT_PASS_WITH_ARGS (pass_forwprop, 5, /*full_walk=*/false, /*last=*/true);
       NEXT_PASS (pass_dce, 8);
       /* Profile count may overflow as a result of inlinining very large
          loop nests.  This pass should run before any late pass that makes
