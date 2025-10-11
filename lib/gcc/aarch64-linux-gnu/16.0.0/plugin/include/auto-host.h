@@ -2627,6 +2627,12 @@
 #endif
 
 
+/* Define if libatomic is built for the target. */
+#ifndef USED_FOR_TARGET
+#define TARGET_PROVIDES_LIBATOMIC 1
+#endif
+
+
 /* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
 #ifndef USED_FOR_TARGET
 #define TIME_WITH_SYS_TIME 1
