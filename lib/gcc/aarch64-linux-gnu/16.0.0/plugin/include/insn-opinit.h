@@ -35,6 +35,8 @@ enum optab_tag {
   umsub_widen_optab,
   ssmsub_widen_optab,
   usmsub_widen_optab,
+  ssum_widen_optab,
+  usum_widen_optab,
   crc_optab,
   crc_rev_optab,
   vec_load_lanes_optab,
@@ -313,6 +315,9 @@ enum optab_tag {
   reduc_and_scal_optab,
   reduc_ior_scal_optab,
   reduc_xor_scal_optab,
+  reduc_sbool_and_scal_optab,
+  reduc_sbool_ior_scal_optab,
+  reduc_sbool_xor_scal_optab,
   fold_left_plus_optab,
   mask_fold_left_plus_optab,
   mask_len_fold_left_plus_optab,
@@ -325,8 +330,6 @@ enum optab_tag {
   uavg_floor_optab,
   savg_ceil_optab,
   uavg_ceil_optab,
-  ssum_widen_optab,
-  usum_widen_optab,
   usad_optab,
   ssad_optab,
   smulhs_optab,
@@ -466,10 +469,10 @@ enum optab_tag {
   LAST_NORM_OPTAB = iorn_optab
 };
 
-#define NUM_OPTABS          454
+#define NUM_OPTABS          457
 #define NUM_CONVLIB_OPTABS  17
 #define NUM_NORMLIB_OPTABS  80
-#define NUM_OPTAB_PATTERNS  3122
+#define NUM_OPTAB_PATTERNS  3169
 typedef enum optab_tag optab;
 typedef enum optab_tag convert_optab;
 typedef enum optab_tag direct_optab;
@@ -2688,6 +2691,24 @@ gen_aarch64_pred_cmp_acle (rtx_code arg0, machine_mode arg1, rtx x0, rtx x1, rtx
   return res;
 }
 
+extern insn_code maybe_code_for_aarch64_pred_cmp_ptest (rtx_code, machine_mode);
+inline insn_code
+code_for_aarch64_pred_cmp_ptest (rtx_code arg0, machine_mode arg1)
+{
+  insn_code code = maybe_code_for_aarch64_pred_cmp_ptest (arg0, arg1);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_pred_cmp_ptest (rtx_code, machine_mode, rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+inline rtx
+gen_aarch64_pred_cmp_ptest (rtx_code arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2, rtx x3, rtx x4, rtx x5, rtx x6, rtx x7)
+{
+  rtx res = maybe_gen_aarch64_pred_cmp_ptest (arg0, arg1, x0, x1, x2, x3, x4, x5, x6, x7);
+  gcc_assert (res);
+  return res;
+}
+
 extern insn_code maybe_code_for_aarch64_pred_cmp_wide (int, machine_mode);
 inline insn_code
 code_for_aarch64_pred_cmp_wide (int arg0, machine_mode arg1)
@@ -2900,6 +2921,24 @@ inline rtx
 gen_aarch64_pred_reduc (int arg0, machine_mode arg1, rtx x0, rtx x1, rtx x2)
 {
   rtx res = maybe_gen_aarch64_pred_reduc (arg0, arg1, x0, x1, x2);
+  gcc_assert (res);
+  return res;
+}
+
+extern insn_code maybe_code_for_reduc_sbool_xor_scal (machine_mode);
+inline insn_code
+code_for_reduc_sbool_xor_scal (machine_mode arg0)
+{
+  insn_code code = maybe_code_for_reduc_sbool_xor_scal (arg0);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_reduc_sbool_xor_scal (machine_mode, rtx, rtx);
+inline rtx
+gen_reduc_sbool_xor_scal (machine_mode arg0, rtx x0, rtx x1)
+{
+  rtx res = maybe_gen_reduc_sbool_xor_scal (arg0, x0, x1);
   gcc_assert (res);
   return res;
 }

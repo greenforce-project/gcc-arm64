@@ -6412,6 +6412,206 @@
 #define HAVE_aarch64_pred_cmplsvnx2di (TARGET_SVE)
 #define HAVE_aarch64_pred_cmphsvnx2di (TARGET_SVE)
 #define HAVE_aarch64_pred_cmphivnx2di (TARGET_SVE)
+#define HAVE_aarch64_pred_cmpltvnx16qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplevnx16qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpeqvnx16qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpnevnx16qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgevnx16qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgtvnx16qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplovnx16qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplsvnx16qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphsvnx16qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphivnx16qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpltvnx8qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplevnx8qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpeqvnx8qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpnevnx8qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgevnx8qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgtvnx8qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplovnx8qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplsvnx8qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphsvnx8qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphivnx8qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpltvnx4qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplevnx4qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpeqvnx4qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpnevnx4qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgevnx4qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgtvnx4qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplovnx4qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplsvnx4qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphsvnx4qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphivnx4qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpltvnx2qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplevnx2qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpeqvnx2qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpnevnx2qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgevnx2qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgtvnx2qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplovnx2qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplsvnx2qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphsvnx2qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphivnx2qi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpltvnx8hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplevnx8hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpeqvnx8hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpnevnx8hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgevnx8hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgtvnx8hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplovnx8hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplsvnx8hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphsvnx8hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphivnx8hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpltvnx4hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplevnx4hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpeqvnx4hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpnevnx4hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgevnx4hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgtvnx4hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplovnx4hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplsvnx4hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphsvnx4hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphivnx4hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpltvnx2hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplevnx2hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpeqvnx2hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpnevnx2hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgevnx2hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgtvnx2hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplovnx2hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplsvnx2hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphsvnx2hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphivnx2hi_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpltvnx4si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplevnx4si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpeqvnx4si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpnevnx4si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgevnx4si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgtvnx4si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplovnx4si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplsvnx4si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphsvnx4si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphivnx4si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpltvnx2si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplevnx2si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpeqvnx2si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpnevnx2si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgevnx2si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgtvnx2si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplovnx2si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplsvnx2si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphsvnx2si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphivnx2si_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpltvnx2di_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplevnx2di_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpeqvnx2di_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpnevnx2di_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgevnx2di_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmpgtvnx2di_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplovnx2di_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmplsvnx2di_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphsvnx2di_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
+#define HAVE_aarch64_pred_cmphivnx2di_ptest (TARGET_SVE \
+   && aarch64_sve_same_pred_for_ptest_p (&operands[4], &operands[6]))
 #define HAVE_aarch64_pred_cmpeqvnx16qi_wide (TARGET_SVE)
 #define HAVE_aarch64_pred_cmpgevnx16qi_wide (TARGET_SVE)
 #define HAVE_aarch64_pred_cmpgtvnx16qi_wide (TARGET_SVE)
@@ -10717,6 +10917,27 @@
 #define HAVE_vec_pack_trunc_v2df (TARGET_SIMD)
 #define HAVE_vec_pack_trunc_df (TARGET_SIMD)
 #define HAVE_reduc_plus_scal_v4sf (TARGET_SIMD)
+#define HAVE_reduc_sbool_and_scal_v8qi (TARGET_SIMD)
+#define HAVE_reduc_sbool_and_scal_v16qi (TARGET_SIMD)
+#define HAVE_reduc_sbool_and_scal_v4hi (TARGET_SIMD)
+#define HAVE_reduc_sbool_and_scal_v8hi (TARGET_SIMD)
+#define HAVE_reduc_sbool_and_scal_v2si (TARGET_SIMD)
+#define HAVE_reduc_sbool_and_scal_v4si (TARGET_SIMD)
+#define HAVE_reduc_sbool_and_scal_v2di (TARGET_SIMD)
+#define HAVE_reduc_sbool_ior_scal_v8qi (TARGET_SIMD)
+#define HAVE_reduc_sbool_ior_scal_v16qi (TARGET_SIMD)
+#define HAVE_reduc_sbool_ior_scal_v4hi (TARGET_SIMD)
+#define HAVE_reduc_sbool_ior_scal_v8hi (TARGET_SIMD)
+#define HAVE_reduc_sbool_ior_scal_v2si (TARGET_SIMD)
+#define HAVE_reduc_sbool_ior_scal_v4si (TARGET_SIMD)
+#define HAVE_reduc_sbool_ior_scal_v2di (TARGET_SIMD)
+#define HAVE_reduc_sbool_xor_scal_v8qi (TARGET_SIMD)
+#define HAVE_reduc_sbool_xor_scal_v16qi (TARGET_SIMD)
+#define HAVE_reduc_sbool_xor_scal_v4hi (TARGET_SIMD)
+#define HAVE_reduc_sbool_xor_scal_v8hi (TARGET_SIMD)
+#define HAVE_reduc_sbool_xor_scal_v2si (TARGET_SIMD)
+#define HAVE_reduc_sbool_xor_scal_v4si (TARGET_SIMD)
+#define HAVE_reduc_sbool_xor_scal_v2di (TARGET_SIMD)
 #define HAVE_aarch64_saddlpv8qi (TARGET_SIMD)
 #define HAVE_aarch64_uaddlpv8qi (TARGET_SIMD)
 #define HAVE_aarch64_saddlpv16qi (TARGET_SIMD)
@@ -10896,18 +11117,22 @@
 #define HAVE_aarch64_usubl2v16qi (TARGET_SIMD)
 #define HAVE_aarch64_usubl2v8hi (TARGET_SIMD)
 #define HAVE_aarch64_usubl2v4si (TARGET_SIMD)
-#define HAVE_widen_ssumv16qi3 (TARGET_SIMD)
-#define HAVE_widen_ssumv8hi3 (TARGET_SIMD)
-#define HAVE_widen_ssumv4si3 (TARGET_SIMD)
-#define HAVE_widen_ssumv8qi3 (TARGET_SIMD)
-#define HAVE_widen_ssumv4hi3 (TARGET_SIMD)
-#define HAVE_widen_ssumv2si3 (TARGET_SIMD)
-#define HAVE_widen_usumv16qi3 (TARGET_SIMD)
-#define HAVE_widen_usumv8hi3 (TARGET_SIMD)
-#define HAVE_widen_usumv4si3 (TARGET_SIMD)
-#define HAVE_widen_usumv8qi3 (TARGET_SIMD)
-#define HAVE_widen_usumv4hi3 (TARGET_SIMD)
-#define HAVE_widen_usumv2si3 (TARGET_SIMD)
+#define HAVE_widen_ssumv8hiv16qi3 (TARGET_SIMD)
+#define HAVE_widen_ssumv4siv8hi3 (TARGET_SIMD)
+#define HAVE_widen_ssumv2div4si3 (TARGET_SIMD)
+#define HAVE_widen_ssumv8hiv8qi3 (TARGET_SIMD)
+#define HAVE_widen_ssumv4siv4hi3 (TARGET_SIMD)
+#define HAVE_widen_ssumv2div2si3 (TARGET_SIMD)
+#define HAVE_widen_usumv8hiv16qi3 (TARGET_SIMD)
+#define HAVE_widen_usumv4siv8hi3 (TARGET_SIMD)
+#define HAVE_widen_usumv2div4si3 (TARGET_SIMD)
+#define HAVE_widen_usumv8hiv8qi3 (TARGET_SIMD)
+#define HAVE_widen_usumv4siv4hi3 (TARGET_SIMD)
+#define HAVE_widen_usumv2div2si3 (TARGET_SIMD)
+#define HAVE_widen_ssumv2siv8qi3 (TARGET_DOTPROD)
+#define HAVE_widen_ssumv4siv16qi3 (TARGET_DOTPROD)
+#define HAVE_widen_usumv2siv8qi3 (TARGET_DOTPROD)
+#define HAVE_widen_usumv4siv16qi3 (TARGET_DOTPROD)
 #define HAVE_aarch64_saddw2v16qi (TARGET_SIMD)
 #define HAVE_aarch64_ssubw2v16qi (TARGET_SIMD)
 #define HAVE_aarch64_uaddw2v16qi (TARGET_SIMD)
@@ -13235,6 +13460,10 @@
 #define HAVE_cond_fnmavnx4si (TARGET_SVE)
 #define HAVE_cond_fnmavnx2si (TARGET_SVE)
 #define HAVE_cond_fnmavnx2di (TARGET_SVE)
+#define HAVE_widen_ssumvnx4sivnx16qi3 (TARGET_SVE)
+#define HAVE_widen_usumvnx4sivnx16qi3 (TARGET_SVE)
+#define HAVE_widen_ssumvnx2divnx8hi3 (TARGET_SVE)
+#define HAVE_widen_usumvnx2divnx8hi3 (TARGET_SVE)
 #define HAVE_ssadvnx16qi (TARGET_SVE)
 #define HAVE_usadvnx16qi (TARGET_SVE)
 #define HAVE_ssadvnx8hi (TARGET_SVE)
@@ -13637,6 +13866,18 @@
 #define HAVE_reduc_fmin_scal_vnx4sf (TARGET_SVE)
 #define HAVE_reduc_fmax_scal_vnx2df (TARGET_SVE)
 #define HAVE_reduc_fmin_scal_vnx2df (TARGET_SVE)
+#define HAVE_reduc_sbool_and_scal_vnx16bi (TARGET_SVE)
+#define HAVE_reduc_sbool_and_scal_vnx8bi (TARGET_SVE)
+#define HAVE_reduc_sbool_and_scal_vnx4bi (TARGET_SVE)
+#define HAVE_reduc_sbool_and_scal_vnx2bi (TARGET_SVE)
+#define HAVE_reduc_sbool_ior_scal_vnx16bi (TARGET_SVE)
+#define HAVE_reduc_sbool_ior_scal_vnx8bi (TARGET_SVE)
+#define HAVE_reduc_sbool_ior_scal_vnx4bi (TARGET_SVE)
+#define HAVE_reduc_sbool_ior_scal_vnx2bi (TARGET_SVE)
+#define HAVE_reduc_sbool_xor_scal_vnx16bi (TARGET_SVE)
+#define HAVE_reduc_sbool_xor_scal_vnx8bi (TARGET_SVE)
+#define HAVE_reduc_sbool_xor_scal_vnx4bi (TARGET_SVE)
+#define HAVE_reduc_sbool_xor_scal_vnx2bi (TARGET_SVE)
 #define HAVE_fold_left_plus_vnx8hf (TARGET_SVE && TARGET_NON_STREAMING)
 #define HAVE_fold_left_plus_vnx4sf (TARGET_SVE && TARGET_NON_STREAMING)
 #define HAVE_fold_left_plus_vnx2df (TARGET_SVE && TARGET_NON_STREAMING)
@@ -14268,6 +14509,12 @@
 #define HAVE_aarch64_sve2_uabavnx4si (TARGET_SVE2)
 #define HAVE_aarch64_sve2_sabavnx2di (TARGET_SVE2)
 #define HAVE_aarch64_sve2_uabavnx2di (TARGET_SVE2)
+#define HAVE_widen_ssumvnx8hivnx16qi3 (TARGET_SVE2)
+#define HAVE_widen_ssumvnx4sivnx8hi3 (TARGET_SVE2)
+#define HAVE_widen_ssumvnx2divnx4si3 (TARGET_SVE2)
+#define HAVE_widen_usumvnx8hivnx16qi3 (TARGET_SVE2)
+#define HAVE_widen_usumvnx4sivnx8hi3 (TARGET_SVE2)
+#define HAVE_widen_usumvnx2divnx4si3 (TARGET_SVE2)
 #define HAVE_aarch64_sve_fmaxvnx16bf ((TARGET_STREAMING_SME2) && (TARGET_SSVE_B16B16))
 #define HAVE_aarch64_sve_fmaxnmvnx16bf ((TARGET_STREAMING_SME2) && (TARGET_SSVE_B16B16))
 #define HAVE_aarch64_sve_fminvnx16bf ((TARGET_STREAMING_SME2) && (TARGET_SSVE_B16B16))
@@ -20067,6 +20314,106 @@ extern rtx        gen_aarch64_pred_cmplovnx2di                         (rtx, rtx
 extern rtx        gen_aarch64_pred_cmplsvnx2di                         (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_cmphsvnx2di                         (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_cmphivnx2di                         (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpltvnx16qi_ptest                  (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplevnx16qi_ptest                  (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpeqvnx16qi_ptest                  (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpnevnx16qi_ptest                  (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgevnx16qi_ptest                  (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgtvnx16qi_ptest                  (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplovnx16qi_ptest                  (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplsvnx16qi_ptest                  (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphsvnx16qi_ptest                  (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphivnx16qi_ptest                  (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpltvnx8qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplevnx8qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpeqvnx8qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpnevnx8qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgevnx8qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgtvnx8qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplovnx8qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplsvnx8qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphsvnx8qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphivnx8qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpltvnx4qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplevnx4qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpeqvnx4qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpnevnx4qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgevnx4qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgtvnx4qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplovnx4qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplsvnx4qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphsvnx4qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphivnx4qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpltvnx2qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplevnx2qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpeqvnx2qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpnevnx2qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgevnx2qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgtvnx2qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplovnx2qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplsvnx2qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphsvnx2qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphivnx2qi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpltvnx8hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplevnx8hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpeqvnx8hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpnevnx8hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgevnx8hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgtvnx8hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplovnx8hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplsvnx8hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphsvnx8hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphivnx8hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpltvnx4hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplevnx4hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpeqvnx4hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpnevnx4hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgevnx4hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgtvnx4hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplovnx4hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplsvnx4hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphsvnx4hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphivnx4hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpltvnx2hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplevnx2hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpeqvnx2hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpnevnx2hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgevnx2hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgtvnx2hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplovnx2hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplsvnx2hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphsvnx2hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphivnx2hi_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpltvnx4si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplevnx4si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpeqvnx4si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpnevnx4si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgevnx4si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgtvnx4si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplovnx4si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplsvnx4si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphsvnx4si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphivnx4si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpltvnx2si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplevnx2si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpeqvnx2si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpnevnx2si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgevnx2si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgtvnx2si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplovnx2si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplsvnx2si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphsvnx2si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphivnx2si_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpltvnx2di_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplevnx2di_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpeqvnx2di_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpnevnx2di_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgevnx2di_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmpgtvnx2di_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplovnx2di_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmplsvnx2di_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphsvnx2di_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_aarch64_pred_cmphivnx2di_ptest                   (rtx, rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_cmpeqvnx16qi_wide                   (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_cmpgevnx16qi_wide                   (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_pred_cmpgtvnx16qi_wide                   (rtx, rtx, rtx, rtx, rtx);
@@ -23790,6 +24137,27 @@ extern rtx        gen_aarch64_float_truncate_hi_v8hf                   (rtx, rtx
 extern rtx        gen_vec_pack_trunc_v2df                              (rtx, rtx, rtx);
 extern rtx        gen_vec_pack_trunc_df                                (rtx, rtx, rtx);
 extern rtx        gen_reduc_plus_scal_v4sf                             (rtx, rtx);
+extern rtx        gen_reduc_sbool_and_scal_v8qi                        (rtx, rtx);
+extern rtx        gen_reduc_sbool_and_scal_v16qi                       (rtx, rtx);
+extern rtx        gen_reduc_sbool_and_scal_v4hi                        (rtx, rtx);
+extern rtx        gen_reduc_sbool_and_scal_v8hi                        (rtx, rtx);
+extern rtx        gen_reduc_sbool_and_scal_v2si                        (rtx, rtx);
+extern rtx        gen_reduc_sbool_and_scal_v4si                        (rtx, rtx);
+extern rtx        gen_reduc_sbool_and_scal_v2di                        (rtx, rtx);
+extern rtx        gen_reduc_sbool_ior_scal_v8qi                        (rtx, rtx);
+extern rtx        gen_reduc_sbool_ior_scal_v16qi                       (rtx, rtx);
+extern rtx        gen_reduc_sbool_ior_scal_v4hi                        (rtx, rtx);
+extern rtx        gen_reduc_sbool_ior_scal_v8hi                        (rtx, rtx);
+extern rtx        gen_reduc_sbool_ior_scal_v2si                        (rtx, rtx);
+extern rtx        gen_reduc_sbool_ior_scal_v4si                        (rtx, rtx);
+extern rtx        gen_reduc_sbool_ior_scal_v2di                        (rtx, rtx);
+extern rtx        gen_reduc_sbool_xor_scal_v8qi                        (rtx, rtx);
+extern rtx        gen_reduc_sbool_xor_scal_v16qi                       (rtx, rtx);
+extern rtx        gen_reduc_sbool_xor_scal_v4hi                        (rtx, rtx);
+extern rtx        gen_reduc_sbool_xor_scal_v8hi                        (rtx, rtx);
+extern rtx        gen_reduc_sbool_xor_scal_v2si                        (rtx, rtx);
+extern rtx        gen_reduc_sbool_xor_scal_v4si                        (rtx, rtx);
+extern rtx        gen_reduc_sbool_xor_scal_v2di                        (rtx, rtx);
 extern rtx        gen_aarch64_saddlpv8qi                               (rtx, rtx);
 extern rtx        gen_aarch64_uaddlpv8qi                               (rtx, rtx);
 extern rtx        gen_aarch64_saddlpv16qi                              (rtx, rtx);
@@ -23969,18 +24337,22 @@ extern rtx        gen_aarch64_ssubl2v4si                               (rtx, rtx
 extern rtx        gen_aarch64_usubl2v16qi                              (rtx, rtx, rtx);
 extern rtx        gen_aarch64_usubl2v8hi                               (rtx, rtx, rtx);
 extern rtx        gen_aarch64_usubl2v4si                               (rtx, rtx, rtx);
-extern rtx        gen_widen_ssumv16qi3                                 (rtx, rtx, rtx);
-extern rtx        gen_widen_ssumv8hi3                                  (rtx, rtx, rtx);
-extern rtx        gen_widen_ssumv4si3                                  (rtx, rtx, rtx);
-extern rtx        gen_widen_ssumv8qi3                                  (rtx, rtx, rtx);
-extern rtx        gen_widen_ssumv4hi3                                  (rtx, rtx, rtx);
-extern rtx        gen_widen_ssumv2si3                                  (rtx, rtx, rtx);
-extern rtx        gen_widen_usumv16qi3                                 (rtx, rtx, rtx);
-extern rtx        gen_widen_usumv8hi3                                  (rtx, rtx, rtx);
-extern rtx        gen_widen_usumv4si3                                  (rtx, rtx, rtx);
-extern rtx        gen_widen_usumv8qi3                                  (rtx, rtx, rtx);
-extern rtx        gen_widen_usumv4hi3                                  (rtx, rtx, rtx);
-extern rtx        gen_widen_usumv2si3                                  (rtx, rtx, rtx);
+extern rtx        gen_widen_ssumv8hiv16qi3                             (rtx, rtx, rtx);
+extern rtx        gen_widen_ssumv4siv8hi3                              (rtx, rtx, rtx);
+extern rtx        gen_widen_ssumv2div4si3                              (rtx, rtx, rtx);
+extern rtx        gen_widen_ssumv8hiv8qi3                              (rtx, rtx, rtx);
+extern rtx        gen_widen_ssumv4siv4hi3                              (rtx, rtx, rtx);
+extern rtx        gen_widen_ssumv2div2si3                              (rtx, rtx, rtx);
+extern rtx        gen_widen_usumv8hiv16qi3                             (rtx, rtx, rtx);
+extern rtx        gen_widen_usumv4siv8hi3                              (rtx, rtx, rtx);
+extern rtx        gen_widen_usumv2div4si3                              (rtx, rtx, rtx);
+extern rtx        gen_widen_usumv8hiv8qi3                              (rtx, rtx, rtx);
+extern rtx        gen_widen_usumv4siv4hi3                              (rtx, rtx, rtx);
+extern rtx        gen_widen_usumv2div2si3                              (rtx, rtx, rtx);
+extern rtx        gen_widen_ssumv2siv8qi3                              (rtx, rtx, rtx);
+extern rtx        gen_widen_ssumv4siv16qi3                             (rtx, rtx, rtx);
+extern rtx        gen_widen_usumv2siv8qi3                              (rtx, rtx, rtx);
+extern rtx        gen_widen_usumv4siv16qi3                             (rtx, rtx, rtx);
 extern rtx        gen_aarch64_saddw2v16qi                              (rtx, rtx, rtx);
 extern rtx        gen_aarch64_ssubw2v16qi                              (rtx, rtx, rtx);
 extern rtx        gen_aarch64_uaddw2v16qi                              (rtx, rtx, rtx);
@@ -26308,6 +26680,10 @@ extern rtx        gen_cond_fnmavnx2hi                                  (rtx, rtx
 extern rtx        gen_cond_fnmavnx4si                                  (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_fnmavnx2si                                  (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_fnmavnx2di                                  (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_widen_ssumvnx4sivnx16qi3                         (rtx, rtx, rtx);
+extern rtx        gen_widen_usumvnx4sivnx16qi3                         (rtx, rtx, rtx);
+extern rtx        gen_widen_ssumvnx2divnx8hi3                          (rtx, rtx, rtx);
+extern rtx        gen_widen_usumvnx2divnx8hi3                          (rtx, rtx, rtx);
 extern rtx        gen_ssadvnx16qi                                      (rtx, rtx, rtx, rtx);
 extern rtx        gen_usadvnx16qi                                      (rtx, rtx, rtx, rtx);
 extern rtx        gen_ssadvnx8hi                                       (rtx, rtx, rtx, rtx);
@@ -26710,6 +27086,18 @@ extern rtx        gen_reduc_fmax_scal_vnx4sf                           (rtx, rtx
 extern rtx        gen_reduc_fmin_scal_vnx4sf                           (rtx, rtx);
 extern rtx        gen_reduc_fmax_scal_vnx2df                           (rtx, rtx);
 extern rtx        gen_reduc_fmin_scal_vnx2df                           (rtx, rtx);
+extern rtx        gen_reduc_sbool_and_scal_vnx16bi                     (rtx, rtx);
+extern rtx        gen_reduc_sbool_and_scal_vnx8bi                      (rtx, rtx);
+extern rtx        gen_reduc_sbool_and_scal_vnx4bi                      (rtx, rtx);
+extern rtx        gen_reduc_sbool_and_scal_vnx2bi                      (rtx, rtx);
+extern rtx        gen_reduc_sbool_ior_scal_vnx16bi                     (rtx, rtx);
+extern rtx        gen_reduc_sbool_ior_scal_vnx8bi                      (rtx, rtx);
+extern rtx        gen_reduc_sbool_ior_scal_vnx4bi                      (rtx, rtx);
+extern rtx        gen_reduc_sbool_ior_scal_vnx2bi                      (rtx, rtx);
+extern rtx        gen_reduc_sbool_xor_scal_vnx16bi                     (rtx, rtx);
+extern rtx        gen_reduc_sbool_xor_scal_vnx8bi                      (rtx, rtx);
+extern rtx        gen_reduc_sbool_xor_scal_vnx4bi                      (rtx, rtx);
+extern rtx        gen_reduc_sbool_xor_scal_vnx2bi                      (rtx, rtx);
 extern rtx        gen_fold_left_plus_vnx8hf                            (rtx, rtx, rtx);
 extern rtx        gen_fold_left_plus_vnx4sf                            (rtx, rtx, rtx);
 extern rtx        gen_fold_left_plus_vnx2df                            (rtx, rtx, rtx);
@@ -27209,6 +27597,12 @@ extern rtx        gen_aarch64_sve2_sabavnx4si                          (rtx, rtx
 extern rtx        gen_aarch64_sve2_uabavnx4si                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve2_sabavnx2di                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve2_uabavnx2di                          (rtx, rtx, rtx, rtx);
+extern rtx        gen_widen_ssumvnx8hivnx16qi3                         (rtx, rtx, rtx);
+extern rtx        gen_widen_ssumvnx4sivnx8hi3                          (rtx, rtx, rtx);
+extern rtx        gen_widen_ssumvnx2divnx4si3                          (rtx, rtx, rtx);
+extern rtx        gen_widen_usumvnx8hivnx16qi3                         (rtx, rtx, rtx);
+extern rtx        gen_widen_usumvnx4sivnx8hi3                          (rtx, rtx, rtx);
+extern rtx        gen_widen_usumvnx2divnx4si3                          (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_fmaxvnx16bf                          (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_fmaxnmvnx16bf                        (rtx, rtx, rtx);
 extern rtx        gen_aarch64_sve_fminvnx16bf                          (rtx, rtx, rtx);
