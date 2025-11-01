@@ -73,10 +73,10 @@ extern void gt_ggc_mx_gimple (void *);
   if ((intptr_t)(X) != 0) gt_ggc_mx_dw_cfi_node (X);\
   } while (0)
 extern void gt_ggc_mx_dw_cfi_node (void *);
-#define gt_ggc_m_11symtab_node(X) do { \
-  if ((intptr_t)(X) != 0) gt_ggc_mx_symtab_node (X);\
+#define gt_ggc_m_13toplevel_node(X) do { \
+  if ((intptr_t)(X) != 0) gt_ggc_mx_toplevel_node (X);\
   } while (0)
-extern void gt_ggc_mx_symtab_node (void *);
+extern void gt_ggc_mx_toplevel_node (void *);
 #define gt_ggc_m_11cgraph_edge(X) do { \
   if ((intptr_t)(X) != 0) gt_ggc_mx_cgraph_edge (X);\
   } while (0)
@@ -381,10 +381,6 @@ extern void gt_ggc_mx_hash_table_cgraph_edge_hasher_ (void *);
   if ((intptr_t)(X) != 0) gt_ggc_mx_cgraph_indirect_call_info (X);\
   } while (0)
 extern void gt_ggc_mx_cgraph_indirect_call_info (void *);
-#define gt_ggc_m_8asm_node(X) do { \
-  if ((intptr_t)(X) != 0) gt_ggc_mx_asm_node (X);\
-  } while (0)
-extern void gt_ggc_mx_asm_node (void *);
 #define gt_ggc_m_10thunk_info(X) do { \
   if ((intptr_t)(X) != 0) gt_ggc_mx_thunk_info (X);\
   } while (0)
@@ -1686,10 +1682,10 @@ extern void gt_pch_nx_gimple (void *);
   if ((intptr_t)(X) != 0) gt_pch_nx_dw_cfi_node (X);\
   } while (0)
 extern void gt_pch_nx_dw_cfi_node (void *);
-#define gt_pch_n_11symtab_node(X) do { \
-  if ((intptr_t)(X) != 0) gt_pch_nx_symtab_node (X);\
+#define gt_pch_n_13toplevel_node(X) do { \
+  if ((intptr_t)(X) != 0) gt_pch_nx_toplevel_node (X);\
   } while (0)
-extern void gt_pch_nx_symtab_node (void *);
+extern void gt_pch_nx_toplevel_node (void *);
 #define gt_pch_n_11cgraph_edge(X) do { \
   if ((intptr_t)(X) != 0) gt_pch_nx_cgraph_edge (X);\
   } while (0)
@@ -1994,10 +1990,6 @@ extern void gt_pch_nx_hash_table_cgraph_edge_hasher_ (void *);
   if ((intptr_t)(X) != 0) gt_pch_nx_cgraph_indirect_call_info (X);\
   } while (0)
 extern void gt_pch_nx_cgraph_indirect_call_info (void *);
-#define gt_pch_n_8asm_node(X) do { \
-  if ((intptr_t)(X) != 0) gt_pch_nx_asm_node (X);\
-  } while (0)
-extern void gt_pch_nx_asm_node (void *);
 #define gt_pch_n_10thunk_info(X) do { \
   if ((intptr_t)(X) != 0) gt_pch_nx_thunk_info (X);\
   } while (0)
@@ -3357,11 +3349,15 @@ extern void gt_pch_p_6gimple
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_11dw_cfi_node
     (void *, void *, gt_pointer_operator, void *);
-extern void gt_pch_p_11symtab_node
+extern void gt_pch_p_13toplevel_node
     (void *, void *, gt_pointer_operator, void *);
-extern void gt_pch_p_11symtab_node
+extern void gt_pch_p_13toplevel_node
     (void *, void *, gt_pointer_operator, void *);
-extern void gt_pch_p_11symtab_node
+extern void gt_pch_p_13toplevel_node
+    (void *, void *, gt_pointer_operator, void *);
+extern void gt_pch_p_13toplevel_node
+    (void *, void *, gt_pointer_operator, void *);
+extern void gt_pch_p_13toplevel_node
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_11cgraph_edge
     (void *, void *, gt_pointer_operator, void *);
@@ -3514,8 +3510,6 @@ extern void gt_pch_p_28cgraph_function_version_info
 extern void gt_pch_p_30hash_table_cgraph_edge_hasher_
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_25cgraph_indirect_call_info
-    (void *, void *, gt_pointer_operator, void *);
-extern void gt_pch_p_8asm_node
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_10thunk_info
     (void *, void *, gt_pointer_operator, void *);

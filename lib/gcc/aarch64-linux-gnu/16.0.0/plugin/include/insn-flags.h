@@ -10911,6 +10911,7 @@
 #define HAVE_vec_unpacks_lo_v4sf (TARGET_SIMD)
 #define HAVE_vec_unpacks_hi_v8hf (TARGET_SIMD)
 #define HAVE_vec_unpacks_hi_v4sf (TARGET_SIMD)
+#define HAVE_extendbfsf2 (TARGET_SIMD)
 #define HAVE_aarch64_float_trunc_rodd_hi_v4sf (TARGET_SIMD)
 #define HAVE_aarch64_float_truncate_hi_v4sf (TARGET_SIMD)
 #define HAVE_aarch64_float_truncate_hi_v8hf (TARGET_SIMD)
@@ -24131,6 +24132,7 @@ extern rtx        gen_vec_unpacks_lo_v8hf                              (rtx, rtx
 extern rtx        gen_vec_unpacks_lo_v4sf                              (rtx, rtx);
 extern rtx        gen_vec_unpacks_hi_v8hf                              (rtx, rtx);
 extern rtx        gen_vec_unpacks_hi_v4sf                              (rtx, rtx);
+extern rtx        gen_extendbfsf2                                      (rtx, rtx);
 extern rtx        gen_aarch64_float_trunc_rodd_hi_v4sf                 (rtx, rtx, rtx);
 extern rtx        gen_aarch64_float_truncate_hi_v4sf                   (rtx, rtx, rtx);
 extern rtx        gen_aarch64_float_truncate_hi_v8hf                   (rtx, rtx, rtx);
