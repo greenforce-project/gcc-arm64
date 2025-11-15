@@ -362,6 +362,12 @@
 #endif
 
 
+/* Define if your assembler supports LSX and SCQ for 16B atomic. */
+#ifndef USED_FOR_TARGET
+/* #undef HAVE_AS_16B_ATOMIC */
+#endif
+
+
 /* Define if your assembler supports AEABI build attributes. */
 #ifndef USED_FOR_TARGET
 /* #undef HAVE_AS_AEABI_BUILD_ATTRIBUTES */
@@ -1883,12 +1889,6 @@
 #endif
 
 
-/* Define if your linker supports the *_sol2 emulations. */
-#ifndef USED_FOR_TARGET
-/* #undef HAVE_LD_SOL2_EMULATION */
-#endif
-
-
 /* Define if your linker supports -Bstatic/-Bdynamic or equivalent options. */
 #ifndef USED_FOR_TARGET
 #define HAVE_LD_STATIC_DYNAMIC 1
@@ -2067,12 +2067,6 @@
 /* Define if <sys/signal.h> defines sighandler_t */
 #ifndef USED_FOR_TARGET
 /* #undef HAVE_SIGHANDLER_T */
-#endif
-
-
-/* Define if the system-provided CRTs are present on Solaris. */
-#ifndef USED_FOR_TARGET
-/* #undef HAVE_SOLARIS_CRTS */
 #endif
 
 
