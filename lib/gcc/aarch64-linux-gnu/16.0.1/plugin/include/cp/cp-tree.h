@@ -532,6 +532,7 @@ extern GTY(()) tree cp_global_trees[CPTI_MAX];
       FNDECL_MANIFESTLY_CONST_EVALUATED (in FUNCTION_DECL)
       TARGET_EXPR_INTERNAL_P (in TARGET_EXPR)
       CONTRACT_CONST (in ASSERTION_, PRECONDITION_, POSTCONDITION_STMT)
+      DECL_HAS_DEFAULT_ARGUMENT_P (in PARM_DECL)
    5: IDENTIFIER_VIRTUAL_P (in IDENTIFIER_NODE)
       FUNCTION_RVALUE_QUALIFIED (in FUNCTION_TYPE, METHOD_TYPE)
       CALL_EXPR_REVERSE_ARGS (in CALL_EXPR, AGGR_INIT_EXPR)
@@ -5328,6 +5329,12 @@ get_vec_init_expr (tree t)
    named on another, that is still fine.  */
 #define MULTIPLE_NAMES_PARM_P(NODE) \
   TREE_LANG_FLAG_2 (PARM_DECL_CHECK (NODE))
+
+/* Nonzero for PARM_DECL node means that at least one block scope extern
+   for the corresponding FUNCTION_DECL provided default argument for this
+   parameter.  */
+#define DECL_HAS_DEFAULT_ARGUMENT_P(NODE) \
+  TREE_LANG_FLAG_4 (PARM_DECL_CHECK (NODE))
 
 /* Nonzero for a FIELD_DECL who's NSMDI is currently being
    instantiated.  */
