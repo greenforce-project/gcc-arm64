@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/__w/gcc_build/gcc_build/gcc-arm64gnu/lib/gprofng'
+libdir='/tmp/cirrus-ci-build/gcc-arm64gnu/lib/gprofng'

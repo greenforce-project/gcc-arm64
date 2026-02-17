@@ -17,7 +17,7 @@ old_library='libgprofng.a'
 inherited_linker_flags=' -pthread'
 
 # Libraries that this one depends upon.
-dependency_libs=' '/__w/gcc_build/gcc_build/gcc-arm64gnu/x86_64-pc-linux-gnu/aarch64-linux-gnu/lib'/libopcodes.la '/__w/gcc_build/gcc_build/gcc-arm64gnu/x86_64-pc-linux-gnu/aarch64-linux-gnu/lib'/libbfd.la -L/__w/gcc_build/gcc_build/build-binutils/zlib -lz -lzstd -L/__w/gcc_build/gcc_build/build-binutils/libiberty -liberty -lpthread -ldl'
+dependency_libs=' '/tmp/cirrus-ci-build/gcc-arm64gnu/x86_64-pc-linux-gnu/aarch64-linux-gnu/lib'/libopcodes.la '/tmp/cirrus-ci-build/gcc-arm64gnu/x86_64-pc-linux-gnu/aarch64-linux-gnu/lib'/libbfd.la -L/tmp/cirrus-ci-build/build-binutils/zlib -lz -lzstd -L/tmp/cirrus-ci-build/build-binutils/libiberty -liberty -lpthread -ldl'
 
 # Names of additional weak libraries provided by this library
 weak_library_names=''
@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/__w/gcc_build/gcc_build/gcc-arm64gnu/lib'
+libdir='/tmp/cirrus-ci-build/gcc-arm64gnu/lib'
