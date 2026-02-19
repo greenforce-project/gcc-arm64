@@ -7112,6 +7112,7 @@ enum cp_built_in_function {
   CP_BUILT_IN_SOURCE_LOCATION,
   CP_BUILT_IN_EH_PTR_ADJUST_REF,
   CP_BUILT_IN_IS_STRING_LITERAL,
+  CP_BUILT_IN_CONSTEXPR_DIAG,
   CP_BUILT_IN_LAST
 };
 
@@ -9549,12 +9550,15 @@ struct push_access_scope_guard
 class cexpr_str
 {
 public:
+  cexpr_str () : message (NULL_TREE) {}
   cexpr_str (tree message) : message (message) {}
   cexpr_str (const cexpr_str &) = delete;
   ~cexpr_str () { XDELETEVEC (buf); }
 
-  bool type_check (location_t location);
-  bool extract (location_t location, const char * & msg, int &len);
+  bool type_check (location_t location, bool allow_char8_t = false);
+  bool extract (location_t location, const char * &msg, int &len,
+		const constexpr_ctx * = NULL,  bool * = NULL,
+		bool * = NULL, tree * = NULL);
   bool extract (location_t location, tree &str);
   tree message;
 private:
