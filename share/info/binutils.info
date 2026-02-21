@@ -108,9 +108,7 @@ is specified.
 modules in the archive when you specify the modifier 's'.  Once created,
 this index is updated in the archive whenever 'ar' makes a change to its
 contents (save for the 'q' update operation).  An archive with such an
-index speeds up linking to the library, and allows routines in the
-library to call each other without regard to their placement in the
-archive.
+index speeds up linking to the library.
 
    You may use 'nm -s' or 'nm --print-armap' to list this index table.
 If an archive lacks the table, another form of 'ar' called 'ranlib' can
@@ -365,10 +363,11 @@ to specify variations on an operation's behavior:
 
 'S'
      Do not generate an archive symbol table.  This can speed up
-     building a large library in several steps.  The resulting archive
-     can not be used with the linker.  In order to build a symbol table,
-     you must omit the 'S' modifier on the last execution of 'ar', or
-     you must run 'ranlib' on the archive.
+     building a large library in several steps, but will negatively
+     impact performance if the resulting archive is used with the
+     linker.  In order to build a symbol table, you must omit the 'S'
+     modifier on the last execution of 'ar', or you must run 'ranlib' on
+     the archive.
 
 'T'
      Deprecated alias for '--thin'.  'T' is not recommended because in
@@ -3016,9 +3015,7 @@ an archive that is a relocatable object file.
 
    You may use 'nm -s' or 'nm --print-armap' to list this index.
 
-   An archive with such an index speeds up linking to the library and
-allows routines in the library to call each other without regard to
-their placement in the archive.
+   An archive with such an index speeds up linking to the library.
 
    The GNU 'ranlib' program is another form of GNU 'ar'; running
 'ranlib' is completely equivalent to executing 'ar -s'.  *Note ar::.
@@ -6158,11 +6155,11 @@ Binutils Index
 * Menu:
 
 * -enable-deterministic-archives:        ar cmdline.         (line  150)
-* -enable-deterministic-archives <1>:    ar cmdline.         (line  242)
+* -enable-deterministic-archives <1>:    ar cmdline.         (line  243)
 * -enable-deterministic-archives <2>:    objcopy.            (line  384)
 * -enable-deterministic-archives <3>:    objcopy.            (line  394)
-* -enable-deterministic-archives <4>:    ranlib.             (line   32)
-* -enable-deterministic-archives <5>:    ranlib.             (line   44)
+* -enable-deterministic-archives <4>:    ranlib.             (line   30)
+* -enable-deterministic-archives <5>:    ranlib.             (line   42)
 * -enable-deterministic-archives <6>:    strip.              (line  164)
 * -enable-deterministic-archives <7>:    strip.              (line  174)
 * .stab:                                 objdump.            (line  845)
@@ -6171,7 +6168,7 @@ Binutils Index
 * address to file name and line number:  addr2line.          (line    6)
 * all header information, object file:   objdump.            (line  983)
 * ar:                                    ar.                 (line    6)
-* ar compatibility:                      ar.                 (line   63)
+* ar compatibility:                      ar.                 (line   61)
 * architecture:                          objdump.            (line  285)
 * architectures available:               objdump.            (line  255)
 * archive contents:                      ranlib.             (line    6)
@@ -6192,12 +6189,12 @@ Binutils Index
 * collections of files:                  ar.                 (line    6)
 * Compact Type Format:                   objdump.            (line  805)
 * Compact Type Format <1>:               readelf.            (line  495)
-* compatibility, ar:                     ar.                 (line   63)
+* compatibility, ar:                     ar.                 (line   61)
 * compressed section contents:           objdump.            (line 1001)
 * contents of archive:                   ar cmdline.         (line   97)
 * crash:                                 Bug Criteria.       (line    9)
 * creating archives:                     ar cmdline.         (line  144)
-* creating thin archive:                 ar cmdline.         (line  318)
+* creating thin archive:                 ar cmdline.         (line  319)
 * CTF:                                   objdump.            (line  805)
 * CTF <1>:                               readelf.            (line  495)
 * cxxfilt:                               c++filt.            (line   16)
@@ -6211,11 +6208,11 @@ Binutils Index
 * demangling in objdump:                 objdump.            (line  114)
 * demangling in objdump <1>:             addr2line.          (line   91)
 * deterministic archives:                ar cmdline.         (line  150)
-* deterministic archives <1>:            ar cmdline.         (line  242)
+* deterministic archives <1>:            ar cmdline.         (line  243)
 * deterministic archives <2>:            objcopy.            (line  384)
 * deterministic archives <3>:            objcopy.            (line  394)
-* deterministic archives <4>:            ranlib.             (line   32)
-* deterministic archives <5>:            ranlib.             (line   44)
+* deterministic archives <4>:            ranlib.             (line   30)
+* deterministic archives <5>:            ranlib.             (line   42)
 * deterministic archives <6>:            strip.              (line  164)
 * deterministic archives <7>:            strip.              (line  174)
 * disassembling object code:             objdump.            (line  155)
@@ -6287,7 +6284,7 @@ Binutils Index
 * object formats available:              objdump.            (line  255)
 * offsets of files:                      ar cmdline.         (line  193)
 * operations on archive:                 ar cmdline.         (line   22)
-* plugins:                               ar cmdline.         (line  276)
+* plugins:                               ar cmdline.         (line  277)
 * plugins <1>:                           nm.                 (line  336)
 * plugins <2>:                           strip.              (line  269)
 * printing from archive:                 ar cmdline.         (line   46)
@@ -6337,13 +6334,13 @@ Binutils Index
 * symbol table size base:                readelf.            (line  131)
 * symbols:                               nm.                 (line    6)
 * symbols, discarding:                   strip.              (line    6)
-* thin archives:                         ar.                 (line   43)
+* thin archives:                         ar.                 (line   41)
 * undefined symbols:                     nm.                 (line  316)
 * undefined symbols <1>:                 nm.                 (line  322)
 * Unix compatibility, ar:                ar cmdline.         (line    8)
 * unwind information:                    readelf.            (line  222)
 * Update ELF header:                     elfedit.            (line    6)
-* updating an archive:                   ar cmdline.         (line  229)
+* updating an archive:                   ar cmdline.         (line  230)
 * version:                               Top.                (line    6)
 * VMA in objdump:                        objdump.            (line   92)
 * wide output, printing:                 objdump.            (line  989)
@@ -6354,34 +6351,34 @@ Binutils Index
 Tag Table:
 Node: Top1834
 Node: ar3574
-Node: ar cmdline6908
-Node: ar scripts20419
-Node: nm26105
-Node: objcopy41810
-Node: objdump84817
-Node: ranlib125325
-Node: size126924
-Node: strings131068
-Node: strip136903
-Node: c++filt147881
-Ref: c++filt-Footnote-1153742
-Node: addr2line153848
-Node: windmc159803
-Node: windres163462
-Node: dlltool170032
-Node: def file format183485
-Node: readelf186015
-Node: elfedit207678
-Node: Common Options211104
-Node: Selecting the Target System212138
-Node: Target Selection213066
-Node: Architecture Selection215047
-Node: debuginfod215875
-Node: Reporting Bugs216877
-Node: Bug Criteria217639
-Node: Bug Reporting218192
-Node: GNU Free Documentation License225059
-Node: Binutils Index250219
+Node: ar cmdline6804
+Node: ar scripts20353
+Node: nm26039
+Node: objcopy41744
+Node: objdump84751
+Node: ranlib125259
+Node: size126755
+Node: strings130899
+Node: strip136734
+Node: c++filt147712
+Ref: c++filt-Footnote-1153573
+Node: addr2line153679
+Node: windmc159634
+Node: windres163293
+Node: dlltool169863
+Node: def file format183316
+Node: readelf185846
+Node: elfedit207509
+Node: Common Options210935
+Node: Selecting the Target System211969
+Node: Target Selection212897
+Node: Architecture Selection214878
+Node: debuginfod215706
+Node: Reporting Bugs216708
+Node: Bug Criteria217470
+Node: Bug Reporting218023
+Node: GNU Free Documentation License224890
+Node: Binutils Index250050
 
 End Tag Table
 

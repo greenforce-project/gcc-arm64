@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "LD 1"
-.TH LD 1 "2026-02-19" "binutils-2.46.50" "GNU Development Tools"
+.TH LD 1 "2026-02-21" "binutils-2.46.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -924,7 +924,8 @@ restored with one corresponding \fB\-\-pop\-state\fR option.
 The option which are covered are: \fB\-Bdynamic\fR, \fB\-Bstatic\fR,
 \&\fB\-dn\fR, \fB\-dy\fR, \fB\-call_shared\fR, \fB\-non_shared\fR,
 \&\fB\-static\fR, \fB\-N\fR, \fB\-n\fR, \fB\-\-whole\-archive\fR,
-\&\fB\-\-no\-whole\-archive\fR, \fB\-r\fR, \fB\-Ur\fR,
+\&\fB\-\-no\-whole\-archive\fR, \fB\-\-link\-mapless\fR,
+\&\fB\-\-no\-link\-mapless\fR, \fB\-r\fR, \fB\-Ur\fR,
 \&\fB\-\-copy\-dt\-needed\-entries\fR, \fB\-\-no\-copy\-dt\-needed\-entries\fR,
 \&\fB\-\-as\-needed\fR, \fB\-\-no\-as\-needed\fR, and \fB\-a\fR.
 .Sp
@@ -1709,9 +1710,32 @@ would not be able to resolve that reference.  By grouping the archives,
 they will all be searched repeatedly until all possible references are
 resolved.
 .Sp
+This option is not allowed within a \fB\-\-start\-lib\fR/\fB\-\-end\-lib\fR
+option pair.
+.Sp
 Using this option has a significant performance cost.  It is best to use
 it only when there are unavoidable circular references between two or
 more archives.
+.IP "\fB\-\-start\-lib\fR \fIobjects\fR \fB\-\-end\-lib\fR" 4
+.IX Item "--start-lib objects --end-lib"
+The \fIobjects\fR should be a list of object files.
+.Sp
+The specified objects are treated as if they were members of an archive
+the name of which has been placed at the location of \fB\-\-start\-lib\fR
+on the command line.  All the usual linker archive handling properties
+and command line options apply to such an artificial archive.
+.Sp
+This option may be used multiple times, in which case each set of the
+objects specified will be treated as an individual archive.  Nesting this
+option is not allowed though.
+.Sp
+Options that affect archive processing are not allowed between
+\&\fB\-\-start\-lib\fR and \fB\-\-end\-lib\fR as it would make no sense
+to apply them midway through handling an archive.  These options include:
+\&\fB\-(\fR/\fB\-\-start\-group\fR, \fB\-)\fR/\fB\-\-end\-group\fR,
+\&\fB\-\-whole\-archive\fR, and \fB\-\-no\-whole\-archive\fR, as well as
+\&\fB\-\-pop\-state\fR where it would change the state of
+\&\fB\-\-whole\-archive\fR setting.
 .IP "\fB\-\-accept\-unknown\-input\-arch\fR" 4
 .IX Item "--accept-unknown-input-arch"
 .PD 0
@@ -2259,7 +2283,13 @@ library during a library search.  This option silences the warning.
 .IP "\fB\-\-no\-whole\-archive\fR" 4
 .IX Item "--no-whole-archive"
 Turn off the effect of the \fB\-\-whole\-archive\fR option for subsequent
-archive files.
+archive files.  Not allowed within a \fB\-\-start\-lib\fR/\fB\-\-end\-lib\fR
+option pair.
+.IP "\fB\-\-no\-link\-mapless\fR" 4
+.IX Item "--no-link-mapless"
+Reject archives that lack an index aka symbol map for all the subsequent
+archives referred on the command line.  If such a file is encountered,
+a link error occurs.  This is the traditional behavior.
 .IP "\fB\-\-noinhibit\-exec\fR" 4
 .IX Item "--noinhibit-exec"
 Retain the executable output file whenever it is still usable.
@@ -2997,11 +3027,19 @@ files.  This is normally used to turn an archive file into a shared
 library, forcing every object to be included in the resulting shared
 library.  This option may be used more than once.
 .Sp
+This option is not allowed within a \fB\-\-start\-lib\fR/\fB\-\-end\-lib\fR
+option pair.
+.Sp
 Two notes when using this option from gcc: First, gcc doesn't know
 about this option, so you have to use \fB\-Wl,\-whole\-archive\fR.
 Second, don't forget to use \fB\-Wl,\-no\-whole\-archive\fR after your
 list of archives, because gcc will add its own list of archives to
 your link and you may not want this flag to affect those as well.
+.IP "\fB\-\-link\-mapless\fR" 4
+.IX Item "--link-mapless"
+Accept archives that lack an index aka symbol map for all the subsequent
+archives referred on the command line.  If missing, such an index is made
+internally on the fly at performance cost.  This is the default.
 .IP "\fB\-\-wrap=\fR\fIsymbol\fR" 4
 .IX Item "--wrap=symbol"
 Use a wrapper function for \fIsymbol\fR.  Any undefined reference to
