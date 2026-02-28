@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "READELF 1"
-.TH READELF 1 "2026-02-21" "binutils-2.46.50" "GNU Development Tools"
+.TH READELF 1 "2026-02-28" "binutils-2.46.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -171,8 +171,28 @@ readelf [\fB\-a\fR|\fB\-\-all\fR]
         [\fB\-j\fR <number or name>|\fB\-\-display\-section=\fR<number or name>]
         [\fB\-z\fR|\fB\-\-decompress\fR]
         [\fB\-c\fR|\fB\-\-archive\-index\fR]
-        [\fB\-w[lLiaprmfFsoORtUuTgAck]\fR|
-         \fB\-\-debug\-dump\fR[=rawline,=decodedline,=info,=abbrev,=pubnames,=aranges,=macro,=frames,=frames\-interp,=str,=str\-offsets,=loc,=Ranges,=pubtypes,=trace_info,=trace_abbrev,=trace_aranges,=gdb_index,=addr,=cu_index,=links]]
+        [\fB\-w\fR|\fB\-\-debug\-dump\fR]
+        [\fB\-wa\fR|\fB\-\-debug\-dump=abbrev\fR]
+        [\fB\-wA\fR|\fB\-\-debug\-dump=addr\fR]
+        [\fB\-wr\fR|\fB\-\-debug\-dump=aranges\fR]
+        [\fB\-wc\fR|\fB\-\-debug\-dump=cu_index\fR]
+        [\fB\-wL\fR|\fB\-\-debug\-dump=decodedline\fR]
+        [\fB\-wf\fR|\fB\-\-debug\-dump=frames\fR]
+        [\fB\-wF\fR|\fB\-\-debug\-dump=frames\-interp\fR]
+        [\fB\-wg\fR|\fB\-\-debug\-dump=gdb_index\fR]
+        [\fB\-wi\fR|\fB\-\-debug\-dump=info\fR]
+        [\fB\-wk\fR|\fB\-\-debug\-dump=links\fR]
+        [\fB\-wo\fR|\fB\-\-debug\-dump=loc\fR]
+        [\fB\-wm\fR|\fB\-\-debug\-dump=macro\fR]
+        [\fB\-wp\fR|\fB\-\-debug\-dump=pubnames\fR]
+        [\fB\-wt\fR|\fB\-\-debug\-dump=pubtypes\fR]
+        [\fB\-wR\fR|\fB\-\-debug\-dump=Ranges\fR]
+        [\fB\-wl\fR|\fB\-\-debug\-dump=rawline\fR]
+        [\fB\-ws\fR|\fB\-\-debug\-dump=str\fR]
+        [\fB\-wO\fR|\fB\-\-debug\-dump=str\-offsets\fR]
+        [\fB\-wu\fR|\fB\-\-debug\-dump=trace_abbrev\fR]
+        [\fB\-wT\fR|\fB\-\-debug\-dump=trace_aranges\fR]
+        [\fB\-wU\fR|\fB\-\-debug\-dump=trace_info\fR]
         [\fB\-wK\fR|\fB\-\-debug\-dump=follow\-links\fR]
         [\fB\-wN\fR|\fB\-\-debug\-dump=no\-follow\-links\fR]
         [\fB\-wD\fR|\fB\-\-debug\-dump=use\-debuginfod\fR]

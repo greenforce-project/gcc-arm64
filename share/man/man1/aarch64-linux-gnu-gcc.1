@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2026-02-21" "gcc-16.0.1" "GNU"
+.TH GCC 1 "2026-02-27" "gcc-16.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -1090,6 +1090,7 @@ in the following sections.
 \&\-mframe\-limit=\fR\fIbytes\fR  \fB\-mxbpf  \-mco\-re  \-mjmpext  \-mjmp32
 \&\-malu32  \-mv3\-atomics  \-mbswap  \-msdiv  \-msmov  \-mcpu=\fR\fIversion\fR
 \&\fB\-masm=\fR\fIdialect\fR  \fB\-minline\-memops\-threshold=\fR\fIbytes\fR
+\&\fB\-Wco\-re\fR
 .Sp
 \&\fI\s-1FR30\s0 Options\fR (\fB\s-1FR30\s0 Options\fR)
 \&\fB\-msmall\-model  \-mno\-lsim\fR
@@ -7419,8 +7420,7 @@ or \f(CW\*(C`nonnull\*(C'\fR is declared without it.  Attributes \f(CW\*(C`depre
 You can use the \f(CW\*(C`copy\*(C'\fR attribute to apply the same
 set of attributes to a declaration as that on another declaration without
 explicitly enumerating the attributes. This attribute can be applied
-to declarations of functions,
-variables, or types.
+to declarations of functions, variables, or types.  \fBCommon Attributes\fR.
 .Sp
 \&\fB\-Wmissing\-attributes\fR is enabled by \fB\-Wall\fR.
 .Sp
@@ -10332,7 +10332,8 @@ cannot be fixed to display these characters distinctly.
 .IP "\fB\-Wno\-attribute\-warning\fR" 4
 .IX Item "-Wno-attribute-warning"
 Do not warn about usage of functions
-declared with \f(CW\*(C`warning\*(C'\fR attribute.  By default, this warning is
+declared with \f(CW\*(C`warning\*(C'\fR attribute.
+By default, this warning is
 enabled.  \fB\-Wno\-attribute\-warning\fR can be used to disable the
 warning or \fB\-Wno\-error=attribute\-warning\fR can be used to
 disable the error when compiled with \fB\-Werror\fR flag.
@@ -10349,8 +10350,8 @@ standards, specifically \fB\-Wcomma\-subscript\fR,
 \&\fB\-Wdeprecated\-variadic\-comma\-omission\fR.
 .IP "\fB\-Wno\-deprecated\-declarations\fR" 4
 .IX Item "-Wno-deprecated-declarations"
-Do not warn about uses of functions,
-variables, and types marked as deprecated by using the \f(CW\*(C`deprecated\*(C'\fR
+Do not warn about uses of functions, variables, or types
+marked as deprecated by using the \f(CW\*(C`deprecated\*(C'\fR
 attribute.
 .IP "\fB\-Wno\-deprecated\-openmp\fR" 4
 .IX Item "-Wno-deprecated-openmp"
@@ -16562,7 +16563,6 @@ and later.
 .IP "\fB\-fstrub=disable\fR" 4
 .IX Item "-fstrub=disable"
 Disable stack scrubbing entirely, ignoring any \f(CW\*(C`strub\*(C'\fR attributes.
-See
 .IP "\fB\-fstrub=strict\fR" 4
 .IX Item "-fstrub=strict"
 Functions default to \f(CW\*(C`strub\*(C'\fR mode \f(CW\*(C`disabled\*(C'\fR, and apply
@@ -20947,8 +20947,7 @@ Enable the shorter compare and branch instructions, \f(CW\*(C`cbb\*(C'\fR, \f(CW
 \&\f(CW\*(C`cb\*(C'\fR.
 .IP "\fBsme\fR" 4
 .IX Item "sme"
-Enable the Scalable Matrix Extension.  This is only supported when \s-1SVE2\s0 is also
-enabled.
+Enable the Scalable Matrix Extension.
 .IP "\fBsme\-i16i64\fR" 4
 .IX Item "sme-i16i64"
 Enable the \s-1FEAT_SME_I16I64\s0 extension to \s-1SME.\s0  This also enables \s-1SME\s0
@@ -23307,7 +23306,7 @@ This \s-1ISA\s0 is implemented by the minimal \s-1AVR\s0 core and supported for 
 Assume that all data in static storage can be accessed by \s-1LDS / STS\s0
 instructions.  This option has only an effect on reduced Tiny devices like
 ATtiny40.  See also the \f(CW\*(C`absdata\*(C'\fR
-\&\fB\s-1AVR\s0 Variable Attributes,variable attribute\fR.
+\&\fB\s-1AVR\s0 Attributes,variable attribute\fR.
 .IP "\fB\-mcvt\fR" 4
 .IX Item "-mcvt"
 Use a \fIcompact vector table\fR.  Some devices support a \s-1CVT\s0
@@ -23341,7 +23340,7 @@ and the same applies for the default values of the options.
 Interrupt service routines (ISRs) may use the \f(CW\*(C`_\|_gcc_isr\*(C'\fR pseudo
 instruction supported by \s-1GNU\s0 Binutils.
 If this option is on, the feature can still be disabled for individual
-ISRs by means of the \fB\s-1AVR\s0 Function Attributes,,\f(CB\*(C`no_gccisr\*(C'\fB\fR
+ISRs by means of the \fB\s-1AVR\s0 Attributes,,\f(CB\*(C`no_gccisr\*(C'\fB\fR
 function attribute.  This feature is activated per default
 if optimization is on (but not with \fB\-Og\fR, \f(CW@pxref\fR{Optimize Options}),
 and if \s-1GNU\s0 Binutils support \s-1PR21683\s0 (\f(CW\*(C`https://sourceware.org/PR21683\*(C'\fR).
@@ -23355,7 +23354,7 @@ size.
 .IP "\fB\-mmain\-is\-OS_task\fR" 4
 .IX Item "-mmain-is-OS_task"
 Do not save registers in \f(CW\*(C`main\*(C'\fR.  The effect is the same like
-attaching attribute \fB\s-1AVR\s0 Function Attributes,,\f(CB\*(C`OS_task\*(C'\fB\fR
+attaching attribute \fB\s-1AVR\s0 Attributes,,\f(CB\*(C`OS_task\*(C'\fB\fR
 to \f(CW\*(C`main\*(C'\fR. It is activated per default if optimization is on.
 .IP "\fB\-mno\-call\-main\fR" 4
 .IX Item "-mno-call-main"
@@ -23970,7 +23969,7 @@ See the \fB\-\-with\-avrlibc\fR configure option.
 .IX Item "__HAVE_SIGNAL_N__"
 The compiler supports the \f(CW\*(C`signal(\f(CInum\f(CW)\*(C'\fR and
 \&\f(CW\*(C`interrupt(\f(CInum\f(CW)\*(C'\fR
-\&\fB\s-1AVR\s0 Function Attributes,,function attributes\fR
+\&\fB\s-1AVR\s0 Attributes,,function attributes\fR
 with an argument \fInum\fR that specifies the number of the
 interrupt service routine.
 .ie n .IP """_\|_HAVE_DOUBLE_MULTILIB_\|_""" 4
@@ -25619,6 +25618,10 @@ sizes larger than this threshold would have to be implemented using
 a library call instead of being expanded inline, but since \s-1BPF\s0 doesn't
 allow libcalls, exceeding this threshold results in a compile-time
 error.  The default is \fB1024\fR bytes.
+.IP "\fB\-Wco\-re\fR" 4
+.IX Item "-Wco-re"
+Enable warnings for scenarios where \-mco\-re is enabled, but it may not be
+possible to generate CO-RE compatible code.
 .PP
 \fI\s-1FR30\s0 Options\fR
 .IX Subsection "FR30 Options"
@@ -36292,8 +36295,7 @@ either format.
 .Sp
 This option is enabled by default for Microsoft Windows
 targets.  This behavior can also be controlled locally by use of variable
-or type attributes.  For more information, see \fBx86 Variable Attributes\fR
-and \fBx86 Type Attributes\fR.
+or type attributes.  For more information, see \fBx86 Attributes\fR.
 .Sp
 The Microsoft structure layout algorithm is fairly simple with the exception
 of the bit-field packing.

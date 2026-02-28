@@ -9269,6 +9269,7 @@
 #define HAVE_aarch64_sve2_fmmlavnx4sfvnx8hf (TARGET_SVE2 && TARGET_SVE_F16F32MM && TARGET_NON_STREAMING)
 #define HAVE_aarch64_old_vg_saved 1
 #define HAVE_aarch64_update_vg 1
+#define HAVE_aarch64_get_current_vg 1
 #define HAVE_aarch64_get_sme_state 1
 #define HAVE_aarch64_read_svcr 1
 #define HAVE_aarch64_smstart_sm 1
@@ -14019,22 +14020,10 @@
 #define HAVE_vec_cbranch_anyvnx2bi 1
 #define HAVE_cond_vec_cbranch_allvnx16qi 1
 #define HAVE_cond_vec_cbranch_anyvnx16qi 1
-#define HAVE_cond_vec_cbranch_allvnx8qi 1
-#define HAVE_cond_vec_cbranch_anyvnx8qi 1
-#define HAVE_cond_vec_cbranch_allvnx4qi 1
-#define HAVE_cond_vec_cbranch_anyvnx4qi 1
-#define HAVE_cond_vec_cbranch_allvnx2qi 1
-#define HAVE_cond_vec_cbranch_anyvnx2qi 1
 #define HAVE_cond_vec_cbranch_allvnx8hi 1
 #define HAVE_cond_vec_cbranch_anyvnx8hi 1
-#define HAVE_cond_vec_cbranch_allvnx4hi 1
-#define HAVE_cond_vec_cbranch_anyvnx4hi 1
-#define HAVE_cond_vec_cbranch_allvnx2hi 1
-#define HAVE_cond_vec_cbranch_anyvnx2hi 1
 #define HAVE_cond_vec_cbranch_allvnx4si 1
 #define HAVE_cond_vec_cbranch_anyvnx4si 1
-#define HAVE_cond_vec_cbranch_allvnx2si 1
-#define HAVE_cond_vec_cbranch_anyvnx2si 1
 #define HAVE_cond_vec_cbranch_allvnx2di 1
 #define HAVE_cond_vec_cbranch_anyvnx2di 1
 #define HAVE_reduc_plus_scal_vnx16qi (TARGET_SVE)
@@ -22993,6 +22982,7 @@ extern rtx        gen_aarch64_sve2_fmmlavnx8hfvnx16qi                  (rtx, rtx
 extern rtx        gen_aarch64_sve2_fmmlavnx4sfvnx8hf                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_aarch64_old_vg_saved                             (rtx, rtx);
 extern rtx        gen_aarch64_update_vg                                (void);
+extern rtx        gen_aarch64_get_current_vg                           (void);
 extern rtx        gen_aarch64_get_sme_state                            (void);
 extern rtx        gen_aarch64_read_svcr                                (rtx);
 extern rtx        gen_aarch64_smstart_sm                               (void);
@@ -27463,22 +27453,10 @@ extern rtx        gen_vec_cbranch_allvnx2bi                            (rtx, rtx
 extern rtx        gen_vec_cbranch_anyvnx2bi                            (rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_vec_cbranch_allvnx16qi                      (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_vec_cbranch_anyvnx16qi                      (rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_cond_vec_cbranch_allvnx8qi                       (rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_cond_vec_cbranch_anyvnx8qi                       (rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_cond_vec_cbranch_allvnx4qi                       (rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_cond_vec_cbranch_anyvnx4qi                       (rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_cond_vec_cbranch_allvnx2qi                       (rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_cond_vec_cbranch_anyvnx2qi                       (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_vec_cbranch_allvnx8hi                       (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_vec_cbranch_anyvnx8hi                       (rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_cond_vec_cbranch_allvnx4hi                       (rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_cond_vec_cbranch_anyvnx4hi                       (rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_cond_vec_cbranch_allvnx2hi                       (rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_cond_vec_cbranch_anyvnx2hi                       (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_vec_cbranch_allvnx4si                       (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_vec_cbranch_anyvnx4si                       (rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_cond_vec_cbranch_allvnx2si                       (rtx, rtx, rtx, rtx, rtx);
-extern rtx        gen_cond_vec_cbranch_anyvnx2si                       (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_vec_cbranch_allvnx2di                       (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_cond_vec_cbranch_anyvnx2di                       (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_reduc_plus_scal_vnx16qi                          (rtx, rtx);

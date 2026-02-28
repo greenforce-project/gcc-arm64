@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OBJDUMP 1"
-.TH OBJDUMP 1 "2026-02-21" "binutils-2.46.50" "GNU Development Tools"
+.TH OBJDUMP 1 "2026-02-28" "binutils-2.46.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -168,12 +168,32 @@ objdump [\fB\-a\fR|\fB\-\-archive\-headers\fR]
         [\fB\-R\fR|\fB\-\-dynamic\-reloc\fR]
         [\fB\-s\fR|\fB\-\-full\-contents\fR]
         [\fB\-Z\fR|\fB\-\-decompress\fR]
-        [\fB\-W[lLiaprmfFsoORtUuTgAck]\fR|
-         \fB\-\-dwarf\fR[=rawline,=decodedline,=info,=abbrev,=pubnames,=aranges,=macro,=frames,=frames\-interp,=str,=str\-offsets,=loc,=Ranges,=pubtypes,=trace_info,=trace_abbrev,=trace_aranges,=gdb_index,=addr,=cu_index,=links]]
+        [\fB\-W\fR|\fB\-\-dwarf\fR]
+        [\fB\-Wa\fR|\fB\-\-dwarf=abbrev\fR]
+        [\fB\-WA\fR|\fB\-\-dwarf=addr\fR]
+        [\fB\-Wr\fR|\fB\-\-dwarf=aranges\fR]
+        [\fB\-Wc\fR|\fB\-\-dwarf=cu_index\fR]
+        [\fB\-WL\fR|\fB\-\-dwarf=decodedline\fR]
+        [\fB\-Wf\fR|\fB\-\-dwarf=frames\fR]
+        [\fB\-WF\fR|\fB\-\-dwarf=frames\-interp\fR]
+        [\fB\-Wg\fR|\fB\-\-dwarf=gdb_index\fR]
+        [\fB\-Wi\fR|\fB\-\-dwarf=info\fR]
+        [\fB\-Wk\fR|\fB\-\-dwarf=links\fR]
+        [\fB\-Wo\fR|\fB\-\-dwarf=loc\fR]
+        [\fB\-Wm\fR|\fB\-\-dwarf=macro\fR]
+        [\fB\-Wp\fR|\fB\-\-dwarf=pubnames\fR]
+        [\fB\-Wt\fR|\fB\-\-dwarf=pubtypes\fR]
+        [\fB\-WR\fR|\fB\-\-dwarf=Ranges\fR]
+        [\fB\-Wl\fR|\fB\-\-dwarf=rawline\fR]
+        [\fB\-Ws\fR|\fB\-\-dwarf=str\fR]
+        [\fB\-WO\fR|\fB\-\-dwarf=str\-offsets\fR]
+        [\fB\-Wu\fR|\fB\-\-dwarf=trace_abbrev\fR]
+        [\fB\-WT\fR|\fB\-\-dwarf=trace_aranges\fR]
+        [\fB\-WU\fR|\fB\-\-dwarf=trace_info\fR]
         [\fB\-WK\fR|\fB\-\-dwarf=follow\-links\fR]
         [\fB\-WN\fR|\fB\-\-dwarf=no\-follow\-links\fR]
-        [\fB\-wD\fR|\fB\-\-dwarf=use\-debuginfod\fR]
-        [\fB\-wE\fR|\fB\-\-dwarf=do\-not\-use\-debuginfod\fR]
+        [\fB\-WD\fR|\fB\-\-dwarf=use\-debuginfod\fR]
+        [\fB\-WE\fR|\fB\-\-dwarf=do\-not\-use\-debuginfod\fR]
         [\fB\-\-map\-global\-vars\fR]
         [\fB\-L\fR|\fB\-\-process\-links\fR]
         [\fB\-\-ctf=\fR\fIsection\fR]

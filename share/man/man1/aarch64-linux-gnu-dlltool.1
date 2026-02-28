@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "DLLTOOL 1"
-.TH DLLTOOL 1 "2026-02-21" "binutils-2.46.50" "GNU Development Tools"
+.TH DLLTOOL 1 "2026-02-28" "binutils-2.46.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -148,24 +148,35 @@ dlltool [\fB\-d\fR|\fB\-\-input\-def\fR \fIdef-file-name\fR]
         [\fB\-z\fR|\fB\-\-output\-def\fR \fIdef-file-name\fR]
         [\fB\-l\fR|\fB\-\-output\-lib\fR \fIlibrary-file-name\fR]
         [\fB\-y\fR|\fB\-\-output\-delaylib\fR \fIlibrary-file-name\fR]
-        [\fB\-\-export\-all\-symbols\fR] [\fB\-\-no\-export\-all\-symbols\fR]
+        [\fB\-\-export\-all\-symbols\fR]
+        [\fB\-\-no\-export\-all\-symbols\fR]
         [\fB\-\-exclude\-symbols\fR \fIlist\fR]
         [\fB\-\-no\-default\-excludes\fR]
-        [\fB\-S\fR|\fB\-\-as\fR \fIpath-to-assembler\fR] [\fB\-f\fR|\fB\-\-as\-flags\fR \fIoptions\fR]
-        [\fB\-D\fR|\fB\-\-dllname\fR \fIname\fR] [\fB\-m\fR|\fB\-\-machine\fR \fImachine\fR]
+        [\fB\-S\fR|\fB\-\-as\fR \fIpath-to-assembler\fR]
+        [\fB\-f\fR|\fB\-\-as\-flags\fR \fIoptions\fR]
+        [\fB\-D\fR|\fB\-\-dllname\fR \fIname\fR]
+        [\fB\-m\fR|\fB\-\-machine\fR \fImachine\fR]
         [\fB\-a\fR|\fB\-\-add\-indirect\fR]
-        [\fB\-U\fR|\fB\-\-add\-underscore\fR] [\fB\-\-add\-stdcall\-underscore\fR]
-        [\fB\-k\fR|\fB\-\-kill\-at\fR] [\fB\-A\fR|\fB\-\-add\-stdcall\-alias\fR]
+        [\fB\-U\fR|\fB\-\-add\-underscore\fR]
+        [\fB\-\-add\-stdcall\-underscore\fR]
+        [\fB\-k\fR|\fB\-\-kill\-at\fR]
+        [\fB\-A\fR|\fB\-\-add\-stdcall\-alias\fR]
         [\fB\-p\fR|\fB\-\-ext\-prefix\-alias\fR \fIprefix\fR]
-        [\fB\-x\fR|\fB\-\-no\-idata4\fR] [\fB\-c\fR|\fB\-\-no\-idata5\fR]
+        [\fB\-x\fR|\fB\-\-no\-idata4\fR]
+        [\fB\-c\fR|\fB\-\-no\-idata5\fR]
         [\fB\-\-use\-nul\-prefixed\-import\-tables\fR]
-        [\fB\-I\fR|\fB\-\-identify\fR \fIlibrary-file-name\fR] [\fB\-\-identify\-strict\fR]
+        [\fB\-I\fR|\fB\-\-identify\fR \fIlibrary-file-name\fR]
+        [\fB\-\-identify\-strict\fR]
         [\fB\-i\fR|\fB\-\-interwork\fR]
-        [\fB\-n\fR|\fB\-\-nodelete\fR] [\fB\-t\fR|\fB\-\-temp\-prefix\fR \fIprefix\fR]
+        [\fB\-n\fR|\fB\-\-nodelete\fR]
+        [\fB\-t\fR|\fB\-\-temp\-prefix\fR \fIprefix\fR]
         [\fB\-v\fR|\fB\-\-verbose\fR]
-        [\fB\-h\fR|\fB\-\-help\fR] [\fB\-V\fR|\fB\-\-version\fR]
-        [\fB\-\-no\-leading\-underscore\fR] [\fB\-\-leading\-underscore\fR]
-        [\fB\-\-deterministic\-libraries\fR] [\fB\-\-non\-deterministic\-libraries\fR]
+        [\fB\-h\fR|\fB\-\-help\fR]
+        [\fB\-V\fR|\fB\-\-version\fR]
+        [\fB\-\-no\-leading\-underscore\fR]
+        [\fB\-\-leading\-underscore\fR]
+        [\fB\-\-deterministic\-libraries\fR]
+        [\fB\-\-non\-deterministic\-libraries\fR]
         [object\-file ...]
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
