@@ -2038,6 +2038,18 @@
 #endif
 
 
+/* Define to 1 if using the Solaris assembler. */
+#ifndef USED_FOR_TARGET
+#define HAVE_SOLARIS_AS 0
+#endif
+
+
+/* Define to 1 if using the Solaris linker. */
+#ifndef USED_FOR_TARGET
+#define HAVE_SOLARIS_LD 0
+#endif
+
+
 /* Define to 1 if you have the <stddef.h> header file. */
 #ifndef USED_FOR_TARGET
 #define HAVE_STDDEF_H 1

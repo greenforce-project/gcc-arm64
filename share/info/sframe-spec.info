@@ -21,7 +21,7 @@ The SFrame format
 *****************
 
                 **** DRAFT - NOT FOR DISTRIBUTION ****
-                           February 28, 2026
+                             March 2, 2026
 
    This manual describes Version 3 of the SFrame file format.  SFrame
 stands for Simple Frame.  The SFrame format keeps track of the minimal
@@ -1416,34 +1416,34 @@ Index
 
 Tag Table:
 Node: Top564
-Node: Introduction1337
-Node: Overview1563
-Node: Changes from Version 2 to Version 33187
-Node: Changes from Version 1 to Version 25961
-Node: SFrame Section9430
-Node: SFrame Preamble9930
-Node: SFrame Magic Number and Endianness11497
-Node: SFrame Version12029
-Node: SFrame Flags12648
-Node: SFrame Header14347
-Node: SFrame ABI/arch Identifier19825
-Node: SFrame Function Descriptor Entries20956
-Node: The SFrame FDE Index21664
-Node: The SFrame FDE Attribute24686
-Node: The SFrame FDE Info Bytes27427
-Node: The SFrame FDE PC Types29890
-Node: The SFrame FDE Types31702
-Node: The SFrame FRE Types34499
-Node: SFrame Frame Row Entries35984
-Node: The SFrame FRE Info Word39564
-Node: Interpretation of SFrame FREs41950
-Node: Default FDE Type Interpretation42533
-Node: AMD6443094
-Node: AArch6444201
-Node: s390x45431
-Node: Flexible FDE Type Interpretation48940
-Node: Generating Stack Traces using SFrame53851
-Node: Index60730
+Node: Introduction1335
+Node: Overview1561
+Node: Changes from Version 2 to Version 33185
+Node: Changes from Version 1 to Version 25959
+Node: SFrame Section9428
+Node: SFrame Preamble9928
+Node: SFrame Magic Number and Endianness11495
+Node: SFrame Version12027
+Node: SFrame Flags12646
+Node: SFrame Header14345
+Node: SFrame ABI/arch Identifier19823
+Node: SFrame Function Descriptor Entries20954
+Node: The SFrame FDE Index21662
+Node: The SFrame FDE Attribute24684
+Node: The SFrame FDE Info Bytes27425
+Node: The SFrame FDE PC Types29888
+Node: The SFrame FDE Types31700
+Node: The SFrame FRE Types34497
+Node: SFrame Frame Row Entries35982
+Node: The SFrame FRE Info Word39562
+Node: Interpretation of SFrame FREs41948
+Node: Default FDE Type Interpretation42531
+Node: AMD6443092
+Node: AArch6444199
+Node: s390x45429
+Node: Flexible FDE Type Interpretation48938
+Node: Generating Stack Traces using SFrame53849
+Node: Index60728
 
 End Tag Table
 
