@@ -1863,6 +1863,12 @@ Here is the section structure:
        /* Nonzero if section contents should not be freed.  */
        unsigned int alloced:1;
 
+       /* Indicate that the section contains branch veneers.  This is used when
+          support for non-contiguous memory regions is enabled.  The veneers have
+          to be allocated to the same memory region as the code they are refered
+          by, i.e. they cannot be moved to a subsequent memory region.  */
+       unsigned int veneer : 1;
+
        /* Bits used by various backends.  The generic code doesn't touch
           these fields.  */
 
@@ -14595,54 +14601,54 @@ Node: Sections58691
 Node: Section Input59172
 Node: Section Output60366
 Node: typedef asection62853
-Node: section prototypes80415
-Node: Symbols91536
-Node: Reading Symbols93139
-Node: Writing Symbols94247
-Node: Mini Symbols95991
-Node: typedef asymbol96965
-Node: symbol handling functions103281
-Node: Archives108343
-Node: Formats112491
-Node: Relocations115834
-Node: typedef arelent116561
-Node: howto manager130436
-Node: Core Files266681
-Node: Targets268682
-Node: bfd_target270643
-Node: Architectures296500
-Node: Opening and Closing328794
-Node: Internal345157
-Node: File Caching356492
-Node: Linker Functions359255
-Node: Creating a Linker Hash Table360929
-Node: Adding Symbols to the Hash Table362668
-Node: Differing file formats363568
-Node: Adding symbols from an object file365293
-Node: Adding symbols from an archive367443
-Node: Performing the Final Link369789
-Node: Information provided by the linker371030
-Node: Relocating the section contents372184
-Node: Writing the symbol table373936
-Node: Hash Tables383148
-Node: Creating and Freeing a Hash Table384346
-Node: Looking Up or Entering a String385596
-Node: Traversing a Hash Table386849
-Node: Deriving a New Hash Table Type387638
-Node: Define the Derived Structures388704
-Node: Write the Derived Creation Routine389785
-Node: Write Other Derived Routines392396
-Node: BFD back ends397821
-Node: What to Put Where398091
-Node: aout398271
-Node: coff404356
-Node: elf425307
-Node: mmo425708
-Node: File layout426578
-Node: Symbol-table432491
-Node: mmo section mapping436254
-Node: GNU Free Documentation License439908
-Node: BFD Index464972
+Node: section prototypes80766
+Node: Symbols91887
+Node: Reading Symbols93490
+Node: Writing Symbols94598
+Node: Mini Symbols96342
+Node: typedef asymbol97316
+Node: symbol handling functions103632
+Node: Archives108694
+Node: Formats112842
+Node: Relocations116185
+Node: typedef arelent116912
+Node: howto manager130787
+Node: Core Files267032
+Node: Targets269033
+Node: bfd_target270994
+Node: Architectures296851
+Node: Opening and Closing329145
+Node: Internal345508
+Node: File Caching356843
+Node: Linker Functions359606
+Node: Creating a Linker Hash Table361280
+Node: Adding Symbols to the Hash Table363019
+Node: Differing file formats363919
+Node: Adding symbols from an object file365644
+Node: Adding symbols from an archive367794
+Node: Performing the Final Link370140
+Node: Information provided by the linker371381
+Node: Relocating the section contents372535
+Node: Writing the symbol table374287
+Node: Hash Tables383499
+Node: Creating and Freeing a Hash Table384697
+Node: Looking Up or Entering a String385947
+Node: Traversing a Hash Table387200
+Node: Deriving a New Hash Table Type387989
+Node: Define the Derived Structures389055
+Node: Write the Derived Creation Routine390136
+Node: Write Other Derived Routines392747
+Node: BFD back ends398172
+Node: What to Put Where398442
+Node: aout398622
+Node: coff404707
+Node: elf425658
+Node: mmo426059
+Node: File layout426929
+Node: Symbol-table432842
+Node: mmo section mapping436605
+Node: GNU Free Documentation License440259
+Node: BFD Index465323
 
 End Tag Table
 
