@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2026-03-07" "gcc-16.0.1" "GNU"
+.TH GCC 1 "2026-03-14" "gcc-16.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -220,7 +220,7 @@ in the following sections.
 \&\fB\-dumpbase\fR \fIdumpbase\fR  \fB\-dumpbase\-ext\fR \fIauxdropsuf\fR
 \&\fB\-dumpdir\fR \fIdumppfx\fR  \fB\-x\fR \fIlanguage\fR
 \&\fB\-v  \-###  \-\-help\fR[\fB=\fR\fIclass\fR[\fB,...\fR]]  \fB\-\-target\-help  \-\-version
-\&\-pass\-exit\-codes  \-pipe  \-specs=\fR\fIfile\fR  \fB\-wrapper
+\&\-pass\-exit\-codes  \-pipe  \-wrapper
 @\fR\fIfile\fR  \fB\-ffile\-prefix\-map=\fR\fIold\fR\fB=\fR\fInew\fR  \fB\-fcanon\-prefix\-map
 \&\-fplugin=\fR\fIfile\fR  \fB\-fplugin\-arg\-\fR\fIname\fR\fB=\fR\fIarg\fR
 \&\fB\-fdump\-ada\-spec\fR[\fB\-slim\fR]  \fB\-fada\-spec\-parent=\fR\fIunit\fR
@@ -228,7 +228,7 @@ in the following sections.
 \&\fB\-\-assemble  \-\-compile  \-\-dumpbase\fR \fIdumpbase\fR
 \&\fB\-\-dumpbase\-ext\fR \fIauxdropsuf\fR  \fB\-\-dumpdir\fR \fIdumppfx\fR
 \&\fB\-\-language=\fR\fIlanguage\fR  \fB\-\-output=\fR\fIfile\fR  \fB\-\-pass\-exit\-codes
-\&\-\-pipe  \-\-preprocess  \-\-specs=\fR\fIfile\fR  \fB\-\-verbose\fR
+\&\-\-pipe  \-\-preprocess  \-\-verbose\fR
 .IP "\fIC Language Options\fR" 4
 .IX Item "C Language Options"
 \&\fB\-ansi  \-std=\fR\fIstandard\fR  \fB\-aux\-info\fR \fIfilename\fR
@@ -878,14 +878,15 @@ in the following sections.
 \&\-print\-multiarch
 \&\-print\-prog\-name=\fR\fIprogram\fR  \fB\-print\-search\-dirs  \-Q
 \&\-print\-sysroot  \-print\-sysroot\-headers\-suffix
-\&\-save\-temps  \-save\-temps=cwd  \-save\-temps=obj  \-time\fR[\fB=\fR\fIfile\fR]
+\&\-save\-temps  \-save\-temps=cwd  \-save\-temps=obj
+\&\-specs=\fR\fIfile\fR  \fB\-time\fR[\fB=\fR\fIfile\fR]
 \&\fB\-\-dump=\fR\fIletters\fR
 \&\fB\-\-print\-file\-name=\fR\fIlibrary\fR  \fB\-\-print\-libgcc\-file\-file\-name
 \&\-\-print\-multi\-directory  \-\-print\-multi\-lib  \-\-print\-multi\-os\-directory
 \&\-\-print\-multiarch  \-\-print\-prog\-name=\fR\fIprogram\fR
 \&\fB\-\-print\-search\-dirs  \-\-print\-sysroot  \-\-print\-sysroot\-headers\-suffix
-\&\-\-save\-temps
-\&\-\-param\fR \fIname\fR\fB=\fR\fIvalue\fR\fB \fR
+\&\-\-save\-temps  \-\-specs=\fR\fIfile\fR
+\&\fB\-\-param\fR \fIname\fR\fB=\fR\fIvalue\fR\fB \fR
 .IP "\fIMachine-Dependent Options\fR" 4
 .IX Item "Machine-Dependent Options"
 \&\fIAArch64 Options\fR (\fBAArch64 Options\fR)
@@ -2381,20 +2382,6 @@ Use pipes rather than temporary files for communication between the
 various stages of compilation.  This fails to work on some systems where
 the assembler is unable to read from a pipe; but the \s-1GNU\s0 assembler has
 no trouble.
-.IP "\fB\-specs=\fR\fIfile\fR" 4
-.IX Item "-specs=file"
-.PD 0
-.IP "\fB\-\-specs=\fR\fIfile\fR" 4
-.IX Item "--specs=file"
-.IP "\fB\-\-specs\fR \fIfile\fR" 4
-.IX Item "--specs file"
-.PD
-Process \fIfile\fR after the compiler reads in the standard \fIspecs\fR
-file, in order to override the defaults which the \fBgcc\fR driver
-program uses when determining what switches to pass to \fBcc1\fR,
-\&\fBcc1plus\fR, \fBas\fR, \fBld\fR, etc.  More than one
-\&\fB\-specs=\fR\fIfile\fR can be specified on the command line, and they
-are processed in order, from left to right.
 .IP "\fB\-wrapper\fR" 4
 .IX Item "-wrapper"
 Invoke all subcommands under a wrapper program.  The name of the
@@ -19887,6 +19874,20 @@ Equivalent to \fB\-save\-temps \-dumpdir \f(BIoutdir/\fB\fR, where
 \&\fB\-o\fR option, including any directory separators.  If the
 \&\fB\-o\fR option is not used, the \fB\-save\-temps=obj\fR switch
 behaves like \fB\-save\-temps=cwd\fR.
+.IP "\fB\-specs=\fR\fIfile\fR" 4
+.IX Item "-specs=file"
+.PD 0
+.IP "\fB\-\-specs=\fR\fIfile\fR" 4
+.IX Item "--specs=file"
+.IP "\fB\-\-specs\fR \fIfile\fR" 4
+.IX Item "--specs file"
+.PD
+Process \fIfile\fR after the compiler reads in the standard \fIspecs\fR
+file, in order to override the defaults which the \fBgcc\fR driver
+program uses when determining what switches to pass to \fBcc1\fR,
+\&\fBcc1plus\fR, \fBas\fR, \fBld\fR, etc.  More than one
+\&\fB\-specs=\fR\fIfile\fR can be specified on the command line, and they
+are processed in order, from left to right.
 .IP "\fB\-time\fR[\fB=\fR\fIfile\fR]" 4
 .IX Item "-time[=file]"
 Report the \s-1CPU\s0 time taken by each subprocess in the compilation
@@ -20033,7 +20034,8 @@ allocation before or after interprocedural optimization.
 .IX Item "-fmultiflags"
 This option enables multilib-aware \f(CW\*(C`TFLAGS\*(C'\fR to be used to build
 target libraries with options different from those the compiler is
-configured to use by default, through the use of specs set up by compiler internals, by the target, or by builders at
+configured to use by default, through the use of specs
+set up by compiler internals, by the target, or by builders at
 configure time.
 .Sp
 Like \f(CW\*(C`TFLAGS\*(C'\fR, this allows the target libraries to be built for

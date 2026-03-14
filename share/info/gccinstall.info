@@ -811,8 +811,8 @@ option.
           default without modifying the compiler's source code, for
           instance
           '--with-specs=%{!fcommon:%{!fno-common:-fno-common}}'.  *Note
-          Specifying subprocesses and the switches to pass to them:
-          (gcc)Spec Files,
+          Specifying Subprocesses and the Switches to Pass to Them:
+          (gccint)Spec Files.
 
 '--program-prefix=PREFIX'
      GCC supports some transformations of the names of its programs when
@@ -4132,26 +4132,26 @@ riscv32-*-elf
 
 The RISC-V RV32 instruction set.  This configuration is intended for
 embedded systems.  This (and all other RISC-V) targets require the
-binutils 2.30 release.
+binutils 2.40 release.
 
 riscv32-*-linux
 ===============
 
 The RISC-V RV32 instruction set running GNU/Linux.  This (and all other
-RISC-V) targets require the binutils 2.30 release.
+RISC-V) targets require the binutils 2.40 release.
 
 riscv64-*-elf
 =============
 
 The RISC-V RV64 instruction set.  This configuration is intended for
 embedded systems.  This (and all other RISC-V) targets require the
-binutils 2.30 release.
+binutils 2.40 release.
 
 riscv64-*-linux
 ===============
 
 The RISC-V RV64 instruction set running GNU/Linux.  This (and all other
-RISC-V) targets require the binutils 2.30 release.
+RISC-V) targets require the binutils 2.40 release.
 
 rx-*-elf
 ========
@@ -5026,96 +5026,96 @@ Ref: GM2-prerequisite9594
 Ref: gccrs-prerequisite9861
 Node: Downloading the source20977
 Node: Configuration22780
-Ref: with-gnu-as42166
-Ref: with-as42987
-Ref: with-gnu-ld44352
-Ref: with-multilib-list48228
-Ref: WithAixSoname77135
-Ref: AixLdCommand77796
-Ref: with-included-gettext94321
-Node: Building125819
-Node: Testing143117
-Node: Final install150648
-Node: Binaries153826
-Node: Specific154755
-Ref: aarch64-x-x155289
-Ref: amd64-x-solaris2157130
-Ref: amdgcn-x-amdhsa157212
-Ref: arc-x-elf32159543
-Ref: arc-linux-uclibc159719
-Ref: arm-x-eabi159860
-Ref: avr160113
-Ref: bfin160595
-Ref: cris160858
-Ref: dos161184
-Ref: epiphany-x-elf161509
-Ref: x-x-freebsd161614
-Ref: ft32-x-elf162205
-Ref: h8300-hms162303
-Ref: hppa64-hp-hpux11162362
-Ref: x-x-linux-gnu163119
-Ref: ix86-x-linux163312
-Ref: ix86-x-solaris2163514
-Ref: ia64-x-linux163753
-Ref: ia64-x-hpux164000
-Ref: x-ibm-aix164218
-Ref: TransferAixShobj167880
-Ref: iq2000-x-elf171462
-Ref: lm32-x-elf171602
-Ref: lm32-x-uclinux171706
-Ref: loongarch171834
-Ref: m32c-x-elf172471
-Ref: m32r-x-elf172573
-Ref: m68k-x-x172675
-Ref: m68k-x-uclinux173713
-Ref: microblaze-x-elf173958
-Ref: mips-x-x174077
-Ref: moxie-x-elf175987
-Ref: msp430-x-elf176034
-Ref: nds32le-x-elf176591
-Ref: nds32be-x-elf176663
-Ref: nvptx-x-none176732
-Ref: or1k-x-elf177689
-Ref: or1k-x-linux177820
-Ref: powerpc-x-x177901
-Ref: powerpc-x-darwin178092
-Ref: powerpc-x-elf178587
-Ref: powerpc-x-linux-gnu178672
-Ref: powerpc-x-netbsd178767
-Ref: powerpc-x-eabisim178855
-Ref: powerpc-x-eabi178981
-Ref: powerpcle-x-elf179057
-Ref: powerpcle-x-eabisim179149
-Ref: powerpcle-x-eabi179282
-Ref: rl78-x-elf179365
-Ref: riscv32-x-elf179471
-Ref: riscv32-x-linux179660
-Ref: riscv64-x-elf179817
-Ref: riscv64-x-linux180006
-Ref: rx-x-elf180163
-Ref: s390-x-linux180209
-Ref: s390x-x-linux180281
-Ref: s390x-ibm-tpf180368
-Ref: x-x-solaris2180499
-Ref: sparc-x-x183823
-Ref: sparc-sun-solaris2184325
-Ref: sparc-x-linux185224
-Ref: sparc64-x-solaris2185255
-Ref: sparcv9-x-solaris2185342
-Ref: c6x-x-x186063
-Ref: visium-x-elf186155
-Ref: x-x-vxworks186263
-Ref: x86-64-x-x187786
-Ref: x86-64-x-solaris2188114
-Ref: xtensa-x-elf188619
-Ref: xtensa-x-linux189290
-Ref: windows189631
-Ref: x-x-cygwin190956
-Ref: x-x-mingw32191509
-Ref: older191735
-Ref: elf193698
-Node: GNU Free Documentation License193952
-Node: Concept Index219090
+Ref: with-gnu-as42169
+Ref: with-as42990
+Ref: with-gnu-ld44355
+Ref: with-multilib-list48231
+Ref: WithAixSoname77138
+Ref: AixLdCommand77799
+Ref: with-included-gettext94324
+Node: Building125822
+Node: Testing143120
+Node: Final install150651
+Node: Binaries153829
+Node: Specific154758
+Ref: aarch64-x-x155292
+Ref: amd64-x-solaris2157133
+Ref: amdgcn-x-amdhsa157215
+Ref: arc-x-elf32159546
+Ref: arc-linux-uclibc159722
+Ref: arm-x-eabi159863
+Ref: avr160116
+Ref: bfin160598
+Ref: cris160861
+Ref: dos161187
+Ref: epiphany-x-elf161512
+Ref: x-x-freebsd161617
+Ref: ft32-x-elf162208
+Ref: h8300-hms162306
+Ref: hppa64-hp-hpux11162365
+Ref: x-x-linux-gnu163122
+Ref: ix86-x-linux163315
+Ref: ix86-x-solaris2163517
+Ref: ia64-x-linux163756
+Ref: ia64-x-hpux164003
+Ref: x-ibm-aix164221
+Ref: TransferAixShobj167883
+Ref: iq2000-x-elf171465
+Ref: lm32-x-elf171605
+Ref: lm32-x-uclinux171709
+Ref: loongarch171837
+Ref: m32c-x-elf172474
+Ref: m32r-x-elf172576
+Ref: m68k-x-x172678
+Ref: m68k-x-uclinux173716
+Ref: microblaze-x-elf173961
+Ref: mips-x-x174080
+Ref: moxie-x-elf175990
+Ref: msp430-x-elf176037
+Ref: nds32le-x-elf176594
+Ref: nds32be-x-elf176666
+Ref: nvptx-x-none176735
+Ref: or1k-x-elf177692
+Ref: or1k-x-linux177823
+Ref: powerpc-x-x177904
+Ref: powerpc-x-darwin178095
+Ref: powerpc-x-elf178590
+Ref: powerpc-x-linux-gnu178675
+Ref: powerpc-x-netbsd178770
+Ref: powerpc-x-eabisim178858
+Ref: powerpc-x-eabi178984
+Ref: powerpcle-x-elf179060
+Ref: powerpcle-x-eabisim179152
+Ref: powerpcle-x-eabi179285
+Ref: rl78-x-elf179368
+Ref: riscv32-x-elf179474
+Ref: riscv32-x-linux179663
+Ref: riscv64-x-elf179820
+Ref: riscv64-x-linux180009
+Ref: rx-x-elf180166
+Ref: s390-x-linux180212
+Ref: s390x-x-linux180284
+Ref: s390x-ibm-tpf180371
+Ref: x-x-solaris2180502
+Ref: sparc-x-x183826
+Ref: sparc-sun-solaris2184328
+Ref: sparc-x-linux185227
+Ref: sparc64-x-solaris2185258
+Ref: sparcv9-x-solaris2185345
+Ref: c6x-x-x186066
+Ref: visium-x-elf186158
+Ref: x-x-vxworks186266
+Ref: x86-64-x-x187789
+Ref: x86-64-x-solaris2188117
+Ref: xtensa-x-elf188622
+Ref: xtensa-x-linux189293
+Ref: windows189634
+Ref: x-x-cygwin190959
+Ref: x-x-mingw32191512
+Ref: older191738
+Ref: elf193701
+Node: GNU Free Documentation License193955
+Node: Concept Index219093
 
 End Tag Table
 
