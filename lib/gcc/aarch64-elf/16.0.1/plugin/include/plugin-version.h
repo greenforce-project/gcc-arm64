@@ -6,8 +6,8 @@
 #define GCCPLUGIN_VERSION  (GCCPLUGIN_VERSION_MAJOR*1000 + GCCPLUGIN_VERSION_MINOR)
 
 static char basever[] = "16.0.1";
-static char datestamp[] = "20260315";
-static char devphase[] = "Gf's C/C++ Compiler, GNU-compatible";
+static char datestamp[] = "20260319";
+static char devphase[] = "Gf's C Compiler, GNU-compatible";
 static char revision[] = "";
 
 /* FIXME plugins: We should make the version information more precise.

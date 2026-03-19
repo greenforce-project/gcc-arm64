@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2026-03-15" "gcc-16.0.1" "GNU"
+.TH GCC 1 "2026-03-19" "gcc-16.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -873,6 +873,7 @@ in the following sections.
 \&\fB\-fsel\-sched\-verbose  \-fsel\-sched\-dump\-cfg  \-fsel\-sched\-pipelining\-verbose
 \&\-fstats  \-fstack\-usage  \-ftime\-report  \-ftime\-report\-details
 \&\-fvar\-tracking\-assignments\-toggle  \-gtoggle
+\&\-print\-autofdo\-gcov\-version
 \&\-print\-file\-name=\fR\fIlibrary\fR  \fB\-print\-libgcc\-file\-name
 \&\-print\-multi\-directory  \-print\-multi\-lib  \-print\-multi\-os\-directory
 \&\-print\-multiarch
@@ -881,7 +882,8 @@ in the following sections.
 \&\-save\-temps  \-save\-temps=cwd  \-save\-temps=obj
 \&\-specs=\fR\fIfile\fR  \fB\-time\fR[\fB=\fR\fIfile\fR]
 \&\fB\-\-dump=\fR\fIletters\fR
-\&\fB\-\-print\-file\-name=\fR\fIlibrary\fR  \fB\-\-print\-libgcc\-file\-file\-name
+\&\fB\-\-print\-autofdo\-gcov\-version
+\&\-\-print\-file\-name=\fR\fIlibrary\fR  \fB\-\-print\-libgcc\-file\-file\-name
 \&\-\-print\-multi\-directory  \-\-print\-multi\-lib  \-\-print\-multi\-os\-directory
 \&\-\-print\-multiarch  \-\-print\-prog\-name=\fR\fIprogram\fR
 \&\fB\-\-print\-search\-dirs  \-\-print\-sysroot  \-\-print\-sysroot\-headers\-suffix
@@ -20114,6 +20116,13 @@ For example, with \fB\-fdbg\-cnt=dce:2\-4:10\-11,tail_call:10\fR,
 \&\f(CW\*(C`dbg_cnt(dce)\*(C'\fR returns true only for second, third, fourth, tenth and
 eleventh invocation.
 For \f(CW\*(C`dbg_cnt(tail_call)\*(C'\fR true is returned for first 10 invocations.
+.IP "\fB\-print\-autofdo\-gcov\-version\fR" 4
+.IX Item "-print-autofdo-gcov-version"
+.PD 0
+.IP "\fB\-\-print\-autofdo\-gcov\-version\fR" 4
+.IX Item "--print-autofdo-gcov-version"
+.PD
+Print the current version of \s-1GCOV\s0 being used by the AutoFDO infrastructure.
 .IP "\fB\-print\-file\-name=\fR\fIlibrary\fR" 4
 .IX Item "-print-file-name=library"
 .PD 0
@@ -31186,6 +31195,8 @@ width as the alignment value, and \fBnatural\fR which uses natural alignment.
 .IX Item "-mbig-endian"
 Generate big-endian code.  This is the default when \s-1GCC\s0 is configured for a
 \&\fBriscv64be\-*\-*\fR or \fBriscv32be\-*\-*\fR target.
+Support for RISC-V big-endian is experimental.  The \s-1ABI\s0 is not yet stable
+and could change in incompatible ways in future releases.
 .IP "\fB\-mlittle\-endian\fR" 4
 .IX Item "-mlittle-endian"
 Generate little-endian code.  This is the default when \s-1GCC\s0 is configured for a
