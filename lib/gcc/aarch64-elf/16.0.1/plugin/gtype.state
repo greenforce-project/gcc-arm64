@@ -4,7 +4,7 @@
 ;;; Don't parse this file wihout knowing GCC gengtype internals.
 ;;; This file should be parsed by the same gengtype which wrote it.
 
-(!version  "16.0.1 20260319 (Gf's C Compiler, GNU-compatible)")
+(!version  "16.0.1 20260321 (Gf's C Compiler, GNU-compatible)")
 (!srcdir  "/tmp/cirrus-ci-build/gcc/gcc")
 (!languages 14 ada algol68 c cobol cp d fortran go jit lto m2 objc objcp rust)
 (!fileslist 262 0
@@ -35053,15 +35053,15 @@
   nil 0 nil nil )
  
  (!type struct 2557 nil  gc_used "macro_export"
-  (!srcfileloc  "cp/module.cc" 19738)
+  (!srcfileloc  "cp/module.cc" 19762)
   (!fields 2 
    (!pair  "def"
     (!type already_seen 19)
-    (!srcfileloc  "cp/module.cc" 19731)
+    (!srcfileloc  "cp/module.cc" 19755)
     nil )
    (!pair  "undef_loc"
     (!type already_seen 2)
-    (!srcfileloc  "cp/module.cc" 19732)
+    (!srcfileloc  "cp/module.cc" 19756)
     nil )
   )
   nil 4112 nil nil )
@@ -35075,15 +35075,15 @@
    (!type already_seen 2559)
   )
   gc_pointed_to "vec<macro_export,va_gc>"
-  (!srcfileloc  "cp/module.cc" 19895)
+  (!srcfileloc  "cp/module.cc" 19919)
   (!fields 2 
    (!pair  "va_gc"
     (!type already_seen 80)
-    (!srcfileloc  "cp/module.cc" 19895)
+    (!srcfileloc  "cp/module.cc" 19919)
     nil )
    (!pair  "macro_export"
     (!type already_seen 2557)
-    (!srcfileloc  "cp/module.cc" 19895)
+    (!srcfileloc  "cp/module.cc" 19919)
     nil )
   )
  )
@@ -37241,11 +37241,11 @@
   nil )
  (!pair  "vec<macro_export,va_gc>"
   (!type already_seen 2559)
-  (!srcfileloc  "cp/module.cc" 19895)
+  (!srcfileloc  "cp/module.cc" 19919)
   nil )
  (!pair  "macro_export"
   (!type already_seen 2557)
-  (!srcfileloc  "cp/module.cc" 19734)
+  (!srcfileloc  "cp/module.cc" 19758)
   nil )
  (!pair  "note_defs_table_t"
   (!type already_seen 2553)
@@ -41204,7 +41204,7 @@
   nil )
  (!pair  "rust_gc_root"
   (!type already_seen 23)
-  (!srcfileloc  "rust/rust-lang.cc" 359)
+  (!srcfileloc  "rust/rust-lang.cc" 358)
   nil )
  (!pair  "objc_eh_personality_decl"
   (!type already_seen 23)
@@ -42858,11 +42858,11 @@
  )
  (!pair  "headers"
   (!type already_seen 445)
-  (!srcfileloc  "cp/module.cc" 19899)
+  (!srcfileloc  "cp/module.cc" 19923)
   nil )
  (!pair  "macro_exports"
   (!type already_seen 2560)
-  (!srcfileloc  "cp/module.cc" 19895)
+  (!srcfileloc  "cp/module.cc" 19919)
   nil )
  (!pair  "note_defs"
   (!type already_seen 2554)
