@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "CPP 1"
-.TH CPP 1 "2026-03-28" "gcc-16.0.1" "GNU"
+.TH CPP 1 "2026-04-04" "gcc-16.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -566,12 +566,16 @@ problems with encodings that do not fit exactly in \f(CW\*(C`wchar_t\*(C'\fR.
 .IP "\fB\-finput\-charset=\fR\fIcharset\fR" 4
 .IX Item "-finput-charset=charset"
 Set the input character set, used for translation from the character
-set of the input file to the source character set used by \s-1GCC.\s0  If the
-locale does not specify, or \s-1GCC\s0 cannot get this information from the
-locale, the default is \s-1UTF\-8.\s0  This can be overridden by either the locale
-or this command-line option.  Currently the command-line option takes
-precedence if there's a conflict.  \fIcharset\fR can be any encoding
+set of the input file to the source character set used by \s-1GCC.\s0  The
+default is \s-1UTF\-8.\s0  \fIcharset\fR can be any encoding
 supported by the system's \f(CW\*(C`iconv\*(C'\fR library routine.
+.Sp
+If the input character set is \s-1UTF\-8,\s0 warnings about ill-formed code
+unit sequences are issued if \fB\-Winvalid\-utf8\fR is enabled.
+Otherwise no diagnostics are issued when the input character set
+matches the execution character set.  If they are different,
+ill-formed code unit sequences result in an error during transcoding
+to the execution character set.
 .IP "\fB\-fworking\-directory\fR" 4
 .IX Item "-fworking-directory"
 Enable generation of linemarkers in the preprocessor output that

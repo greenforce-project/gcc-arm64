@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2026-03-28" "gcc-16.0.1" "GNU"
+.TH GCC 1 "2026-04-04" "gcc-16.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -2976,24 +2976,29 @@ default, such a bit-field is signed, because this is consistent: the
 basic integer types such as \f(CW\*(C`int\*(C'\fR are signed types.
 .IP "\fB\-fsigned\-char\fR" 4
 .IX Item "-fsigned-char"
-Let the type \f(CW\*(C`char\*(C'\fR be signed, like \f(CW\*(C`signed char\*(C'\fR.
-.Sp
-Note that this is equivalent to \fB\-fno\-unsigned\-char\fR, which is
-the negative form of \fB\-funsigned\-char\fR.  Likewise, the option
-\&\fB\-fno\-signed\-char\fR is equivalent to \fB\-funsigned\-char\fR.
+.PD 0
 .IP "\fB\-funsigned\-char\fR" 4
 .IX Item "-funsigned-char"
-Let the type \f(CW\*(C`char\*(C'\fR be unsigned, like \f(CW\*(C`unsigned char\*(C'\fR.
+.PD
+\&\fB\-fsigned\-char\fR lets the type \f(CW\*(C`char\*(C'\fR be signed,
+like \f(CW\*(C`signed char\*(C'\fR, while \fB\-funsigned\-char\fR lets
+the type \f(CW\*(C`char\*(C'\fR be unsigned, like \f(CW\*(C`unsigned char\*(C'\fR.
 .Sp
-Each kind of machine has a default for what \f(CW\*(C`char\*(C'\fR should
-be.  It is either like \f(CW\*(C`unsigned char\*(C'\fR by default or like
-\&\f(CW\*(C`signed char\*(C'\fR by default.
+Note that \fB\-fsigned\-char\fR
+is equivalent to \fB\-fno\-unsigned\-char\fR, which is
+the negative form of \fB\-funsigned\-char\fR.  Likewise, the option
+\&\fB\-fno\-signed\-char\fR is equivalent to \fB\-funsigned\-char\fR.
+.Sp
+Each target supported by \s-1GCC\s0 has a default for what \f(CW\*(C`char\*(C'\fR should
+be, which is typically specified in the processor-specific \s-1ABI\s0
+document for that target.  It is either like \f(CW\*(C`unsigned char\*(C'\fR by
+default or like \f(CW\*(C`signed char\*(C'\fR by default.
 .Sp
 Ideally, a portable program should always use \f(CW\*(C`signed char\*(C'\fR or
 \&\f(CW\*(C`unsigned char\*(C'\fR when it depends on the signedness of an object.
 But many programs have been written to use plain \f(CW\*(C`char\*(C'\fR and
 expect it to be signed, or expect it to be unsigned, depending on the
-machines they were written for.  This option, and its inverse, let you
+machines they were written for.  These options let you
 make such a program work with the opposite default.
 .Sp
 The type \f(CW\*(C`char\*(C'\fR is always a distinct type from each of
@@ -6740,8 +6745,13 @@ Both diagnostics are also suppressed by \fB\-fms\-extensions\fR.
 .IX Item "-Wchar-subscripts"
 Warn if an array subscript has type \f(CW\*(C`char\*(C'\fR.  This is a common cause
 of error, as programmers often forget that this type is signed on some
-machines.
-This warning is enabled by \fB\-Wall\fR.
+machines.  \f(CW@xref\fR{Characters implementation}, and
+\&\fB\f(CB\*(C`char\*(C'\fB type signedness\fR.
+.Sp
+This warning is enabled by \fB\-Wall\fR.  When enabled, the warning
+is given regardless of whether \f(CW\*(C`char\*(C'\fR is unsigned by default on
+the target, and it is also not affected by the \fB\-fsigned\-char\fR
+or \fB\-funsigned\-char\fR options.
 .IP "\fB\-Wno\-coverage\-mismatch\fR" 4
 .IX Item "-Wno-coverage-mismatch"
 Warn if feedback profiles do not match when using the
@@ -12052,6 +12062,12 @@ parts of the program that you don't plan to debug.  This includes
 descriptions of functions and external variables, and line number
 tables, but no information about local variables.
 .Sp
+Level 2 is the normal setting to produce debuggable code.  The debug output
+includes all the information from level 1, plus information about
+local variables and typedefs to allow stepping through code and examining
+its state.  For \*(C+ code, additional information is also emitted to assist
+in debugging namespace, class, and template functions.
+.Sp
 Level 3 includes extra information, such as all the macro definitions
 present in the program.  Some debuggers support macro expansion when
 you use \fB\-g3\fR.
@@ -17120,12 +17136,16 @@ problems with encodings that do not fit exactly in \f(CW\*(C`wchar_t\*(C'\fR.
 .IP "\fB\-finput\-charset=\fR\fIcharset\fR" 4
 .IX Item "-finput-charset=charset"
 Set the input character set, used for translation from the character
-set of the input file to the source character set used by \s-1GCC.\s0  If the
-locale does not specify, or \s-1GCC\s0 cannot get this information from the
-locale, the default is \s-1UTF\-8.\s0  This can be overridden by either the locale
-or this command-line option.  Currently the command-line option takes
-precedence if there's a conflict.  \fIcharset\fR can be any encoding
+set of the input file to the source character set used by \s-1GCC.\s0  The
+default is \s-1UTF\-8.\s0  \fIcharset\fR can be any encoding
 supported by the system's \f(CW\*(C`iconv\*(C'\fR library routine.
+.Sp
+If the input character set is \s-1UTF\-8,\s0 warnings about ill-formed code
+unit sequences are issued if \fB\-Winvalid\-utf8\fR is enabled.
+Otherwise no diagnostics are issued when the input character set
+matches the execution character set.  If they are different,
+ill-formed code unit sequences result in an error during transcoding
+to the execution character set.
 .IP "\fB\-fpch\-deps\fR" 4
 .IX Item "-fpch-deps"
 When using precompiled headers, this flag
@@ -20621,7 +20641,7 @@ performance of the code.  Permissible values for this option are:
 \&\fBcortex\-a520\fR, \fBcortex\-a520ae\fR, \fBcortex\-a710\fR, \fBcortex\-a715\fR,
 \&\fBcortex\-a720\fR, \fBcortex\-a720ae\fR, \fBampere1\fR, \fBampere1a\fR,
 \&\fBampere1b\fR, \fBampere1c\fR, \fBcobalt\-100\fR, \fBapple\-m1\fR,
-\&\fBapple\-m2\fR, \fBapple\-m3\fR, \fBapple\-m4\fR, \fBc1\-nano\fR,
+\&\fBapple\-m2\fR, \fBapple\-m3\fR, \fBapple\-m4\fR, \fBapple\-m5\fR, \fBc1\-nano\fR,
 \&\fBc1\-pro\fR, \fBc1\-premium\fR \fBc1\-ultra\fR and \fBnative\fR.
 .Sp
 The values \fBcortex\-a57.cortex\-a53\fR, \fBcortex\-a72.cortex\-a53\fR,
@@ -21070,6 +21090,55 @@ This only has an effect when \f(CW\*(C`sve2\*(C'\fR or \f(CW\*(C`sme2\*(C'\fR ar
 .IP "\fBsve-bfscale\fR" 4
 .IX Item "sve-bfscale"
 Enable the \s-1SVE_BFSCALE\s0 extension.
+.IP "\fBpoe2\fR" 4
+.IX Item "poe2"
+Enable the Permission Overlays Extension 2.
+.IP "\fBtev\fR" 4
+.IX Item "tev"
+Enable the TIndex Exception-like Vector Extension.
+.IP "\fBtlbid\fR" 4
+.IX Item "tlbid"
+Enable the \s-1TLBI\s0 Domains Extension.
+.IP "\fBgcie\fR" 4
+.IX Item "gcie"
+Enable the GICv5 (Generic Interrupt Controller) \s-1CPU\s0 Interface Extension.
+.IP "\fBmpamv2\fR" 4
+.IX Item "mpamv2"
+Enable MPAMv2 system registers.
+.IP "\fBlscp\fR" 4
+.IX Item "lscp"
+Enable the load acquire and store release pair extension.
+.IP "\fBmops-go\fR" 4
+.IX Item "mops-go"
+Enable tag only variants of \s-1MOPS\s0 instructions.  This also enables the
+instructions to accelerate memory operations and Armv8.5\-a Memory
+Tagging Extensions.
+.IP "\fBsve2p3\fR" 4
+.IX Item "sve2p3"
+Enable \s-1SVE2.3.\s0  This also enables \s-1SVE2.2\s0 instructions.
+.IP "\fBsme2p3\fR" 4
+.IX Item "sme2p3"
+Enable \s-1SME2.3.\s0  This also enables \s-1SME2.2\s0 instructions.
+.IP "\fBf16f32dot\fR" 4
+.IX Item "f16f32dot"
+Enable Armv9.7\-a f16f32dot instructions.  This also enables Advanced \s-1SIMD,\s0
+floating-point instructions and Armv8.2\-a \s-1FP16\s0 instructions.
+.IP "\fBsve\-b16mm\fR" 4
+.IX Item "sve-b16mm"
+Enable the \s-1SVE B16MM\s0 Extension.  This also enables \s-1SVE\s0 instructions, Advanced
+\&\s-1SIMD\s0 and floating-point instructions.
+.IP "\fBmtetc\fR" 4
+.IX Item "mtetc"
+Enable Data cache tag block operations.  This also enables Armv8.5\-a Memory
+Tagging Extensions.
+.IP "\fBf16f32mm\fR" 4
+.IX Item "f16f32mm"
+Enable Armv9.7\-a f16f32mm instructions.  This also enables Advanced \s-1SIMD,\s0
+floating-point instructions and Armv8.2\-a \s-1FP16\s0 instructions.
+.IP "\fBf16mm\fR" 4
+.IX Item "f16mm"
+Enable f16mm instructions.  This also enables Advanced \s-1SIMD,\s0
+floating-point instructions and Armv8.2\-a \s-1FP16\s0 instructions.
 .PP
 Feature \fBcrypto\fR implies \fBaes\fR, \fBsha2\fR, and \fBsimd\fR,
 which implies \fBfp\fR.
@@ -36990,27 +37059,23 @@ in turn take precedence over those specified by the configuration of \s-1GCC.\s0
 .IX Item "LC_ALL"
 .PD
 These environment variables control the way that \s-1GCC\s0 uses
-localization information which allows \s-1GCC\s0 to work with different
-national conventions.  \s-1GCC\s0 inspects the locale categories
+localization information that allows \s-1GCC\s0 to work with different
+national conventions for diagnostic and informational output.
+\&\s-1GCC\s0 inspects the locale categories
 \&\fB\s-1LC_CTYPE\s0\fR and \fB\s-1LC_MESSAGES\s0\fR if it has been configured to do
 so.  These locale categories can be set to any value supported by your
 installation.  A typical value is \fBen_GB.UTF\-8\fR for English in the United
 Kingdom encoded in \s-1UTF\-8.\s0
-.Sp
-The \fB\s-1LC_CTYPE\s0\fR environment variable specifies character
-classification.  \s-1GCC\s0 uses it to determine the character boundaries in
-a string; this is needed for some multibyte encodings that contain quote
-and escape characters that are otherwise interpreted as a string
-end or escape.
-.Sp
-The \fB\s-1LC_MESSAGES\s0\fR environment variable specifies the language to
-use in diagnostic messages.
 .Sp
 If the \fB\s-1LC_ALL\s0\fR environment variable is set, it overrides the value
 of \fB\s-1LC_CTYPE\s0\fR and \fB\s-1LC_MESSAGES\s0\fR; otherwise, \fB\s-1LC_CTYPE\s0\fR
 and \fB\s-1LC_MESSAGES\s0\fR default to the value of the \fB\s-1LANG\s0\fR
 environment variable.  If none of these variables are set, \s-1GCC\s0
 defaults to traditional C English behavior.
+.Sp
+These environment variables do not affect the encodings of input files
+and strings in output files produced by \s-1GCC,\s0 which are controlled by the
+\&\fB\-finput\-charset\fR and \fB\-fexec\-charset\fR options, respectively.
 .IP "\fB\s-1TMPDIR\s0\fR" 4
 .IX Item "TMPDIR"
 If \fB\s-1TMPDIR\s0\fR is set, it specifies the directory to use for temporary
@@ -37081,30 +37146,6 @@ linker files, if it cannot find them using \fB\s-1GCC_EXEC_PREFIX\s0\fR.  Linkin
 using \s-1GCC\s0 also uses these directories when searching for ordinary
 libraries for the \fB\-l\fR option (but directories specified with
 \&\fB\-L\fR come first).
-.IP "\fB\s-1LANG\s0\fR" 4
-.IX Item "LANG"
-This variable is used to pass locale information to the compiler.  One way in
-which this information is used is to determine the character set to be used
-when character literals, string literals and comments are parsed in C and \*(C+.
-When the compiler is configured to allow multibyte characters,
-the following values for \fB\s-1LANG\s0\fR are recognized:
-.RS 4
-.IP "\fBC\-JIS\fR" 4
-.IX Item "C-JIS"
-Recognize \s-1JIS\s0 characters.
-.IP "\fBC\-SJIS\fR" 4
-.IX Item "C-SJIS"
-Recognize \s-1SJIS\s0 characters.
-.IP "\fBC\-EUCJP\fR" 4
-.IX Item "C-EUCJP"
-Recognize \s-1EUCJP\s0 characters.
-.RE
-.RS 4
-.Sp
-If \fB\s-1LANG\s0\fR is not defined, or if it has some other value, then the
-compiler uses \f(CW\*(C`mblen\*(C'\fR and \f(CW\*(C`mbtowc\*(C'\fR as defined by the default locale to
-recognize and translate multibyte characters.
-.RE
 .IP "\fB\s-1GCC_EXTRA_DIAGNOSTIC_OUTPUT\s0\fR" 4
 .IX Item "GCC_EXTRA_DIAGNOSTIC_OUTPUT"
 If \fB\s-1GCC_EXTRA_DIAGNOSTIC_OUTPUT\s0\fR is set to one of the following values,

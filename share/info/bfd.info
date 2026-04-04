@@ -1816,71 +1816,6 @@ Here is the section structure:
 
        /*  End of section flags.  */
 
-       /* Some internal packed boolean fields.  */
-
-       /* See the vma field.  */
-       unsigned int user_set_vma : 1;
-
-       /* A mark flag used by some of the linker backends.  */
-       unsigned int linker_mark : 1;
-
-       /* Another mark flag used by some of the linker backends.  Set for
-          output sections that have an input section.  */
-       unsigned int linker_has_input : 1;
-
-       /* Mark flag used by some linker backends for garbage collection.  */
-       unsigned int gc_mark : 1;
-
-       /* Section compression status.  */
-       unsigned int compress_status : 2;
-     #define COMPRESS_SECTION_NONE    0
-     #define COMPRESS_SECTION_DONE    1
-     #define DECOMPRESS_SECTION_ZLIB  2
-     #define DECOMPRESS_SECTION_ZSTD  3
-
-       /* The following flags are used by the ELF linker. */
-
-       /* Mark sections which have been allocated to segments.  */
-       unsigned int segment_mark : 1;
-
-       /* Type of sec_info information.  */
-       unsigned int sec_info_type:3;
-     #define SEC_INFO_TYPE_NONE      0
-     #define SEC_INFO_TYPE_STABS     1
-     #define SEC_INFO_TYPE_MERGE     2
-     #define SEC_INFO_TYPE_EH_FRAME  3
-     #define SEC_INFO_TYPE_JUST_SYMS 4
-     #define SEC_INFO_TYPE_TARGET    5
-     #define SEC_INFO_TYPE_EH_FRAME_ENTRY 6
-     #define SEC_INFO_TYPE_SFRAME  7
-
-       /* Nonzero if this section uses RELA relocations, rather than REL.  */
-       unsigned int use_rela_p:1;
-
-       /* Nonzero if section contents are mmapped.  */
-       unsigned int mmapped_p:1;
-
-       /* Nonzero if section contents should not be freed.  */
-       unsigned int alloced:1;
-
-       /* Indicate that the section contains branch veneers.  This is used when
-          support for non-contiguous memory regions is enabled.  The veneers have
-          to be allocated to the same memory region as the code they are refered
-          by, i.e. they cannot be moved to a subsequent memory region.  */
-       unsigned int veneer : 1;
-
-       /* Bits used by various backends.  The generic code doesn't touch
-          these fields.  */
-
-       unsigned int sec_flg0:1;
-       unsigned int sec_flg1:1;
-       unsigned int sec_flg2:1;
-       unsigned int sec_flg3:1;
-       unsigned int sec_flg4:1;
-       unsigned int sec_flg5:1;
-
-       /* End of internal packed boolean fields.  */
-
        /*  The virtual memory address of the section - where it will be
            at run time.  The symbols are relocated against this.  The
            user_set_vma flag is maintained by bfd; if it's not set, the
@@ -1975,9 +1910,6 @@ Here is the section structure:
           linenumbers are written out.  */
        file_ptr moving_line_filepos;
 
-       /* What the section number is in the target world.  */
-       int target_index;
-
        void *used_by_bfd;
 
        /* If this is a constructor section then here is a list of the
@@ -2012,6 +1944,74 @@ Here is the section structure:
 
        /* Explicitly specified section type, if non-zero.  */
        unsigned int type;
+
+       /* What the section number is in the target world.  */
+       int target_index;
+
+       /* Some internal packed boolean fields.  */
+
+       /* See the vma field.  */
+       unsigned int user_set_vma : 1;
+
+       /* A mark flag used by some of the linker backends.  */
+       unsigned int linker_mark : 1;
+
+       /* Another mark flag used by some of the linker backends.  Set for
+          output sections that have an input section.  */
+       unsigned int linker_has_input : 1;
+
+       /* Mark flag used by some linker backends for garbage collection.  */
+       unsigned int gc_mark : 1;
+
+       /* Section compression status.  */
+       unsigned int compress_status : 2;
+     #define COMPRESS_SECTION_NONE    0
+     #define COMPRESS_SECTION_DONE    1
+     #define DECOMPRESS_SECTION_ZLIB  2
+     #define DECOMPRESS_SECTION_ZSTD  3
+
+       /* The following flags are used by the ELF linker. */
+
+       /* Mark sections which have been allocated to segments.  */
+       unsigned int segment_mark : 1;
+
+       /* Type of sec_info information.  */
+       unsigned int sec_info_type:3;
+     #define SEC_INFO_TYPE_NONE      0
+     #define SEC_INFO_TYPE_STABS     1
+     #define SEC_INFO_TYPE_MERGE     2
+     #define SEC_INFO_TYPE_EH_FRAME  3
+     #define SEC_INFO_TYPE_JUST_SYMS 4
+     #define SEC_INFO_TYPE_TARGET    5
+     #define SEC_INFO_TYPE_EH_FRAME_ENTRY 6
+     #define SEC_INFO_TYPE_SFRAME  7
+
+       /* Nonzero if this section uses RELA relocations, rather than REL.  */
+       unsigned int use_rela_p:1;
+
+       /* Nonzero if section contents are mmapped.  */
+       unsigned int mmapped_p:1;
+
+       /* Nonzero if section contents should not be freed.  */
+       unsigned int alloced:1;
+
+       /* Indicate that the section contains branch veneers.  This is used when
+          support for non-contiguous memory regions is enabled.  The veneers have
+          to be allocated to the same memory region as the code they are refered
+          by, i.e. they cannot be moved to a subsequent memory region.  */
+       unsigned int veneer : 1;
+
+       /* Bits used by various backends.  The generic code doesn't touch
+          these fields.  */
+
+       unsigned int sec_flg0:1;
+       unsigned int sec_flg1:1;
+       unsigned int sec_flg2:1;
+       unsigned int sec_flg3:1;
+       unsigned int sec_flg4:1;
+       unsigned int sec_flg5:1;
+
+       /* End of internal packed boolean fields.  */
 
      } asection;
 
@@ -3196,7 +3196,8 @@ that libbfd needs to know to tie up a back end's data.
 
        /* If this field is non null, then the supplied function is
           called rather than the normal function.  This allows really
-          strange relocation methods to be accommodated.  */
+          strange relocation methods to be accommodated.  See
+          bfd_perform_relocation.  */
        bfd_reloc_status_type (*special_function)
          (bfd *, arelent *, struct bfd_symbol *, void *, asection *,
           bfd *, char **);
@@ -3268,19 +3269,21 @@ How relocs are tied together in an 'asection':
  -- Function: bfd_reloc_status_type bfd_perform_relocation (bfd *abfd,
           arelent *reloc_entry, void *data, asection *input_section, bfd
           *output_bfd, char **error_message);
-     If OUTPUT_BFD is supplied to this function, the generated image
-     will be relocatable; the relocations are copied to the output file
-     after they have been changed to reflect the new state of the world.
-     There are two ways of reflecting the results of partial linkage in
-     an output file: by modifying the output data in place, and by
+     ABFD is the input bfd.  If OUTPUT_BFD is equal to ABFD then this
+     function (well, bfd_install_relocation) is being called from gas.
+     If OUTPUT_BFD is NULL then this function is being called for final
+     linking.  Otherwise, with OUTPUT_BFD being non-NULL and not equal
+     to ABFD, this function is being called for relocatable linking.
+     There are two ways of reflecting the results of relocatable linking
+     in an output file: by modifying the output data in place, and by
      modifying the relocation record.  Some native formats (e.g., basic
      a.out and basic coff) have no way of specifying an addend in the
      relocation type, so the addend has to go in the output data.  This
-     is no big deal since in these formats the output data slot will
-     always be big enough for the addend.  Complex reloc types with
-     addends were invented to solve just this problem.  The
-     ERROR_MESSAGE argument is set to an error message if this return
-     'bfd_reloc_dangerous'.
+     is no big deal since in these formats the output data field will
+     always be big enough for the addend.  Relocation types with addends
+     were invented to solve the problem of fields not large enough for
+     all addends.  The ERROR_MESSAGE argument is set to an error message
+     if this function returns 'bfd_reloc_dangerous'.
 
 2.10.1.8 'bfd_install_relocation'
 .................................
@@ -11599,7 +11602,7 @@ BFD Index
 * aout_SIZE_swap_exec_header_in,:        aout.               (line  100)
 * aout_SIZE_swap_exec_header_out:        aout.               (line  105)
 * aout_SIZE_swap_exec_header_out <1>:    aout.               (line  109)
-* arelent_chain:                         typedef arelent.    (line  280)
+* arelent_chain:                         typedef arelent.    (line  281)
 * BFD:                                   Overview.           (line    6)
 * BFD canonical format:                  Canonical format.   (line   11)
 * bfd_alloc:                             Internal.           (line   70)
@@ -11660,8 +11663,8 @@ BFD Index
 * bfd_check_format <1>:                  Formats.            (line   24)
 * bfd_check_format_matches:              Formats.            (line   55)
 * bfd_check_format_matches <1>:          Formats.            (line   59)
-* bfd_check_overflow:                    typedef arelent.    (line  292)
-* bfd_check_overflow <1>:                typedef arelent.    (line  296)
+* bfd_check_overflow:                    typedef arelent.    (line  293)
+* bfd_check_overflow <1>:                typedef arelent.    (line  297)
 * bfd_close:                             Opening and Closing.
                                                              (line  201)
 * bfd_close <1>:                         Opening and Closing.
@@ -11856,8 +11859,8 @@ BFD Index
                                                              (line  152)
 * bfd_h_put_size:                        Internal.           (line  188)
 * bfd_init:                              Initialization.     (line    3)
-* bfd_install_relocation:                typedef arelent.    (line  331)
-* bfd_install_relocation <1>:            typedef arelent.    (line  335)
+* bfd_install_relocation:                typedef arelent.    (line  334)
+* bfd_install_relocation <1>:            typedef arelent.    (line  338)
 * bfd_is_local_label:                    symbol handling functions.
                                                              (line   16)
 * bfd_is_local_label <1>:                symbol handling functions.
@@ -11932,8 +11935,8 @@ BFD Index
                                                              (line  166)
 * bfd_open_file:                         File Caching.       (line   64)
 * bfd_open_file <1>:                     File Caching.       (line   68)
-* bfd_perform_relocation:                typedef arelent.    (line  311)
-* bfd_perform_relocation <1>:            typedef arelent.    (line  315)
+* bfd_perform_relocation:                typedef arelent.    (line  312)
+* bfd_perform_relocation <1>:            typedef arelent.    (line  316)
 * bfd_perror:                            Error reporting.    (line   82)
 * bfd_perror <1>:                        Error reporting.    (line   86)
 * bfd_printable_arch_mach:               Architectures.      (line  707)
@@ -13494,8 +13497,8 @@ BFD Index
 * BFD_RELOC_NS32K_IMM_32_PCREL:          howto manager.      (line  559)
 * BFD_RELOC_NS32K_IMM_8:                 howto manager.      (line  554)
 * BFD_RELOC_NS32K_IMM_8_PCREL:           howto manager.      (line  557)
-* bfd_reloc_offset_in_range:             typedef arelent.    (line  303)
-* bfd_reloc_offset_in_range <1>:         typedef arelent.    (line  307)
+* bfd_reloc_offset_in_range:             typedef arelent.    (line  304)
+* bfd_reloc_offset_in_range <1>:         typedef arelent.    (line  308)
 * BFD_RELOC_OR1K_GOT16:                  howto manager.      (line 2237)
 * BFD_RELOC_OR1K_GOTOFF_SLO16:           howto manager.      (line 2242)
 * BFD_RELOC_OR1K_GOTPC_HI16:             howto manager.      (line 2234)
@@ -14489,7 +14492,7 @@ BFD Index
                                                              (line    6)
 * target vector (_bfd_link_hash_table_create): Creating a Linker Hash Table.
                                                              (line    6)
-* The HOWTO Macro:                       typedef arelent.    (line  254)
+* The HOWTO Macro:                       typedef arelent.    (line  255)
 * what is it?:                           Overview.           (line    6)
 
 
@@ -14524,43 +14527,43 @@ Node: Archives108694
 Node: Formats112842
 Node: Relocations116185
 Node: typedef arelent116912
-Node: howto manager130787
-Node: Core Files265554
-Node: Targets267555
-Node: bfd_target269516
-Node: Architectures295373
-Node: Opening and Closing327667
-Node: Internal344030
-Node: File Caching355365
-Node: Linker Functions358128
-Node: Creating a Linker Hash Table359802
-Node: Adding Symbols to the Hash Table361541
-Node: Differing file formats362441
-Node: Adding symbols from an object file364166
-Node: Adding symbols from an archive366316
-Node: Performing the Final Link368662
-Node: Information provided by the linker369903
-Node: Relocating the section contents371057
-Node: Writing the symbol table372809
-Node: Hash Tables382021
-Node: Creating and Freeing a Hash Table383219
-Node: Looking Up or Entering a String384469
-Node: Traversing a Hash Table385722
-Node: Deriving a New Hash Table Type386511
-Node: Define the Derived Structures387577
-Node: Write the Derived Creation Routine388658
-Node: Write Other Derived Routines391269
-Node: BFD back ends396694
-Node: What to Put Where396964
-Node: aout397144
-Node: coff403229
-Node: elf424180
-Node: mmo424581
-Node: File layout425451
-Node: Symbol-table431364
-Node: mmo section mapping435127
-Node: GNU Free Documentation License438781
-Node: BFD Index463845
+Node: howto manager131014
+Node: Core Files265781
+Node: Targets267782
+Node: bfd_target269743
+Node: Architectures295600
+Node: Opening and Closing327894
+Node: Internal344257
+Node: File Caching355592
+Node: Linker Functions358355
+Node: Creating a Linker Hash Table360029
+Node: Adding Symbols to the Hash Table361768
+Node: Differing file formats362668
+Node: Adding symbols from an object file364393
+Node: Adding symbols from an archive366543
+Node: Performing the Final Link368889
+Node: Information provided by the linker370130
+Node: Relocating the section contents371284
+Node: Writing the symbol table373036
+Node: Hash Tables382248
+Node: Creating and Freeing a Hash Table383446
+Node: Looking Up or Entering a String384696
+Node: Traversing a Hash Table385949
+Node: Deriving a New Hash Table Type386738
+Node: Define the Derived Structures387804
+Node: Write the Derived Creation Routine388885
+Node: Write Other Derived Routines391496
+Node: BFD back ends396921
+Node: What to Put Where397191
+Node: aout397371
+Node: coff403456
+Node: elf424407
+Node: mmo424808
+Node: File layout425678
+Node: Symbol-table431591
+Node: mmo section mapping435354
+Node: GNU Free Documentation License439008
+Node: BFD Index464072
 
 End Tag Table
 

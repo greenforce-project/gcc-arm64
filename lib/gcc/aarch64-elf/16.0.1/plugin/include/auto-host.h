@@ -40,7 +40,7 @@
 /* Define to 0/1 if you want more run-time sanity checks. This one gets a grab
    bag of miscellaneous but relatively cheap checks. */
 #ifndef USED_FOR_TARGET
-#define CHECKING_P 0
+#define CHECKING_P 1
 #endif
 
 
@@ -173,7 +173,7 @@
 /* Define to 0/1 if you want extra run-time checking that might affect code
    generation. */
 #ifndef USED_FOR_TARGET
-#define ENABLE_EXTRA_CHECKING 0
+#define ENABLE_EXTRA_CHECKING 1
 #endif
 
 
@@ -201,7 +201,7 @@
 /* Define if you want the garbage collector to do object poisoning and other
    memory allocation checks. This is quite expensive. */
 #ifndef USED_FOR_TARGET
-/* #undef ENABLE_GC_CHECKING */
+#define ENABLE_GC_CHECKING 1
 #endif
 
 
@@ -209,7 +209,7 @@
    high-level optimizers) to be checked for dynamic type safety at runtime.
    This is moderately expensive. */
 #ifndef USED_FOR_TARGET
-/* #undef ENABLE_GIMPLE_CHECKING */
+#define ENABLE_GIMPLE_CHECKING 1
 #endif
 
 
@@ -267,7 +267,7 @@
 /* Define if you want RTL flag accesses to be checked against the RTL codes
    that are supported for each access macro. This is relatively cheap. */
 #ifndef USED_FOR_TARGET
-/* #undef ENABLE_RTL_FLAG_CHECKING */
+#define ENABLE_RTL_FLAG_CHECKING 1
 #endif
 
 
@@ -288,14 +288,14 @@
    front ends) to be checked for dynamic type safety at runtime. This is
    moderately expensive. */
 #ifndef USED_FOR_TARGET
-/* #undef ENABLE_TREE_CHECKING */
+#define ENABLE_TREE_CHECKING 1
 #endif
 
 
 /* Define if you want all gimple types to be verified after gimplifiation.
    This is cheap. */
 #ifndef USED_FOR_TARGET
-/* #undef ENABLE_TYPES_CHECKING */
+#define ENABLE_TYPES_CHECKING 1
 #endif
 
 

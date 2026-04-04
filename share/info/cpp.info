@@ -4567,12 +4567,15 @@ single-letter options may _not_ be grouped: '-dM' is very different from
 '-finput-charset=CHARSET'
      Set the input character set, used for translation from the
      character set of the input file to the source character set used by
-     GCC.  If the locale does not specify, or GCC cannot get this
-     information from the locale, the default is UTF-8.  This can be
-     overridden by either the locale or this command-line option.
-     Currently the command-line option takes precedence if there's a
-     conflict.  CHARSET can be any encoding supported by the system's
-     'iconv' library routine.
+     GCC.  The default is UTF-8.  CHARSET can be any encoding supported
+     by the system's 'iconv' library routine.
+
+     If the input character set is UTF-8, warnings about ill-formed code
+     unit sequences are issued if '-Winvalid-utf8' is enabled.
+     Otherwise no diagnostics are issued when the input character set
+     matches the execution character set.  If they are different,
+     ill-formed code unit sequences result in an error during
+     transcoding to the execution character set.
 
 '-fworking-directory'
      Enable generation of linemarkers in the preprocessor output that
@@ -5541,12 +5544,12 @@ without any initial '-' or '--'.
  [index ]
 * Menu:
 
-* A:                                     Invocation.          (line 363)
-* assert:                                Invocation.          (line 363)
-* C:                                     Invocation.          (line 380)
-* CC:                                    Invocation.          (line 393)
-* comments:                              Invocation.          (line 380)
-* comments-in-macros:                    Invocation.          (line 393)
+* A:                                     Invocation.          (line 366)
+* assert:                                Invocation.          (line 366)
+* C:                                     Invocation.          (line 383)
+* CC:                                    Invocation.          (line 396)
+* comments:                              Invocation.          (line 383)
+* comments-in-macros:                    Invocation.          (line 396)
 * CPATH:                                 Environment Variables.
                                                               (line  15)
 * CPLUS_INCLUDE_PATH:                    Environment Variables.
@@ -5554,21 +5557,21 @@ without any initial '-' or '--'.
 * C_INCLUDE_PATH:                        Environment Variables.
                                                               (line  16)
 * D:                                     Invocation.          (line  42)
-* d:                                     Invocation.          (line 448)
-* dD:                                    Invocation.          (line 470)
+* d:                                     Invocation.          (line 451)
+* dD:                                    Invocation.          (line 473)
 * define-macro:                          Invocation.          (line  42)
 * dependencies:                          Invocation.          (line 111)
 * DEPENDENCIES_OUTPUT:                   Environment Variables.
                                                               (line  44)
-* dI:                                    Invocation.          (line 481)
-* dM:                                    Invocation.          (line 458)
-* dN:                                    Invocation.          (line 476)
-* dU:                                    Invocation.          (line 486)
-* dump:                                  Invocation.          (line 448)
-* embed-dir:                             Invocation.          (line 632)
-* embed-directory:                       Invocation.          (line 632)
+* dI:                                    Invocation.          (line 484)
+* dM:                                    Invocation.          (line 461)
+* dN:                                    Invocation.          (line 479)
+* dU:                                    Invocation.          (line 489)
+* dump:                                  Invocation.          (line 451)
+* embed-dir:                             Invocation.          (line 635)
+* embed-directory:                       Invocation.          (line 635)
 * fcanonical-system-headers:             Invocation.          (line 273)
-* fdebug-cpp:                            Invocation.          (line 494)
+* fdebug-cpp:                            Invocation.          (line 497)
 * fdirectives-only:                      Invocation.          (line 244)
 * fdollars-in-identifiers:               Invocation.          (line 265)
 * fexec-charset:                         Invocation.          (line 324)
@@ -5577,40 +5580,40 @@ without any initial '-' or '--'.
 * fmacro-prefix-map:                     Invocation.          (line 315)
 * fmax-include-depth:                    Invocation.          (line 277)
 * fno-canonical-system-headers:          Invocation.          (line 273)
-* fno-debug-cpp:                         Invocation.          (line 494)
+* fno-debug-cpp:                         Invocation.          (line 497)
 * fno-directives-only:                   Invocation.          (line 244)
 * fno-dollars-in-identifiers:            Invocation.          (line 265)
 * fno-extended-identifiers:              Invocation.          (line 268)
 * fno-preprocessed:                      Invocation.          (line 231)
 * fno-search-include-path:               Invocation.          (line 280)
-* fno-working-directory:                 Invocation.          (line 349)
+* fno-working-directory:                 Invocation.          (line 352)
 * fpreprocessed:                         Invocation.          (line 231)
 * fsearch-include-path:                  Invocation.          (line 280)
 * ftabstop:                              Invocation.          (line 292)
 * ftrack-macro-expansion:                Invocation.          (line 298)
 * fwide-exec-charset:                    Invocation.          (line 329)
-* fworking-directory:                    Invocation.          (line 349)
-* H:                                     Invocation.          (line 440)
-* I:                                     Invocation.          (line 502)
-* I-:                                    Invocation.          (line 565)
-* idirafter:                             Invocation.          (line 502)
+* fworking-directory:                    Invocation.          (line 352)
+* H:                                     Invocation.          (line 443)
+* I:                                     Invocation.          (line 505)
+* I-:                                    Invocation.          (line 568)
+* idirafter:                             Invocation.          (line 505)
 * imacros:                               Invocation.          (line  88)
-* imultiarch:                            Invocation.          (line 616)
-* imultilib:                             Invocation.          (line 612)
+* imultiarch:                            Invocation.          (line 619)
+* imultilib:                             Invocation.          (line 615)
 * include:                               Invocation.          (line  75)
-* include-barrier:                       Invocation.          (line 565)
-* include-directory:                     Invocation.          (line 502)
-* include-directory-after:               Invocation.          (line 502)
-* include-prefix:                        Invocation.          (line 582)
-* include-with-prefix:                   Invocation.          (line 589)
-* include-with-prefix-after:             Invocation.          (line 589)
-* include-with-prefix-before:            Invocation.          (line 589)
-* iprefix:                               Invocation.          (line 582)
-* iquote:                                Invocation.          (line 502)
-* isysroot:                              Invocation.          (line 606)
-* isystem:                               Invocation.          (line 502)
-* iwithprefix:                           Invocation.          (line 589)
-* iwithprefixbefore:                     Invocation.          (line 589)
+* include-barrier:                       Invocation.          (line 568)
+* include-directory:                     Invocation.          (line 505)
+* include-directory-after:               Invocation.          (line 505)
+* include-prefix:                        Invocation.          (line 585)
+* include-with-prefix:                   Invocation.          (line 592)
+* include-with-prefix-after:             Invocation.          (line 592)
+* include-with-prefix-before:            Invocation.          (line 592)
+* iprefix:                               Invocation.          (line 585)
+* iquote:                                Invocation.          (line 505)
+* isysroot:                              Invocation.          (line 609)
+* isystem:                               Invocation.          (line 505)
+* iwithprefix:                           Invocation.          (line 592)
+* iwithprefixbefore:                     Invocation.          (line 592)
 * M:                                     Invocation.          (line 111)
 * MD:                                    Invocation.          (line 209)
 * MF:                                    Invocation.          (line 147)
@@ -5621,44 +5624,44 @@ without any initial '-' or '--'.
 * MP:                                    Invocation.          (line 172)
 * MQ:                                    Invocation.          (line 199)
 * MT:                                    Invocation.          (line 184)
-* no-line-commands:                      Invocation.          (line 406)
-* no-standard-includes:                  Invocation.          (line 620)
-* nostdinc:                              Invocation.          (line 620)
-* nostdinc++:                            Invocation.          (line 627)
+* no-line-commands:                      Invocation.          (line 409)
+* no-standard-includes:                  Invocation.          (line 623)
+* nostdinc:                              Invocation.          (line 623)
+* nostdinc++:                            Invocation.          (line 630)
 * OBJC_INCLUDE_PATH:                     Environment Variables.
                                                               (line  18)
-* P:                                     Invocation.          (line 406)
+* P:                                     Invocation.          (line 409)
 * print-missing-file-dependencies:       Invocation.          (line 158)
 * pthread:                               Invocation.          (line 104)
-* remap:                                 Invocation.          (line 436)
+* remap:                                 Invocation.          (line 439)
 * SOURCE_DATE_EPOCH:                     Environment Variables.
                                                               (line  66)
 * SUNPRO_DEPENDENCIES:                   Environment Variables.
                                                               (line  60)
-* trace-includes:                        Invocation.          (line 440)
-* traditional:                           Invocation.          (line 414)
-* traditional-cpp:                       Invocation.          (line 414)
-* trigraphs:                             Invocation.          (line 426)
+* trace-includes:                        Invocation.          (line 443)
+* traditional:                           Invocation.          (line 417)
+* traditional-cpp:                       Invocation.          (line 417)
+* trigraphs:                             Invocation.          (line 429)
 * U:                                     Invocation.          (line  69)
 * undef:                                 Invocation.          (line  99)
 * undefine-macro:                        Invocation.          (line  69)
 * user-dependencies:                     Invocation.          (line 137)
-* Wcomment:                              Invocation.          (line 642)
-* Wcomments:                             Invocation.          (line 642)
-* Wendif-labels:                         Invocation.          (line 687)
-* Wexpansion-to-defined:                 Invocation.          (line 662)
-* Wno-comment:                           Invocation.          (line 642)
-* Wno-comments:                          Invocation.          (line 642)
-* Wno-endif-labels:                      Invocation.          (line 687)
-* Wno-expansion-to-defined:              Invocation.          (line 662)
-* Wno-trigraphs:                         Invocation.          (line 648)
-* Wno-undef:                             Invocation.          (line 658)
-* Wno-unused-macros:                     Invocation.          (line 668)
+* Wcomment:                              Invocation.          (line 645)
+* Wcomments:                             Invocation.          (line 645)
+* Wendif-labels:                         Invocation.          (line 690)
+* Wexpansion-to-defined:                 Invocation.          (line 665)
+* Wno-comment:                           Invocation.          (line 645)
+* Wno-comments:                          Invocation.          (line 645)
+* Wno-endif-labels:                      Invocation.          (line 690)
+* Wno-expansion-to-defined:              Invocation.          (line 665)
+* Wno-trigraphs:                         Invocation.          (line 651)
+* Wno-undef:                             Invocation.          (line 661)
+* Wno-unused-macros:                     Invocation.          (line 671)
 * write-dependencies:                    Invocation.          (line 209)
 * write-user-dependencies:               Invocation.          (line 226)
-* Wtrigraphs:                            Invocation.          (line 648)
-* Wundef:                                Invocation.          (line 658)
-* Wunused-macros:                        Invocation.          (line 668)
+* Wtrigraphs:                            Invocation.          (line 651)
+* Wundef:                                Invocation.          (line 661)
+* Wunused-macros:                        Invocation.          (line 671)
 
 
 File: cpp.info,  Node: Concept Index,  Prev: Option Index,  Up: Top
@@ -5688,7 +5691,7 @@ Concept Index
 * assertions, canceling:                 Obsolete Features.   (line  59)
 * backslash-newline:                     Initial processing.  (line  61)
 * block comments:                        Initial processing.  (line  77)
-* C language, traditional:               Invocation.          (line 414)
+* C language, traditional:               Invocation.          (line 417)
 * C++ named operators:                   C++ Named Operators. (line   6)
 * character constants:                   Tokenization.        (line  81)
 * character set, execution:              Invocation.          (line 324)
@@ -5806,7 +5809,7 @@ Concept Index
 * token concatenation:                   Concatenation.       (line   6)
 * token pasting:                         Concatenation.       (line   6)
 * tokens:                                Tokenization.        (line   6)
-* traditional C language:                Invocation.          (line 414)
+* traditional C language:                Invocation.          (line 417)
 * trigraphs:                             Initial processing.  (line  32)
 * undefining macros:                     Undefining and Redefining Macros.
                                                               (line   6)
@@ -5896,12 +5899,12 @@ Node: Obsolete Features171345
 Node: Invocation174189
 Ref: dashMF180489
 Ref: fdollars-in-identifiers185238
-Ref: Wtrigraphs201722
-Node: Environment Variables203777
-Node: GNU Free Documentation License207468
-Node: Index of Directives232618
-Node: Option Index234917
-Node: Concept Index243720
+Ref: Wtrigraphs201854
+Node: Environment Variables203909
+Node: GNU Free Documentation License207600
+Node: Index of Directives232750
+Node: Option Index235049
+Node: Concept Index243852
 
 End Tag Table
 
