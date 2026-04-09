@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2026-04-04" "gcc-16.0.1" "GNU"
+.TH GCC 1 "2026-04-09" "gcc-16.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -783,7 +783,8 @@ in the following sections.
 \&\-e\fR \fIentry\fR
 \&\fB\-pie  \-pthread  \-r  \-rdynamic
 \&\-s  \-static  \-static\-pie  \-static\-libgcc  \-static\-libstdc++
-\&\-static\-libasan  \-static\-libtsan  \-static\-liblsan  \-static\-libubsan
+\&\-static\-libasan  \-static\-libhwasan  \-static\-liblsan
+\&\-static\-libtsan  \-static\-libubsan
 \&\-shared  \-shared\-libgcc  \-symbolic
 \&\-T\fR \fIscript\fR  \fB\-Wl,\fR\fIoption\fR  \fB\-Xlinker\fR \fIoption\fR
 \&\fB\-u\fR \fIsymbol\fR
@@ -809,10 +810,6 @@ in the following sections.
 \&\fB\-\-include\-with\-prefix\-before=\fR\fIprefix\fR
 \&\fB\-\-no\-canonical\-prefixes  \-\-no\-standard\-includes
 \&\-\-prefix=\fR\fIprefix\fR  \fB\-\-sysroot=\fR\fIdir\fR
-.IP "\fIPicolibc Options\fR" 4
-.IX Item "Picolibc Options"
-\&\fB\-\-oslib=\fR\fIlibrary\fR \fB\-\-crt0=\fR[\fBnone\fR|\fBminimal\fR|\fBhosted\fR|\fBsemihost\fR]
-\&\fB\-\-printf=\fR[\fBd\fR|\fBf\fR|\fBl\fR|\fBi\fR|\fBm\fR]  \fB\-\-scanf=\fR[\fBd\fR|\fBf\fR|\fBl\fR|\fBi\fR|\fBm\fR]
 .IP "\fICode Generation Options\fR" 4
 .IX Item "Code Generation Options"
 \&\fB\-fcall\-saved\-\fR\fIreg\fR  \fB\-fcall\-used\-\fR\fIreg\fR
@@ -889,8 +886,8 @@ in the following sections.
 \&\fB\-\-print\-search\-dirs  \-\-print\-sysroot  \-\-print\-sysroot\-headers\-suffix
 \&\-\-save\-temps  \-\-specs=\fR\fIfile\fR
 \&\fB\-\-param\fR \fIname\fR\fB=\fR\fIvalue\fR\fB \fR
-.IP "\fIMachine-Dependent Options\fR" 4
-.IX Item "Machine-Dependent Options"
+.IP "\fITarget-Specific Options\fR" 4
+.IX Item "Target-Specific Options"
 \&\fIAArch64 Options\fR (\fBAArch64 Options\fR)
 \&\fB\-mabi=\fR\fIname\fR  \fB\-mbig\-endian  \-mlittle\-endian
 \&\-menable\-sysreg\-checking
@@ -1321,6 +1318,10 @@ in the following sections.
 \&\fB\-mfpu  \-msoft\-float  \-mac0  \-m40  \-m45  \-m10
 \&\-mint32  \-mint16
 \&\-msplit  \-munix\-asm  \-mdec\-asm  \-mgnu\-asm  \-mlra\fR
+.Sp
+\&\fIPicolibc Options\fR (\fBPicolibc Options\fR)
+\&\fB\-\-oslib=\fR\fIlibrary\fR \fB\-\-crt0=\fR[\fBnone\fR|\fBminimal\fR|\fBhosted\fR|\fBsemihost\fR]
+\&\fB\-\-printf=\fR[\fBd\fR|\fBf\fR|\fBl\fR|\fBi\fR|\fBm\fR]  \fB\-\-scanf=\fR[\fBd\fR|\fBf\fR|\fBl\fR|\fBi\fR|\fBm\fR]
 .Sp
 \&\fIPowerPC Options\fR
 See \s-1RS/6000\s0 and PowerPC Options.
@@ -4755,7 +4756,8 @@ As an extension, \s-1GCC\s0 allows exposures of internal variables and functions
 were declared in the global module fragment.  This warning indicates when such
 an invalid exposure has occurred, and can be silenced using diagnostic pragmas
 either at the site of the exposure, or at the point of declaration of the
-internal declaration.
+internal declaration.  This also applies to \f(CW\*(C`export using\*(C'\fR declarations
+naming such entities.
 .Sp
 When combined with \fB\-Wtemplate\-names\-tu\-local\fR, \s-1GCC\s0 will also warn about
 non-exposure references to TU-local entities in template bodies. Such templates
@@ -17725,14 +17727,14 @@ option is not used, then this links against the shared version of
 \&\fIlibasan\fR.  The \fB\-static\-libasan\fR option directs the \s-1GCC\s0
 driver to link \fIlibasan\fR statically, without necessarily linking
 other libraries statically.
-.IP "\fB\-static\-libtsan\fR" 4
-.IX Item "-static-libtsan"
-When the \fB\-fsanitize=thread\fR option is used to link a program,
-the \s-1GCC\s0 driver automatically links against \fBlibtsan\fR.  If
-\&\fIlibtsan\fR is available as a shared library, and the \fB\-static\fR
+.IP "\fB\-static\-libhwasan\fR" 4
+.IX Item "-static-libhwasan"
+When the \fB\-fsanitize=hwaddress\fR option is used to link a program,
+the \s-1GCC\s0 driver automatically links against \fBlibhwasan\fR.  If
+\&\fIlibhwasan\fR is available as a shared library, and the \fB\-static\fR
 option is not used, then this links against the shared version of
-\&\fIlibtsan\fR.  The \fB\-static\-libtsan\fR option directs the \s-1GCC\s0
-driver to link \fIlibtsan\fR statically, without necessarily linking
+\&\fIlibhwasan\fR.  The \fB\-static\-libhwasan\fR option directs the \s-1GCC\s0
+driver to link \fIlibhwasan\fR statically, without necessarily linking
 other libraries statically.
 .IP "\fB\-static\-liblsan\fR" 4
 .IX Item "-static-liblsan"
@@ -17742,6 +17744,15 @@ the \s-1GCC\s0 driver automatically links against \fBliblsan\fR.  If
 option is not used, then this links against the shared version of
 \&\fIliblsan\fR.  The \fB\-static\-liblsan\fR option directs the \s-1GCC\s0
 driver to link \fIliblsan\fR statically, without necessarily linking
+other libraries statically.
+.IP "\fB\-static\-libtsan\fR" 4
+.IX Item "-static-libtsan"
+When the \fB\-fsanitize=thread\fR option is used to link a program,
+the \s-1GCC\s0 driver automatically links against \fBlibtsan\fR.  If
+\&\fIlibtsan\fR is available as a shared library, and the \fB\-static\fR
+option is not used, then this links against the shared version of
+\&\fIlibtsan\fR.  The \fB\-static\-libtsan\fR option directs the \s-1GCC\s0
+driver to link \fIlibtsan\fR statically, without necessarily linking
 other libraries statically.
 .IP "\fB\-static\-libubsan\fR" 4
 .IX Item "-static-libubsan"
@@ -18135,58 +18146,6 @@ headers may for example be found in
 \&\fI\fIdir\fI/\fIsuffix\fI/usr/include\fR instead of
 \&\fI\fIdir\fI/usr/include\fR.  This option disables the addition of
 such a suffix.
-.SS "Options for use with Picolibc"
-.IX Subsection "Options for use with Picolibc"
-These options control compilation and linking when using picolibc:
-.IP "\fB\-\-oslib=\fR\fIlibrary\fR" 4
-.IX Item "--oslib=library"
-Search the library named \fIlibrary\fR after the C library, permitting
-symbols undefined by the C library to be defined by this library. The
-C library, libgcc and this library are placed between
-\&\fB\-\-start\-group\fR and \fB\-\-end\-group\fR flags so that each can
-refer to symbols in the others. For many targets, picolibc provides a
-\&\fBsemihost\fR variant (specified with \fB\-\-oslib=semihost\fR)
-which provides enough basic \s-1OS\s0 functionality to support console and
-file I/O when run in an emulator or when using an in-circuit debugger.
-.IP "\fB\-\-crt0=\fR[\fBnone\fR|\fBminimal\fR|\fBhosted\fR|\fBsemihost\fR]" 4
-.IX Item "--crt0=[none|minimal|hosted|semihost]"
-Replace the default \fIcrt0.o\fR name with
-\&\fIcrt0\-\fIvariant\fI.o\fR. The \fBnone\fR variant provides no
-startup code at all, allowing the user to supply their
-own. \fBminimal\fR performs basic memory setup but does not invoke
-any constructors. When no \fB\-crt0\fR option is provided, the
-default initialization code adds calls to all
-constructors. \fBhosted\fR adds a call to \f(CW\*(C`exit\*(C'\fR when
-\&\f(CW\*(C`main\*(C'\fR returns. \fBsemihost\fR accesses a command line parameter
-supplied via the semihosting interface and splits that into arguments
-at whitespace boundaries, passing the resulting array of strings to
-main in \f(CW\*(C`argc\*(C'\fR and \f(CW\*(C`argv\*(C'\fR. On some targets, including
-aarch64, arc, arm, loongarch, m68k, riscv, super-h and x86,
-\&\fBsemihost\fR also traps hardware exceptions and prints information
-to the console. Note that \fB\-\-crt0=semihost\fR depends upon APIs
-provided by \fB\-\-oslib=semihost\fR.
-.IP "\fB\-\-printf=\fR[\fBd\fR|\fBf\fR|\fBl\fR|\fBi\fR|\fBm\fR]" 4
-.IX Item "--printf=[d|f|l|i|m]"
-Select the printf variant. Picolibc provides five different printf
-variants which offer decreasing levels of functionality along with
-decreasing code size. \fBd\fR is the default level, offering full C17
-and \s-1POSIX.1\-2024\s0 conformance. \fBf\fR provides the same feature set,
-but supports \f(CW\*(C`float\*(C'\fR values instead of \f(CW\*(C`double\*(C'\fR which are
-passed using the \f(CW\*(C`printf_float\*(C'\fR macro. \fBl\fR elides all
-floating point and \s-1POSIX\s0 positional parameter support. \fBi\fR limits
-integers to those no larger than \f(CW\*(C`long\*(C'\fR. \fBm\fR removes support
-for most formatting options including width and precision. The formats
-and arguments are still parsed correctly, but output does not respect
-those parameters.
-.IP "\fB\-\-scanf=\fR[\fBd\fR|\fBf\fR|\fBl\fR|\fBi\fR|\fBm\fR]" 4
-.IX Item "--scanf=[d|f|l|i|m]"
-Select the scanf variant. Picolibc provides five different scanf
-variants which offer decreasing levels of functionality along with
-decreasing code size. \fBd\fR is the default level, offering full C17
-and \s-1POSIX.1\-2024\s0 conformance. \fBf\fR removes support for
-\&\f(CW\*(C`double\*(C'\fR values. \fBl\fR elides all floating point
-support. \fBi\fR limits integers to those no larger than
-\&\f(CW\*(C`long\*(C'\fR. \fBm\fR removes support for \f(CW\*(C`%[\*(C'\fR conversion specifiers.
 .SS "Options for Code Generation Conventions"
 .IX Subsection "Options for Code Generation Conventions"
 These machine-independent options control the interface conventions
@@ -20299,17 +20258,18 @@ future releases.  You should not depend on parameter settings for
 correct compilation of your program.  They are exposed via the command
 line for the convenience of developers in debugging compilation
 problems or, in some cases, to provide workarounds for compiler bugs.
-.SS "Machine-Dependent Options"
-.IX Subsection "Machine-Dependent Options"
+.SS "Target-Specific Options"
+.IX Subsection "Target-Specific Options"
 Each target machine supported by \s-1GCC\s0 can have its own options\-\-\-for
 example, to allow you to compile for a particular processor variant or
-\&\s-1ABI,\s0 or to control optimizations specific to that machine.  By
-convention, the names of machine-specific options start with
-\&\fB\-m\fR.
+\&\s-1ABI,\s0 or to control optimizations specific to that machine.  Similarly,
+\&\s-1GCC\s0 also has options that are specific to particular operating systems
+or runtime environments on the target.
 .PP
-Some configurations of the compiler also support additional target-specific
-options, usually for compatibility with other compilers on the same
-platform.
+By convention, the names of machine-specific options start with
+\&\fB\-m\fR.  Some configurations of the compiler also support
+additional target-specific options, usually for compatibility with
+other compilers on the same platform.
 .PP
 \fIAArch64 Options\fR
 .IX Subsection "AArch64 Options"
@@ -29928,6 +29888,62 @@ Use \s-1GNU\s0 assembler syntax.  This is the default.
 Use the new \s-1LRA\s0 register allocator.  By default, the old \*(L"reload\*(R"
 allocator is used.
 .PP
+\fIPicolibc Options\fR
+.IX Subsection "Picolibc Options"
+.PP
+These options control compilation and linking when using Picolibc:
+.IP "\fB\-\-oslib=\fR\fIlibrary\fR" 4
+.IX Item "--oslib=library"
+Search the library named \fIlibrary\fR after the C library, permitting
+symbols undefined by the C library to be defined by this library. The
+C library, libgcc and this library are placed between
+\&\fB\-\-start\-group\fR and \fB\-\-end\-group\fR flags so that each can
+refer to symbols in the others. For many targets, Picolibc provides a
+\&\fBsemihost\fR variant (specified with \fB\-\-oslib=semihost\fR)
+which provides enough basic \s-1OS\s0 functionality to support console and
+file I/O when run in an emulator or when using an in-circuit debugger.
+.IP "\fB\-\-crt0=\fR[\fBnone\fR|\fBminimal\fR|\fBhosted\fR|\fBsemihost\fR]" 4
+.IX Item "--crt0=[none|minimal|hosted|semihost]"
+Replace the default \fIcrt0.o\fR name with
+\&\fIcrt0\-\fIvariant\fI.o\fR. The \fBnone\fR variant provides no
+startup code at all, allowing you to supply your
+own. \fBminimal\fR performs basic memory setup but does not invoke
+any constructors. When no \fB\-crt0\fR option is provided, the
+default initialization code adds calls to all
+constructors. \fBhosted\fR adds a call to \f(CW\*(C`exit\*(C'\fR when
+\&\f(CW\*(C`main\*(C'\fR returns. \fBsemihost\fR accesses a command-line parameter
+supplied via the semihosting interface and splits that into arguments
+at whitespace boundaries, passing the resulting array of strings to
+\&\f(CW\*(C`main\*(C'\fR in \f(CW\*(C`argc\*(C'\fR and \f(CW\*(C`argv\*(C'\fR. On some targets, including
+AArch64, \s-1ARC, ARM,\s0 LoongArch, M680x0, RISC-V, \s-1SH,\s0 and x86,
+\&\fBsemihost\fR also traps hardware exceptions and prints information
+to the console. Note that \fB\-\-crt0=semihost\fR depends upon APIs
+provided by \fB\-\-oslib=semihost\fR.
+.IP "\fB\-\-printf=\fR[\fBd\fR|\fBf\fR|\fBl\fR|\fBi\fR|\fBm\fR]" 4
+.IX Item "--printf=[d|f|l|i|m]"
+Select the \f(CW\*(C`printf\*(C'\fR variant.
+Picolibc provides five different \f(CW\*(C`printf\*(C'\fR
+variants which offer decreasing levels of functionality along with
+decreasing code size. \fBd\fR is the default level, offering full C17
+and \s-1POSIX.1\-2024\s0 conformance. \fBf\fR provides the same feature set,
+but supports \f(CW\*(C`float\*(C'\fR values instead of \f(CW\*(C`double\*(C'\fR which are
+passed using the \f(CW\*(C`printf_float\*(C'\fR macro. \fBl\fR elides all
+floating-point and \s-1POSIX\s0 positional parameter support. \fBi\fR limits
+integers to those no larger than \f(CW\*(C`long\*(C'\fR. \fBm\fR removes support
+for most formatting options including width and precision. The formats
+and arguments are still parsed correctly, but output does not respect
+those parameters.
+.IP "\fB\-\-scanf=\fR[\fBd\fR|\fBf\fR|\fBl\fR|\fBi\fR|\fBm\fR]" 4
+.IX Item "--scanf=[d|f|l|i|m]"
+Select the \f(CW\*(C`scanf\*(C'\fR variant.
+Picolibc provides five different \f(CW\*(C`scanf\*(C'\fR
+variants which offer decreasing levels of functionality along with
+decreasing code size. \fBd\fR is the default level, offering full C17
+and \s-1POSIX.1\-2024\s0 conformance. \fBf\fR removes support for
+\&\f(CW\*(C`double\*(C'\fR values. \fBl\fR elides all floating point
+support. \fBi\fR limits integers to those no larger than
+\&\f(CW\*(C`long\*(C'\fR. \fBm\fR removes support for \fB%[\fR conversion specifiers.
+.PP
 \fIPowerPC Options\fR
 .IX Subsection "PowerPC Options"
 .PP
@@ -34745,7 +34761,7 @@ instruction set support.
 .IP "\fBnocona\fR" 4
 .IX Item "nocona"
 Improved version of Intel Pentium 4 \s-1CPU\s0 with 64\-bit extensions, \s-1MMX, SSE,
-SSE2, SSE3\s0 and \s-1FXSR\s0 instruction set support.
+SSE2, SSE3, CX16\s0 and \s-1FXSR\s0 instruction set support.
 .IP "\fBcore2\fR" 4
 .IX Item "core2"
 Intel Core 2 \s-1CPU\s0 with 64\-bit extensions, \s-1MMX, SSE, SSE2, SSE3, SSSE3, CX16,
@@ -34875,7 +34891,8 @@ VPCLMULQDQ, AVX512BITALG, RDPID\s0 and \s-1AVX512VPOPCNTDQ\s0 instruction set su
 .IX Item "gracemont"
 .PD
 Intel Alder Lake/Raptor Lake/Meteor Lake/Gracemont \s-1CPU\s0 with 64\-bit extensions,
-\&\s-1MOVBE, MMX, SSE, SSE2, SSE3, SSSE3, SSE4.1, SSE4.2, POPCNT, AES, PREFETCHW,
+\&\s-1MOVBE, MMX, SSE, SSE2, SSE3, SSSE3, SSE4.1, SSE4.2, POPCNT, CX16,
+AES, PREFETCHW,
 PCLMUL, RDRND, XSAVE, XSAVEC, XSAVES, XSAVEOPT, FSGSBASE, PTWRITE, RDPID, SGX,\s0
 GFNI-SSE, \s-1CLWB, MOVDIRI, MOVDIR64B, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C,
 FMA, LZCNT, PCONFIG, PKU, VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL\s0 and
@@ -34883,7 +34900,8 @@ AVX-VNNI instruction set support.
 .IP "\fBarrowlake\fR" 4
 .IX Item "arrowlake"
 Intel Arrow Lake \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3,
-SSSE3, SSE4.1, SSE4.2, POPCNT, AES, PREFETCHW, PCLMUL, RDRND, XSAVE, XSAVEC,
+SSSE3, SSE4.1, SSE4.2, POPCNT, CX16,
+AES, PREFETCHW, PCLMUL, RDRND, XSAVE, XSAVEC,
 XSAVES, XSAVEOPT, FSGSBASE, PTWRITE, RDPID, SGX,\s0 GFNI-SSE, \s-1CLWB, MOVDIRI,
 MOVDIR64B, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C, FMA, LZCNT, PCONFIG, PKU,
 VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL,\s0 AVX-VNNI, \s-1UINTR, AVXIFMA,
@@ -34895,7 +34913,7 @@ AVXVNNIINT8, AVXNECONVERT\s0 and \s-1CMPCCXADD\s0 instruction set support.
 .IX Item "lunarlake"
 .PD
 Intel Arrow Lake S/Lunar Lake \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE,
-SSE2, SSE3, SSSE3, SSE4.1, SSE4.2, POPCNT, AES, PREFETCHW, PCLMUL, RDRND,
+SSE2, SSE3, SSSE3, SSE4.1, SSE4.2, POPCNT, CX16, AES, PREFETCHW, PCLMUL, RDRND,
 XSAVE, XSAVEC, XSAVES, XSAVEOPT, FSGSBASE, PTWRITE, RDPID, SGX,\s0 GFNI-SSE, \s-1CLWB,
 MOVDIRI, MOVDIR64B, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C, FMA, LZCNT,
 PCONFIG, PKU, VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL,\s0 AVX-VNNI, \s-1UINTR,
@@ -34908,7 +34926,7 @@ AVXIFMA, AVXVNNIINT8, AVXNECONVERT, CMPCCXADD, AVXVNNIINT16, SHA512, SM3\s0 and
 .IX Item "wildcatlake"
 .PD
 Intel Panther Lake/Wildcat Lake \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE,
-SSE2, SSE3, SSSE3, SSE4.1, SSE4.2, POPCNT, AES, PREFETCHW, PCLMUL, RDRND,
+SSE2, SSE3, SSSE3, SSE4.1, SSE4.2, POPCNT, CX16, AES, PREFETCHW, PCLMUL, RDRND,
 XSAVE, XSAVEC, XSAVES, XSAVEOPT, FSGSBASE, PTWRITE, RDPID, SGX,\s0 GFNI-SSE,
 \&\s-1CLWB, MOVDIRI, MOVDIR64B, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C, FMA,
 LZCNT, PCONFIG, PKU, VAES, VPCLMULQDQ, SERIALIZE, HRESET,\s0 AVX-VNNI, \s-1UINTR,
@@ -34917,7 +34935,8 @@ AVXIFMA, AVXVNNIINT8, AVXNECONVERT, CMPCCXADD, AVXVNNIINT16, SHA512, SM3\s0 and
 .IP "\fBnovalake\fR" 4
 .IX Item "novalake"
 Intel Nova Lake \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3,
-SSSE3, SSE4.1, SSE4.2, POPCNT, AES, PREFETCHW, PCLMUL, RDRND, XSAVE, XSAVEC,
+SSSE3, SSE4.1, SSE4.2, POPCNT, CX16,
+AES, PREFETCHW, PCLMUL, RDRND, XSAVE, XSAVEC,
 XSAVES, XSAVEOPT, FSGSBASE, PTWRITE, RDPID, SGX,\s0 GFNI-SSE, \s-1CLWB, MOVDIRI,
 MOVDIR64B, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C, FMA, LZCNT, PCONFIG, PKU,
 VAES, VPCLMULQDQ, SERIALIZE, HRESET,\s0 AVX-VNNI, \s-1UINTR, AVXIFMA, AVXVNNIINT8,
@@ -34979,8 +34998,8 @@ AMX\-FP8, AMX\-TF32, MOVRS\s0 and AMX-MOVRS instruction set support.
 .IP "\fBatom\fR" 4
 .IX Item "atom"
 .PD
-Intel Bonnell \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3\s0 and \s-1SSSE3\s0
-instruction set support.
+Intel Bonnell \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3, SSSE3\s0
+and \s-1CX16\s0 instruction set support.
 .IP "\fBsilvermont\fR" 4
 .IX Item "silvermont"
 .PD 0
@@ -35012,7 +35031,8 @@ support.
 .IP "\fBsierraforest\fR" 4
 .IX Item "sierraforest"
 Intel Sierra Forest \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3,
-SSSE3, SSE4.1, SSE4.2, POPCNT, AES, PREFETCHW, PCLMUL, RDRND, XSAVE, XSAVEC,
+SSSE3, SSE4.1, SSE4.2, POPCNT, CX16,
+AES, PREFETCHW, PCLMUL, RDRND, XSAVE, XSAVEC,
 XSAVES, XSAVEOPT, FSGSBASE, PTWRITE, RDPID, SGX,\s0 GFNI-SSE, \s-1CLWB, MOVDIRI,
 MOVDIR64B, CLDEMOTE, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C, FMA, LZCNT,
 PCONFIG, PKU, VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL,\s0 AVX-VNNI,
@@ -35021,7 +35041,8 @@ support.
 .IP "\fBgrandridge\fR" 4
 .IX Item "grandridge"
 Intel Grand Ridge \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2, SSE3,
-SSSE3, SSE4.1, SSE4.2, POPCNT, AES, PREFETCHW, PCLMUL, RDRND, XSAVE, XSAVEC,
+SSSE3, SSE4.1, SSE4.2, POPCNT, CX16,
+AES, PREFETCHW, PCLMUL, RDRND, XSAVE, XSAVEC,
 XSAVES, XSAVEOPT, FSGSBASE, PTWRITE, RDPID, SGX,\s0 GFNI-SSE, \s-1CLWB, MOVDIRI,
 MOVDIR64B, CLDEMOTE, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C, FMA, LZCNT,
 PCONFIG, PKU, VAES, VPCLMULQDQ, SERIALIZE, HRESET, KL, WIDEKL,\s0 AVX-VNNI,
@@ -35030,7 +35051,8 @@ support.
 .IP "\fBclearwaterforest\fR" 4
 .IX Item "clearwaterforest"
 Intel Clearwater Forest \s-1CPU\s0 with 64\-bit extensions, \s-1MOVBE, MMX, SSE, SSE2,
-SSE3, SSSE3, SSE4.1, SSE4.2, POPCNT, AES, PREFETCHW, PCLMUL, RDRND, XSAVE,
+SSE3, SSSE3, SSE4.1, SSE4.2, POPCNT, CX16,
+AES, PREFETCHW, PCLMUL, RDRND, XSAVE,
 XSAVEC, XSAVES, XSAVEOPT, FSGSBASE, PTWRITE, RDPID, SGX,\s0 GFNI-SSE, \s-1CLWB,
 MOVDIRI, MOVDIR64B, CLDEMOTE, WAITPKG, ADCX, AVX, AVX2, BMI, BMI2, F16C, FMA,
 LZCNT, PCONFIG, PKU, VAES, VPCLMULQDQ, SERIALIZE, HRESET,\s0 AVX-VNNI, \s-1ENQCMD,
@@ -35094,7 +35116,7 @@ Improved versions of \s-1AMD K8\s0 cores with \s-1SSE3\s0 instruction set suppor
 .IX Item "barcelona"
 .PD
 CPUs based on \s-1AMD\s0 Family 10h cores with x86\-64 instruction set support.  (This
-supersets \s-1MMX, SSE, SSE2, SSE3, SSE4A,\s0 3DNow!, enhanced 3DNow!, \s-1ABM\s0 and 64\-bit
+supersets \s-1CX16, MMX, SSE, SSE2, SSE3, SSE4A,\s0 3DNow!, enhanced 3DNow!, \s-1ABM\s0 and 64\-bit
 instruction set extensions.)
 .IP "\fBbdver1\fR" 4
 .IX Item "bdver1"
