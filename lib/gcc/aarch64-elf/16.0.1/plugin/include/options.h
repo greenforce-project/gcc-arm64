@@ -2262,10 +2262,10 @@ extern int param_vect_partial_vector_usage;
 #define param_vect_partial_vector_usage global_options.x_param_vect_partial_vector_usage
 #endif
 #ifdef GENERATOR_FILE
-extern int param_vect_scalar_cost_multiplier;
+extern int param_vect_allow_possibly_not_worthwhile_vectorizations;
 #else
-  int x_param_vect_scalar_cost_multiplier;
-#define param_vect_scalar_cost_multiplier global_options.x_param_vect_scalar_cost_multiplier
+  int x_param_vect_allow_possibly_not_worthwhile_vectorizations;
+#define param_vect_allow_possibly_not_worthwhile_vectorizations global_options.x_param_vect_allow_possibly_not_worthwhile_vectorizations
 #endif
 #ifdef GENERATOR_FILE
 extern int param_vrp_block_limit;
@@ -9974,7 +9974,7 @@ struct GTY(()) cl_optimization
   int x_param_vect_max_version_for_alias_checks;
   int x_param_vect_max_version_for_alignment_checks;
   int x_param_vect_partial_vector_usage;
-  int x_param_vect_scalar_cost_multiplier;
+  int x_param_vect_allow_possibly_not_worthwhile_vectorizations;
   int x_param_vrp_block_limit;
   int x_param_vrp_cstload_limit;
   int x_param_vrp_sparse_threshold;
@@ -10929,7 +10929,7 @@ enum opt_code
   OPT__param_vect_max_version_for_alias_checks_ = 383,/* --param=vect-max-version-for-alias-checks= */
   OPT__param_vect_max_version_for_alignment_checks_ = 384,/* --param=vect-max-version-for-alignment-checks= */
   OPT__param_vect_partial_vector_usage_ = 385,/* --param=vect-partial-vector-usage= */
-  OPT__param_vect_scalar_cost_multiplier_ = 386,/* --param=vect-scalar-cost-multiplier= */
+  OPT__param_vect_allow_possibly_not_worthwhile_vectorizations_ = 386,/* --param=vect_allow_possibly_not_worthwhile_vectorizations= */
   OPT__param_vrp_block_limit_ = 387,         /* --param=vrp-block-limit= */
   OPT__param_vrp_cstload_limit_ = 388,       /* --param=vrp-cstload-limit= */
   OPT__param_vrp_sparse_threshold_ = 389,    /* --param=vrp-sparse-threshold= */

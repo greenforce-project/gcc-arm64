@@ -53707,10 +53707,9 @@ The following choices of NAME are recognized for all targets:
 'vect-induction-float'
      Enable loop vectorization of floating-point inductions.
 
-'vect-scalar-cost-multiplier'
-     Apply the given multiplier percentage to scalar loop costing during
-     vectorization.  Increasing the cost multiplier makes vector loops
-     more profitable.
+'vect_allow_possibly_not_worthwhile_vectorizations'
+     Enable vectorization of loops that may not be profitable according
+     to the cost model but still perform costing between vector modes.
 
 'vrp-block-limit'
      Maximum number of basic blocks before value range propagation
@@ -56778,23 +56777,23 @@ Parameter Index
 * aarch64-vect-unroll-limit:             AArch64 Parameters. (line   83)
 * align-loop-iterations:                 General Parameters. (line  534)
 * align-threshold:                       General Parameters. (line  529)
-* analyzer-bb-explosion-factor:          General Parameters. (line 1577)
-* analyzer-max-constraints:              General Parameters. (line 1549)
-* analyzer-max-enodes-for-full-dump:     General Parameters. (line 1556)
-* analyzer-max-enodes-per-program-point: General Parameters. (line 1545)
-* analyzer-max-infeasible-edges:         General Parameters. (line 1569)
-* analyzer-max-recursion-depth:          General Parameters. (line 1560)
-* analyzer-max-svalue-depth:             General Parameters. (line 1565)
-* analyzer-min-snodes-for-call-summary:  General Parameters. (line 1552)
-* analyzer-text-art-ideal-canvas-width:  General Parameters. (line 1585)
+* analyzer-bb-explosion-factor:          General Parameters. (line 1576)
+* analyzer-max-constraints:              General Parameters. (line 1548)
+* analyzer-max-enodes-for-full-dump:     General Parameters. (line 1555)
+* analyzer-max-enodes-per-program-point: General Parameters. (line 1544)
+* analyzer-max-infeasible-edges:         General Parameters. (line 1568)
+* analyzer-max-recursion-depth:          General Parameters. (line 1559)
+* analyzer-max-svalue-depth:             General Parameters. (line 1564)
+* analyzer-min-snodes-for-call-summary:  General Parameters. (line 1551)
+* analyzer-text-art-ideal-canvas-width:  General Parameters. (line 1584)
 * analyzer-text-art-string-ellipsis-head-len: General Parameters.
-                                                             (line 1589)
+                                                             (line 1588)
 * analyzer-text-art-string-ellipsis-tail-len: General Parameters.
-                                                             (line 1593)
+                                                             (line 1592)
 * analyzer-text-art-string-ellipsis-threshold: General Parameters.
-                                                             (line 1581)
+                                                             (line 1580)
 * asan-globals:                          General Parameters. (line 1190)
-* asan-instrument-allocas:               General Parameters. (line 1469)
+* asan-instrument-allocas:               General Parameters. (line 1468)
 * asan-instrument-reads:                 General Parameters. (line 1201)
 * asan-instrument-writes:                General Parameters. (line 1207)
 * asan-instrumentation-with-call-threshold: General Parameters.
@@ -56806,7 +56805,7 @@ Parameter Index
 * auto-profile-bbs:                      General Parameters. (line    8)
 * auto-profile-reorder-only:             General Parameters. (line   13)
 * avg-loop-niter:                        General Parameters. (line  432)
-* avoid-fma-max-bits:                    General Parameters. (line 1425)
+* avoid-fma-max-bits:                    General Parameters. (line 1424)
 * builtin-expect-probability:            General Parameters. (line  521)
 * builtin-string-cmp-inline-length:      General Parameters. (line  525)
 * case-values-threshold:                 General Parameters. (line 1152)
@@ -56814,15 +56813,15 @@ Parameter Index
 * constructive-interference-size:        General Parameters. (line  800)
 * cxx-max-namespaces-for-diagnostic-help: General Parameters.
                                                              (line 1135)
-* cycle-accurate-model:                  General Parameters. (line 1633)
+* cycle-accurate-model:                  General Parameters. (line 1632)
 * destructive-interference-size:         General Parameters. (line  799)
 * dse-max-alias-queries-per-store:       General Parameters. (line  439)
 * dse-max-object-size:                   General Parameters. (line  435)
 * early-inlining-insns:                  General Parameters. (line  265)
 * file-cache-files:                      General Parameters. (line   34)
 * file-cache-lines:                      General Parameters. (line   39)
-* fsm-scale-path-stmts:                  General Parameters. (line 1486)
-* fully-pipelined-fma:                   General Parameters. (line 1428)
+* fsm-scale-path-stmts:                  General Parameters. (line 1485)
+* fully-pipelined-fma:                   General Parameters. (line 1427)
 * gcn-preferred-vectorization-factor:    AMD GCN Parameters. (line    8)
 * gcse-after-reload-critical-fraction:   General Parameters. (line 1369)
 * gcse-after-reload-partial-fraction:    General Parameters. (line 1365)
@@ -56830,13 +56829,13 @@ Parameter Index
 * gcse-unrestricted-cost:                General Parameters. (line  324)
 * ggc-min-expand:                        General Parameters. (line  597)
 * ggc-min-heapsize:                      General Parameters. (line  614)
-* gimple-fe-computed-hot-bb-threshold:   General Parameters. (line 1573)
-* graphite-allow-codegen-errors:         General Parameters. (line 1442)
-* graphite-max-arrays-per-scop:          General Parameters. (line 1479)
+* gimple-fe-computed-hot-bb-threshold:   General Parameters. (line 1572)
+* graphite-allow-codegen-errors:         General Parameters. (line 1441)
+* graphite-max-arrays-per-scop:          General Parameters. (line 1478)
 * graphite-max-nb-scop-params:           General Parameters. (line 1007)
 * hardcfr-max-blocks:                    General Parameters. (line 1014)
 * hardcfr-max-inline-blocks:             General Parameters. (line 1019)
-* hash-table-verification-limit:         General Parameters. (line 1537)
+* hash-table-verification-limit:         General Parameters. (line 1536)
 * hot-bb-count-fraction:                 General Parameters. (line  477)
 * hot-bb-count-ws-permille:              General Parameters. (line  485)
 * hot-bb-frequency-fraction:             General Parameters. (line  495)
@@ -56900,13 +56899,13 @@ Parameter Index
 * loop-interchange-stride-ratio:         General Parameters. (line  830)
 * loop-invariant-max-bbs-in-loop:        General Parameters. (line  921)
 * loop-max-datarefs-for-datadeps:        General Parameters. (line  927)
-* loop-versioning-max-inner-insns:       General Parameters. (line 1512)
-* loop-versioning-max-outer-insns:       General Parameters. (line 1516)
+* loop-versioning-max-inner-insns:       General Parameters. (line 1511)
+* loop-versioning-max-outer-insns:       General Parameters. (line 1515)
 * lra-inheritance-ebb-probability-cutoff: General Parameters.
                                                              (line  913)
-* lra-max-considered-reload-pseudos:     General Parameters. (line 1449)
+* lra-max-considered-reload-pseudos:     General Parameters. (line 1448)
 * lra-max-pseudos-points-log2-considered-for-preferences: General Parameters.
-                                                             (line 1453)
+                                                             (line 1452)
 * lto-max-locality-partition:            General Parameters. (line 1128)
 * lto-max-partition:                     General Parameters. (line 1114)
 * lto-max-streaming-parallelism:         General Parameters. (line 1132)
@@ -56929,10 +56928,10 @@ Parameter Index
 * max-delay-slot-insn-search:            General Parameters. (line   81)
 * max-delay-slot-live-search:            General Parameters. (line   89)
 * max-devirt-targets:                    General Parameters. (line   97)
-* max-dse-active-local-stores:           General Parameters. (line 1465)
+* max-dse-active-local-stores:           General Parameters. (line 1464)
 * max-early-inliner-iterations:          General Parameters. (line  270)
 * max-fields-for-field-sensitive:        General Parameters. (line  749)
-* max-find-base-term-values:             General Parameters. (line 1541)
+* max-find-base-term-values:             General Parameters. (line 1540)
 * max-fsm-thread-path-insns:             General Parameters. (line 1302)
 * max-gcse-insertion-ratio:              General Parameters. (line  107)
 * max-gcse-memory:                       General Parameters. (line  101)
@@ -56951,8 +56950,8 @@ Parameter Index
 * max-inline-insns-small:                General Parameters. (line  146)
 * max-inline-recursive-depth:            General Parameters. (line  244)
 * max-inline-recursive-depth-auto:       General Parameters. (line  244)
-* max-isl-operations:                    General Parameters. (line 1476)
-* max-iterations-computation-cost:       General Parameters. (line 1472)
+* max-isl-operations:                    General Parameters. (line 1475)
+* max-iterations-computation-cost:       General Parameters. (line 1471)
 * max-iterations-to-track:               General Parameters. (line  472)
 * max-jump-thread-duplication-stmts:     General Parameters. (line  738)
 * max-jump-thread-paths:                 General Parameters. (line  742)
@@ -56966,7 +56965,7 @@ Parameter Index
 * max-pending-list-length:               General Parameters. (line  113)
 * max-pipeline-region-blocks:            General Parameters. (line  653)
 * max-pipeline-region-insns:             General Parameters. (line  661)
-* max-pow-sqrt-depth:                    General Parameters. (line 1461)
+* max-pow-sqrt-depth:                    General Parameters. (line 1460)
 * max-predicted-iterations:              General Parameters. (line  513)
 * max-reload-search-insns:               General Parameters. (line  631)
 * max-rtl-if-conversion-insns:           General Parameters. (line   26)
@@ -56996,7 +56995,7 @@ Parameter Index
 * max-unswitch-insns:                    General Parameters. (line  399)
 * max-variable-expansions-in-unroller:   General Parameters. (line 1351)
 * max-vartrack-expr-depth:               General Parameters. (line  942)
-* max-vartrack-reverse-op-size:          General Parameters. (line 1482)
+* max-vartrack-reverse-op-size:          General Parameters. (line 1481)
 * max-vartrack-size:                     General Parameters. (line  933)
 * memtag-instrument-allocas:             General Parameters. (line 1282)
 * memtag-instrument-mem-intrinsics:      General Parameters. (line 1287)
@@ -57005,7 +57004,7 @@ Parameter Index
 * min-insn-to-prefetch-ratio:            General Parameters. (line  834)
 * min-loop-cond-split-prob:              General Parameters. (line  409)
 * min-nondebug-insn-uid:                 General Parameters. (line  958)
-* min-pagesize:                          General Parameters. (line 1613)
+* min-pagesize:                          General Parameters. (line 1612)
 * min-size-for-stack-sharing:            General Parameters. (line  734)
 * min-spec-prob:                         General Parameters. (line  665)
 * min-vect-loop-bound:                   General Parameters. (line  310)
@@ -57016,8 +57015,8 @@ Parameter Index
 * modref-max-escape-points:              General Parameters. (line  295)
 * modref-max-refs:                       General Parameters. (line  280)
 * modref-max-tests:                      General Parameters. (line  285)
-* openacc-kernels:                       General Parameters. (line 1617)
-* openacc-privatization:                 General Parameters. (line 1626)
+* openacc-kernels:                       General Parameters. (line 1616)
+* openacc-privatization:                 General Parameters. (line 1625)
 * parloops-chunk-size:                   General Parameters. (line 1310)
 * parloops-min-per-thread:               General Parameters. (line 1317)
 * parloops-schedule:                     General Parameters. (line 1313)
@@ -57030,9 +57029,9 @@ Parameter Index
 * prefetch-minimum-stride:               General Parameters. (line  782)
 * profile-func-internal-id:              General Parameters. (line  303)
 * ranger-debug:                          General Parameters. (line 1334)
-* ranger-logical-depth:                  General Parameters. (line 1597)
-* ranger-recompute-depth:                General Parameters. (line 1601)
-* relation-block-limit:                  General Parameters. (line 1605)
+* ranger-logical-depth:                  General Parameters. (line 1596)
+* ranger-recompute-depth:                General Parameters. (line 1600)
+* relation-block-limit:                  General Parameters. (line 1604)
 * riscv-strcmp-inline-limit:             RISC-V Parameters.  (line    8)
 * rpo-vn-max-loop-depth:                 General Parameters. (line  864)
 * rs6000-vect-unroll-limit:              RS/6000 and PowerPC Parameters.
@@ -57040,7 +57039,7 @@ Parameter Index
 * sccvn-max-alias-queries-per-access:    General Parameters. (line  870)
 * scev-max-expr-complexity:              General Parameters. (line  448)
 * scev-max-expr-size:                    General Parameters. (line  444)
-* sched-autopref-queue-depth:            General Parameters. (line 1507)
+* sched-autopref-queue-depth:            General Parameters. (line 1506)
 * sched-mem-true-dep-cost:               General Parameters. (line  685)
 * sched-pressure-algorithm:              General Parameters. (line 1172)
 * sched-spec-prob-cutoff:                General Parameters. (line  677)
@@ -57050,20 +57049,20 @@ Parameter Index
 * selsched-max-sched-times:              General Parameters. (line  693)
 * simultaneous-prefetches:               General Parameters. (line  759)
 * sink-frequency-threshold:              General Parameters. (line 1139)
-* sms-dfa-history:                       General Parameters. (line 1438)
-* sms-loop-average-count-threshold:      General Parameters. (line 1434)
-* sms-max-ii-factor:                     General Parameters. (line 1445)
+* sms-dfa-history:                       General Parameters. (line 1437)
+* sms-loop-average-count-threshold:      General Parameters. (line 1433)
+* sms-max-ii-factor:                     General Parameters. (line 1444)
 * sms-min-sc:                            General Parameters. (line  702)
 * sra-max-propagations:                  General Parameters. (line  996)
 * sra-max-scalarization-size-Osize:      General Parameters. (line  987)
 * sra-max-scalarization-size-Ospeed:     General Parameters. (line  987)
-* ssa-name-def-chain-limit:              General Parameters. (line 1522)
+* ssa-name-def-chain-limit:              General Parameters. (line 1521)
 * ssp-buffer-size:                       General Parameters. (line  730)
 * stack-clash-protection-guard-size:     General Parameters. (line  575)
 * stack-clash-protection-probe-interval: General Parameters. (line  582)
-* store-forwarding-max-distance:         General Parameters. (line 1532)
+* store-forwarding-max-distance:         General Parameters. (line 1531)
 * store-merging-allow-unaligned:         General Parameters. (line  346)
-* store-merging-max-size:                General Parameters. (line 1529)
+* store-merging-max-size:                General Parameters. (line 1528)
 * switch-conversion-max-branch-ratio:    General Parameters. (line  849)
 * threader-debug:                        General Parameters. (line 1306)
 * tm-max-aggregate-size:                 General Parameters. (line 1001)
@@ -57074,14 +57073,14 @@ Parameter Index
 * tracer-min-branch-probability-feedback: General Parameters.
                                                              (line  562)
 * tracer-min-branch-ratio:               General Parameters. (line  557)
-* transitive-relations-work-bound:       General Parameters. (line 1609)
+* transitive-relations-work-bound:       General Parameters. (line 1608)
 * tree-reassoc-width:                    General Parameters. (line 1166)
 * tsan-distinguish-volatile:             General Parameters. (line 1295)
 * tsan-instrument-func-entry-exit:       General Parameters. (line 1298)
-* uninit-control-dep-attempts:           General Parameters. (line 1491)
-* uninit-max-chain-len:                  General Parameters. (line 1495)
-* uninit-max-num-chains:                 General Parameters. (line 1499)
-* uninit-max-prune-work:                 General Parameters. (line 1503)
+* uninit-control-dep-attempts:           General Parameters. (line 1490)
+* uninit-max-chain-len:                  General Parameters. (line 1494)
+* uninit-max-num-chains:                 General Parameters. (line 1498)
+* uninit-max-prune-work:                 General Parameters. (line 1502)
 * uninlined-function-insns:              General Parameters. (line  155)
 * uninlined-function-time:               General Parameters. (line  159)
 * uninlined-thunk-insns:                 General Parameters. (line  169)
@@ -57100,12 +57099,13 @@ Parameter Index
 * vect-max-version-for-alias-checks:     General Parameters. (line  464)
 * vect-max-version-for-alignment-checks: General Parameters. (line  460)
 * vect-partial-vector-usage:             General Parameters. (line 1381)
-* vect-scalar-cost-multiplier:           General Parameters. (line 1400)
-* vrp-block-limit:                       General Parameters. (line 1405)
-* vrp-cstload-limit:                     General Parameters. (line 1409)
-* vrp-sparse-threshold:                  General Parameters. (line 1413)
-* vrp-switch-limit:                      General Parameters. (line 1417)
-* vrp-vector-threshold:                  General Parameters. (line 1421)
+* vect_allow_possibly_not_worthwhile_vectorizations: General Parameters.
+                                                             (line 1400)
+* vrp-block-limit:                       General Parameters. (line 1404)
+* vrp-cstload-limit:                     General Parameters. (line 1408)
+* vrp-sparse-threshold:                  General Parameters. (line 1412)
+* vrp-switch-limit:                      General Parameters. (line 1416)
+* vrp-vector-threshold:                  General Parameters. (line 1420)
 * x86-stlf-window-ninsns:                x86 Parameters.     (line    8)
 * x86-stv-max-visits:                    x86 Parameters.     (line   12)
 
@@ -66571,22 +66571,22 @@ Ref: input_location_example2247225
 Node: Guidelines for Options2260009
 Node: Parameters2265352
 Node: General Parameters2266459
-Node: Target-Specific Parameters2336276
-Node: AArch64 Parameters2336644
-Node: AMD GCN Parameters2340982
-Node: LoongArch Parameters2341331
-Node: RISC-V Parameters2341896
-Node: RS/6000 and PowerPC Parameters2342392
-Node: x86 Parameters2342988
-Node: Funding2343667
-Node: GNU Project2346158
-Node: Copying2346809
-Node: GNU Free Documentation License2384326
-Node: Contributors2409452
-Node: Option Index2451062
-Node: Parameter Index2452014
-Node: Concept Index2477084
-Node: Named Pattern Index3067087
+Node: Target-Specific Parameters2336275
+Node: AArch64 Parameters2336643
+Node: AMD GCN Parameters2340981
+Node: LoongArch Parameters2341330
+Node: RISC-V Parameters2341895
+Node: RS/6000 and PowerPC Parameters2342391
+Node: x86 Parameters2342987
+Node: Funding2343666
+Node: GNU Project2346157
+Node: Copying2346808
+Node: GNU Free Documentation License2384325
+Node: Contributors2409451
+Node: Option Index2451061
+Node: Parameter Index2452013
+Node: Concept Index2477156
+Node: Named Pattern Index3067159
 
 End Tag Table
 

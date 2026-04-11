@@ -61612,11 +61612,12 @@ File: gcc.info,  Node: RISC-V Vector Intrinsics,  Next: CORE-V Built-in Function
 7.13.30 RISC-V Vector Intrinsics
 --------------------------------
 
-GCC supports vector intrinsics as specified in version 0.11 of the
-RISC-V vector intrinsic specification, which is available at the
-following link:
-<https://github.com/riscv-non-isa/rvv-intrinsic-doc/tree/v0.11.x>.  All
-of these functions are declared in the include file 'riscv_vector.h'.
+GCC supports vector intrinsics as specified in the ratified version 1.0
+of the RISC-V vector intrinsic specification, which is available from
+the repository's release page:
+<https://github.com/riscv-non-isa/rvv-intrinsic-doc/releases/tag/v1.0-ratified>.
+All of these functions are declared in the include file
+'riscv_vector.h'.
 
 
 File: gcc.info,  Node: CORE-V Built-in Functions,  Next: RX Built-in Functions,  Prev: RISC-V Vector Intrinsics,  Up: Target Builtins
@@ -69520,6 +69521,7 @@ give rise to questions of this sort.
 * Name lookup::         Name lookup, templates, and accessing members of base classes
 * Temporaries::         Temporaries may vanish before you expect
 * Copy Assignment::     Copy Assignment operators copy virtual bases twice
+* Linkage in Anonymous Namespaces::  Names have internal linkage
 
 
 File: gcc.info,  Node: Static Definitions,  Next: Name lookup,  Up: C++ Misunderstandings
@@ -69719,7 +69721,7 @@ example:
      charfunc (tmp.c_str ());
 
 
-File: gcc.info,  Node: Copy Assignment,  Prev: Temporaries,  Up: C++ Misunderstandings
+File: gcc.info,  Node: Copy Assignment,  Next: Linkage in Anonymous Namespaces,  Prev: Temporaries,  Up: C++ Misunderstandings
 
 15.7.4 Implicit Copy-Assignment for Virtual Bases
 -------------------------------------------------
@@ -69774,6 +69776,23 @@ example, copying proceeds in the following order: 'name' (via 'strdup'),
 copy-assignment operator removes any uncertainties.  With such an
 operator, the application can define whether and how the virtual base
 subobject is assigned.
+
+
+File: gcc.info,  Node: Linkage in Anonymous Namespaces,  Prev: Copy Assignment,  Up: C++ Misunderstandings
+
+15.7.5 Linkage in Anonymous Namespaces
+--------------------------------------
+
+The C++11 standard changed the linkage of anonymous namespaces from
+external (using a unique generated name) to internal.  That means that
+names declared in such a namespace now also have internal linkage, and
+'extern "C"' has no effect.  GCC implemented this change in behavior
+starting with the GCC 15 release; code using this idiom that worked in
+earlier versions of GCC, or with '-std=' options prior to C++11, may
+encounter unexpected linker issues due to changes in name mangling.
+
+ For more information about the change to the C++ standard, see
+<https://cplusplus.github.io/CWG/issues/2772.html>.
 
 
 File: gcc.info,  Node: Non-bugs,  Next: Warnings and Errors,  Prev: C++ Misunderstandings,  Up: Trouble
@@ -82471,98 +82490,99 @@ Node: PowerPC Matrix-Multiply Assist Built-in Functions2601984
 Node: PRU Built-in Functions2608109
 Node: RISC-V Built-in Functions2609389
 Node: RISC-V Vector Intrinsics2610059
-Node: CORE-V Built-in Functions2610558
-Node: RX Built-in Functions2649361
-Node: S/390 System z Built-in Functions2653363
-Node: SH Built-in Functions2658632
-Node: SPARC VIS Built-in Functions2660360
-Node: TI C6X Built-in Functions2668891
-Node: x86 Built-in Functions2669938
-Node: x86 transactional memory intrinsics2736679
-Node: x86 control-flow protection intrinsics2740005
-Node: C++ Extensions2741776
-Node: C++ Volatiles2743346
-Node: Restricted Pointers2745694
-Node: Vague Linkage2747285
-Node: C++ Interface2750908
-Ref: C++ Interface-Footnote-12754705
-Node: Template Instantiation2754843
-Node: Bound member functions2760931
-Node: C++ Attributes2762463
-Node: Function Multiversioning2768223
-Node: Type Traits2771950
-Node: Deprecated Features2780828
-Node: Backwards Compatibility2782149
-Node: Objective-C2783221
-Node: GNU Objective-C runtime API2783828
-Node: Modern GNU Objective-C runtime API2784835
-Node: Traditional GNU Objective-C runtime API2787271
-Node: Executing code before main2787998
-Node: What you can and what you cannot do in +load2790742
-Node: Type encoding2793112
-Node: Legacy type encoding2798478
-Node: @encode2799568
-Node: Method signatures2800113
-Node: Garbage Collection2802105
-Node: Constant string objects2804795
-Node: compatibility_alias2807304
-Node: Exceptions2808029
-Node: Synchronization2810739
-Node: Fast enumeration2811923
-Node: Using fast enumeration2812235
-Node: c99-like fast enumeration syntax2813446
-Node: Fast enumeration details2814149
-Node: Fast enumeration protocol2816489
-Node: Messaging with the GNU Objective-C runtime2819641
-Node: Dynamically registering methods2821013
-Node: Forwarding hook2822704
-Node: Compatibility2825744
-Node: Gcov2832302
-Node: Gcov Intro2832970
-Node: Invoking Gcov2835688
-Ref: gcov prime paths example2866538
-Node: Gcov and Optimization2874454
-Node: Gcov Data Files2878207
-Node: Cross-profiling2879616
-Node: Freestanding Environments2881504
-Node: Gcov-tool2896367
-Node: Gcov-tool Intro2896792
-Node: Invoking Gcov-tool2899146
-Node: Gcov-dump2902559
-Node: Gcov-dump Intro2902882
-Node: Invoking Gcov-dump2903149
-Node: lto-dump2903882
-Node: lto-dump Intro2904181
-Node: Invoking lto-dump2904431
-Node: Trouble2905527
-Node: Actual Bugs2906944
-Node: Interoperation2907391
-Node: Incompatibilities2914282
-Node: Fixed Headers2922434
-Node: Standard Libraries2924092
-Node: Disappointments2925540
-Node: C++ Misunderstandings2929899
-Node: Static Definitions2930710
-Node: Name lookup2931763
-Ref: Name lookup-Footnote-12936544
-Node: Temporaries2936733
-Node: Copy Assignment2938709
-Node: Non-bugs2940544
-Node: Warnings and Errors2951036
-Node: Bugs2952798
-Node: Bug Criteria2953265
-Node: Bug Reporting2955196
-Node: Service2955414
-Node: Contributing2956235
-Node: Funding2956981
-Node: GNU Project2959471
-Node: Copying2960119
-Node: GNU Free Documentation License2997633
-Node: Contributors3022756
-Node: Indices3064358
-Node: Option Index3064670
-Node: Attribute Index3478918
-Node: Concept and Symbol Index3516060
+Node: CORE-V Built-in Functions2610596
+Node: RX Built-in Functions2649399
+Node: S/390 System z Built-in Functions2653401
+Node: SH Built-in Functions2658670
+Node: SPARC VIS Built-in Functions2660398
+Node: TI C6X Built-in Functions2668929
+Node: x86 Built-in Functions2669976
+Node: x86 transactional memory intrinsics2736717
+Node: x86 control-flow protection intrinsics2740043
+Node: C++ Extensions2741814
+Node: C++ Volatiles2743384
+Node: Restricted Pointers2745732
+Node: Vague Linkage2747323
+Node: C++ Interface2750946
+Ref: C++ Interface-Footnote-12754743
+Node: Template Instantiation2754881
+Node: Bound member functions2760969
+Node: C++ Attributes2762501
+Node: Function Multiversioning2768261
+Node: Type Traits2771988
+Node: Deprecated Features2780866
+Node: Backwards Compatibility2782187
+Node: Objective-C2783259
+Node: GNU Objective-C runtime API2783866
+Node: Modern GNU Objective-C runtime API2784873
+Node: Traditional GNU Objective-C runtime API2787309
+Node: Executing code before main2788036
+Node: What you can and what you cannot do in +load2790780
+Node: Type encoding2793150
+Node: Legacy type encoding2798516
+Node: @encode2799606
+Node: Method signatures2800151
+Node: Garbage Collection2802143
+Node: Constant string objects2804833
+Node: compatibility_alias2807342
+Node: Exceptions2808067
+Node: Synchronization2810777
+Node: Fast enumeration2811961
+Node: Using fast enumeration2812273
+Node: c99-like fast enumeration syntax2813484
+Node: Fast enumeration details2814187
+Node: Fast enumeration protocol2816527
+Node: Messaging with the GNU Objective-C runtime2819679
+Node: Dynamically registering methods2821051
+Node: Forwarding hook2822742
+Node: Compatibility2825782
+Node: Gcov2832340
+Node: Gcov Intro2833008
+Node: Invoking Gcov2835726
+Ref: gcov prime paths example2866576
+Node: Gcov and Optimization2874492
+Node: Gcov Data Files2878245
+Node: Cross-profiling2879654
+Node: Freestanding Environments2881542
+Node: Gcov-tool2896405
+Node: Gcov-tool Intro2896830
+Node: Invoking Gcov-tool2899184
+Node: Gcov-dump2902597
+Node: Gcov-dump Intro2902920
+Node: Invoking Gcov-dump2903187
+Node: lto-dump2903920
+Node: lto-dump Intro2904219
+Node: Invoking lto-dump2904469
+Node: Trouble2905565
+Node: Actual Bugs2906982
+Node: Interoperation2907429
+Node: Incompatibilities2914320
+Node: Fixed Headers2922472
+Node: Standard Libraries2924130
+Node: Disappointments2925578
+Node: C++ Misunderstandings2929937
+Node: Static Definitions2930813
+Node: Name lookup2931866
+Ref: Name lookup-Footnote-12936647
+Node: Temporaries2936836
+Node: Copy Assignment2938812
+Node: Linkage in Anonymous Namespaces2940687
+Node: Non-bugs2941481
+Node: Warnings and Errors2951973
+Node: Bugs2953735
+Node: Bug Criteria2954202
+Node: Bug Reporting2956133
+Node: Service2956351
+Node: Contributing2957172
+Node: Funding2957918
+Node: GNU Project2960408
+Node: Copying2961056
+Node: GNU Free Documentation License2998570
+Node: Contributors3023693
+Node: Indices3065295
+Node: Option Index3065607
+Node: Attribute Index3479855
+Node: Concept and Symbol Index3516997
 
 End Tag Table
 
