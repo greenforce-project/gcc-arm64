@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "READELF 1"
-.TH READELF 1 "2026-04-11" "binutils-2.46.50" "GNU Development Tools"
+.TH READELF 1 "2026-04-18" "binutils-2.46.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -197,6 +197,7 @@ readelf [\fB\-a\fR|\fB\-\-all\fR]
         [\fB\-wN\fR|\fB\-\-debug\-dump=no\-follow\-links\fR]
         [\fB\-wD\fR|\fB\-\-debug\-dump=use\-debuginfod\fR]
         [\fB\-wE\fR|\fB\-\-debug\-dump=do\-not\-use\-debuginfod\fR]
+        [\fB\-\-debug\-dir=\f(BIdir\fB\fR]
         [\fB\-P\fR|\fB\-\-process\-links\fR]
         [\fB\-\-dwarf\-depth=\fR\fIn\fR]
         [\fB\-\-dwarf\-start=\fR\fIn\fR]
@@ -858,6 +859,9 @@ information and all DIEs before the \s-1DIE\s0 numbered \fIn\fR.  Only
 siblings and children of the specified \s-1DIE\s0 will be printed.
 .Sp
 This can be used in conjunction with \fB\-\-dwarf\-depth\fR.
+.IP "\fB\-\-debug\-dir=\f(BIdir\fB\fR" 4
+.IX Item "--debug-dir=dir"
+Search \fIdir\fR when looking for separate debug info files.
 .IP "\fB\-P\fR" 4
 .IX Item "-P"
 .PD 0

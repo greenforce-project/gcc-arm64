@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "LD 1"
-.TH LD 1 "2026-04-11" "binutils-2.46.50" "GNU Development Tools"
+.TH LD 1 "2026-04-18" "binutils-2.46.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -900,6 +900,16 @@ option only affects \s-1ELF\s0 shared library generation.  Future releases of
 the linker may make more use of this option.  Also currently there is
 no difference in the linker's behaviour for different non-zero values
 of this option.  Again this may change with future releases.
+.Sp
+If \fIlevel\fR is zero or the string \fBfast\fR then \fBld\fR
+instead skips operations that are optional, resulting in a faster link
+but producing slower, larger binaries.  Currently the only operation
+that is skipped is the combining of mergeable sections, but this may
+change in the future.
+.Sp
+If \fIlevel\fR is the string \fBdefault\fR or just the \fB\-\fR
+character then the linker's default behaviour of neither optimizing
+nor skipping operations is selected.
 .IP "\fB\-plugin\fR \fIname\fR" 4
 .IX Item "-plugin name"
 Involve a plugin in the linking process.  The \fIname\fR parameter is
