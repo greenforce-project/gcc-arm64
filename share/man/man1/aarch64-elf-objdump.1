@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OBJDUMP 1"
-.TH OBJDUMP 1 "2026-04-18" "binutils-2.46.50" "GNU Development Tools"
+.TH OBJDUMP 1 "2026-04-25" "binutils-2.46.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -643,6 +643,12 @@ When in \s-1AT&T\s0 mode and also for a limited set of instructions when in Inte
 mode, instructs the disassembler to print a mnemonic suffix even when the
 suffix could be inferred by the operands or, for certain instructions, the
 execution mode's defaults.
+.ie n .IP """annotate\-immediates""" 4
+.el .IP "\f(CWannotate\-immediates\fR" 4
+.IX Item "annotate-immediates"
+Display the symbol associated with immediate values, should there be
+one.  Only works on executable binaries and shared libraries, not
+static object files.
 .RE
 .RS 4
 .Sp

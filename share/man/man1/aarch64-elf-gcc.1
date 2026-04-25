@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2026-04-18" "gcc-16.0.1" "GNU"
+.TH GCC 1 "2026-04-25" "gcc-17.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -6816,7 +6816,7 @@ the compiler performs the entire computation with \f(CW\*(C`double\*(C'\fR
 because the floating-point literal is a \f(CW\*(C`double\*(C'\fR.
 .IP "\fB\-Wduplicate\-decl\-specifier\fR (C and Objective-C only)" 4
 .IX Item "-Wduplicate-decl-specifier (C and Objective-C only)"
-Warn if a declaration has duplicate \f(CW\*(C`const\*(C'\fR, \f(CW\*(C`volatile\*(C'\fR,
+Warn if a declaration has a duplicate \f(CW\*(C`const\*(C'\fR, \f(CW\*(C`volatile\*(C'\fR,
 \&\f(CW\*(C`restrict\*(C'\fR or \f(CW\*(C`_Atomic\*(C'\fR specifier.  This warning is enabled by
 \&\fB\-Wall\fR.
 .IP "\fB\-Wformat\fR" 4
@@ -7917,7 +7917,7 @@ header included.
 .Sp
 \&\fB\-Wunused\-const\-variable=1\fR is enabled by either
 \&\fB\-Wunused\-variable\fR or \fB\-Wunused\fR for C, but not for
-\&\*(C+. In C this declares variable storage, but in \*(C+ this is not an
+\&\*(C+. In C, this declares variable storage, but in \*(C+, this is not an
 error since const variables take the place of \f(CW\*(C`#define\*(C'\fRs.
 .IP "\fB\-Wunused\-const\-variable=2\fR" 4
 .IX Item "-Wunused-const-variable=2"
@@ -8594,7 +8594,7 @@ equivalent to \fB\-Walloc\-size\-larger\-than=\fR\fB\s-1SIZE_MAX\s0\fR or
 larger.
 .IP "\fB\-Walloca\fR" 4
 .IX Item "-Walloca"
-This option warns on all uses of \f(CW\*(C`alloca\*(C'\fR in the source.
+Warn on all uses of \f(CW\*(C`alloca\*(C'\fR in the source.
 .IP "\fB\-Wauto\-profile\fR" 4
 .IX Item "-Wauto-profile"
 Output warnings about auto-profile inconsistencies.
@@ -8604,7 +8604,7 @@ Warn when profiling instrumentation was requested, but could not be applied to
 a certain function.
 .IP "\fB\-Walloca\-larger\-than=\fR\fIbyte-size\fR" 4
 .IX Item "-Walloca-larger-than=byte-size"
-This option warns on calls to \f(CW\*(C`alloca\*(C'\fR with an integer argument whose
+Warns on calls to \f(CW\*(C`alloca\*(C'\fR with an integer argument whose
 value is either zero, or that is not bounded by a controlling predicate
 that limits its value to at most \fIbyte-size\fR.  It also warns for calls
 to \f(CW\*(C`alloca\*(C'\fR where the bound value is unknown.  Arguments of non-integer
@@ -9794,8 +9794,8 @@ Do not warn about stray tokens after \f(CW\*(C`#else\*(C'\fR and \f(CW\*(C`#endi
 .IP "\fB\-Wenum\-compare\fR" 4
 .IX Item "-Wenum-compare"
 Warn about a comparison between values of different enumerated types.
-In \*(C+ enumerated type mismatches in conditional expressions are also
-diagnosed and the warning is enabled by default.  In C this warning is
+In \*(C+, enumerated type mismatches in conditional expressions are also
+diagnosed and the warning is enabled by default.  In C, this warning is
 enabled by \fB\-Wall\fR.
 .IP "\fB\-Wenum\-conversion\fR" 4
 .IX Item "-Wenum-conversion"
@@ -9977,7 +9977,7 @@ Comparisons against string literals result in unspecified behavior
 and are not portable, and suggest the intent was to call \f(CW\*(C`strcmp\*(C'\fR.
 The warning is suppressed if the suspicious expression is the result
 of macro expansion.
-\&\fB\-Waddress\fR warning is enabled by \fB\-Wall\fR.
+\&\fB\-Waddress\fR is enabled by \fB\-Wall\fR.
 .IP "\fB\-Wno\-address\-of\-packed\-member\fR" 4
 .IX Item "-Wno-address-of-packed-member"
 Do not warn when the address of packed member of struct or union is taken,
@@ -10137,7 +10137,7 @@ This warning is also enabled by \fB\-Wextra\fR.
 Warn if a function declared with an empty parameter list \fB()\fR is
 called with one or more arguments, or if a function definition with one
 or more parameters is encountered after such a declaration.  Both cases
-are errors in C23 and later dialects  of C.
+are errors in C23 and later dialects of C.
 .Sp
 This warning is also enabled by \fB\-Wc11\-c23\-compat\fR.
 .IP "\fB\-Wmissing\-parameter\-name\fR (C and Objective-C only)" 4
@@ -12939,7 +12939,7 @@ This option results in less efficient code, but some strange hacks
 that alter the assembler output may be confused by the optimizations
 performed when this option is not used.
 .Sp
-The default is \fB\-ffunction\-cse\fR
+The default is \fB\-ffunction\-cse\fR.
 .IP "\fB\-ffuse\-ops\-with\-volatile\-access\fR" 4
 .IX Item "-ffuse-ops-with-volatile-access"
 Allow limited optimization of operations with volatile memory access
