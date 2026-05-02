@@ -6958,7 +6958,28 @@ The GCC testsuite defines the following directives to be used within
      stands for zero or more unmatched lines; the whitespace after
      PREFIX is again not significant.
 
-6.2.7.3 Scan optimization dump files
+6.2.7.3 Scan object metadata with readelf
+.........................................
+
+These commands inspect the linked test output file with 'readelf'.  They
+are mainly intended for LTO tests.
+
+ These commands take a single REGEX and test whether it is present in
+(or absent from, for '-not') the corresponding 'readelf' output.
+
+'object-readelf-attributes REGEX [{ target/xfail SELECTOR }]'
+     Runs 'readelf -A' and checks that REGEX matches.
+
+'object-readelf-attributes-not REGEX [{ target/xfail SELECTOR }]'
+     Runs 'readelf -A' and checks that REGEX does not match.
+
+'object-readelf-notes REGEX [{ target/xfail SELECTOR }]'
+     Runs 'readelf -n' and checks that REGEX matches.
+
+'object-readelf-notes-not REGEX [{ target/xfail SELECTOR }]'
+     Runs 'readelf -n' and checks that REGEX does not match.
+
+6.2.7.4 Scan optimization dump files
 ....................................
 
 These commands are available for KIND of 'tree', 'ltrans-tree',
@@ -7021,7 +7042,7 @@ scanned for in the GCN offload compilation dump file.  If nvptx
 offloading compilation is actually enabled, REGEX_NVPTX is scanned for
 in the nvptx offload compilation dump file.
 
-6.2.7.4 Check for output files
+6.2.7.5 Check for output files
 ..............................
 
 'output-exists [{ target/xfail SELECTOR }]'
@@ -7036,7 +7057,7 @@ in the nvptx offload compilation dump file.
 'scan-symbol-not REGEXP [{ target/xfail SELECTOR }]'
      Passes if the pattern is absent from the final executable.
 
-6.2.7.5 Checks for 'gcov' tests
+6.2.7.6 Checks for 'gcov' tests
 ...............................
 
 'run-gcov SOURCEFILE'
@@ -7049,7 +7070,7 @@ in the nvptx offload compilation dump file.
 'run-gcov-pytest { SOURCEFILE PYTEST_FILE }'
      Check output of 'gcov' intermediate format with a pytest script.
 
-6.2.7.6 Clean up generated test files
+6.2.7.7 Clean up generated test files
 .....................................
 
 Usually the test-framework removes files that were generated during
@@ -53049,6 +53070,10 @@ The following choices of NAME are recognized for all targets:
      The minimum size of variables taking part in stack slot sharing
      when not optimizing.
 
+'max-niter-dominators-walk'
+     Maximum number of dominators BBs to walk when simplifying loop
+     bounds and conditions.
+
 'max-jump-thread-duplication-stmts'
      Maximum number of statements allowed in a block that needs to be
      duplicated when threading jumps.
@@ -56781,114 +56806,114 @@ Parameter Index
 * aarch64-vect-unroll-limit:             AArch64 Parameters. (line   83)
 * align-loop-iterations:                 General Parameters. (line  534)
 * align-threshold:                       General Parameters. (line  529)
-* analyzer-bb-explosion-factor:          General Parameters. (line 1576)
-* analyzer-max-constraints:              General Parameters. (line 1548)
-* analyzer-max-enodes-for-full-dump:     General Parameters. (line 1555)
-* analyzer-max-enodes-per-program-point: General Parameters. (line 1544)
-* analyzer-max-infeasible-edges:         General Parameters. (line 1568)
-* analyzer-max-recursion-depth:          General Parameters. (line 1559)
-* analyzer-max-svalue-depth:             General Parameters. (line 1564)
-* analyzer-min-snodes-for-call-summary:  General Parameters. (line 1551)
-* analyzer-text-art-ideal-canvas-width:  General Parameters. (line 1584)
+* analyzer-bb-explosion-factor:          General Parameters. (line 1580)
+* analyzer-max-constraints:              General Parameters. (line 1552)
+* analyzer-max-enodes-for-full-dump:     General Parameters. (line 1559)
+* analyzer-max-enodes-per-program-point: General Parameters. (line 1548)
+* analyzer-max-infeasible-edges:         General Parameters. (line 1572)
+* analyzer-max-recursion-depth:          General Parameters. (line 1563)
+* analyzer-max-svalue-depth:             General Parameters. (line 1568)
+* analyzer-min-snodes-for-call-summary:  General Parameters. (line 1555)
+* analyzer-text-art-ideal-canvas-width:  General Parameters. (line 1588)
 * analyzer-text-art-string-ellipsis-head-len: General Parameters.
-                                                             (line 1588)
-* analyzer-text-art-string-ellipsis-tail-len: General Parameters.
                                                              (line 1592)
+* analyzer-text-art-string-ellipsis-tail-len: General Parameters.
+                                                             (line 1596)
 * analyzer-text-art-string-ellipsis-threshold: General Parameters.
-                                                             (line 1580)
-* asan-globals:                          General Parameters. (line 1190)
-* asan-instrument-allocas:               General Parameters. (line 1468)
-* asan-instrument-reads:                 General Parameters. (line 1201)
-* asan-instrument-writes:                General Parameters. (line 1207)
+                                                             (line 1584)
+* asan-globals:                          General Parameters. (line 1194)
+* asan-instrument-allocas:               General Parameters. (line 1472)
+* asan-instrument-reads:                 General Parameters. (line 1205)
+* asan-instrument-writes:                General Parameters. (line 1211)
 * asan-instrumentation-with-call-threshold: General Parameters.
-                                                             (line 1227)
-* asan-kernel-mem-intrinsic-prefix:      General Parameters. (line 1233)
-* asan-memintrin:                        General Parameters. (line 1213)
-* asan-stack:                            General Parameters. (line 1196)
-* asan-use-after-return:                 General Parameters. (line 1218)
+                                                             (line 1231)
+* asan-kernel-mem-intrinsic-prefix:      General Parameters. (line 1237)
+* asan-memintrin:                        General Parameters. (line 1217)
+* asan-stack:                            General Parameters. (line 1200)
+* asan-use-after-return:                 General Parameters. (line 1222)
 * auto-profile-bbs:                      General Parameters. (line    8)
 * auto-profile-reorder-only:             General Parameters. (line   13)
 * avg-loop-niter:                        General Parameters. (line  432)
-* avoid-fma-max-bits:                    General Parameters. (line 1424)
+* avoid-fma-max-bits:                    General Parameters. (line 1428)
 * builtin-expect-probability:            General Parameters. (line  521)
 * builtin-string-cmp-inline-length:      General Parameters. (line  525)
-* case-values-threshold:                 General Parameters. (line 1152)
+* case-values-threshold:                 General Parameters. (line 1156)
 * comdat-sharing-probability:            General Parameters. (line  275)
-* constructive-interference-size:        General Parameters. (line  800)
+* constructive-interference-size:        General Parameters. (line  804)
 * cxx-max-namespaces-for-diagnostic-help: General Parameters.
-                                                             (line 1135)
-* cycle-accurate-model:                  General Parameters. (line 1632)
-* destructive-interference-size:         General Parameters. (line  799)
+                                                             (line 1139)
+* cycle-accurate-model:                  General Parameters. (line 1636)
+* destructive-interference-size:         General Parameters. (line  803)
 * dse-max-alias-queries-per-store:       General Parameters. (line  439)
 * dse-max-object-size:                   General Parameters. (line  435)
 * early-inlining-insns:                  General Parameters. (line  265)
 * file-cache-files:                      General Parameters. (line   34)
 * file-cache-lines:                      General Parameters. (line   39)
-* fsm-scale-path-stmts:                  General Parameters. (line 1485)
-* fully-pipelined-fma:                   General Parameters. (line 1427)
+* fsm-scale-path-stmts:                  General Parameters. (line 1489)
+* fully-pipelined-fma:                   General Parameters. (line 1431)
 * gcn-preferred-vectorization-factor:    AMD GCN Parameters. (line    8)
-* gcse-after-reload-critical-fraction:   General Parameters. (line 1369)
-* gcse-after-reload-partial-fraction:    General Parameters. (line 1365)
+* gcse-after-reload-critical-fraction:   General Parameters. (line 1373)
+* gcse-after-reload-partial-fraction:    General Parameters. (line 1369)
 * gcse-cost-distance-ratio:              General Parameters. (line  316)
 * gcse-unrestricted-cost:                General Parameters. (line  324)
 * ggc-min-expand:                        General Parameters. (line  597)
 * ggc-min-heapsize:                      General Parameters. (line  614)
-* gimple-fe-computed-hot-bb-threshold:   General Parameters. (line 1572)
-* graphite-allow-codegen-errors:         General Parameters. (line 1441)
-* graphite-max-arrays-per-scop:          General Parameters. (line 1478)
-* graphite-max-nb-scop-params:           General Parameters. (line 1007)
-* hardcfr-max-blocks:                    General Parameters. (line 1014)
-* hardcfr-max-inline-blocks:             General Parameters. (line 1019)
-* hash-table-verification-limit:         General Parameters. (line 1536)
+* gimple-fe-computed-hot-bb-threshold:   General Parameters. (line 1576)
+* graphite-allow-codegen-errors:         General Parameters. (line 1445)
+* graphite-max-arrays-per-scop:          General Parameters. (line 1482)
+* graphite-max-nb-scop-params:           General Parameters. (line 1011)
+* hardcfr-max-blocks:                    General Parameters. (line 1018)
+* hardcfr-max-inline-blocks:             General Parameters. (line 1023)
+* hash-table-verification-limit:         General Parameters. (line 1540)
 * hot-bb-count-fraction:                 General Parameters. (line  477)
 * hot-bb-count-ws-permille:              General Parameters. (line  485)
 * hot-bb-frequency-fraction:             General Parameters. (line  495)
-* hwasan-instrument-allocas:             General Parameters. (line 1255)
-* hwasan-instrument-mem-intrinsics:      General Parameters. (line 1275)
-* hwasan-instrument-reads:               General Parameters. (line 1263)
-* hwasan-instrument-stack:               General Parameters. (line 1238)
-* hwasan-instrument-writes:              General Parameters. (line 1269)
-* hwasan-random-frame-tag:               General Parameters. (line 1246)
+* hwasan-instrument-allocas:             General Parameters. (line 1259)
+* hwasan-instrument-mem-intrinsics:      General Parameters. (line 1279)
+* hwasan-instrument-reads:               General Parameters. (line 1267)
+* hwasan-instrument-stack:               General Parameters. (line 1242)
+* hwasan-instrument-writes:              General Parameters. (line 1273)
+* hwasan-random-frame-tag:               General Parameters. (line 1250)
 * inline-heuristics-hint-percent:        General Parameters. (line  163)
 * inline-min-speedup:                    General Parameters. (line  174)
 * inline-unit-growth:                    General Parameters. (line  209)
 * integer-share-limit:                   General Parameters. (line  725)
-* ipa-cp-eval-threshold:                 General Parameters. (line 1041)
+* ipa-cp-eval-threshold:                 General Parameters. (line 1045)
 * ipa-cp-large-unit-insns:               General Parameters. (line  221)
-* ipa-cp-loop-hint-bonus:                General Parameters. (line 1074)
-* ipa-cp-max-recursive-depth:            General Parameters. (line 1046)
-* ipa-cp-min-recursive-probability:      General Parameters. (line 1049)
-* ipa-cp-recursion-penalty:              General Parameters. (line 1057)
-* ipa-cp-recursive-freq-factor:          General Parameters. (line 1053)
-* ipa-cp-single-call-penalty:            General Parameters. (line 1061)
-* ipa-cp-sweeps:                         General Parameters. (line 1065)
+* ipa-cp-loop-hint-bonus:                General Parameters. (line 1078)
+* ipa-cp-max-recursive-depth:            General Parameters. (line 1050)
+* ipa-cp-min-recursive-probability:      General Parameters. (line 1053)
+* ipa-cp-recursion-penalty:              General Parameters. (line 1061)
+* ipa-cp-recursive-freq-factor:          General Parameters. (line 1057)
+* ipa-cp-single-call-penalty:            General Parameters. (line 1065)
+* ipa-cp-sweeps:                         General Parameters. (line 1069)
 * ipa-cp-unit-growth:                    General Parameters. (line  216)
-* ipa-cp-value-list-size:                General Parameters. (line 1034)
-* ipa-jump-function-lookups:             General Parameters. (line 1030)
-* ipa-max-aa-steps:                      General Parameters. (line 1084)
-* ipa-max-agg-items:                     General Parameters. (line 1069)
-* ipa-max-loop-predicates:               General Parameters. (line 1080)
-* ipa-max-param-expr-ops:                General Parameters. (line 1097)
-* ipa-max-switch-predicate-bounds:       General Parameters. (line 1091)
-* ipa-sra-deref-prob-threshold:          General Parameters. (line  964)
-* ipa-sra-max-replacements:              General Parameters. (line  982)
-* ipa-sra-ptr-growth-factor:             General Parameters. (line  970)
-* ipa-sra-ptrwrap-growth-factor:         General Parameters. (line  976)
-* ira-consider-dup-in-all-alts:          General Parameters. (line  899)
-* ira-loop-reserved-regs:                General Parameters. (line  892)
-* ira-max-conflict-table-size:           General Parameters. (line  883)
-* ira-max-loops-num:                     General Parameters. (line  877)
-* ira-simple-lra-insn-threshold:         General Parameters. (line  909)
+* ipa-cp-value-list-size:                General Parameters. (line 1038)
+* ipa-jump-function-lookups:             General Parameters. (line 1034)
+* ipa-max-aa-steps:                      General Parameters. (line 1088)
+* ipa-max-agg-items:                     General Parameters. (line 1073)
+* ipa-max-loop-predicates:               General Parameters. (line 1084)
+* ipa-max-param-expr-ops:                General Parameters. (line 1101)
+* ipa-max-switch-predicate-bounds:       General Parameters. (line 1095)
+* ipa-sra-deref-prob-threshold:          General Parameters. (line  968)
+* ipa-sra-max-replacements:              General Parameters. (line  986)
+* ipa-sra-ptr-growth-factor:             General Parameters. (line  974)
+* ipa-sra-ptrwrap-growth-factor:         General Parameters. (line  980)
+* ira-consider-dup-in-all-alts:          General Parameters. (line  903)
+* ira-loop-reserved-regs:                General Parameters. (line  896)
+* ira-max-conflict-table-size:           General Parameters. (line  887)
+* ira-max-loops-num:                     General Parameters. (line  881)
+* ira-simple-lra-insn-threshold:         General Parameters. (line  913)
 * iv-always-prune-cand-set-bound:        General Parameters. (line  426)
 * iv-consider-all-candidates-bound:      General Parameters. (line  415)
 * iv-max-considered-uses:                General Parameters. (line  422)
 * ix86-vect-compare-costs:               x86 Parameters.     (line   19)
 * ix86-vect-unroll-limit:                x86 Parameters.     (line   16)
-* jump-table-max-growth-ratio-for-size:  General Parameters. (line 1157)
-* jump-table-max-growth-ratio-for-speed: General Parameters. (line 1161)
-* l1-cache-line-size:                    General Parameters. (line  762)
-* l1-cache-size:                         General Parameters. (line  765)
-* l2-cache-size:                         General Parameters. (line  768)
+* jump-table-max-growth-ratio-for-size:  General Parameters. (line 1161)
+* jump-table-max-growth-ratio-for-speed: General Parameters. (line 1165)
+* l1-cache-line-size:                    General Parameters. (line  766)
+* l1-cache-size:                         General Parameters. (line  769)
+* l2-cache-size:                         General Parameters. (line  772)
 * large-function-growth:                 General Parameters. (line  187)
 * large-function-insns:                  General Parameters. (line  180)
 * large-stack-frame:                     General Parameters. (line  224)
@@ -56898,26 +56923,26 @@ Parameter Index
 * lim-expensive:                         General Parameters. (line  405)
 * loongarch-vect-unroll-limit:           LoongArch Parameters.
                                                              (line    8)
-* loop-block-tile-size:                  General Parameters. (line 1024)
-* loop-interchange-max-num-stmts:        General Parameters. (line  827)
-* loop-interchange-stride-ratio:         General Parameters. (line  830)
-* loop-invariant-max-bbs-in-loop:        General Parameters. (line  921)
-* loop-max-datarefs-for-datadeps:        General Parameters. (line  927)
-* loop-versioning-max-inner-insns:       General Parameters. (line 1511)
-* loop-versioning-max-outer-insns:       General Parameters. (line 1515)
+* loop-block-tile-size:                  General Parameters. (line 1028)
+* loop-interchange-max-num-stmts:        General Parameters. (line  831)
+* loop-interchange-stride-ratio:         General Parameters. (line  834)
+* loop-invariant-max-bbs-in-loop:        General Parameters. (line  925)
+* loop-max-datarefs-for-datadeps:        General Parameters. (line  931)
+* loop-versioning-max-inner-insns:       General Parameters. (line 1515)
+* loop-versioning-max-outer-insns:       General Parameters. (line 1519)
 * lra-inheritance-ebb-probability-cutoff: General Parameters.
-                                                             (line  913)
-* lra-max-considered-reload-pseudos:     General Parameters. (line 1448)
+                                                             (line  917)
+* lra-max-considered-reload-pseudos:     General Parameters. (line 1452)
 * lra-max-pseudos-points-log2-considered-for-preferences: General Parameters.
-                                                             (line 1452)
-* lto-max-locality-partition:            General Parameters. (line 1128)
-* lto-max-partition:                     General Parameters. (line 1114)
-* lto-max-streaming-parallelism:         General Parameters. (line 1132)
-* lto-min-partition:                     General Parameters. (line 1109)
+                                                             (line 1456)
+* lto-max-locality-partition:            General Parameters. (line 1132)
+* lto-max-partition:                     General Parameters. (line 1118)
+* lto-max-streaming-parallelism:         General Parameters. (line 1136)
+* lto-min-partition:                     General Parameters. (line 1113)
 * lto-partition-locality-frequency-cutoff: General Parameters.
-                                                             (line 1119)
-* lto-partition-locality-size-cutoff:    General Parameters. (line 1124)
-* lto-partitions:                        General Parameters. (line 1104)
+                                                             (line 1123)
+* lto-partition-locality-size-cutoff:    General Parameters. (line 1128)
+* lto-partitions:                        General Parameters. (line 1108)
 * max-average-unrolled-insns:            General Parameters. (line  368)
 * max-combine-insns:                     General Parameters. (line  711)
 * max-combine-search-insns:              General Parameters. (line  715)
@@ -56928,15 +56953,15 @@ Parameter Index
 * max-cse-insns:                         General Parameters. (line  594)
 * max-cse-path-length:                   General Parameters. (line  590)
 * max-cselib-memory-locations:           General Parameters. (line  637)
-* max-debug-marker-count:                General Parameters. (line  951)
+* max-debug-marker-count:                General Parameters. (line  955)
 * max-delay-slot-insn-search:            General Parameters. (line   81)
 * max-delay-slot-live-search:            General Parameters. (line   89)
 * max-devirt-targets:                    General Parameters. (line   97)
-* max-dse-active-local-stores:           General Parameters. (line 1464)
+* max-dse-active-local-stores:           General Parameters. (line 1468)
 * max-early-inliner-iterations:          General Parameters. (line  270)
-* max-fields-for-field-sensitive:        General Parameters. (line  749)
-* max-find-base-term-values:             General Parameters. (line 1540)
-* max-fsm-thread-path-insns:             General Parameters. (line 1302)
+* max-fields-for-field-sensitive:        General Parameters. (line  753)
+* max-find-base-term-values:             General Parameters. (line 1544)
+* max-fsm-thread-path-insns:             General Parameters. (line 1306)
 * max-gcse-insertion-ratio:              General Parameters. (line  107)
 * max-gcse-memory:                       General Parameters. (line  101)
 * max-goto-duplication-insns:            General Parameters. (line   73)
@@ -56954,61 +56979,62 @@ Parameter Index
 * max-inline-insns-small:                General Parameters. (line  146)
 * max-inline-recursive-depth:            General Parameters. (line  244)
 * max-inline-recursive-depth-auto:       General Parameters. (line  244)
-* max-isl-operations:                    General Parameters. (line 1475)
-* max-iterations-computation-cost:       General Parameters. (line 1471)
+* max-isl-operations:                    General Parameters. (line 1479)
+* max-iterations-computation-cost:       General Parameters. (line 1475)
 * max-iterations-to-track:               General Parameters. (line  472)
-* max-jump-thread-duplication-stmts:     General Parameters. (line  738)
-* max-jump-thread-paths:                 General Parameters. (line  742)
+* max-jump-thread-duplication-stmts:     General Parameters. (line  742)
+* max-jump-thread-paths:                 General Parameters. (line  746)
 * max-last-value-rtl:                    General Parameters. (line  706)
-* max-loop-header-insns:                 General Parameters. (line 1373)
+* max-loop-header-insns:                 General Parameters. (line 1377)
 * max-modulo-backtrack-attempts:         General Parameters. (line  119)
-* max-partial-antic-length:              General Parameters. (line  854)
+* max-niter-dominators-walk:             General Parameters. (line  738)
+* max-partial-antic-length:              General Parameters. (line  858)
 * max-peel-branches:                     General Parameters. (line  385)
 * max-peel-times:                        General Parameters. (line  382)
 * max-peeled-insns:                      General Parameters. (line  377)
 * max-pending-list-length:               General Parameters. (line  113)
 * max-pipeline-region-blocks:            General Parameters. (line  653)
 * max-pipeline-region-insns:             General Parameters. (line  661)
-* max-pow-sqrt-depth:                    General Parameters. (line 1460)
+* max-pow-sqrt-depth:                    General Parameters. (line 1464)
 * max-predicted-iterations:              General Parameters. (line  513)
 * max-reload-search-insns:               General Parameters. (line  631)
 * max-rtl-if-conversion-insns:           General Parameters. (line   26)
 * max-rtl-if-conversion-predictable-cost: General Parameters.
                                                              (line   45)
 * max-rtl-if-conversion-unpredictable-cost: General Parameters.
-                                                             (line 1346)
+                                                             (line 1350)
 * max-sched-extend-regions-iters:        General Parameters. (line  669)
 * max-sched-insn-conflict-delay:         General Parameters. (line  673)
 * max-sched-ready-insns:                 General Parameters. (line  643)
 * max-sched-region-blocks:               General Parameters. (line  649)
 * max-sched-region-insns:                General Parameters. (line  657)
-* max-slsr-cand-scan:                    General Parameters. (line 1185)
-* max-speculative-devirt-maydefs:        General Parameters. (line 1329)
-* max-ssa-name-query-depth:              General Parameters. (line 1324)
+* max-slsr-cand-scan:                    General Parameters. (line 1189)
+* max-speculative-devirt-maydefs:        General Parameters. (line 1333)
+* max-ssa-name-query-depth:              General Parameters. (line 1328)
 * max-store-chains-to-track:             General Parameters. (line  354)
 * max-stores-to-merge:                   General Parameters. (line  350)
-* max-stores-to-sink:                    General Parameters. (line 1147)
+* max-stores-to-sink:                    General Parameters. (line 1151)
 * max-stores-to-track:                   General Parameters. (line  358)
 * max-tail-merge-comparisons:            General Parameters. (line  338)
 * max-tail-merge-iterations:             General Parameters. (line  342)
-* max-tracked-strlens:                   General Parameters. (line 1361)
+* max-tracked-strlens:                   General Parameters. (line 1365)
 * max-tree-if-conversion-phi-args:       General Parameters. (line  452)
 * max-unroll-times:                      General Parameters. (line  374)
 * max-unrolled-insns:                    General Parameters. (line  363)
 * max-unswitch-depth:                    General Parameters. (line  402)
 * max-unswitch-insns:                    General Parameters. (line  399)
-* max-variable-expansions-in-unroller:   General Parameters. (line 1351)
-* max-vartrack-expr-depth:               General Parameters. (line  942)
-* max-vartrack-reverse-op-size:          General Parameters. (line 1481)
-* max-vartrack-size:                     General Parameters. (line  933)
-* memtag-instrument-allocas:             General Parameters. (line 1282)
-* memtag-instrument-mem-intrinsics:      General Parameters. (line 1287)
+* max-variable-expansions-in-unroller:   General Parameters. (line 1355)
+* max-vartrack-expr-depth:               General Parameters. (line  946)
+* max-vartrack-reverse-op-size:          General Parameters. (line 1485)
+* max-vartrack-size:                     General Parameters. (line  937)
+* memtag-instrument-allocas:             General Parameters. (line 1286)
+* memtag-instrument-mem-intrinsics:      General Parameters. (line 1291)
 * min-crossjump-insns:                   General Parameters. (line   62)
 * min-inline-recursive-probability:      General Parameters. (line  253)
-* min-insn-to-prefetch-ratio:            General Parameters. (line  834)
+* min-insn-to-prefetch-ratio:            General Parameters. (line  838)
 * min-loop-cond-split-prob:              General Parameters. (line  409)
-* min-nondebug-insn-uid:                 General Parameters. (line  958)
-* min-pagesize:                          General Parameters. (line 1612)
+* min-nondebug-insn-uid:                 General Parameters. (line  962)
+* min-pagesize:                          General Parameters. (line 1616)
 * min-size-for-stack-sharing:            General Parameters. (line  734)
 * min-spec-prob:                         General Parameters. (line  665)
 * min-vect-loop-bound:                   General Parameters. (line  310)
@@ -57019,57 +57045,57 @@ Parameter Index
 * modref-max-escape-points:              General Parameters. (line  295)
 * modref-max-refs:                       General Parameters. (line  280)
 * modref-max-tests:                      General Parameters. (line  285)
-* openacc-kernels:                       General Parameters. (line 1616)
-* openacc-privatization:                 General Parameters. (line 1625)
-* parloops-chunk-size:                   General Parameters. (line 1310)
-* parloops-min-per-thread:               General Parameters. (line 1317)
-* parloops-schedule:                     General Parameters. (line 1313)
-* partial-inlining-entry-probability:    General Parameters. (line 1356)
+* openacc-kernels:                       General Parameters. (line 1620)
+* openacc-privatization:                 General Parameters. (line 1629)
+* parloops-chunk-size:                   General Parameters. (line 1314)
+* parloops-min-per-thread:               General Parameters. (line 1321)
+* parloops-schedule:                     General Parameters. (line 1317)
+* partial-inlining-entry-probability:    General Parameters. (line 1360)
 * phiopt-factor-max-stmts-live:          General Parameters. (line   16)
 * predictable-branch-outcome:            General Parameters. (line   21)
-* prefetch-dynamic-strides:              General Parameters. (line  771)
-* prefetch-latency:                      General Parameters. (line  753)
-* prefetch-min-insn-to-mem-ratio:        General Parameters. (line  838)
-* prefetch-minimum-stride:               General Parameters. (line  782)
+* prefetch-dynamic-strides:              General Parameters. (line  775)
+* prefetch-latency:                      General Parameters. (line  757)
+* prefetch-min-insn-to-mem-ratio:        General Parameters. (line  842)
+* prefetch-minimum-stride:               General Parameters. (line  786)
 * profile-func-internal-id:              General Parameters. (line  303)
-* ranger-debug:                          General Parameters. (line 1334)
-* ranger-logical-depth:                  General Parameters. (line 1596)
-* ranger-recompute-depth:                General Parameters. (line 1600)
-* relation-block-limit:                  General Parameters. (line 1604)
+* ranger-debug:                          General Parameters. (line 1338)
+* ranger-logical-depth:                  General Parameters. (line 1600)
+* ranger-recompute-depth:                General Parameters. (line 1604)
+* relation-block-limit:                  General Parameters. (line 1608)
 * riscv-strcmp-inline-limit:             RISC-V Parameters.  (line    8)
-* rpo-vn-max-loop-depth:                 General Parameters. (line  864)
+* rpo-vn-max-loop-depth:                 General Parameters. (line  868)
 * rs6000-vect-unroll-limit:              RS/6000 and PowerPC Parameters.
                                                              (line    8)
-* sccvn-max-alias-queries-per-access:    General Parameters. (line  870)
+* sccvn-max-alias-queries-per-access:    General Parameters. (line  874)
 * scev-max-expr-complexity:              General Parameters. (line  448)
 * scev-max-expr-size:                    General Parameters. (line  444)
-* sched-autopref-queue-depth:            General Parameters. (line 1506)
+* sched-autopref-queue-depth:            General Parameters. (line 1510)
 * sched-mem-true-dep-cost:               General Parameters. (line  685)
-* sched-pressure-algorithm:              General Parameters. (line 1172)
+* sched-pressure-algorithm:              General Parameters. (line 1176)
 * sched-spec-prob-cutoff:                General Parameters. (line  677)
 * sched-state-edge-prob-cutoff:          General Parameters. (line  681)
 * selsched-insns-to-rename:              General Parameters. (line  698)
 * selsched-max-lookahead:                General Parameters. (line  689)
 * selsched-max-sched-times:              General Parameters. (line  693)
-* simultaneous-prefetches:               General Parameters. (line  759)
-* sink-frequency-threshold:              General Parameters. (line 1139)
-* sms-dfa-history:                       General Parameters. (line 1437)
-* sms-loop-average-count-threshold:      General Parameters. (line 1433)
-* sms-max-ii-factor:                     General Parameters. (line 1444)
+* simultaneous-prefetches:               General Parameters. (line  763)
+* sink-frequency-threshold:              General Parameters. (line 1143)
+* sms-dfa-history:                       General Parameters. (line 1441)
+* sms-loop-average-count-threshold:      General Parameters. (line 1437)
+* sms-max-ii-factor:                     General Parameters. (line 1448)
 * sms-min-sc:                            General Parameters. (line  702)
-* sra-max-propagations:                  General Parameters. (line  996)
-* sra-max-scalarization-size-Osize:      General Parameters. (line  987)
-* sra-max-scalarization-size-Ospeed:     General Parameters. (line  987)
-* ssa-name-def-chain-limit:              General Parameters. (line 1521)
+* sra-max-propagations:                  General Parameters. (line 1000)
+* sra-max-scalarization-size-Osize:      General Parameters. (line  991)
+* sra-max-scalarization-size-Ospeed:     General Parameters. (line  991)
+* ssa-name-def-chain-limit:              General Parameters. (line 1525)
 * ssp-buffer-size:                       General Parameters. (line  730)
 * stack-clash-protection-guard-size:     General Parameters. (line  575)
 * stack-clash-protection-probe-interval: General Parameters. (line  582)
-* store-forwarding-max-distance:         General Parameters. (line 1531)
+* store-forwarding-max-distance:         General Parameters. (line 1535)
 * store-merging-allow-unaligned:         General Parameters. (line  346)
-* store-merging-max-size:                General Parameters. (line 1528)
-* switch-conversion-max-branch-ratio:    General Parameters. (line  849)
-* threader-debug:                        General Parameters. (line 1306)
-* tm-max-aggregate-size:                 General Parameters. (line 1001)
+* store-merging-max-size:                General Parameters. (line 1532)
+* switch-conversion-max-branch-ratio:    General Parameters. (line  853)
+* threader-debug:                        General Parameters. (line 1310)
+* tm-max-aggregate-size:                 General Parameters. (line 1005)
 * tracer-dynamic-coverage:               General Parameters. (line  539)
 * tracer-dynamic-coverage-feedback:      General Parameters. (line  539)
 * tracer-max-code-growth:                General Parameters. (line  551)
@@ -57077,39 +57103,39 @@ Parameter Index
 * tracer-min-branch-probability-feedback: General Parameters.
                                                              (line  562)
 * tracer-min-branch-ratio:               General Parameters. (line  557)
-* transitive-relations-work-bound:       General Parameters. (line 1608)
-* tree-reassoc-width:                    General Parameters. (line 1166)
-* tsan-distinguish-volatile:             General Parameters. (line 1295)
-* tsan-instrument-func-entry-exit:       General Parameters. (line 1298)
-* uninit-control-dep-attempts:           General Parameters. (line 1490)
-* uninit-max-chain-len:                  General Parameters. (line 1494)
-* uninit-max-num-chains:                 General Parameters. (line 1498)
-* uninit-max-prune-work:                 General Parameters. (line 1502)
+* transitive-relations-work-bound:       General Parameters. (line 1612)
+* tree-reassoc-width:                    General Parameters. (line 1170)
+* tsan-distinguish-volatile:             General Parameters. (line 1299)
+* tsan-instrument-func-entry-exit:       General Parameters. (line 1302)
+* uninit-control-dep-attempts:           General Parameters. (line 1494)
+* uninit-max-chain-len:                  General Parameters. (line 1498)
+* uninit-max-num-chains:                 General Parameters. (line 1502)
+* uninit-max-prune-work:                 General Parameters. (line 1506)
 * uninlined-function-insns:              General Parameters. (line  155)
 * uninlined-function-time:               General Parameters. (line  159)
 * uninlined-thunk-insns:                 General Parameters. (line  169)
 * uninlined-thunk-time:                  General Parameters. (line  170)
 * unlikely-bb-count-fraction:            General Parameters. (line  504)
-* unroll-jam-max-unroll:                 General Parameters. (line 1342)
-* unroll-jam-min-percent:                General Parameters. (line 1337)
+* unroll-jam-max-unroll:                 General Parameters. (line 1346)
+* unroll-jam-min-percent:                General Parameters. (line 1341)
 * use-after-scope-direct-emission-threshold: General Parameters.
-                                                             (line 1290)
-* use-canonical-types:                   General Parameters. (line  842)
-* vect-epilogues-nomask:                 General Parameters. (line 1377)
-* vect-induction-float:                  General Parameters. (line 1397)
-* vect-inner-loop-cost-factor:           General Parameters. (line 1390)
+                                                             (line 1294)
+* use-canonical-types:                   General Parameters. (line  846)
+* vect-epilogues-nomask:                 General Parameters. (line 1381)
+* vect-induction-float:                  General Parameters. (line 1401)
+* vect-inner-loop-cost-factor:           General Parameters. (line 1394)
 * vect-max-layout-candidates:            General Parameters. (line  456)
 * vect-max-peeling-for-alignment:        General Parameters. (line  468)
 * vect-max-version-for-alias-checks:     General Parameters. (line  464)
 * vect-max-version-for-alignment-checks: General Parameters. (line  460)
-* vect-partial-vector-usage:             General Parameters. (line 1381)
+* vect-partial-vector-usage:             General Parameters. (line 1385)
 * vect_allow_possibly_not_worthwhile_vectorizations: General Parameters.
-                                                             (line 1400)
-* vrp-block-limit:                       General Parameters. (line 1404)
-* vrp-cstload-limit:                     General Parameters. (line 1408)
-* vrp-sparse-threshold:                  General Parameters. (line 1412)
-* vrp-switch-limit:                      General Parameters. (line 1416)
-* vrp-vector-threshold:                  General Parameters. (line 1420)
+                                                             (line 1404)
+* vrp-block-limit:                       General Parameters. (line 1408)
+* vrp-cstload-limit:                     General Parameters. (line 1412)
+* vrp-sparse-threshold:                  General Parameters. (line 1416)
+* vrp-switch-limit:                      General Parameters. (line 1420)
+* vrp-vector-threshold:                  General Parameters. (line 1424)
 * x86-stlf-window-ninsns:                x86 Parameters.     (line    8)
 * x86-stv-max-visits:                    x86 Parameters.     (line   12)
 
@@ -66184,413 +66210,413 @@ Ref: stack_size_ao283695
 Node: Remove Options284353
 Node: Require Support285329
 Node: Final Actions288406
-Node: Ada Tests301056
-Node: C Tests302219
-Node: LTO Testing306591
-Node: gcov Testing308234
-Node: profopt Testing311204
-Node: compat Testing312919
-Node: Torture Tests317727
-Node: GIMPLE Tests319361
-Node: RTL Tests320603
-Node: Options321909
-Node: Option file format322455
-Node: Option properties330943
-Node: Spec Files349736
-Node: Passes375618
-Node: Parsing pass376494
-Node: Gimplification pass380022
-Node: Pass manager381856
-Node: IPA passes383698
-Node: Small IPA passes384591
-Node: Regular IPA passes388041
-Node: Late IPA passes392843
-Node: Tree SSA passes393804
-Node: RTL passes413083
-Ref: mode switching optimization420136
-Node: Optimization info427127
-Node: Dump setup427946
-Node: Optimization groups429076
-Node: Dump files and streams430055
-Node: Dump output verbosity431254
-Node: Dump types432310
-Node: Dump examples434653
-Node: poly_int436134
-Node: Overview of poly_int437614
-Node: Consequences of using poly_int440218
-Node: Comparisons involving poly_int441853
-Node: Comparison functions for poly_int443491
-Node: Properties of the poly_int comparisons444698
-Node: Comparing potentially-unordered poly_ints447140
-Node: Comparing ordered poly_ints448051
-Node: Checking for a poly_int marker value450075
-Node: Range checks on poly_ints450924
-Node: Sorting poly_ints453578
-Node: Arithmetic on poly_ints454351
-Node: Using poly_int with C++ arithmetic operators455152
-Node: wi arithmetic on poly_ints456683
-Node: Division of poly_ints457535
-Node: Other poly_int arithmetic459042
-Node: Alignment of poly_ints460448
-Node: Computing bounds on poly_ints463725
-Node: Converting poly_ints465114
-Node: Miscellaneous poly_int routines468661
-Node: Guidelines for using poly_int469301
-Node: GENERIC474233
-Node: Deficiencies476055
-Node: Tree overview476296
-Node: Macros and Functions480420
-Node: Identifiers481245
-Node: Containers482854
-Node: Types484011
-Node: Declarations496768
-Node: Working with declarations497263
-Node: Internal structure502867
-Node: Current structure hierarchy503251
-Node: Adding new DECL node types505344
-Node: Attributes509630
-Node: Expression trees510874
-Node: Constant expressions512628
-Node: Storage References518720
-Node: Unary and Binary Expressions522561
-Node: Vectors544036
-Node: Statements556315
-Node: Basic Statements556847
-Node: Blocks561984
-Node: Statement Sequences563685
-Node: Empty Statements564018
-Node: Jumps564592
-Node: Cleanups565245
-Node: OpenMP567286
-Node: OpenACC578836
-Node: Functions579953
-Node: Function Basics580424
-Node: Function Properties584108
-Node: Language-dependent trees586889
-Node: C and C++ Trees587776
-Node: Types for C++590661
-Node: Namespaces595631
-Node: Classes598737
-Node: Functions for C++603645
-Node: Statements for C and C++609902
-Node: C++ Expressions618409
-Node: GIMPLE619920
-Node: Tuple representation623595
-Node: Class hierarchy of GIMPLE statements630555
-Node: GIMPLE instruction set635543
-Node: GIMPLE Exception Handling637208
-Node: Temporaries639120
-Ref: Temporaries-Footnote-1640438
-Node: Operands640503
-Node: Compound Expressions641264
-Node: Compound Lvalues641498
-Node: Conditional Expressions642260
-Node: Logical Operators642919
-Node: Manipulating GIMPLE statements650230
-Node: Tuple specific accessors655812
-Node: GIMPLE_ASM656623
-Node: GIMPLE_ASSIGN659295
-Node: GIMPLE_BIND663999
-Node: GIMPLE_CALL665813
-Node: GIMPLE_CATCH669954
-Node: GIMPLE_COND671104
-Node: GIMPLE_DEBUG673899
-Node: GIMPLE_EH_FILTER678497
-Node: GIMPLE_LABEL680060
-Node: GIMPLE_GOTO680673
-Node: GIMPLE_NOP681196
-Node: GIMPLE_OMP_ATOMIC_LOAD681558
-Node: GIMPLE_OMP_ATOMIC_STORE682554
-Node: GIMPLE_OMP_CONTINUE683253
-Node: GIMPLE_OMP_CRITICAL684732
-Node: GIMPLE_OMP_FOR685726
-Node: GIMPLE_OMP_MASTER689142
-Node: GIMPLE_OMP_ORDERED689520
-Node: GIMPLE_OMP_PARALLEL689923
-Node: GIMPLE_OMP_RETURN692710
-Node: GIMPLE_OMP_SECTION693355
-Node: GIMPLE_OMP_SECTIONS694019
-Node: GIMPLE_OMP_SINGLE695629
-Node: GIMPLE_OMP_STRUCTURED_BLOCK696592
-Node: GIMPLE_PHI697384
-Node: GIMPLE_RESX698673
-Node: GIMPLE_RETURN699392
-Node: GIMPLE_SWITCH699966
-Node: GIMPLE_TRY701839
-Node: GIMPLE_WITH_CLEANUP_EXPR703611
-Node: GIMPLE sequences704490
-Node: Sequence iterators707696
-Node: Adding a new GIMPLE statement code716153
-Node: Statement and operand traversals717502
-Node: Internal Functions720094
-Node: Internal Function API720871
-Node: Table of Internal Functions721355
-Node: Direct Internal Functions721652
-Node: Internal Functions Corresponding to Builtins741347
-Node: Other Internal Functions750312
-Node: Tree SSA761454
-Node: Annotations763254
-Node: SSA Operands763659
-Node: SSA778232
-Node: Alias analysis787939
-Node: Memory model791714
-Node: RTL793073
-Node: RTL Objects795315
-Node: RTL Classes799388
-Node: Accessors804686
-Node: Special Accessors806859
-Node: Flags812646
-Node: Machine Modes827909
-Node: Constants845723
-Node: Regs and Memory857522
-Node: Arithmetic874814
-Node: Comparisons885517
-Node: Bit-Fields889219
-Node: Vector Operations890770
-Node: Conversions892874
-Node: RTL Declarations897372
-Node: Side Effects898216
-Node: Incdec914750
-Node: Assembler918086
-Node: Debug Information919631
-Node: Insns921558
-Node: Calls947452
-Node: RTL SSA950045
-Node: Using RTL SSA951436
-Node: RTL SSA Instructions953380
-Ref: RTL SSA Instructions-Footnote-1954766
-Node: RTL SSA Basic Blocks954900
-Ref: real RTL SSA insns955368
-Ref: RTL SSA Basic Blocks-Footnote-1957590
-Node: RTL SSA Resources957724
-Node: RTL SSA Accesses958841
-Ref: RTL SSA Accesses-Footnote-1960542
-Node: RTL SSA Phi Nodes960685
-Node: RTL SSA Access Lists962689
-Node: Changing RTL Instructions966964
-Node: Changing One RTL SSA Instruction967573
-Node: Changing Multiple RTL SSA Instructions972527
-Node: Sharing976791
-Node: Reading RTL979947
-Node: Control Flow980939
-Node: Basic Blocks982707
-Node: Edges988158
-Node: Profile information996902
-Node: Maintaining the CFG1001586
-Node: Liveness information1007354
-Node: Loop Analysis and Representation1009481
-Node: Loop representation1010517
-Node: Loop querying1017961
-Node: Loop manipulation1020770
-Node: LCSSA1023116
-Node: Scalar evolutions1025185
-Node: loop-iv1028429
-Node: Number of iterations1030351
-Node: Dependency analysis1034432
-Node: Machine Desc1040784
-Node: Overview1043419
-Node: Patterns1045459
-Node: Example1050426
-Node: RTL Template1051887
-Node: Output Template1062535
-Node: Output Statement1066716
-Node: Compact Syntax1071059
-Node: Predicates1075900
-Node: Machine-Independent Predicates1078816
-Node: Defining Predicates1083761
-Node: Constraints1089724
-Node: Simple Constraints1091193
-Node: Multi-Alternative1104793
-Node: Class Preferences1107993
-Node: Modifiers1108885
-Node: Machine Constraints1114579
-Node: Disable Insn Alternatives1173178
-Node: Define Constraints1176670
-Node: C Constraint Interface1186965
-Node: Standard Names1190092
-Node: General Standard Pattern Names1190626
-Ref: shift patterns1208792
-Ref: prologue instruction pattern1264278
-Ref: window_save instruction pattern1264771
-Ref: epilogue instruction pattern1265048
-Node: Standard Pattern Names for Vectorization1290235
-Node: Pattern Ordering1342101
-Node: Dependent Patterns1343337
-Node: Jump Patterns1344957
-Node: Looping Patterns1346634
-Node: Insn Canonicalizations1352273
-Node: Expander Definitions1357785
-Node: Insn Splitting1365998
-Node: Including Patterns1381089
-Node: Peephole Definitions1382866
-Node: define_peephole1384119
-Node: define_peephole21390449
-Node: Insn Attributes1395065
-Node: Defining Attributes1396162
-Ref: define_enum_attr1399654
-Node: Expressions1400690
-Node: Tagging Insns1407440
-Node: Attr Example1411793
-Node: Insn Lengths1414166
-Node: Constant Attributes1417578
-Node: Mnemonic Attribute1418754
-Node: Delay Slots1420273
-Node: Processor pipeline description1423496
-Ref: Processor pipeline description-Footnote-11442308
-Node: Conditional Execution1442632
-Node: Define Subst1446115
-Node: Define Subst Example1448150
-Node: Define Subst Pattern Matching1451145
-Node: Define Subst Output Template1452371
-Node: Constant Definitions1454694
-Ref: define_enum1458553
-Node: Iterators1459041
-Node: Mode Iterators1459686
-Node: Defining Mode Iterators1460664
-Node: Substitutions1462632
-Node: Examples1464874
-Node: Code Iterators1466334
-Node: Int Iterators1469706
-Node: Subst Iterators1472279
-Node: Parameterized Names1473999
-Node: Target Macros1478246
-Node: Target Structure1481552
-Node: Driver1484837
-Node: Run-time Target1504281
-Node: Per-Function Data1514938
-Node: Storage Layout1517702
-Node: Type Layout1547362
-Node: Registers1560359
-Node: Register Basics1561333
-Node: Allocation Order1568895
-Node: Values in Registers1571379
-Node: Leaf Functions1578855
-Node: Stack Registers1581714
-Node: Register Classes1582987
-Node: Stack and Calling1619065
-Node: Frame Layout1619671
-Node: Exception Handling1634448
-Node: Stack Checking1641183
-Node: Frame Registers1646809
-Node: Elimination1655355
-Node: Stack Arguments1659577
-Node: Register Arguments1667120
-Node: Scalar Return1693028
-Node: Aggregate Return1699321
-Node: Caller Saves1704051
-Node: Function Entry1704793
-Node: Profiling1716345
-Node: Tail Calls1718455
-Node: Shrink-wrapping separate components1720365
-Node: Stack Smashing Protection1723406
-Node: Miscellaneous Register Hooks1725895
-Node: Varargs1726760
-Node: Trampolines1736712
-Node: Library Calls1746405
-Node: Addressing Modes1752716
-Node: Vectorization1766099
-Node: OpenMP and OpenACC1779021
-Node: Anchored Addresses1786913
-Node: Condition Code1789558
-Node: MODE_CC Condition Codes1791403
-Node: Costs1798166
-Node: Scheduling1824215
-Node: Sections1848137
-Node: PIC1864507
-Node: Assembler Format1866566
-Node: File Framework1867704
-Ref: TARGET_HAVE_SWITCHABLE_BSS_SECTIONS1875303
-Node: Data Output1876978
-Node: Uninitialized Data1885266
-Node: Label Output1890281
-Node: Initialization1914894
-Node: Macros for Initialization1920855
-Node: Instruction Output1928010
-Node: Dispatch Tables1938640
-Node: Exception Region Output1944391
-Node: Alignment Output1952124
-Node: Debugging Info1955811
-Node: All Debuggers1956361
-Node: DWARF1959294
-Node: VMS Debug1965069
-Node: CTF Debug1965666
-Node: BTF Debug1966027
-Node: Floating Point1966370
-Node: Mode Switching1969125
-Node: Target Attributes1977136
-Node: Emulated TLS1992074
-Node: MIPS Coprocessors1995464
-Node: PCH Target1996623
-Node: C++ ABI1998465
-Node: D Language and ABI2003691
-Node: Rust Language and ABI2006916
-Node: JIT Language and ABI2007655
-Node: Named Address Spaces2008154
-Node: Misc2015386
-Ref: TARGET_SHIFT_TRUNCATION_MASK2023257
-Node: Host Config2087182
-Node: Host Common2088251
-Node: Filesystem2090625
-Node: Host Misc2094740
-Node: Fragments2097189
-Node: Target Fragment2098384
-Node: Host Fragment2109196
-Node: Collect22109436
-Node: Header Dirs2112072
-Node: Type Information2113495
-Node: GTY Options2117026
-Node: Inheritance and GTY2130446
-Ref: Inheritance and GTY-Footnote-12132011
-Node: User GC2132281
-Node: GGC Roots2136032
-Node: Files2136745
-Node: Invoking the garbage collector2139376
-Node: Troubleshooting2141018
-Node: Plugins2142093
-Node: Plugins loading2143222
-Node: Plugin API2144318
-Node: Plugins pass2152044
-Node: Plugins GC2154015
-Node: Plugins description2155732
-Node: Plugins attr2156268
-Node: Plugins recording2158548
-Node: Plugins gate2159398
-Node: Plugins tracking2159989
-Node: Plugins building2160577
-Node: LTO2164080
-Node: LTO Overview2164952
-Node: LTO object file layout2170708
-Node: IPA2175207
-Node: WHOPR2184259
-Node: Internal flags2188819
-Node: Match and Simplify2190230
-Node: GIMPLE API2191200
-Node: The Language2194002
-Node: Static Analyzer2207214
-Node: Analyzer Internals2207479
-Node: Debugging the Analyzer2229088
-Node: User Experience Guidelines2238235
-Node: Guidelines for Diagnostics2239174
-Ref: input_location_example2247349
-Node: Guidelines for Options2260133
-Node: Parameters2265476
-Node: General Parameters2266583
-Node: Target-Specific Parameters2336399
-Node: AArch64 Parameters2336767
-Node: AMD GCN Parameters2341105
-Node: LoongArch Parameters2341454
-Node: RISC-V Parameters2342019
-Node: RS/6000 and PowerPC Parameters2342515
-Node: x86 Parameters2343111
-Node: Funding2343790
-Node: GNU Project2346281
-Node: Copying2346932
-Node: GNU Free Documentation License2384449
-Node: Contributors2409575
-Node: Option Index2451185
-Node: Parameter Index2452137
-Node: Concept Index2477280
-Node: Named Pattern Index3067283
+Node: Ada Tests301866
+Node: C Tests303029
+Node: LTO Testing307401
+Node: gcov Testing309044
+Node: profopt Testing312014
+Node: compat Testing313729
+Node: Torture Tests318537
+Node: GIMPLE Tests320171
+Node: RTL Tests321413
+Node: Options322719
+Node: Option file format323265
+Node: Option properties331753
+Node: Spec Files350546
+Node: Passes376428
+Node: Parsing pass377304
+Node: Gimplification pass380832
+Node: Pass manager382666
+Node: IPA passes384508
+Node: Small IPA passes385401
+Node: Regular IPA passes388851
+Node: Late IPA passes393653
+Node: Tree SSA passes394614
+Node: RTL passes413893
+Ref: mode switching optimization420946
+Node: Optimization info427937
+Node: Dump setup428756
+Node: Optimization groups429886
+Node: Dump files and streams430865
+Node: Dump output verbosity432064
+Node: Dump types433120
+Node: Dump examples435463
+Node: poly_int436944
+Node: Overview of poly_int438424
+Node: Consequences of using poly_int441028
+Node: Comparisons involving poly_int442663
+Node: Comparison functions for poly_int444301
+Node: Properties of the poly_int comparisons445508
+Node: Comparing potentially-unordered poly_ints447950
+Node: Comparing ordered poly_ints448861
+Node: Checking for a poly_int marker value450885
+Node: Range checks on poly_ints451734
+Node: Sorting poly_ints454388
+Node: Arithmetic on poly_ints455161
+Node: Using poly_int with C++ arithmetic operators455962
+Node: wi arithmetic on poly_ints457493
+Node: Division of poly_ints458345
+Node: Other poly_int arithmetic459852
+Node: Alignment of poly_ints461258
+Node: Computing bounds on poly_ints464535
+Node: Converting poly_ints465924
+Node: Miscellaneous poly_int routines469471
+Node: Guidelines for using poly_int470111
+Node: GENERIC475043
+Node: Deficiencies476865
+Node: Tree overview477106
+Node: Macros and Functions481230
+Node: Identifiers482055
+Node: Containers483664
+Node: Types484821
+Node: Declarations497578
+Node: Working with declarations498073
+Node: Internal structure503677
+Node: Current structure hierarchy504061
+Node: Adding new DECL node types506154
+Node: Attributes510440
+Node: Expression trees511684
+Node: Constant expressions513438
+Node: Storage References519530
+Node: Unary and Binary Expressions523371
+Node: Vectors544846
+Node: Statements557125
+Node: Basic Statements557657
+Node: Blocks562794
+Node: Statement Sequences564495
+Node: Empty Statements564828
+Node: Jumps565402
+Node: Cleanups566055
+Node: OpenMP568096
+Node: OpenACC579646
+Node: Functions580763
+Node: Function Basics581234
+Node: Function Properties584918
+Node: Language-dependent trees587699
+Node: C and C++ Trees588586
+Node: Types for C++591471
+Node: Namespaces596441
+Node: Classes599547
+Node: Functions for C++604455
+Node: Statements for C and C++610712
+Node: C++ Expressions619219
+Node: GIMPLE620730
+Node: Tuple representation624405
+Node: Class hierarchy of GIMPLE statements631365
+Node: GIMPLE instruction set636353
+Node: GIMPLE Exception Handling638018
+Node: Temporaries639930
+Ref: Temporaries-Footnote-1641248
+Node: Operands641313
+Node: Compound Expressions642074
+Node: Compound Lvalues642308
+Node: Conditional Expressions643070
+Node: Logical Operators643729
+Node: Manipulating GIMPLE statements651040
+Node: Tuple specific accessors656622
+Node: GIMPLE_ASM657433
+Node: GIMPLE_ASSIGN660105
+Node: GIMPLE_BIND664809
+Node: GIMPLE_CALL666623
+Node: GIMPLE_CATCH670764
+Node: GIMPLE_COND671914
+Node: GIMPLE_DEBUG674709
+Node: GIMPLE_EH_FILTER679307
+Node: GIMPLE_LABEL680870
+Node: GIMPLE_GOTO681483
+Node: GIMPLE_NOP682006
+Node: GIMPLE_OMP_ATOMIC_LOAD682368
+Node: GIMPLE_OMP_ATOMIC_STORE683364
+Node: GIMPLE_OMP_CONTINUE684063
+Node: GIMPLE_OMP_CRITICAL685542
+Node: GIMPLE_OMP_FOR686536
+Node: GIMPLE_OMP_MASTER689952
+Node: GIMPLE_OMP_ORDERED690330
+Node: GIMPLE_OMP_PARALLEL690733
+Node: GIMPLE_OMP_RETURN693520
+Node: GIMPLE_OMP_SECTION694165
+Node: GIMPLE_OMP_SECTIONS694829
+Node: GIMPLE_OMP_SINGLE696439
+Node: GIMPLE_OMP_STRUCTURED_BLOCK697402
+Node: GIMPLE_PHI698194
+Node: GIMPLE_RESX699483
+Node: GIMPLE_RETURN700202
+Node: GIMPLE_SWITCH700776
+Node: GIMPLE_TRY702649
+Node: GIMPLE_WITH_CLEANUP_EXPR704421
+Node: GIMPLE sequences705300
+Node: Sequence iterators708506
+Node: Adding a new GIMPLE statement code716963
+Node: Statement and operand traversals718312
+Node: Internal Functions720904
+Node: Internal Function API721681
+Node: Table of Internal Functions722165
+Node: Direct Internal Functions722462
+Node: Internal Functions Corresponding to Builtins742157
+Node: Other Internal Functions751122
+Node: Tree SSA762264
+Node: Annotations764064
+Node: SSA Operands764469
+Node: SSA779042
+Node: Alias analysis788749
+Node: Memory model792524
+Node: RTL793883
+Node: RTL Objects796125
+Node: RTL Classes800198
+Node: Accessors805496
+Node: Special Accessors807669
+Node: Flags813456
+Node: Machine Modes828719
+Node: Constants846533
+Node: Regs and Memory858332
+Node: Arithmetic875624
+Node: Comparisons886327
+Node: Bit-Fields890029
+Node: Vector Operations891580
+Node: Conversions893684
+Node: RTL Declarations898182
+Node: Side Effects899026
+Node: Incdec915560
+Node: Assembler918896
+Node: Debug Information920441
+Node: Insns922368
+Node: Calls948262
+Node: RTL SSA950855
+Node: Using RTL SSA952246
+Node: RTL SSA Instructions954190
+Ref: RTL SSA Instructions-Footnote-1955576
+Node: RTL SSA Basic Blocks955710
+Ref: real RTL SSA insns956178
+Ref: RTL SSA Basic Blocks-Footnote-1958400
+Node: RTL SSA Resources958534
+Node: RTL SSA Accesses959651
+Ref: RTL SSA Accesses-Footnote-1961352
+Node: RTL SSA Phi Nodes961495
+Node: RTL SSA Access Lists963499
+Node: Changing RTL Instructions967774
+Node: Changing One RTL SSA Instruction968383
+Node: Changing Multiple RTL SSA Instructions973337
+Node: Sharing977601
+Node: Reading RTL980757
+Node: Control Flow981749
+Node: Basic Blocks983517
+Node: Edges988968
+Node: Profile information997712
+Node: Maintaining the CFG1002396
+Node: Liveness information1008164
+Node: Loop Analysis and Representation1010291
+Node: Loop representation1011327
+Node: Loop querying1018771
+Node: Loop manipulation1021580
+Node: LCSSA1023926
+Node: Scalar evolutions1025995
+Node: loop-iv1029239
+Node: Number of iterations1031161
+Node: Dependency analysis1035242
+Node: Machine Desc1041594
+Node: Overview1044229
+Node: Patterns1046269
+Node: Example1051236
+Node: RTL Template1052697
+Node: Output Template1063345
+Node: Output Statement1067526
+Node: Compact Syntax1071869
+Node: Predicates1076710
+Node: Machine-Independent Predicates1079626
+Node: Defining Predicates1084571
+Node: Constraints1090534
+Node: Simple Constraints1092003
+Node: Multi-Alternative1105603
+Node: Class Preferences1108803
+Node: Modifiers1109695
+Node: Machine Constraints1115389
+Node: Disable Insn Alternatives1173988
+Node: Define Constraints1177480
+Node: C Constraint Interface1187775
+Node: Standard Names1190902
+Node: General Standard Pattern Names1191436
+Ref: shift patterns1209602
+Ref: prologue instruction pattern1265088
+Ref: window_save instruction pattern1265581
+Ref: epilogue instruction pattern1265858
+Node: Standard Pattern Names for Vectorization1291045
+Node: Pattern Ordering1342911
+Node: Dependent Patterns1344147
+Node: Jump Patterns1345767
+Node: Looping Patterns1347444
+Node: Insn Canonicalizations1353083
+Node: Expander Definitions1358595
+Node: Insn Splitting1366808
+Node: Including Patterns1381899
+Node: Peephole Definitions1383676
+Node: define_peephole1384929
+Node: define_peephole21391259
+Node: Insn Attributes1395875
+Node: Defining Attributes1396972
+Ref: define_enum_attr1400464
+Node: Expressions1401500
+Node: Tagging Insns1408250
+Node: Attr Example1412603
+Node: Insn Lengths1414976
+Node: Constant Attributes1418388
+Node: Mnemonic Attribute1419564
+Node: Delay Slots1421083
+Node: Processor pipeline description1424306
+Ref: Processor pipeline description-Footnote-11443118
+Node: Conditional Execution1443442
+Node: Define Subst1446925
+Node: Define Subst Example1448960
+Node: Define Subst Pattern Matching1451955
+Node: Define Subst Output Template1453181
+Node: Constant Definitions1455504
+Ref: define_enum1459363
+Node: Iterators1459851
+Node: Mode Iterators1460496
+Node: Defining Mode Iterators1461474
+Node: Substitutions1463442
+Node: Examples1465684
+Node: Code Iterators1467144
+Node: Int Iterators1470516
+Node: Subst Iterators1473089
+Node: Parameterized Names1474809
+Node: Target Macros1479056
+Node: Target Structure1482362
+Node: Driver1485647
+Node: Run-time Target1505091
+Node: Per-Function Data1515748
+Node: Storage Layout1518512
+Node: Type Layout1548172
+Node: Registers1561169
+Node: Register Basics1562143
+Node: Allocation Order1569705
+Node: Values in Registers1572189
+Node: Leaf Functions1579665
+Node: Stack Registers1582524
+Node: Register Classes1583797
+Node: Stack and Calling1619875
+Node: Frame Layout1620481
+Node: Exception Handling1635258
+Node: Stack Checking1641993
+Node: Frame Registers1647619
+Node: Elimination1656165
+Node: Stack Arguments1660387
+Node: Register Arguments1667930
+Node: Scalar Return1693838
+Node: Aggregate Return1700131
+Node: Caller Saves1704861
+Node: Function Entry1705603
+Node: Profiling1717155
+Node: Tail Calls1719265
+Node: Shrink-wrapping separate components1721175
+Node: Stack Smashing Protection1724216
+Node: Miscellaneous Register Hooks1726705
+Node: Varargs1727570
+Node: Trampolines1737522
+Node: Library Calls1747215
+Node: Addressing Modes1753526
+Node: Vectorization1766909
+Node: OpenMP and OpenACC1779831
+Node: Anchored Addresses1787723
+Node: Condition Code1790368
+Node: MODE_CC Condition Codes1792213
+Node: Costs1798976
+Node: Scheduling1825025
+Node: Sections1848947
+Node: PIC1865317
+Node: Assembler Format1867376
+Node: File Framework1868514
+Ref: TARGET_HAVE_SWITCHABLE_BSS_SECTIONS1876113
+Node: Data Output1877788
+Node: Uninitialized Data1886076
+Node: Label Output1891091
+Node: Initialization1915704
+Node: Macros for Initialization1921665
+Node: Instruction Output1928820
+Node: Dispatch Tables1939450
+Node: Exception Region Output1945201
+Node: Alignment Output1952934
+Node: Debugging Info1956621
+Node: All Debuggers1957171
+Node: DWARF1960104
+Node: VMS Debug1965879
+Node: CTF Debug1966476
+Node: BTF Debug1966837
+Node: Floating Point1967180
+Node: Mode Switching1969935
+Node: Target Attributes1977946
+Node: Emulated TLS1992884
+Node: MIPS Coprocessors1996274
+Node: PCH Target1997433
+Node: C++ ABI1999275
+Node: D Language and ABI2004501
+Node: Rust Language and ABI2007726
+Node: JIT Language and ABI2008465
+Node: Named Address Spaces2008964
+Node: Misc2016196
+Ref: TARGET_SHIFT_TRUNCATION_MASK2024067
+Node: Host Config2087992
+Node: Host Common2089061
+Node: Filesystem2091435
+Node: Host Misc2095550
+Node: Fragments2097999
+Node: Target Fragment2099194
+Node: Host Fragment2110006
+Node: Collect22110246
+Node: Header Dirs2112882
+Node: Type Information2114305
+Node: GTY Options2117836
+Node: Inheritance and GTY2131256
+Ref: Inheritance and GTY-Footnote-12132821
+Node: User GC2133091
+Node: GGC Roots2136842
+Node: Files2137555
+Node: Invoking the garbage collector2140186
+Node: Troubleshooting2141828
+Node: Plugins2142903
+Node: Plugins loading2144032
+Node: Plugin API2145128
+Node: Plugins pass2152854
+Node: Plugins GC2154825
+Node: Plugins description2156542
+Node: Plugins attr2157078
+Node: Plugins recording2159358
+Node: Plugins gate2160208
+Node: Plugins tracking2160799
+Node: Plugins building2161387
+Node: LTO2164890
+Node: LTO Overview2165762
+Node: LTO object file layout2171518
+Node: IPA2176017
+Node: WHOPR2185069
+Node: Internal flags2189629
+Node: Match and Simplify2191040
+Node: GIMPLE API2192010
+Node: The Language2194812
+Node: Static Analyzer2208024
+Node: Analyzer Internals2208289
+Node: Debugging the Analyzer2229898
+Node: User Experience Guidelines2239045
+Node: Guidelines for Diagnostics2239984
+Ref: input_location_example2248159
+Node: Guidelines for Options2260943
+Node: Parameters2266286
+Node: General Parameters2267393
+Node: Target-Specific Parameters2337334
+Node: AArch64 Parameters2337702
+Node: AMD GCN Parameters2342040
+Node: LoongArch Parameters2342389
+Node: RISC-V Parameters2342954
+Node: RS/6000 and PowerPC Parameters2343450
+Node: x86 Parameters2344046
+Node: Funding2344725
+Node: GNU Project2347216
+Node: Copying2347867
+Node: GNU Free Documentation License2385384
+Node: Contributors2410510
+Node: Option Index2452120
+Node: Parameter Index2453072
+Node: Concept Index2478288
+Node: Named Pattern Index3068291
 
 End Tag Table
 

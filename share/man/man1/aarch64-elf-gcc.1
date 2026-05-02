@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2026-04-25" "gcc-17.0.0" "GNU"
+.TH GCC 1 "2026-05-02" "gcc-17.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -548,6 +548,9 @@ in the following sections.
 \&\-Wno\-analyzer\-jump\-through\-null
 \&\-Wno\-analyzer\-malloc\-leak
 \&\-Wno\-analyzer\-mismatching\-deallocation
+\&\-Wno\-analyzer\-mkostemp\-redundant\-flags
+\&\-Wno\-analyzer\-mktemp\-missing\-placeholder
+\&\-Wno\-analyzer\-mktemp\-of\-string\-literal
 \&\-Wno\-analyzer\-null\-argument
 \&\-Wno\-analyzer\-null\-dereference
 \&\-Wno\-analyzer\-out\-of\-bounds
@@ -10743,6 +10746,7 @@ Enabling this option effectively enables the following warnings:
 .Sp
 \&\fB\-Wanalyzer\-allocation\-size
 \&\-Wanalyzer\-deref\-before\-check
+\&\-Wanalyzer\-div\-by\-zero
 \&\-Wanalyzer\-double\-fclose
 \&\-Wanalyzer\-double\-free
 \&\-Wanalyzer\-exposure\-through\-output\-file
@@ -10762,6 +10766,9 @@ Enabling this option effectively enables the following warnings:
 \&\-Wanalyzer\-jump\-through\-null
 \&\-Wanalyzer\-malloc\-leak
 \&\-Wanalyzer\-mismatching\-deallocation
+\&\-Wanalyzer\-mkostemp\-redundant\-flags
+\&\-Wanalyzer\-mktemp\-missing\-placeholder
+\&\-Wanalyzer\-mktemp\-of\-string\-literal
 \&\-Wanalyzer\-null\-argument
 \&\-Wanalyzer\-null\-dereference
 \&\-Wanalyzer\-out\-of\-bounds
@@ -10823,6 +10830,16 @@ a buffer is assigned to point at a buffer with a size that is not a
 multiple of \f(CW\*(C`sizeof (*pointer)\*(C'\fR.
 .Sp
 See  \s-1CWE\-131:\s0 Incorrect Calculation of Buffer Size (\f(CW\*(C`https://cwe.mitre.org/data/definitions/131.html\*(C'\fR).
+.IP "\fB\-Wno\-analyzer\-div\-by\-zero\fR" 4
+.IX Item "-Wno-analyzer-div-by-zero"
+This warning requires \fB\-fanalyzer\fR, which enables it;
+to disable it, use \fB\-Wno\-analyzer\-div\-by\-zero\fR.
+.Sp
+This diagnostic warns for paths through the code which attempt
+integer division by zero.  It is analogous to \fB\-Wdiv\-by\-zero\fR, but
+implemented in a different way.
+.Sp
+See   \s-1CWE\-369:\s0 Divide By Zero (\f(CW\*(C`https://cwe.mitre.org/data/definitions/369.html\*(C'\fR).
 .IP "\fB\-Wno\-analyzer\-deref\-before\-check\fR" 4
 .IX Item "-Wno-analyzer-deref-before-check"
 This warning requires \fB\-fanalyzer\fR, which enables it; use
@@ -11108,6 +11125,38 @@ and vector \f(CW\*(C`delete[]\*(C'\fR, and those marked as allocator/deallocator
 pairs using attribute \f(CW\*(C`malloc\*(C'\fR.
 .Sp
 See  \s-1CWE\-762:\s0 Mismatched Memory Management Routines (\f(CW\*(C`https://cwe.mitre.org/data/definitions/762.html\*(C'\fR).
+.IP "\fB\-Wno\-analyzer\-mkostemp\-redundant\-flags\fR" 4
+.IX Item "-Wno-analyzer-mkostemp-redundant-flags"
+This warning requires \fB\-fanalyzer\fR, which enables it; use
+\&\fB\-Wno\-analyzer\-mkostemp\-redundant\-flags\fR to disable it.
+.Sp
+This diagnostic warns for paths through the code in which
+\&\f(CW\*(C`mkostemp\*(C'\fR or \f(CW\*(C`mkostemps\*(C'\fR is called with flags that include
+\&\f(CW\*(C`O_RDWR\*(C'\fR, \f(CW\*(C`O_CREAT\*(C'\fR, or \f(CW\*(C`O_EXCL\*(C'\fR.  These flags are
+already implied by the function and specifying them is unnecessary, and
+produces errors on some systems.
+.IP "\fB\-Wno\-analyzer\-mktemp\-missing\-placeholder\fR" 4
+.IX Item "-Wno-analyzer-mktemp-missing-placeholder"
+This warning requires \fB\-fanalyzer\fR, which enables it; use
+\&\fB\-Wno\-analyzer\-mktemp\-missing\-placeholder\fR to disable it.
+.Sp
+This diagnostic warns for paths through the code in which a function in
+the \f(CW\*(C`mktemp\*(C'\fR family (\f(CW\*(C`mkstemp\*(C'\fR, \f(CW\*(C`mkostemp\*(C'\fR,
+\&\f(CW\*(C`mkstemps\*(C'\fR, \f(CW\*(C`mkostemps\*(C'\fR, \f(CW\*(C`mkdtemp\*(C'\fR, \f(CW\*(C`mktemp\*(C'\fR) is
+called with a template string that does not contain the placeholder
+\&\fB\s-1XXXXXX\s0\fR at the expected position.
+.IP "\fB\-Wno\-analyzer\-mktemp\-of\-string\-literal\fR" 4
+.IX Item "-Wno-analyzer-mktemp-of-string-literal"
+This warning requires \fB\-fanalyzer\fR, which enables it; use
+\&\fB\-Wno\-analyzer\-mktemp\-of\-string\-literal\fR to disable it.
+.Sp
+This diagnostic warns for paths through the code in which a function in
+the \f(CW\*(C`mktemp\*(C'\fR family (\f(CW\*(C`mkstemp\*(C'\fR, \f(CW\*(C`mkostemp\*(C'\fR,
+\&\f(CW\*(C`mkstemps\*(C'\fR, \f(CW\*(C`mkostemps\*(C'\fR, \f(CW\*(C`mkdtemp\*(C'\fR, \f(CW\*(C`mktemp\*(C'\fR) is
+called on a string literal.  Since these functions modify their argument
+in place, passing a string literal leads to undefined behavior.
+.Sp
+See  \s-1STR30\-C.\s0 Do not attempt to modify string literals (\f(CW\*(C`https://wiki.sei.cmu.edu/confluence/x/VtYxBQ\*(C'\fR).
 .IP "\fB\-Wno\-analyzer\-out\-of\-bounds\fR" 4
 .IX Item "-Wno-analyzer-out-of-bounds"
 This warning requires \fB\-fanalyzer\fR, which enables it; use
@@ -20674,6 +20723,8 @@ Enable or disable PC-relative literal loads.  With this option literal pools are
 accessed using a single instruction and emitted after each function.  This
 limits the maximum size of functions to 1MB.  This is enabled by default for
 \&\fB\-mcmodel=tiny\fR.
+.Sp
+The \fB\-mpc\-relative\-literal\-loads\fR is deprecated.
 .IP "\fB\-msign\-return\-address=\fR\fIscope\fR" 4
 .IX Item "-msign-return-address=scope"
 Select the function scope on which return address signing will be applied.
@@ -30335,6 +30386,10 @@ Supported extensions are listed below:
 .IX Item "zacas"
 \&\f(CW@tab\fR 1.0
 \&\f(CW@tab\fR Atomic compare-and-swap instructions extension
+.IP "\fBzalasr\fR" 4
+.IX Item "zalasr"
+\&\f(CW@tab\fR 1.0
+\&\f(CW@tab\fR Atomic load-acquire and store-release extension
 .IP "\fBzalrsc\fR" 4
 .IX Item "zalrsc"
 \&\f(CW@tab\fR 1.0
@@ -31072,6 +31127,8 @@ particular \s-1CPU\s0 name.  Permissible values for this option are:
 .Sp
 \&\fBspacemit\-x60\fR,
 .Sp
+\&\fBarc\-v\-rhx\-100\-series\fR,
+.Sp
 \&\fBgeneric-ooo\fR,
 .Sp
 \&\fBsize\fR,
@@ -31083,6 +31140,8 @@ particular \s-1CPU\s0 name.  Permissible values for this option are:
 \&\fBandes\-23\-series\fR,
 .Sp
 \&\fBandes\-45\-series\fR,
+.Sp
+\&\fBarc\-v\-rmx\-100\-series\fR,
 .Sp
 and all valid options for \fB\-mcpu=\fR.
 .Sp
@@ -35301,6 +35360,27 @@ instruction set support.
 .IP "\fBgeode\fR" 4
 .IX Item "geode"
 \&\s-1AMD\s0 Geode embedded processor with \s-1MMX\s0 and 3DNow! instruction set support.
+.IP "\fBc86\-4g\-m4\fR" 4
+.IX Item "c86-4g-m4"
+\&\s-1HYGON\s0 c86\-4g\-m4 \s-1CPU\s0 with x86\-64, \s-1MMX, SSE, SSE2, SSE3, SSE4A, CX16, ABM, SSSE3,
+SSE4.1, SSE4.2, AES, PCLMUL, AVX, AVX2, BMI, BMI2, F16C, FMA, PRFCHW, FXSR, SHA,
+XSAVE, XSAVEOPT, XSAVEC, FSGSBASE, RDRND, MOVBE, MWAITX, ADX, RDSEED, CLZERO,
+CLFLUSHOPT, XSAVES, LZCNT, POPCNT\s0 instruction set support.
+.IP "\fBc86\-4g\-m6\fR" 4
+.IX Item "c86-4g-m6"
+\&\s-1HYGON\s0 c86\-4g\-m6 \s-1CPU\s0 with x86\-64, \s-1MMX, SSE, SSE2, SSE3, SSE4A, CX16, ABM, SSSE3,
+SSE4.1, SSE4.2, AES, PCLMUL, AVX, AVX2, BMI, BMI2, F16C, FMA, PRFCHW, FXSR, SHA,
+XSAVE, XSAVEOPT, XSAVEC, FSGSBASE, RDRND, MOVBE, MWAITX, ADX, RDSEED, CLZERO,
+CLFLUSHOPT, XSAVES, LZCNT, POPCNT\s0 instruction set support.
+.IP "\fBc86\-4g\-m7\fR" 4
+.IX Item "c86-4g-m7"
+\&\s-1HYGON\s0 c86\-4g\-m7 \s-1CPU\s0 with x86\-64, \s-1MMX, SSE, SSE2, SSE3, SSE4A, CX16, ABM, SSSE3,
+SSE4.1, SSE4.2, AES, PCLMUL, AVX, AVX2, BMI, BMI2, F16C, FMA, PRFCHW, FXSR, SHA,
+XSAVE, XSAVEOPT, XSAVEC, FSGSBASE, RDRND, MOVBE, MWAITX, ADX, RDSEED, CLZERO,
+CLFLUSHOPT, XSAVES, LZCNT, POPCNT, AVX512F, AVX512DQ, AVX512IFMA, AVX512CD,
+AVX512BW, AVX512VL, AVX512BF16, AVX512VBMI, AVX512VBMI2, GFNI, AVX512VNNI, VAES,
+AVX512BITALG, AVX512VPOPCNTDQ, AVX512VP2INTERSECT, AVXVNNI, VPCLMULQDQ,
+WBNOINVD\s0 instruction set support.
 .RE
 .RS 4
 .RE

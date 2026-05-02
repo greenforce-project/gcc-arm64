@@ -277,8 +277,8 @@ GNU Binutils
      host/target specific instructions for your platform for the exact
      requirements.
 
-     Note binutils 2.35 or newer is required for LTO to work correctly
-     with GNU libtool that includes doing a bootstrap with LTO enabled.
+     Binutils 2.35 or newer is required for LTO to work correctly with
+     GNU libtool that includes doing a bootstrap with LTO enabled.
 
 gzip version 1.2.4 (or later) or
 xz version 5.0 (or later)
@@ -557,11 +557,11 @@ language front end and shared components, and language-specific
 distributions including the language front end and the language runtime
 (where appropriate).
 
-   If you also intend to build binutils (either to upgrade an existing
+   If you also intend to build Binutils (either to upgrade an existing
 installation or for use in place of the corresponding tools of your OS),
-unpack the binutils distribution either in the same directory or a
+unpack the Binutils distribution either in the same directory or a
 separate one.  In the latter case, add symbolic links to any components
-of the binutils you intend to build alongside the compiler ('bfd',
+of the Binutils you intend to build alongside the compiler ('bfd',
 'binutils', 'gas', 'gprof', 'ld', 'opcodes', ...) to the directory
 containing the GCC sources.
 
@@ -1958,7 +1958,7 @@ option.
      powerpc-linux for powerpc64-linux, only generates 32-bit code.
      This option enables the 32-bit target to be a bi-arch compiler,
      which is useful when you want a bi-arch compiler that defaults to
-     32-bit, and you are building a bi-arch or multi-arch binutils in a
+     32-bit, and you are building a bi-arch or multi-arch Binutils in a
      combined tree.  On mips-linux, this will build a tri-arch compiler
      (ABI o32/n32/64), defaulted to o32.  Currently, this option only
      affects sparc-linux, powerpc-linux, x86-linux, mips-linux and
@@ -2417,7 +2417,7 @@ option.
      a set of building options.
 
      '--enable-cet=auto' is default.  CET is enabled on Linux/x86 if
-     target binutils supports 'Intel CET' instructions and disabled
+     target Binutils supports 'Intel CET' instructions and disabled
      otherwise.  In this case, the target libraries are configured to
      get additional '-fcf-protection' option.
 
@@ -2437,7 +2437,7 @@ option.
      build information in object.
 
      The option is disabled by default.  It is enabled on RISC-V/ELF
-     (bare-metal) target if target binutils supported.
+     (bare-metal) target if target Binutils supported.
 
 '--enable-s390-excess-float-precision'
 '--disable-s390-excess-float-precision'
@@ -2856,7 +2856,7 @@ completely and could also have better performance.
 
    * Perform a 3-stage bootstrap of the compiler.  This includes
      building three times the target tools for use by the compiler such
-     as binutils (bfd, binutils, gas, gprof, ld, and opcodes) if they
+     as Binutils (bfd, binutils, gas, gprof, ld, and opcodes) if they
      have been individually linked or moved into the top level GCC
      source tree before configuring.
 
@@ -3066,7 +3066,7 @@ the following steps:
 
    * Build host tools necessary to build the compiler.
 
-   * Build target tools for use by the compiler such as binutils (bfd,
+   * Build target tools for use by the compiler such as Binutils (bfd,
      binutils, gas, gprof, ld, and opcodes) if they have been
      individually linked or moved into the top level GCC source tree
      before configuring.
@@ -3371,7 +3371,7 @@ for the C++ library are installed in 'PREFIX/include'; libraries in
    When installing cross-compilers, GCC's executables are not only
 installed into 'BINDIR', that is, 'EXEC-PREFIX/bin', but additionally
 into 'EXEC-PREFIX/TARGET-ALIAS/bin', if that directory exists.
-Typically, such "tooldirs" hold target-specific binutils, including
+Typically, such "tooldirs" hold target-specific Binutils, including
 assembler and linker.
 
    Installation into a temporary staging area or into a 'chroot' jail
@@ -3594,7 +3594,7 @@ Blackfin
 The Blackfin processor, an Analog Devices DSP. *Note Blackfin Options:
 (gcc)Blackfin Options,
 
-   More information, and a version of binutils with support for this
+   More information, and a version of Binutils with support for this
 processor, are available at
 <https://sourceforge.net/projects/adi-toolchain/>.
 
@@ -3662,9 +3662,6 @@ Only the 64-bit 'hppa' target is supported on HP-UX. Support for 32-bit
 
    It may be helpful to configure GCC with the '--with-gnu-as' and
 '--with-as=...' options to ensure that GCC can find GAS.
-
-   Only the HP linker is supported.  Thus, it is best to explicitly
-configure the target with the '--with-ld=...' option.
 
    The DCE thread library is not supported, so '--enable-threads=dce'
 does not work.
@@ -3923,7 +3920,7 @@ with '--with-cpu=TARGET'.  This TARGET can either be a '-mcpu' argument
 or one of the following values: 'm68000', 'm68010', 'm68020', 'm68030',
 'm68040', 'm68060', 'm68020-40' and 'm68020-60'.
 
-   GCC requires at least binutils version 2.17 on these targets.
+   GCC requires at least Binutils 2.17 on these targets.
 
 m68k-*-uclinux
 ==============
@@ -4120,26 +4117,26 @@ riscv32-*-elf
 
 The RISC-V RV32 instruction set.  This configuration is intended for
 embedded systems.  This (and all other RISC-V) targets require the
-binutils 2.40 release.
+Binutils 2.40 release.
 
 riscv32-*-linux
 ===============
 
 The RISC-V RV32 instruction set running GNU/Linux.  This (and all other
-RISC-V) targets require the binutils 2.40 release.
+RISC-V) targets require the Binutils 2.40 release.
 
 riscv64-*-elf
 =============
 
 The RISC-V RV64 instruction set.  This configuration is intended for
 embedded systems.  This (and all other RISC-V) targets require the
-binutils 2.40 release.
+Binutils 2.40 release.
 
 riscv64-*-linux
 ===============
 
 The RISC-V RV64 instruction set running GNU/Linux.  This (and all other
-RISC-V) targets require the binutils 2.40 release.
+RISC-V) targets require the Binutils 2.40 release.
 
 rx-*-elf
 ========
@@ -4277,7 +4274,7 @@ sparc-*-linux*
 c6x-*-*
 =======
 
-The C6X family of processors.  This port requires binutils 2.22 or
+The C6X family of processors.  This port requires Binutils 2.22 or
 newer.
 
 visium-*-elf
@@ -4402,7 +4399,7 @@ with Microsoft's C++ compiler and there are no plans to make it do so.
 
    The Cygwin native compiler can be configured to target any 32-bit x86
 cpu architecture desired; the default is i686-pc-cygwin.  It should be
-used with as up-to-date a version of binutils as possible; use either
+used with as up-to-date a version of Binutils as possible; use either
 the latest official GNU Binutils release in the Cygwin distribution, or
 version 2.20 or above if building your own.
 
@@ -4985,92 +4982,92 @@ Ref: GCOBOL-prerequisite7363
 Ref: GDC-prerequisite8411
 Ref: GM2-prerequisite9594
 Ref: gccrs-prerequisite9861
-Node: Downloading the source20977
-Node: Configuration22780
-Ref: with-gnu-as42169
-Ref: with-as42990
-Ref: with-gnu-ld44355
-Ref: with-multilib-list48231
-Ref: WithAixSoname77138
-Ref: AixLdCommand77799
-Ref: with-included-gettext94324
-Node: Building125825
-Node: Testing143123
-Node: Final install150654
-Node: Binaries153832
-Node: Specific154761
-Ref: aarch64-x-x155295
-Ref: amdgcn-x-amdhsa157136
-Ref: arc-x-elf32159467
-Ref: arc-linux-uclibc159643
-Ref: arm-x-eabi159784
-Ref: avr160037
-Ref: bfin160519
-Ref: cris160782
-Ref: dos161108
-Ref: epiphany-x-elf161433
-Ref: x-x-freebsd161538
-Ref: ft32-x-elf162129
-Ref: h8300-hms162227
-Ref: hppa64-hp-hpux11162286
-Ref: x-x-linux-gnu163043
-Ref: ix86-x-linux163236
-Ref: ia64-x-linux163438
-Ref: ia64-x-hpux163685
-Ref: x-ibm-aix163903
-Ref: TransferAixShobj167565
-Ref: iq2000-x-elf171147
-Ref: lm32-x-elf171287
-Ref: lm32-x-uclinux171391
-Ref: loongarch171519
-Ref: m32c-x-elf172156
-Ref: m32r-x-elf172258
-Ref: m68k-x-x172360
-Ref: m68k-x-uclinux173398
-Ref: microblaze-x-elf173643
-Ref: mips-x-x173762
-Ref: moxie-x-elf175672
-Ref: msp430-x-elf175719
-Ref: nds32le-x-elf176276
-Ref: nds32be-x-elf176348
-Ref: nvptx-x-none176417
-Ref: or1k-x-elf177374
-Ref: or1k-x-linux177505
-Ref: powerpc-x-x177586
-Ref: powerpc-x-darwin177777
-Ref: powerpc-x-elf178272
-Ref: powerpc-x-linux-gnu178357
-Ref: powerpc-x-netbsd178452
-Ref: powerpc-x-eabisim178540
-Ref: powerpc-x-eabi178666
-Ref: powerpcle-x-elf178742
-Ref: powerpcle-x-eabisim178834
-Ref: powerpcle-x-eabi178967
-Ref: rl78-x-elf179050
-Ref: riscv32-x-elf179156
-Ref: riscv32-x-linux179345
-Ref: riscv64-x-elf179502
-Ref: riscv64-x-linux179691
-Ref: rx-x-elf179848
-Ref: s390-x-linux179894
-Ref: s390x-x-linux179966
-Ref: s390x-ibm-tpf180053
-Ref: x-x-solaris2180184
-Ref: sparc-x-x184368
-Ref: sparc-x-linux184870
-Ref: c6x-x-x184901
-Ref: visium-x-elf184993
-Ref: x-x-vxworks185101
-Ref: x86-64-x-x186624
-Ref: xtensa-x-elf186952
-Ref: xtensa-x-linux187623
-Ref: windows187964
-Ref: x-x-cygwin189289
-Ref: x-x-mingw32189842
-Ref: older190068
-Ref: elf192031
-Node: GNU Free Documentation License192285
-Node: Concept Index217423
+Node: Downloading the source20972
+Node: Configuration22775
+Ref: with-gnu-as42164
+Ref: with-as42985
+Ref: with-gnu-ld44350
+Ref: with-multilib-list48226
+Ref: WithAixSoname77133
+Ref: AixLdCommand77794
+Ref: with-included-gettext94319
+Node: Building125820
+Node: Testing143118
+Node: Final install150649
+Node: Binaries153827
+Node: Specific154756
+Ref: aarch64-x-x155290
+Ref: amdgcn-x-amdhsa157131
+Ref: arc-x-elf32159462
+Ref: arc-linux-uclibc159638
+Ref: arm-x-eabi159779
+Ref: avr160032
+Ref: bfin160514
+Ref: cris160777
+Ref: dos161103
+Ref: epiphany-x-elf161428
+Ref: x-x-freebsd161533
+Ref: ft32-x-elf162124
+Ref: h8300-hms162222
+Ref: hppa64-hp-hpux11162281
+Ref: x-x-linux-gnu162915
+Ref: ix86-x-linux163108
+Ref: ia64-x-linux163310
+Ref: ia64-x-hpux163557
+Ref: x-ibm-aix163775
+Ref: TransferAixShobj167437
+Ref: iq2000-x-elf171019
+Ref: lm32-x-elf171159
+Ref: lm32-x-uclinux171263
+Ref: loongarch171391
+Ref: m32c-x-elf172028
+Ref: m32r-x-elf172130
+Ref: m68k-x-x172232
+Ref: m68k-x-uclinux173262
+Ref: microblaze-x-elf173507
+Ref: mips-x-x173626
+Ref: moxie-x-elf175536
+Ref: msp430-x-elf175583
+Ref: nds32le-x-elf176140
+Ref: nds32be-x-elf176212
+Ref: nvptx-x-none176281
+Ref: or1k-x-elf177238
+Ref: or1k-x-linux177369
+Ref: powerpc-x-x177450
+Ref: powerpc-x-darwin177641
+Ref: powerpc-x-elf178136
+Ref: powerpc-x-linux-gnu178221
+Ref: powerpc-x-netbsd178316
+Ref: powerpc-x-eabisim178404
+Ref: powerpc-x-eabi178530
+Ref: powerpcle-x-elf178606
+Ref: powerpcle-x-eabisim178698
+Ref: powerpcle-x-eabi178831
+Ref: rl78-x-elf178914
+Ref: riscv32-x-elf179020
+Ref: riscv32-x-linux179209
+Ref: riscv64-x-elf179366
+Ref: riscv64-x-linux179555
+Ref: rx-x-elf179712
+Ref: s390-x-linux179758
+Ref: s390x-x-linux179830
+Ref: s390x-ibm-tpf179917
+Ref: x-x-solaris2180048
+Ref: sparc-x-x184232
+Ref: sparc-x-linux184734
+Ref: c6x-x-x184765
+Ref: visium-x-elf184857
+Ref: x-x-vxworks184965
+Ref: x86-64-x-x186488
+Ref: xtensa-x-elf186816
+Ref: xtensa-x-linux187487
+Ref: windows187828
+Ref: x-x-cygwin189153
+Ref: x-x-mingw32189706
+Ref: older189932
+Ref: elf191895
+Node: GNU Free Documentation License192149
+Node: Concept Index217287
 
 End Tag Table
 

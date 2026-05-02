@@ -328,6 +328,10 @@ struct _slp_tree {
   vec<stmt_vec_info> stmts;
   /* A group of scalar operands to be vectorized together.  */
   vec<tree> ops;
+  /* A set of lane indices that are live and to be code-generated from
+     this SLP node.  */
+  vec<unsigned> live_lanes;
+
   /* The representative that should be used for analysis and
      code generation.  */
   stmt_vec_info representative;
@@ -457,6 +461,7 @@ public:
 #define SLP_TREE_CHILDREN(S)                     (S)->children
 #define SLP_TREE_SCALAR_STMTS(S)                 (S)->stmts
 #define SLP_TREE_SCALAR_OPS(S)                   (S)->ops
+#define SLP_TREE_LIVE_LANES(S)			 (S)->live_lanes
 #define SLP_TREE_REF_COUNT(S)                    (S)->refcnt
 #define SLP_TREE_VEC_DEFS(S)                     (S)->vec_defs
 #define SLP_TREE_LOAD_PERMUTATION(S)             (S)->load_permutation
@@ -1799,8 +1804,11 @@ public:
   unsigned int epilogue_cost () const;
   unsigned int outside_cost () const;
   unsigned int total_cost () const;
+
   unsigned int suggested_unroll_factor () const;
   machine_mode suggested_epilogue_mode (int &masked) const;
+
+  vec_info *vinfo () const { return m_vinfo; }
   bool costing_for_scalar () const { return m_costing_for_scalar; }
 
 protected:
@@ -2725,10 +2733,7 @@ extern bool vectorizable_early_exit (loop_vec_info, stmt_vec_info,
 extern bool vect_emulated_vector_p (tree);
 extern bool vect_can_vectorize_without_simd_p (tree_code);
 extern bool vect_can_vectorize_without_simd_p (code_helper);
-extern int vect_get_known_peeling_cost (loop_vec_info, int, int *,
-					stmt_vector_for_cost *,
-					stmt_vector_for_cost *,
-					stmt_vector_for_cost *);
+extern int vect_get_known_peeling_cost (loop_vec_info, int);
 extern tree cse_and_gimplify_to_preheader (loop_vec_info, tree);
 
 /* Nonlinear induction.  */
@@ -2771,7 +2776,7 @@ extern int vect_get_place_in_interleaving_chain (stmt_vec_info, stmt_vec_info);
 extern slp_tree vect_create_new_slp_node (unsigned, tree_code);
 extern void vect_free_slp_tree (slp_tree);
 extern bool compatible_calls_p (gcall *, gcall *, bool);
-extern int vect_slp_child_index_for_operand (const gimple *, int op, bool);
+extern int vect_slp_child_index_for_operand (const stmt_vec_info, int op);
 
 extern tree prepare_vec_mask (loop_vec_info, tree, tree, tree,
 			      gimple_stmt_iterator *);

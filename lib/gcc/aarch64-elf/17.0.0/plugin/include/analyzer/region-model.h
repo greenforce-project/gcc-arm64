@@ -352,6 +352,8 @@ class region_model
 				  bool unmergeable);
   void update_for_zero_return (const call_details &cd,
 			       bool unmergeable);
+  void update_for_null_return (const call_details &cd,
+			       bool unmergeable);
   void update_for_nonzero_return (const call_details &cd);
 
   void handle_unrecognized_call (const gcall &call,
@@ -1326,6 +1328,28 @@ private:
   region_model_manager &m_mgr;
   const supergraph *m_sg;
 };
+
+/* Factory functions for various diagnostics.  */
+
+extern std::unique_ptr<pending_diagnostic>
+make_poisoned_value_diagnostic (tree expr, enum poison_kind pkind,
+				const region *src_region,
+				tree check_expr);
+
+extern std::unique_ptr<pending_diagnostic>
+make_shift_count_negative_diagnostic (const gassign *assign,
+				      tree count_cst);
+
+extern std::unique_ptr<pending_diagnostic>
+make_shift_count_overflow_diagnostic (const gassign *assign,
+				      int operand_precision,
+				      tree count_cst);
+
+extern std::unique_ptr<pending_diagnostic>
+make_write_to_const_diagnostic (const region *dest_reg, tree decl);
+
+extern std::unique_ptr<pending_diagnostic>
+make_write_to_string_literal_diagnostic (const region *reg);
 
 } // namespace ana
 
