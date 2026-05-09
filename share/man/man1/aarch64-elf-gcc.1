@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2026-05-02" "gcc-17.0.0" "GNU"
+.TH GCC 1 "2026-05-09" "gcc-17.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -1182,9 +1182,6 @@ in the following sections.
 \&\fILynxOS Options\fR (\fBLynxOS Options\fR)
 \&\fB\-mshared  \-mthreads  \-mlegacy\-threads\fR
 .Sp
-\&\fIM32C Options\fR (\fBM32C Options\fR)
-\&\fB\-mcpu=\fR\fIcpu\fR  \fB\-msim  \-memregs=\fR\fInumber\fR
-.Sp
 \&\fIM32R/D Options\fR (\fBM32R/D Options\fR)
 \&\fB\-m32r2  \-m32rx  \-m32r
 \&\-mdebug
@@ -1598,7 +1595,7 @@ See Cygwin and MinGW Options.
 \&\fB\-mconst16  \-mforce\-no\-pic  \-mno\-serialize\-volatile
 \&\-mtext\-section\-literals  \-mauto\-litpools  \-mno\-target\-align
 \&\-mlongcalls  \-mabi=\fR\fIabi-type\fR
-\&\fB\-mextra\-l32r\-costs=\fR\fIcycles\fR  \fB\-mstrict\-align\fR
+\&\fB\-mextra\-l32r\-costs=\fR\fIcycles\fR  \fB\-mstrict\-align  \-mforce\-l32\fR
 .Sp
 \&\fIzSeries Options\fR
 See S/390 and zSeries Options.
@@ -7857,10 +7854,10 @@ This \fB\-Wunused\-but\-set\-variable=3\fR warning is also enabled by
 \&          int f = 0; // No warning, f used
 \&          int g = f = 5;
 \&          (void) g;
-\&          int h = 0; // No warning, preincrement used
+\&          int h = 0; // No warning, preincrement result used
 \&          int i = ++h;
 \&          (void) i;
-\&          int j = 0; // No warning, postdecrement used
+\&          int j = 0; // No warning, postdecrement result used
 \&          int k = j\-\-;
 \&          (void) k;
 \&          int l = 0; // No warning, l used
@@ -27088,31 +27085,6 @@ Support multi-threading.
 Support legacy multi-threading.
 This option is incompatible with \fB\-mthreads\fR.
 .PP
-\fIM32C Options\fR
-.IX Subsection "M32C Options"
-.IP "\fB\-mcpu=\fR\fIname\fR" 4
-.IX Item "-mcpu=name"
-Select the \s-1CPU\s0 for which code is generated.  \fIname\fR may be one of
-\&\fBr8c\fR for the R8C/Tiny series, \fBm16c\fR for the M16C (up to
-/60) series, \fBm32cm\fR for the M16C/80 series, or \fBm32c\fR for
-the M32C/80 series.
-.IP "\fB\-msim\fR" 4
-.IX Item "-msim"
-Specifies that the program will be run on the simulator.  This causes
-an alternate runtime library to be linked in which supports, for
-example, file I/O.  You must not use this option when generating
-programs that will run on real hardware; you must provide your own
-runtime library for whatever I/O functions are needed.
-.IP "\fB\-memregs=\fR\fInumber\fR" 4
-.IX Item "-memregs=number"
-Specifies the number of memory-based pseudo-registers \s-1GCC\s0 uses
-during code generation.  These pseudo-registers are used like real
-registers, so there is a tradeoff between \s-1GCC\s0's ability to fit the
-code into available registers, and the performance penalty of using
-memory instead of registers.  Note that all modules in a program must
-be compiled with the same value for this option.  Because of that, you
-must not use this option with \s-1GCC\s0's default runtime libraries.
-.PP
 \fIM32R/D Options\fR
 .IX Subsection "M32R/D Options"
 .PP
@@ -31542,8 +31514,8 @@ Supported values for \fIcpu_type\fR are \fB401\fR, \fB403\fR,
 \&\fBe6500\fR, \fBec603e\fR, \fBG3\fR, \fBG4\fR, \fBG5\fR,
 \&\fBtitan\fR, \fBpower3\fR, \fBpower4\fR, \fBpower5\fR, \fBpower5+\fR,
 \&\fBpower6\fR, \fBpower6x\fR, \fBpower7\fR, \fBpower8\fR,
-\&\fBpower9\fR, \fBpower10\fR, \fBpower11\fR, \fBpowerpc\fR, \fBpowerpc64\fR,
-\&\fBpowerpc64le\fR, \fBrs64\fR, and \fBnative\fR.
+\&\fBpower9\fR, \fBpower10\fR, \fBpower11\fR, \fBfuture\fR, \fBpowerpc\fR,
+\&\fBpowerpc64\fR, \fBpowerpc64le\fR, \fBrs64\fR, and \fBnative\fR.
 .Sp
 \&\fB\-mcpu=powerpc\fR, \fB\-mcpu=powerpc64\fR, and
 \&\fB\-mcpu=powerpc64le\fR specify pure 32\-bit PowerPC (either
@@ -37140,6 +37112,20 @@ object boundary as described in the architecture specification.
 The default is \fB\-mno\-strict\-align\fR for cores that support both
 unaligned loads and stores in hardware and \fB\-mstrict\-align\fR for all
 other cores.
+.IP "\fB\-mforce\-l32\fR" 4
+.IX Item "-mforce-l32"
+.PD 0
+.IP "\fB\-mno\-force\-l32\fR" 4
+.IX Item "-mno-force-l32"
+.PD
+When this option is enabled, \s-1GCC\s0 performs 1\- or 2\-byte loads in the generic
+address space (ie., default memory references) by bit-extracting the desired
+portion from the result of an aligned 4\-byte load, instead of the instructions
+originally provided for those purposes.  This option does not affect memory
+stores of such byte width, or the placement of those memory sections (see
+also \f(CW\*(C`_\|_force_l32\*(C'\fR address spaces described in
+\&\fBXtensa Named Address Spaces\fR, and \f(CW\*(C`force_l32\*(C'\fR attribute described
+in \fBXtensa Attributes\fR).  The default is \fB\-mno\-force\-l32\fR.
 .PP
 \fIzSeries Options\fR
 .IX Subsection "zSeries Options"

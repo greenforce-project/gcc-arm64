@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OBJDUMP 1"
-.TH OBJDUMP 1 "2026-05-02" "binutils-2.46.50" "GNU Development Tools"
+.TH OBJDUMP 1 "2026-05-09" "binutils-2.46.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -570,7 +570,15 @@ compilers.
 For AArch64 targets this switch can be used to set whether instructions are
 disassembled as the most general instruction using the \fB\-M no-aliases\fR
 option or whether instruction notes should be generated as comments in the
-disasssembly using \fB\-M notes\fR.
+disasssembly using \fB\-M notes\fR.  In addition the \fB\-M
+annotate\fR option can be used to customise the handling of undefined
+instructions when disassembling executables and shared libraries.
+Normally the disassembler will just show the hexadecimal value of tge
+undefined instruction, but if annotation is enabled it will first try
+to find a symbol whose value matches the instruction's encoding.  If
+there is a match then the symbol name will be displayed instead.  This
+can be useful when disassembling non-code sections which may contain
+function and data addresses.
 .Sp
 For the x86, some of the options duplicate functions of the \fB\-m\fR
 switch, but allow finer grained control.
