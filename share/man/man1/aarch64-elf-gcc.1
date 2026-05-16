@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2026-05-09" "gcc-17.0.0" "GNU"
+.TH GCC 1 "2026-05-16" "gcc-17.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -408,7 +408,7 @@ in the following sections.
 \&\-Wchar\-subscripts
 \&\-Wclobbered  \-Wcomment
 \&\-Wcompare\-distinct\-pointer\-types
-\&\-Wno\-complain\-wrong\-lang
+\&\-Wno\-complain\-wrong\-lang  \-Wconstant\-logical\-operand
 \&\-Wconversion  \-Wno\-coverage\-mismatch  \-Wno\-cpp
 \&\-Wdangling\-else  \-Wdangling\-pointer  \-Wdangling\-pointer=\fR\fIn\fR
 \&\fB\-Wdate\-time
@@ -497,7 +497,8 @@ in the following sections.
 \&\-Wno\-xor\-used\-as\-pow
 \&\-Wzero\-as\-null\-pointer\-constant
 \&\-Wzero\-length\-bounds
-\&\-\-all\-warnings  \-\-extra\-warnings  \-\-no\-warnings
+\&\-Wzero\-init\-padding\-bits=\fR\fIvalue\fR
+\&\fB\-\-all\-warnings  \-\-extra\-warnings  \-\-no\-warnings
 \&\-\-pedantic  \-\-pedantic\-errors\fR
 .IP "\fIStatic Analyzer Options\fR" 4
 .IX Item "Static Analyzer Options"
@@ -9994,6 +9995,22 @@ the operands of a logical operator are the same:
 \&        extern int a;
 \&        if (a < 0 && a < 0) { ... }
 .Ve
+.IP "\fB\-Wconstant\-logical\-operand\fR" 4
+.IX Item "-Wconstant-logical-operand"
+Warn about another case of suspicious uses of logical operators in
+expressions, when neither operand of a logical operator is boolean
+and one of the operands is (or folds into) a constant other than 0 or 1,
+or enumerator with value 1 if the enumeral type contains enumerators with
+values other than 0 or 1.
+In such case the warning will suggest using corresponding bitwise operator.
+.Sp
+.Vb 2
+\&        extern int a;
+\&        if (a && 64) { ... }
+.Ve
+.Sp
+If the warning is a false positive, one can clarify the code by using
+e.g. \f(CW\*(C`a && (64 != 0)\*(C'\fR instead.
 .IP "\fB\-Wlogical\-not\-parentheses\fR" 4
 .IX Item "-Wlogical-not-parentheses"
 Warn about logical not used on the left hand side operand of a comparison.
@@ -10722,6 +10739,98 @@ Requires \fB\-flto\fR to be enabled.  Enabled by default.
 Suppress warnings when a positional initializer is used to initialize
 a structure that has been marked with the \f(CW\*(C`designated_init\*(C'\fR
 attribute.
+.IP "\fB\-Wzero\-init\-padding\-bits=\fR\fIvalue\fR" 4
+.IX Item "-Wzero-init-padding-bits=value"
+Warn about automatic variable initializers that might not zero
+initialize padding bits.
+.Sp
+Certain languages guarantee zero initialization of padding bits in
+certain cases.  The \f(CW\*(C`\-fzero\-init\-padding\-bits=unions\*(C'\fR and
+\&\f(CW\*(C`\-fzero\-init\-padding\-bits=all\*(C'\fR options provide additional
+guarantees that padding bits will be zero initialized in other
+circumstances.
+.Sp
+This warning is mainly intended to find source code that might need to
+be modified or else recompiled with
+\&\f(CW\*(C`\-fzero\-init\-padding\-bits=unions\*(C'\fR or
+\&\f(CW\*(C`\-fzero\-init\-padding\-bits=all\*(C'\fR in order to retain the behavior
+that it had when compiled by versions of \s-1GCC\s0 older than 15.1.  It can
+also be used to find code that might result in uninitialized struct
+padding unless \s-1GCC\s0 is invoked with \f(CW\*(C`\-fzero\-init\-padding\-bits=all\*(C'\fR
+(regardless of the fact that older versions of \s-1GCC\s0 would not have
+guaranteed initialization of struct padding either).
+.Sp
+It does not follow that all source code which causes warnings about
+uninitialized padding bits has undefined behavior: usually, the values
+of padding bits have no effect on execution of a program.
+.Sp
+The two options interact as follows:
+.RS 4
+.IP ": \fIf:standard\fR : \fIf:unions\fR : \fIf:all\fR" 4
+.IX Item ": f:standard : f:unions : f:all"
+.PD 0
+.IP "W:standard : X : X : X" 4
+.IX Item "W:standard : X : X : X"
+.IP "W:unions : U : X : X" 4
+.IX Item "W:unions : U : X : X"
+.IP "W:all : A : S : X" 4
+.IX Item "W:all : A : S : X"
+.RE
+.RS 4
+.IP "\fILetter\fR : \fIMeaning\fR" 4
+.IX Item "Letter : Meaning"
+.IP "X : No warnings about padding bits." 4
+.IX Item "X : No warnings about padding bits."
+.IP "U : Warnings about padding bits of unions." 4
+.IX Item "U : Warnings about padding bits of unions."
+.IP "S : Warnings about padding bits of structs." 4
+.IX Item "S : Warnings about padding bits of structs."
+.IP "A : Warnings about padding bits of structs and unions." 4
+.IX Item "A : Warnings about padding bits of structs and unions."
+.RE
+.RS 4
+.PD
+.Sp
+Examples of union initialization for \s-1ISO C23\s0 with
+\&\f(CW\*(C`\-fzero\-init\-padding\-bits=standard\*(C'\fR and
+\&\f(CW\*(C`\-Wzero\-init\-padding\-bits=unions\*(C'\fR:
+.Sp
+.Vb 4
+\&          long long q;
+\&          unsigned char r;
+\&          union U { unsigned char a; long long b; };
+\&          struct F { long long a; union U b; };
+\&        
+\&          // Padding bits are explicitly initialized
+\&          union U h = {};
+\&        
+\&          // Padding bits might not be initialized
+\&          union U i = { r };
+\&        
+\&          // Padding bits might not be initialized
+\&          union U j = { .a = r };
+\&        
+\&          // Union is expected to have no padding bits
+\&          union U k = { .b = q };
+\&        
+\&          // Padding bits (of union) are explicitly initialized
+\&          struct F l = { q, {}, .b.a = r };
+\&        
+\&          // Padding bits (of union) might not be initialized
+\&          struct F m = { q, {}, .b = {.a = r} };
+.Ve
+.Sp
+In the declaration of \f(CW\*(C`m\*(C'\fR, an empty initializer that would otherwise
+guarantee zero initialization of the padding bits of the union (i.e., storage
+allocated for member \f(CW\*(C`b\*(C'\fR that is not part of member \f(CW\*(C`a\*(C'\fR) is
+overridden by a subsequently listed initializer.  This is an anti-pattern.
+.Sp
+Whether or not a given initializer causes a warning to be produced can be
+predicted for simple cases but in general it is target-dependent because the
+layout of storage is target-dependent.  The level of optimization, size, and
+initial value of the object being initialized also affect whether warnings are
+produced.
+.RE
 .SS "Options That Control Static Analysis"
 .IX Subsection "Options That Control Static Analysis"
 .IP "\fB\-fanalyzer\fR" 4

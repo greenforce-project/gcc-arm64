@@ -115,6 +115,7 @@ enum optab_tag {
   absv_optab,
   one_cmpl_optab,
   bswap_optab,
+  bitreverse_optab,
   ffs_optab,
   clz_optab,
   ctz_optab,
@@ -485,9 +486,9 @@ enum optab_tag {
   LAST_NORM_OPTAB = iorn_optab
 };
 
-#define NUM_OPTABS          473
+#define NUM_OPTABS          474
 #define NUM_CONVLIB_OPTABS  17
-#define NUM_NORMLIB_OPTABS  80
+#define NUM_NORMLIB_OPTABS  81
 #define NUM_OPTAB_PATTERNS  3287
 typedef enum optab_tag optab;
 typedef enum optab_tag convert_optab;
