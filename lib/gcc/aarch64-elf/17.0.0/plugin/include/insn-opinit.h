@@ -489,7 +489,7 @@ enum optab_tag {
 #define NUM_OPTABS          474
 #define NUM_CONVLIB_OPTABS  17
 #define NUM_NORMLIB_OPTABS  81
-#define NUM_OPTAB_PATTERNS  3287
+#define NUM_OPTAB_PATTERNS  3302
 typedef enum optab_tag optab;
 typedef enum optab_tag convert_optab;
 typedef enum optab_tag direct_optab;
@@ -3032,6 +3032,24 @@ gen_aarch64_sve_compact (machine_mode arg0, rtx x0, rtx x1, rtx x2)
   return res;
 }
 
+extern insn_code maybe_code_for_aarch64_sve_expand (machine_mode);
+inline insn_code
+code_for_aarch64_sve_expand (machine_mode arg0)
+{
+  insn_code code = maybe_code_for_aarch64_sve_expand (arg0);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_sve_expand (machine_mode, rtx, rtx, rtx);
+inline rtx
+gen_aarch64_sve_expand (machine_mode arg0, rtx x0, rtx x1, rtx x2)
+{
+  rtx res = maybe_gen_aarch64_sve_expand (arg0, x0, x1, x2);
+  gcc_assert (res);
+  return res;
+}
+
 extern insn_code maybe_code_for_aarch64_sve_dup_lane (machine_mode);
 inline insn_code
 code_for_aarch64_sve_dup_lane (machine_mode arg0)
@@ -3347,11 +3365,11 @@ code_for_aarch64_sve_cvtnt (machine_mode arg0)
   return code;
 }
 
-extern rtx maybe_gen_aarch64_sve_cvtnt (machine_mode, rtx, rtx, rtx, rtx);
+extern rtx maybe_gen_aarch64_sve_cvtnt (machine_mode, rtx, rtx, rtx, rtx, rtx);
 inline rtx
-gen_aarch64_sve_cvtnt (machine_mode arg0, rtx x0, rtx x1, rtx x2, rtx x3)
+gen_aarch64_sve_cvtnt (machine_mode arg0, rtx x0, rtx x1, rtx x2, rtx x3, rtx x4)
 {
-  rtx res = maybe_gen_aarch64_sve_cvtnt (arg0, x0, x1, x2, x3);
+  rtx res = maybe_gen_aarch64_sve_cvtnt (arg0, x0, x1, x2, x3, x4);
   gcc_assert (res);
   return res;
 }
@@ -3883,6 +3901,42 @@ inline rtx
 gen_aarch64_sve_cntp_c (int arg0, rtx x0, rtx x1, rtx x2)
 {
   rtx res = maybe_gen_aarch64_sve_cntp_c (arg0, x0, x1, x2);
+  gcc_assert (res);
+  return res;
+}
+
+extern insn_code maybe_code_for_aarch64_pred_firstp (machine_mode);
+inline insn_code
+code_for_aarch64_pred_firstp (machine_mode arg0)
+{
+  insn_code code = maybe_code_for_aarch64_pred_firstp (arg0);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_pred_firstp (machine_mode, rtx, rtx, rtx);
+inline rtx
+gen_aarch64_pred_firstp (machine_mode arg0, rtx x0, rtx x1, rtx x2)
+{
+  rtx res = maybe_gen_aarch64_pred_firstp (arg0, x0, x1, x2);
+  gcc_assert (res);
+  return res;
+}
+
+extern insn_code maybe_code_for_aarch64_pred_lastp (machine_mode);
+inline insn_code
+code_for_aarch64_pred_lastp (machine_mode arg0)
+{
+  insn_code code = maybe_code_for_aarch64_pred_lastp (arg0);
+  gcc_assert (code != CODE_FOR_nothing);
+  return code;
+}
+
+extern rtx maybe_gen_aarch64_pred_lastp (machine_mode, rtx, rtx, rtx);
+inline rtx
+gen_aarch64_pred_lastp (machine_mode arg0, rtx x0, rtx x1, rtx x2)
+{
+  rtx res = maybe_gen_aarch64_pred_lastp (arg0, x0, x1, x2);
   gcc_assert (res);
   return res;
 }

@@ -39588,6 +39588,15 @@ the stack.
      is usually appropriate, refer to 'expr.h' for additional
      documentation.
 
+ -- Target Hook: bool TARGET_OVERALIGNED_STACK_SLOT_REQUIRED (void)
+     This hook should return 'true' when call-related stack slots whose
+     requested alignment exceeds 'MAX_SUPPORTED_STACK_ALIGNMENT' need
+     special handling on the target.  This covers stack slots created by
+     call expansion (such as by-reference argument copies and hidden
+     structure return storage) and incoming argument setup.  When
+     'true', GCC may avoid normal fixed stack slots for such cases and
+     use over-allocation plus dynamic address alignment instead.
+
  -- Target Hook: rtx TARGET_FUNCTION_INCOMING_ARG (cumulative_args_t CA,
           const function_arg_info &ARG)
      Define this hook if the caller and callee on the target have
@@ -50744,9 +50753,9 @@ just emit warnings.
 
  The gimple representation can be seen using '-fdump-ipa-analyzer'.
      Tip: If the analyzer ICEs before this is written out, one
-     workaround is to use '--param=analyzer-bb-explosion-factor=0' to
-     force the analyzer to bail out after analyzing the first basic
-     block.
+     workaround is to use
+     '--param=analyzer-supernode-explosion-factor=0' to force the
+     analyzer to bail out after analyzing the first basic block.
 
  First, we build a directed graph to represent the user's code.  For
 historical reasons we call this the 'supergraph', although this is now a
@@ -53795,9 +53804,9 @@ The following choices of NAME are recognized for all targets:
      The number of executions of a basic block that is considered hot.
      The parameter is used only in GIMPLE FE.
 
-'analyzer-bb-explosion-factor'
-     The maximum number of "after supernode" exploded nodes within the
-     analyzer per supernode, before terminating analysis.
+'analyzer-supernode-explosion-factor'
+     The maximum number of exploded nodes within the analyzer per
+     supernode, before terminating analysis.
 
 'analyzer-text-art-string-ellipsis-threshold'
      The number of bytes at which to ellipsize string literals in
@@ -56689,7 +56698,6 @@ Parameter Index
 * aarch64-vect-unroll-limit:             AArch64 Parameters. (line   83)
 * align-loop-iterations:                 General Parameters. (line  534)
 * align-threshold:                       General Parameters. (line  529)
-* analyzer-bb-explosion-factor:          General Parameters. (line 1580)
 * analyzer-max-constraints:              General Parameters. (line 1552)
 * analyzer-max-enodes-for-full-dump:     General Parameters. (line 1559)
 * analyzer-max-enodes-per-program-point: General Parameters. (line 1548)
@@ -56697,6 +56705,7 @@ Parameter Index
 * analyzer-max-recursion-depth:          General Parameters. (line 1563)
 * analyzer-max-svalue-depth:             General Parameters. (line 1568)
 * analyzer-min-snodes-for-call-summary:  General Parameters. (line 1555)
+* analyzer-supernode-explosion-factor:   General Parameters. (line 1580)
 * analyzer-text-art-ideal-canvas-width:  General Parameters. (line 1588)
 * analyzer-text-art-string-ellipsis-head-len: General Parameters.
                                                              (line 1592)
@@ -60645,7 +60654,7 @@ Concept Index
 * Blocks:                                Blocks.             (line    6)
 * BLOCK_FOR_INSN, gimple_bb:             Maintaining the CFG.
                                                              (line   28)
-* BLOCK_REG_PADDING:                     Register Arguments. (line  232)
+* BLOCK_REG_PADDING:                     Register Arguments. (line  241)
 * BND32mode:                             Machine Modes.      (line  209)
 * BND64mode:                             Machine Modes.      (line  209)
 * bool:                                  Misc.               (line 1020)
@@ -60942,7 +60951,7 @@ Concept Index
 * CTImode:                               Machine Modes.      (line  203)
 * ctz:                                   Arithmetic.         (line  236)
 * CTZ_DEFINED_VALUE_AT_ZERO:             Misc.               (line  341)
-* CUMULATIVE_ARGS:                       Register Arguments. (line  131)
+* CUMULATIVE_ARGS:                       Register Arguments. (line  140)
 * current_function_is_leaf:              Leaf Functions.     (line   50)
 * current_function_uses_only_leaf_regs:  Leaf Functions.     (line   50)
 * current_insn_predicate:                Conditional Execution.
@@ -61417,7 +61426,7 @@ Concept Index
                                                              (line    6)
 * function-call insns:                   Calls.              (line    6)
 * functions, leaf:                       Leaf Functions.     (line    6)
-* FUNCTION_ARG_REGNO_P:                  Register Arguments. (line  255)
+* FUNCTION_ARG_REGNO_P:                  Register Arguments. (line  264)
 * FUNCTION_BOUNDARY:                     Storage Layout.     (line  203)
 * FUNCTION_DECL:                         Functions.          (line    6)
 * FUNCTION_DECL <1>:                     Functions for C++.  (line    6)
@@ -62665,9 +62674,9 @@ Concept Index
 * INITIAL_ELIMINATION_OFFSET:            Elimination.        (line   75)
 * INITIAL_FRAME_ADDRESS_RTX:             Frame Layout.       (line   75)
 * INIT_ARRAY_SECTION_ASM_OP:             Sections.           (line  106)
-* INIT_CUMULATIVE_ARGS:                  Register Arguments. (line  152)
-* INIT_CUMULATIVE_INCOMING_ARGS:         Register Arguments. (line  180)
-* INIT_CUMULATIVE_LIBCALL_ARGS:          Register Arguments. (line  174)
+* INIT_CUMULATIVE_ARGS:                  Register Arguments. (line  161)
+* INIT_CUMULATIVE_INCOMING_ARGS:         Register Arguments. (line  189)
+* INIT_CUMULATIVE_LIBCALL_ARGS:          Register Arguments. (line  183)
 * INIT_ENVIRONMENT:                      Driver.             (line  321)
 * INIT_EXPANDERS:                        Per-Function Data.  (line   36)
 * INIT_EXPR:                             Unary and Binary Expressions.
@@ -63258,11 +63267,11 @@ Concept Index
 * OUTPUT_QUOTED_STRING:                  File Framework.     (line  105)
 * OVERLAPPING_REGISTER_NAMES:            Instruction Output. (line   20)
 * OVERLOAD:                              Functions for C++.  (line    6)
-* OVERRIDE_ABI_FORMAT:                   Register Arguments. (line  144)
+* OVERRIDE_ABI_FORMAT:                   Register Arguments. (line  153)
 * OVL_CURRENT:                           Functions for C++.  (line    6)
 * OVL_NEXT:                              Functions for C++.  (line    6)
 * p in constraint:                       Simple Constraints. (line  168)
-* PAD_VARARGS_DOWN:                      Register Arguments. (line  224)
+* PAD_VARARGS_DOWN:                      Register Arguments. (line  233)
 * parallel:                              Side Effects.       (line  203)
 * parameters:                            Parameters.         (line    6)
 * parameters, c++ abi:                   C++ ABI.            (line    6)
@@ -63972,11 +63981,11 @@ Concept Index
 * TARGET_ALLOCATE_INITIAL_VALUE:         Misc.               (line  864)
 * TARGET_ALLOCATE_STACK_SLOTS_FOR_ARGS:  Misc.               (line 1147)
 * TARGET_ALWAYS_STRIP_DOTDOT:            Driver.             (line  262)
-* TARGET_ARG_PARTIAL_BYTES:              Register Arguments. (line   86)
+* TARGET_ARG_PARTIAL_BYTES:              Register Arguments. (line   95)
 * TARGET_ARM_EABI_UNWINDER:              Exception Region Output.
                                                              (line  146)
-* TARGET_ARRAY_MODE:                     Register Arguments. (line  396)
-* TARGET_ARRAY_MODE_SUPPORTED_P:         Register Arguments. (line  411)
+* TARGET_ARRAY_MODE:                     Register Arguments. (line  405)
+* TARGET_ARRAY_MODE_SUPPORTED_P:         Register Arguments. (line  420)
 * TARGET_ASAN_DYNAMIC_SHADOW_OFFSET_P:   Misc.               (line 1182)
 * TARGET_ASAN_SHADOW_OFFSET:             Misc.               (line 1175)
 * TARGET_ASM_ALIGNED_DI_OP:              Data Output.        (line   11)
@@ -64064,11 +64073,11 @@ Concept Index
 * TARGET_ATTRIBUTE_TAKES_IDENTIFIER_P:   Target Attributes.  (line   38)
 * TARGET_AVOID_STORE_FORWARDING_P:       Costs.              (line  513)
 * TARGET_BINDS_LOCAL_P:                  Sections.           (line  322)
-* TARGET_BUILD_BUILTIN_VA_LIST:          Register Arguments. (line  275)
+* TARGET_BUILD_BUILTIN_VA_LIST:          Register Arguments. (line  284)
 * TARGET_BUILTIN_DECL:                   Misc.               (line  670)
 * TARGET_BUILTIN_RECIPROCAL:             Addressing Modes.   (line  277)
 * TARGET_BUILTIN_SETJMP_FRAME_VALUE:     Frame Layout.       (line  101)
-* TARGET_CALLEE_COPIES:                  Register Arguments. (line  118)
+* TARGET_CALLEE_COPIES:                  Register Arguments. (line  127)
 * TARGET_CALLEE_SAVE_COST:               Costs.              (line  104)
 * TARGET_CALL_ARGS:                      Varargs.            (line  158)
 * TARGET_CALL_FUSAGE_CONTAINS_NON_CALLEE_CLOBBERS: Miscellaneous Register Hooks.
@@ -64079,7 +64088,7 @@ Concept Index
 * TARGET_CANNOT_SUBSTITUTE_MEM_EQUIV_P:  Register Classes.   (line  639)
 * TARGET_CANONICALIZE_COMPARISON:        MODE_CC Condition Codes.
                                                              (line   55)
-* TARGET_CANONICAL_VA_LIST_TYPE:         Register Arguments. (line  296)
+* TARGET_CANONICAL_VA_LIST_TYPE:         Register Arguments. (line  305)
 * TARGET_CAN_CHANGE_MODE_CLASS:          Register Classes.   (line  567)
 * TARGET_CAN_CHANGE_MODE_CLASS and subreg semantics: Regs and Memory.
                                                              (line  304)
@@ -64100,7 +64109,7 @@ Concept Index
 * TARGET_COMMUTATIVE_P:                  Misc.               (line  857)
 * TARGET_COMPARE_BY_PIECES_BRANCH_RATIO: Costs.              (line  272)
 * TARGET_COMPARE_VERSION_PRIORITY:       Misc.               (line  740)
-* TARGET_COMPATIBLE_VECTOR_TYPES_P:      Register Arguments. (line  373)
+* TARGET_COMPATIBLE_VECTOR_TYPES_P:      Register Arguments. (line  382)
 * TARGET_COMPUTE_FRAME_LAYOUT:           Elimination.        (line   81)
 * TARGET_COMPUTE_MULTILIB:               Run-time Target.    (line  160)
 * TARGET_COMPUTE_PRESSURE_CLASSES:       Register Classes.   (line  684)
@@ -64188,7 +64197,7 @@ Concept Index
                                                              (line   90)
 * TARGET_ENCODE_SECTION_INFO usage:      Instruction Output. (line  127)
 * TARGET_END_CALL_ARGS:                  Varargs.            (line  178)
-* TARGET_ENUM_VA_LIST_P:                 Register Arguments. (line  279)
+* TARGET_ENUM_VA_LIST_P:                 Register Arguments. (line  288)
 * TARGET_ESTIMATED_POLY_VALUE:           Costs.              (line  504)
 * TARGET_EXCEPT_UNWIND_INFO:             Exception Region Output.
                                                              (line   46)
@@ -64208,25 +64217,25 @@ Concept Index
 * target_flags:                          Run-time Target.    (line   51)
 * TARGET_FLAGS_REGNUM:                   MODE_CC Condition Codes.
                                                              (line  132)
-* TARGET_FLOATN_BUILTIN_P:               Register Arguments. (line  461)
-* TARGET_FLOATN_MODE:                    Register Arguments. (line  443)
+* TARGET_FLOATN_BUILTIN_P:               Register Arguments. (line  470)
+* TARGET_FLOATN_MODE:                    Register Arguments. (line  452)
 * TARGET_FLOAT_EXCEPTIONS_ROUNDING_SUPPORTED_P: Run-time Target.
                                                              (line  197)
 * TARGET_FNTYPE_ABI:                     Register Basics.    (line   58)
-* TARGET_FN_ABI_VA_LIST:                 Register Arguments. (line  291)
+* TARGET_FN_ABI_VA_LIST:                 Register Arguments. (line  300)
 * TARGET_FOLD_BUILTIN:                   Misc.               (line  723)
 * TARGET_FORMAT_TYPES:                   Misc.               (line 1027)
 * TARGET_FORTIFY_SOURCE_DEFAULT_LEVEL:   Library Calls.      (line   89)
 * TARGET_FRAME_ALLOCATION_COST:          Costs.              (line  143)
 * TARGET_FRAME_POINTER_REQUIRED:         Elimination.        (line    8)
 * TARGET_FUNCTION_ARG:                   Register Arguments. (line   10)
-* TARGET_FUNCTION_ARG_ADVANCE:           Register Arguments. (line  189)
-* TARGET_FUNCTION_ARG_BOUNDARY:          Register Arguments. (line  242)
-* TARGET_FUNCTION_ARG_OFFSET:            Register Arguments. (line  200)
-* TARGET_FUNCTION_ARG_PADDING:           Register Arguments. (line  208)
-* TARGET_FUNCTION_ARG_ROUND_BOUNDARY:    Register Arguments. (line  248)
+* TARGET_FUNCTION_ARG_ADVANCE:           Register Arguments. (line  198)
+* TARGET_FUNCTION_ARG_BOUNDARY:          Register Arguments. (line  251)
+* TARGET_FUNCTION_ARG_OFFSET:            Register Arguments. (line  209)
+* TARGET_FUNCTION_ARG_PADDING:           Register Arguments. (line  217)
+* TARGET_FUNCTION_ARG_ROUND_BOUNDARY:    Register Arguments. (line  257)
 * TARGET_FUNCTION_ATTRIBUTE_INLINABLE_P: Target Attributes.  (line  122)
-* TARGET_FUNCTION_INCOMING_ARG:          Register Arguments. (line   58)
+* TARGET_FUNCTION_INCOMING_ARG:          Register Arguments. (line   67)
 * TARGET_FUNCTION_OK_FOR_SIBCALL:        Tail Calls.         (line    6)
 * TARGET_FUNCTION_VALUE:                 Scalar Return.      (line    9)
 * TARGET_FUNCTION_VALUE_REGNO_P:         Scalar Return.      (line   92)
@@ -64242,7 +64251,7 @@ Concept Index
 * TARGET_GET_VALID_OPTION_VALUES:        Stack Smashing Protection.
                                                              (line   45)
 * TARGET_GIMPLE_FOLD_BUILTIN:            Misc.               (line  733)
-* TARGET_GIMPLIFY_VA_ARG_EXPR:           Register Arguments. (line  301)
+* TARGET_GIMPLIFY_VA_ARG_EXPR:           Register Arguments. (line  310)
 * TARGET_GOACC_ADJUST_PRIVATE_DECL:      OpenMP and OpenACC. (line  107)
 * TARGET_GOACC_CREATE_WORKER_BROADCAST_RECORD: OpenMP and OpenACC.
                                                              (line  134)
@@ -64285,7 +64294,7 @@ Concept Index
 * TARGET_INIT_DWARF_REG_SIZES_EXTRA:     Exception Region Output.
                                                              (line  132)
 * TARGET_INIT_LIBFUNCS:                  Library Calls.      (line   15)
-* TARGET_INIT_PIC_REG:                   Register Arguments. (line   82)
+* TARGET_INIT_PIC_REG:                   Register Arguments. (line   91)
 * TARGET_INSERT_ATTRIBUTES:              Target Attributes.  (line  101)
 * TARGET_INSN_CALLEE_ABI:                Register Basics.    (line   65)
 * TARGET_INSN_COST:                      Costs.              (line  452)
@@ -64312,7 +64321,7 @@ Concept Index
 * TARGET_LIBFUNC_GNU_PREFIX:             Library Calls.      (line   24)
 * TARGET_LIBGCC_CMP_RETURN_MODE:         Storage Layout.     (line  524)
 * TARGET_LIBGCC_FLOATING_MODE_SUPPORTED_P: Register Arguments.
-                                                             (line  435)
+                                                             (line  444)
 * TARGET_LIBGCC_SDATA_SECTION:           Sections.           (line  136)
 * TARGET_LIBGCC_SHIFT_COUNT_MODE:        Storage Layout.     (line  530)
 * TARGET_LIBM_FUNCTION_MAX_ERROR:        Library Calls.      (line   93)
@@ -64349,7 +64358,7 @@ Concept Index
                                                              (line  123)
 * TARGET_MODE_AFTER:                     Mode Switching.     (line   64)
 * TARGET_MODE_BACKPROP:                  Mode Switching.     (line   95)
-* TARGET_MODE_CAN_TRANSFER_BITS:         Register Arguments. (line  319)
+* TARGET_MODE_CAN_TRANSFER_BITS:         Register Arguments. (line  328)
 * TARGET_MODE_CONFLUENCE:                Mode Switching.     (line   79)
 * TARGET_MODE_DEPENDENT_ADDRESS_P:       Addressing Modes.   (line  204)
 * TARGET_MODE_EH_HANDLER:                Mode Switching.     (line  139)
@@ -64398,12 +64407,14 @@ Concept Index
 * TARGET_OS_CPP_BUILTINS:                Run-time Target.    (line   41)
 * TARGET_OUTPUT_CFI_DIRECTIVE:           Exception Region Output.
                                                              (line  119)
+* TARGET_OVERALIGNED_STACK_SLOT_REQUIRED: Register Arguments.
+                                                             (line   58)
 * TARGET_OVERLAP_OP_BY_PIECES_P:         Costs.              (line  265)
 * TARGET_OVERRIDES_FORMAT_ATTRIBUTES:    Misc.               (line 1036)
 * TARGET_OVERRIDES_FORMAT_ATTRIBUTES_COUNT: Misc.            (line 1043)
 * TARGET_OVERRIDES_FORMAT_INIT:          Misc.               (line 1047)
 * TARGET_OVERRIDE_OPTIONS_AFTER_CHANGE:  Run-time Target.    (line  126)
-* TARGET_PASS_BY_REFERENCE:              Register Arguments. (line  106)
+* TARGET_PASS_BY_REFERENCE:              Register Arguments. (line  115)
 * TARGET_PCH_VALID_P:                    PCH Target.         (line   11)
 * TARGET_POSIX_IO:                       Misc.               (line  557)
 * TARGET_PRECOMPUTE_TLS_P:               Addressing Modes.   (line  229)
@@ -64422,8 +64433,8 @@ Concept Index
 * TARGET_PTRMEMFUNC_VBIT_LOCATION:       Type Layout.        (line  240)
 * TARGET_PUSH_ARGUMENT:                  Stack Arguments.    (line   18)
 * TARGET_RECORD_OFFLOAD_SYMBOL:          Misc.               (line 1227)
-* TARGET_REDZONE_CLOBBER:                Register Arguments. (line  329)
-* TARGET_REF_MAY_ALIAS_ERRNO:            Register Arguments. (line  312)
+* TARGET_REDZONE_CLOBBER:                Register Arguments. (line  338)
+* TARGET_REF_MAY_ALIAS_ERRNO:            Register Arguments. (line  321)
 * TARGET_REGISTER_MOVE_COST:             Costs.              (line   31)
 * TARGET_REGISTER_PRIORITY:              Register Classes.   (line  608)
 * TARGET_REGISTER_USAGE_LEVELING_P:      Register Classes.   (line  620)
@@ -64439,7 +64450,7 @@ Concept Index
                                                              (line    6)
 * TARGET_RUST_OS_INFO:                   Rust Language and ABI.
                                                              (line   13)
-* TARGET_SCALAR_MODE_SUPPORTED_P:        Register Arguments. (line  345)
+* TARGET_SCALAR_MODE_SUPPORTED_P:        Register Arguments. (line  354)
 * TARGET_SCHED_ADJUST_COST:              Scheduling.         (line   35)
 * TARGET_SCHED_ADJUST_PRIORITY:          Scheduling.         (line   50)
 * TARGET_SCHED_ALLOC_SCHED_CONTEXT:      Scheduling.         (line  294)
@@ -64518,10 +64529,10 @@ Concept Index
 * TARGET_SIMT_VF:                        OpenMP and OpenACC. (line   29)
 * TARGET_SLOW_UNALIGNED_ACCESS:          Costs.              (line  197)
 * TARGET_SMALL_REGISTER_CLASSES_FOR_MODE_P: Register Arguments.
-                                                             (line  471)
+                                                             (line  480)
 * TARGET_SPECULATION_SAFE_VALUE:         Misc.               (line 1300)
 * TARGET_SPILL_CLASS:                    Register Classes.   (line  661)
-* TARGET_SPLIT_COMPLEX_ARG:              Register Arguments. (line  263)
+* TARGET_SPLIT_COMPLEX_ARG:              Register Arguments. (line  272)
 * TARGET_STACK_CLASH_PROTECTION_ALLOCA_PROBE_RANGE: Stack Checking.
                                                              (line   97)
 * TARGET_STACK_PROTECT_FAIL:             Stack Smashing Protection.
@@ -64552,7 +64563,7 @@ Concept Index
                                                              (line   98)
 * TARGET_TRAMPOLINE_ADJUST_ADDRESS:      Trampolines.        (line  144)
 * TARGET_TRAMPOLINE_INIT:                Trampolines.        (line  111)
-* TARGET_TRANSLATE_MODE_ATTRIBUTE:       Register Arguments. (line  336)
+* TARGET_TRANSLATE_MODE_ATTRIBUTE:       Register Arguments. (line  345)
 * TARGET_TRULY_NOOP_TRUNCATION:          Misc.               (line  184)
 * TARGET_UNSPEC_MAY_TRAP_P:              Misc.               (line  883)
 * TARGET_UNWIND_TABLES_DEFAULT:          Exception Region Output.
@@ -64566,9 +64577,9 @@ Concept Index
 * TARGET_USE_BLOCKS_FOR_DECL_P:          Addressing Modes.   (line  271)
 * TARGET_USE_BY_PIECES_INFRASTRUCTURE_P: Costs.              (line  230)
 * TARGET_USE_LATE_PROLOGUE_EPILOGUE:     Misc.               (line  612)
-* TARGET_USE_PSEUDO_PIC_REG:             Register Arguments. (line   78)
+* TARGET_USE_PSEUDO_PIC_REG:             Register Arguments. (line   87)
 * TARGET_VALID_DLLIMPORT_ATTRIBUTE_P:    Target Attributes.  (line   87)
-* TARGET_VALID_POINTER_MODE:             Register Arguments. (line  307)
+* TARGET_VALID_POINTER_MODE:             Register Arguments. (line  316)
 * TARGET_VECTORIZE_AUTOVECTORIZE_VECTOR_MODES: Vectorization.
                                                              (line  130)
 * TARGET_VECTORIZE_BUILTIN_GATHER:       Vectorization.      (line  226)
@@ -64600,8 +64611,8 @@ Concept Index
 * TARGET_VECTORIZE_VEC_PERM_CONST:       Vectorization.      (line   56)
 * TARGET_VECTOR_ALIGNMENT:               Storage Layout.     (line  329)
 * TARGET_VECTOR_MODE_SUPPORTED_ANY_TARGET_P: Register Arguments.
-                                                             (line  361)
-* TARGET_VECTOR_MODE_SUPPORTED_P:        Register Arguments. (line  356)
+                                                             (line  370)
+* TARGET_VECTOR_MODE_SUPPORTED_P:        Register Arguments. (line  365)
 * TARGET_VERIFY_TYPE_CONTEXT:            Misc.               (line 1092)
 * TARGET_VTABLE_DATA_ENTRY_DISTANCE:     Type Layout.        (line  293)
 * TARGET_VTABLE_ENTRY_ALIGN:             Type Layout.        (line  287)
@@ -66388,122 +66399,122 @@ Node: Frame Registers1645214
 Node: Elimination1653760
 Node: Stack Arguments1657982
 Node: Register Arguments1665525
-Node: Scalar Return1691433
-Node: Aggregate Return1697726
-Node: Caller Saves1702456
-Node: Function Entry1703198
-Node: Profiling1714750
-Node: Tail Calls1716860
-Node: Shrink-wrapping separate components1718770
-Node: Stack Smashing Protection1721811
-Node: Miscellaneous Register Hooks1724635
-Node: Varargs1725500
-Node: Trampolines1735452
-Node: Library Calls1745145
-Node: Addressing Modes1751456
-Node: Vectorization1764839
-Node: OpenMP and OpenACC1777761
-Node: Anchored Addresses1785653
-Node: Condition Code1788298
-Node: MODE_CC Condition Codes1790143
-Node: Costs1796906
-Node: Scheduling1822955
-Node: Sections1846877
-Node: PIC1863247
-Node: Assembler Format1865306
-Node: File Framework1866444
-Ref: TARGET_HAVE_SWITCHABLE_BSS_SECTIONS1874043
-Node: Data Output1875718
-Node: Uninitialized Data1884006
-Node: Label Output1889021
-Node: Initialization1913634
-Node: Macros for Initialization1919595
-Node: Instruction Output1926750
-Node: Dispatch Tables1937380
-Node: Exception Region Output1943131
-Node: Alignment Output1950864
-Node: Debugging Info1954551
-Node: All Debuggers1955101
-Node: DWARF1958034
-Node: VMS Debug1963809
-Node: CTF Debug1964406
-Node: BTF Debug1964767
-Node: Floating Point1965110
-Node: Mode Switching1967865
-Node: Target Attributes1975876
-Node: Emulated TLS1990814
-Node: MIPS Coprocessors1994204
-Node: PCH Target1995363
-Node: C++ ABI1997205
-Node: D Language and ABI2002431
-Node: Rust Language and ABI2005656
-Node: JIT Language and ABI2006395
-Node: Named Address Spaces2006894
-Node: Misc2014126
-Ref: TARGET_SHIFT_TRUNCATION_MASK2021997
-Node: Host Config2085922
-Node: Host Common2086991
-Node: Filesystem2089365
-Node: Host Misc2093480
-Node: Fragments2095929
-Node: Target Fragment2097124
-Node: Host Fragment2107936
-Node: Collect22108176
-Node: Header Dirs2110812
-Node: Type Information2112235
-Node: GTY Options2115766
-Node: Inheritance and GTY2129186
-Ref: Inheritance and GTY-Footnote-12130751
-Node: User GC2131021
-Node: GGC Roots2134772
-Node: Files2135485
-Node: Invoking the garbage collector2138116
-Node: Troubleshooting2139758
-Node: Plugins2140833
-Node: Plugins loading2141962
-Node: Plugin API2143058
-Node: Plugins pass2150784
-Node: Plugins GC2152755
-Node: Plugins description2154472
-Node: Plugins attr2155008
-Node: Plugins recording2157288
-Node: Plugins gate2158138
-Node: Plugins tracking2158729
-Node: Plugins building2159317
-Node: LTO2162820
-Node: LTO Overview2163692
-Node: LTO object file layout2169448
-Node: IPA2173947
-Node: WHOPR2182999
-Node: Internal flags2187559
-Node: Match and Simplify2188970
-Node: GIMPLE API2189940
-Node: The Language2192742
-Node: Static Analyzer2205954
-Node: Analyzer Internals2206219
-Node: Debugging the Analyzer2227828
-Node: User Experience Guidelines2236975
-Node: Guidelines for Diagnostics2237914
-Ref: input_location_example2246089
-Node: Guidelines for Options2258873
-Node: Parameters2264216
-Node: General Parameters2265323
-Node: Target-Specific Parameters2335264
-Node: AArch64 Parameters2335632
-Node: AMD GCN Parameters2339970
-Node: LoongArch Parameters2340319
-Node: RISC-V Parameters2340884
-Node: RS/6000 and PowerPC Parameters2341380
-Node: x86 Parameters2341976
-Node: Funding2342655
-Node: GNU Project2345146
-Node: Copying2345797
-Node: GNU Free Documentation License2383314
-Node: Contributors2408440
-Node: Option Index2450050
-Node: Parameter Index2451002
-Node: Concept Index2476218
-Node: Named Pattern Index3066362
+Node: Scalar Return1691988
+Node: Aggregate Return1698281
+Node: Caller Saves1703011
+Node: Function Entry1703753
+Node: Profiling1715305
+Node: Tail Calls1717415
+Node: Shrink-wrapping separate components1719325
+Node: Stack Smashing Protection1722366
+Node: Miscellaneous Register Hooks1725190
+Node: Varargs1726055
+Node: Trampolines1736007
+Node: Library Calls1745700
+Node: Addressing Modes1752011
+Node: Vectorization1765394
+Node: OpenMP and OpenACC1778316
+Node: Anchored Addresses1786208
+Node: Condition Code1788853
+Node: MODE_CC Condition Codes1790698
+Node: Costs1797461
+Node: Scheduling1823510
+Node: Sections1847432
+Node: PIC1863802
+Node: Assembler Format1865861
+Node: File Framework1866999
+Ref: TARGET_HAVE_SWITCHABLE_BSS_SECTIONS1874598
+Node: Data Output1876273
+Node: Uninitialized Data1884561
+Node: Label Output1889576
+Node: Initialization1914189
+Node: Macros for Initialization1920150
+Node: Instruction Output1927305
+Node: Dispatch Tables1937935
+Node: Exception Region Output1943686
+Node: Alignment Output1951419
+Node: Debugging Info1955106
+Node: All Debuggers1955656
+Node: DWARF1958589
+Node: VMS Debug1964364
+Node: CTF Debug1964961
+Node: BTF Debug1965322
+Node: Floating Point1965665
+Node: Mode Switching1968420
+Node: Target Attributes1976431
+Node: Emulated TLS1991369
+Node: MIPS Coprocessors1994759
+Node: PCH Target1995918
+Node: C++ ABI1997760
+Node: D Language and ABI2002986
+Node: Rust Language and ABI2006211
+Node: JIT Language and ABI2006950
+Node: Named Address Spaces2007449
+Node: Misc2014681
+Ref: TARGET_SHIFT_TRUNCATION_MASK2022552
+Node: Host Config2086477
+Node: Host Common2087546
+Node: Filesystem2089920
+Node: Host Misc2094035
+Node: Fragments2096484
+Node: Target Fragment2097679
+Node: Host Fragment2108491
+Node: Collect22108731
+Node: Header Dirs2111367
+Node: Type Information2112790
+Node: GTY Options2116321
+Node: Inheritance and GTY2129741
+Ref: Inheritance and GTY-Footnote-12131306
+Node: User GC2131576
+Node: GGC Roots2135327
+Node: Files2136040
+Node: Invoking the garbage collector2138671
+Node: Troubleshooting2140313
+Node: Plugins2141388
+Node: Plugins loading2142517
+Node: Plugin API2143613
+Node: Plugins pass2151339
+Node: Plugins GC2153310
+Node: Plugins description2155027
+Node: Plugins attr2155563
+Node: Plugins recording2157843
+Node: Plugins gate2158693
+Node: Plugins tracking2159284
+Node: Plugins building2159872
+Node: LTO2163375
+Node: LTO Overview2164247
+Node: LTO object file layout2170003
+Node: IPA2174502
+Node: WHOPR2183554
+Node: Internal flags2188114
+Node: Match and Simplify2189525
+Node: GIMPLE API2190495
+Node: The Language2193297
+Node: Static Analyzer2206509
+Node: Analyzer Internals2206774
+Node: Debugging the Analyzer2228390
+Node: User Experience Guidelines2237537
+Node: Guidelines for Diagnostics2238476
+Ref: input_location_example2246651
+Node: Guidelines for Options2259435
+Node: Parameters2264778
+Node: General Parameters2265885
+Node: Target-Specific Parameters2335815
+Node: AArch64 Parameters2336183
+Node: AMD GCN Parameters2340521
+Node: LoongArch Parameters2340870
+Node: RISC-V Parameters2341435
+Node: RS/6000 and PowerPC Parameters2341931
+Node: x86 Parameters2342527
+Node: Funding2343206
+Node: GNU Project2345697
+Node: Copying2346348
+Node: GNU Free Documentation License2383865
+Node: Contributors2408991
+Node: Option Index2450601
+Node: Parameter Index2451553
+Node: Concept Index2476769
+Node: Named Pattern Index3067048
 
 End Tag Table
 

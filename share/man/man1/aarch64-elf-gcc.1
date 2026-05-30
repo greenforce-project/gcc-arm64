@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2026-05-16" "gcc-17.0.0" "GNU"
+.TH GCC 1 "2026-05-30" "gcc-17.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -989,8 +989,8 @@ in the following sections.
 \&\fB\-mvectorize\-with\-neon\-quad  \-mvectorize\-with\-neon\-double\fR
 .Sp
 \&\fI\s-1AVR\s0 Options\fR (\fB\s-1AVR\s0 Options\fR)
-\&\fB\-mmcu=\fR\fImcu\fR  \fB\-mabsdata  \-maccumulate\-args  \-mcvt
-\&\-mbranch\-cost=\fR\fIcost\fR  \fB\-mfuse\-add=\fR\fIlevel\fR  \fB\-mfuse\-move=\fR\fIlevel\fR
+\&\fB\-mmcu=\fR\fImcu\fR  \fB\-mabsdata  \-maccumulate\-args \-masm\-len\-notes
+\&\-mcvt  \-mbranch\-cost=\fR\fIcost\fR  \fB\-mfuse\-add=\fR\fIlevel\fR  \fB\-mfuse\-move=\fR\fIlevel\fR
 \&\fB\-mfuse\-move2  \-mcall\-prologues  \-mgas\-isr\-prologues  \-mint8  \-mflmap
 \&\-mdouble=\fR\fIbits\fR  \fB\-mlong\-double=\fR\fIbits\fR  \fB\-mno\-call\-main
 \&\-mn_flash=\fR\fIsize\fR  \fB\-mfract\-convert\-truncate  \-mno\-interrupts
@@ -998,7 +998,7 @@ in the following sections.
 \&\-mrmw  \-mstrict\-X  \-mtiny\-stack
 \&\-mrodata\-in\-ram  \-msplit\-bit\-shift  \-msplit\-ldst  \-mshort\-calls
 \&\-mskip\-bug  \-muse\-nonzero\-bits  \-nodevicelib  \-nodevicespecs
-\&\-Waddr\-space\-convert  \-Wmisspelled\-isr\fR
+\&\-Wasm\-len\-notes  \-Waddr\-space\-convert  \-Wmisspelled\-isr\fR
 .Sp
 \&\fIBlackfin Options\fR (\fBBlackfin Options\fR)
 \&\fB\-mcpu=\fR\fIcpu\fR[\fB\-\fR\fIsirevision\fR]
@@ -1343,6 +1343,7 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\fB\-msmall\-data\-limit=\fR\fIN\-bytes\fR
 \&\fB\-msave\-restore  \-mno\-shorten\-memrefs
 \&\-mstrict\-align  \-mscalar\-strict\-align  \-mno\-vector\-strict\-align
+\&\-mzilsd\-word\-align  \-mzilsd\-strict\-align
 \&\-mcmodel=medlow  \-mcmodel=medany  \-mcmodel=large
 \&\-mexplicit\-relocs  \-mrelax  \-mriscv\-attribute
 \&\-malign\-data=\fR\fItype\fR
@@ -20204,14 +20205,16 @@ per-function basis.  The filename for the dump is made by appending
 \&\fI.su\fR to the \fIauxname\fR.  \fIauxname\fR is generated from the name of
 the output file, if explicitly specified and it is not an executable,
 otherwise it is the basename of the source file.  An entry is made up
-of three fields:
+of four fields separated by tabulation characters:
 .RS 4
 .IP "*" 4
-The name of the function.
+The name of the function preceded by its source location
 .IP "*" 4
-A number of bytes.
+The mangled name of the function
 .IP "*" 4
-One or more qualifiers: \f(CW\*(C`static\*(C'\fR, \f(CW\*(C`dynamic\*(C'\fR, \f(CW\*(C`bounded\*(C'\fR.
+A number of bytes
+.IP "*" 4
+One or more qualifiers: \f(CW\*(C`static\*(C'\fR, \f(CW\*(C`dynamic\*(C'\fR, \f(CW\*(C`bounded\*(C'\fR
 .RE
 .RS 4
 .Sp
@@ -21050,6 +21053,9 @@ Enable \s-1SVE2\s0 sha3 instructions.  This also enables \s-1SVE2\s0 instruction
 .IP "\fBsve2p1\fR" 4
 .IX Item "sve2p1"
 Enable \s-1SVE2.1\s0 instructions.  This also enables \s-1SVE2\s0 instructions.
+.IP "\fBsve2p2\fR" 4
+.IX Item "sve2p2"
+Enable \s-1SVE2.2\s0 instructions.  This also enables \s-1SVE2\s0 and \s-1SVE2.1\s0 instructions.
 .IP "\fBtme\fR" 4
 .IX Item "tme"
 Enable the Transactional Memory Extension.
@@ -21133,6 +21139,10 @@ instructions.
 .IX Item "sme2p1"
 Enable the Scalable Matrix Extension version 2.1.  This also enables \s-1SME2\s0
 instructions.
+.IP "\fBsme2p2\fR" 4
+.IX Item "sme2p2"
+Enable the Scalable Matrix Extension version 2.2.  This also enables \s-1SME2\s0
+and \s-1SME2.1\s0 instructions.
 .IP "\fBfcma\fR" 4
 .IX Item "fcma"
 Enable the complex number \s-1SIMD\s0 extensions.
@@ -23510,6 +23520,16 @@ Assume that all data in static storage can be accessed by \s-1LDS / STS\s0
 instructions.  This option has only an effect on reduced Tiny devices like
 ATtiny40.  See also the \f(CW\*(C`absdata\*(C'\fR
 \&\fB\s-1AVR\s0 Attributes,variable attribute\fR.
+.IP "\fB\-masm\-len\-notes\fR" 4
+.IX Item "-masm-len-notes"
+.PD 0
+.IP "\fB\-mno\-asm\-len\-notes\fR" 4
+.IX Item "-mno-asm-len-notes"
+.PD
+Recognize resp. ignore \f(CW\*(C`[[len=\f(CIspec\f(CW]]\*(C'\fR notes that are placed in
+(comments in) inline assembly code templates.  They allow to specify
+the exact \fBSize of an asm,size of \f(CB\*(C`asm\*(C'\fB constructs\fR.
+This option is on per default.
 .IP "\fB\-mcvt\fR" 4
 .IX Item "-mcvt"
 Use a \fIcompact vector table\fR.  Some devices support a \s-1CVT\s0
@@ -23653,6 +23673,13 @@ which contains a folder named \f(CW\*(C`device\-specs\*(C'\fR which contains a s
 .IX Item "-Waddr-space-convert"
 Warn about conversions between address spaces in the case where the
 resulting address space is not contained in the incoming address space.
+.IP "\fB\-Wasm\-len\-notes\fR" 4
+.IX Item "-Wasm-len-notes"
+Warn about unrecognized \f(CW\*(C`[[len=\f(CIspec\f(CW]]\*(C'\fR
+\&\fBSize of an asm,length\fR annotations in inline assembly code templates.
+This \fBWarning Options,warning\fR is on per default.
+Notice that in \s-1LTO\s0 mode, the code must be compiled with option
+\&\fB\-ffat\-lto\-objects\fR in order for these diagnoses to appear.
 .IP "\fB\-Wmisspelled\-isr\fR" 4
 .IX Item "-Wmisspelled-isr"
 Warn if the \s-1ISR\s0 is misspelled, i.e. without _\|_vector prefix.
@@ -31128,6 +31155,8 @@ by particular \s-1CPU\s0 name. Permissible values for this option are:
 .Sp
 \&\fBxt\-c920v2\fR,
 .Sp
+\&\fBxt\-c9501fdvt\fR,
+.Sp
 \&\fBtt\-ascalon\-d8\fR,
 .Sp
 \&\fBxiangshan-nanhu\fR,
@@ -31201,6 +31230,8 @@ particular \s-1CPU\s0 name.  Permissible values for this option are:
 \&\fBxt\-c920\fR,
 .Sp
 \&\fBxt\-c920v2\fR,
+.Sp
+\&\fBxt\-c9501fdvt\fR,
 .Sp
 \&\fBxiangshan-nanhu\fR,
 .Sp
@@ -31347,6 +31378,18 @@ or not.  This is an alias for \fB\-mstrict\-align\fR.
 Do not or do generate unaligned vector memory accesses.  The default is set
 to off unless the processor we are optimizing for explicitly supports
 element-misaligned vector memory access.
+.IP "\fB\-mzilsd\-word\-align\fR" 4
+.IX Item "-mzilsd-word-align"
+Allow Zilsd/Zclsd memory accesses to be generated when they are known to be
+4\-byte aligned.
+.IP "\fB\-mzilsd\-strict\-align\fR" 4
+.IX Item "-mzilsd-strict-align"
+Require Zilsd/Zclsd memory accesses to be naturally 8\-byte aligned.
+.Sp
+The precedence among \fB\-mzilsd\-word\-align\fR,
+\&\fB\-mzilsd\-strict\-align\fR, \fB\-mstrict\-align\fR,
+\&\fB\-mno\-strict\-align\fR, \fB\-mscalar\-strict\-align\fR, and
+\&\fB\-mno\-scalar\-strict\-align\fR is determined by the last one specified.
 .IP "\fB\-mmax\-vectorization\fR" 4
 .IX Item "-mmax-vectorization"
 .PD 0

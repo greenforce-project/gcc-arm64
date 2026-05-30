@@ -128,7 +128,8 @@ ISO C++14 compiler
      To build all languages in a cross-compiler or other configuration
      where 3-stage bootstrap is not performed, you need to start with an
      existing GCC binary (of a new enough version) because source code
-     for language frontends other than C might use GCC extensions.
+     for language frontends other than C and C++ might use GCC
+     extensions.
 
 C standard library and headers
 
@@ -4942,7 +4943,7 @@ Concept Index
 
 * Binaries:                              Binaries.           (line    6)
 * build_configargs:                      Configuration.      (line 2058)
-* cobol:                                 Prerequisites.      (line   84)
+* cobol:                                 Prerequisites.      (line   85)
 * Configuration:                         Configuration.      (line    6)
 * Downloading GCC:                       Downloading the source.
                                                              (line    6)
@@ -4971,96 +4972,96 @@ Tag Table:
 Node: Top1696
 Node: Installing GCC2201
 Node: Prerequisites3659
-Ref: GNAT-prerequisite5966
-Ref: GCOBOL-prerequisite7363
-Ref: GDC-prerequisite8411
-Ref: GM2-prerequisite9594
-Ref: gccrs-prerequisite9861
-Node: Downloading the source20972
-Node: Configuration22775
-Ref: with-gnu-as42158
-Ref: with-as42979
-Ref: with-gnu-ld44344
-Ref: with-multilib-list48220
-Ref: WithAixSoname77127
-Ref: AixLdCommand77788
-Ref: with-included-gettext94313
-Node: Building125814
-Node: Testing143112
-Node: Final install150643
-Node: Binaries153821
-Node: Specific154750
-Ref: aarch64-x-x155284
-Ref: amdgcn-x-amdhsa157125
-Ref: arc-x-elf32159456
-Ref: arc-linux-uclibc159632
-Ref: arm-x-eabi159773
-Ref: avr160026
-Ref: bfin160508
-Ref: cris160771
-Ref: dos161097
-Ref: epiphany-x-elf161422
-Ref: x-x-freebsd161527
-Ref: ft32-x-elf162118
-Ref: h8300-hms162216
-Ref: hppa64-hp-hpux11162275
-Ref: x-x-linux-gnu162909
-Ref: ix86-x-linux163102
-Ref: ia64-x-linux163304
-Ref: ia64-x-hpux163551
-Ref: x-ibm-aix163769
-Ref: TransferAixShobj167431
-Ref: iq2000-x-elf171013
-Ref: lm32-x-elf171153
-Ref: lm32-x-uclinux171257
-Ref: loongarch171385
-Ref: m32r-x-elf172022
-Ref: m68k-x-x172124
-Ref: m68k-x-uclinux173154
-Ref: microblaze-x-elf173399
-Ref: mips-x-x173518
-Ref: moxie-x-elf175428
-Ref: msp430-x-elf175475
-Ref: nds32le-x-elf176032
-Ref: nds32be-x-elf176104
-Ref: nvptx-x-none176173
-Ref: or1k-x-elf177130
-Ref: or1k-x-linux177261
-Ref: powerpc-x-x177342
-Ref: powerpc-x-darwin177533
-Ref: powerpc-x-elf178028
-Ref: powerpc-x-linux-gnu178113
-Ref: powerpc-x-netbsd178208
-Ref: powerpc-x-eabisim178296
-Ref: powerpc-x-eabi178422
-Ref: powerpcle-x-elf178498
-Ref: powerpcle-x-eabisim178590
-Ref: powerpcle-x-eabi178723
-Ref: rl78-x-elf178806
-Ref: riscv32-x-elf178912
-Ref: riscv32-x-linux179101
-Ref: riscv64-x-elf179258
-Ref: riscv64-x-linux179447
-Ref: rx-x-elf179604
-Ref: s390-x-linux179650
-Ref: s390x-x-linux179722
-Ref: s390x-ibm-tpf179809
-Ref: x-x-solaris2179940
-Ref: sparc-x-x184124
-Ref: sparc-x-linux184626
-Ref: c6x-x-x184657
-Ref: visium-x-elf184749
-Ref: x-x-vxworks184857
-Ref: x86-64-x-x186380
-Ref: xtensa-x-elf186708
-Ref: xtensa-x-linux187379
-Ref: windows187720
-Ref: x-x-cygwin189045
-Ref: x-x-mingw32189598
-Ref: older189824
-Ref: elf191787
-Node: GNU Free Documentation License192041
-Node: Concept Index217179
+Ref: GNAT-prerequisite5979
+Ref: GCOBOL-prerequisite7376
+Ref: GDC-prerequisite8424
+Ref: GM2-prerequisite9607
+Ref: gccrs-prerequisite9874
+Node: Downloading the source20985
+Node: Configuration22788
+Ref: with-gnu-as42171
+Ref: with-as42992
+Ref: with-gnu-ld44357
+Ref: with-multilib-list48233
+Ref: WithAixSoname77140
+Ref: AixLdCommand77801
+Ref: with-included-gettext94326
+Node: Building125827
+Node: Testing143125
+Node: Final install150656
+Node: Binaries153834
+Node: Specific154763
+Ref: aarch64-x-x155297
+Ref: amdgcn-x-amdhsa157138
+Ref: arc-x-elf32159469
+Ref: arc-linux-uclibc159645
+Ref: arm-x-eabi159786
+Ref: avr160039
+Ref: bfin160521
+Ref: cris160784
+Ref: dos161110
+Ref: epiphany-x-elf161435
+Ref: x-x-freebsd161540
+Ref: ft32-x-elf162131
+Ref: h8300-hms162229
+Ref: hppa64-hp-hpux11162288
+Ref: x-x-linux-gnu162922
+Ref: ix86-x-linux163115
+Ref: ia64-x-linux163317
+Ref: ia64-x-hpux163564
+Ref: x-ibm-aix163782
+Ref: TransferAixShobj167444
+Ref: iq2000-x-elf171026
+Ref: lm32-x-elf171166
+Ref: lm32-x-uclinux171270
+Ref: loongarch171398
+Ref: m32r-x-elf172035
+Ref: m68k-x-x172137
+Ref: m68k-x-uclinux173167
+Ref: microblaze-x-elf173412
+Ref: mips-x-x173531
+Ref: moxie-x-elf175441
+Ref: msp430-x-elf175488
+Ref: nds32le-x-elf176045
+Ref: nds32be-x-elf176117
+Ref: nvptx-x-none176186
+Ref: or1k-x-elf177143
+Ref: or1k-x-linux177274
+Ref: powerpc-x-x177355
+Ref: powerpc-x-darwin177546
+Ref: powerpc-x-elf178041
+Ref: powerpc-x-linux-gnu178126
+Ref: powerpc-x-netbsd178221
+Ref: powerpc-x-eabisim178309
+Ref: powerpc-x-eabi178435
+Ref: powerpcle-x-elf178511
+Ref: powerpcle-x-eabisim178603
+Ref: powerpcle-x-eabi178736
+Ref: rl78-x-elf178819
+Ref: riscv32-x-elf178925
+Ref: riscv32-x-linux179114
+Ref: riscv64-x-elf179271
+Ref: riscv64-x-linux179460
+Ref: rx-x-elf179617
+Ref: s390-x-linux179663
+Ref: s390x-x-linux179735
+Ref: s390x-ibm-tpf179822
+Ref: x-x-solaris2179953
+Ref: sparc-x-x184137
+Ref: sparc-x-linux184639
+Ref: c6x-x-x184670
+Ref: visium-x-elf184762
+Ref: x-x-vxworks184870
+Ref: x86-64-x-x186393
+Ref: xtensa-x-elf186721
+Ref: xtensa-x-linux187392
+Ref: windows187733
+Ref: x-x-cygwin189058
+Ref: x-x-mingw32189611
+Ref: older189837
+Ref: elf191800
+Node: GNU Free Documentation License192054
+Node: Concept Index217192
 
 End Tag Table
 

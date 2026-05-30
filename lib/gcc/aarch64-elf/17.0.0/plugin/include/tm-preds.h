@@ -127,6 +127,7 @@ extern bool aarch64_simd_imm_one (rtx, machine_mode);
 extern bool aarch64_simd_or_scalar_imm_zero (rtx, machine_mode);
 extern bool aarch64_simd_imm_minus_one (rtx, machine_mode);
 extern bool aarch64_simd_reg_or_zero (rtx, machine_mode);
+extern bool aarch64_simd_reg_or_direct_zero (rtx, machine_mode);
 extern bool aarch64_simd_reg_or_minus_one (rtx, machine_mode);
 extern bool aarch64_simd_struct_operand (rtx, machine_mode);
 extern bool aarch64_simd_general_operand (rtx, machine_mode);
@@ -360,6 +361,7 @@ enum constraint_num
   CONSTRAINT_Dn,
   CONSTRAINT_Dh,
   CONSTRAINT_Dq,
+  CONSTRAINT_Da,
   CONSTRAINT_Dt,
   CONSTRAINT_Dl,
   CONSTRAINT_D1,
