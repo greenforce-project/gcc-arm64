@@ -4,7 +4,7 @@
 ;;; Don't parse this file without knowing GCC gengtype internals.
 ;;; This file should be parsed by the same gengtype which wrote it.
 
-(!version  "17.0.0 20261121 (experimental)")
+(!version  "17.0.0")
 (!srcdir  "/root/project/gcc/gcc")
 (!languages 14 ada algol68 c cobol cp d fortran go jit lto m2 objc objcp rust)
 (!fileslist 262 0
@@ -31872,23 +31872,23 @@
   nil 0 nil nil )
  
  (!type struct 2245 nil  gc_used "lazy_hex_fp_value_struct"
-  (!srcfileloc  "c-family/c-cppbuiltin.cc" 1905)
+  (!srcfileloc  "c-family/c-cppbuiltin.cc" 1906)
   (!fields 4 
    (!pair  "hex_str"
     (!type already_seen 11)
-    (!srcfileloc  "c-family/c-cppbuiltin.cc" 1901)
+    (!srcfileloc  "c-family/c-cppbuiltin.cc" 1902)
     nil )
    (!pair  "mode"
     (!type already_seen 2)
-    (!srcfileloc  "c-family/c-cppbuiltin.cc" 1902)
+    (!srcfileloc  "c-family/c-cppbuiltin.cc" 1903)
     nil )
    (!pair  "digits"
     (!type already_seen 2)
-    (!srcfileloc  "c-family/c-cppbuiltin.cc" 1903)
+    (!srcfileloc  "c-family/c-cppbuiltin.cc" 1904)
     nil )
    (!pair  "fp_suffix"
     (!type already_seen 11)
-    (!srcfileloc  "c-family/c-cppbuiltin.cc" 1904)
+    (!srcfileloc  "c-family/c-cppbuiltin.cc" 1905)
     nil )
   )
   nil 6164 nil nil )
@@ -43966,13 +43966,13 @@
   nil )
  (!pair  "lazy_hex_fp_value_count"
   (!type already_seen 2)
-  (!srcfileloc  "c-family/c-cppbuiltin.cc" 1914)
+  (!srcfileloc  "c-family/c-cppbuiltin.cc" 1915)
   nil )
  (!pair  "lazy_hex_fp_values"
   (!type array 2835 nil  gc_used "LAZY_HEX_FP_VALUES_CNT" 
    (!type already_seen 2245)
   )
-  (!srcfileloc  "c-family/c-cppbuiltin.cc" 1913)
+  (!srcfileloc  "c-family/c-cppbuiltin.cc" 1914)
   nil )
  (!pair  "g_string_concat_db"
   (!type already_seen 862)
