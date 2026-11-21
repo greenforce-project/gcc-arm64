@@ -28,6 +28,9 @@ struct gimplify_omp_ctx;
 
 struct array_descr_info;
 
+/* Forward-declaration for qualifier_set in tree.h.  */
+struct qualifier_set;
+
 /* A print hook for print_tree ().  */
 typedef void (*lang_print_tree_hook) (FILE *, tree, int indent);
 
@@ -53,7 +56,7 @@ struct lang_hooks_for_tree_dump
   bool (*dump_tree) (void *, tree);
 
   /* Determine type qualifiers in a language-specific way.  */
-  int (*type_quals) (const_tree);
+  qualifier_set (*type_quals) (const_tree);
 };
 
 /* Hooks related to types.  */
@@ -243,6 +246,13 @@ struct lang_hooks_for_decls
      is true, only the TREE_TYPE is returned without generating a new tree.  */
   tree (*omp_array_data) (tree, bool);
 
+  /* Return true if the actual array data of the passed array descriptor decl
+     shall be privatized as well, otherwise only the array descriptor is to
+     be privatized.  The argument must be a decl for an array descriptor,
+     i.e. it may only be called for a decl for which omp_array_data returns
+     a non-NULL_TREE.  */
+  bool (*omp_array_data_privatize) (tree);
+
   /* Return a tree for the actual data of an array descriptor - or NULL_TREE
      if original tree is not an array descriptor.  If the second argument
      is true, only the TREE_TYPE is returned without generating a new tree.  */
@@ -254,7 +264,7 @@ struct lang_hooks_for_decls
 
   /* Check whether this DECL belongs to a Fortran optional argument.
      With 'for_present_check' set to false, decls which are optional parameters
-     themselve are returned as tree - or a NULL_TREE otherwise. Those decls are
+     themselves are returned as tree - or a NULL_TREE otherwise. Those decls are
      always pointers.  With 'for_present_check' set to true, the decl for
      checking whether an argument is present is returned; for arguments with
      value attribute this is the hidden argument and of BOOLEAN_TYPE.  If the
@@ -636,6 +646,10 @@ struct lang_hooks
 
   /* Map a type to a runtime object to match type.  */
   tree (*eh_runtime_type) (tree);
+
+  /* Return true if a handler of HANDLER_TYPE can catch an exception
+     of EXCEPTION_TYPE, per the language's exception-matching rules.  */
+  bool (*exception_matches_type_p) (tree handler_type, tree exception_type);
 
   /* If non-NULL, this is a function that returns a function decl to be
      executed if an unhandled exception is propagated out of a cleanup

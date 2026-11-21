@@ -516,7 +516,7 @@ reject source code containing "other" tokens.  In ASCII, the only
 "other" characters are '@', '$', '`', and control characters other than
 NUL (all bits zero).  (Note that '$' is normally considered a letter.)
 All bytes with the high bit set (numeric range 0x7F-0xFF) that were not
-succesfully interpreted as part of an extended character in the input
+successfully interpreted as part of an extended character in the input
 encoding are also "other" in the present implementation.
 
    NUL is a special case because of the high probability that its
@@ -1707,9 +1707,9 @@ the current function.  They tend to be useful in conjunction with
      C++ standard, '201103L' for the 2011 C++ standard, '201402L' for
      the 2014 C++ standard, '201703L' for the 2017 C++ standard,
      '202002L' for the 2020 C++ standard, '202302L' for the 2023 C++
-     standard, or an unspecified value strictly larger than '202302L'
-     for the experimental languages enabled by '-std=c++26' and
-     '-std=gnu++26'.
+     standard, '202603L' for the 2026 C++ standard, or an unspecified
+     value strictly larger than '202603L' for the experimental languages
+     enabled by '-std=c++29' and '-std=gnu++29'.
 
 '__OBJC__'
      This macro is defined, with value 1, when the Objective-C compiler
@@ -2265,6 +2265,10 @@ double underscores.
 
 '__ROUNDING_MATH__'
      This macro is defined if '-frounding-math' is used.
+
+'__UNSAFE_MATH_OPTIMIZATIONS__'
+     This macro is defined if '-funsafe-math-optimizations' is used, or
+     enabled by another option such as '-ffast-math'.
 
 '__GNUC_EXECUTION_CHARSET_NAME'
 '__GNUC_WIDE_EXECUTION_CHARSET_NAME'
@@ -3588,13 +3592,13 @@ first argument of the directive is a filename in the same forms as
 '#embed <FILE>'
      If FILE is an absolute filename, this includes the mentioned file,
      otherwise searches it in directories specified by the
-     '--embed-dir=' command line option for the FILE.
+     '--embed-dir=' command-line option for the FILE.
 
 '#embed "FILE"'
      This variant searches FILE in the same directory as the source file
      which uses the '#embed' directive and only if not found there
      continues searching directories specified by the '--embed-dir='
-     command line option.
+     command-line option.
 
    The '#embed' directive is expanded as if it was a sequence of integer
 literals from 0 to 'UCHAR_MAX' separated by commas, e.g. '#embed
@@ -5830,81 +5834,81 @@ Ref: Character sets-Footnote-18546
 Node: Initial processing8727
 Ref: trigraphs10286
 Node: Tokenization14486
-Ref: Tokenization-Footnote-121316
-Node: The preprocessing language21427
-Node: Header Files24306
-Node: Include Syntax26222
-Node: Include Operation27859
-Node: Search Path29707
-Node: Once-Only Headers31929
-Node: Alternatives to Wrapper #ifndef33588
-Node: Computed Includes35237
-Node: Wrapper Headers38395
-Node: System Headers40818
-Node: Macros42419
-Node: Object-like Macros43556
-Node: Function-like Macros47146
-Node: Macro Arguments48762
-Node: Stringizing52901
-Node: Concatenation56062
-Node: Variadic Macros59159
-Node: Predefined Macros64111
-Node: Standard Predefined Macros64699
-Node: Common Predefined Macros71192
-Node: System-specific Predefined Macros93828
-Node: C++ Named Operators95851
-Node: Undefining and Redefining Macros96815
-Node: Directives Within Macro Arguments98913
-Node: Macro Pitfalls99854
-Node: Misnesting100387
-Node: Operator Precedence Problems101499
-Node: Swallowing the Semicolon103365
-Node: Duplication of Side Effects105388
-Node: Self-Referential Macros107571
-Node: Argument Prescan109980
-Node: Newlines in Arguments113731
-Node: Conditionals114682
-Node: Conditional Uses116378
-Node: Conditional Syntax117736
-Node: Ifdef118293
-Node: If121449
-Node: Defined123753
-Node: Else125146
-Node: Elif125716
-Node: __has_attribute127029
-Node: __has_cpp_attribute128623
-Node: __has_c_attribute129513
-Node: __has_builtin130286
-Node: __has_feature131419
-Node: __has_extension132298
-Node: __has_include133420
-Node: __has_embed135272
-Node: Deleted Code136606
-Node: Diagnostics137853
-Node: Line Control139402
-Node: Pragmas141680
-Node: Binary Resource Inclusion146201
-Node: Other Directives149457
-Node: Preprocessor Output150525
-Node: Traditional Mode153680
-Node: Traditional lexical analysis154817
-Node: Traditional macros157320
-Node: Traditional miscellany161117
-Node: Traditional warnings162113
-Node: Implementation Details164310
-Node: Implementation-defined behavior164873
-Ref: Identifier characters165623
-Node: Implementation limits168672
-Node: Obsolete Features171345
-Node: Invocation174189
-Ref: dashMF180489
-Ref: fdollars-in-identifiers185238
-Ref: Wtrigraphs201854
-Node: Environment Variables203909
-Node: GNU Free Documentation License207600
-Node: Index of Directives232750
-Node: Option Index235049
-Node: Concept Index243852
+Ref: Tokenization-Footnote-121317
+Node: The preprocessing language21428
+Node: Header Files24307
+Node: Include Syntax26223
+Node: Include Operation27860
+Node: Search Path29708
+Node: Once-Only Headers31930
+Node: Alternatives to Wrapper #ifndef33589
+Node: Computed Includes35238
+Node: Wrapper Headers38396
+Node: System Headers40819
+Node: Macros42420
+Node: Object-like Macros43557
+Node: Function-like Macros47147
+Node: Macro Arguments48763
+Node: Stringizing52902
+Node: Concatenation56063
+Node: Variadic Macros59160
+Node: Predefined Macros64112
+Node: Standard Predefined Macros64700
+Node: Common Predefined Macros71230
+Node: System-specific Predefined Macros94025
+Node: C++ Named Operators96048
+Node: Undefining and Redefining Macros97012
+Node: Directives Within Macro Arguments99110
+Node: Macro Pitfalls100051
+Node: Misnesting100584
+Node: Operator Precedence Problems101696
+Node: Swallowing the Semicolon103562
+Node: Duplication of Side Effects105585
+Node: Self-Referential Macros107768
+Node: Argument Prescan110177
+Node: Newlines in Arguments113928
+Node: Conditionals114879
+Node: Conditional Uses116575
+Node: Conditional Syntax117933
+Node: Ifdef118490
+Node: If121646
+Node: Defined123950
+Node: Else125343
+Node: Elif125913
+Node: __has_attribute127226
+Node: __has_cpp_attribute128820
+Node: __has_c_attribute129710
+Node: __has_builtin130483
+Node: __has_feature131616
+Node: __has_extension132495
+Node: __has_include133617
+Node: __has_embed135469
+Node: Deleted Code136803
+Node: Diagnostics138050
+Node: Line Control139599
+Node: Pragmas141877
+Node: Binary Resource Inclusion146398
+Node: Other Directives149654
+Node: Preprocessor Output150722
+Node: Traditional Mode153877
+Node: Traditional lexical analysis155014
+Node: Traditional macros157517
+Node: Traditional miscellany161314
+Node: Traditional warnings162310
+Node: Implementation Details164507
+Node: Implementation-defined behavior165070
+Ref: Identifier characters165820
+Node: Implementation limits168869
+Node: Obsolete Features171542
+Node: Invocation174386
+Ref: dashMF180686
+Ref: fdollars-in-identifiers185435
+Ref: Wtrigraphs202051
+Node: Environment Variables204106
+Node: GNU Free Documentation License207797
+Node: Index of Directives232947
+Node: Option Index235246
+Node: Concept Index244049
 
 End Tag Table
 

@@ -96,8 +96,6 @@
 
 #define LONG_LONG_TYPE_SIZE	64
 
-#define WIDEST_HARDWARE_FP_SIZE	64
-
 /* This value is the amount of bytes a caller is allowed to drop the stack
    before probing has to be done for stack clash protection.  */
 #define STACK_CLASH_CALLER_GUARD 1024
@@ -290,15 +288,21 @@ constexpr auto AARCH64_FL_DEFAULT_ISA_MODE ATTRIBUTE_UNUSED
 /* SVE2 instructions, enabled in non-streaming mode through +sve2.  */
 #define TARGET_SVE2 (AARCH64_HAVE_ISA (SVE2) || TARGET_STREAMING)
 
-/* SVE2 AES instructions, enabled through +sve2-aes.  */
-#define TARGET_SVE2_AES (AARCH64_HAVE_ISA (SVE2) \
-			 && AARCH64_HAVE_ISA (SVE_AES) \
-			 && TARGET_NON_STREAMING)
+/* SVE AES instructions, enabled through +sve-aes+sve2 for non-streaming mode
+   and +ssve-aes for streaming mode.  */
+#define TARGET_SVE_AES (AARCH64_HAVE_ISA (SVE_AES) \
+			    && (AARCH64_HAVE_ISA (SVE2) || TARGET_STREAMING) \
+			    && (AARCH64_HAVE_ISA (SSVE_AES) \
+				|| TARGET_NON_STREAMING))
 
-/* SVE2 BITPERM instructions, enabled through +sve2-bitperm.  */
-#define TARGET_SVE2_BITPERM (AARCH64_HAVE_ISA (SVE2) \
-			     && AARCH64_HAVE_ISA (SVE_BITPERM) \
-			     && TARGET_NON_STREAMING)
+#define TARGET_SVE_AES2 (TARGET_SVE_AES && AARCH64_HAVE_ISA (SVE_AES2))
+
+/* SVE BITPERM instructions, enabled through +sve-bitperm+sve2 for non-streaming
+   and +ssve-bitperm for streaming.  */
+#define TARGET_SVE_BITPERM (AARCH64_HAVE_ISA (SVE_BITPERM) \
+			    && (AARCH64_HAVE_ISA (SVE2) || TARGET_STREAMING) \
+			    && (AARCH64_HAVE_ISA (SSVE_BITPERM) \
+				|| TARGET_NON_STREAMING))
 
 /* SVE2 SHA3 instructions, enabled through +sve2-sha3.  */
 #define TARGET_SVE2_SHA3 (AARCH64_HAVE_ISA (SVE2) \
@@ -315,6 +319,9 @@ constexpr auto AARCH64_FL_DEFAULT_ISA_MODE ATTRIBUTE_UNUSED
 
 /* SVE2p2 instructions, enabled through +sve2p2.  */
 #define TARGET_SVE2p2 AARCH64_HAVE_ISA (SVE2p2)
+
+/* SVE2p3 instructions, enabled through +sve2p3.  */
+#define TARGET_SVE2p3 AARCH64_HAVE_ISA (SVE2p3)
 
 /* SME instructions, enabled through +sme.  Note that this does not
    imply anything about the state of PSTATE.SM; instructions that require
@@ -349,12 +356,20 @@ constexpr auto AARCH64_FL_DEFAULT_ISA_MODE ATTRIBUTE_UNUSED
 /* SME2p2 instructions, enabled through +sme2p2.  */
 #define TARGET_SME2p2 AARCH64_HAVE_ISA (SME2p2)
 
+/* SME2p3 instructions, enabled through +sme2p3.  */
+#define TARGET_SME2p3 AARCH64_HAVE_ISA (SME2p3)
+
 /* Same with streaming mode enabled.  */
 #define TARGET_STREAMING_SME2 (TARGET_STREAMING && TARGET_SME2)
 
 #define TARGET_STREAMING_SME2p1 (TARGET_STREAMING && AARCH64_HAVE_ISA (SME2p1))
 
 #define TARGET_STREAMING_SME2p2 (TARGET_STREAMING && AARCH64_HAVE_ISA (SME2p2))
+
+#define TARGET_STREAMING_SME2p3 (TARGET_STREAMING && AARCH64_HAVE_ISA (SME2p3))
+
+#define TARGET_STREAMING_SME_TMOP \
+  (AARCH64_HAVE_ISA (SME_TMOP) && TARGET_STREAMING)
 
 #define TARGET_SME_B16B16 AARCH64_HAVE_ISA (SME_B16B16)
 
@@ -423,8 +438,16 @@ constexpr auto AARCH64_FL_DEFAULT_ISA_MODE ATTRIBUTE_UNUSED
 #define TARGET_F8F32MM (AARCH64_HAVE_ISA (F8F32MM))
 /* F8F16MM instructions, enabled through +f8f16mm.  */
 #define TARGET_F8F16MM (AARCH64_HAVE_ISA (F8F16MM))
+/* F16F32MM instructions, enabled through +f16f32mm.  */
+#define TARGET_F16F32MM (AARCH64_HAVE_ISA (F16F32MM))
+/* F16MM instructions, enabled through +f16mm.  */
+#define TARGET_F16MM (AARCH64_HAVE_ISA (F16MM))
 /* SVE_F16F32MM instructions, enabled through +sve-f16f32mm.  */
 #define TARGET_SVE_F16F32MM (AARCH64_HAVE_ISA (SVE_F16F32MM))
+/* F16F32DOT instructions enabled through +f16f32dot.  */
+#define TARGET_F16F32DOT (AARCH64_HAVE_ISA (F16F32DOT))
+/* SVE_B16MM instructions, enabled through +sve-b16mm.  */
+#define TARGET_SVE_B16MM (AARCH64_HAVE_ISA (SVE_B16MM))
 
 /* Make sure this is always defined so we don't have to check for ifdefs
    but rather use normal ifs.  */
@@ -497,11 +520,17 @@ constexpr auto AARCH64_FL_DEFAULT_ISA_MODE ATTRIBUTE_UNUSED
    elements are enabled through +sme-lutv2.  */
 #define TARGET_SME_LUTv2 AARCH64_HAVE_ISA (SME_LUTv2)
 
+#define TARGET_SME_MOP4 (AARCH64_HAVE_ISA (SME_MOP4) && TARGET_STREAMING)
+
 /* Prefer different predicate registers for the output of a predicated
    operation over re-using an existing input predicate.  */
 #define TARGET_SVE_PRED_CLOBBER (TARGET_SVE \
 				 && (aarch64_tune_params.extra_tuning_flags \
 				     & AARCH64_EXTRA_TUNE_AVOID_PRED_RMW))
+
+/* Set if we prefer SVE merging predicated mov immediate over zeroing.  */
+#define TARGET_SVE_PREFER_ZEROING_MOVIMM \
+  !(aarch64_tune_params.extra_tuning_flags & AARCH64_EXTRA_TUNE_AVOID_MOVIMM_Z)
 
 /* fp8 instructions are enabled through +fp8.  */
 #define TARGET_FP8 AARCH64_HAVE_ISA (FP8)
@@ -529,6 +558,8 @@ constexpr auto AARCH64_FL_DEFAULT_ISA_MODE ATTRIBUTE_UNUSED
 /* There's no need to check TARGET_SME for streaming or streaming-compatible
    functions, since streaming mode itself implies SME.  */
 #define TARGET_SVE2p1_OR_SME (TARGET_SVE2p1 || TARGET_STREAMING)
+
+#define TARGET_SVE2p3_OR_SME2p3 (TARGET_SVE2p3 || TARGET_SME2p3)
 
 #define TARGET_SVE2p1_OR_SME2 \
   ((TARGET_SVE2p1 || TARGET_STREAMING) \
@@ -574,6 +605,14 @@ through +ssve-fp8dot2.  */
 		&& (AARCH64_HAVE_ISA(SSVE_FP8DOT2) || TARGET_NON_STREAMING))
 
 #define TARGET_SSME2_FP8 (TARGET_FP8 && TARGET_STREAMING_SME2)
+
+/* SVE FEXPA instructions, enabled through +sve for streaming and +ssve-fexpa
+   for streaming.  */
+#define TARGET_SVE_FEXPA ((TARGET_SVE || TARGET_STREAMING) \
+			   && (AARCH64_HAVE_ISA (SSVE_FEXPA) \
+			       || TARGET_NON_STREAMING))
+
+#define TARGET_FPRCVT (AARCH64_HAVE_ISA (FPRCVT))
 
 /* Standard register usage.  */
 
@@ -905,6 +944,7 @@ enum reg_class
   POINTER_REGS,
   FP_LO8_REGS,
   FP_LO_REGS,
+  FP_HI_REGS,
   FP_REGS,
   POINTER_AND_FP_REGS,
   PR_LO_REGS,
@@ -932,6 +972,7 @@ enum reg_class
   "POINTER_REGS",				\
   "FP_LO8_REGS",				\
   "FP_LO_REGS",					\
+  "FP_HI_REGS",					\
   "FP_REGS",					\
   "POINTER_AND_FP_REGS",			\
   "PR_LO_REGS",					\
@@ -956,6 +997,7 @@ enum reg_class
   { 0xffffffff, 0x00000000, 0x00000003 },	/* POINTER_REGS */	\
   { 0x00000000, 0x000000ff, 0x00000000 },       /* FP_LO8_REGS  */	\
   { 0x00000000, 0x0000ffff, 0x00000000 },       /* FP_LO_REGS  */	\
+  { 0x00000000, 0xffff0000, 0x00000000 },       /* FP_HI_REGS */	\
   { 0x00000000, 0xffffffff, 0x00000000 },       /* FP_REGS  */		\
   { 0xffffffff, 0xffffffff, 0x00000003 },	/* POINTER_AND_FP_REGS */\
   { 0x00000000, 0x00000000, 0x00000ff0 },	/* PR_LO_REGS */	\
@@ -1033,7 +1075,7 @@ extern enum aarch64_cpu aarch64_tune;
 
 #define DEFAULT_PCC_STRUCT_RETURN 0
 
-/* The set of available Procedure Call Stardards.  */
+/* The set of available Procedure Call Standards.  */
 
 enum arm_pcs
 {
@@ -1094,12 +1136,12 @@ struct GTY (()) aarch64_frame
   poly_int64 bytes_below_hard_fp;
 
   /* The number of bytes between the top of the locals area and the top
-     of the frame (the incomming SP).  This value is always a multiple of
+     of the frame (the incoming SP).  This value is always a multiple of
      STACK_BOUNDARY.  */
   poly_int64 bytes_above_locals;
 
   /* The number of bytes between the hard_frame_pointer and the top of
-     the frame (the incomming SP).  This value is always a multiple of
+     the frame (the incoming SP).  This value is always a multiple of
      STACK_BOUNDARY.  */
   poly_int64 bytes_above_hard_fp;
 
@@ -1494,7 +1536,7 @@ typedef struct
 
 /* This definition should be relocated to aarch64-elf-raw.h.  This macro
    should be undefined in aarch64-linux.h and a clear_cache pattern
-   implmented to emit either the call to __aarch64_sync_cache_range()
+   implemented to emit either the call to __aarch64_sync_cache_range()
    directly or preferably the appropriate sycall or cache clear
    instructions inline.  */
 #define CLEAR_INSN_CACHE(beg, end)				\
@@ -1639,7 +1681,7 @@ extern poly_uint16 aarch64_sve_vg;
    vectors in a structure mode (4).
 
    This limit must not be used for variable-size vectors, since
-   VL-agnostic code must work with arbitary vector lengths.  */
+   VL-agnostic code must work with arbitrary vector lengths.  */
 #define MAX_COMPILE_TIME_VEC_BYTES (256 * 4)
 #endif
 

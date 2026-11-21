@@ -1,5 +1,5 @@
-/* Base class for svalues and regions.
-   Copyright (C) 2023-2026 Free Software Foundation, Inc.
+/* Simple wrapper around "tree" for types.
+   Copyright (C) 2026 Free Software Foundation, Inc.
    Contributed by David Malcolm <dmalcolm@redhat.com>.
 
 This file is part of GCC.
@@ -18,36 +18,30 @@ You should have received a copy of the GNU General Public License
 along with GCC; see the file COPYING3.  If not see
 <http://www.gnu.org/licenses/>.  */
 
-#ifndef GCC_ANALYZER_SYMBOL_H
-#define GCC_ANALYZER_SYMBOL_H
-
-#include "analyzer/complexity.h"
+#ifndef GCC_ANALYZER_TYPE_H
+#define GCC_ANALYZER_TYPE_H
 
 namespace ana {
 
-/* Base class for svalues and regions: has a complexity and a numeric ID.  */
+/* Simple wrapper around "tree" for types.  */
 
-class symbol
+class type
 {
- public:
-  typedef unsigned id_t;
+public:
+  type (const_tree tree_node)
+  : m_tree_node (tree_node)
+  {
+    if (tree_node)
+      gcc_assert (TYPE_P (tree_node));
+  }
 
-  const complexity &get_complexity () const { return m_complexity; }
+  const_tree
+  get_tree_node () const { return m_tree_node; }
 
-  id_t get_id () const { return m_id; }
-  static int cmp_ids (const symbol *s1, const symbol *s2);
-
- protected:
-  symbol (complexity c, unsigned id)
-  : m_complexity (c),
-    m_id (id)
-  {}
-
- private:
-  complexity m_complexity;
-  id_t m_id; // for deterministic sorting at this stage, for dumps
+private:
+  const_tree m_tree_node;
 };
 
 } // namespace ana
 
-#endif /* GCC_ANALYZER_SYMBOL_H */
+#endif /* GCC_ANALYZER_TYPE_H */

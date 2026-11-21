@@ -343,10 +343,10 @@ extern enum tree_code maybe_optimize_mod_cmp (enum tree_code, tree *, tree *);
 extern void maybe_optimize_sub_cmp_0 (enum tree_code, tree *, tree *);
 
 /* Two different ways of generating switch statements.  */
-extern bool try_casesi (tree, tree, tree, tree, rtx, rtx, rtx,
-			profile_probability);
-extern bool try_tablejump (tree, tree, tree, tree, rtx, rtx,
-			   profile_probability);
+extern bool try_casesi (tree, tree, tree, tree, rtx_code_label *,
+			rtx_code_label *, rtx_insn *, profile_probability);
+extern bool try_tablejump (tree, tree, tree, tree, rtx_code_label *,
+			   rtx_code_label *, profile_probability);
 
 extern bool safe_from_p (const_rtx, tree, int);
 
@@ -402,9 +402,9 @@ extern unsigned HOST_WIDE_INT
 gf2n_poly_long_div_quotient (unsigned HOST_WIDE_INT, unsigned short);
 
 /* Generate table-based CRC.  */
-extern void generate_reflecting_code_standard (rtx *);
-extern void expand_crc_table_based (rtx, rtx, rtx, rtx, machine_mode);
-extern void expand_reversed_crc_table_based (rtx, rtx, rtx, rtx, machine_mode);
+extern void expand_crc_table_based (rtx, rtx, rtx, rtx, unsigned short);
+extern void expand_reversed_crc_table_based (rtx, rtx, rtx, rtx,
+					     unsigned short);
 
 /* Cache of the "extended" flag in the target's _BitInt description
    for use during expand.  */

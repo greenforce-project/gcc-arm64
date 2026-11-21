@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "LD 1"
-.TH LD 1 "2026-05-30" "binutils-2.46.50" "GNU Development Tools"
+.TH LD 1 "2026-11-21" "binutils-2.47.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -435,8 +435,8 @@ and/or the trailing stdcall \fB\f(CB@number\fB\fR when applicable).
 Specifies a list of archive libraries from which symbols should not be automatically
 exported.  The library names may be delimited by commas or colons.  Specifying
 \&\f(CW\*(C`\-\-exclude\-libs ALL\*(C'\fR excludes symbols in all archive libraries from
-automatic export.  This option is available only for the i386 \s-1PE\s0 targeted
-port of the linker and for \s-1ELF\s0 targeted ports.  For i386 \s-1PE,\s0 symbols
+automatic export.  This option is available only for \s-1ELF\s0 and \s-1PE\s0 targeted
+ports of the linker.  For \s-1PE\s0 targets, symbols
 explicitly listed in a .def file are still exported, regardless of this
 option.  For \s-1ELF\s0 targeted ports, symbols affected by this option will
 be treated as hidden.
@@ -449,9 +449,9 @@ may be delimited by commas or colons, and must match exactly the filenames
 used by \fBld\fR to open the files; for archive members, this is simply
 the member name, but for object files the name listed must include and
 match precisely any path used to specify the input file on the linker's
-command-line.  This option is available only for the i386 \s-1PE\s0 targeted port
-of the linker.  Symbols explicitly listed in a .def file are still exported,
+command-line. Symbols explicitly listed in a .def file are still exported,
 regardless of this option.
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-E\fR" 4
 .IX Item "-E"
 .PD 0
@@ -1529,7 +1529,7 @@ building position-dependent executable and relocatable output.
 \&\fBnopack-relative-relocs\fR is the default, which disables compact
 relative relocation.  When linked against the \s-1GNU C\s0 Library, a
 \&\s-1GLIBC_ABI_DT_RELR\s0 symbol version dependency on the shared C Library is
-added to the output.  Supported for i386 and x86\-64.
+added to the output.  Supported for i386, x86\-64 and RISC-V.
 .IP "\fBrelro\fR" 4
 .IX Item "relro"
 .PD 0
@@ -1663,6 +1663,66 @@ x86\-64 \s-1ISA\s0 levels in input files.
 \&\fBisa\-level\-report=used\fR will make the linker report used
 x86\-64 \s-1ISA\s0 levels in input files.
 Supported for Linux/i386 and Linux/x86_64.
+.IP "\fBzicfilp=implicit\fR" 4
+.IX Item "zicfilp=implicit"
+.PD 0
+.IP "\fBzicfilp=unlabeled\fR" 4
+.IX Item "zicfilp=unlabeled"
+.IP "\fBzicfilp=never\fR" 4
+.IX Item "zicfilp=never"
+.PD
+Specify how to mark the output with
+\&\s-1GNU_PROPERTY_RISCV_FEATURE_1_CFI_LP_UNLABELED\s0 in .note.gnu.property
+section, which indicates compatibility with the unlabeled landing pad
+scheme of the Zicfilp extension.  \fBzicfilp=implicit\fR, which is
+the default, marks the output only if all input relocatable files have
+the property.  \fBzicfilp=unlabeled\fR always marks the output.
+\&\fBzicfilp=never\fR never marks the output.  \s-1PLT\s0 entries with
+landing pads are generated if the output is marked.
+Supported for RISC-V.
+.IP "\fBzicfilp\-unlabeled\-report=none\fR" 4
+.IX Item "zicfilp-unlabeled-report=none"
+.PD 0
+.IP "\fBzicfilp\-unlabeled\-report=warning\fR" 4
+.IX Item "zicfilp-unlabeled-report=warning"
+.IP "\fBzicfilp\-unlabeled\-report=error\fR" 4
+.IX Item "zicfilp-unlabeled-report=error"
+.PD
+Specify how to report input relocatable files without
+\&\s-1GNU_PROPERTY_RISCV_FEATURE_1_CFI_LP_UNLABELED.\s0
+\&\fBzicfilp\-unlabeled\-report=none\fR, which is the default, reports
+nothing.  \fBzicfilp\-unlabeled\-report=warning\fR reports a warning
+and \fBzicfilp\-unlabeled\-report=error\fR reports an error for each
+such file.  Supported for RISC-V.
+.IP "\fBzicfiss=implicit\fR" 4
+.IX Item "zicfiss=implicit"
+.PD 0
+.IP "\fBzicfiss=always\fR" 4
+.IX Item "zicfiss=always"
+.IP "\fBzicfiss=never\fR" 4
+.IX Item "zicfiss=never"
+.PD
+Specify how to mark the output with \s-1GNU_PROPERTY_RISCV_FEATURE_1_CFI_SS\s0
+in .note.gnu.property section, which indicates compatibility with the
+shadow stack of the Zicfiss extension.  \fBzicfiss=implicit\fR,
+which is the default, marks the output only if all input relocatable
+files have the property.  \fBzicfiss=always\fR always marks the
+output.  \fBzicfiss=never\fR never marks the output.
+Supported for RISC-V.
+.IP "\fBzicfiss\-report=none\fR" 4
+.IX Item "zicfiss-report=none"
+.PD 0
+.IP "\fBzicfiss\-report=warning\fR" 4
+.IX Item "zicfiss-report=warning"
+.IP "\fBzicfiss\-report=error\fR" 4
+.IX Item "zicfiss-report=error"
+.PD
+Specify how to report input relocatable files without
+\&\s-1GNU_PROPERTY_RISCV_FEATURE_1_CFI_SS.\s0  \fBzicfiss\-report=none\fR,
+which is the default, reports nothing.
+\&\fBzicfiss\-report=warning\fR reports a warning and
+\&\fBzicfiss\-report=error\fR reports an error for each such file.
+Supported for RISC-V.
 .RE
 .RS 4
 .Sp
@@ -2332,7 +2392,7 @@ library (which should be called \f(CW\*(C`*.dll.a\*(C'\fR or \f(CW\*(C`*.a\*(C'\
 may be used to link clients against the generated executable; this
 behaviour makes it possible to skip a separate import library creation
 step (eg. \f(CW\*(C`dlltool\*(C'\fR for DLLs).  This option is only available for
-the i386 \s-1PE\s0 and \s-1ELF\s0 targetted ports of the linker.
+the \s-1PE\s0 and \s-1ELF\s0 targetted ports of the linker.
 .IP "\fB\-pie\fR" 4
 .IX Item "-pie"
 .PD 0
@@ -3253,7 +3313,7 @@ occurrence of the \-\-package\-metadata option.
 If the linker has been built with libjansson, then the \s-1JSON\s0 string
 will be validated.
 .PP
-The i386 \s-1PE\s0 linker supports the \fB\-shared\fR option, which causes
+The \s-1PE\s0 linker supports the \fB\-shared\fR option, which causes
 the output to be a dynamically linked library (\s-1DLL\s0) instead of a
 normal executable.  You should name the output \f(CW\*(C`*.dll\*(C'\fR when you
 use this option.  In addition, the linker fully supports the standard
@@ -3262,27 +3322,29 @@ like an object file (in fact, it should precede archives it exports
 symbols from, to ensure that they get linked in, just like a normal
 object file).
 .PP
-In addition to the options common to all targets, the i386 \s-1PE\s0 linker
-support additional command-line options that are specific to the i386
+In addition to the options common to all targets, the \s-1PE\s0 linker
+supports additional command-line options that are specific to the
 \&\s-1PE\s0 target.  Options that take values may be separated from their
 values by either a space or an equals sign.
 .IP "\fB\-\-add\-stdcall\-alias\fR" 4
 .IX Item "--add-stdcall-alias"
 If given, symbols with a stdcall suffix (@\fInn\fR) will be exported
 as-is and also with the suffix stripped.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+Because \s-1PE+\s0 targets have a single calling convention, symbols there
+are never decorated and this option is accepted but has no effect.
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-base\-file\fR \fIfile\fR" 4
 .IX Item "--base-file file"
 Use \fIfile\fR as the name of a file in which to save the base
 addresses of all the relocations needed for generating DLLs with
 \&\fIdlltool\fR.
-[This is an i386 \s-1PE\s0 specific option]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-dll\fR" 4
 .IX Item "--dll"
 Create a \s-1DLL\s0 instead of a regular executable.  You may also use
 \&\fB\-shared\fR or specify a \f(CW\*(C`LIBRARY\*(C'\fR in a given \f(CW\*(C`.def\*(C'\fR
 file.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-enable\-long\-section\-names\fR" 4
 .IX Item "--enable-long-section-names"
 .PD 0
@@ -3305,7 +3367,7 @@ option is specified on the command-line, \fBld\fR will enable long
 section names, overriding the default and technically correct behaviour,
 when it finds the presence of debug information while linking an executable
 image and not stripping symbols.
-[This option is valid for all \s-1PE\s0 targeted ports of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-enable\-stdcall\-fixup\fR" 4
 .IX Item "--enable-stdcall-fixup"
 .PD 0
@@ -3325,7 +3387,9 @@ to be usable.  If you specify \fB\-\-enable\-stdcall\-fixup\fR, this
 feature is fully enabled and warnings are not printed.  If you specify
 \&\fB\-\-disable\-stdcall\-fixup\fR, this feature is disabled and such
 mismatches are considered to be errors.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+Because \s-1PE+\s0 targets have a single calling convention, symbols there
+are never decorated and these options are accepted but have no effect.
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-leading\-underscore\fR" 4
 .IX Item "--leading-underscore"
 .PD 0
@@ -3335,6 +3399,7 @@ mismatches are considered to be errors.
 For most targets default symbol-prefix is an underscore and is defined
 in target's description. By this option it is possible to
 disable/enable the default underscore symbol-prefix.
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-export\-all\-symbols\fR" 4
 .IX Item "--export-all-symbols"
 If given, all global symbols in the objects used to build a \s-1DLL\s0 will
@@ -3359,22 +3424,22 @@ These cygwin-excludes are: \f(CW\*(C`_cygwin_dll_entry@12\*(C'\fR,
 \&\f(CW\*(C`_fmode\*(C'\fR, \f(CW\*(C`_impure_ptr\*(C'\fR, \f(CW\*(C`cygwin_attach_dll\*(C'\fR,
 \&\f(CW\*(C`cygwin_premain0\*(C'\fR, \f(CW\*(C`cygwin_premain1\*(C'\fR, \f(CW\*(C`cygwin_premain2\*(C'\fR,
 \&\f(CW\*(C`cygwin_premain3\*(C'\fR, and \f(CW\*(C`environ\*(C'\fR.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-exclude\-symbols\fR \fIsymbol\fR\fB,\fR\fIsymbol\fR\fB,...\fR" 4
 .IX Item "--exclude-symbols symbol,symbol,..."
 Specifies a list of symbols which should not be automatically
 exported.  The symbol names may be delimited by commas or colons.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-exclude\-all\-symbols\fR" 4
 .IX Item "--exclude-all-symbols"
 Specifies no symbols should be automatically exported.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-file\-alignment\fR" 4
 .IX Item "--file-alignment"
 Specify the file alignment.  Sections in the file will always begin at
 file offsets which are multiples of this number.  This defaults to
 512.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-heap\fR \fIreserve\fR" 4
 .IX Item "--heap reserve"
 .PD 0
@@ -3384,12 +3449,14 @@ file offsets which are multiples of this number.  This defaults to
 Specify the number of bytes of memory to reserve (and optionally commit)
 to be used as heap for this program.  The default is 1MB reserved, 4K
 committed.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-kill\-at\fR" 4
 .IX Item "--kill-at"
 If given, the stdcall suffixes (@\fInn\fR) will be stripped from
 symbols before they are exported.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+Because \s-1PE+\s0 targets have a single calling convention, symbols there
+are never decorated and this option is accepted but has no effect.
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-large\-address\-aware\fR" 4
 .IX Item "--large-address-aware"
 If given, the appropriate bit in the \*(L"Characteristics\*(R" field of the \s-1COFF\s0
@@ -3397,38 +3464,38 @@ header is set to indicate that this executable supports virtual addresses
 greater than 2 gigabytes.  This should be used in conjunction with the /3GB
 or /USERVA=\fIvalue\fR megabytes switch in the \*(L"[operating systems]\*(R"
 section of the \s-1BOOT.INI.\s0  Otherwise, this bit has no effect.
-[This option is specific to \s-1PE\s0 targeted ports of the linker]
+[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
 .IP "\fB\-\-disable\-large\-address\-aware\fR" 4
 .IX Item "--disable-large-address-aware"
 Reverts the effect of a previous \fB\-\-large\-address\-aware\fR option.
 This is useful if \fB\-\-large\-address\-aware\fR is always set by the compiler
 driver (e.g. Cygwin gcc) and the executable does not support virtual
 addresses greater than 2 gigabytes.
-[This option is specific to \s-1PE\s0 targeted ports of the linker]
+[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
 .IP "\fB\-\-major\-image\-version\fR \fIvalue\fR" 4
 .IX Item "--major-image-version value"
 Sets the major number of the \*(L"image version\*(R".  Defaults to 1.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-major\-os\-version\fR \fIvalue\fR" 4
 .IX Item "--major-os-version value"
 Sets the major number of the \*(L"os version\*(R".  Defaults to 4.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-major\-subsystem\-version\fR \fIvalue\fR" 4
 .IX Item "--major-subsystem-version value"
 Sets the major number of the \*(L"subsystem version\*(R".  Defaults to 4.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-minor\-image\-version\fR \fIvalue\fR" 4
 .IX Item "--minor-image-version value"
 Sets the minor number of the \*(L"image version\*(R".  Defaults to 0.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-minor\-os\-version\fR \fIvalue\fR" 4
 .IX Item "--minor-os-version value"
 Sets the minor number of the \*(L"os version\*(R".  Defaults to 0.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-minor\-subsystem\-version\fR \fIvalue\fR" 4
 .IX Item "--minor-subsystem-version value"
 Sets the minor number of the \*(L"subsystem version\*(R".  Defaults to 0.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-output\-def\fR \fIfile\fR" 4
 .IX Item "--output-def file"
 The linker will create the file \fIfile\fR which will contain a \s-1DEF\s0
@@ -3436,7 +3503,7 @@ file corresponding to the \s-1DLL\s0 the linker is generating.  This \s-1DEF\s0 
 (which should be called \f(CW\*(C`*.def\*(C'\fR) may be used to create an import
 library with \f(CW\*(C`dlltool\*(C'\fR or may be used as a reference to
 automatically or implicitly exported symbols.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-enable\-auto\-image\-base\fR" 4
 .IX Item "--enable-auto-image-base"
 .PD 0
@@ -3448,13 +3515,13 @@ Automatically choose the image base for DLLs, optionally starting with base
 By using a hash generated from the dllname to create unique image bases
 for each \s-1DLL,\s0 in-memory collisions and relocations which can delay program
 execution are avoided.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-disable\-auto\-image\-base\fR" 4
 .IX Item "--disable-auto-image-base"
 Do not automatically generate a unique image base.  If there is no
 user-specified image base (\f(CW\*(C`\-\-image\-base\*(C'\fR) then use the platform
 default.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-dll\-search\-prefix\fR \fIstring\fR" 4
 .IX Item "--dll-search-prefix string"
 When linking dynamically to a dll without an import library,
@@ -3463,13 +3530,13 @@ search for \f(CW\*(C`<string><basename>.dll\*(C'\fR in preference to
 between DLLs built for the various \*(L"subplatforms\*(R": native, cygwin,
 uwin, pw, etc.  For instance, cygwin DLLs typically use
 \&\f(CW\*(C`\-\-dll\-search\-prefix=cyg\*(C'\fR.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-enable\-auto\-import\fR" 4
 .IX Item "--enable-auto-import"
 Do sophisticated linking of \f(CW\*(C`_symbol\*(C'\fR to \f(CW\*(C`_\|_imp_\|_symbol\*(C'\fR for
 \&\s-1DATA\s0 imports from DLLs, thus making it possible to bypass the dllimport
 mechanism on the user side and to reference unmangled symbol names.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .Sp
 The following remarks pertain to the original implementation of the
 feature and are obsolete nowadays for Cygwin and MinGW targets.
@@ -3605,27 +3672,27 @@ functions).
 .IX Item "--disable-auto-import"
 Do not attempt to do sophisticated linking of \f(CW\*(C`_symbol\*(C'\fR to
 \&\f(CW\*(C`_\|_imp_\|_symbol\*(C'\fR for \s-1DATA\s0 imports from DLLs.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-enable\-runtime\-pseudo\-reloc\fR" 4
 .IX Item "--enable-runtime-pseudo-reloc"
 If your code contains expressions described in \-\-enable\-auto\-import section,
 that is, \s-1DATA\s0 imports from \s-1DLL\s0 with non-zero offset, this switch will create
 a vector of 'runtime pseudo relocations' which can be used by runtime
 environment to adjust references to such data in your client code.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-disable\-runtime\-pseudo\-reloc\fR" 4
 .IX Item "--disable-runtime-pseudo-reloc"
 Do not create pseudo relocations for non-zero offset \s-1DATA\s0 imports from DLLs.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-enable\-extra\-pe\-debug\fR" 4
 .IX Item "--enable-extra-pe-debug"
 Show additional debug info related to auto-import symbol thunking.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-section\-alignment\fR" 4
 .IX Item "--section-alignment"
 Sets the section alignment.  Sections in memory will always begin at
 addresses which are a multiple of this number.  Defaults to 0x1000.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-stack\fR \fIreserve\fR" 4
 .IX Item "--stack reserve"
 .PD 0
@@ -3635,7 +3702,7 @@ addresses which are a multiple of this number.  Defaults to 0x1000.
 Specify the number of bytes of memory to reserve (and optionally commit)
 to be used as stack for this program.  The default is 2MB reserved, 4K
 committed.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-subsystem\fR \fIwhich\fR" 4
 .IX Item "--subsystem which"
 .PD 0
@@ -3649,7 +3716,7 @@ legal values for \fIwhich\fR are \f(CW\*(C`native\*(C'\fR, \f(CW\*(C`windows\*(C
 \&\f(CW\*(C`console\*(C'\fR, \f(CW\*(C`posix\*(C'\fR, and \f(CW\*(C`xbox\*(C'\fR.  You may optionally set
 the subsystem version also.  Numeric values are also accepted for
 \&\fIwhich\fR.
-[This option is specific to the i386 \s-1PE\s0 targeted port of the linker]
+[This option is specific to \s-1PE\s0 targeted ports of the linker]
 .Sp
 The following options set flags in the \f(CW\*(C`DllCharacteristics\*(C'\fR field
 of the \s-1PE\s0 file header:
@@ -3666,6 +3733,7 @@ MinGW targets.
 .Sp
 This option also implies \fB\-\-dynamicbase\fR and
 \&\fB\-\-enable\-reloc\-section\fR.
+[This options is specific to 64\-bit \s-1PE\s0 targeted ports of the linker]
 .IP "\fB\-\-dynamicbase\fR" 4
 .IX Item "--dynamicbase"
 .PD 0
@@ -3674,9 +3742,9 @@ This option also implies \fB\-\-dynamicbase\fR and
 .PD
 The image base address may be relocated using address space layout
 randomization (\s-1ASLR\s0).  This feature was introduced with \s-1MS\s0 Windows
-Vista for i386 \s-1PE\s0 targets.  This option is enabled by default for MinGW
-targets but can be disabled via the \fB\-\-disable\-dynamicbase\fR
-option. This option also implies \fB\-\-enable\-reloc\-section\fR.
+Vista.  This option is enabled by default for MinGW targets but can be
+disabled via the \fB\-\-disable\-dynamicbase\fR option. This option
+also implies \fB\-\-enable\-reloc\-section\fR.
 .IP "\fB\-\-forceinteg\fR" 4
 .IX Item "--forceinteg"
 .PD 0
@@ -3692,8 +3760,8 @@ default.
 .IX Item "--disable-nxcompat"
 .PD
 The image is compatible with the Data Execution Prevention.
-This feature was introduced with \s-1MS\s0 Windows \s-1XP SP2\s0 for i386 \s-1PE\s0
-targets.  The option is enabled by default for MinGW targets.
+This feature was introduced with \s-1MS\s0 Windows \s-1XP SP2.\s0 The option is
+enabled by default for MinGW targets.
 .IP "\fB\-\-no\-isolation\fR" 4
 .IX Item "--no-isolation"
 .PD 0

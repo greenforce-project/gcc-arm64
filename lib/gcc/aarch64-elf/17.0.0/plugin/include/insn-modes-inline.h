@@ -426,10 +426,10 @@ inline __attribute__((__always_inline__))
 #else
 extern __inline__ __attribute__((__always_inline__, __gnu_inline__))
 #endif
-unsigned char
+MODE_UNIT_SIZE_TYPE
 mode_unit_size_inline (machine_mode mode)
 {
-  extern CONST_MODE_UNIT_SIZE unsigned char mode_unit_size[NUM_MACHINE_MODES];
+  extern CONST_MODE_UNIT_SIZE MODE_UNIT_SIZE_TYPE mode_unit_size[NUM_MACHINE_MODES];
   gcc_assert (mode >= 0 && mode < NUM_MACHINE_MODES);
   switch (mode)
     {

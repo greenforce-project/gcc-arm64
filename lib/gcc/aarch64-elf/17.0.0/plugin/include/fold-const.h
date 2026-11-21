@@ -99,10 +99,6 @@ extern tree fold_convert_loc (location_t, tree, tree);
 extern tree fold_ignored_result (tree);
 extern tree fold_abs_const (tree, tree);
 extern tree fold_indirect_ref_1 (location_t, tree, tree);
-extern void fold_defer_overflow_warnings (void);
-extern void fold_undefer_overflow_warnings (bool, const gimple *, int);
-extern void fold_undefer_and_ignore_overflow_warnings (void);
-extern bool fold_deferring_overflow_warnings_p (void);
 extern enum tree_code fold_div_compare (enum tree_code, tree, tree,
 					tree *, tree *, bool *);
 extern bool operand_equal_p (const_tree, const_tree, unsigned int flags = 0);
@@ -177,8 +173,16 @@ extern bool integer_valued_real_p (tree, int = 0);
 
 extern bool fold_real_zero_addition_p (const_tree, const_tree, const_tree,
 				       int);
+extern bool fold_cmp_float_cst_p (const wide_int &lo, const wide_int &hi,
+				  enum tree_code cmp,
+				  const REAL_VALUE_TYPE *r,
+				  format_helper fmt,
+				  const wide_int &i, signop isign);
+
 extern tree combine_comparisons (location_t, enum tree_code, enum tree_code,
-				 enum tree_code, tree, tree, tree);
+				 enum tree_code, tree, tree, tree, tree);
+extern tree_code combine_comparisons (enum tree_code, enum tree_code,
+				      enum tree_code, tree, tree, bool, tree*);
 extern void debug_fold_checksum (const_tree);
 extern bool may_negate_without_overflow_p (const_tree);
 #define round_up(T,N) round_up_loc (UNKNOWN_LOCATION, T, N)
@@ -249,8 +253,8 @@ extern tree fold_build_pointer_plus_hwi_loc (location_t loc, tree ptr, HOST_WIDE
 	fold_build_pointer_plus_hwi_loc (UNKNOWN_LOCATION, p, o)
 
 extern tree_code minmax_from_comparison (tree_code, tree,
-					 const widest_int,
-					 const widest_int);
+					 const widest_int &,
+					 const widest_int &);
 extern tree_code minmax_from_comparison (tree_code, tree, tree,
 					 tree, tree);
 
@@ -286,7 +290,7 @@ public:
 protected:
   /* Verify that when arguments (ARG0 and ARG1) are equal, then they have
      an equal hash value.  When the function knowns comparison return,
-     true is returned.  Then RET is set to corresponding comparsion result.  */
+     true is returned.  Then RET is set to corresponding comparison result.  */
   bool verify_hash_value (const_tree arg0, const_tree arg1, unsigned int flags,
 			  bool *ret);
 
@@ -296,5 +300,18 @@ private:
   bool operand_equal_p (tree, const_tree, tree, const_tree,
 			unsigned int flags);
 };
+
+/* Like operand_equal_p but supports nullptrs which compare
+   equals to each other but not to others.   */
+
+inline bool
+safe_operand_equal_p (const_tree op0, const_tree op1, unsigned int flags = 0)
+{
+  if (op0 == op1)
+    return true;
+  if (!op0 || !op1)
+    return false;
+  return operand_equal_p (op0, op1, flags);
+}
 
 #endif // GCC_FOLD_CONST_H

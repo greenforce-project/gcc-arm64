@@ -59,7 +59,7 @@ File: gccinstall.info,  Node: Top,  Up: (dir)
 * Concept Index::   This index has two entries.
 
 
-File: gccinstall.info,  Node: Installing GCC,  Next: Binaries,  Up: Top
+File: gccinstall.info,  Node: Installing GCC,  Next: Specific,  Up: Top
 
 1 Installing GCC
 ****************
@@ -161,6 +161,11 @@ GNAT
      the Ada front end is written in Ada and uses some GNAT-specific
      extensions.
 
+     You may set the 'ADAC' environment variable to use a compiler
+     driver other than 'CC' to compile the Ada (stage1, if
+     bootstrapping) front end.  'GNATMAKE' and 'GNATBIND' environment
+     variables may need to be set as well.
+
      In order to build a cross compiler, it is strongly recommended to
      install the new compiler as native first, and then use it to build
      the cross compiler.  Other native compiler versions may work but
@@ -186,9 +191,10 @@ GNAT
 GCOBOL
 
      The COBOL compiler, gcobol, first appeared in GCC 15.  To build the
-     COBOL parser, you need GNU Bison 3.5.1 or later (but not 3.8.0).
-     To build the lexer requires GNU Flex 2.6.4, the current version as
-     of this writing, released on 2017-05-06.
+     COBOL parser, you need GNU Bison 3.8.2, the current version of as
+     of this writing, released 2021-09-25.  To build the lexer requires
+     GNU Flex 2.6.4, also the current version as of this writing,
+     released on 2017-05-06.
 
      The gcobol documentation is maintained as manpages using troff
      mdoc.  GNU groff is required to convert them to PDF format.
@@ -239,6 +245,12 @@ GM2
      documentation including the target 'SYSTEM' definition module.  If
      Python3 is unavailable Modula-2 documentation will include a target
      independent version of the SYSTEM modules.
+
+     If plugins are enabled, a compile time call flow analysis shared
+     library 'm2rte.so' is built.  This plugin performs a limited amount
+     of compile time static analysis in an attempt to detect runtime
+     Modula-2 exceptions at compile time.  The plugin 'm2rte.so' depends
+     upon '-lstdc++'.
 
 gccrs
 
@@ -477,7 +489,7 @@ Flex version 2.5.4 (or later)
      output files are not included in the version-controlled source
      repository.  They are included in releases.
 
-Bison version 3.5.1 or later (but not 3.8.0)
+Bison version 3.8.2 (or later)
 
      Necessary when modifying '*.y' files in the COBOL front end.
 
@@ -506,7 +518,7 @@ Texinfo version 4.7 (or later)
      you may still want to install a newer release to get the best
      appearance and usability of the generated manuals.
 
-     Also note that Texinfo older than version 7.1 may throw incorrect
+     Also note that Texinfo older than version 7.1.1 may throw incorrect
      build warnings, though the generated documentation is correct.
 
 TeX (any working version)
@@ -552,11 +564,7 @@ obtain GCC.
 (GCC 15 and later), D (GCC 9 and later), Fortran, Go, Modula-2 (GCC 13
 and later) and Algol 68 (GCC 16 and later, experimental) compilers, as
 well as runtime libraries for C++, Objective-C, COBOL, Fortran and Algol
-68.  For previous versions these were downloadable as separate
-components such as the core GCC distribution, which included the C
-language front end and shared components, and language-specific
-distributions including the language front end and the language runtime
-(where appropriate).
+68.
 
    If you also intend to build Binutils (either to upgrade an existing
 installation or for use in place of the corresponding tools of your OS),
@@ -706,8 +714,8 @@ It looks like this: 'CPU-COMPANY-SYSTEM'.
      mipsisa64r2el, mipsisa64sb1, mipsisa64sr71k, mipstx39, mmix,
      mn10300, moxie, msp430, nds32be, nds32le, nvptx, or1k, pdp11,
      powerpc, powerpc64, powerpc64le, powerpcle, pru, riscv32,
-     riscv32be, riscv64, riscv64be, rl78, rx, s390, s390x, sh, shle,
-     sparc, sparc64, tic6x, v850, v850e, v850e1, vax, visium, x86_64,
+     riscv32be, riscv64, riscv64be, rl78, rx, s390x, sh, shle, sparc,
+     sparc64, tic6x, v850, v850e, v850e1, vax, visium, x86_64,
      xstormy16, xtensa
 
    Here is a list of system types:
@@ -716,10 +724,10 @@ It looks like this: 'CPU-COMPANY-SYSTEM'.
      eabisim, eabisimaltivec, elf, elf32, elfbare, elfoabi,
      freebsdVERSION, gnu, hpux, hpuxVERSION, kfreebsd-gnu,
      kopensolaris-gnu, linux-androideabi, linux-gnu, linux-gnu_altivec,
-     linux-musl, linux-uclibc, lynxos, mingw32, mingw32crt, mmixware,
-     msdosdjgpp, netbsd, netbsdelfVERSION, nto-qnx, openbsd, rtems,
-     solarisVERSION, symbianelf, tpf, uclinux, uclinux_eabi, vms,
-     vxworks, vxworksae, vxworksmils
+     linux-musl, linux-uclibc, lynxos, mingw32, mmixware, msdosdjgpp,
+     netbsd, netbsdelfVERSION, nto-qnx, openbsd, rtems, solarisVERSION,
+     symbianelf, tpf, uclinux, uclinux_eabi, vms, vxworks, vxworksae,
+     vxworksmils
 
 Options specification
 =====================
@@ -996,24 +1004,6 @@ option.
      turn allows RELRO to mark the GOT read-only, resulting in better
      security.
 
-'--with-gnu-as'
-     Specify that the compiler should assume that the assembler it finds
-     is the GNU assembler.  However, this does not modify the rules to
-     find an assembler and will result in confusion if the assembler
-     found is not actually the GNU assembler.  (Confusion may also
-     result if the compiler finds the GNU assembler but has not been
-     configured with '--with-gnu-as'.)  If you have more than one
-     assembler installed on your system, you may want to use this option
-     in connection with '--with-as=PATHNAME' or
-     '--with-build-time-tools=PATHNAME'.
-
-     The following systems are the only ones where it makes a difference
-     whether you use the GNU assembler.  On any other system,
-     '--with-gnu-as' has no effect.
-
-        * 'hppa*-ANY-ANY'
-        * '*-*-solaris2.11'
-
 '--with-as=PATHNAME'
      Specify that the compiler should use the assembler pointed to by
      PATHNAME, rather than the one found by the standard rules to find
@@ -1041,9 +1031,6 @@ option.
      directories listed above, or if you have multiple assemblers
      installed and want to choose one that is not found by the above
      rules.
-
-'--with-gnu-ld'
-     Same as '--with-gnu-as' but for the linker.
 
 '--with-ld=PATHNAME'
      Same as '--with-as' but for the linker.
@@ -1171,7 +1158,7 @@ option.
           current multilib framework, using the combined
           'aprofile,rmprofile' multilibs selects in some cases a less
           optimal multilib than when using the multilib profile for the
-          architecture targetted.  The special value 'default' is also
+          architecture targeted.  The special value 'default' is also
           accepted and is equivalent to omitting the option, i.e., only
           the default run-time library will be enabled.
 
@@ -1331,9 +1318,10 @@ option.
      only implemented for riscv*-*-elf*.  The accepted values and
      meanings are given below.
 
-     Every config is constructed with four components: architecture
-     string, ABI, reuse rule with architecture string and reuse rule
-     with sub-extension.
+     Every config is constructed with four mandatory components and one
+     optional component: architecture string, ABI, reuse rule with
+     architecture string, reuse rule with sub-extension and an optional
+     list of extra options.
 
      Example 1: Add multi-lib support for rv32i with ilp32.
           rv32i-ilp32--
@@ -1364,6 +1352,32 @@ option.
      with lp64 and medlow code model; rv64ima with lp64 and medany code
      model
           rv64ima-lp64--;--cmodel=medlow,medany
+
+     A config may carry an optional fifth component, a list of extra
+     options, which is appended after the sub-extension reuse rule:
+          <arch>-<abi>-<extra-arch>-<sub-ext>[-<extra-options>]
+
+     The extra options are a comma separated list, and each entry pairs
+     an option name with the multilib directory it should map to,
+     separated by a slash:
+          <extra-options> := <extra-option> ',' <extra-options>
+                           | <extra-option>
+
+          <extra-option>  := <option> '/' <multilib-folder>
+
+     Because the dash ('-') is used as the component separator, any dash
+     in an option name must be rewritten as an underscore ('_'), and the
+     leading dash of the option must be dropped.  For example,
+     '-fcf-protection=full' is written as 'fcf_protection=full'.
+
+     Example 7: Add multi-lib support for rv64imafdc with lp64d, plus a
+     variant built with '-fcf-protection=full' placed in the 'cfi'
+     directory.
+          rv64imafdc_zicfiss_zicfilp-lp64d---fcf_protection=full/cfi
+
+     This builds a multilib with '-march=rv64imafdc_zicfiss_zicfilp
+     -mabi=lp64d -fcf-protection=full' and uses
+     'rv64imafdc_zicfiss_zicfilp/lp64d/cfi' as the multilib folder.
 
 '--with-multi-buildlist=FILE'
      Specify a file containing a list of multilib directories to build.
@@ -1471,7 +1485,7 @@ option.
 '--with-cpu=CPU'
 '--with-cpu-32=CPU'
 '--with-cpu-64=CPU'
-     Specify which cpu variant the compiler should generate code for by
+     Specify which CPU variant the compiler should generate code for by
      default.  CPU will be used as the default value of the '-mcpu='
      switch.  This option is only supported on some targets, including
      ARC, ARM, i386, M68k, PowerPC, RISC-V, and SPARC.  It is mandatory
@@ -1606,12 +1620,12 @@ option.
      On MIPS targets, make '-mno-lxc1-sxc1' the default when no
      '-mlxc1-sxc1' option is passed.  The indexed load/store
      instructions are not directly a problem but can lead to unexpected
-     behaviour when deployed in an application intended for a 32-bit
+     behavior when deployed in an application intended for a 32-bit
      address space but run on a 64-bit processor.  The issue is seen
      because all known MIPS 64-bit Linux kernels execute o32 and n32
      applications with 64-bit addressing enabled which affects the
-     overflow behaviour of the indexed addressing mode.  GCC will assume
-     that ordinary 32-bit arithmetic overflow behaviour is the same
+     overflow behavior of the indexed addressing mode.  GCC will assume
+     that ordinary 32-bit arithmetic overflow behavior is the same
      whether performed as an 'addu' instruction or as part of the
      address calculation in 'lwxc1' type instructions.  This assumption
      holds true in a pure 32-bit environment and can hold true in a
@@ -1710,6 +1724,18 @@ option.
      compilers concurrently.  If the argument is a positive integer,
      allow that number of concurrent link processes for the large
      binaries.
+
+'--with-md-generator-partitions=NUM'
+'--with-md-generator-partitions=COUNTS'
+     Set the number of C++ source partitions produced by the internal
+     build-time tools 'genemit', 'genrecog' and 'genattrtab'.  More
+     partitions give a parallel build more files to compile at once, and
+     each of them is smaller, at the cost of repeating the per-file
+     preamble.  A single NUM sets all three counts.  The COUNTS form is
+     'EMIT:RECOG:ATTRTAB'.  Each count must be between 1 and 9999.  The
+     default is '6:6:1' for AArch64 and 10 for each generator on other
+     targets.  A target can set a different default in 'config.gcc'.
+     '--with-insnemit-partitions' is a deprecated alias.
 
 '--enable-maintainer-mode'
      The build rules that regenerate the Autoconf and Automake output
@@ -1962,8 +1988,7 @@ option.
      32-bit, and you are building a bi-arch or multi-arch Binutils in a
      combined tree.  On mips-linux, this will build a tri-arch compiler
      (ABI o32/n32/64), defaulted to o32.  Currently, this option only
-     affects sparc-linux, powerpc-linux, x86-linux, mips-linux and
-     s390-linux.
+     affects sparc-linux, powerpc-linux, x86-linux, and mips-linux.
 
 '--enable-default-pie'
      Turn on '-fPIE' and '-pie' by default.
@@ -2210,11 +2235,11 @@ option.
      or the IEEE 128-bit floating point format on PowerPC Linux systems.
      This configuration switch will only work on little endian PowerPC
      Linux systems and on big endian 64-bit systems where the default
-     cpu is at least power7 (i.e. '--with-cpu=power7',
+     CPU is at least power7 (i.e. '--with-cpu=power7',
      '--with-cpu=power8', or '--with-cpu=power9' is used).
 
-     If you use the '--with-long-double-64' configuration option, the
-     '--with-long-double-format=ibm' and
+     If you use the '--without-long-double-128' configuration option,
+     the '--with-long-double-format=ibm' and
      '--with-long-double-format=ieee' options are ignored.
 
      The default 'long double' format is to use IBM extended double.
@@ -2442,9 +2467,9 @@ option.
 
 '--enable-s390-excess-float-precision'
 '--disable-s390-excess-float-precision'
-     On s390(x) targets, enable treatment of float expressions with
-     double precision when in standards-compliant mode (e.g., when
-     '--std=c99' or '-fexcess-precision=standard' are given).
+     On s390x targets, enable treatment of float expressions with double
+     precision when in standards-compliant mode (e.g., when '--std=c99'
+     or '-fexcess-precision=standard' are given).
 
      For a native build and cross compiles that have target headers, the
      option's default is derived from glibc's behavior.  When glibc
@@ -2789,6 +2814,24 @@ The following options apply to the build of the COBOL runtime library.
      '--with-target-libxml2-lib=/opt/libxml2/lib64,32=/opt-libxml2/lib32').
      If none of these options are specified, the library is assumed in
      default locations.
+
+   The following options apply to the creation of COBOL executables.
+
+'--enable-libgcobol-rpath'
+'--enable-libgcobol-rpath=yes'
+
+     Specify that COBOL executables are created with embedded RUNPATH
+     information specifying the location of shared libraries needed by
+     the executable.
+
+     The default behavior is '--disable-libgcobol-rpath' or
+     '--enable-libgcobol-rpath=no', which specify that RUNPATH
+     information is not included.
+
+     The libgcobol-rpath feature has been introduced so that GCOBOL
+     installation packages can be created which install the experimental
+     GCOBOL and its shared libraries in a way that won't interfere with
+     libraries already installed by package managers.
 
 
 File: gccinstall.info,  Node: Building,  Next: Testing,  Prev: Configuration,  Up: Installing GCC
@@ -3424,42 +3467,9 @@ should be changed.
 guidelines.
 
 
-File: gccinstall.info,  Node: Binaries,  Next: Specific,  Prev: Installing GCC,  Up: Top
+File: gccinstall.info,  Node: Specific,  Next: Binaries,  Prev: Installing GCC,  Up: Top
 
-8 Installing GCC: Binaries
-**************************
-
-We are often asked about pre-compiled versions of GCC.  While we cannot
-provide these for all platforms, below you'll find links to binaries for
-various platforms where creating them by yourself is not easy due to
-various reasons.
-
-   Please note that we did not create these binaries, nor do we support
-them.  If you have any problems installing them, please contact their
-makers.
-
-   * AIX:
-        * AIX Open Source Packages (AIX5L AIX 6.1 AIX 7.1).
-
-   * DOS--DJGPP.
-
-   * macOS:
-        * The Homebrew package manager;
-        * MacPorts.
-
-   * Microsoft Windows:
-        * The Cygwin project;
-        * the mingw-w64 project.
-
-   * OpenPKG offers binaries for quite a number of platforms.
-
-   * The GFortran Wiki has links to GNU Fortran binaries for several
-     platforms.
-
-
-File: gccinstall.info,  Node: Specific,  Next: GNU Free Documentation License,  Prev: Binaries,  Up: Top
-
-9 Host/target specific installation notes for GCC
+8 Host/target specific installation notes for GCC
 *************************************************
 
 Please read this document carefully _before_ installing the GNU Compiler
@@ -3659,10 +3669,9 @@ hppa64-hp-hpux11*
 Only the 64-bit 'hppa' target is supported on HP-UX. Support for 32-bit
 'hppa' was discontinued in GCC 13.
 
-   We require using gas on all hppa platforms.
-
-   It may be helpful to configure GCC with the '--with-gnu-as' and
-'--with-as=...' options to ensure that GCC can find GAS.
+   We require using gas on all hppa platforms.  It may be helpful to
+configure GCC with the '--with-as=...' option to ensure that GCC can
+find GAS.
 
    The DCE thread library is not supported, so '--enable-threads=dce'
 does not work.
@@ -3700,8 +3709,8 @@ ia64-*-hpux*
 ============
 
 Building GCC on this target requires the GNU Assembler.  The bundled HP
-assembler will not work.  To prevent GCC from using the wrong assembler,
-the option '--with-gnu-as' may be necessary.
+assembler will not work.  It may be helpful to configure GCC with the
+'--with-as=...' option to ensure that GCC can find GAS.
 
 *-ibm-aix*
 ==========
@@ -3935,7 +3944,7 @@ mips-*-*
 ========
 
 If on a MIPS system you get an error message saying "does not have gp
-sections for all it's [sic] sectons [sic]", don't worry about it.  This
+sections for all it's [sic] sections [sic]", don't worry about it.  This
 happens whenever you use GAS with the MIPS linker, but there is not
 really anything wrong, and it is okay to use the output file.  You can
 stop such warnings by installing the GNU linker.
@@ -4366,18 +4375,10 @@ GCC contains support for x86-64 using the mingw-w64 runtime library,
 available from <https://www.mingw-w64.org/downloads/>.  This library
 should be used with the target triple x86_64-pc-mingw32.
 
-Windows CE
-----------
-
-Windows CE is supported as a target only on Hitachi SuperH
-(sh-wince-pe), and MIPS (mips-wince-pe).
-
 Other Windows Platforms
 -----------------------
 
-GCC no longer supports Windows NT on the Alpha or PowerPC.
-
-   GCC no longer supports the Windows POSIX subsystem.
+GCC no longer supports the Windows POSIX subsystem.
 
    Old target names including *-*-winnt and *-*-windowsnt are no longer
 used.
@@ -4393,7 +4394,7 @@ Ports of GCC are included with the Cygwin environment.
 with Microsoft's C++ compiler and there are no plans to make it do so.
 
    The Cygwin native compiler can be configured to target any 32-bit x86
-cpu architecture desired; the default is i686-pc-cygwin.  It should be
+CPU architecture desired; the default is i686-pc-cygwin.  It should be
 used with as up-to-date a version of Binutils as possible; use either
 the latest official GNU Binutils release in the Cygwin distribution, or
 version 2.20 or above if building your own.
@@ -4451,7 +4452,38 @@ linker; duplicate copies of inlines, vtables and template instantiations
 will be discarded automatically.
 
 
-File: gccinstall.info,  Node: GNU Free Documentation License,  Next: Concept Index,  Prev: Specific,  Up: Top
+File: gccinstall.info,  Node: Binaries,  Next: GNU Free Documentation License,  Prev: Specific,  Up: Top
+
+9 Installing GCC: Binaries
+**************************
+
+We are often asked about pre-compiled versions of GCC.  While we cannot
+provide these for all platforms, below you'll find links to binaries for
+various platforms where creating them by yourself is not easy due to
+various reasons.
+
+   Please note that we did not create these binaries, nor do we support
+them.  If you have any problems installing them, please contact their
+makers.
+
+   * AIX:
+        * AIX Open Source Packages (AIX5L AIX 6.1 AIX 7.1).
+
+   * DOS--DJGPP.
+
+   * macOS:
+        * The Homebrew package manager;
+        * MacPorts.
+
+   * Microsoft Windows:
+        * The Cygwin project;
+        * the mingw-w64 project.
+
+   * The GFortran Wiki has links to GNU Fortran binaries for several
+     platforms.
+
+
+File: gccinstall.info,  Node: GNU Free Documentation License,  Next: Concept Index,  Prev: Binaries,  Up: Top
 
 GNU Free Documentation License
 ******************************
@@ -4942,8 +4974,8 @@ Concept Index
 * Menu:
 
 * Binaries:                              Binaries.           (line    6)
-* build_configargs:                      Configuration.      (line 2058)
-* cobol:                                 Prerequisites.      (line   85)
+* build_configargs:                      Configuration.      (line 2075)
+* cobol:                                 Prerequisites.      (line   90)
 * Configuration:                         Configuration.      (line    6)
 * Downloading GCC:                       Downloading the source.
                                                              (line    6)
@@ -4952,7 +4984,7 @@ Concept Index
 * FDL, GNU Free Documentation License:   GNU Free Documentation License.
                                                              (line    6)
 * Host specific installation:            Specific.           (line    6)
-* host_configargs:                       Configuration.      (line 2062)
+* host_configargs:                       Configuration.      (line 2079)
 * Installing GCC: Binaries:              Binaries.           (line    6)
 * Installing GCC: Building:              Building.           (line    6)
 * Installing GCC: Configuration:         Configuration.      (line    6)
@@ -4962,7 +4994,7 @@ Concept Index
 * Specific installation notes:           Specific.           (line    6)
 * Target specific installation:          Specific.           (line    6)
 * Target specific installation notes:    Specific.           (line    6)
-* target_configargs:                     Configuration.      (line 2066)
+* target_configargs:                     Configuration.      (line 2083)
 * Testing:                               Testing.            (line    6)
 * Testsuite:                             Testing.            (line    6)
 
@@ -4973,95 +5005,93 @@ Node: Top1696
 Node: Installing GCC2201
 Node: Prerequisites3659
 Ref: GNAT-prerequisite5979
-Ref: GCOBOL-prerequisite7376
-Ref: GDC-prerequisite8424
-Ref: GM2-prerequisite9607
-Ref: gccrs-prerequisite9874
-Node: Downloading the source20985
-Node: Configuration22788
-Ref: with-gnu-as42171
-Ref: with-as42992
-Ref: with-gnu-ld44357
-Ref: with-multilib-list48233
-Ref: WithAixSoname77140
-Ref: AixLdCommand77801
-Ref: with-included-gettext94326
-Node: Building125827
-Node: Testing143125
-Node: Final install150656
-Node: Binaries153834
-Node: Specific154763
-Ref: aarch64-x-x155297
-Ref: amdgcn-x-amdhsa157138
-Ref: arc-x-elf32159469
-Ref: arc-linux-uclibc159645
-Ref: arm-x-eabi159786
-Ref: avr160039
-Ref: bfin160521
-Ref: cris160784
-Ref: dos161110
-Ref: epiphany-x-elf161435
-Ref: x-x-freebsd161540
-Ref: ft32-x-elf162131
-Ref: h8300-hms162229
-Ref: hppa64-hp-hpux11162288
-Ref: x-x-linux-gnu162922
-Ref: ix86-x-linux163115
-Ref: ia64-x-linux163317
-Ref: ia64-x-hpux163564
-Ref: x-ibm-aix163782
-Ref: TransferAixShobj167444
-Ref: iq2000-x-elf171026
-Ref: lm32-x-elf171166
-Ref: lm32-x-uclinux171270
-Ref: loongarch171398
-Ref: m32r-x-elf172035
-Ref: m68k-x-x172137
-Ref: m68k-x-uclinux173167
-Ref: microblaze-x-elf173412
-Ref: mips-x-x173531
-Ref: moxie-x-elf175441
-Ref: msp430-x-elf175488
-Ref: nds32le-x-elf176045
-Ref: nds32be-x-elf176117
-Ref: nvptx-x-none176186
-Ref: or1k-x-elf177143
-Ref: or1k-x-linux177274
-Ref: powerpc-x-x177355
-Ref: powerpc-x-darwin177546
-Ref: powerpc-x-elf178041
-Ref: powerpc-x-linux-gnu178126
-Ref: powerpc-x-netbsd178221
-Ref: powerpc-x-eabisim178309
-Ref: powerpc-x-eabi178435
-Ref: powerpcle-x-elf178511
-Ref: powerpcle-x-eabisim178603
-Ref: powerpcle-x-eabi178736
-Ref: rl78-x-elf178819
-Ref: riscv32-x-elf178925
-Ref: riscv32-x-linux179114
-Ref: riscv64-x-elf179271
-Ref: riscv64-x-linux179460
-Ref: rx-x-elf179617
-Ref: s390-x-linux179663
-Ref: s390x-x-linux179735
-Ref: s390x-ibm-tpf179822
-Ref: x-x-solaris2179953
-Ref: sparc-x-x184137
-Ref: sparc-x-linux184639
-Ref: c6x-x-x184670
-Ref: visium-x-elf184762
-Ref: x-x-vxworks184870
-Ref: x86-64-x-x186393
-Ref: xtensa-x-elf186721
-Ref: xtensa-x-linux187392
-Ref: windows187733
-Ref: x-x-cygwin189058
-Ref: x-x-mingw32189611
-Ref: older189837
-Ref: elf191800
-Node: GNU Free Documentation License192054
-Node: Concept Index217192
+Ref: GCOBOL-prerequisite7616
+Ref: GDC-prerequisite8714
+Ref: GM2-prerequisite9897
+Ref: gccrs-prerequisite10472
+Node: Downloading the source21571
+Node: Configuration23091
+Ref: with-as42456
+Ref: with-multilib-list47631
+Ref: WithAixSoname78531
+Ref: AixLdCommand79192
+Ref: with-included-gettext95701
+Node: Building127922
+Node: Testing145220
+Node: Final install152751
+Node: Specific155929
+Ref: aarch64-x-x156447
+Ref: amdgcn-x-amdhsa158288
+Ref: arc-x-elf32160619
+Ref: arc-linux-uclibc160795
+Ref: arm-x-eabi160936
+Ref: avr161189
+Ref: bfin161671
+Ref: cris161934
+Ref: dos162260
+Ref: epiphany-x-elf162585
+Ref: x-x-freebsd162690
+Ref: ft32-x-elf163281
+Ref: h8300-hms163379
+Ref: hppa64-hp-hpux11163438
+Ref: x-x-linux-gnu164048
+Ref: ix86-x-linux164241
+Ref: ia64-x-linux164443
+Ref: ia64-x-hpux164690
+Ref: x-ibm-aix164916
+Ref: TransferAixShobj168578
+Ref: iq2000-x-elf172160
+Ref: lm32-x-elf172300
+Ref: lm32-x-uclinux172404
+Ref: loongarch172532
+Ref: m32r-x-elf173169
+Ref: m68k-x-x173271
+Ref: m68k-x-uclinux174301
+Ref: microblaze-x-elf174546
+Ref: mips-x-x174665
+Ref: moxie-x-elf176576
+Ref: msp430-x-elf176623
+Ref: nds32le-x-elf177180
+Ref: nds32be-x-elf177252
+Ref: nvptx-x-none177321
+Ref: or1k-x-elf178278
+Ref: or1k-x-linux178409
+Ref: powerpc-x-x178490
+Ref: powerpc-x-darwin178681
+Ref: powerpc-x-elf179176
+Ref: powerpc-x-linux-gnu179261
+Ref: powerpc-x-netbsd179356
+Ref: powerpc-x-eabisim179444
+Ref: powerpc-x-eabi179570
+Ref: powerpcle-x-elf179646
+Ref: powerpcle-x-eabisim179738
+Ref: powerpcle-x-eabi179871
+Ref: rl78-x-elf179954
+Ref: riscv32-x-elf180060
+Ref: riscv32-x-linux180249
+Ref: riscv64-x-elf180406
+Ref: riscv64-x-linux180595
+Ref: rx-x-elf180752
+Ref: s390-x-linux180798
+Ref: s390x-x-linux180870
+Ref: s390x-ibm-tpf180957
+Ref: x-x-solaris2181088
+Ref: sparc-x-x185272
+Ref: sparc-x-linux185774
+Ref: c6x-x-x185805
+Ref: visium-x-elf185897
+Ref: x-x-vxworks186005
+Ref: x86-64-x-x187528
+Ref: xtensa-x-elf187856
+Ref: xtensa-x-linux188527
+Ref: windows188868
+Ref: x-x-cygwin190006
+Ref: x-x-mingw32190559
+Ref: older190785
+Ref: elf192748
+Node: Binaries193002
+Node: GNU Free Documentation License193884
+Node: Concept Index219022
 
 End Tag Table
 

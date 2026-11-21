@@ -259,7 +259,7 @@ public:
   std::unique_ptr<json::object> to_json () const;
 
   std::unique_ptr<text_art::tree_widget>
-  make_dump_widget (const text_art::dump_widget_info &dwi,
+  make_dump_widget (symbolic::node_dump_state &nds,
 		    unsigned id) const;
 
   bool contains_non_constant_p () const;
@@ -339,7 +339,7 @@ class constraint
   std::unique_ptr<json::object> to_json () const;
 
   std::unique_ptr<text_art::widget>
-  make_dump_widget (const text_art::dump_widget_info &dwi,
+  make_dump_widget (symbolic::node_dump_state &nds,
 		    const constraint_manager &cm) const;
 
   hashval_t hash () const;
@@ -394,7 +394,7 @@ public:
   void add_to_hash (inchash::hash *hstate) const;
 
   std::unique_ptr<text_art::tree_widget>
-  make_dump_widget (const text_art::dump_widget_info &dwi) const;
+  make_dump_widget (symbolic::node_dump_state &nds) const;
 
   equiv_class_id m_ec_id;
   const bounded_ranges *m_ranges;
@@ -430,7 +430,7 @@ public:
   std::unique_ptr<json::object> to_json () const;
 
   std::unique_ptr<text_art::tree_widget>
-  make_dump_widget (const text_art::dump_widget_info &dwi) const;
+  make_dump_widget (symbolic::node_dump_state &nds) const;
 
   const equiv_class &get_equiv_class_by_index (unsigned idx) const
   {
@@ -482,9 +482,8 @@ public:
   template <typename PurgeCriteria>
   void purge (const PurgeCriteria &p, purge_stats *stats);
 
-  void on_liveness_change (const svalue_set &live_svalues,
-			   const region_model *model);
-  void purge_state_involving (const svalue *sval);
+  void on_liveness_change (symbolic::liveness_context &);
+  void purge_state_involving (const symbolic::node &node);
 
   void canonicalize ();
 

@@ -96,6 +96,7 @@ along with GCC; see the file COPYING3.  If not see
 	  NEXT_PASS (pass_phiprop, 1);
 	  NEXT_PASS_WITH_ARG (pass_fre, 1, true /* may_iterate */);
 	  NEXT_PASS (pass_early_vrp, 1);
+	  NEXT_PASS (pass_sccopy, 1);
 	  NEXT_PASS (pass_merge_phi, 1);
           NEXT_PASS (pass_dse, 1);
 	  NEXT_PASS_WITH_ARGS (pass_cd_dce, 1, false /* update_address_taken_p */, true /* remove_unused_locals */);
@@ -106,7 +107,6 @@ along with GCC; see the file COPYING3.  If not see
 	  NEXT_PASS (pass_tail_recursion, 1);
 	  NEXT_PASS (pass_if_to_switch, 1);
 	  NEXT_PASS (pass_convert_switch, 1);
-	  NEXT_PASS (pass_sccopy, 1);
 	  NEXT_PASS (pass_profile, 1);
 	  NEXT_PASS (pass_local_pure_const, 1);
 	  NEXT_PASS (pass_modref, 1);
@@ -348,20 +348,21 @@ along with GCC; see the file COPYING3.  If not see
       POP_INSERT_PASSES ()
       NEXT_PASS (pass_simduid_cleanup, 1);
       NEXT_PASS (pass_lower_vector_ssa, 1);
-      NEXT_PASS (pass_lower_switch, 1);
       NEXT_PASS (pass_cse_sincos, 1);
       NEXT_PASS (pass_cse_reciprocals, 1);
       NEXT_PASS_WITH_ARG (pass_reassoc, 2, false /* early_p */);
       NEXT_PASS (pass_strength_reduction, 1);
-      NEXT_PASS (pass_split_paths, 1);
       NEXT_PASS (pass_tracer, 1);
       NEXT_PASS_WITH_ARG (pass_fre, 5, false /* may_iterate */);
       /* After late FRE we rewrite no longer addressed locals into SSA
          form if possible.  */
+      /* Thread the loop with the backward threader before lowering
+	 switches so it still sees the GIMPLE_SWITCH.  */
       NEXT_PASS_WITH_ARG (pass_thread_jumps, 2, /*first=*/false);
       NEXT_PASS_WITH_ARG (pass_dominator, 3, false /* may_peel_loop_headers_p */);
       NEXT_PASS (pass_strlen, 1);
       NEXT_PASS_WITH_ARG (pass_thread_jumps_full, 2, /*first=*/false);
+      NEXT_PASS (pass_lower_switch, 1);
       NEXT_PASS_WITH_ARG (pass_vrp, 2, true /* final_p */);
       /* Run CCP to compute alignment and nonzero bits.  */
       NEXT_PASS_WITH_ARG (pass_ccp, 4, true /* nonzero_p */);

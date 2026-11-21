@@ -6,7 +6,7 @@
 OUTPUT_FORMAT("elf32-littleaarch64", "elf32-bigaarch64", "elf32-littleaarch64")
 OUTPUT_ARCH(aarch64:ilp32)
 ENTRY(_start)
-SEARCH_DIR("=/tmp/cirrus-ci-build/gcc-arm64/aarch64-elf/lib");
+SEARCH_DIR("=/root/project/gcc-arm64/aarch64-elf/lib");
 SECTIONS
 {
   /* Read-only sections, merged into text segment: */

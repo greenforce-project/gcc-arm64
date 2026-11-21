@@ -1,5 +1,5 @@
 /* Generated automatically by the program 'build/genpreds'
-   from the machine description file '/tmp/cirrus-ci-build/gcc/gcc/config/aarch64/aarch64.md'.  */
+   from the machine description file '/root/project/gcc/gcc/config/aarch64/aarch64.md'.  */
 
 #ifndef GCC_TM_PREDS_H
 #define GCC_TM_PREDS_H
@@ -27,12 +27,14 @@ extern bool const_1_to_4_operand (rtx, machine_mode);
 extern bool const_2_4_8_16_operand (rtx, machine_mode);
 extern bool alu_shift_operator_lsl_1_to_4 (rtx, machine_mode);
 extern bool alu_shift_reg_p (rtx, machine_mode);
+extern bool pure_register_operand (rtx, machine_mode);
 extern bool aarch64_sysreg_string (rtx, machine_mode);
 extern bool cc_register (rtx, machine_mode);
 extern bool aarch64_call_insn_operand (rtx, machine_mode);
 extern bool aarch64_general_reg (rtx, machine_mode);
 extern bool const0_operand (rtx, machine_mode);
 extern bool const0_to_1_operand (rtx, machine_mode);
+extern bool const_0_to_3_operand (rtx, machine_mode);
 extern bool const_0_to_7_operand (rtx, machine_mode);
 extern bool const_0_to_4_step_4_operand (rtx, machine_mode);
 extern bool const_0_to_6_step_2_operand (rtx, machine_mode);
@@ -79,12 +81,13 @@ extern bool aarch64_mov_imm_operand (rtx, machine_mode);
 extern bool aarch64_logical_and_immediate (rtx, machine_mode);
 extern bool aarch64_shift_imm_si (rtx, machine_mode);
 extern bool aarch64_shift_imm_di (rtx, machine_mode);
-extern bool aarch64_shift_imm64_di (rtx, machine_mode);
 extern bool aarch64_reg_or_shift_imm_si (rtx, machine_mode);
 extern bool aarch64_reg_or_shift_imm_di (rtx, machine_mode);
-extern bool aarch64_imm3 (rtx, machine_mode);
+extern bool aarch64_shift_imm3 (rtx, machine_mode);
+extern bool aarch64_imm1 (rtx, machine_mode);
 extern bool aarch64_imm2 (rtx, machine_mode);
-extern bool aarch64_lane_imm3 (rtx, machine_mode);
+extern bool aarch64_imm3 (rtx, machine_mode);
+extern bool aarch64_imm4 (rtx, machine_mode);
 extern bool aarch64_split_imm24 (rtx, machine_mode);
 extern bool aarch64_mem_pair_offset (rtx, machine_mode);
 extern bool aarch64_mem_pair_operator (rtx, machine_mode);
@@ -141,8 +144,6 @@ extern bool aarch64_simd_shift_imm_offset_hi (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_offset_si (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_offset_di (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_vec_exact_top (rtx, machine_mode);
-extern bool aarch64_simd_umax_half_mode (rtx, machine_mode);
-extern bool aarch64_simd_umax_quarter_mode (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_vec_qi (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_vec_hi (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_vec_si (rtx, machine_mode);
@@ -156,6 +157,7 @@ extern bool aarch64_simd_shift_imm_bitsize_si (rtx, machine_mode);
 extern bool aarch64_simd_shift_imm_bitsize_di (rtx, machine_mode);
 extern bool aarch64_constant_pool_symref (rtx, machine_mode);
 extern bool aarch64_constant_vector_operand (rtx, machine_mode);
+extern bool aarch64_nonnegative_constant_operand (rtx, machine_mode);
 extern bool aarch64_sve_ld1r_operand (rtx, machine_mode);
 extern bool aarch64_sve_ld1rq_operand (rtx, machine_mode);
 extern bool aarch64_sve_ld1ro_operand_b (rtx, machine_mode);
@@ -240,7 +242,7 @@ extern bool aarch64_reg_Uc1_operand (rtx, machine_mode);
 
 #ifdef GCC_HARD_REG_SET_H
 struct target_constraints {
-  HARD_REG_SET register_filters[4];
+  HARD_REG_SET register_filters[5];
 };
 
 extern struct target_constraints default_target_constraints;
@@ -256,7 +258,7 @@ extern struct target_constraints *this_target_constraints;
 inline bool
 test_register_filters (unsigned int mask, unsigned int regno)
 {
-  for (unsigned int id = 0; id < 4; ++id)
+  for (unsigned int id = 0; id < 5; ++id)
     if ((mask & (1U << id))
 	&& !TEST_REGISTER_FILTER_BIT (id, regno))
       return false;
@@ -277,10 +279,14 @@ enum constraint_num
   CONSTRAINT_w,
   CONSTRAINT_x,
   CONSTRAINT_y,
+  CONSTRAINT_z,
+  CONSTRAINT_Ux2,
+  CONSTRAINT_Uz2,
   CONSTRAINT_Uw2,
   CONSTRAINT_Uw4,
   CONSTRAINT_Uwd,
   CONSTRAINT_Uwt,
+  CONSTRAINT_Uwo,
   CONSTRAINT_Upa,
   CONSTRAINT_Up2,
   CONSTRAINT_Upl,
@@ -558,6 +564,10 @@ get_constraint_type (enum constraint_num c)
 static inline const HARD_REG_SET *
 get_register_filter (constraint_num c)
 {
+  if (c == CONSTRAINT_Ux2)
+    return &this_target_constraints->register_filters[0];
+  if (c == CONSTRAINT_Uz2)
+    return &this_target_constraints->register_filters[0];
   if (c == CONSTRAINT_Uw2)
     return &this_target_constraints->register_filters[0];
   if (c == CONSTRAINT_Uw4)
@@ -566,6 +576,8 @@ get_register_filter (constraint_num c)
     return &this_target_constraints->register_filters[2];
   if (c == CONSTRAINT_Uwt)
     return &this_target_constraints->register_filters[3];
+  if (c == CONSTRAINT_Uwo)
+    return &this_target_constraints->register_filters[4];
   if (c == CONSTRAINT_Up2)
     return &this_target_constraints->register_filters[0];
   return nullptr;
@@ -575,6 +587,10 @@ get_register_filter (constraint_num c)
 static inline int
 get_register_filter_id (constraint_num c)
 {
+  if (c == CONSTRAINT_Ux2)
+    return 0;
+  if (c == CONSTRAINT_Uz2)
+    return 0;
   if (c == CONSTRAINT_Uw2)
     return 0;
   if (c == CONSTRAINT_Uw4)
@@ -583,8 +599,29 @@ get_register_filter_id (constraint_num c)
     return 2;
   if (c == CONSTRAINT_Uwt)
     return 3;
+  if (c == CONSTRAINT_Uwo)
+    return 4;
   if (c == CONSTRAINT_Up2)
     return 0;
   return -1;
 }
+
+static inline int
+get_dependent_filter_id (constraint_num)
+{
+  return -1;
+}
+
+static inline int
+get_dependent_filter_ref (int id)
+{
+  (void) id;
+  return -1;
+}
+
+extern bool
+eval_dependent_filter (int id, unsigned int regno,
+                       machine_mode mode,
+                       unsigned int ref_regno,
+                       machine_mode ref_mode);
 #endif /* tm-preds.h */

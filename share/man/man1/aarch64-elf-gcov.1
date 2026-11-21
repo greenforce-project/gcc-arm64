@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCOV 1"
-.TH GCOV 1 "2026-05-30" "gcc-17.0.0" "GNU"
+.TH GCOV 1 "2026-11-21" "gcc-17.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -313,8 +313,9 @@ This is an example of \fB\-\-prime\-paths\-lines\fR output:
 .Ve
 .Sp
 This means to cover path 2 you must run lines 8, 11, 13, 14, and 17,
-evaluting the decision at 8 false and the decisions at 11 and 13 to
-\&\f(CW\*(C`false\*(C'\fR.
+evaluating the decision at 8 false and the decisions at 11 and 13 to
+\&\f(CW\*(C`false\*(C'\fR.  \f(CW\*(C`<line>(suppress)\*(C'\fR means that \f(CW\*(C`<line>\*(C'\fR is the
+last line before a sequence of suppressed statements.
 .RE
 .IP "\fB\-\-prime\-paths\-source [=\fR\fItype\fR\fB]\fR" 4
 .IX Item "--prime-paths-source [=type]"
@@ -742,7 +743,7 @@ and exit without doing any further processing.
 .IP "\fB\-\-verbose\fR" 4
 .IX Item "--verbose"
 .PD
-Print verbose informations related to basic blocks and arcs.
+Print verbose information related to basic blocks and arcs.
 .IP "\fB\-x\fR" 4
 .IX Item "-x"
 .PD 0
@@ -783,13 +784,14 @@ program source code.  The format is
 .Ve
 .PP
 Additional block information may succeed each line, when requested by
-command line option.  The \fIexecution_count\fR is \fB\-\fR for lines
+a command-line option.  The \fIexecution_count\fR is \fB\-\fR for lines
 containing no code.  Unexecuted lines are marked \fB#####\fR or
 \&\fB=====\fR, depending on whether they are reachable by
 non-exceptional paths or only exceptional paths such as \*(C+ exception
 handlers, respectively. Given the \fB\-a\fR option, unexecuted blocks are
 marked \fB$$$$$\fR or \fB%%%%%\fR, depending on whether a basic block
-is reachable via non-exceptional or exceptional paths.
+is reachable via non-exceptional or exceptional paths.  Suppressed lines
+are marked with \fB#\fR.
 Executed basic blocks having a statement with zero \fIexecution_count\fR
 end with \fB*\fR character and are colored with magenta color with
 the \fB\-k\fR option.  This functionality is not supported in Ada.
@@ -1293,6 +1295,82 @@ decisions like \fB\-\-prime\-paths\-source\fR but printed on a single
 line.  This mode provides a good overview over the paths and for
 tracking how different tests and inputs exercises the code.
 .PP
+Coverage can be suppressed by using
+\&\f(CW\*(C`#pragma GCC suppress_coverage\*(C'\fR.  The code within \f(CW\*(C`begin\*(C'\fR and
+\&\f(CW\*(C`end\*(C'\fR will not contribute to coverage totals.  This is very useful
+for unreachable or hard-to-reach code, precondition asserts/contracts,
+or other code that is noise in the coverage report.  Suppressed lines
+are annotated with \fB#\fR in the \fIexecution_count\fR column.
+.PP
+.Vb 10
+\&        $ gcov \-t tmp
+\&                \-:    0:Source:tmp.c
+\&                \-:    0:Graph:tmp.gcno
+\&                \-:    0:Data:tmp.gcda
+\&                \-:    0:Runs:1
+\&                \-:    1:#include <stdio.h>
+\&                \-:    2:#include <stdlib.h>
+\&                \-:    3:
+\&                \-:    4:int
+\&                1:    5:main (void)
+\&                \-:    6:{
+\&                \-:    7:  int i, total;
+\&                1:    8:  total = 0;
+\&                \-:    9:
+\&               11:   10:  for (i = 0; i < 10; i++)
+\&               10:   11:    total += i;
+\&                \-:   12:
+\&                \-:   13:#pragma GCC suppress_coverage begin
+\&                #:   14:  if (i < 0)
+\&                #:   15:    abort ();
+\&                \-:   16:#pragma GCC suppress_coverage end
+\&                \-:   17:
+\&               1*:   18:  int v = total > 100 ? 1 : 2;
+\&                \-:   19:
+\&               1*:   20:  if (total != 45 && v == 1)
+\&            #####:   21:    printf ("Failure\en");
+\&                \-:   22:  else
+\&                1:   23:    printf ("Success\en");
+\&                1:   24:  return 0;
+\&                \-:   25:}
+.Ve
+.PP
+New prime paths are computed when code is suppressed by merging the
+suppressed code into a superblocks, and considering any path through the
+superblock as coverage.  This is an example where a full if-then-else is
+suppressed.  Path 4 is \f(CW\*(C`total > 100\*(C'\fR is followed by any path
+through the \fB(suppressed)\fR segment to the \f(CW\*(C`return 0\*(C'\fR.
+.PP
+.Vb 8
+\&        $ gcov \-t \-\-prime\-paths\-source tmp
+\&        path 4 not covered:
+\&        BB  3:             10:  for (i = 0; i < 10; i++)
+\&        BB  3:             11:    total += i;
+\&        BB  4: (false)     10:  for (i = 0; i < 10; i++)
+\&        BB  5: (true)      13:  int v = total > 100 ? 1 : 2;
+\&        BB  6: (suppress)  13:  int v = total > 100 ? 1 : 2;
+\&        BB 12:             21:  return 0;
+\&        
+\&                1:    5:main (void)
+\&                \-:    6:{
+\&                \-:    7:  int i, total;
+\&                1:    8:  total = 0;
+\&                \-:    9:
+\&               11:   10:  for (i = 0; i < 10; i++)
+\&               10:   11:    total += i;
+\&                \-:   12:
+\&               1*:   13:  int v = total > 100 ? 1 : 2;
+\&                \-:   14:
+\&                \-:   15:#pragma GCC suppress_coverage begin
+\&                #:   16:  if (total != 45 && v == 1)
+\&                #:   17:    printf ("Failure\en");
+\&                \-:   18:  else
+\&                #:   19:    printf ("Success\en");
+\&                \-:   20:#pragma GCC suppress_coverage end
+\&                1:   21:  return 0;
+\&                \-:   22:}
+.Ve
+.PP
 The execution counts are cumulative.  If the example program were
 executed again without removing the \fI.gcda\fR file, the count for the
 number of times each line in the source was executed would be added to
@@ -1364,7 +1442,7 @@ extended regular expressions (like \fBgrep \-E\fR), so the pattern
 match too.  \fB\-\-include\fR and \fB\-\-exclude\fR can be used
 multiple times, and if a name matches multiple filters it is the last
 one to match which takes preference.  For example, to match
-\&\f(CW\*(C`main\*(C'\fR and the \f(CW\*(C`int\*(C'\fR instatiation of \f(CW\*(C`inc\*(C'\fR, while
+\&\f(CW\*(C`main\*(C'\fR and the \f(CW\*(C`int\*(C'\fR instantiation of \f(CW\*(C`inc\*(C'\fR, while
 omitting the \f(CW\*(C`Foo\*(C'\fR constructor:
 .PP
 .Vb 10

@@ -374,6 +374,12 @@
 #endif
 
 
+/* Define to 1 if using the AIX assembler. */
+#ifndef USED_FOR_TARGET
+#define HAVE_AIX_AS 0
+#endif
+
+
 /* Define if your assembler supports LSX and SCQ for 16B atomic. */
 #ifndef USED_FOR_TARGET
 /* #undef HAVE_AS_16B_ATOMIC */
@@ -389,6 +395,12 @@
 /* Define if your assembler supports architecture modifiers. */
 #ifndef USED_FOR_TARGET
 /* #undef HAVE_AS_ARCHITECTURE_MODIFIERS */
+#endif
+
+
+/* Define if your avr assembler supports .gnu_attribute. */
+#ifndef USED_FOR_TARGET
+/* #undef HAVE_AS_AVR_GNU_ATTRIBUTE */
 #endif
 
 
@@ -444,6 +456,12 @@
 /* Define if your assembler supports .dtprelword. */
 #ifndef USED_FOR_TARGET
 /* #undef HAVE_AS_DTPRELWORD */
+#endif
+
+
+/* Define if your assembler supports DTPREL relocation. */
+#ifndef USED_FOR_TARGET
+#define HAVE_AS_DTPREL_RELOC 1
 #endif
 
 
@@ -508,13 +526,6 @@
 #endif
 
 
-/* Define if your assembler supports the subtraction of symbols in different
-   sections. */
-#ifndef USED_FOR_TARGET
-/* #undef HAVE_AS_IX86_DIFF_SECT_DELTA */
-#endif
-
-
 /* Define if your assembler supports the ffreep mnemonic. */
 #ifndef USED_FOR_TARGET
 /* #undef HAVE_AS_IX86_FFREEP */
@@ -548,12 +559,6 @@
 /* Define if your assembler supports interunit movq mnemonic. */
 #ifndef USED_FOR_TARGET
 /* #undef HAVE_AS_IX86_INTERUNIT_MOVQ */
-#endif
-
-
-/* Define if your assembler supports the .quad directive. */
-#ifndef USED_FOR_TARGET
-/* #undef HAVE_AS_IX86_QUAD */
 #endif
 
 
@@ -858,21 +863,9 @@
 #endif
 
 
-/* Define to 1 if you have the `clock' function. */
-#ifndef USED_FOR_TARGET
-#define HAVE_CLOCK 1
-#endif
-
-
 /* Define to 1 if you have the `clock_gettime' function. */
 #ifndef USED_FOR_TARGET
 #define HAVE_CLOCK_GETTIME 1
-#endif
-
-
-/* Define if <time.h> defines clock_t. */
-#ifndef USED_FOR_TARGET
-#define HAVE_CLOCK_T 1
 #endif
 
 
@@ -889,29 +882,10 @@
 #endif
 
 
-/* Define to 1 if we found a declaration for 'abort', otherwise define to 0.
-   */
-#ifndef USED_FOR_TARGET
-#define HAVE_DECL_ABORT 1
-#endif
-
-
 /* Define to 1 if we found a declaration for 'asprintf', otherwise define to
    0. */
 #ifndef USED_FOR_TARGET
 #define HAVE_DECL_ASPRINTF 1
-#endif
-
-
-/* Define to 1 if we found a declaration for 'atof', otherwise define to 0. */
-#ifndef USED_FOR_TARGET
-#define HAVE_DECL_ATOF 1
-#endif
-
-
-/* Define to 1 if we found a declaration for 'atol', otherwise define to 0. */
-#ifndef USED_FOR_TARGET
-#define HAVE_DECL_ATOL 1
 #endif
 
 
@@ -929,31 +903,10 @@
 #endif
 
 
-/* Define to 1 if we found a declaration for 'calloc', otherwise define to 0.
-   */
-#ifndef USED_FOR_TARGET
-#define HAVE_DECL_CALLOC 1
-#endif
-
-
 /* Define to 1 if we found a declaration for 'clearerr_unlocked', otherwise
    define to 0. */
 #ifndef USED_FOR_TARGET
 #define HAVE_DECL_CLEARERR_UNLOCKED 1
-#endif
-
-
-/* Define to 1 if we found a declaration for 'clock', otherwise define to 0.
-   */
-#ifndef USED_FOR_TARGET
-#define HAVE_DECL_CLOCK 1
-#endif
-
-
-/* Define to 1 if we found a declaration for 'errno', otherwise define to 0.
-   */
-#ifndef USED_FOR_TARGET
-#define HAVE_DECL_ERRNO 1
 #endif
 
 
@@ -1040,12 +993,6 @@
 #endif
 
 
-/* Define to 1 if we found a declaration for 'free', otherwise define to 0. */
-#ifndef USED_FOR_TARGET
-#define HAVE_DECL_FREE 1
-#endif
-
-
 /* Define to 1 if we found a declaration for 'fwrite_unlocked', otherwise
    define to 0. */
 #ifndef USED_FOR_TARGET
@@ -1071,13 +1018,6 @@
    to 0. */
 #ifndef USED_FOR_TARGET
 #define HAVE_DECL_GETC_UNLOCKED 1
-#endif
-
-
-/* Define to 1 if we found a declaration for 'getenv', otherwise define to 0.
-   */
-#ifndef USED_FOR_TARGET
-#define HAVE_DECL_GETENV 1
 #endif
 
 
@@ -1144,13 +1084,6 @@
 #endif
 
 
-/* Define to 1 if we found a declaration for 'malloc', otherwise define to 0.
-   */
-#ifndef USED_FOR_TARGET
-#define HAVE_DECL_MALLOC 1
-#endif
-
-
 /* Define to 1 if we found a declaration for 'mkstemps', otherwise define to
    0. */
 #ifndef USED_FOR_TARGET
@@ -1169,13 +1102,6 @@
    to 0. */
 #ifndef USED_FOR_TARGET
 #define HAVE_DECL_PUTC_UNLOCKED 1
-#endif
-
-
-/* Define to 1 if we found a declaration for 'realloc', otherwise define to 0.
-   */
-#ifndef USED_FOR_TARGET
-#define HAVE_DECL_REALLOC 1
 #endif
 
 
@@ -1234,31 +1160,10 @@
 #endif
 
 
-/* Define to 1 if you have the declaration of `strstr(const char*,const
-   char*)', and to 0 if you don't. */
-#ifndef USED_FOR_TARGET
-#define HAVE_DECL_STRSTR 1
-#endif
-
-
-/* Define to 1 if we found a declaration for 'strtol', otherwise define to 0.
-   */
-#ifndef USED_FOR_TARGET
-#define HAVE_DECL_STRTOL 1
-#endif
-
-
 /* Define to 1 if we found a declaration for 'strtoll', otherwise define to 0.
    */
 #ifndef USED_FOR_TARGET
 #define HAVE_DECL_STRTOLL 1
-#endif
-
-
-/* Define to 1 if we found a declaration for 'strtoul', otherwise define to 0.
-   */
-#ifndef USED_FOR_TARGET
-#define HAVE_DECL_STRTOUL 1
 #endif
 
 
@@ -1524,14 +1429,13 @@
 #endif
 
 
-/* Define 0/1 if your assembler supports 'o' flag in .section directive. */
+/* Define 0/1 if your assembler and linker support SHF_LINK_ORDER. */
 #ifndef USED_FOR_TARGET
 #define HAVE_GAS_SECTION_LINK_ORDER 1
 #endif
 
 
-/* Define 0/1 if your assembler supports marking sections with SHF_GNU_RETAIN
-   flag. */
+/* Define 0/1 if your assembler and linker support SHF_GNU_RETAIN. */
 #ifndef USED_FOR_TARGET
 #define HAVE_GAS_SHF_GNU_RETAIN 1
 #endif
@@ -1611,21 +1515,9 @@
 #endif
 
 
-/* Define to 1 if using GNU as. */
-#ifndef USED_FOR_TARGET
-#define HAVE_GNU_AS 1
-#endif
-
-
 /* Define if your system supports gnu indirect functions. */
 #ifndef USED_FOR_TARGET
 #define HAVE_GNU_INDIRECT_FUNCTION 0
-#endif
-
-
-/* Define to 1 if using GNU ld. */
-#ifndef USED_FOR_TARGET
-#define HAVE_GNU_LD 1
 #endif
 
 
@@ -1710,6 +1602,12 @@
 #endif
 
 
+/* Define if your linker supports GNU style response files. */
+#ifndef USED_FOR_TARGET
+#define HAVE_LD_AT_FILE 1
+#endif
+
+
 /* Define if your linker supports emulation avrxmega2_flmap. */
 #ifndef USED_FOR_TARGET
 /* #undef HAVE_LD_AVR_AVRXMEGA2_FLMAP */
@@ -1729,6 +1627,12 @@
 #endif
 
 
+/* Define if your linker supports --prune-vectab. */
+#ifndef USED_FOR_TARGET
+/* #undef HAVE_LD_AVR_PRUNE_VECTAB */
+#endif
+
+
 /* Define if your linker supports -z bndplt */
 #ifndef USED_FOR_TARGET
 /* #undef HAVE_LD_BNDPLT_SUPPORT */
@@ -1744,13 +1648,6 @@
 /* Define if your linker supports --build-id. */
 #ifndef USED_FOR_TARGET
 #define HAVE_LD_BUILDID 1
-#endif
-
-
-/* Define if the linker supports clearing hardware capabilities via mapfile.
-   */
-#ifndef USED_FOR_TARGET
-/* #undef HAVE_LD_CLEARCAP */
 #endif
 
 
@@ -1872,24 +1769,6 @@
 /* Define to 1 if you have the <libgen.h> header file. */
 #ifndef USED_FOR_TARGET
 #define HAVE_LIBGEN_H 1
-#endif
-
-
-/* Define to 1 if you have the <limits.h> header file. */
-#ifndef USED_FOR_TARGET
-#define HAVE_LIMITS_H 1
-#endif
-
-
-/* Define to 1 if you have the <locale.h> header file. */
-#ifndef USED_FOR_TARGET
-#define HAVE_LOCALE_H 1
-#endif
-
-
-/* Define to 1 if the system has the type `long long'. */
-#ifndef USED_FOR_TARGET
-#define HAVE_LONG_LONG 1
 #endif
 
 
@@ -2050,12 +1929,6 @@
 #endif
 
 
-/* Define to 1 if you have the <stddef.h> header file. */
-#ifndef USED_FOR_TARGET
-#define HAVE_STDDEF_H 1
-#endif
-
-
 /* Define to 1 if you have the <stdint.h> header file. */
 #ifndef USED_FOR_TARGET
 #define HAVE_STDINT_H 1
@@ -2089,12 +1962,6 @@
 /* Define if <sys/times.h> defines struct tms. */
 #ifndef USED_FOR_TARGET
 #define HAVE_STRUCT_TMS 1
-#endif
-
-
-/* Define if <utility> defines std::swap. */
-#ifndef USED_FOR_TARGET
-#define HAVE_SWAP_IN_UTILITY 1
 #endif
 
 
@@ -2176,12 +2043,6 @@
 /* Define to 1 if you have the `times' function. */
 #ifndef USED_FOR_TARGET
 #define HAVE_TIMES 1
-#endif
-
-
-/* Define to 1 if you have the <time.h> header file. */
-#ifndef USED_FOR_TARGET
-#define HAVE_TIME_H 1
 #endif
 
 
@@ -2268,6 +2129,12 @@
    */
 #ifndef USED_FOR_TARGET
 /* #undef HAVE_XCOFF_DWARF_EXTRAS */
+#endif
+
+
+/* Define if zstd is available. */
+#ifndef USED_FOR_TARGET
+#define HAVE_ZSTD 1
 #endif
 
 
@@ -2760,12 +2627,6 @@
 /* #undef caddr_t */
 #endif
 
-
-/* Define to `__inline__' or `__inline' if that's what the C compiler
-   calls it, or to nothing if 'inline' is not supported under any name.  */
-#ifndef __cplusplus
-/* #undef inline */
-#endif
 
 /* Define to the type of a signed integer type of width exactly 16 bits if
    such a type exists and the standard includes do not define it. */

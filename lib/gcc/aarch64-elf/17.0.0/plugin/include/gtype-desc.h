@@ -169,10 +169,6 @@ extern void gt_ggc_mx_hash_map_tree_tree_type_tree_cache_traits_ (void *);
   if ((intptr_t)(X) != 0) gt_ggc_mx_hash_map_tree_tree_decl_tree_traits_ (X);\
   } while (0)
 extern void gt_ggc_mx_hash_map_tree_tree_decl_tree_traits_ (void *);
-#define gt_ggc_m_12ptr_info_def(X) do { \
-  if ((intptr_t)(X) != 0) gt_ggc_mx_ptr_info_def (X);\
-  } while (0)
-extern void gt_ggc_mx_ptr_info_def (void *);
 #define gt_ggc_m_10die_struct(X) do { \
   if ((intptr_t)(X) != 0) gt_ggc_mx_die_struct (X);\
   } while (0)
@@ -709,6 +705,10 @@ extern void gt_ggc_mx_hash_table_addr_hasher_ (void *);
   if ((intptr_t)(X) != 0) gt_ggc_mx_hash_map_tree_sym_off_pair_ (X);\
   } while (0)
 extern void gt_ggc_mx_hash_map_tree_sym_off_pair_ (void *);
+#define gt_ggc_m_49hash_map_tree_saved_die_ref_saved_die_ref_traits_(X) do { \
+  if ((intptr_t)(X) != 0) gt_ggc_mx_hash_map_tree_saved_die_ref_saved_die_ref_traits_ (X);\
+  } while (0)
+extern void gt_ggc_mx_hash_map_tree_saved_die_ref_saved_die_ref_traits_ (void *);
 #define gt_ggc_m_17inline_entry_data(X) do { \
   if ((intptr_t)(X) != 0) gt_ggc_mx_inline_entry_data (X);\
   } while (0)
@@ -929,6 +929,10 @@ extern void gt_ggc_mx_hash_table_const_rtx_desc_hasher_ (void *);
   if ((intptr_t)(X) != 0) gt_ggc_mx_hash_table_tm_clone_hasher_ (X);\
   } while (0)
 extern void gt_ggc_mx_hash_table_tm_clone_hasher_ (void *);
+#define gt_ggc_m_11pt_solution(X) do { \
+  if ((intptr_t)(X) != 0) gt_ggc_mx_pt_solution (X);\
+  } while (0)
+extern void gt_ggc_mx_pt_solution (void *);
 #define gt_ggc_m_15tm_restart_node(X) do { \
   if ((intptr_t)(X) != 0) gt_ggc_mx_tm_restart_node (X);\
   } while (0)
@@ -1017,10 +1021,22 @@ extern void gt_ggc_mx_function_summary_ipcp_transformation__ (void *);
   if ((intptr_t)(X) != 0) gt_ggc_mx_hash_table_tm_wrapper_hasher_ (X);\
   } while (0)
 extern void gt_ggc_mx_hash_table_tm_wrapper_hasher_ (void *);
+#define gt_ggc_m_11lto_loc_map(X) do { \
+  if ((intptr_t)(X) != 0) gt_ggc_mx_lto_loc_map (X);\
+  } while (0)
+extern void gt_ggc_mx_lto_loc_map (void *);
+#define gt_ggc_m_30vec_lto_decl_origin_ref_va_gc_(X) do { \
+  if ((intptr_t)(X) != 0) gt_ggc_mx_vec_lto_decl_origin_ref_va_gc_ (X);\
+  } while (0)
+extern void gt_ggc_mx_vec_lto_decl_origin_ref_va_gc_ (void *);
 #define gt_ggc_m_29hash_table_decl_state_hasher_(X) do { \
   if ((intptr_t)(X) != 0) gt_ggc_mx_hash_table_decl_state_hasher_ (X);\
   } while (0)
 extern void gt_ggc_mx_hash_table_decl_state_hasher_ (void *);
+#define gt_ggc_m_23vec_lto_loc_map__va_gc_(X) do { \
+  if ((intptr_t)(X) != 0) gt_ggc_mx_vec_lto_loc_map__va_gc_ (X);\
+  } while (0)
+extern void gt_ggc_mx_vec_lto_loc_map__va_gc_ (void *);
 #define gt_ggc_m_23vec_expr_eval_op_va_gc_(X) do { \
   if ((intptr_t)(X) != 0) gt_ggc_mx_vec_expr_eval_op_va_gc_ (X);\
   } while (0)
@@ -1185,6 +1201,10 @@ extern void gt_ggc_mx_TAG_T (void *);
   if ((intptr_t)(X) != 0) gt_ggc_mx_TOKEN_T (X);\
   } while (0)
 extern void gt_ggc_mx_TOKEN_T (void *);
+#define gt_ggc_m_8ORIGIN_T(X) do { \
+  if ((intptr_t)(X) != 0) gt_ggc_mx_ORIGIN_T (X);\
+  } while (0)
+extern void gt_ggc_mx_ORIGIN_T (void *);
 #define gt_ggc_m_11POSTULATE_T(X) do { \
   if ((intptr_t)(X) != 0) gt_ggc_mx_POSTULATE_T (X);\
   } while (0)
@@ -1886,10 +1906,6 @@ extern void gt_pch_nx_hash_map_tree_tree_type_tree_cache_traits_ (void *);
   if ((intptr_t)(X) != 0) gt_pch_nx_hash_map_tree_tree_decl_tree_traits_ (X);\
   } while (0)
 extern void gt_pch_nx_hash_map_tree_tree_decl_tree_traits_ (void *);
-#define gt_pch_n_12ptr_info_def(X) do { \
-  if ((intptr_t)(X) != 0) gt_pch_nx_ptr_info_def (X);\
-  } while (0)
-extern void gt_pch_nx_ptr_info_def (void *);
 #define gt_pch_n_10die_struct(X) do { \
   if ((intptr_t)(X) != 0) gt_pch_nx_die_struct (X);\
   } while (0)
@@ -2426,6 +2442,10 @@ extern void gt_pch_nx_hash_table_addr_hasher_ (void *);
   if ((intptr_t)(X) != 0) gt_pch_nx_hash_map_tree_sym_off_pair_ (X);\
   } while (0)
 extern void gt_pch_nx_hash_map_tree_sym_off_pair_ (void *);
+#define gt_pch_n_49hash_map_tree_saved_die_ref_saved_die_ref_traits_(X) do { \
+  if ((intptr_t)(X) != 0) gt_pch_nx_hash_map_tree_saved_die_ref_saved_die_ref_traits_ (X);\
+  } while (0)
+extern void gt_pch_nx_hash_map_tree_saved_die_ref_saved_die_ref_traits_ (void *);
 #define gt_pch_n_17inline_entry_data(X) do { \
   if ((intptr_t)(X) != 0) gt_pch_nx_inline_entry_data (X);\
   } while (0)
@@ -2646,6 +2666,10 @@ extern void gt_pch_nx_hash_table_const_rtx_desc_hasher_ (void *);
   if ((intptr_t)(X) != 0) gt_pch_nx_hash_table_tm_clone_hasher_ (X);\
   } while (0)
 extern void gt_pch_nx_hash_table_tm_clone_hasher_ (void *);
+#define gt_pch_n_11pt_solution(X) do { \
+  if ((intptr_t)(X) != 0) gt_pch_nx_pt_solution (X);\
+  } while (0)
+extern void gt_pch_nx_pt_solution (void *);
 #define gt_pch_n_15tm_restart_node(X) do { \
   if ((intptr_t)(X) != 0) gt_pch_nx_tm_restart_node (X);\
   } while (0)
@@ -2734,10 +2758,22 @@ extern void gt_pch_nx_function_summary_ipcp_transformation__ (void *);
   if ((intptr_t)(X) != 0) gt_pch_nx_hash_table_tm_wrapper_hasher_ (X);\
   } while (0)
 extern void gt_pch_nx_hash_table_tm_wrapper_hasher_ (void *);
+#define gt_pch_n_11lto_loc_map(X) do { \
+  if ((intptr_t)(X) != 0) gt_pch_nx_lto_loc_map (X);\
+  } while (0)
+extern void gt_pch_nx_lto_loc_map (void *);
+#define gt_pch_n_30vec_lto_decl_origin_ref_va_gc_(X) do { \
+  if ((intptr_t)(X) != 0) gt_pch_nx_vec_lto_decl_origin_ref_va_gc_ (X);\
+  } while (0)
+extern void gt_pch_nx_vec_lto_decl_origin_ref_va_gc_ (void *);
 #define gt_pch_n_29hash_table_decl_state_hasher_(X) do { \
   if ((intptr_t)(X) != 0) gt_pch_nx_hash_table_decl_state_hasher_ (X);\
   } while (0)
 extern void gt_pch_nx_hash_table_decl_state_hasher_ (void *);
+#define gt_pch_n_23vec_lto_loc_map__va_gc_(X) do { \
+  if ((intptr_t)(X) != 0) gt_pch_nx_vec_lto_loc_map__va_gc_ (X);\
+  } while (0)
+extern void gt_pch_nx_vec_lto_loc_map__va_gc_ (void *);
 #define gt_pch_n_23vec_expr_eval_op_va_gc_(X) do { \
   if ((intptr_t)(X) != 0) gt_pch_nx_vec_expr_eval_op_va_gc_ (X);\
   } while (0)
@@ -2902,6 +2938,10 @@ extern void gt_pch_nx_TAG_T (void *);
   if ((intptr_t)(X) != 0) gt_pch_nx_TOKEN_T (X);\
   } while (0)
 extern void gt_pch_nx_TOKEN_T (void *);
+#define gt_pch_n_8ORIGIN_T(X) do { \
+  if ((intptr_t)(X) != 0) gt_pch_nx_ORIGIN_T (X);\
+  } while (0)
+extern void gt_pch_nx_ORIGIN_T (void *);
 #define gt_pch_n_11POSTULATE_T(X) do { \
   if ((intptr_t)(X) != 0) gt_pch_nx_POSTULATE_T (X);\
   } while (0)
@@ -3621,8 +3661,6 @@ extern void gt_pch_p_42hash_map_tree_tree_type_tree_cache_traits_
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_36hash_map_tree_tree_decl_tree_traits_
     (void *, void *, gt_pointer_operator, void *);
-extern void gt_pch_p_12ptr_info_def
-    (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_10die_struct
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_26vec_constructor_elt_va_gc_
@@ -3895,6 +3933,8 @@ extern void gt_pch_p_23hash_table_addr_hasher_
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_27hash_map_tree_sym_off_pair_
     (void *, void *, gt_pointer_operator, void *);
+extern void gt_pch_p_49hash_map_tree_saved_die_ref_saved_die_ref_traits_
+    (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_17inline_entry_data
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_36hash_table_inline_entry_data_hasher_
@@ -4017,6 +4057,8 @@ extern void gt_pch_p_6gimple
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_6gimple
     (void *, void *, gt_pointer_operator, void *);
+extern void gt_pch_p_11pt_solution
+    (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_6gimple
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_6gimple
@@ -4057,6 +4099,12 @@ extern void gt_pch_p_24hash_map_char__unsigned_
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_18vec_gimple__va_gc_
     (void *, void *, gt_pointer_operator, void *);
+extern void gt_pch_p_14vrange_storage
+    (void *, void *, gt_pointer_operator, void *);
+extern void gt_pch_p_14vrange_storage
+    (void *, void *, gt_pointer_operator, void *);
+extern void gt_pch_p_14vrange_storage
+    (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_26vec_ipa_agg_jf_item_va_gc_
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_19ipcp_transformation
@@ -4081,7 +4129,13 @@ extern void gt_pch_p_38function_summary_ipcp_transformation__
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_29hash_table_tm_wrapper_hasher_
     (void *, void *, gt_pointer_operator, void *);
+extern void gt_pch_p_11lto_loc_map
+    (void *, void *, gt_pointer_operator, void *);
+extern void gt_pch_p_30vec_lto_decl_origin_ref_va_gc_
+    (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_29hash_table_decl_state_hasher_
+    (void *, void *, gt_pointer_operator, void *);
+extern void gt_pch_p_23vec_lto_loc_map__va_gc_
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_23vec_expr_eval_op_va_gc_
     (void *, void *, gt_pointer_operator, void *);
@@ -4164,6 +4218,8 @@ extern void gt_pch_p_7TABLE_T
 extern void gt_pch_p_5TAG_T
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_7TOKEN_T
+    (void *, void *, gt_pointer_operator, void *);
+extern void gt_pch_p_8ORIGIN_T
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_11POSTULATE_T
     (void *, void *, gt_pointer_operator, void *);

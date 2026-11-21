@@ -226,7 +226,7 @@ private:
    - reporting those diagnostics to zero or more output sinks
      (e.g. text vs SARIF)
    - providing a "dump" member function for a debug dump of the state of
-     the diagnostics subsytem
+     the diagnostics subsystem
    - direct vs buffered diagnostics (see class diagnostics::buffer)
    - tracking the original argv of the program (for SARIF output)
    - crash-handling
@@ -339,7 +339,7 @@ public:
   void
   report_global_digraph (const lazily_created<digraphs::digraph> &);
 
-  enum kind
+  void
   classify_diagnostic (option_id opt_id,
 		       enum kind new_kind,
 		       location_t where)
@@ -351,10 +351,7 @@ public:
       .log_param_location_t ("where", where);
     logging::auto_inc_depth depth_sentinel (m_logger);
 
-    return m_option_classifier.classify_diagnostic (this,
-						    opt_id,
-						    new_kind,
-						    where);
+    m_option_classifier.classify_diagnostic (this, opt_id, new_kind, where);
   }
 
   void push_diagnostics (location_t where)

@@ -1443,6 +1443,7 @@ enum machine_mode
 #define CONST_MODE_PRECISION
 #define CONST_MODE_SIZE
 #define CONST_MODE_UNIT_SIZE const
+#define MODE_UNIT_SIZE_TYPE unsigned char
 #define CONST_MODE_BASE_ALIGN
 #define CONST_MODE_IBIT const
 #define CONST_MODE_FBIT const

@@ -250,7 +250,7 @@ gen_rtx_fmt_uuBeLie0_stat (RTX_CODE code, machine_mode mode,
   init_rtx_fmt_uuBeLie0 (rtx_alloca ((c)), (m), (arg0), (arg1), (arg2), (arg3), (arg4), (arg5), (arg6))
 
 static inline rtx
-init_rtx_fmt_uuBeLiee (rtx rt, machine_mode mode,
+init_rtx_fmt_uuBeLieei (rtx rt, machine_mode mode,
 	rtx arg0,
 	rtx arg1,
 	basic_block arg2,
@@ -258,7 +258,8 @@ init_rtx_fmt_uuBeLiee (rtx rt, machine_mode mode,
 	location_t arg4,
 	int arg5,
 	rtx arg6,
-	rtx arg7)
+	rtx arg7,
+	int arg8)
 {
   PUT_MODE_RAW (rt, mode);
   XEXP (rt, 0) = arg0;
@@ -269,11 +270,12 @@ init_rtx_fmt_uuBeLiee (rtx rt, machine_mode mode,
   XINT (rt, 5) = arg5;
   XEXP (rt, 6) = arg6;
   XEXP (rt, 7) = arg7;
+  XINT (rt, 8) = arg8;
   return rt;
 }
 
 static inline rtx
-gen_rtx_fmt_uuBeLiee_stat (RTX_CODE code, machine_mode mode,
+gen_rtx_fmt_uuBeLieei_stat (RTX_CODE code, machine_mode mode,
 	rtx arg0,
 	rtx arg1,
 	basic_block arg2,
@@ -281,19 +283,20 @@ gen_rtx_fmt_uuBeLiee_stat (RTX_CODE code, machine_mode mode,
 	location_t arg4,
 	int arg5,
 	rtx arg6,
-	rtx arg7 MEM_STAT_DECL)
+	rtx arg7,
+	int arg8 MEM_STAT_DECL)
 {
   rtx rt;
 
   rt = rtx_alloc (code PASS_MEM_STAT);
-  return init_rtx_fmt_uuBeLiee (rt, mode, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+  return init_rtx_fmt_uuBeLieei (rt, mode, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
 }
 
-#define gen_rtx_fmt_uuBeLiee(c, m, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7) \
-  gen_rtx_fmt_uuBeLiee_stat ((c), (m), (arg0), (arg1), (arg2), (arg3), (arg4), (arg5), (arg6), (arg7) MEM_STAT_INFO)
+#define gen_rtx_fmt_uuBeLieei(c, m, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) \
+  gen_rtx_fmt_uuBeLieei_stat ((c), (m), (arg0), (arg1), (arg2), (arg3), (arg4), (arg5), (arg6), (arg7), (arg8) MEM_STAT_INFO)
 
-#define alloca_rtx_fmt_uuBeLiee(c, m, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7) \
-  init_rtx_fmt_uuBeLiee (rtx_alloca ((c)), (m), (arg0), (arg1), (arg2), (arg3), (arg4), (arg5), (arg6), (arg7))
+#define alloca_rtx_fmt_uuBeLieei(c, m, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) \
+  init_rtx_fmt_uuBeLieei (rtx_alloca ((c)), (m), (arg0), (arg1), (arg2), (arg3), (arg4), (arg5), (arg6), (arg7), (arg8))
 
 static inline rtx
 init_rtx_fmt_uuBe0000 (rtx rt, machine_mode mode,
@@ -1299,8 +1302,8 @@ gen_rtx_fmt_ssss_stat (RTX_CODE code, machine_mode mode,
   gen_rtx_fmt_uuBeLie (INSN, (MODE), (ARG0), (ARG1), (ARG2), (ARG3), (ARG4), (ARG5), (ARG6))
 #define gen_rtx_JUMP_INSN(MODE, ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6) \
   gen_rtx_fmt_uuBeLie0 (JUMP_INSN, (MODE), (ARG0), (ARG1), (ARG2), (ARG3), (ARG4), (ARG5), (ARG6))
-#define gen_rtx_CALL_INSN(MODE, ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7) \
-  gen_rtx_fmt_uuBeLiee (CALL_INSN, (MODE), (ARG0), (ARG1), (ARG2), (ARG3), (ARG4), (ARG5), (ARG6), (ARG7))
+#define gen_rtx_CALL_INSN(MODE, ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8) \
+  gen_rtx_fmt_uuBeLieei (CALL_INSN, (MODE), (ARG0), (ARG1), (ARG2), (ARG3), (ARG4), (ARG5), (ARG6), (ARG7), (ARG8))
 #define gen_rtx_JUMP_TABLE_DATA(MODE, ARG0, ARG1, ARG2, ARG3) \
   gen_rtx_fmt_uuBe0000 (JUMP_TABLE_DATA, (MODE), (ARG0), (ARG1), (ARG2), (ARG3))
 #define gen_rtx_BARRIER(MODE, ARG0, ARG1) \

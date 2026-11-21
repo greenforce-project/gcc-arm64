@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/tmp/cirrus-ci-build/gcc-arm64/libexec/gcc/aarch64-elf/17.0.0'
+libdir='/root/project/gcc-arm64/libexec/gcc/aarch64-elf/17.0.0'

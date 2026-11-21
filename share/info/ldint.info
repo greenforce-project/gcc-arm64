@@ -521,11 +521,9 @@ might have set up, like the entry point.
    'main' next calls 'lang_process' in 'ldlang.c'.  This appears to be
 the main core of the linking itself, as far as emulation hooks are
 concerned(*).  It first opens the output file's BFD, calling
-'ldemul_set_output_arch', and calls
-'ldemul_create_output_section_statements' in case you need to use other
-means to find or create object files (i.e.  shared libraries found on a
-path, or fake stub objects).  Despite the name, nobody creates output
-sections here.
+'ldemul_set_output_arch', and calls 'ldemul_after_open_output' in case
+you need to use other means to find or create object files (i.e.  shared
+libraries found on a path, or fake stub objects).
 
    (*) In most cases, the BFD library does the bulk of the actual
 linking, handling symbol tables, symbol resolution, relocations, and
@@ -574,7 +572,7 @@ the output bfd to disk, and we're done.
 
         * create 'output_bfd'
         * 'ldemul_set_output_arch'
-        * 'ldemul_create_output_section_statements'
+        * 'ldemul_after_open_output'
         * read objects, create input bfds - all symbols exist, but have
           no values
         * may call 'ldemul_unrecognized_file'
@@ -1181,9 +1179,9 @@ Node: emulation parameters4341
 Node: linker scripts7481
 Node: linker emulations17201
 Node: Emulation Walkthrough19543
-Node: Architecture Specific25956
-Node: ix8626380
-Node: GNU Free Documentation License30712
+Node: Architecture Specific25870
+Node: ix8626294
+Node: GNU Free Documentation License30626
 
 End Tag Table
 
